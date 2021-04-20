@@ -1,5 +1,3 @@
-const SiderBar = () => {
-    return <div>SiderBar</div>
-}
+const SiderBar = () => <div>SiderBar</div>
 
 export default SiderBar

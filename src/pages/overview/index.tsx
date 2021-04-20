@@ -1,5 +1,3 @@
 import React, { FC } from 'react'
 
-export const overview: FC<any> = props => {
-  return <div>overview</div>
-}
+export const overview: FC<any> = () => <div>overview</div>
