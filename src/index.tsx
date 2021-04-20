@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import App from './pages/App'
+import { Layout } from './layout/index'
 import { BrowserRouter } from 'react-router-dom'
 import reducer from './store/reducer'
 import { ConfigProvider } from 'antd';
@@ -16,7 +16,7 @@ ReactDOM.render(
     {/* <Provider> */}
     <ConfigProvider locale={zhCN}>
       <BrowserRouter>
-        <App />
+        <Layout />
       </BrowserRouter>
     </ConfigProvider>
     {/* </Provider> */}
