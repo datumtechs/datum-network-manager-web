@@ -10,7 +10,7 @@
     "stylelint-scss"
   ],
   "rules": {
-    "comment-empty-line-before": null,
+    "comment-empty-line-before": "always",
     "function-name-case": [
       "lower",
       {
@@ -19,6 +19,10 @@
         ]
       }
     ],
+    "scss/at-import-partial-extension-blacklist": [
+      ".scss"
+    ],
+    "no-empty-source": null,
     "no-invalid-double-slash-comments": null,
     "no-descending-specificity": null,
     "declaration-empty-line-before": null

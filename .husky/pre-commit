@@ -2,4 +2,4 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # echo 0
-echo 'husky' && npm run lint
+# echo 'husky' && npm run lint
