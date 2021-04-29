@@ -1,0 +1,17 @@
+// s1111
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .header-box {
+    width: 100%;
+    height: 80px;
+    background: #111;
+  }
+  .main-box {
+    width: 100%;
+    flex: 1;
+    background: #fff;
+  }
+}

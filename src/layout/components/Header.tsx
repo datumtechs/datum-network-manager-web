@@ -1,3 +1,3 @@
-const Header = () => <div>Header</div>
+const Header = () => <div className="header-box">Header</div>
 
 export default Header

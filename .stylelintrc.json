@@ -1,16 +1,29 @@
 {
   "extends": [
     "stylelint-config-standard",
+    "stylelint-config-sass-guidelines",
     "stylelint-config-rational-order",
     "stylelint-config-prettier"
   ],
-  "plugins": ["stylelint-declaration-block-no-ignored-properties"],
+  "plugins": [
+    "stylelint-declaration-block-no-ignored-properties",
+    "stylelint-scss"
+  ],
   "rules": {
     "comment-empty-line-before": null,
-    "function-name-case": ["lower", { "ignoreFunctions": ["/colorPalette/"] }],
+    "function-name-case": [
+      "lower",
+      {
+        "ignoreFunctions": [
+          "/colorPalette/"
+        ]
+      }
+    ],
     "no-invalid-double-slash-comments": null,
     "no-descending-specificity": null,
     "declaration-empty-line-before": null
   },
-  "ignoreFiles": ["components/style/color/{bezierEasing,colorPalette,tinyColor}.less"]
+  "ignoreFiles": [
+    "components/style/color/{bezierEasing,colorPalette,tinyColor}.less"
+  ]
 }

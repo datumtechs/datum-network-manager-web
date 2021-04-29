@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom'
 import { IRoute } from '../router/index'
-import { getToken } from '../utils/cookie'
 
 interface AuthProps extends RouteComponentProps {
   route: IRoute
@@ -13,9 +12,9 @@ function checkAuth(location: RouteComponentProps['location']): boolean {
 }
 
 function Auth(props: AuthProps) {
-  if (getToken()) {
-    return <Redirect to="/login" />
-  }
+  // if (getToken()) {
+  //   return <Redirect to="/login" />
+  // }
 
   if (!checkAuth(props.location)) {
     return <Redirect to="/login" />
@@ -24,7 +23,7 @@ function Auth(props: AuthProps) {
   if (props.route.redirect) {
     return <Redirect to="/login" />
   }
-  return <div>{props.children}</div>
+  return <>{props.children}</>
 }
 
-export default Auth
+export default memo(Auth)

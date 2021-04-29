@@ -1,12 +1,21 @@
-import React, { Suspense } from 'react'
-import { Spin } from 'antd'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+/* eslint-disable react/no-array-index-key */
+import React, { FC, Suspense } from 'react';
+import { Spin } from 'antd';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import layoutRoutes, { IRoute } from '../router/index'
-// import Auth from '../layout/Auth'
+import useLogin from '../hooks/useLogin'
+// import { Layout } from '../layout/index'
 
-export default function App() {
+
+
+// 此页功能为最外层的过滤 权限的判定 路由转发
+const App: FC = () => {
+  const login = React.lazy(() => import('../pages/Login').then(({ Login }) => ({ default: Login })))
+  const isLogin = useLogin();
+  console.log(isLogin);
+
   // const renderRoute = (route: IRoute) => {
-  //   const { component: Component } = route
+  //   const { component: Component } = route;
   //   return (
   //     <Route
   //       key={route.path}
@@ -17,22 +26,28 @@ export default function App() {
   //           <Component {...props} />
   //         </Auth>
   //       )}
-  //     />
-  //   )
+  //     ></Route>
+  //   );
   // }
   return (
     <Suspense fallback={<Spin size="large" className="global-loading" />}>
-      <Router>
-        <Switch>
-          {layoutRoutes.map((route: IRoute) => (
-            // console.log(route)
-            // if(route.children){
 
-            // }
-            <Route exact key={route.path} path={route.path} />
-          ))}
-        </Switch>
+      {/* <Router>
+        {isLogin ? <Route /> : <Route path="/login" component={login} />}
+      </Router> */}
+      <Router>
+        {
+          isLogin ?
+            layoutRoutes.map((route: IRoute, key: number) => (
+              <Route
+                key={route.path + key}
+                path={route.path}
+                render={props => <route.component {...props} routes={route.children} />}
+              />)) : <Route path="/login" component={login} />
+        }
       </Router>
-    </Suspense>
+    </Suspense >
   )
 }
+
+export default App

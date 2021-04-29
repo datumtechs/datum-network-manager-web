@@ -8,7 +8,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext '.js,.jsx,.ts,.tsx' ./src/**"
+    "lint": "eslint --ext '.js,.jsx,.ts,.tsx' ./src/**",
+    "lint:fix": "eslint --ext '.js,.jsx,.ts,.tsx' ./src/** --fix"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -43,12 +44,16 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unicorn": "^30.0.0",
     "husky": "^6.0.0",
+    "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
+    "sass-loader": "^10.1.1",
     "stylelint": "^13.12.0",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-sass-guidelines": "^8.0.0",
     "stylelint-config-standard": "^21.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
+    "stylelint-scss": "^3.19.0",
     "typescript-loadable-components-plugin": "^1.0.2"
   },
   "browserslist": {

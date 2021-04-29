@@ -3,6 +3,10 @@
   "editor.formatOnSave": true,
   "editor.wordWrapColumn": 120,
   "prettier.trailingComma": "none",
+  "editor.codeActionsOnSave": {
+    // 开启保存自动修复所有stylelint可修复的选项
+    "source.fixAll.stylelint": true
+  },
   "prettier.printWidth": 120,
   "prettier.tabWidth": 2,
   "[typescript]": {

@@ -27,12 +27,13 @@ module.exports = {
     },
   ],
   rules: {
+    'no-console': 'off',
     indent: ['error', 2],
     'react/jsx-one-expression-per-line': 0,
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-indent': 0,
-    'react/jsx-wrap-multilines': ['error', { declaration: false, assignment: false }],
+    'react/jsx-wrap-multilines': [0, { declaration: false, assignment: false }],
     'react/jsx-filename-extension': 0,
     'react/state-in-constructor': 0,
     'react/jsx-props-no-spreading': 0,
@@ -71,7 +72,7 @@ module.exports = {
     // https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-for.md
     'jsx-a11y/label-has-for': 0,
 
-    'comma-dangle': ['error', 'always-multiline'],
+    'comma-dangle': [0, 'always-multiline'],
     'consistent-return': 0, // TODO: remove later
     'no-param-reassign': 0, // TODO: remove later
     'no-underscore-dangle': 0,

@@ -4,18 +4,20 @@ import ReactDOM from 'react-dom'
 // import { createStore } from 'redux'
 import { BrowserRouter } from 'react-router-dom'
 // import reducer from './store/reducer'
-import { ConfigProvider } from 'antd'
-import zhCN from 'antd/es/locale/zh_CN'
-import { Layout } from './layout/index'
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
+import App from './pages/App'
+import 'antd/dist/antd.css';
+import './assets/css/index.scss'
 
 // const store = createStore(reducer)
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Provider> */}
+    {/* <Provider> 引入redux */}
     <ConfigProvider locale={zhCN}>
       <BrowserRouter>
-        <Layout />
+        <App />
       </BrowserRouter>
     </ConfigProvider>
     {/* </Provider> */}
