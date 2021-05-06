@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.less'
 import { Form, Input, Button } from 'antd'
 
 export const Login = () => {

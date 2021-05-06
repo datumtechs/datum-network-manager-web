@@ -8,8 +8,7 @@ import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import App from './App'
 import 'antd/dist/antd.css';
-import './assets/css/index.scss'
-import './assets/css/theme.scss'
+import './assets/css/index.less'
 
 // const store = createStore(reducer)
 

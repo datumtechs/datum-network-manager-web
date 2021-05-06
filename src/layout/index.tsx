@@ -7,7 +7,7 @@ import { IRoute } from '../router/index'
 import useLogin from '../hooks/useLogin'
 import Auth from './Auth'
 
-import './css/layout.scss'
+import './css/layout.less'
 // import { getPageTitle, systemRouteList } from '../router/utils';
 export const Layout = (props: any) => {
   console.log(props);
