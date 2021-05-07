@@ -7,8 +7,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import App from './App'
-import 'antd/dist/antd.css';
-import './assets/css/index.less'
+import './assets/css/index.scss'
+
+
 
 // const store = createStore(reducer)
 
