@@ -5,8 +5,63 @@
   min-height: 100vh;
   .header-box {
     width: 100%;
-    height: 80px;
-    background: #111;
+    height: 60px;
+    background: #3c3588;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6%;
+    .logo {
+      font-family: PingFangSC-Semibold;
+      font-size: 18px;
+      color: #ffffff;
+      line-height: 26px;
+    }
+    .nav {
+      align-self: flex-start;
+      .nav-box {
+        display: flex;
+        .sub-nav {
+          padding-top: 12px;
+          flex: 1 1 auto;
+          width: 100px;
+          font-family: PingFangSC-Regular;
+          font-size: 15px;
+          color: #c8c8c8;
+          text-align: center;
+          line-height: 18px;
+          height: 52px;
+          margin-right: 44px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          &:hover {
+            background: #ffa505;
+            border-radius: 0 0 4px 4px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    .menu {
+      display: flex;
+      font-family: PingFangSC-Medium;
+      align-items: center;
+      color: #ffffff;
+      & > p {
+        padding-left: 20px;
+        flex: auto;
+      }
+      p.company {
+        font-size: 15px;
+      }
+      p.logout {
+        font-size: 14px;
+        width: 80px;
+      }
+    }
   }
   .main-box {
     flex: 1;

@@ -10,7 +10,6 @@ import Auth from './Auth'
 import './css/layout.scss'
 // import { getPageTitle, systemRouteList } from '../router/utils';
 export const Layout = (props: any) => {
-  console.log(props);
 
   const isLogin = useLogin()
   const history = useHistory()
@@ -25,22 +24,19 @@ export const Layout = (props: any) => {
 
   return (
     <div className="container">
-      <Header />
+      <Header list={props.routes} />
       <div className="main-box">
         <Suspense fallback={<Spin size="large" className="layout__loading" />}>
           {/* <Router> */}
           {/* <Switch> */}
-          {props.routes.map((route: IRoute) => {
-            console.log(route);
-            return (
-              <Route path={route.path} key={route.path} exact={route.meta.exact} component={route.component}
-                render={pr => (
-                  <Auth {...pr} route={route}>
-                    <route.component {...pr} />
-                  </Auth>)}
-              />
-            )
-          })}
+          {props.routes.map((route: IRoute) =>
+            <Route path={route.path} key={route.path} exact={route.meta.exact} component={route.component}
+              render={pr => (
+                <Auth {...pr} route={route}>
+                  <route.component {...pr} />
+                </Auth>)}
+            />
+          )}
           <Redirect from='/*' exact to="/overview" push />
           {/* </Switch> */}
           {/* </Router> */}

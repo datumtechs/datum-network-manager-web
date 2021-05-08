@@ -1,0 +1,11 @@
+{
+  "login": {
+    "RosettaNet": "隐私计算网络",
+    "login": "登录",
+    "plzinput": "请输入您的 ",
+    "account": "账号",
+    "password": "密码",
+    "vericode": "验证码",
+    "logout": "登 出"
+  }
+}

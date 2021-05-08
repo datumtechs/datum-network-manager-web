@@ -6,8 +6,10 @@ import { BrowserRouter } from 'react-router-dom'
 // import reducer from './store/reducer'
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
+import './i18n/config'
 import App from './App'
 import './assets/css/index.scss'
+
 
 
 

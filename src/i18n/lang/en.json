@@ -1,0 +1,11 @@
+{
+  "login": {
+    "RosettaNet": "RosettaNet Console",
+    "login": "Login",
+    "plzinput": "please input your ",
+    "account": "account",
+    "password": "password",
+    "vericode": "vericode",
+    "logout": "Log Out"
+  }
+}
