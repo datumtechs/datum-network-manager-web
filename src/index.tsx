@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-// import { Provider } from 'react-redux'
-// import { createStore } from 'redux'
 import { BrowserRouter } from 'react-router-dom'
-// import reducer from './store/reducer'
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
+import { Provider } from 'react-redux'
+import myStore from './store/index'
+
+// import { createStore } from 'redux'
 import './i18n/config'
 import App from './App'
 import './assets/css/index.scss'
@@ -17,13 +18,14 @@ import './assets/css/index.scss'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Provider> 引入redux */}
-    <ConfigProvider locale={zhCN}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ConfigProvider>
-    {/* </Provider> */}
-  </React.StrictMode>,
+    <Provider store={myStore}>
+      {/* 引入redux */}
+      <ConfigProvider locale={zhCN}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ConfigProvider>
+    </Provider>
+  </React.StrictMode >,
   document.getElementById('root'),
 )

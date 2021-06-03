@@ -10,17 +10,6 @@ import layoutRoutes, { IRoute } from './router/index'
 
 const App: FC = () => (
   <Suspense fallback={<Spin size="large" className="global-loading" />}>
-    {/* {
-      layoutRoutes.map((route: IRoute, key: number) => (
-        <Switch>
-          <Route
-            key={route.path + key}
-            path={route.path}
-            render={props =>
-              <route.component {...props} routes={route.children} />} />
-        </Switch>
-      )
-    } */}
     <Router>
       <Switch>
         {

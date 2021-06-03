@@ -10,6 +10,6 @@
   "prettier.printWidth": 120,
   "prettier.tabWidth": 2,
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }
