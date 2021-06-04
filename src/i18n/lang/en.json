@@ -7,5 +7,16 @@
     "password": "password",
     "vericode": "vericode",
     "logout": "Log Out"
+  },
+  "overview": {
+    "seedNode": "Seed Node",
+    "schedueService": "Scheduling Service",
+    "open": "OPEN",
+    "close": "CLOSED",
+    "dataNode": "Data Node",
+    "uploadedData": "Uploaded data",
+    "authorizedData": "Authorized data",
+    "ComputeNode": "Computing Node",
+    "SharedResource": "Shared computing resource"
   }
 }

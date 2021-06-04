@@ -1,37 +1,37 @@
-.container {
+.main-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
   .header-box {
     width: 100%;
-    height: 60px;
-    background: #3c3588;
+    height: 0.6rem;
+    background: $mainColor;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 6%;
+    padding: 0 0.82rem;
     .logo {
       font-family: PingFangSC-Semibold;
       font-size: 18px;
       color: #ffffff;
-      line-height: 26px;
+      line-height: 0.26rem;
     }
     .nav {
       align-self: flex-start;
       .nav-box {
         display: flex;
         .sub-nav {
-          padding-top: 12px;
           flex: 1 1 auto;
-          width: 100px;
+          // width: 1rem;
           font-family: PingFangSC-Regular;
           font-size: 15px;
           color: #c8c8c8;
           text-align: center;
-          line-height: 18px;
-          height: 52px;
-          margin-right: 44px;
+          line-height: 0.6rem;
+          height: 0.52rem;
+          margin-right: 0.44rem;
+          padding: 0 0.08rem;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
@@ -51,7 +51,7 @@
       align-items: center;
       color: #ffffff;
       & > p {
-        padding-left: 20px;
+        padding-left: 0.2rem;
         flex: auto;
       }
       p.company {
@@ -59,7 +59,7 @@
       }
       p.logout {
         font-size: 14px;
-        width: 80px;
+        width: 0.8rem;
       }
     }
   }
@@ -67,5 +67,6 @@
     flex: 1;
     width: 100%;
     background: #fff;
+    padding: 0.3rem 0.82rem;
   }
 }

@@ -1,3 +1,14 @@
 .pointer {
   cursor: pointer;
 }
+.main-wrapper {
+  display: flex;
+  .left-side {
+    width: 2.63rem;
+  }
+  .right-side {
+    flex: 1;
+    border: 1px solid red;
+    margin-left: 0.3rem;
+  }
+}

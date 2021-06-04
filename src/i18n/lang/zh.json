@@ -7,5 +7,16 @@
     "password": "密码",
     "vericode": "验证码",
     "logout": "登 出"
+  },
+  "overview": {
+    "seedNode": "种子节点",
+    "schedueService": "调度服务",
+    "open": "开启",
+    "close": "关闭",
+    "dataNode": "数据节点",
+    "uploadedData": "已上传数据",
+    "authorizedData": "已授权数据",
+    "ComputeNode": "计算节点",
+    "SharedResource": "已占用总计算资源"
   }
 }

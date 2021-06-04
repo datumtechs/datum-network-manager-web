@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 // import { useHistory } from 'react-router-dom'
 import Nav from './Nav'
@@ -17,33 +17,34 @@ const Header = (props: any) => {
     // history.push("/login")
   }
 
-  return <div className="header-box">
-    <div className="logo" >{t('login.RosettaNet')}</div>
-    <div className="nav">
-      <Nav list={props.list} />
+  return (
+    <div className="header-box">
+      <div className="logo">{t('login.RosettaNet')}</div>
+      <div className="nav">
+        <Nav list={props.list} />
+      </div>
+      {props.state.indexReducer.isLogin}
+      <div className="menu">
+        <p className="company">XXX company</p>
+        <p className="lang-btn pointer" onClick={changeLanguage}>
+          {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
+        </p>
+        <p className="logout pointer" onClick={switchLogin}>
+          {t('login.logout')}
+        </p>
+      </div>
     </div>
-    {props.state.indexReducer.isLogin}
-    <div className="menu">
-      <p className="company">XXX company</p>
-      <p className="lang-btn pointer" onClick={changeLanguage}>
-        {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
-      </p>
-      <p className="logout pointer" onClick={switchLogin}>{t('login.logout')}</p>
-    </div>
-  </div >
+  )
 }
 
 const mapStateToProps = (state: any) => ({ state })
 
-
-const mapDispatchToProps = (dispatch: any) => (
-  {
-    sendAction: () => {
-      dispatch({
-        type: 'LOGIN'
-      })
-    }
-  }
-)
+const mapDispatchToProps = (dispatch: any) => ({
+  sendAction: () => {
+    dispatch({
+      type: 'LOGIN',
+    })
+  },
+})
 // export default Header
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
