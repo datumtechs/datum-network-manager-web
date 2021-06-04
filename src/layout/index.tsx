@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { Suspense, useEffect } from 'react'
-import { Route, Redirect, useHistory } from 'react-router-dom'
+import { Route, Redirect, useHistory, Switch } from 'react-router-dom'
 import { Spin } from 'antd'
 import Header from './components/Header'
 import { IRoute } from '../router/index'
@@ -27,19 +27,17 @@ export const Layout = (props: any) => {
       <Header list={props.routes} />
       <div className="main-box">
         <Suspense fallback={<Spin size="large" className="layout__loading" />}>
-          {/* <Router> */}
-          {/* <Switch> */}
-          {props.routes.map((route: IRoute) =>
-            <Route path={route.path} key={route.path} exact={route.meta.exact} component={route.component}
-              render={pr => (
-                <Auth {...pr} route={route}>
-                  <route.component {...pr} />
-                </Auth>)}
-            />
-          )}
-          <Redirect from='/*' exact to="/overview" push />
-          {/* </Switch> */}
-          {/* </Router> */}
+          <Switch>
+            {props.routes.map((route: IRoute) =>
+              <Route path={route.path} key={route.path} exact={route.meta.exact} // component={route.component}
+                render={pr => (
+                  <Auth {...pr} route={route}>
+                    <route.component {...pr} />
+                  </Auth>)}
+              />
+            )}
+            <Redirect from='/*' exact to="/overview" push />
+          </Switch>
         </Suspense>
       </div>
     </div>

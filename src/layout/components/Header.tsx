@@ -1,19 +1,20 @@
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux'
+// import { useHistory } from 'react-router-dom'
 import Nav from './Nav'
 import cnSvg from '../../assets/images/2.icon_cn.svg'
 import enSvg from '../../assets/images/2.icon_en.svg'
 
 const Header = (props: any) => {
   const { t, i18n } = useTranslation()
+  // const history = useHistory()
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
   }
 
   const switchLogin = () => {
     props.sendAction()
-    console.log(props);
-
+    // history.push("/login")
   }
 
   return <div className="header-box">
