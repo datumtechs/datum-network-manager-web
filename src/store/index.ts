@@ -2,10 +2,12 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import reduxThunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import indexReducer from './reducers/index'
+import login from './reducers/login'
+import menu from './reducers/menu'
 
 const allReducers = combineReducers({
-  indexReducer
+  login,
+  menu
 })
 const enhancers = applyMiddleware(reduxThunk);
 const appStore = createStore(allReducers, composeWithDevTools(...[enhancers]))

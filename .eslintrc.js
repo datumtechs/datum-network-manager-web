@@ -27,6 +27,7 @@ module.exports = {
     },
   ],
   rules: {
+    'no-named-as-default': 0,
     'no-console': 'off',
     indent: ['off', 2],
     'react/jsx-one-expression-per-line': 0,

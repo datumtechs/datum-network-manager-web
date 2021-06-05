@@ -18,6 +18,7 @@ export interface IRouteMeta {
 }
 export interface IRouteBase {
   name?: string
+  label?: string
   path: string
   component?: any
   meta: IRouteMeta
@@ -29,7 +30,7 @@ export interface IRoute extends IRouteBase {
 }
 
 const routes: Array<IRoute> = [
-  { name: 'Login', path: '/login', component: login, meta: { exact: true, title: '', icon: '' } },
+  { name: 'login', label: 'login', path: '/login', component: login, meta: { exact: true, title: '', icon: '' } },
   // {
   //   name: 'menu.dispatchConfig',
   //   path: '/nodeMgt/dispatchConfig',
@@ -42,31 +43,36 @@ const routes: Array<IRoute> = [
     meta: { exact: false, title: '', icon: '' },
     children: [
       {
-        name: 'menu.systemOverview',
+        name: 'overview',
+        label: 'menu.systemOverview',
         path: '/overview',
         component: overview,
         meta: { exact: true, title: '', icon: '' },
       },
       {
-        name: 'menu.nodeMgt',
+        name: 'nodeMgt',
+        label: 'menu.nodeMgt',
         path: '/nodeMgt',
         component: NodeMgt,
         meta: { exact: false, title: '', icon: '' },
         children: [
           {
-            name: 'menu.dispatchConfig',
+            name: 'dispatchConfig',
+            label: 'menu.dispatchConfig',
             path: '/nodeMgt/dispatchConfig',
             component: DispatchConfig,
             meta: { exact: true, title: '', icon: '' },
           },
           {
-            name: 'menu.dataNodeMgt',
+            name: 'dataNodeMgt',
+            label: 'menu.dataNodeMgt',
             path: '/nodeMgt/dataNodeMgt',
             component: DataNodeMgt,
             meta: { exact: true, title: '', icon: '' },
           },
           {
-            name: 'menu.computeNodeMgt',
+            name: 'computeNodeMgt',
+            label: 'menu.computeNodeMgt',
             path: '/nodeMgt/computeNodeMgt',
             component: ComputeNodeMgt,
             meta: { exact: true, title: '', icon: '' },
@@ -74,25 +80,29 @@ const routes: Array<IRoute> = [
         ],
       },
       {
-        name: 'menu.resourceCenter',
+        name: 'resourceCenter',
+        label: 'menu.resourceCenter',
         path: '/resource',
         component: resource,
         meta: { exact: false, title: '', icon: '' },
         children: [
           {
-            name: 'menu.myData',
+            name: 'myData',
+            label: 'menu.myData',
             path: '/resource/myData',
             component: resource,
             meta: { exact: true, title: '', icon: '' },
           },
           {
-            name: 'menu.wholeData',
+            name: 'wholeData',
+            label: 'menu.wholeData',
             path: '/resource/wholeData',
             component: resource,
             meta: { exact: true, title: '', icon: '' },
           },
           {
-            name: 'menu.wholeCalculation',
+            name: 'wholeCalculation',
+            label: 'menu.wholeCalculation',
             path: '/resource/wholeCalculation',
             component: resource,
             meta: { exact: true, title: '', icon: '' },
@@ -100,7 +110,8 @@ const routes: Array<IRoute> = [
         ],
       },
       {
-        name: 'menu.computeTask',
+        name: 'computeTask',
+        label: 'menu.computeTask',
         path: '/tasks',
         component: tasks,
         meta: { exact: true, title: '', icon: '' },

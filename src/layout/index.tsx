@@ -26,7 +26,6 @@ export const Layout = (props: any) => {
       <Header list={props.routes} className="header-container" />
       <div className="main-box">
         <Suspense fallback={<Spin size="large" className="layout__loading" />}>
-          <Redirect to="/overview" />
           <Switch>
             {props.routes.map((route: IRoute) => (
               // 第一层

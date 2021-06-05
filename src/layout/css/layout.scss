@@ -41,6 +41,7 @@
             border-radius: 0 0 4px 4px;
             color: #ffffff;
           }
+
           .child-nav {
             position: absolute;
             top: 100%;
@@ -55,6 +56,11 @@
               color: #ffffff;
             }
           }
+        }
+        .activeMenu {
+          background: #ffa505;
+          border-radius: 0 0 4px 4px;
+          color: #ffffff;
         }
       }
     }

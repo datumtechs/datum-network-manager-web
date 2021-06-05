@@ -1,22 +1,20 @@
-export const LOGIN = 'LOGIN'
-export const LOGOUT = 'LOGOUT'
+import { LOGIN, LOGOUT } from '../actionType/index'
+
 
 interface ReduxState {
-  isLogin: number
+  isLogin: number,
 }
 
 interface loginAction {
   type: string
-  count: number
+  count: number,
 }
 
 const initData = {
   isLogin: 0,
-  curMenu: 'overview'
 }
 
 const login = (state: ReduxState = initData, action: loginAction) => {
-  console.log(action.type);
   switch (action.type) {
     case LOGIN:
       return {
@@ -30,5 +28,6 @@ const login = (state: ReduxState = initData, action: loginAction) => {
       return state
   }
 }
+
 
 export default login
