@@ -4,9 +4,7 @@ import ComputeNode from './components/ComputeNode'
 import DataNode from './components/DataNode'
 
 export const overview: FC<any> = () => {
-  const showName = () => {
-    console.log('111')
-  }
+  const showName = () => {}
   return (
     <div onClick={showName} className="main-wrapper">
       <div className="left-side">

@@ -18,5 +18,17 @@
     "authorizedData": "Authorized data",
     "ComputeNode": "Computing Node",
     "SharedResource": "Shared computing resource"
+  },
+  "menu": {
+    "systemOverview": "System Overview",
+    "nodeMgt": "Node Management",
+    "resourceCenter": "Resource Center",
+    "computeTask": "Computing Tasks",
+    "dispatchConfig": "Scheduling Service Configuration",
+    "dataNodeMgt": "Data Node Management",
+    "computeNodeMgt": "Computing Node Management",
+    "myData": "My Data",
+    "wholeData": "Data Resource Center",
+    "wholeCalculation": "Computing Resource Center"
   }
 }

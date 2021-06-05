@@ -1,20 +1,20 @@
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-// import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Nav from './Nav'
 import cnSvg from '../../assets/images/2.icon_cn.svg'
 import enSvg from '../../assets/images/2.icon_en.svg'
 
 const Header = (props: any) => {
   const { t, i18n } = useTranslation()
-  // const history = useHistory()
+  const history = useHistory()
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
   }
 
   const switchLogin = () => {
     props.sendAction()
-    // history.push("/login")
+    history.push('/login')
   }
 
   return (
@@ -23,9 +23,8 @@ const Header = (props: any) => {
       <div className="nav">
         <Nav list={props.list} />
       </div>
-      {props.state.indexReducer.isLogin}
       <div className="menu">
-        <p className="company">XXX company</p>
+        <p className="company">XXXXXXXxxxxxxxXXXX Company</p>
         <p className="lang-btn pointer" onClick={changeLanguage}>
           {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
         </p>

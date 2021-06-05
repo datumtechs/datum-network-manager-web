@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo } from 'react'
 import { Redirect, RouteComponentProps } from 'react-router-dom'
 import { IRoute } from '../router/index'
 
@@ -23,6 +23,8 @@ function Auth(props: AuthProps) {
   if (props.route.redirect) {
     return <Redirect to="/login" />
   }
+  console.log('props.children', props.children)
+
   return <>{props.children}</>
 }
 

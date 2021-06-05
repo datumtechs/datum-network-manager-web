@@ -5,42 +5,55 @@
   min-height: 100vh;
   .header-box {
     width: 100%;
-    height: 0.6rem;
+    height: 60px;
     background: $mainColor;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0.82rem;
+    padding: 0 82px;
     .logo {
       font-family: PingFangSC-Semibold;
       font-size: 18px;
       color: #ffffff;
-      line-height: 0.26rem;
+      line-height: 26px;
     }
     .nav {
-      align-self: flex-start;
+      height: 100%;
       .nav-box {
         display: flex;
+        height: 100%;
         .sub-nav {
-          flex: 1 1 auto;
-          // width: 1rem;
+          display: flex;
+          align-items: center;
+          height: 52px;
           font-family: PingFangSC-Regular;
           font-size: 15px;
           color: #c8c8c8;
           text-align: center;
-          line-height: 0.6rem;
-          height: 0.52rem;
-          margin-right: 0.44rem;
-          padding: 0 0.08rem;
-          overflow: hidden;
+          margin-right: 44px;
+          padding: 8px 8px 0 8px;
           text-overflow: ellipsis;
-          display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
+          position: relative;
           &:hover {
             background: #ffa505;
             border-radius: 0 0 4px 4px;
             color: #ffffff;
+          }
+          .child-nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 10px 8px;
+            color: #ffa505;
+            background: red;
+            & li:not(:last-child) {
+              padding-bottom: 10px;
+            }
+            & li:hover {
+              color: #ffffff;
+            }
           }
         }
       }
@@ -51,15 +64,19 @@
       align-items: center;
       color: #ffffff;
       & > p {
-        padding-left: 0.2rem;
+        padding-left: 20px;
         flex: auto;
       }
       p.company {
+        width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 15px;
+        white-space: nowrap;
       }
       p.logout {
         font-size: 14px;
-        width: 0.8rem;
+        width: 80px;
       }
     }
   }
@@ -67,6 +84,6 @@
     flex: 1;
     width: 100%;
     background: #fff;
-    padding: 0.3rem 0.82rem;
+    padding: 30px 82px;
   }
 }

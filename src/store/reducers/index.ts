@@ -12,6 +12,7 @@ interface loginAction {
 
 const initData = {
   isLogin: 0,
+  curMenu: 'overview'
 }
 
 const login = (state: ReduxState = initData, action: loginAction) => {

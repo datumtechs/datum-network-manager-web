@@ -1,70 +1,72 @@
 .seed-box {
   background: #ffffff;
-  box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
-  border-radius: 6px;
-  border-radius: 6px;
-  padding: 15px 20px;
-  width: 263px;
-  height: 162px;
-  margin-bottom: 26px;
+  box-shadow: 0 0.02rem 0.48rem 0 rgba(0, 0, 0, 0.08);
+  border-radius: 0.06rem;
+  border-radius: 0.06rem;
+  padding: 0.15rem 0.2rem;
+  width: 2.63rem;
+  height: 1.62rem;
+  &:not(:last-child) {
+    margin-bottom: 0.26rem;
+  }
   .num {
     font-family: PingFangSC-Medium;
-    font-size: 30px;
+    font-size: 0.3rem;
     color: $mainColor;
     letter-spacing: 0;
-    line-height: 42px;
-    height: 42px;
+    line-height: 0.42rem;
+    height: 0.42rem;
   }
   .title {
     font-family: PingFangSC-Medium;
-    font-size: 16px;
+    font-size: 0.16rem;
     color: $mainColor;
     letter-spacing: 0;
   }
   .text-box {
-    margin-top: 20px;
+    margin-top: 0.2rem;
     .text {
       font-family: PingFangSC-Medium;
-      font-size: 14px;
+      font-size: 0.14rem;
       color: #1d2832;
       letter-spacing: 0;
-      line-height: 22px;
-      margin-bottom: 10px;
+      line-height: 0.22rem;
+      margin-bottom: 0.1rem;
       span:nth-child(2) {
-        padding-left: 10px;
+        padding-left: 0.1rem;
       }
     }
   }
   .compute-box {
     display: flex;
-    margin-top: 20px;
+    margin-top: 0.2rem;
     justify-content: space-between;
     align-items: center;
     .title-section {
-      width: 125px;
+      width: 1.25rem;
       font-family: PingFangSC-Medium;
-      font-size: 14px;
+      font-size: 0.14rem;
       color: #1d2832;
       letter-spacing: 0;
-      line-height: 22px;
+      line-height: 0.22rem;
     }
   }
   .status {
-    margin-top: 20px;
+    margin-top: 0.2rem;
     font-family: PingFangSC-Regular;
-    font-size: 14px;
+    font-size: 0.14rem;
     color: #000000;
     letter-spacing: 0;
     display: flex;
     .status-title {
-      padding-right: 10px;
+      padding-right: 0.1rem;
     }
     .status-text {
-      padding-right: 10px;
+      padding-right: 0.1rem;
     }
     .status-icon {
-      width: 14px;
-      height: 14px;
+      width: 0.14rem;
+      height: 0.14rem;
       border-radius: 50%;
       display: inline-block;
     }

@@ -18,5 +18,17 @@
     "authorizedData": "已授权数据",
     "ComputeNode": "计算节点",
     "SharedResource": "已占用总计算资源"
+  },
+  "menu": {
+    "systemOverview": "系统概况",
+    "nodeMgt": "节点管理",
+    "resourceCenter": "资源中心",
+    "computeTask": "计算任务",
+    "dispatchConfig": "调度服务配置",
+    "dataNodeMgt": "数据节点管理",
+    "computeNodeMgt": "计算节点管理",
+    "myData": "我的数据",
+    "wholeData": "全网数据",
+    "wholeCalculation": "全网算力"
   }
 }
