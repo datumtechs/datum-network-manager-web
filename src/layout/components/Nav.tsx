@@ -5,15 +5,14 @@ import { connect } from 'react-redux'
 import { IRoute } from '../../router/index'
 
 const Nav = (props: any) => {
-  // const menu = props.state.menu.curMenu;
+  const menu = props.state.menu.curMenu;
   const history = useHistory()
   const curUrl = history.location.pathname;
-  console.log("curUrl", curUrl);
 
   const [curPath, SetCurPath] = useState('')
   useEffect(() => {
     console.log("更新了curUrl=====>", curUrl);
-    SetCurPath(curUrl)
+    SetCurPath(curUrl === '/' ? '/overview' : curUrl)
   }, [])
   console.log("curPath", curPath);
 
@@ -27,8 +26,11 @@ const Nav = (props: any) => {
   const mouseEnter = (item: IRoute) => {
     if (item.children) {
       console.log(item.children)
-      // props.setMenu(item.name)
+      props.setMenu(item.name)
     }
+  }
+  const mouseLeave = () => {
+    props.setMenu('')
   }
 
   return (
@@ -37,11 +39,12 @@ const Nav = (props: any) => {
         <div
           className={`sub-nav pointer ${curPath.includes(item.path) ? 'activeMenu' : null}`}
           onMouseEnter={() => mouseEnter(item)}
+          onMouseLeave={() => mouseLeave()}
           key={item.name}
           onClick={e => linkTo(item, e)}
         >
           {t(`${item.label}`)}
-          {item.children ? (
+          {item.children && item.name === menu ? (
             <ul className="child-nav">
               {item.children.map(child => (
                 <li key={child.name} onClick={e => linkTo(child, e)}>
