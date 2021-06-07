@@ -42,7 +42,6 @@
             border-radius: 0 0 4px 4px;
             color: #ffffff;
           }
-
           .child-nav {
             position: absolute;
             top: 100%;
@@ -50,6 +49,7 @@
             padding: 10px 8px;
             color: #ffa505;
             background: red;
+            z-index: 1000;
             & li:not(:last-child) {
               padding-bottom: 10px;
             }
