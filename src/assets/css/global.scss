@@ -31,4 +31,16 @@
   .form-box {
     padding: 30px 20px;
   }
+  .searchBar-box {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    .btn {
+      height: 36px;
+      border-radius: 2px;
+    }
+  }
+  .table-box {
+    padding: 20px;
+  }
 }

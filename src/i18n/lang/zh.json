@@ -35,6 +35,10 @@
     "submit": "提交",
     "plzApplyDid": "使用平台功能需要申请身份标识",
     "orgName": "机构名称:",
-    "noModify": "用于在整个网络中代表参与方,设置后无法更改"
+    "noModify": "用于在整个网络中代表参与方,设置后无法更改",
+    "search": "查询"
+  },
+  "node": {
+    "addNewComputingNode": "新增计算节点"
   }
 }

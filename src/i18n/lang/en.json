@@ -35,6 +35,10 @@
     "submit": "Submit",
     "plzApplyDid": "First of all, please apply a DID",
     "orgName": "Organization name:",
-    "noModify": "Can not be modified after submitting"
+    "noModify": "Can not be modified after submitting",
+    "search": "Search"
+  },
+  "node": {
+    "addNewComputingNode": "Add a new computing node"
   }
 }
