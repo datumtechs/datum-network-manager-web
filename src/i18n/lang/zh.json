@@ -30,5 +30,11 @@
     "myData": "我的数据",
     "wholeData": "全网数据",
     "wholeCalculation": "全网算力"
+  },
+  "common": {
+    "submit": "提交",
+    "plzApplyDid": "使用平台功能需要申请身份标识",
+    "orgName": "机构名称:",
+    "noModify": "用于在整个网络中代表参与方,设置后无法更改"
   }
 }

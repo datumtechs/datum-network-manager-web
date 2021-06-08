@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
-import { Table } from 'antd';
+import { Table } from 'antd'
+import './scss/OverviewTable.scss'
 
 const dataSource = [
   {
@@ -14,34 +15,43 @@ const dataSource = [
     age: 42,
     address: '西湖区湖底公园1号',
   },
-];
+]
 
 const columns = [
   {
-    title: '姓名',
+    title: () => {
+      console.log('11111111')
+
+      return <div className="">Tasks in Computing</div>
+    },
     dataIndex: 'name',
     key: 'name',
+    render: (text: any, row: any, index: any) => {
+      console.log(text)
+      console.log(row)
+      console.log(index)
+      return <>1111</>
+    },
   },
   {
-    title: '年龄',
+    title: 'CPU',
     dataIndex: 'age',
     key: 'age',
   },
   {
-    title: '住址',
+    title: 'Memory',
     dataIndex: 'address',
     key: 'address',
   },
   {
-    title: '性别',
+    title: 'Bandwidth',
     dataIndex: 'gradient',
     key: 'gradient',
   },
-];
+]
 
 const OverviewTable: FC<any> = (props: any) => {
-  console.log(props);
-
+  console.log(props)
   return (
     <>
       <Table dataSource={dataSource} columns={columns} />;

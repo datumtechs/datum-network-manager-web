@@ -30,5 +30,11 @@
     "myData": "My Data",
     "wholeData": "Data Resource Center",
     "wholeCalculation": "Computing Resource Center"
+  },
+  "common": {
+    "submit": "Submit",
+    "plzApplyDid": "First of all, please apply a DID",
+    "orgName": "Organization name:",
+    "noModify": "Can not be modified after submitting"
   }
 }

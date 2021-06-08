@@ -11,3 +11,24 @@
     margin-left: 0.3rem;
   }
 }
+.layout-box {
+  width: 100%;
+  height: calc(100vh - 120px);
+  background: #ffffff;
+  box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  .bread-box > .ant-breadcrumb {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+  }
+  .bread-box {
+    border-bottom: 1px solid #ebeef9;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+  }
+  .form-box {
+    padding: 30px 20px;
+  }
+}

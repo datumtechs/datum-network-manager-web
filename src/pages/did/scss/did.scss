@@ -1,0 +1,35 @@
+.did-box {
+  width: 801px;
+  // height: 308px;
+  background: #ffffff;
+  box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  margin: 0 auto;
+  margin-top: 70px;
+  padding: 40px 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .title {
+    font-family: PingFangSC-Medium;
+    font-size: 20px;
+    color: #1d2832;
+    letter-spacing: 0;
+  }
+  .form-box {
+    width: 100%;
+    margin: 50px 0 46px 0;
+    .ant-input,
+    .ant-form-item-label {
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+  .btn {
+    .submit-btn {
+      width: 350px;
+      height: 40px;
+      border-radius: 2px;
+    }
+  }
+}

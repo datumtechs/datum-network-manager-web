@@ -27,6 +27,7 @@ module.exports = {
     },
   ],
   rules: {
+    'arrow-body-style': 0,
     'no-named-as-default': 0,
     'no-console': 'off',
     indent: ['off', 2],

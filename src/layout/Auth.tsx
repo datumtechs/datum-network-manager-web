@@ -5,6 +5,7 @@ import { IRoute } from '../router/index'
 interface AuthProps extends RouteComponentProps {
   route: IRoute
   children: React.ReactNode
+  routes: Array<any>
 }
 
 function checkAuth(location: RouteComponentProps['location']): boolean {
@@ -15,6 +16,7 @@ function Auth(props: AuthProps) {
   // if (getToken()) {
   //   return <Redirect to="/login" />
   // }
+  console.log('AUTH props=========>', props)
 
   if (!checkAuth(props.location)) {
     return <Redirect to="/login" />
@@ -23,7 +25,6 @@ function Auth(props: AuthProps) {
   if (props.route.redirect) {
     return <Redirect to="/login" />
   }
-  console.log('props.children', props.children)
 
   return <>{props.children}</>
 }
