@@ -17,7 +17,10 @@
     "uploadedData": "已上传数据",
     "authorizedData": "已授权数据",
     "ComputeNode": "计算节点",
-    "SharedResource": "已占用总计算资源"
+    "SharedResource": "已占用总计算资源",
+    "memory": "内存",
+    "bandWidth": "带宽",
+    "submit": "生成身份凭证,申请网络准入"
   },
   "menu": {
     "systemOverview": "系统概况",
@@ -34,11 +37,25 @@
   "common": {
     "submit": "提交",
     "plzApplyDid": "使用平台功能需要申请身份标识",
-    "orgName": "机构名称:",
+    "orgName": "机构识别名称",
+    "orgIdentify": "机构身份标识",
+    "internalIP": "内部IP",
+    "internalPort": "内部端口",
     "noModify": "用于在整个网络中代表参与方,设置后无法更改",
-    "search": "查询"
+    "search": "查询",
+    "status": "状态",
+    "ip": "IP",
+    "port": "端口",
+    "operations": "操作",
+    "edit": "编辑",
+    "delete": "删除",
+    "tips": "温馨提示"
   },
   "node": {
-    "addNewComputingNode": "新增计算节点"
+    "addNewComputingNode": "新增计算节点",
+    "confirmDelete": "请确认是否要删除数据节点"
+  },
+  "dataNodeMgt": {
+    "nodeName": "数据节点名称与ID"
   }
 }

@@ -17,7 +17,10 @@
     "uploadedData": "Uploaded data",
     "authorizedData": "Authorized data",
     "ComputeNode": "Computing Node",
-    "SharedResource": "Shared computing resource"
+    "SharedResource": "Shared computing resource",
+    "memory": "Memory",
+    "bandWidth": "Bandwidth",
+    "submit": "Create the identify credential，and apply for network access"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -34,11 +37,25 @@
   "common": {
     "submit": "Submit",
     "plzApplyDid": "First of all, please apply a DID",
-    "orgName": "Organization name:",
+    "orgName": "Organization name",
+    "orgIdentify": "Organization identifier",
+    "internalIP": "Internal IP",
+    "internalPort": "Internal port",
     "noModify": "Can not be modified after submitting",
-    "search": "Search"
+    "search": "Search",
+    "status": "Status",
+    "ip": "IP",
+    "port": "Port",
+    "operations": "Operations",
+    "edit": "edit",
+    "delete": "delete",
+    "tips": "Reminder"
   },
   "node": {
-    "addNewComputingNode": "Add a new computing node"
+    "addNewComputingNode": "Add a new computing node",
+    "confirmDelete": "Please ensure that you are deleting the data node"
+  },
+  "dataNodeMgt": {
+    "nodeName": "Data node name & ID"
   }
 }

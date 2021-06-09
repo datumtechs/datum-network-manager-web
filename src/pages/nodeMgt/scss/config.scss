@@ -1,0 +1,30 @@
+.form-item {
+  margin-bottom: 30px;
+  .title {
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    color: #1d2832;
+    letter-spacing: 0;
+  }
+  .form-box-input {
+    width: 457px;
+  }
+}
+.submit-btn {
+  width: 264px;
+
+  span {
+    font-family: PingFangSC-Medium;
+    width: 180px;
+    margin: 0 auto;
+    font-size: 12px;
+    color: #ffffff;
+    letter-spacing: 0;
+    line-height: 14px;
+    word-break: normal;
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+}

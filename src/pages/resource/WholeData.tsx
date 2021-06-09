@@ -3,7 +3,7 @@ import Bread from '../../layout/components/Bread'
 import SearchBar from '../../layout/components/SearchBar'
 import MyTable from '../../layout/components/MyTable'
 
-export const DataNodeMgt: FC<any> = () => {
+export const WholeData: FC<any> = () => {
   return (
     <div className="layout-box">
       <div className="bread-box">
@@ -13,5 +13,6 @@ export const DataNodeMgt: FC<any> = () => {
         <SearchBar />
         <MyTable />
       </div>
-    </div>)
+    </div>
+  )
 }

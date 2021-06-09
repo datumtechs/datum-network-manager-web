@@ -2,11 +2,14 @@ import React from 'react'
 
 const login = React.lazy(() => import('../pages/Login/index').then(({ Login }) => ({ default: Login })))
 const layout = React.lazy(() => import('../layout/index').then(_ => ({ default: _.Layout })))
-const overview = React.lazy(() => import('../pages/overview/index').then(_ => ({ default: _.overview })))
+const Overview = React.lazy(() => import('../pages/overview/index').then(_ => ({ default: _.Overview })))
 const NodeMgt = React.lazy(() => import('../pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))
-const resource = React.lazy(() => import('../pages/resource/index').then(_ => ({ default: _.resource })))
+const Resource = React.lazy(() => import('../pages/resource/index').then(_ => ({ default: _.Resource })))
+const MyData = React.lazy(() => import('../pages/resource/MyData/MyData').then(_ => ({ default: _.MyData })))
+const WholeData = React.lazy(() => import('../pages/resource/WholeData').then(_ => ({ default: _.WholeData })))
+const WholeCalculation = React.lazy(() => import('../pages/resource/WholeCalculation').then(_ => ({ default: _.WholeCalculation })))
 const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => ({ default: _.DispatchConfig })))
-const DataNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })))
+const DataNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })))
 const ComputeNodeMgt = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })))
 const tasks = React.lazy(() => import('../pages/tasks/index').then(_ => ({ default: _.tasks })))
 const DidApplication = React.lazy(() => import('../pages/did/DidApplication').then(_ => ({ default: _.DidApplication })))
@@ -52,7 +55,7 @@ const routes: Array<IRoute> = [
         label: 'menu.systemOverview',
         breadcrumbName: 'menu.systemOverview',
         path: '/overview',
-        component: overview,
+        component: Overview,
         meta: { exact: true, title: '', icon: '', show: true },
       },
       {
@@ -102,7 +105,7 @@ const routes: Array<IRoute> = [
         label: 'menu.resourceCenter',
         breadcrumbName: 'menu.resourceCenter',
         path: '/resource',
-        component: resource,
+        component: Resource,
         meta: { exact: false, title: '', icon: '', show: true },
         children: [
           {
@@ -110,7 +113,7 @@ const routes: Array<IRoute> = [
             label: 'menu.myData',
             breadcrumbName: 'menu.myData',
             path: '/resource/myData',
-            component: resource,
+            component: MyData,
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
@@ -118,7 +121,7 @@ const routes: Array<IRoute> = [
             label: 'menu.wholeData',
             breadcrumbName: 'menu.wholeData',
             path: '/resource/wholeData',
-            component: resource,
+            component: WholeData,
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
@@ -126,7 +129,7 @@ const routes: Array<IRoute> = [
             label: 'menu.wholeCalculation',
             breadcrumbName: 'menu.wholeCalculation',
             path: '/resource/wholeCalculation',
-            component: resource,
+            component: WholeCalculation,
             meta: { exact: true, title: '', icon: '', show: true },
           },
         ],
