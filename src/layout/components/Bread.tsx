@@ -7,11 +7,9 @@ import { IRoute } from '../../router/index'
 import { getBreadcrumbs } from '../../router/utils'
 
 const Bread: FC<any> = () => {
-  console.log(getBreadcrumbs)
   const [breadcrumbs, setBreadcrumbs] = useState<IRoute[]>([])
   const { t } = useTranslation()
   const history = useHistory()
-  console.log(breadcrumbs)
   const curUrl = history.location.pathname
   console.log(curUrl)
 

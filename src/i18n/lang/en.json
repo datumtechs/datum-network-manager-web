@@ -32,7 +32,9 @@
     "computeNodeMgt": "Computing Node Management",
     "myData": "My Data",
     "wholeData": "Data Resource Center",
-    "wholeCalculation": "Computing Resource Center"
+    "wholeCalculation": "Computing Resource Center",
+    "addDataNode": "Add Data Node",
+    "editDataNode": "Edit Data Node"
   },
   "common": {
     "submit": "Submit",

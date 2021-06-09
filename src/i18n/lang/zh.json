@@ -32,7 +32,9 @@
     "computeNodeMgt": "计算节点管理",
     "myData": "我的数据",
     "wholeData": "全网数据",
-    "wholeCalculation": "全网算力"
+    "wholeCalculation": "全网算力",
+    "addDataNode": "添加数据节点",
+    "editDataNode": "编辑数据节点"
   },
   "common": {
     "submit": "提交",

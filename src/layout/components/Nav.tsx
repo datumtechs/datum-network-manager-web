@@ -54,9 +54,10 @@ const Nav = (props: any) => {
             {item.children && item.name === menu ? (
               <ul className="child-nav">
                 {item.children.map(child => (
-                  <li key={child.name} onClick={e => linkTo(child, e)}>
-                    {t(`${child.label}`)}
-                  </li>
+                  child.meta.show ?
+                    <li key={child.name} onClick={e => linkTo(child, e)}>
+                      {t(`${child.label}`)}
+                    </li> : ""
                 ))}
               </ul>
             ) : (
