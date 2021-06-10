@@ -9,10 +9,15 @@
   .form-box-input {
     width: 457px;
   }
+  .btn {
+    width: 112px;
+  }
+  .re-btn {
+    margin-right: 40px;
+  }
 }
 .submit-btn {
   width: 264px;
-
   span {
     font-family: PingFangSC-Medium;
     width: 180px;
@@ -26,5 +31,16 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow: hidden;
+  }
+}
+.data-table-box {
+  .operation-box {
+    .btn {
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #3c3588;
+      letter-spacing: 0;
+      line-height: 16.8px;
+    }
   }
 }

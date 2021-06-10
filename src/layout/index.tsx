@@ -8,7 +8,7 @@ import useLogin from '../hooks/useLogin'
 import Auth from './Auth'
 import useDid from '../hooks/useHasDid'
 
-import './css/layout.scss'
+import './scss/layout.scss'
 // import { getPageTitle, systemRouteList } from '../router/utils';
 export const Layout = (props: any) => {
   const isLogin = useLogin()

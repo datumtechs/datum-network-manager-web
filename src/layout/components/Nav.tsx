@@ -52,13 +52,16 @@ const Nav = (props: any) => {
           >
             {t(`${item.label}`)}
             {item.children && item.name === menu ? (
-              <ul className="child-nav">
-                {item.children.map(child => (
-                  child.meta.show ?
+              <ul className="child-nav" onMouseEnter={() => mouseEnter(item)} onMouseLeave={() => mouseLeave()}>
+                {item.children.map(child =>
+                  child.meta.show ? (
                     <li key={child.name} onClick={e => linkTo(child, e)}>
                       {t(`${child.label}`)}
-                    </li> : ""
-                ))}
+                    </li>
+                  ) : (
+                    ''
+                  ),
+                )}
               </ul>
             ) : (
               ''

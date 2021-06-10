@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 2</title>
+    <g id="1.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3.任务概览" transform="translate(-594.000000, -115.000000)" fill-rule="nonzero" stroke-width="6">
+            <g id="编组" transform="translate(376.000000, 90.000000)">
+                <g id="编组-2" transform="translate(221.000000, 28.000000)">
+                    <path d="M25,3 C31.0751322,3 36.5751322,5.46243388 40.5563492,9.44365081 C44.5375661,13.4248678 47,18.9248678 47,25 C47,31.0751322 44.5375661,36.5751322 40.5563492,40.5563492 C36.5751322,44.5375661 31.0751322,47 25,47 C18.9248678,47 13.4248678,44.5375661 9.44365081,40.5563492 C5.46243388,36.5751322 3,31.0751322 3,25 C3,18.9248678 5.46243388,13.4248678 9.44365081,9.44365081 C13.4248678,5.46243388 18.9248678,3 25,3 Z" id="Rectangle备份" stroke="#6359D1"></path>
+                    <path d="M25,0 C38.8071187,0 50,11.1928813 50,25 C50,38.8071187 38.8071187,50 25,50 C11.1928813,50 0,38.8071187 0,25" id="路径" stroke="#FFA505" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

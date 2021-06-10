@@ -1,7 +1,7 @@
 import React, { FC, memo, useState, useEffect } from 'react'
 import { Breadcrumb } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { LeftOutlined } from '@ant-design/icons'
 import { IRoute } from '../../router/index'
 import { getBreadcrumbs } from '../../router/utils'
@@ -11,6 +11,7 @@ const Bread: FC<any> = () => {
   const { t } = useTranslation()
   const history = useHistory()
   const curUrl = history.location.pathname
+  const len = breadcrumbs.length
   console.log(curUrl)
 
   useEffect(() => {
@@ -31,10 +32,21 @@ const Bread: FC<any> = () => {
       <div className="pointer" onClick={goBack}>
         <LeftOutlined />
       </div>
+      {console.log('breadcrumbs', breadcrumbs)}
       <Breadcrumb>
-        {breadcrumbs.map((route: IRoute) => (
-          <Breadcrumb.Item key={route.path}>{t(route.breadcrumbName)}</Breadcrumb.Item>
-        ))}
+        {breadcrumbs.map((route: IRoute, index: number) => {
+          if (index !== 0 && index !== len - 1)
+            return (
+              <Breadcrumb.Item key={route.path}>
+                <Link to={route.path}>{t(route.breadcrumbName)}</Link>
+              </Breadcrumb.Item>
+            )
+          return (
+            <Breadcrumb.Item key={route.path}>
+              <span>{t(route.breadcrumbName)}</span>
+            </Breadcrumb.Item>
+          )
+        })}
       </Breadcrumb>
     </>
   )

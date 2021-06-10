@@ -62,13 +62,14 @@
       padding-right: 0.1rem;
     }
     .status-text {
+      line-height: 23px;
       padding-right: 0.1rem;
     }
     .status-icon {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
+      width: 23px;
+      height: 23px;
       display: inline-block;
+      border-radius: 4px;
     }
     .close-status-icon {
       background-color: #7de40c;

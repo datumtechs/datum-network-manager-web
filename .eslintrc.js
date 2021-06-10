@@ -20,7 +20,7 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       rules: {
-        '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
+        '@typescript-eslint/no-unused-vars': 'off',
         'no-unused-expressions': 'off',
         '@typescript-eslint/no-unused-expressions': 2,
       },
@@ -28,6 +28,8 @@ module.exports = {
   ],
   rules: {
     'arrow-body-style': 0,
+    'no-unused-vars': 'warn',
+    'vue/no-unused-vars': 'off',
     'no-named-as-default': 0,
     'no-console': 'off',
     indent: ['off', 2],

@@ -43,18 +43,25 @@
             color: #ffffff;
           }
           .child-nav {
+            min-width: 137px;
+            font-size: 12px;
             position: absolute;
             top: 100%;
-            left: 0;
-            padding: 10px 8px;
-            color: #ffa505;
-            background: red;
-            z-index: 1000;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 14px;
+            color: #000;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.08);
+            z-index: 10000;
+            padding-top: 8px;
             & li:not(:last-child) {
+              line-height: 16px;
               padding-bottom: 10px;
             }
             & li:hover {
-              color: #ffffff;
+              color: $mainColor;
             }
           }
         }

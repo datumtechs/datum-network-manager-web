@@ -1,0 +1,19 @@
+.simple-info-box {
+  width: 560px;
+  height: auto;
+  background: #eef1ff;
+  padding: 20px;
+  font-family: PingFangSC-Medium;
+  font-size: 14px;
+  color: #333333;
+  letter-spacing: 0;
+  .title {
+    width: 100px;
+  }
+  p {
+    display: flex;
+    &:not(last-child) {
+      margin-bottom: 20px;
+    }
+  }
+}

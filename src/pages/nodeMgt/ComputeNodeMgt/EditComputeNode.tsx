@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Bread from '../../../layout/components/Bread'
 import '../scss/config.scss'
 
-export const EditNodeMgt: FC<any> = (props: any) => {
+export const EditComputeNode: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { location } = props
 
@@ -45,9 +45,9 @@ export const EditNodeMgt: FC<any> = (props: any) => {
           <Form.Item colon label={t('dataNodeMgt.externalPort')} name="externalPort" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
-          {/* <Form.Item label={t('common.status')} name="username" className="form-item">
-              <Input className="form-box-input" placeholder={t('common.noModify')} />
-            </Form.Item> */}
+          <Form.Item label={t('common.remark')} name="remark" className="form-item">
+            <Input className="form-box-input" placeholder={t('common.noModify')} />
+          </Form.Item>
           <Form.Item style={{ marginLeft: i18n.language === 'en' ? 200 : 120 }} className="form-item">
             <Button className="btn re-btn">{t('common.return')}</Button>
             <Button

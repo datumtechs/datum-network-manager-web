@@ -38,6 +38,7 @@
   },
   "common": {
     "submit": "提交",
+    "return": "返回",
     "plzApplyDid": "使用平台功能需要申请身份标识",
     "orgName": "机构识别名称",
     "orgIdentify": "机构身份标识",
@@ -51,13 +52,29 @@
     "operations": "操作",
     "edit": "编辑",
     "delete": "删除",
-    "tips": "温馨提示"
+    "tips": "提示",
+    "view": "查看",
+    "enable": "启用",
+    "disable": "停用算力",
+    "viewNodeInfo": "查看计算节点信息",
+    "remark": "备注"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
+    "addNewDataNode": "新增数据节点",
     "confirmDelete": "请确认是否要删除数据节点"
   },
   "dataNodeMgt": {
-    "nodeName": "数据节点名称与ID"
+    "nodeName": "数据节点名称与ID",
+    "internalIP": "内部IP",
+    "externalIp": "外部IP",
+    "internalPort": "内部端口",
+    "externalPort": "外部端口"
+  },
+  "computeNodeMgt": {
+    "nodeName": "计算节点名称与ID",
+    "confirmDelete": "请确认是否要删除计算节点",
+    "confirmEnable": "请确认是否要启用计算节点",
+    "confirmDisable": "请确认是否要停用计算节点"
   }
 }

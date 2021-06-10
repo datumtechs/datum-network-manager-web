@@ -38,6 +38,7 @@
   },
   "common": {
     "submit": "Submit",
+    "return": "Return",
     "plzApplyDid": "First of all, please apply a DID",
     "orgName": "Organization name",
     "orgIdentify": "Organization identifier",
@@ -51,13 +52,29 @@
     "operations": "Operations",
     "edit": "edit",
     "delete": "delete",
-    "tips": "Reminder"
+    "tips": "Reminder",
+    "view": "view",
+    "enable": "enable",
+    "disable": "disable",
+    "viewNodeInfo": "view details",
+    "remark": "Remarks"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
+    "addNewDataNode": "Add a new data node",
     "confirmDelete": "Please ensure that you are deleting the data node"
   },
   "dataNodeMgt": {
-    "nodeName": "Data node name & ID"
+    "nodeName": "Data node name & ID",
+    "internalIP": "Internal IP",
+    "externalIp": "External IP",
+    "internalPort": "Internal Port",
+    "externalPort": "External Port"
+  },
+  "computeNodeMgt": {
+    "nodeName": "Compute node name & ID",
+    "confirmDelete": "Please ensure that you are deleting the compute node",
+    "confirmEnable": "Please ensure that you are enabling the compute node",
+    "confirmDisable": "Please ensure that you are disabling the compute node"
   }
 }

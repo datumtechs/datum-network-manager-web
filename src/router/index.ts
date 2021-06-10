@@ -11,8 +11,9 @@ const WholeCalculation = React.lazy(() => import('../pages/resource/WholeCalcula
 const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => ({ default: _.DispatchConfig })))
 const DataNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })))
 const EditNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(_ => ({ default: _.EditNodeMgt })))
-// const AddNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/EditNode/AddNodeMgt').then(_ => ({ default: _.AddNodeMgt })))
-const ComputeNodeMgt = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })))
+const ComputeNodeMgt = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })))
+const EditComputeNode = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/EditComputeNode').then(_ => ({ default: _.EditComputeNode })))
+const ComputeNodeDetail = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeDetail').then(_ => ({ default: _.ComputeNodeDetail })))
 const tasks = React.lazy(() => import('../pages/tasks/index').then(_ => ({ default: _.tasks })))
 const DidApplication = React.lazy(() => import('../pages/did/DidApplication').then(_ => ({ default: _.DidApplication })))
 // const did = React.lazy(() => import('../pages/did/index').then(_ => ({ default: _.did })))
@@ -85,6 +86,14 @@ const routes: Array<IRoute> = [
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
+            name: 'dataNodeMgt',
+            label: 'menu.dataNodeMgt',
+            breadcrumbName: 'menu.dataNodeMgt',
+            path: '/nodeMgt/dataNodeMgt',
+            component: DataNodeMgt,
+            meta: { exact: true, title: '', icon: '', show: true },
+          },
+          {
             name: 'editDataNodeMgt',
             label: 'menu.editDataNode',
             breadcrumbName: 'menu.editDataNode',
@@ -105,45 +114,42 @@ const routes: Array<IRoute> = [
             }
           },
           {
-            name: 'dataNodeMgt',
-            label: 'menu.dataNodeMgt',
-            breadcrumbName: 'menu.dataNodeMgt',
-            path: '/nodeMgt/dataNodeMgt',
-            component: DataNodeMgt,
-            meta: { exact: true, title: '', icon: '', show: true },
-            // children: [
-            //   {
-            //     name: 'editDataNode',
-            //     label: 'menu.editDataNode',
-            //     breadcrumbName: 'menu.editDataNode',
-            //     path: '/nodeMgt/dataNodeMgt/index',
-            //     component: EditNodeMgt,
-            //     meta: { exact: true, title: '', icon: '', show: true },
-            //   },
-            //   {
-            //     name: 'editDataNode',
-            //     label: 'menu.editDataNode',
-            //     breadcrumbName: 'menu.editDataNode',
-            //     path: '/nodeMgt/dataNodeMgt/editDataNode',
-            //     component: AddNodeMgt,
-            //     meta: { exact: true, title: '', icon: '', show: true },
-            //   }, {
-            //     name: 'addDataNode',
-            //     label: 'menu.addDataNode',
-            //     breadcrumbName: 'menu.addDataNode',
-            //     path: '/nodeMgt/dataNodeMgt/addDataNode',
-            //     component: AddNodeMgt,
-            //     meta: { exact: true, title: '', icon: '', show: true },
-            //   }
-            // ]
-          },
-          {
             name: 'computeNodeMgt',
             label: 'menu.computeNodeMgt',
             breadcrumbName: 'menu.computeNodeMgt',
             path: '/nodeMgt/computeNodeMgt',
             component: ComputeNodeMgt,
             meta: { exact: true, title: '', icon: '', show: true },
+          },
+          {
+            name: 'editComputeNodeMgt',
+            label: 'menu.editDataNode',
+            breadcrumbName: 'menu.editDataNode',
+            path: '/nodeMgt/computeNodeMgt/editComputeNode',
+            component: EditComputeNode,
+            meta: {
+              exact: true, title: '', icon: '', show: false
+            }
+          },
+          {
+            name: 'addComputeNodeMgt',
+            label: 'menu.addDataNode',
+            breadcrumbName: 'menu.addDataNode',
+            path: '/nodeMgt/computeNodeMgt/addComputeNode',
+            component: EditComputeNode,
+            meta: {
+              exact: true, title: '', icon: '', show: false
+            }
+          },
+          {
+            name: 'computeNodeDetail',
+            label: 'menu.addDataNode',
+            breadcrumbName: 'menu.computeNodeDetail',
+            path: '/nodeMgt/computeNodeMgt/computeNodeDetail',
+            component: ComputeNodeDetail,
+            meta: {
+              exact: true, title: '', icon: '', show: false
+            }
           },
         ],
       },
