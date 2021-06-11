@@ -1,0 +1,83 @@
+.title-box {
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 20px;
+  .title-label {
+    display: flex;
+    align-items: center;
+    .title {
+      font-family: PingFangSC-Medium;
+      font-size: 22px;
+      color: #000000;
+      line-height: 24px;
+    }
+    .detail {
+      margin-left: 30px;
+      display: flex;
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #1d2832;
+      letter-spacing: 0;
+      .totalTask {
+        padding-left: 10px;
+      }
+    }
+  }
+}
+.filter-box {
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  .standard-input {
+    width: 200px;
+  }
+}
+.task-table-box {
+  padding: 20px;
+  .link {
+    color: $mainColor;
+  }
+}
+.progress-box {
+  box-sizing: border-box;
+  padding: 20px;
+  .progress {
+    background: #eef1ff;
+    border-radius: 2px;
+    height: 157px;
+    display: flex;
+    align-items: center;
+    .left {
+      padding: 40px 50px;
+      .name {
+        font-family: PingFangSC-Medium;
+        font-size: 22px;
+        color: #000000;
+        line-height: 24px;
+      }
+      .id {
+        margin-top: 33px;
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #1d2832;
+        letter-spacing: 0;
+      }
+    }
+    .right {
+      width: 60%;
+      padding-left: 200px;
+    }
+  }
+}
+.event-table-box {
+}
+.btn-box {
+  padding: 0 20px;
+  .btn {
+    width: 112px;
+  }
+}

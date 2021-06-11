@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Table, Progress } from 'antd'
 import { useTranslation } from 'react-i18next'
-import './scss/OverviewTable.scss'
+import '../scss/OverviewTable.scss'
 import memoryImg from '../../../assets/images/overview/2.icon_Memory.svg'
 import BandwidthImg from '../../../assets/images/overview/2.icon_Bandwidth.svg'
 

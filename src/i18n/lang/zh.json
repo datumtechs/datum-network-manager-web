@@ -34,7 +34,8 @@
     "wholeData": "全网数据",
     "wholeCalculation": "全网算力",
     "addDataNode": "添加数据节点",
-    "editDataNode": "编辑数据节点"
+    "editDataNode": "编辑数据节点",
+    "computeNodeDetail": "计算节点详情"
   },
   "common": {
     "submit": "提交",
@@ -72,9 +73,39 @@
     "externalPort": "外部端口"
   },
   "computeNodeMgt": {
-    "nodeName": "计算节点名称与ID",
+    "nodeName": "计算节点名称",
+    "nodeID": "计算节点ID",
     "confirmDelete": "请确认是否要删除计算节点",
     "confirmEnable": "请确认是否要启用计算节点",
-    "confirmDisable": "请确认是否要停用计算节点"
+    "confirmDisable": "请确认是否要停用计算节点",
+    "nodeTask": "此节点参与的任务",
+    "startTime": "发起时间",
+    "sponsor": "发起方",
+    "receiver": "结果方",
+    "collaborators": "协作方",
+    "eachNode": "各个任务占用此节点总算力的实况",
+    "detail": "查看详情",
+    "sponsorStartTime": "发起方与发起时间"
+  },
+  "task": {
+    "myTask": "我的计算任务",
+    "inProgress": "正在进行中的任务:",
+    "totalTask": "总任务:",
+    "taskStatus": "任务状态",
+    "capacity": "角色",
+    "timeSpan": "时间范围",
+    "to": "至",
+    "nameID": "名称与ID",
+    "status": "状态",
+    "myCapacity": "我的角色",
+    "startTime": "发起时间",
+    "operations": "操作",
+    "viewEvent": "查看任务日志",
+    "viewDetail": "查看任务详情",
+    "eventType": "时间类型",
+    "eventMaker": "时间参与方",
+    "generationTime": "产生时间",
+    "eventContent": "时间内容",
+    "taskName": "任务名称"
   }
 }

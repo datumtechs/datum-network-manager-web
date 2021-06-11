@@ -30,7 +30,10 @@ export const EditComputeNode: FC<any> = (props: any) => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item colon label={t('dataNodeMgt.nodeName')} name="nodename" className="form-item">
+          <Form.Item colon label={t('computeNodeMgt.nodeName')} name="nodename" className="form-item">
+            <Input className="form-box-input" placeholder={t('common.noModify')} />
+          </Form.Item>
+          <Form.Item colon label={t('computeNodeMgt.nodeID')} name="nodeID" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIP" className="form-item">

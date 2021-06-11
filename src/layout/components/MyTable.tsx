@@ -3,8 +3,12 @@ import { Table } from 'antd'
 // import { useTranslation } from 'react-i18next'
 
 const MyTable: FC<any> = (props: any) => {
-  console.log(props);
+  console.log(props)
   // const { t } = useTranslation()
+  const pagination = {
+    current: 1,
+    defaultPageSize: 10,
+  }
   const dataSource = [
     {
       key: '1',
@@ -18,11 +22,11 @@ const MyTable: FC<any> = (props: any) => {
       age: 42,
       address: '西湖区湖底公园1号',
     },
-  ];
+  ]
   const columns = [
     {
       title: '序号',
-      render: (text, record, index) => `${index + 1}`,
+      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
     {
@@ -40,7 +44,7 @@ const MyTable: FC<any> = (props: any) => {
       dataIndex: 'address',
       key: 'address',
     },
-  ];
+  ]
   return (
     <div className="table-box">
       <Table dataSource={dataSource} columns={columns} />

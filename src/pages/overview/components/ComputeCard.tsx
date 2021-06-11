@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Progress } from 'antd'
 import { useTranslation } from 'react-i18next'
-import './scss/seed.scss'
+import '../scss/seed.scss'
 
 const SeedNode: FC<any> = (props: any) => {
   const { t } = useTranslation()

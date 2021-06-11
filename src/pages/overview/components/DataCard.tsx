@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import './scss/seed.scss'
+import '../scss/seed.scss'
 
 const DataNode: FC<any> = (props: any) => {
   const { t } = useTranslation()

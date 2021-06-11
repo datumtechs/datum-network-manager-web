@@ -34,7 +34,8 @@
     "wholeData": "Data Resource Center",
     "wholeCalculation": "Computing Resource Center",
     "addDataNode": "Add Data Node",
-    "editDataNode": "Edit Data Node"
+    "editDataNode": "Edit Data Node",
+    "computeNodeDetail": "Computation Node Details"
   },
   "common": {
     "submit": "Submit",
@@ -56,7 +57,7 @@
     "view": "view",
     "enable": "enable",
     "disable": "disable",
-    "viewNodeInfo": "view details",
+    "viewNodeInfo": "details",
     "remark": "Remarks"
   },
   "node": {
@@ -72,9 +73,39 @@
     "externalPort": "External Port"
   },
   "computeNodeMgt": {
-    "nodeName": "Compute node name & ID",
+    "nodeName": "Compute node name",
+    "nodeID": "Compute node ID",
     "confirmDelete": "Please ensure that you are deleting the compute node",
     "confirmEnable": "Please ensure that you are enabling the compute node",
-    "confirmDisable": "Please ensure that you are disabling the compute node"
+    "confirmDisable": "Please ensure that you are disabling the compute node",
+    "nodeTask": "Participated task",
+    "startTime": "Start Time",
+    "sponsor": "Sponsor",
+    "receiver": "Result receiver",
+    "collaborators": "Collaborators",
+    "eachNode": "Occupied resources of each task at this node",
+    "detail": "detail",
+    "sponsorStartTime": "Sponsor & Start time"
+  },
+  "task": {
+    "myTask": "My Computation Task",
+    "inProgress": "Tasks in progress:",
+    "totalTask": "Total tasks:",
+    "taskStatus": "Task Status",
+    "capacity": "Capacity",
+    "timeSpan": "Time span:",
+    "to": "to",
+    "nameID": "Name & ID",
+    "status": "Status",
+    "myCapacity": "My capacity",
+    "startTime": "Start time",
+    "operations": "Operations",
+    "viewEvent": "View Event",
+    "viewDetail": "View Detail",
+    "eventType": "Event Type",
+    "eventMaker": "Event maker",
+    "generationTime": "Generation Time",
+    "eventContent": "Event Content",
+    "taskName": "Task name"
   }
 }

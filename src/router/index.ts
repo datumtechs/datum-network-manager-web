@@ -14,7 +14,9 @@ const EditNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/EditNo
 const ComputeNodeMgt = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })))
 const EditComputeNode = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/EditComputeNode').then(_ => ({ default: _.EditComputeNode })))
 const ComputeNodeDetail = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeDetail').then(_ => ({ default: _.ComputeNodeDetail })))
-const tasks = React.lazy(() => import('../pages/tasks/index').then(_ => ({ default: _.tasks })))
+const Tasks = React.lazy(() => import('../pages/tasks/index').then(_ => ({ default: _.Tasks })))
+const TaskDetail = React.lazy(() => import('../pages/tasks/TaskDetail').then(_ => ({ default: _.TaskDetail })))
+const TaskEvent = React.lazy(() => import('../pages/tasks/TaskEvent').then(_ => ({ default: _.TaskEvent })))
 const DidApplication = React.lazy(() => import('../pages/did/DidApplication').then(_ => ({ default: _.DidApplication })))
 // const did = React.lazy(() => import('../pages/did/index').then(_ => ({ default: _.did })))
 
@@ -192,9 +194,25 @@ const routes: Array<IRoute> = [
         label: 'menu.computeTask',
         breadcrumbName: 'menu.computeTask',
         path: '/tasks',
-        component: tasks,
+        component: Tasks,
         meta: { exact: true, title: '', icon: '', show: true },
-      }
+      },
+      {
+        name: 'taskDetail',
+        label: 'menu.computeTask',
+        breadcrumbName: 'menu.computeTask',
+        path: '/tasks/taskDetail',
+        component: TaskDetail,
+        meta: { exact: true, title: '', icon: '', show: false },
+      },
+      {
+        name: 'TaskEvent',
+        label: 'menu.computeTask',
+        breadcrumbName: 'menu.computeTask',
+        path: '/tasks/TaskEvent',
+        component: TaskEvent,
+        meta: { exact: true, title: '', icon: '', show: false },
+      },
       // {
       //   name: 'DID & Credentials',
       //   path: '/did',
