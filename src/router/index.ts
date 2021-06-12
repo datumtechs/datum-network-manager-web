@@ -6,8 +6,9 @@ const Overview = React.lazy(() => import('../pages/overview/index').then(_ => ({
 const NodeMgt = React.lazy(() => import('../pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))
 const Resource = React.lazy(() => import('../pages/resource/index').then(_ => ({ default: _.Resource })))
 const MyData = React.lazy(() => import('../pages/resource/MyData/MyData').then(_ => ({ default: _.MyData })))
-const WholeData = React.lazy(() => import('../pages/resource/WholeData').then(_ => ({ default: _.WholeData })))
-const WholeCalculation = React.lazy(() => import('../pages/resource/WholeCalculation').then(_ => ({ default: _.WholeCalculation })))
+const DataCenter = React.lazy(() => import('../pages/resource/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
+const MetaDataDetail = React.lazy(() => import('../pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
+const ComputationCenter = React.lazy(() => import('../pages/resource/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })))
 const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => ({ default: _.DispatchConfig })))
 const DataNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })))
 const EditNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(_ => ({ default: _.EditNodeMgt })))
@@ -172,19 +173,27 @@ const routes: Array<IRoute> = [
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
-            name: 'wholeData',
-            label: 'menu.wholeData',
-            breadcrumbName: 'menu.wholeData',
-            path: '/resource/wholeData',
-            component: WholeData,
+            name: 'DataCenter',
+            label: 'menu.dataCenter',
+            breadcrumbName: 'menu.dataCenter',
+            path: '/resource/dataCenter',
+            component: DataCenter,
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
-            name: 'wholeCalculation',
-            label: 'menu.wholeCalculation',
-            breadcrumbName: 'menu.wholeCalculation',
-            path: '/resource/wholeCalculation',
-            component: WholeCalculation,
+            name: 'MetaDataDetail',
+            label: 'center.metaDataDetail',
+            breadcrumbName: 'center.metaDataDetail',
+            path: '/resource/dataCenter/metaDataDetail',
+            component: MetaDataDetail,
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
+          {
+            name: 'ComputationCenter',
+            label: 'menu.computationCenter',
+            breadcrumbName: 'menu.computationCenter',
+            path: '/resource/computationCenter',
+            component: ComputationCenter,
             meta: { exact: true, title: '', icon: '', show: true },
           },
         ],

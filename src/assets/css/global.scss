@@ -11,12 +11,18 @@
     margin-left: 0.3rem;
   }
 }
+.link {
+  color: $mainColor;
+}
+
 .layout-box {
   width: 100%;
   height: calc(100vh - 120px);
   background: #ffffff;
   box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
   border-radius: 6px;
+  overflow-y: scroll;
+  padding-bottom: 40px;
   .bread-box > .ant-breadcrumb {
     height: 50px;
     line-height: 50px;

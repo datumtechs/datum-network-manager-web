@@ -14,12 +14,12 @@ const SearchBar: FC<any> = (props: any) => {
     props.onAdd()
   }
   return (
-    <div className="searchBar-box">
-      <div>
+    <div className="searchBar-box" style={{}}>
+      {props.text ?
         <Button type="primary" className="btn pointer" size="large" onClick={addBtn}>
           {props.text}
-        </Button>
-      </div>
+        </Button> : ""
+      }
       <Search
         placeholder="input search text"
         size="large"

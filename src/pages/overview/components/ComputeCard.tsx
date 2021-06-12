@@ -8,10 +8,10 @@ const SeedNode: FC<any> = (props: any) => {
   return (
     <div className="seed-box">
       <div className="num">{props.seedNode}6</div>
-      <div className="title">{t('overview.ComputeNode')}</div>
+      <div className="title">{t('overview.computeNode')}</div>
       <div className="compute-box">
         <div className="title-section">
-          <p>{t('overview.SharedResource')}:</p>
+          <p>{t('overview.sharedResource')}:</p>
         </div>
         <div className="ring-box">
           <Progress type="circle" percent={props.precent} width={50} strokeWidth={8} strokeColor="#3c3588" />

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Table } from 'antd'
 
-const DataTable: FC<any> = () => {
+const CenterTable: FC<any> = () => {
   const { t } = useTranslation()
   const dataSource = [
     {
@@ -42,4 +42,4 @@ const DataTable: FC<any> = () => {
   )
 }
 
-export default DataTable
+export default CenterTable

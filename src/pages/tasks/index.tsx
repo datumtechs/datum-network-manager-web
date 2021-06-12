@@ -9,9 +9,9 @@ const { Search } = Input
 const { Option } = Select
 export const Tasks: FC<any> = () => {
   const { t } = useTranslation()
-  const onSearch = () => {}
-  const onStatusChange = () => {}
-  const capacityChanged = () => {}
+  const onSearch = () => { }
+  const onStatusChange = () => { }
+  const capacityChanged = () => { }
   return (
     <div className="layout-box">
       <div className="title-box">
@@ -49,7 +49,7 @@ export const Tasks: FC<any> = () => {
             optionFilterProp="children"
             onChange={onStatusChange}
             size="large"
-            filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
             <Option value="jack">Jack</Option>
             <Option value="lucy">Lucy</Option>
@@ -62,7 +62,7 @@ export const Tasks: FC<any> = () => {
             placeholder="Select a person"
             optionFilterProp="children"
             onChange={capacityChanged}
-            filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
             <Option value="jack">Jack</Option>
             <Option value="lucy">Lucy</Option>
