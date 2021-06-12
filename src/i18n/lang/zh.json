@@ -152,6 +152,22 @@
     "dataDesc": "数据描述",
     "fileField": "源文件字段",
     "dataType": "数据类型",
-    "remarks": "字段描述"
+    "remarks": "字段描述",
+    "download": "下载",
+    "withdraw": "下架",
+    "publish": "上架",
+    "view": "查看",
+    "delete": "删除",
+    "modify": "修改",
+    "dataAddition": "数据添加",
+    "dataDetail": "数据详情",
+    "infoModify": "数据修改",
+    "metaStatus": "元数据状态",
+    "metaName": "源文件名称与ID",
+    "metaFiled": "元数据摘要",
+    "confirmDelete": "请确认是否要删除源文件:",
+    "confirmPublish": "请确认是否要上架源文件:",
+    "confirmWithdraw": "请确认是否要下架源文件:",
+    "uploadFile": "添加源文件"
   }
 }
