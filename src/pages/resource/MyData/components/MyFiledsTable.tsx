@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Table } from 'antd'
 
-const FieldTable: FC<any> = () => {
+const MyFiledsTable: FC<any> = () => {
   const { t } = useTranslation()
   const history = useHistory()
   const pagination = {
@@ -55,4 +55,4 @@ const FieldTable: FC<any> = () => {
   )
 }
 
-export default FieldTable
+export default MyFiledsTable

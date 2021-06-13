@@ -182,6 +182,8 @@
     "unavailableName": "名称不可用",
     "availableName": "名称可用",
     "fieldsNote": "请根据需要修改“源文件字段”、“是否对外可见”与“数据类型”，并补充相应的“字段描述”，字段信息提交后仍可以在管理页面修改。",
-    "selectCsvFile": "选择CSV文件"
+    "selectCsvFile": "选择CSV文件",
+    "upload": "导入文件",
+    "sourceName": "源文件名称"
   }
 }
