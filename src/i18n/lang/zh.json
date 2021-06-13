@@ -169,5 +169,19 @@
     "confirmPublish": "请确认是否要上架源文件:",
     "confirmWithdraw": "请确认是否要下架源文件:",
     "uploadFile": "添加源文件"
+  },
+  "myData": {
+    "plzUploadFile": "请导入本地数据源文件",
+    "plzConfigureMetaData": "请配置源文件的元数据",
+    "plzAnnounceIncludesFields": "请选择导入的本地源数据文件是否包含表头。",
+    "including": "文件包含表头",
+    "noIncluding": "文件不包含表头",
+    "onlyCsv": "只支持CSV格式的文件上传，请重新选择文件.",
+    "note": "注:",
+    "sourceFileNote": "根据需要修改源文件名称，不可与其他源文件重复，且本次设置之后无法更改。",
+    "unavailableName": "名称不可用",
+    "availableName": "名称可用",
+    "fieldsNote": "请根据需要修改“源文件字段”、“是否对外可见”与“数据类型”，并补充相应的“字段描述”，字段信息提交后仍可以在管理页面修改。",
+    "selectCsvFile": "选择CSV文件"
   }
 }

@@ -109,6 +109,46 @@
     margin-top: 30px;
     background: #fff;
   }
+  .info-box {
+    padding: 20px 20px 0px;
+    .title-label {
+      font-family: PingFangSC-Medium;
+      font-size: 16px;
+      color: #000000;
+      letter-spacing: 0;
+      font-weight: 600;
+    }
+  }
+  .add-info-box {
+    padding: 20px;
+    .limit-box {
+      width: 572px;
+    }
+    .title-box {
+      flex: auto;
+      overflow: hidden;
+      color: #000000;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 1.5715;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .label-box {
+      padding: 20px;
+    }
+  }
+  .data-table-box {
+    .operation-box {
+      .btn {
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #3c3588;
+        letter-spacing: 0;
+        line-height: 16.8px;
+      }
+    }
+  }
 }
 .ant-modal-body {
   min-height: 140px;

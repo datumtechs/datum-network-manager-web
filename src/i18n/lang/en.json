@@ -169,5 +169,19 @@
     "confirmPublish": "Please ensure that you are publishing the source file:",
     "confirmWithdraw": "Please ensure that you are withdrawing the source file:",
     "uploadFile": "Upload a source file"
+  },
+  "myData": {
+    "plzUploadFile": "Please upload your local file",
+    "plzConfigureMetaData": "Please fill in information of the metadata",
+    "plzAnnounceIncludesFields": "Please announce whether the file includes fields.",
+    "including": "Including fields",
+    "noIncluding": "NOT including fields",
+    "onlyCsv": "Only CSV files can be uploaded, please reselect a file.",
+    "note": "Note:",
+    "sourceFileNote": "the source file name can be modified at this page only and cannot be duplicated.",
+    "unavailableName": "unavailable name",
+    "availableName": "available name",
+    "fieldsNote": "fields, 'externally visible or not', data types and remarks can be modified at this page or at the management page after submitting.",
+    "selectCsvFile": "Select an CSV file"
   }
 }

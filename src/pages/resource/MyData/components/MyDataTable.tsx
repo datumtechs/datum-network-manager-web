@@ -16,11 +16,23 @@ const MyDataTable: FC<any> = () => {
     setIsModalVisible(false)
   }
   const viewFn = () => {
-    history.push('/resource/myData/dataDetail')
+    history.push({
+      pathname: '/resource/myData/dataDetail',
+      state: {
+        type: 'view',
+        id: '11111111',
+      },
+    })
   }
 
   const modifyFn = () => {
-    history.push('/resource/myData/infoModify')
+    history.push({
+      pathname: '/resource/myData/dataDetail',
+      state: {
+        type: 'edit',
+        id: '11111111',
+      },
+    })
   }
   const publishFn = () => {
     setType('pulish')
