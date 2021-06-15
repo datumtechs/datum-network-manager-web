@@ -184,6 +184,10 @@
     "fieldsNote": "fields, 'externally visible or not', data types and remarks can be modified at this page or at the management page after submitting.",
     "selectCsvFile": "Select a CSV file",
     "upload": "Upload",
-    "sourceName": "Source file name"
+    "sourceName": "Source file name",
+    "select": "select",
+    "visible": "Externally visible",
+    "yes": "YES",
+    "no": "NO"
   }
 }

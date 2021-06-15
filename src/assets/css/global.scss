@@ -146,6 +146,10 @@
       .title-box {
         padding-bottom: 20px;
       }
+      .ant-radio-button-wrapper-checked {
+        background-color: $mainColor !important;
+        color: #fff !important;
+      }
     }
   }
   .data-table-box {

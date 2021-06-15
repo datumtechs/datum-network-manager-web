@@ -6,7 +6,7 @@ import Bread from '../../../../layout/components/Bread'
 import { MyRadioBtn } from './MyRadioBtn'
 import MyFiledsTable from './MyFiledsTable'
 
-export const MetaDataAddtion: FC<any> = (porps) => {
+export const MetaDataAddtion: FC<any> = porps => {
   const { t } = useTranslation()
   const [formDisable, setFormDiasble] = useState(false)
   const [uploadFile, setUploadFile] = useState<any>({})
@@ -16,8 +16,7 @@ export const MetaDataAddtion: FC<any> = (porps) => {
   const history = useHistory()
   const inputRef = createRef<any>()
 
-  const selectFileFn = () => {
-  }
+  const selectFileFn = () => {}
   const goBackFn = () => {
     history.go(-1)
   }
@@ -25,7 +24,7 @@ export const MetaDataAddtion: FC<any> = (porps) => {
     console.log('submit')
   }
   useEffect(() => {
-    if (inputRef?.current?.input?.files?.length > 0 && uploadFile.type !== ('text/csv')) {
+    if (inputRef?.current?.input?.files?.length > 0 && uploadFile.type !== 'text/csv') {
       setShowTypeError(true)
     } else {
       setShowTypeError(false)
@@ -34,24 +33,23 @@ export const MetaDataAddtion: FC<any> = (porps) => {
 
   const uploadFn = () => {
     // 判断文件是否为空 判断是否选择了包含字段
-    console.log(inputRef.current.input.files);
+    console.log(inputRef.current.input.files)
 
-    console.log(Object.keys(uploadFile).length);
+    console.log(Object.keys(uploadFile).length)
     if (!radioValue) {
       setShowIncludeError(true)
     } else if (inputRef?.current?.input?.files?.length === 0) {
-      message.error('Please select a file first');
+      message.error('Please select a file first')
     } else if (!showTypeError) {
       setShowTypeError(true)
     }
-    console.log("uploadFn Api");
+    console.log('uploadFn Api')
   }
 
-  const uploadFileOnChange = (e) => {
+  const uploadFileOnChange = e => {
     const file = e.target.files[0]
     setUploadFile(file)
   }
-
 
   const changeFileIncludeStatusFn = (e: any) => {
     setShowIncludeError(false)
@@ -63,9 +61,7 @@ export const MetaDataAddtion: FC<any> = (porps) => {
         <Bread />
       </div>
       <div className="add-info-box">
-        <div className="title-box">
-          {t('myData.plzUploadFile')}
-        </div>
+        <div className="title-box">{t('myData.plzUploadFile')}</div>
         <div className="label-box">
           <Radio.Group onChange={changeFileIncludeStatusFn} value={radioValue}>
             <Radio value={0} disabled={formDisable}>
@@ -75,34 +71,32 @@ export const MetaDataAddtion: FC<any> = (porps) => {
               {t('myData.noIncluding')}
             </Radio>
           </Radio.Group>
-          {
-            showIncludeError ? <p className="note-box">{t('myData.plzAnnounceIncludesFields')}</p> : ""
-          }
-
+          {showIncludeError ? <p className="note-box">{t('myData.plzAnnounceIncludesFields')}</p> : ''}
         </div>
         <div className="label-box limit-box">
-          <MyRadioBtn ref={inputRef} file={uploadFile} onSearch={selectFileFn} uploadFn={uploadFn} onChange={uploadFileOnChange} />
-          {
-            showTypeError ? <p className="note-box">{t('myData.onlyCsv')}</p> : ""
-          }
+          <MyRadioBtn
+            ref={inputRef}
+            file={uploadFile}
+            onSearch={selectFileFn}
+            uploadFn={uploadFn}
+            onChange={uploadFileOnChange}
+          />
+          {showTypeError ? <p className="note-box">{t('myData.onlyCsv')}</p> : ''}
         </div>
       </div>
       <div className="add-info-box">
-        <div className="title-box">
-          {t('myData.plzConfigureMetaData')}
-        </div>
+        <div className="title-box">{t('myData.plzConfigureMetaData')}</div>
         <div className="sub-info-box">
-          <div className="title-box">
-            {t('center.basicInfo')}
-          </div>
+          <div className="title-box">{t('center.basicInfo')}</div>
           <div>
             <Form
               name="basic"
               labelAlign="left"
-              labelCol={{ span: 3 }} wrapperCol={{ span: 21 }}
+              labelCol={{ span: 3 }}
+              wrapperCol={{ span: 21 }}
               initialValues={{ remember: true }}
-            // onFinish={onFinish}
-            // onFinishFailed={onFinishFailed}
+              // onFinish={onFinish}
+              // onFinishFailed={onFinishFailed}
             >
               <Form.Item
                 label={t('myData.sourceName')}
@@ -123,21 +117,24 @@ export const MetaDataAddtion: FC<any> = (porps) => {
           </div>
         </div>
         <div className="sub-info-box">
-          <div className="title-box">
-            {t('center.fieldInfo')}
-          </div>
+          <div className="title-box">{t('center.fieldInfo')}</div>
           <div>
             <MyFiledsTable />
+            {/* <EditTable /> */}
+            {/* <EditableTable /> */}
           </div>
         </div>
       </div>
       <div className="add-info-box">
         <Space size={40} className="btn-group">
-          <Button size="large" className="btn" onClick={goBackFn}>{t('common.return')}</Button>
-          <Button size="large" className="btn" type="primary" onClick={submitFn}>{t('common.submit')}</Button>
+          <Button size="large" className="btn" onClick={goBackFn}>
+            {t('common.return')}
+          </Button>
+          <Button size="large" className="btn" type="primary" onClick={submitFn}>
+            {t('common.submit')}
+          </Button>
         </Space>
       </div>
     </div>
-
   )
 }
