@@ -1,8 +1,10 @@
-import React, { FC, useMemo, useEffect, useState } from 'react'
+import React, { FC, useMemo, useEffect, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { Table, Space, Select, Tabs, Radio } from 'antd'
+import { Table, Space, Select, Tabs, Radio, Input } from 'antd'
+import EditTableCell from './EditableCell'
 import { DATATYPE } from '../../../../config/constant'
+import '../scss/editTable.scss'
 
 interface Item {
   id: String
@@ -21,10 +23,10 @@ interface EditableRowProps {
 const MyFiledsTable: FC<any> = () => {
   const { t } = useTranslation()
   const history = useHistory()
+  const inputRef = useRef<Input>(null);
   const changeVisibleFn = (e, record) => {
     console.log(record)
     console.log(e)
-    return e
   }
   const { Option } = Select
   const pagination = {
@@ -33,16 +35,42 @@ const MyFiledsTable: FC<any> = () => {
   }
 
   const [data, setData] = useState<Item[]>([])
+  const [isFieldEditing, setIsFieldEditing] = useState<boolean>(false)
 
+
+  // useEffect(() => {
+  //   if (isFieldEditing && inputRef.current) {
+  //     inputRef.current!.focus();
+  //   }
+  // }, [isFieldEditing]);
   const linkMeta = () => {
     history.push('/resource/dataCenter/metaDataDetail')
   }
-
+  const toggleEdit = () => {
+    setIsFieldEditing(!isFieldEditing);
+  };
+  const handleSelectChange = (e, record) => {
+    console.log(record);
+    console.log(e);
+  }
+  const handleSwitchChange = (e, record) => {
+    const rows = [...data]
+    const row = rows.find(item => item.id === record.id)
+    if (row) {
+      row.visible = e.target.value
+    }
+    setData(rows)
+  }
   const handleCellChange = (e, record) => {
-    let rows = [...data]
-    let row = rows.find(item => item.id === record.id)
-    row ? (row.visible = e.taget.value) : ''
-    console.log(record)
+    console.log(record);
+    console.log(e);
+
+    const rows = [...data]
+    const row = rows.find(item => item.id === record.id)
+    if (row) {
+      row.name = e.target.value
+    }
+    setData(rows)
   }
   const dataSource = [
     {
@@ -67,7 +95,7 @@ const MyFiledsTable: FC<any> = () => {
 
   useEffect(() => {
     setData(() => [...dataSource])
-  }, [data])
+  }, [])
 
   const columns = [
     {
@@ -77,8 +105,15 @@ const MyFiledsTable: FC<any> = () => {
     {
       title: t('center.fileField'),
       dataIndex: 'name',
+      width: '20%',
       key: 'name',
       editable: 'true',
+      render: (text, record, index) =>
+        (<EditTableCell record={record} handleCellChange={(e) => handleCellChange(e, record)} />)
+      // {
+
+      //   return isFieldEditing ? <Input onChange={(e) => handleCellChange(e, record)} onBlur={toggleEdit} ref={inputRef} value={record.name} /> : <div className="editable-cell-value-wrap" onClick={toggleEdit}>{record.name}</div>
+      // }
     },
     {
       title: t('myData.visible'),
@@ -87,29 +122,27 @@ const MyFiledsTable: FC<any> = () => {
       editable: 'true',
       // onCell: (record: any) => ({
       //   record,
-      //   editable: col.editable,
-      //   dataIndex: col.dataIndex,
-      //   title: col.title,
-      //   handleSave: this.handleSave,
+      //   editable: 'true',
+      //   dataIndex: 'visible',
+      //   title: t('myData.visible'),
+      //   onChange: e => handleCellChange(e, record),
       // }),
       render: (text, record, index) => {
         return (
           <div>
             <Radio.Group
               defaultValue="yes"
-              onChange={e => {
-                changeVisibleFn(e, record)
-              }}
               value={record.visible}
               optionType="button"
               buttonStyle="solid"
+              onChange={e => handleSwitchChange(e, record)}
             >
               <Radio.Button checked value="yes">
                 {t('myData.yes')}
               </Radio.Button>
               <Radio.Button value="no">{t('myData.no')}</Radio.Button>
             </Radio.Group>
-          </div>
+          </div >
         )
       },
     },
@@ -117,20 +150,16 @@ const MyFiledsTable: FC<any> = () => {
       title: t('center.dataType'),
       dataIndex: 'dataType',
       key: 'dataType',
-      editable: 'true',
+      editable: 'false',
       render: (text, record, index) => {
         return (
-          <Space size={60}>
-            {/* <p>{record.dataType}</p> */}
-            {/* <p className="link">{t('myData.select')}</p> */}
-            <Select defaultValue="STRING" style={{ width: 100 }} placeholder="Select a type">
-              {DATATYPE.map(type => (
-                <Option value={type.label} key={type.id}>
-                  {type.label}
-                </Option>
-              ))}
-            </Select>
-          </Space>
+          <Select onChange={e => handleSelectChange(e, record)} defaultValue="STRING" style={{ width: 100 }} placeholder="Select a type">
+            {DATATYPE.map(type => (
+              <Option value={type.label} key={type.id}>
+                {type.label}
+              </Option>
+            ))}
+          </Select>
         )
       },
     },
@@ -142,27 +171,27 @@ const MyFiledsTable: FC<any> = () => {
     },
   ]
 
-  const editCol = useMemo(
-    () =>
-      columns.map(col => {
-        if (!col.editable) return col
-        return {
-          ...col,
-          onCell: record => ({
-            record,
-            editable: col.editable,
-            title: col.title,
-            dataindex: col.dataIndex,
-            onChange: handleCellChange,
-          }),
-        }
-      }),
-    [columns],
-  )
+  // const editCol = useMemo(
+  //   () =>
+  //     columns.map(col => {
+  //       if (!col.editable) return col
+  //       return {
+  //         ...col,
+  //         onCell: (record, rowIndex) => ({
+  //           record,
+  //           editable: col.editable,
+  //           title: col.title,
+  //           dataindex: col.dataIndex,
+  //           onChange: (e) => handleCellChange(e, record),
+  //         }),
+  //       }
+  //     }),
+  //   [columns],
+  // )
 
   return (
     <div className="data-table-box">
-      <Table dataSource={data} columns={editCol} />
+      <Table rowClassName={() => 'editable-row'} dataSource={data} columns={columns} />
     </div>
   )
 }

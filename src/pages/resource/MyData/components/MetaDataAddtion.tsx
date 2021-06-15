@@ -16,7 +16,7 @@ export const MetaDataAddtion: FC<any> = porps => {
   const history = useHistory()
   const inputRef = createRef<any>()
 
-  const selectFileFn = () => {}
+  const selectFileFn = () => { }
   const goBackFn = () => {
     history.go(-1)
   }
@@ -95,8 +95,8 @@ export const MetaDataAddtion: FC<any> = porps => {
               labelCol={{ span: 3 }}
               wrapperCol={{ span: 21 }}
               initialValues={{ remember: true }}
-              // onFinish={onFinish}
-              // onFinishFailed={onFinishFailed}
+            // onFinish={onFinish}
+            // onFinishFailed={onFinishFailed}
             >
               <Form.Item
                 label={t('myData.sourceName')}
