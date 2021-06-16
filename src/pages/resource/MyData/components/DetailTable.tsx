@@ -13,12 +13,12 @@ const DetailTable: FC<any> = (props: any) => {
     current: 1,
     defaultPageSize: 10,
   }
-  const handleOk = () => {}
+  const handleOk = () => { }
   const handleCancel = () => {
     setIsModalVisible(false)
   }
 
-  const modifyFn = () => {}
+  const modifyFn = () => { }
 
   const dataSource = [
     {
@@ -61,18 +61,6 @@ const DetailTable: FC<any> = (props: any) => {
       title: t('center.remarks'),
       dataIndex: 'remarks',
       key: 'remarks',
-    },
-    {
-      title: t('common.operations'),
-      dataIndex: 'operation',
-      key: 'operation',
-      render: (text, record, index) => {
-        return (
-          <Space>
-            <span className="link pointer">edit</span>
-          </Space>
-        )
-      },
     },
   ]
   return (

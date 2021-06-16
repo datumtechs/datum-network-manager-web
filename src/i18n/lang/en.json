@@ -20,7 +20,9 @@
     "sharedResource": "Shared computing resource",
     "memory": "Memory",
     "bandWidth": "Bandwidth",
-    "submit": "Create the identify credential，and apply for network access"
+    "submit": "Create the identify credential，and apply for network access",
+    "publishData": "Published  data",
+    "taskInProgress": "Tasks in Progress"
   },
   "menu": {
     "systemOverview": "System Overview",

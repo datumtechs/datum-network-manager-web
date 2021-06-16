@@ -3,67 +3,73 @@
   box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
   border-radius: 6px;
   border-radius: 6px;
-  padding: 0.15rem 0.2rem;
-  width: 2.63rem;
-  height: 1.62rem;
+  padding: 15px 20px;
+  width: 263px;
+  height: 162px;
   &:not(:last-child) {
     margin-bottom: 26px;
   }
   .num {
     font-family: PingFangSC-Medium;
-    font-size: 30px;
     color: $mainColor;
     letter-spacing: 0;
-    line-height: 0.42rem;
-    height: 0.42rem;
-  }
-  .title {
-    font-family: PingFangSC-Medium;
-    font-size: 16px;
-    color: $mainColor;
-    letter-spacing: 0;
+
+    span.number {
+      font-size: 40px;
+    }
+    span.title {
+      padding-left: 20px;
+      font-size: 18px;
+    }
   }
   .text-box {
-    margin-top: 0.2rem;
+    margin-top: 28px;
     .text {
+      display: flex;
+      justify-content: space-between;
       font-family: PingFangSC-Medium;
-      font-size: 14px;
+      font-size: 16px;
       color: #1d2832;
       letter-spacing: 0;
       line-height: 22px;
-      margin-bottom: 0.1rem;
+      margin-bottom: 1px;
       span:nth-child(2) {
-        padding-left: 0.1rem;
+        padding-left: 10px;
+      }
+      &:first-child {
+        margin-bottom: 15px;
       }
     }
   }
   .compute-box {
-    display: flex;
-    margin-top: 0.2rem;
-    justify-content: space-between;
     align-items: center;
+    margin-top: 28px;
     .title-section {
-      width: 125px;
+      display: flex;
+      justify-content: space-between;
       font-family: PingFangSC-Medium;
-      font-size: 14px;
+      font-size: 16px;
       color: #1d2832;
       letter-spacing: 0;
       line-height: 22px;
     }
   }
   .status {
-    margin-top: 0.2rem;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
     font-family: PingFangSC-Regular;
+    align-items: center;
     font-size: 14px;
     color: #000000;
     letter-spacing: 0;
     display: flex;
     .status-title {
-      padding-right: 0.1rem;
+      padding-right: 10px;
     }
     .status-text {
       line-height: 23px;
-      padding-right: 0.1rem;
+      padding-right: 10px;
     }
     .status-icon {
       width: 23px;
@@ -72,10 +78,17 @@
       border-radius: 4px;
     }
     .close-status-icon {
-      background-color: #7de40c;
-    }
-    .open-status-icon {
       background-color: #f32e25;
     }
+    .open-status-icon {
+      background-color: #7de40c;
+    }
   }
+}
+.value {
+  margin-right: 10px;
+}
+
+.mainColor {
+  color: $mainColor;
 }

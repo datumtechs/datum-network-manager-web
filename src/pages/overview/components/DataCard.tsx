@@ -7,16 +7,18 @@ const DataNode: FC<any> = (props: any) => {
 
   return (
     <div className="seed-box">
-      <div className="num">{props.dataNode}7</div>
-      <div className="title">{t('overview.dataNode')}</div>
+      <div className="num">
+        <span className="number">{props.dataNode}7</span>
+        <span className="title">{t('overview.dataNode')}</span>
+      </div>
       <div className="text-box">
         <div className="text">
-          <span>{t('overview.uploadedData')}:</span>
-          <span>{props.uploadedData}33</span>
+          <span>{t('overview.publishData')}:</span>
+          <span className="value mainColor">{props.uploadedData}33</span>
         </div>
         <div className="text">
           <span>{t('overview.authorizedData')}:</span>
-          <span>{props.authorizedData}33</span>
+          <span className="value mainColor">{props.authorizedData}33</span>
         </div>
       </div>
     </div>

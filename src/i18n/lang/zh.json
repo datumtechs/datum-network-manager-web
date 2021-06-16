@@ -20,7 +20,9 @@
     "sharedResource": "已占用总计算资源",
     "memory": "内存",
     "bandWidth": "带宽",
-    "submit": "生成身份凭证,申请网络准入"
+    "submit": "生成身份凭证,申请网络准入",
+    "publishData": "已发布数据",
+    "taskInProgress": "正在进行中的任务"
   },
   "menu": {
     "systemOverview": "系统概况",

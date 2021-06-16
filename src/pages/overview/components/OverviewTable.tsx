@@ -210,7 +210,7 @@ const OverviewTable: FC<any> = (props: any) => {
       <div className="my-table-body">
         {dataSource.map(item => {
           return (
-            <div className="my-table-box" key={item.name}>
+            <div className="my-table" key={item.name}>
               <div className="line-first">
                 <div className="name">Computation node：{item.name}</div>
                 {item.runTime ? <div className="time">Continuous run time：{item.runTime}</div> : <></>}

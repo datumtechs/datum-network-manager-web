@@ -5,11 +5,11 @@ import DataCard from './components/DataCard'
 import OverviewTable from './components/OverviewTable'
 
 export const Overview: FC<any> = () => {
-  const showName = () => {}
+  const showName = () => { }
   return (
     <div onClick={showName} className="main-wrapper">
       <div className="left-side">
-        <SeedCard />
+        <SeedCard schedueStatus="true" />
         <DataCard />
         <ComputeCard precent={75} />
       </div>

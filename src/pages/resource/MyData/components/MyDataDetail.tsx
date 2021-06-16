@@ -3,6 +3,7 @@ import { Descriptions, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import Bread from '../../../../layout/components/Bread'
 import DetailTable from './DetailTable'
+import MyFiledsTable from './MyFiledsTable'
 import '../scss/editTable.scss'
 
 export const MyDataDetail: FC<any> = porps => {
@@ -64,7 +65,7 @@ export const MyDataDetail: FC<any> = porps => {
       </div>
       <div className="info-box">
         <Descriptions column={2} title={`${t('center.fieldInfo')}`}></Descriptions>
-        <DetailTable />
+        {type === 'view' ? <DetailTable /> : <MyFiledsTable mode="edit" />}
       </div>
     </div>
   )

@@ -16,7 +16,7 @@ interface Item {
   remarks: string
 }
 
-const MyFiledsTable: FC<any> = () => {
+const MyFiledsTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const history = useHistory()
   const changeVisibleFn = (e, record) => {
@@ -30,15 +30,15 @@ const MyFiledsTable: FC<any> = () => {
   }
 
   const [data, setData] = useState<Item[]>([])
-
+  const { mode } = props
   // useEffect(() => {
   //   if (isFieldEditing && inputRef.current) {
   //     inputRef.current!.focus();
   //   }
   // }, [isFieldEditing]);
-  const linkMeta = () => {
-    history.push('/resource/dataCenter/metaDataDetail')
-  }
+  // const linkMeta = () => {
+  //   history.push('/resource/dataCenter/metaDataDetail')
+  // }
   const handleSelectChange = (e, record) => {
     console.log(record)
     console.log(e)
@@ -51,13 +51,13 @@ const MyFiledsTable: FC<any> = () => {
     }
     setData(rows)
   }
-  const handleCellChange = (e, record, type) => {
-    console.log(type)
+  const handleCellChange = (e, record, column) => {
+    console.log(column)
 
     const rows = [...data]
     const row = rows.find(item => item.id === record.id)
     if (row) {
-      row[type] = e.target.value
+      row[column] = e.target.value
     }
     setData(rows)
   }
@@ -98,7 +98,7 @@ const MyFiledsTable: FC<any> = () => {
       key: 'name',
       editable: 'true',
       render: (text, record, index) => (
-        <EditTableCell record={record} type="name" handleCellChange={handleCellChange} />
+        <EditTableCell record={record} column="name" handleCellChange={handleCellChange} />
       ),
     },
     {
@@ -161,14 +161,15 @@ const MyFiledsTable: FC<any> = () => {
       key: 'remarks',
       width: '35%',
       render: (text, record, index) => (
-        <EditTableCell record={record} type="remarks" handleCellChange={handleCellChange} />
+        <EditTableCell record={record} column="remarks" handleCellChange={handleCellChange} />
       ),
     },
   ]
 
   return (
     <div className="data-table-box">
-      <div className="tips pb-20">{t('myData.infoTips')}</div>
+      {mode === 'add' ?
+        <div className="tips pb-20">{t('myData.infoTips')}</div> : ""}
       <Table rowClassName={() => 'editable-row'} dataSource={data} columns={columns} />
     </div>
   )

@@ -5,7 +5,7 @@ import '../scss/editTable.scss'
 
 const EditTableCell: FC<any> = (props: any) => {
   const [isFieldEditing, setIsFieldEditing] = useState<boolean>(false)
-  const { record, type } = props
+  const { record, column } = props
   const inputRef = useRef<Input>(null)
   useEffect(() => {
     if (isFieldEditing) {
@@ -14,7 +14,7 @@ const EditTableCell: FC<any> = (props: any) => {
   }, [isFieldEditing])
 
   const handleCellChange = e => {
-    props.handleCellChange(e, record, type)
+    props.handleCellChange(e, record, column)
   }
   const toggleEdit = () => {
     setIsFieldEditing(!isFieldEditing)
@@ -24,10 +24,10 @@ const EditTableCell: FC<any> = (props: any) => {
   return (
     <>
       {isFieldEditing ? (
-        <Input onChange={e => handleCellChange(e)} onBlur={toggleEdit} ref={inputRef} value={record[type]} />
+        <Input onChange={e => handleCellChange(e)} onBlur={toggleEdit} ref={inputRef} value={record[column]} />
       ) : (
         <div className="editable-cell-value-wrap" onClick={toggleEdit}>
-          {record[type]}
+          {record[column]}
         </div>
       )}
     </>
