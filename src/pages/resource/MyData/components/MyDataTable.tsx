@@ -11,7 +11,7 @@ const MyDataTable: FC<any> = () => {
   const [type, setType] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const handleOk = () => { }
+  const handleOk = () => {}
   const handleCancel = () => {
     setIsModalVisible(false)
   }
@@ -35,7 +35,7 @@ const MyDataTable: FC<any> = () => {
     })
   }
   const publishFn = () => {
-    setType('pulish')
+    setType('publish')
     setIsModalVisible(true)
   }
   const deleteFn = () => {
@@ -47,7 +47,7 @@ const MyDataTable: FC<any> = () => {
     setIsModalVisible(true)
   }
 
-  const downloadFn = () => { }
+  const downloadFn = () => {}
 
   const dataSource = [
     {
@@ -55,14 +55,14 @@ const MyDataTable: FC<any> = () => {
       name: '胡彦斌',
       metaFiled: 32,
       metaStatus: '西湖区湖底公园1号',
-      status: 'Unpublished'
+      status: 'Unpublished',
     },
     {
       key: '2',
       name: '胡彦祖',
       metaFiled: 42,
       metaStatus: '西湖区湖底公园1号',
-      status: 'Published'
+      status: 'Published',
     },
   ]
   const columns = [
@@ -90,7 +90,6 @@ const MyDataTable: FC<any> = () => {
         console.log('row', row)
         return (
           <Space size={10} className="operation-box">
-
             {row.status === 'Published' ? (
               <>
                 <span className="btn pointer link" onClick={viewFn}>
@@ -136,27 +135,9 @@ const MyDataTable: FC<any> = () => {
     <div className="data-table-box">
       <Table dataSource={dataSource} columns={columns} />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        {type === 'delete' ? (
-          <p>
-            {t('center.confirmDelete')}:111111111111111111
-          </p>
-        ) : (
-          ''
-        )}
-        {type === 'publish' ? (
-          <p>
-            {t('center.confirmPublish')}:222222222222222222
-          </p>
-        ) : (
-          ''
-        )}
-        {type === 'withdraw' ? (
-          <p>
-            {t('center.confirmWithdraw')}:333333333333333333333
-          </p>
-        ) : (
-          ''
-        )}
+        {type === 'delete' ? <p>{t('center.confirmDelete')}:111111111111111111</p> : ''}
+        {type === 'publish' ? <p>{t('center.confirmPublish')}:222222222222222222</p> : ''}
+        {type === 'withdraw' ? <p>{t('center.confirmWithdraw')}:333333333333333333333</p> : ''}
       </MyModal>
     </div>
   )

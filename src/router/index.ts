@@ -8,7 +8,8 @@ const Resource = React.lazy(() => import('../pages/resource/index').then(_ => ({
 const MyData = React.lazy(() => import('../pages/resource/MyData/MyData').then(_ => ({ default: _.MyData })))
 const DataCenter = React.lazy(() => import('../pages/resource/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
 const MetaDataDetail = React.lazy(() => import('../pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
-const MetaDataAddtion = React.lazy(() => import('../pages/resource/MyData/components/MetaDataAddtion').then(_ => ({ default: _.MetaDataAddtion })))
+const MyDataAddtion = React.lazy(() => import('../pages/resource/MyData/components/MyDataAddtion').then(_ => ({ default: _.MyDataAddtion })))
+const MyDataDetail = React.lazy(() => import('../pages/resource/MyData/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })))
 const ComputationCenter = React.lazy(() => import('../pages/resource/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })))
 const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => ({ default: _.DispatchConfig })))
 const DataNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })))
@@ -178,7 +179,7 @@ const routes: Array<IRoute> = [
             label: 'center.dataAddition',
             breadcrumbName: 'center.dataAddition',
             path: '/resource/myData/dataAddition',
-            component: MetaDataAddtion,
+            component: MyDataAddtion,
             meta: { exact: true, title: '', icon: '', show: false },
           },
           {
@@ -186,7 +187,7 @@ const routes: Array<IRoute> = [
             label: 'center.dataDetail',
             breadcrumbName: 'center.dataDetail',
             path: '/resource/myData/dataDetail',
-            component: MetaDataDetail,
+            component: MyDataDetail,
             meta: { exact: true, title: '', icon: '', show: false },
           },
           {
@@ -194,7 +195,7 @@ const routes: Array<IRoute> = [
             label: 'center.infoModify',
             breadcrumbName: 'center.infoModify',
             path: '/resource/myData/infoModify',
-            component: MetaDataDetail,
+            component: MyDataDetail,
             meta: { exact: true, title: '', icon: '', show: false },
           },
           {

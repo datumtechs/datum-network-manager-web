@@ -16,14 +16,9 @@ interface Item {
   remarks: string
 }
 
-interface EditableRowProps {
-  index: number
-}
-
 const MyFiledsTable: FC<any> = () => {
   const { t } = useTranslation()
   const history = useHistory()
-  const inputRef = useRef<Input>(null);
   const changeVisibleFn = (e, record) => {
     console.log(record)
     console.log(e)
@@ -35,8 +30,6 @@ const MyFiledsTable: FC<any> = () => {
   }
 
   const [data, setData] = useState<Item[]>([])
-  const [isFieldEditing, setIsFieldEditing] = useState<boolean>(false)
-
 
   // useEffect(() => {
   //   if (isFieldEditing && inputRef.current) {
@@ -46,12 +39,9 @@ const MyFiledsTable: FC<any> = () => {
   const linkMeta = () => {
     history.push('/resource/dataCenter/metaDataDetail')
   }
-  const toggleEdit = () => {
-    setIsFieldEditing(!isFieldEditing);
-  };
   const handleSelectChange = (e, record) => {
-    console.log(record);
-    console.log(e);
+    console.log(record)
+    console.log(e)
   }
   const handleSwitchChange = (e, record) => {
     const rows = [...data]
@@ -61,14 +51,13 @@ const MyFiledsTable: FC<any> = () => {
     }
     setData(rows)
   }
-  const handleCellChange = (e, record) => {
-    console.log(record);
-    console.log(e);
+  const handleCellChange = (e, record, type) => {
+    console.log(type)
 
     const rows = [...data]
     const row = rows.find(item => item.id === record.id)
     if (row) {
-      row.name = e.target.value
+      row[type] = e.target.value
     }
     setData(rows)
   }
@@ -108,12 +97,9 @@ const MyFiledsTable: FC<any> = () => {
       width: '20%',
       key: 'name',
       editable: 'true',
-      render: (text, record, index) =>
-        (<EditTableCell record={record} handleCellChange={(e) => handleCellChange(e, record)} />)
-      // {
-
-      //   return isFieldEditing ? <Input onChange={(e) => handleCellChange(e, record)} onBlur={toggleEdit} ref={inputRef} value={record.name} /> : <div className="editable-cell-value-wrap" onClick={toggleEdit}>{record.name}</div>
-      // }
+      render: (text, record, index) => (
+        <EditTableCell record={record} type="name" handleCellChange={handleCellChange} />
+      ),
     },
     {
       title: t('myData.visible'),
@@ -142,7 +128,7 @@ const MyFiledsTable: FC<any> = () => {
               </Radio.Button>
               <Radio.Button value="no">{t('myData.no')}</Radio.Button>
             </Radio.Group>
-          </div >
+          </div>
         )
       },
     },
@@ -153,7 +139,12 @@ const MyFiledsTable: FC<any> = () => {
       editable: 'false',
       render: (text, record, index) => {
         return (
-          <Select onChange={e => handleSelectChange(e, record)} defaultValue="STRING" style={{ width: 100 }} placeholder="Select a type">
+          <Select
+            onChange={e => handleSelectChange(e, record)}
+            defaultValue="STRING"
+            style={{ width: 100 }}
+            placeholder="Select a type"
+          >
             {DATATYPE.map(type => (
               <Option value={type.label} key={type.id}>
                 {type.label}
@@ -168,29 +159,16 @@ const MyFiledsTable: FC<any> = () => {
       dataIndex: 'remarks',
       editable: 'true',
       key: 'remarks',
+      width: '35%',
+      render: (text, record, index) => (
+        <EditTableCell record={record} type="remarks" handleCellChange={handleCellChange} />
+      ),
     },
   ]
 
-  // const editCol = useMemo(
-  //   () =>
-  //     columns.map(col => {
-  //       if (!col.editable) return col
-  //       return {
-  //         ...col,
-  //         onCell: (record, rowIndex) => ({
-  //           record,
-  //           editable: col.editable,
-  //           title: col.title,
-  //           dataindex: col.dataIndex,
-  //           onChange: (e) => handleCellChange(e, record),
-  //         }),
-  //       }
-  //     }),
-  //   [columns],
-  // )
-
   return (
     <div className="data-table-box">
+      <div className="tips pb-20">{t('myData.infoTips')}</div>
       <Table rowClassName={() => 'editable-row'} dataSource={data} columns={columns} />
     </div>
   )

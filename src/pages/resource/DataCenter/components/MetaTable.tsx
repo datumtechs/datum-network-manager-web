@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { Table } from 'antd'
-import "../scss/index.scss"
+import { Table, Space } from 'antd'
+import '../scss/index.scss'
 
 const MetaTable: FC<any> = () => {
   const { t } = useTranslation()
@@ -40,16 +40,16 @@ const MetaTable: FC<any> = () => {
       render: (text, record, index) => {
         return (
           <>
-            <div>
+            <Space size={60}>
               <span>{text}</span>
-              <span className="link pl-40" onClick={linkMeta}>{t('center.viewMetaData')}</span>
-            </div>
-            <div>
-              ID:xxxxxxxxxxxxxxxxxx
-            </div>
+              <span className="link pointer pl-40" onClick={linkMeta}>
+                {t('center.viewMetaData')}
+              </span>
+            </Space>
+            <div>ID:xxxxxxxxxxxxxxxxxx</div>
           </>
         )
-      }
+      },
     },
     {
       title: t('center.dataProvider'),

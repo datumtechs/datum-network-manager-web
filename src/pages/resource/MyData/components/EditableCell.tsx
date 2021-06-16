@@ -1,31 +1,35 @@
 import React, { FC, useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Input } from 'antd';
+import { Input } from 'antd'
 import '../scss/editTable.scss'
 
 const EditTableCell: FC<any> = (props: any) => {
   const [isFieldEditing, setIsFieldEditing] = useState<boolean>(false)
-  const { record } = props
-  const inputRef = useRef<Input>(null);
+  const { record, type } = props
+  const inputRef = useRef<Input>(null)
   useEffect(() => {
     if (isFieldEditing) {
-      inputRef.current!.focus();
+      inputRef.current!.focus()
     }
-  }, [isFieldEditing]);
+  }, [isFieldEditing])
 
-  const handleCellChange = (e) => {
-    props.handleCellChange(e, record)
+  const handleCellChange = e => {
+    props.handleCellChange(e, record, type)
   }
   const toggleEdit = () => {
-    setIsFieldEditing(!isFieldEditing);
+    setIsFieldEditing(!isFieldEditing)
     // form.setFieldsValue({ [dataIndex]: record[dataIndex] });
-  };
+  }
   const { t } = useTranslation()
   return (
     <>
-      {
-        isFieldEditing ? <Input onChange={(e) => handleCellChange(e)} onBlur={toggleEdit} ref={inputRef} value={record.name} /> : <div className="editable-cell-value-wrap" onClick={toggleEdit}>{record.name}</div>
-      }
+      {isFieldEditing ? (
+        <Input onChange={e => handleCellChange(e)} onBlur={toggleEdit} ref={inputRef} value={record[type]} />
+      ) : (
+        <div className="editable-cell-value-wrap" onClick={toggleEdit}>
+          {record[type]}
+        </div>
+      )}
     </>
   )
 }

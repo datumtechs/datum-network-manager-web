@@ -6,7 +6,7 @@ import Bread from '../../../../layout/components/Bread'
 import { MyRadioBtn } from './MyRadioBtn'
 import MyFiledsTable from './MyFiledsTable'
 
-export const MetaDataAddtion: FC<any> = porps => {
+export const MyDataAddtion: FC<any> = porps => {
   const { t } = useTranslation()
   const [formDisable, setFormDiasble] = useState(false)
   const [uploadFile, setUploadFile] = useState<any>({})
@@ -16,7 +16,7 @@ export const MetaDataAddtion: FC<any> = porps => {
   const history = useHistory()
   const inputRef = createRef<any>()
 
-  const selectFileFn = () => { }
+  const selectFileFn = () => {}
   const goBackFn = () => {
     history.go(-1)
   }
@@ -95,8 +95,8 @@ export const MetaDataAddtion: FC<any> = porps => {
               labelCol={{ span: 3 }}
               wrapperCol={{ span: 21 }}
               initialValues={{ remember: true }}
-            // onFinish={onFinish}
-            // onFinishFailed={onFinishFailed}
+              // onFinish={onFinish}
+              // onFinishFailed={onFinishFailed}
             >
               <Form.Item
                 label={t('myData.sourceName')}
@@ -104,6 +104,7 @@ export const MetaDataAddtion: FC<any> = porps => {
                 rules={[{ required: true, message: 'Please input your username!' }]}
               >
                 <Input className="limit-box" />
+                <div className="tips">{t('myData.nameTips')}</div>
               </Form.Item>
 
               <Form.Item
@@ -120,8 +121,6 @@ export const MetaDataAddtion: FC<any> = porps => {
           <div className="title-box">{t('center.fieldInfo')}</div>
           <div>
             <MyFiledsTable />
-            {/* <EditTable /> */}
-            {/* <EditableTable /> */}
           </div>
         </div>
       </div>
