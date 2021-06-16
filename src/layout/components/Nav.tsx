@@ -30,12 +30,14 @@ const Nav = (props: any) => {
     history.push(item.path)
   }
   const { t } = useTranslation()
-  const mouseEnter = (item: IRoute) => {
+  const mouseEnter = (item: IRoute, e: React.MouseEvent<any, MouseEvent>) => {
+    e.stopPropagation()
     if (item.children) {
       props.setMenu(item.name)
     }
   }
-  const mouseLeave = () => {
+  const mouseLeave = (e: React.MouseEvent<any, MouseEvent>) => {
+    e.stopPropagation()
     props.setMenu('')
   }
 
@@ -43,30 +45,35 @@ const Nav = (props: any) => {
     <div className="nav-box">
       {props.list.map((item: IRoute) =>
         item.meta.show ? (
-          <div
-            className={`sub-nav pointer ${curPath.includes(item.path) ? 'activeMenu' : null}`}
-            onMouseEnter={() => mouseEnter(item)}
-            onMouseLeave={() => mouseLeave()}
-            key={item.name}
-            onClick={e => linkTo(item, e)}
-          >
-            {t(`${item.label}`)}
-            {item.children && item.name === menu ? (
-              <ul className="child-nav" onMouseEnter={() => mouseEnter(item)} onMouseLeave={() => mouseLeave()}>
-                {item.children.map(child =>
-                  child.meta.show ? (
-                    <li key={child.name} onClick={e => linkTo(child, e)}>
-                      {t(`${child.label}`)}
-                    </li>
-                  ) : (
-                    ''
-                  ),
-                )}
-              </ul>
-            ) : (
-              ''
-            )}
+          <div className="sub-nav-box pointer" onMouseEnter={(e) => mouseEnter(item, e)}
+            onMouseLeave={(e) => mouseLeave(e)}>
+            <div
+              className={`sub-nav ${curPath.includes(item.path) ? 'activeMenu' : null}`}
+              key={item.name}
+              onClick={e => linkTo(item, e)}
+            >
+              {t(`${item.label}`)}
+              {item.children && item.name === menu ? (
+                <div className="child-box">
+                  <ul className="child-nav">
+                    {item.children.map(child =>
+                      child.meta.show ? (
+                        <li key={child.name} onClick={e => linkTo(child, e)}>
+                          {t(`${child.label}`)}
+                        </li>
+                      ) : (
+                        ''
+                      ),
+                    )}
+                  </ul>
+                </div>
+
+              ) : (
+                ''
+              )}
+            </div>
           </div>
+
         ) : (
           ''
         ),

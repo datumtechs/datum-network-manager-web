@@ -23,53 +23,70 @@
       .nav-box {
         display: flex;
         height: 100%;
-        .sub-nav {
+        .sub-nav-box {
           display: flex;
-          align-items: center;
-          height: 52px;
+          align-items: top;
+          height: 60px;
           font-family: PingFangSC-Regular;
           font-size: 15px;
           color: #c8c8c8;
           text-align: center;
           margin-right: 44px;
-          padding: 8px 8px 0 8px;
           text-overflow: ellipsis;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
           position: relative;
+          height: 60px;
+          z-index: 1000;
           &:hover {
-            background: #ffa505;
-            border-radius: 0 0 4px 4px;
-            color: #ffffff;
-          }
-          .child-nav {
-            min-width: 137px;
-            font-size: 12px;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 14px;
-            color: #000;
-            background: #fff;
-            border-radius: 4px;
-            box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.08);
-            z-index: 10000;
-            padding-top: 8px;
-            & li:not(:last-child) {
-              line-height: 16px;
-              padding-bottom: 10px;
+            .sub-nav {
+              background: #ffa505;
+              border-radius: 0 0 4px 4px;
+              color: #ffffff;
             }
-            & li:hover {
-              color: $mainColor;
+          }
+          .sub-nav {
+            display: flex;
+            align-items: center;
+            height: 52px;
+            font-family: PingFangSC-Regular;
+            color: #c8c8c8;
+            text-align: center;
+            padding: 8px 8px 0 8px;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            position: relative;
+            z-index: 1001;
+            .child-nav {
+              min-width: 137px;
+              font-size: 12px;
+              position: absolute;
+              top: calc(100% + 8px);
+              left: 50%;
+              transform: translateX(-50%);
+              padding: 10px 14px;
+              color: #000;
+              background: #fff;
+              border-radius: 4px;
+              box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.08);
+              z-index: 10000;
+              padding-top: 8px;
+              & li:not(:last-child) {
+                line-height: 16px;
+                padding-bottom: 10px;
+              }
+              & li:hover {
+                color: $mainColor;
+              }
             }
           }
         }
-        .activeMenu {
-          background: #ffa505;
-          border-radius: 0 0 4px 4px;
-          color: #ffffff;
-        }
+      }
+      .activeMenu {
+        background: #ffa505;
+        border-radius: 0 0 4px 4px;
+        color: #ffffff !important;
       }
     }
     .menu {
