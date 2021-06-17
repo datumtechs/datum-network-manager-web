@@ -4,19 +4,23 @@ import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import useDid from '../../hooks/useHasDid'
 import { IRoute } from '../../router/index'
+import { businessRouteList } from '../../router/utils'
+
+console.log(businessRouteList);
 
 const Nav = (props: any) => {
   const menu = props.state.menu.curMenu
   const history = useHistory()
   const curUrl = history.location.pathname
   const [curPath, SetCurPath] = useState('')
+  console.log(curPath);
+
   const hasDid = useDid()
 
   useEffect(() => {
     console.log('更新了curUrl=====>', curUrl)
     SetCurPath(curUrl === '/' ? '/overview' : curUrl)
   }, [])
-  console.log('curPath', curPath)
 
   const linkTo = (item: IRoute, e: React.MouseEvent<any, MouseEvent>) => {
     e.stopPropagation()
@@ -58,7 +62,7 @@ const Nav = (props: any) => {
                   <ul className="child-nav" style={{ width: i18n.language === 'en' ? '137px' : '107px' }}>
                     {item.children.map(child =>
                       child.meta.show ? (
-                        <li key={child.name} onClick={e => linkTo(child, e)}>
+                        <li className={`${curPath.includes(child.path) ? 'activeSubMenu' : ''}`} key={child.name} onClick={e => linkTo(child, e)}>
                           {t(`${child.label}`)}
                         </li>
                       ) : (

@@ -16,7 +16,6 @@ function Auth(props: AuthProps) {
   // if (getToken()) {
   //   return <Redirect to="/login" />
   // }
-  console.log('AUTH props=========>', props)
 
   if (!checkAuth(props.location)) {
     return <Redirect to="/login" />

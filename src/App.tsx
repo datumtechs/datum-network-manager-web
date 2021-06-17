@@ -9,7 +9,6 @@ const App: FC<any> = () => {
   const initralFn = () => {
     const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
     const htmlDom = document.getElementsByTagName('html')[0]
-    console.log(htmlWidth)
     htmlDom.style.fontSize = `${htmlWidth / 13.66}px`
   }
   const winWidth = useWinWidth()

@@ -71,24 +71,24 @@
               box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.08);
               z-index: 10000;
               padding-top: 8px;
-              & li:not(:last-child) {
-                // padding-bottom: 10px;
-              }
               & li {
                 line-height: 16px;
                 padding: 10px 14px;
               }
               & li:hover {
-                color: $mainColor;
-                background-color: #c8c8c8;
+                color: #fff;
+                background-color: #7970e3;
               }
             }
           }
         }
       }
+      .activeSubMenu {
+        color: #fff;
+        background-color: #7970e3;
+      }
       .activeMenu {
         background: #ffa505;
-        border-radius: 0 0 4px 4px;
         color: #ffffff !important;
       }
     }

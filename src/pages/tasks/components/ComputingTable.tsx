@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const ComputingTable: FC<any> = (props: any) => {
-  console.log(props)
   const history = useHistory()
   const pagination = {
     current: 1,

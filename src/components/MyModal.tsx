@@ -3,7 +3,6 @@ import { Modal } from 'antd'
 
 const DataTable: FC<any> = (props: any) => {
   const { visible, children, title, width } = props
-  console.log('modal-props', props)
   const handleOk = () => {
     props.onOk()
   }

@@ -12,7 +12,6 @@ const Bread: FC<any> = () => {
   const history = useHistory()
   const curUrl = history.location.pathname
   const len = breadcrumbs.length
-  console.log(curUrl)
 
   useEffect(() => {
     setBreadcrumbs(getBreadcrumbs())
@@ -32,7 +31,6 @@ const Bread: FC<any> = () => {
       <div className="pointer" onClick={goBack}>
         <LeftOutlined />
       </div>
-      {console.log('breadcrumbs', breadcrumbs)}
       <Breadcrumb>
         {breadcrumbs.map((route: IRoute, index: number) => {
           if (index !== 0 && index !== len - 1)

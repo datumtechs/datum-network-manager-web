@@ -88,7 +88,7 @@ const routes: Array<IRoute> = [
             breadcrumbName: 'menu.dispatchConfig',
             path: '/nodeMgt/dispatchConfig',
             component: DispatchConfig,
-            meta: { exact: true, title: '', icon: '', show: true },
+            meta: { exact: true, title: '/nodeMgt/dispatchConfig', icon: '', show: true },
           },
           {
             name: 'dataNodeMgt',
