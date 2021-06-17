@@ -59,13 +59,12 @@
             position: relative;
             z-index: 1001;
             .child-nav {
-              min-width: 137px;
               font-size: 12px;
               position: absolute;
               top: calc(100% + 8px);
               left: 50%;
               transform: translateX(-50%);
-              padding: 10px 14px;
+              // padding: 10px 14px;
               color: #000;
               background: #fff;
               border-radius: 4px;
@@ -73,11 +72,15 @@
               z-index: 10000;
               padding-top: 8px;
               & li:not(:last-child) {
+                // padding-bottom: 10px;
+              }
+              & li {
                 line-height: 16px;
-                padding-bottom: 10px;
+                padding: 10px 14px;
               }
               & li:hover {
                 color: $mainColor;
+                background-color: #c8c8c8;
               }
             }
           }

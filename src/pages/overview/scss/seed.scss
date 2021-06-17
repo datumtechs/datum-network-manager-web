@@ -9,6 +9,17 @@
   &:not(:last-child) {
     margin-bottom: 26px;
   }
+  .seed-box-title {
+    font-family: PingFangSC-Medium;
+    font-size: 18px;
+    color: #3c3588;
+    letter-spacing: 0;
+  }
+  .icon > img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 18px;
+  }
   .num {
     font-family: PingFangSC-Medium;
     color: $mainColor;

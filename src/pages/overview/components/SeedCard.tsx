@@ -1,16 +1,18 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import '../scss/seed.scss'
+import iconImg from '../../../assets/images/overview/2.seed.svg'
+
 
 const SeedNode: FC<any> = (props: any) => {
   const { t } = useTranslation()
 
   return (
     <div className="seed-box">
-      <div className="num">
-        <img src="" alt="" />
+      <div className="icon">
+        <img src={iconImg} alt="" />
       </div>
-      <div className="title">{t('overview.schedueService')}</div>
+      <div className="seed-box-title">{t('overview.schedueService')}</div>
       {props.schedueStatus === 'true' ? (
         <div className="status">
           {/* <span className="status-title">{t('overview.schedueService')}:</span> */}

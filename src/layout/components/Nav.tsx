@@ -29,7 +29,7 @@ const Nav = (props: any) => {
     SetCurPath(item.path)
     history.push(item.path)
   }
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const mouseEnter = (item: IRoute, e: React.MouseEvent<any, MouseEvent>) => {
     e.stopPropagation()
     if (item.children) {
@@ -55,7 +55,7 @@ const Nav = (props: any) => {
               {t(`${item.label}`)}
               {item.children && item.name === menu ? (
                 <div className="child-box">
-                  <ul className="child-nav">
+                  <ul className="child-nav" style={{ width: i18n.language === 'en' ? '137px' : '107px' }}>
                     {item.children.map(child =>
                       child.meta.show ? (
                         <li key={child.name} onClick={e => linkTo(child, e)}>
