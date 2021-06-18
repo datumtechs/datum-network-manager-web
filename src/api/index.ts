@@ -9,7 +9,7 @@ import axios from "axios"
 })
 */
 const Api = {
-  // 启动链 
+  // 启动链 示例代码
   startChainFn(data: any) {
     return axios({
       method: "post",
@@ -17,23 +17,6 @@ const Api = {
       data,
     })
   },
-
-  // 添加节点
-  addNodeFn(data) {
-    return axios({
-      method: "post",
-      url: "/proxy/addNode",
-      data,
-    })
-  },
-
-  cleaarNodeFn(data) {
-    return axios({
-      method: "post",
-      url: "/proxy/clearNode",
-      data,
-    })
-  }
 }
 
 

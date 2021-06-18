@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "build:sit": "cross-env REACT_APP_ENV=sit node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "eslint --ext '.js,.jsx,.ts,.tsx' ./src/**",
     "lint:fix": "eslint --ext '.js,.jsx,.ts,.tsx' ./src/** --fix",
@@ -36,6 +37,7 @@
     "bfj": "^7.0.2",
     "camelcase": "^6.1.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "cross-env": "^7.0.3",
     "css-loader": "4.3.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
