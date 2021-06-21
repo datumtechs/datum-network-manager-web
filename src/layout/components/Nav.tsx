@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import useDid from '../../hooks/useHasDid'
@@ -11,16 +11,16 @@ console.log(businessRouteList);
 const Nav = (props: any) => {
   const menu = props.state.menu.curMenu
   const history = useHistory()
-  const curUrl = history.location.pathname
+  const { pathname } = useLocation()
   const [curPath, SetCurPath] = useState('')
   console.log(curPath);
 
   const hasDid = useDid()
 
   useEffect(() => {
-    console.log('更新了curUrl=====>', curUrl)
-    SetCurPath(curUrl === '/' ? '/overview' : curUrl)
-  }, [])
+    console.log('pathname=====>', pathname)
+    SetCurPath(pathname === '/' ? '/overview' : pathname)
+  }, [pathname])
 
   const linkTo = (item: IRoute, e: React.MouseEvent<any, MouseEvent>) => {
     e.stopPropagation()
@@ -49,7 +49,7 @@ const Nav = (props: any) => {
     <div className="nav-box">
       {props.list.map((item: IRoute) =>
         item.meta.show ? (
-          <div className="sub-nav-box pointer" onMouseEnter={(e) => mouseEnter(item, e)}
+          <div className="sub-nav-box pointer" key={item.name} onMouseEnter={(e) => mouseEnter(item, e)}
             onMouseLeave={(e) => mouseLeave(e)}>
             <div
               className={`sub-nav ${curPath.includes(item.path) ? 'activeMenu' : null}`}

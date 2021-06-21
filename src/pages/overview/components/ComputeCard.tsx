@@ -1,12 +1,17 @@
 import React, { FC } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Progress } from 'antd'
 import { useTranslation } from 'react-i18next'
 import '../scss/seed.scss'
 
 const SeedNode: FC<any> = (props: any) => {
   const { t } = useTranslation()
+  const history = useHistory()
+  const linkToCompute = () => {
+    history.push('/nodeMgt/computeNodeMgt')
+  }
   return (
-    <div className="seed-box">
+    <div className="seed-box pointer" onClick={linkToCompute}>
       <div className="num">
         <span className="number">{props.seedNode}6</span>
         <span className="title">{t('overview.computeNode')}</span>

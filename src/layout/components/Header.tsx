@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import Nav from './Nav'
 import cnSvg from '../../assets/images/2.icon_cn.svg'
 import enSvg from '../../assets/images/2.icon_en.svg'
@@ -19,8 +19,13 @@ const Header = (props: any) => {
 
   return (
     <div className="header-box">
-      <div className="logo">{t('login.RosettaNet')}</div>
+      <div className="logo">
+        <Link to="/overview">
+          {t('login.RosettaNet')}
+        </Link>
+      </div>
       <div className="nav">
+        {/* TODO Nav组件是否配合跳转切换 */}
         <Nav list={props.list} />
       </div>
       <div className="menu">

@@ -118,5 +118,12 @@
     width: 100%;
     background: #fff;
     padding: 30px 82px;
+    .layout__loading {
+      width: 100%;
+      height: calc(100vh - 120px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

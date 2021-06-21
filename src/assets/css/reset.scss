@@ -167,3 +167,30 @@ input::placeholder {
 .pb-20 {
   padding-bottom: 20px;
 }
+
+a {
+  text-decoration: none;
+}
+
+/*包含以下四种的链接*/
+a {
+  text-decoration: none;
+}
+/*正常的未被访问过的链接*/
+a:link {
+  text-decoration: none;
+  color: #fff;
+}
+/*已经访问过的链接*/
+a:visited {
+  text-decoration: none;
+}
+/*鼠标划过(停留)的链接*/
+a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+/* 正在点击的链接*/
+a:active {
+  text-decoration: none;
+}

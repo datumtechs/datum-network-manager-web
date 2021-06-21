@@ -36,7 +36,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
       },
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: ['1', '4', '7', '10', '13', '16', '19'],
       },
       yAxis: {
         type: 'value',
@@ -113,17 +113,18 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
           </div>
           <div className="btn-group">
             <Space size={30}>
-              <Button className={`btn ${selectTab === 'cpu' ? 'active' : ''}`} onClick={() => SetSelectTab('cpu')}>
+              <Button type={selectTab === 'cpu' ? 'primary' : 'default'}
+                onClick={() => SetSelectTab('cpu')}>
                 CPU
               </Button>
               <Button
-                className={`btn ${selectTab === 'memory' ? 'active' : ''}`}
+                type={selectTab === 'memory' ? 'primary' : 'default'}
                 onClick={() => SetSelectTab('memory')}
               >
                 {t('overview.memory')}
               </Button>
               <Button
-                className={`btn ${selectTab === 'bandwidth' ? 'active' : ''}`}
+                type={selectTab === 'bandwidth' ? 'primary' : 'default'}
                 onClick={() => SetSelectTab('bandwidth')}
               >
                 {t('overview.bandWidth')}
@@ -134,6 +135,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
           <div id="lineChart"></div>
         </div>
         <div className="cpu-info">
+          {/* TODO 此处需要根据切换来进行改变 */}
           <div className="title">
             <span>CPU:</span>
           </div>

@@ -22,6 +22,7 @@
     "bandWidth": "Bandwidth",
     "submit": "Create the identify credential，and apply for network access",
     "publishData": "Published  data",
+    "unPublishData": "Unpublished data",
     "taskInProgress": "Tasks in Progress"
   },
   "menu": {

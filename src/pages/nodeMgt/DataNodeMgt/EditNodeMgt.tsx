@@ -13,14 +13,15 @@ export const EditNodeMgt: FC<any> = (props: any) => {
   // }
   const { type } = location.state
   console.log('location.state', type)
-  const onFinish = () => {}
-  const onFinishFailed = () => {}
+  const onFinish = () => { }
+  const onFinishFailed = () => { }
   return (
     <div className="layout-box">
       <div className="bread-box">
         <Bread />
       </div>
       <div className="form-box">
+        {/* TODO 1、form的校验名称校验接口 2、状态改变disable */}
         <Form
           size="large"
           name="basic"

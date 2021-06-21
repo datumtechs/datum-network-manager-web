@@ -25,7 +25,8 @@ export const Layout = (props: any) => {
     <div className="main-container">
       <Header list={props.routes} className="header-container" />
       <div className="main-box">
-        <Suspense fallback={<Spin size="large" className="layout__loading" />}>
+        <Suspense fallback={
+          <div className="layout__loading"><Spin size="large" /></div>}>
           <Switch>
             {props.routes.map((route: IRoute) => (
               <Route

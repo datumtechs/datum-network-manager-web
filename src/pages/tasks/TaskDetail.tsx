@@ -39,6 +39,7 @@ export const TaskDetail: FC<any> = () => {
         <Descriptions column={1} title={t('task.initialInfo')} >
           <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('task.timeRequire')}>Zhou Maomao</Descriptions.Item>
           <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('task.computeRequire')}>
+            {/* TODO 根据不同角色显示不同的资源 算力提供方：显示计算节点信息 数据提供方：显示数据信息 */}
             <div>
               <p>
                 <span>CPU:</span>

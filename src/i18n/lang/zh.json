@@ -22,6 +22,7 @@
     "bandWidth": "带宽",
     "submit": "生成身份凭证,申请网络准入",
     "publishData": "已发布数据",
+    "unPublishData": "未发布数据",
     "taskInProgress": "正在进行中的任务"
   },
   "menu": {

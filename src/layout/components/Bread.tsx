@@ -29,7 +29,7 @@ const Bread: FC<any> = () => {
   return (
     <>
       <div className="pointer" onClick={goBack}>
-        <LeftOutlined />
+        <LeftOutlined className="pointer" />
       </div>
       <Breadcrumb>
         {breadcrumbs.map((route: IRoute, index: number) => {
