@@ -18,11 +18,11 @@ const DataNode: FC<any> = (props: any) => {
       <div className="text-box">
         <div className="text">
           <span>{t('overview.publishData')}:</span>
-          <span className="value mainColor">{props.uploadedData}33</span>
+          <span className="value mainColor">{props.uploadedData}12</span>
         </div>
         <div className="text">
           <span>{t('overview.unPublishData')}:</span>
-          <span className="value mainColor">{props.authorizedData}33</span>
+          <span className="value mainColor">{props.authorizedData}89</span>
         </div>
       </div>
     </div>

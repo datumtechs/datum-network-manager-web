@@ -19,7 +19,7 @@ const SeedNode: FC<any> = (props: any) => {
       <div className="compute-box">
         <div className="title-section">
           <span>{t('overview.taskInProgress')}:</span>
-          <span className="value mainColor">12</span>
+          <span className="value mainColor">6</span>
         </div>
         {/* <div className="ring-box">
           <Progress type="circle" percent={props.precent} width={50} strokeWidth={8} strokeColor="#3c3588" />

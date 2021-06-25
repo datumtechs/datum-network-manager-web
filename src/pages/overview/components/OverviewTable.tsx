@@ -11,23 +11,91 @@ const OverviewTable: FC<any> = (props: any) => {
   const dataSource = [
     {
       key: '1',
-      name: '胡彦斌',
+      name: '节点1',
       age: '西湖区湖底公园1号',
       address: '西湖区湖底公园1号',
-      cpu: '75',
-      memory: '123',
+      cpu: '0',
+      memory: '0',
       status: 'free',
+      bandWidth: "0",
       runTime: '',
     },
     {
       key: '2',
-      name: '胡彦祖',
+      name: '节点2',
       age: '西湖区湖底公园1号',
       address: '西湖区湖底公园1号',
       cpu: '75',
-      memory: '123',
+      memory: '256',
+      bandWidth: "35",
       status: 'Occupied',
-      runTime: '12: 23: 59',
+      runTime: '05: 11: 87',
+    },
+    {
+      key: '111123',
+      name: '节点3',
+      age: '西湖区湖底公园1号',
+      address: '西湖区湖底公园1号',
+      cpu: '88',
+      memory: '128',
+      status: 'Occupied',
+      bandWidth: "76",
+      runTime: '02: 14: 22',
+    },
+    {
+      key: '2333',
+      name: '节点4',
+      age: '西湖区湖底公园1号',
+      address: '西湖区湖底公园1号',
+      cpu: '27',
+      memory: '256',
+      bandWidth: "89",
+      status: 'Occupied',
+      runTime: '07: 11: 33',
+    },
+    {
+      key: '1231',
+      name: '节点5',
+      age: '西湖区湖底公园1号',
+      address: '西湖区湖底公园1号',
+      cpu: '44',
+      memory: '128',
+      status: 'Occupied',
+      bandWidth: "17",
+      runTime: '15: 28: 56',
+    },
+    {
+      key: '122',
+      name: '节点6',
+      age: '西湖区湖底公园1号',
+      address: '西湖区湖底公园1号',
+      cpu: '61',
+      memory: '256',
+      bandWidth: "63",
+      status: 'Occupied',
+      runTime: '02: 02: 59',
+    },
+    {
+      key: '11',
+      name: '节点7',
+      age: '西湖区湖底公园1号',
+      address: '西湖区湖底公园1号',
+      cpu: '99',
+      memory: '128',
+      status: 'Occupied',
+      bandWidth: "25",
+      runTime: '10: 36: 03',
+    },
+    {
+      key: '12',
+      name: '节点8',
+      age: '西湖区湖底公园1号',
+      address: '西湖区湖底公园1号',
+      cpu: '87',
+      memory: '256',
+      bandWidth: "78",
+      status: 'Occupied',
+      runTime: '01: 34: 32',
     },
   ]
 
@@ -233,7 +301,7 @@ const OverviewTable: FC<any> = (props: any) => {
                 </div>
                 <div className="table-cell bandwidth-status">
                   <p className="table-title ">{t('overview.bandWidth')}</p>
-                  <p className="table-content">80%</p>
+                  <p className="table-content">{item.bandWidth}%</p>
                 </div>
               </div>
             </div>

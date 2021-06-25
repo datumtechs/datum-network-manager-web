@@ -29,7 +29,7 @@ const Header = (props: any) => {
         <Nav list={props.list} />
       </div>
       <div className="menu">
-        <p className="company">米粉自由投资有限公司 Company</p>
+        <p className="company">xxxx投资有限公司</p>
         <p className="lang-btn pointer" onClick={changeLanguage}>
           {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
         </p>
