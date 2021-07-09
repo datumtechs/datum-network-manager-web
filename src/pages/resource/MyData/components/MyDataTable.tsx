@@ -133,8 +133,15 @@ const MyDataTable: FC<any> = () => {
   ]
   return (
     <div className="data-table-box">
-      <Table dataSource={dataSource} columns={columns} />
-      <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Table dataSource={dataSource} columns={columns} bordered />
+      <MyModal
+        width={600}
+        title={t('common.tips')}
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        bordered
+      >
         {type === 'delete' ? <p>{t('center.confirmDelete')}:111111111111111111</p> : ''}
         {type === 'publish' ? <p>{t('center.confirmPublish')}:222222222222222222</p> : ''}
         {type === 'withdraw' ? <p>{t('center.confirmWithdraw')}:333333333333333333333</p> : ''}

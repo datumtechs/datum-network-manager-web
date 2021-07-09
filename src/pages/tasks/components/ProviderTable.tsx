@@ -1,21 +1,13 @@
 import React, { FC } from 'react'
-import { Table, Space } from 'antd'
-import { useHistory } from 'react-router-dom'
+import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 
-const ProviderTable: FC<any> = (props: any) => {
-  const history = useHistory()
+const ProviderTable: FC<any> = () => {
   const pagination = {
     current: 1,
     defaultPageSize: 10,
   }
   const { t } = useTranslation()
-  const linkToDetail = () => {
-    history.push('/tasks/taskDetail')
-  }
-  const linkToEvent = () => {
-    history.push('/tasks/TaskEvent')
-  }
   const dataSource = [
     {
       key: '1',
@@ -48,7 +40,7 @@ const ProviderTable: FC<any> = (props: any) => {
   ]
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
@@ -66,14 +58,14 @@ const ProviderTable: FC<any> = (props: any) => {
       title: t('task.metadataNameID'),
       dataIndex: 'metadataNameID',
       key: 'metadataNameID',
-      render: (text, record, index) => {
+      render: () => {
         return <div></div>
-      }
-    }
+      },
+    },
   ]
   return (
     <div className="table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} bordered />
     </div>
   )
 }

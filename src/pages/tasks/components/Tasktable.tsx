@@ -3,7 +3,7 @@ import { Table, Space } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-const MyTable: FC<any> = (props: any) => {
+const MyTable: FC<any> = () => {
   const history = useHistory()
   const pagination = {
     current: 1,
@@ -48,7 +48,7 @@ const MyTable: FC<any> = (props: any) => {
   ]
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
@@ -56,7 +56,7 @@ const MyTable: FC<any> = (props: any) => {
       title: t('task.nameID'),
       dataIndex: 'name',
       key: 'name',
-      render: (text, record, index) => {
+      render: () => {
         return <div>11111</div>
       },
     },
@@ -64,7 +64,7 @@ const MyTable: FC<any> = (props: any) => {
       title: t('task.status'),
       dataIndex: 'status',
       key: 'status',
-      render: (text, record, index) => {
+      render: (text, record) => {
         return <div>{record.status}</div>
       },
     },
@@ -82,7 +82,7 @@ const MyTable: FC<any> = (props: any) => {
       title: t('task.operations'),
       dataIndex: 'operations',
       key: 'operations',
-      render: (text, record, index) => {
+      render: () => {
         return (
           <Space size={50}>
             <span onClick={linkToDetail} className="pointer link">
@@ -98,7 +98,7 @@ const MyTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} bordered />
     </div>
   )
 }

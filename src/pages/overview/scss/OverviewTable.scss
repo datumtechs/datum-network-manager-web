@@ -6,6 +6,7 @@ $bandwidth: #5eaafe;
   box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
   border-radius: 6px;
   background: #fff;
+  overflow: hidden;
   // .ant-table-thead {
   //   height: 104px;
   //   position: relative;
@@ -177,11 +178,15 @@ $bandwidth: #5eaafe;
       color: #ffffff;
       line-height: 26px;
       justify-content: center;
-      background: url('../../../assets/images/overview/2.bj.svg') no-repeat;
+      background: url("../../../assets/images/overview/2.bj.svg") no-repeat;
     }
   }
   .my-table-body {
     background: #fff;
+    height: calc(100vh - 224px);
+    overflow-y: scroll;
+    width: calc(100% + 15px);
+    overflow-x: hidden;
     .my-table {
       padding: 0 30px;
       height: 108px;
@@ -215,7 +220,7 @@ $bandwidth: #5eaafe;
           &:not(:first-child) {
             left: 18px;
             &:before {
-              content: '';
+              content: "";
               position: absolute;
               top: 1px;
               left: -18px;

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Table } from 'antd'
-import "../scss/index.scss"
+import '../scss/index.scss'
 
 const FieldTable: FC<any> = () => {
   const { t } = useTranslation()
@@ -30,7 +30,7 @@ const FieldTable: FC<any> = () => {
   ]
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -51,7 +51,7 @@ const FieldTable: FC<any> = () => {
   ]
   return (
     <div className="data-table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} bordered />
     </div>
   )
 }

@@ -25,7 +25,7 @@ const MyTable: FC<any> = (props: any) => {
   ]
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
@@ -47,7 +47,7 @@ const MyTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} bordered />
     </div>
   )
 }

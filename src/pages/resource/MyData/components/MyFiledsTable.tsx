@@ -88,7 +88,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -168,9 +168,8 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   return (
     <div className="data-table-box">
-      {mode === 'add' ?
-        <div className="tips pb-20">{t('myData.infoTips')}</div> : ""}
-      <Table rowClassName={() => 'editable-row'} dataSource={data} columns={columns} />
+      {mode === 'add' ? <div className="tips pb-20">{t('myData.infoTips')}</div> : ''}
+      <Table rowClassName={() => 'editable-row'} dataSource={data} columns={columns} bordered />
     </div>
   )
 }

@@ -13,12 +13,12 @@ const DetailTable: FC<any> = (props: any) => {
     current: 1,
     defaultPageSize: 10,
   }
-  const handleOk = () => { }
+  const handleOk = () => {}
   const handleCancel = () => {
     setIsModalVisible(false)
   }
 
-  const modifyFn = () => { }
+  const modifyFn = () => {}
 
   const dataSource = [
     {
@@ -38,7 +38,7 @@ const DetailTable: FC<any> = (props: any) => {
   ]
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -65,7 +65,7 @@ const DetailTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="data-table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} bordered />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>{t('center.confirmWithdraw')}:333333333333333333333</p>
       </MyModal>

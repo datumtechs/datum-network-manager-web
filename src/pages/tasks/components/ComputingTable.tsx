@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
-import { Table, Space } from 'antd'
+import { FC } from 'react'
+import { Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-const ComputingTable: FC<any> = (props: any) => {
+const ComputingTable: FC<any> = () => {
   const history = useHistory()
   const pagination = {
     current: 1,
@@ -48,7 +48,7 @@ const ComputingTable: FC<any> = (props: any) => {
   ]
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
@@ -68,12 +68,12 @@ const ComputingTable: FC<any> = (props: any) => {
       key: 'occupiedResources',
       render: (text, record, index) => {
         return <div></div>
-      }
-    }
+      },
+    },
   ]
   return (
     <div className="table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} bordered />
     </div>
   )
 }

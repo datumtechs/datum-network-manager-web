@@ -1,4 +1,4 @@
-import React, { FC, memo, useState, useEffect } from 'react'
+import { FC, memo, useState, useEffect } from 'react'
 import { Breadcrumb } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory, Link } from 'react-router-dom'
@@ -10,7 +10,6 @@ const Bread: FC<any> = () => {
   const [breadcrumbs, setBreadcrumbs] = useState<IRoute[]>([])
   const { t } = useTranslation()
   const history = useHistory()
-  const curUrl = history.location.pathname
   const len = breadcrumbs.length
 
   useEffect(() => {

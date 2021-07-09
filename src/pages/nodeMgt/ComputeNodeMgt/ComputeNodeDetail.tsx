@@ -16,7 +16,7 @@ import Bread from '../../../layout/components/Bread'
 import ComputeDetailTable from './components/ComputeDetailTable'
 
 echarts.use([LineChart, GridComponent, CanvasRenderer, LegendComponent])
-export const ComputeNodeDetail: FC<any> = (props: any) => {
+export const ComputeNodeDetail: FC<any> = () => {
   // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
   type Option = echarts.ComposeOption<
     LineSeriesOption | TitleComponentOption | GridComponentOption | LegendComponentOption
@@ -113,14 +113,10 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
           </div>
           <div className="btn-group">
             <Space size={30}>
-              <Button type={selectTab === 'cpu' ? 'primary' : 'default'}
-                onClick={() => SetSelectTab('cpu')}>
+              <Button type={selectTab === 'cpu' ? 'primary' : 'default'} onClick={() => SetSelectTab('cpu')}>
                 CPU
               </Button>
-              <Button
-                type={selectTab === 'memory' ? 'primary' : 'default'}
-                onClick={() => SetSelectTab('memory')}
-              >
+              <Button type={selectTab === 'memory' ? 'primary' : 'default'} onClick={() => SetSelectTab('memory')}>
                 {t('overview.memory')}
               </Button>
               <Button

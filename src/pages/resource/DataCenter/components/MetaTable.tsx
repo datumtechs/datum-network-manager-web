@@ -30,7 +30,7 @@ const MetaTable: FC<any> = () => {
   ]
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -64,7 +64,7 @@ const MetaTable: FC<any> = () => {
   ]
   return (
     <div className="data-table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} bordered />
     </div>
   )
 }

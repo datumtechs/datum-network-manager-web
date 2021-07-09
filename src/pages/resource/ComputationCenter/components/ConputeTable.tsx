@@ -14,19 +14,19 @@ const CenterTable: FC<any> = () => {
       status: '胡彦斌',
       cpu: 32,
       memory: '西湖区湖底公园1号',
-      bandWidth: '西湖区湖底公园1号'
+      bandWidth: '西湖区湖底公园1号',
     },
     {
       key: '12',
       status: '胡彦斌',
       cpu: 32,
       memory: '西湖区湖底公园1号',
-      bandWidth: '西湖区湖底公园1号'
+      bandWidth: '西湖区湖底公园1号',
     },
   ]
   const columns = [
     {
-      title: '序号',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -48,11 +48,11 @@ const CenterTable: FC<any> = () => {
       title: t('center.bandWidth'),
       dataIndex: 'bandWidth',
       key: 'bandWidth',
-    }
+    },
   ]
   return (
     <div className="data-table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} bordered />
     </div>
   )
 }

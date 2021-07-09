@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100vh;
+  overflow: hidden;
   min-width: 1200px;
   background: #f7f8fa;
   .header-box {
@@ -118,6 +120,14 @@
     width: 100%;
     background: #fff;
     padding: 30px 82px;
+    .wrapper-box {
+      width: 100%;
+      height: calc(100vh - 120px);
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+      border-radius: 6px;
+    }
     .layout__loading {
       width: 100%;
       height: calc(100vh - 120px);

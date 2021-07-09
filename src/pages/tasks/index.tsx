@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Table, Input, Select, Space, DatePicker } from 'antd'
+import { Input, Select, Space, DatePicker } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
@@ -9,9 +9,9 @@ const { Search } = Input
 const { Option } = Select
 export const Tasks: FC<any> = () => {
   const { t } = useTranslation()
-  const onSearch = () => { }
-  const onStatusChange = () => { }
-  const capacityChanged = () => { }
+  const onSearch = () => {}
+  const onStatusChange = () => {}
+  const capacityChanged = () => {}
   return (
     <div className="layout-box">
       <div className="title-box">
