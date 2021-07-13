@@ -2,11 +2,11 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = function (app) {
   app.use(
-    createProxyMiddleware('/api', {
-      target: 'http://10.1.1.48:6800',
+    createProxyMiddleware('/rosettanet-admin', {
+      target: 'http://192.168.21.201:8080',
       changeOrigin: true,
       pathRewrite: {
-        '^/api': '',
+        '^/rosettanet-admin': '/rosettanet-admin',
       },
     }),
   )

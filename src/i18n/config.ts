@@ -9,7 +9,7 @@ export const resources = {
 } as const
 
 i18n.use(initReactI18next).init({
-  lng: 'en',
+  lng: localStorage.getItem('i18n') || 'en',
   resources,
   interpolation: {
     escapeValue: false,

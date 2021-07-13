@@ -6,7 +6,6 @@ import SearchBar from '../../../layout/components/SearchBar'
 import MyDataTable from './components/MyDataTable'
 
 export const MyData: FC<any> = () => {
-
   const { t } = useTranslation()
   const history = useHistory()
   const onAdd = () => {
@@ -18,7 +17,7 @@ export const MyData: FC<any> = () => {
       },
     })
   }
-  const onSearch = () => { }
+  const onSearch = () => {}
   return (
     <div className="layout-box">
       <div className="bread-box">

@@ -168,9 +168,9 @@
     "metaStatus": "元数据状态",
     "metaName": "源文件名称与ID",
     "metaFiled": "元数据摘要",
-    "confirmDelete": "请确认是否要删除源文件:",
-    "confirmPublish": "请确认是否要上架源文件:",
-    "confirmWithdraw": "请确认是否要下架源文件:",
+    "confirmDelete": "请确认是否要删除源文件",
+    "confirmPublish": "请确认是否要上架源文件",
+    "confirmWithdraw": "请确认是否要下架源文件",
     "uploadFile": "添加源文件"
   },
   "myData": {

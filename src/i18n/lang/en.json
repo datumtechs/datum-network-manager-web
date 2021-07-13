@@ -168,9 +168,9 @@
     "metaStatus": "Metadata status",
     "metaName": "Source file name & ID",
     "metaFiled": "Fields of metadata",
-    "confirmDelete": "Please ensure that you are deleting the source file:",
-    "confirmPublish": "Please ensure that you are publishing the source file:",
-    "confirmWithdraw": "Please ensure that you are withdrawing the source file:",
+    "confirmDelete": "Please ensure that you are deleting the source file",
+    "confirmPublish": "Please ensure that you are publishing the source file",
+    "confirmWithdraw": "Please ensure that you are withdrawing the source file",
     "uploadFile": "Upload a source file"
   },
   "myData": {
