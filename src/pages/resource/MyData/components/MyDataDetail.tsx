@@ -16,12 +16,12 @@ export const MyDataDetail: FC<any> = porps => {
     fileName: '',
     fileId: '',
     status: '',
-    metaDataID: '',
+    metaDataId: '',
     filePath: '',
     size: '',
     rows: '',
     columns: '',
-    description: '',
+    remarks: '',
   })
 
   const [tableData, SetTableData] = useState<[]>()
@@ -31,6 +31,18 @@ export const MyDataDetail: FC<any> = porps => {
   const initData = () => {
     resourceApi.queryMetaDataDetail(id).then(res => {
       console.log(res)
+      setBaseInfo({
+        fileName: res.data.fileName,
+        fileId: res.data.fileId,
+        status: res.data.status,
+        metaDataId: res.data.metaDataId,
+        filePath: res.data.filePath,
+        size: res.data.size,
+        rows: res.data.rows,
+        columns: res.data.columns,
+        remarks: res.data.remarks,
+      })
+      SetTableData(res.data.localMetaDataColumnList)
     })
   }
 
@@ -46,50 +58,50 @@ export const MyDataDetail: FC<any> = porps => {
         {type === 'view' ? (
           <Descriptions column={2} title={`${t('center.basicInfo')}`}>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
-              Zhou Maomao
+              {baseInfo.fileName}
             </Descriptions.Item>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaStatus')}>
-              111mb
+              {baseInfo.status}
             </Descriptions.Item>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
-              Zhou Maomao
+              {baseInfo.fileId}
             </Descriptions.Item>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
-              111mb
+              {baseInfo.metaDataId}
             </Descriptions.Item>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFilePath')}>
-              Zhou Maomao
+              {baseInfo.filePath}
             </Descriptions.Item>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
-              111mb
+              {baseInfo.size}
             </Descriptions.Item>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
-              Zhou Maomao
+              {baseInfo.rows}
             </Descriptions.Item>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
-              111mb
+              {baseInfo.columns}
             </Descriptions.Item>
             <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
-              <TextArea value="11111111111111" disabled rows={4} />
+              <TextArea value={baseInfo.remarks} disabled rows={4} />
             </Descriptions.Item>
           </Descriptions>
         ) : (
           <Descriptions column={1} title={`${t('center.basicInfo')}`}>
             <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
-              Zhou Maomao
+              {baseInfo.fileName}
             </Descriptions.Item>
             <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
-              Zhou Maomao
+              {baseInfo.fileId}
             </Descriptions.Item>
             <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
-              <TextArea value="11111111111111" rows={4} />
+              <TextArea value={baseInfo.remarks} rows={4} />
             </Descriptions.Item>
           </Descriptions>
         )}
       </div>
       <div className="info-box">
         <Descriptions column={2} title={`${t('center.fieldInfo')}`}></Descriptions>
-        {type === 'view' ? <DetailTable /> : <MyFiledsTable mode="edit" />}
+        {type === 'view' ? <DetailTable tableData={tableData} /> : <MyFiledsTable tableData={tableData} mode="edit" />}
       </div>
     </div>
   )

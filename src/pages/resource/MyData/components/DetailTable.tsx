@@ -7,7 +7,8 @@ import MyModal from '../../../../components/MyModal'
 const DetailTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const history = useHistory()
-  const { type } = props
+  const { tableData } = props
+
   const [isModalVisible, setIsModalVisible] = useState(false)
   const pagination = {
     current: 1,
@@ -43,19 +44,22 @@ const DetailTable: FC<any> = (props: any) => {
     },
     {
       title: t('center.fileField'),
-      dataIndex: 'name',
+      dataIndex: 'columnName',
       width: '20%',
-      key: 'name',
+      key: 'columnName',
     },
     {
       title: t('myData.visible'),
       dataIndex: 'visible',
       key: 'visible',
+      render: (text, record, index) => {
+        return record.visible === 'N' ? 'No' : 'Yes'
+      },
     },
     {
       title: t('center.dataType'),
-      dataIndex: 'dataType',
-      key: 'dataType',
+      dataIndex: 'columnType',
+      key: 'columnType',
     },
     {
       title: t('center.remarks'),
@@ -65,7 +69,7 @@ const DetailTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="data-table-box">
-      <Table dataSource={dataSource} columns={columns} bordered />
+      <Table dataSource={tableData} columns={columns} bordered />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>{t('center.confirmWithdraw')}:333333333333333333333</p>
       </MyModal>
