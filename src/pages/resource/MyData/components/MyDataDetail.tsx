@@ -1,18 +1,42 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Descriptions, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import Bread from '../../../../layout/components/Bread'
 import DetailTable from './DetailTable'
 import MyFiledsTable from './MyFiledsTable'
+import { resourceApi } from '../../../../api/index'
 import '../scss/editTable.scss'
 
 export const MyDataDetail: FC<any> = porps => {
   const { TextArea } = Input
   const { location } = porps
   const { type, id } = location.state
-  const { t } = useTranslation()
-  console.log(location.state.type) // 判断类型 获取id
 
+  const [baseInfo, setBaseInfo] = useState({
+    fileName: '',
+    fileId: '',
+    status: '',
+    metaDataID: '',
+    filePath: '',
+    size: '',
+    rows: '',
+    columns: '',
+    description: '',
+  })
+
+  const [tableData, SetTableData] = useState<[]>()
+
+  const { t } = useTranslation()
+
+  const initData = () => {
+    resourceApi.queryMetaDataDetail(id).then(res => {
+      console.log(res)
+    })
+  }
+
+  useEffect(() => {
+    initData()
+  }, [])
   return (
     <div className="layout-box">
       <div className="bread-box">
