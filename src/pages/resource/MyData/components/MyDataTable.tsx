@@ -105,9 +105,17 @@ const MyDataTable: FC<any> = () => {
     })
   }
 
-  const downloadFn = () => {}
+  const downloadFn = (row: any) => {
+    resourceApi.downloadMeta({ id: row.metaDataId }).then(res => {
+      if (res.status === 0) {
+        console.log(res)
+        message.success('操作成功')
+        setIsModalVisible(false)
+      }
+    })
+  }
 
-  const OnPageChange = page => {
+  const OnPageChange = (page: number) => {
     setCurPage(page)
   }
 
@@ -126,8 +134,9 @@ const MyDataTable: FC<any> = () => {
       title: t('center.metaFiled'),
       dataIndex: 'metaDataColumnList',
       key: 'metaDataColumnList',
+      width: 400,
       render: (text: any) => (
-        <Space size={10}>
+        <Space size={10} wrap>
           {text.map(item => (
             <span key={item}>{item}</span>
           ))}
@@ -143,10 +152,10 @@ const MyDataTable: FC<any> = () => {
         if (row.status === 'released') {
           return (
             <Space size={10} className="operation-box">
-              <span className="btn pointer link" onClick={viewFn}>
+              <span className="btn pointer link" onClick={() => viewFn(row)}>
                 {t('center.view')}
               </span>
-              <span className="btn pointer link" onClick={downloadFn}>
+              <span className="btn pointer link" onClick={() => downloadFn(row)}>
                 {t('center.download')}
               </span>
               <span className="btn pointer link" onClick={() => withDrawFn(row)}>
@@ -163,7 +172,7 @@ const MyDataTable: FC<any> = () => {
             <span className="btn pointer link" onClick={() => modifyFn(row)}>
               {t('center.modify')}
             </span>
-            <span className="btn pointer link" onClick={downloadFn}>
+            <span className="btn pointer link" onClick={() => downloadFn(row)}>
               {t('center.download')}
             </span>
             <span className="btn pointer link" onClick={() => publishFn(row)}>

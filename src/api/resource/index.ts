@@ -37,7 +37,7 @@ const resourceApi = {
     })
   },
   // 下载
-  downloadFn(data: any): Promise<any> {
+  downloadMeta(data: any): Promise<any> {
     return axios({
       method: "GET",
       url: `/api/v1/resource/mydata/download?metaDataId=${data.id}`,

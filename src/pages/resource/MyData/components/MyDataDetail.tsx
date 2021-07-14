@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import React, { FC, useEffect, useState, memo } from 'react'
 import { Descriptions, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import Bread from '../../../../layout/components/Bread'
@@ -7,11 +8,12 @@ import MyFiledsTable from './MyFiledsTable'
 import { resourceApi } from '../../../../api/index'
 import '../scss/editTable.scss'
 
-export const MyDataDetail: FC<any> = porps => {
+const MyData: FC<any> = porps => {
   const { TextArea } = Input
   const { location } = porps
   const { type, id } = location.state
 
+  const [total, setTotal] = useState<number>()
   const [baseInfo, setBaseInfo] = useState({
     fileName: '',
     fileId: '',
@@ -23,10 +25,26 @@ export const MyDataDetail: FC<any> = porps => {
     columns: '',
     remarks: '',
   })
+  const [originalData, setOriginalData] = useState([])
 
-  const [tableData, SetTableData] = useState<[]>()
+  const [tableData, setTableData] = useState<[]>()
 
   const { t } = useTranslation()
+
+  const pagenation = {
+    pagesize: 10
+  }
+
+  const [curPage, setCurPage] = useState<number>(1)
+  const getShowSource = (data) => {
+    return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
+  }
+
+  useEffect(() => {
+    curPage && setTableData(getShowSource(originalData))
+  }, [curPage])
+
+
 
   const initData = () => {
     resourceApi.queryMetaDataDetail(id).then(res => {
@@ -42,8 +60,16 @@ export const MyDataDetail: FC<any> = porps => {
         columns: res.data.columns,
         remarks: res.data.remarks,
       })
-      SetTableData(res.data.localMetaDataColumnList)
+      setOriginalData(res.data.localMetaDataColumnList)
+      setTableData(getShowSource(res.data.localMetaDataColumnList))
+      setTotal(res.data.localMetaDataColumnList.length)
     })
+  }
+
+
+
+  const setPage = (page: number) => {
+    setCurPage(page);
   }
 
   useEffect(() => {
@@ -101,8 +127,10 @@ export const MyDataDetail: FC<any> = porps => {
       </div>
       <div className="info-box">
         <Descriptions column={2} title={`${t('center.fieldInfo')}`}></Descriptions>
-        {type === 'view' ? <DetailTable tableData={tableData} /> : <MyFiledsTable tableData={tableData} mode="edit" />}
+        {type === 'view' ? <DetailTable tableData={tableData} total={total} setPage={setPage} curPage={curPage} />
+          : <MyFiledsTable originalData={originalData} tableData={tableData} total={total} setPage={setPage} curPage={curPage} mode="edit" />}
       </div>
     </div>
   )
 }
+export const MyDataDetail = memo(MyData)

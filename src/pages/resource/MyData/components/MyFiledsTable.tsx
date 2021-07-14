@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useEffect, useState, useRef } from 'react'
+import React, { FC, useMemo, useEffect, useState, useRef, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Table, Space, Select, Tabs, Radio, Input } from 'antd'
@@ -30,7 +30,11 @@ const MyFiledsTable: FC<any> = (props: any) => {
   }
 
   const [data, setData] = useState<Item[]>([])
-  const { mode } = props
+  const { mode, tableData, total, setPage, curPage, originalData } = props
+
+  console.log("tableData", tableData);
+  console.log("data======>", data);
+
   // useEffect(() => {
   //   if (isFieldEditing && inputRef.current) {
   //     inputRef.current!.focus();
@@ -52,7 +56,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
     setData(rows)
   }
   const handleCellChange = (e, record, column) => {
-    console.log(column)
+    console.log("column", column)
 
     const rows = [...data]
     const row = rows.find(item => item.id === record.id)
@@ -61,44 +65,28 @@ const MyFiledsTable: FC<any> = (props: any) => {
     }
     setData(rows)
   }
-  const dataSource = [
-    {
-      id: '1',
-      key: '1',
-      name: '胡彦斌',
-      dataProvider: 32,
-      visible: 'yes',
-      dataType: '啊啊啊啊',
-      remarks: '西湖区湖底公园1号',
-    },
-    {
-      id: '2',
-      key: '2',
-      name: '胡彦斌',
-      dataProvider: 32,
-      visible: 'no',
-      dataType: '啊啊啊啊',
-      remarks: '西湖区湖底公园1号',
-    },
-  ]
-
+  const onPageChange = (page: number) => {
+    setPage(page)
+  }
   useEffect(() => {
-    setData(() => [...dataSource])
+    if (tableData && tableData.length > 0) {
+      setData(() => [...tableData])
+    }
   }, [])
 
   const columns = [
     {
       title: '',
-      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
       title: t('center.fileField'),
-      dataIndex: 'name',
+      dataIndex: 'columnName',
       width: '20%',
-      key: 'name',
+      key: 'columnName',
       editable: 'true',
       render: (text, record, index) => (
-        <EditTableCell record={record} column="name" handleCellChange={handleCellChange} />
+        <EditTableCell record={record} column="columnName" handleCellChange={handleCellChange} />
       ),
     },
     {
@@ -117,16 +105,16 @@ const MyFiledsTable: FC<any> = (props: any) => {
         return (
           <div>
             <Radio.Group
-              defaultValue="yes"
+              defaultValue="Y"
               value={record.visible}
               optionType="button"
               buttonStyle="solid"
               onChange={e => handleSwitchChange(e, record)}
             >
-              <Radio.Button checked value="yes">
+              <Radio.Button checked value="Y">
                 {t('myData.yes')}
               </Radio.Button>
-              <Radio.Button value="no">{t('myData.no')}</Radio.Button>
+              <Radio.Button value="N">{t('myData.no')}</Radio.Button>
             </Radio.Group>
           </div>
         )
@@ -169,9 +157,9 @@ const MyFiledsTable: FC<any> = (props: any) => {
   return (
     <div className="data-table-box">
       {mode === 'add' ? <div className="tips pb-20">{t('myData.infoTips')}</div> : ''}
-      <Table rowClassName={() => 'editable-row'} dataSource={data} columns={columns} bordered />
+      <Table rowClassName={() => 'editable-row'} rowKey={record => record.id} dataSource={tableData} columns={columns} pagination={{ defaultCurrent: 1, total, onChange: onPageChange }} bordered />
     </div>
   )
 }
 
-export default MyFiledsTable
+export default memo(MyFiledsTable)

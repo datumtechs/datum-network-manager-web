@@ -7,40 +7,25 @@ import MyModal from '../../../../components/MyModal'
 const DetailTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const history = useHistory()
-  const { tableData } = props
+  const { tableData, total, setPage, curPage } = props
 
   const [isModalVisible, setIsModalVisible] = useState(false)
   const pagination = {
-    current: 1,
     defaultPageSize: 10,
   }
-  const handleOk = () => {}
+  const handleOk = () => { }
   const handleCancel = () => {
     setIsModalVisible(false)
   }
+  const onPageChange = (page: number) => {
+    setPage(page)
+  }
 
-  const modifyFn = () => {}
-
-  const dataSource = [
-    {
-      key: '1',
-      name: '胡彦斌',
-      visible: 32,
-      dataType: '西湖区湖底公园1号',
-      remarks: 'Unpublished',
-    },
-    {
-      key: '2',
-      name: '胡彦祖',
-      visible: 42,
-      dataType: '西湖区湖底公园1号',
-      remarks: 'Published',
-    },
-  ]
+  const modifyFn = () => { }
   const columns = [
     {
       title: '',
-      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
       title: t('center.fileField'),
@@ -69,7 +54,7 @@ const DetailTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="data-table-box">
-      <Table dataSource={tableData} columns={columns} bordered />
+      <Table dataSource={tableData} columns={columns} bordered rowKey={record => record.id} pagination={{ defaultCurrent: 1, total, onChange: onPageChange }} />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>{t('center.confirmWithdraw')}:333333333333333333333</p>
       </MyModal>

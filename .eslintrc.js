@@ -28,7 +28,7 @@ module.exports = {
   ],
   rules: {
     'arrow-body-style': 0,
-    'no-unused-vars': 'warn',
+    'no-unused-vars': 'off',
     'vue/no-unused-vars': 'off',
     'no-named-as-default': 0,
     'no-console': 'off',
