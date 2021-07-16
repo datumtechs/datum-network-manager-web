@@ -1,16 +1,20 @@
 .pointer {
   cursor: pointer;
 }
+
 .main-wrapper {
   display: flex;
+
   .left-side {
     width: 263px;
   }
+
   .right-side {
     flex: 1;
     margin-left: 30px;
   }
 }
+
 .link {
   color: $mainColor;
 }
@@ -19,14 +23,20 @@
   width: calc(100% + 15px);
   height: calc(100vh - 120px);
   overflow-y: scroll;
+  .submit-box {
+    padding: 20px;
+  }
+
   .bread-box > .ant-breadcrumb {
     height: 50px;
     line-height: 50px;
     padding-left: 10px;
   }
+
   &.gray-box {
     background: #f7f8fa;
   }
+
   .bread-box {
     background: #fff;
     border-bottom: 1px solid #ebeef9;
@@ -34,27 +44,33 @@
     align-items: center;
     padding-left: 12px;
   }
+
   .form-box {
     padding: 30px 20px;
   }
+
   .searchBar-box {
     padding: 20px 0;
     display: flex;
     justify-content: space-between;
+
     .btn {
       height: 36px;
       border-radius: 2px;
     }
   }
+
   .charts-box {
     display: flex;
 
     margin-top: 30px;
+
     .node-info {
       flex: 1;
       background: #fff;
       margin-right: 30px;
       padding: 20px;
+
       .title span {
         font-family: PingFangSC-Medium;
         font-size: 16px;
@@ -67,6 +83,7 @@
         height: 200px;
       }
     }
+
     .cpu-info {
       width: 21%;
       height: 320px;
@@ -76,12 +93,15 @@
       padding: 20px;
       font-family: PingFangSC-Regular;
       letter-spacing: 0;
+
       title {
       }
+
       .status {
         margin-top: 28px;
         line-height: 24px;
       }
+
       .charts {
         display: flex;
         justify-content: center;
@@ -89,15 +109,19 @@
       }
     }
   }
+
   .table-box {
     padding: 20px;
   }
+
   .white-bg {
     margin-top: 30px;
     background: #fff;
   }
+
   .info-box {
     padding: 20px 20px 0px;
+
     .title-label {
       font-family: PingFangSC-Medium;
       font-size: 16px;
@@ -106,13 +130,17 @@
       font-weight: 600;
     }
   }
+
   .add-info-box {
     padding: 20px;
+
     .btn {
     }
+
     .limit-box {
       width: 572px;
     }
+
     .title-box {
       flex: auto;
       overflow: hidden;
@@ -123,8 +151,10 @@
       white-space: nowrap;
       text-overflow: ellipsis;
     }
+
     .label-box {
       padding: 20px;
+
       .note-box {
         margin-top: 10px;
         font-family: PingFangSC-Regular;
@@ -132,22 +162,27 @@
         color: #f5222d;
         letter-spacing: 0;
       }
+
       .upload-line {
         display: flex;
         position: relative;
       }
     }
+
     .sub-info-box {
       padding: 20px 30px;
+
       .title-box {
         padding-bottom: 20px;
       }
+
       .ant-radio-button-wrapper-checked {
         background-color: $mainColor !important;
         color: #fff !important;
       }
     }
   }
+
   .data-table-box {
     .operation-box {
       .btn {
@@ -167,6 +202,7 @@
     letter-spacing: 0;
   }
 }
+
 .ant-modal-body {
   min-height: 140px;
   font-family: PingFangSC-Medium;
@@ -182,9 +218,11 @@
 
 .btn-group {
   margin-top: 15px;
+
   .btn {
     width: 112px;
   }
+
   .active {
     background: $mainColor;
     color: #fff;

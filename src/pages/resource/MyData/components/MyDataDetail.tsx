@@ -1,20 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { FC, useEffect, useState, memo } from 'react'
-import { Descriptions, Input } from 'antd'
+import { useHistory } from 'react-router-dom'
+import { Descriptions, Input, Space, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { connect } from 'react-redux'
 import Bread from '../../../../layout/components/Bread'
 import DetailTable from './DetailTable'
 import MyFiledsTable from './MyFiledsTable'
 import { resourceApi } from '../../../../api/index'
 import '../scss/editTable.scss'
 
-const MyData: FC<any> = porps => {
+const MyData: FC<any> = props => {
+
+  console.log("props==============>", props);
   const { TextArea } = Input
-  const { location } = porps
+  const { location } = props
   const { type, id } = location.state
 
   const [total, setTotal] = useState<number>()
   const [baseInfo, setBaseInfo] = useState({
+    id: '',
     fileName: '',
     fileId: '',
     status: '',
@@ -25,12 +30,15 @@ const MyData: FC<any> = porps => {
     columns: '',
     remarks: '',
   })
+
+
+  const [remarks, setRemarks] = useState('')
   const [originalData, setOriginalData] = useState([])
 
   const [tableData, setTableData] = useState<[]>()
 
   const { t } = useTranslation()
-
+  const history = useHistory()
   const pagenation = {
     pagesize: 10
   }
@@ -44,12 +52,19 @@ const MyData: FC<any> = porps => {
     curPage && setTableData(getShowSource(originalData))
   }, [curPage])
 
+  useEffect(() => {
+    props.updateData(originalData)
+  }, [originalData])
 
+  const backFn = () => {
+    history.goBack()
+  }
 
   const initData = () => {
     resourceApi.queryMetaDataDetail(id).then(res => {
       console.log(res)
       setBaseInfo({
+        id: res.data.id,
         fileName: res.data.fileName,
         fileId: res.data.fileId,
         status: res.data.status,
@@ -63,10 +78,24 @@ const MyData: FC<any> = porps => {
       setOriginalData(res.data.localMetaDataColumnList)
       setTableData(getShowSource(res.data.localMetaDataColumnList))
       setTotal(res.data.localMetaDataColumnList.length)
+      setRemarks(res.data.remarks)
     })
   }
 
+  const updateMetaData = () => {
+    const dataObj = {
+      id: baseInfo.id,
+      remarks,
+      localMetaDataColumnList: originalData
+    }
+    resourceApi.updateMetaData(dataObj).then(res => {
+      console.log(res);
+    })
+  }
 
+  const onRemarksChange = ({ target: { value } }) => {
+    setRemarks(value)
+  }
 
   const setPage = (page: number) => {
     setCurPage(page);
@@ -120,7 +149,7 @@ const MyData: FC<any> = porps => {
               {baseInfo.fileId}
             </Descriptions.Item>
             <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
-              <TextArea value={baseInfo.remarks} rows={4} />
+              <TextArea onChange={onRemarksChange} value={remarks} rows={4} />
             </Descriptions.Item>
           </Descriptions>
         )}
@@ -130,7 +159,23 @@ const MyData: FC<any> = porps => {
         {type === 'view' ? <DetailTable tableData={tableData} total={total} setPage={setPage} curPage={curPage} />
           : <MyFiledsTable originalData={originalData} tableData={tableData} total={total} setPage={setPage} curPage={curPage} mode="edit" />}
       </div>
+      <div className="submit-box">
+        <Space size={40} className="btn-group">
+          <Button size="large" className="btn" onClick={backFn}>{`${t('common.return')}`}</Button>
+          {type === 'edit' ? <Button type="primary" size="large" className="btn" onClick={updateMetaData}>{`${t('common.submit')}`}</Button> : ''}
+        </Space>
+      </div>
     </div>
   )
 }
-export const MyDataDetail = memo(MyData)
+export const MyDataDetail = connect(
+  (state: any) => ({ state }),
+  (dispatch: any) => ({
+    updateData: (originalData: Array<[]>) => {
+      dispatch({
+        type: 'SET_ORIGINAL_DATA',
+        data: originalData,
+      })
+    },
+  }),
+)(MyData)

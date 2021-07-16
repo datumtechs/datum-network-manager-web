@@ -10,6 +10,8 @@ export const DispatchConfig: FC<any> = () => {
   // const tailLayout = {
   //   wrapperCol: { offset: 4, span: 8 },
   // }
+
+  const isConnect = false
   const onFinish = () => {}
   const onFinishFailed = () => {}
   return (
@@ -44,14 +46,29 @@ export const DispatchConfig: FC<any> = () => {
               <Input className="form-box-input" placeholder={t('common.noModify')} />
             </Form.Item> */}
             <Form.Item>
-              <Button
-                type="primary"
-                className="btn submit-btn"
-                style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
-                htmlType="submit"
-              >
-                {t('overview.submit')}
-              </Button>
+              {isConnect ? (
+                <Button
+                  type="primary"
+                  className="btn submit-btn"
+                  style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
+                  htmlType="submit"
+                >
+                  {t('overview.submit')}
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    type="primary"
+                    className="btn submit-btn"
+                    style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
+                    htmlType="submit"
+                  >
+                    {t('overview.submit')}
+                  </Button>
+                  <span>{t('node.connectSuccess')}</span>
+                  <span>{t('node.connenctFailed')}</span>
+                </>
+              )}
             </Form.Item>
           </Form>
         </div>

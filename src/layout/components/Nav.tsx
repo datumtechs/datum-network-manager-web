@@ -6,14 +6,14 @@ import useDid from '../../hooks/useHasDid'
 import { IRoute } from '../../router/index'
 import { businessRouteList } from '../../router/utils'
 
-console.log(businessRouteList);
+console.log(businessRouteList)
 
 const Nav = (props: any) => {
   const menu = props.state.menu.curMenu
   const history = useHistory()
   const { pathname } = useLocation()
   const [curPath, SetCurPath] = useState('')
-  console.log(curPath);
+  console.log(curPath)
 
   const hasDid = useDid()
 
@@ -49,8 +49,12 @@ const Nav = (props: any) => {
     <div className="nav-box">
       {props.list.map((item: IRoute) =>
         item.meta.show ? (
-          <div className="sub-nav-box pointer" key={item.name} onMouseEnter={(e) => mouseEnter(item, e)}
-            onMouseLeave={(e) => mouseLeave(e)}>
+          <div
+            className="sub-nav-box pointer"
+            key={item.name}
+            onMouseEnter={e => mouseEnter(item, e)}
+            onMouseLeave={e => mouseLeave(e)}
+          >
             <div
               className={`sub-nav ${curPath.includes(item.path) ? 'activeMenu' : null}`}
               key={item.name}
@@ -62,7 +66,11 @@ const Nav = (props: any) => {
                   <ul className="child-nav" style={{ width: i18n.language === 'en' ? '137px' : '107px' }}>
                     {item.children.map(child =>
                       child.meta.show ? (
-                        <li className={`${curPath.includes(child.path) ? 'activeSubMenu' : ''}`} key={child.name} onClick={e => linkTo(child, e)}>
+                        <li
+                          className={`${curPath.includes(child.path) ? 'activeSubMenu' : ''}`}
+                          key={child.name}
+                          onClick={e => linkTo(child, e)}
+                        >
                           {t(`${child.label}`)}
                         </li>
                       ) : (
@@ -71,13 +79,11 @@ const Nav = (props: any) => {
                     )}
                   </ul>
                 </div>
-
               ) : (
                 ''
               )}
             </div>
           </div>
-
         ) : (
           ''
         ),

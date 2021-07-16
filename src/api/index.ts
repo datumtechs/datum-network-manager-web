@@ -1,7 +1,9 @@
 import resourceApi from "./resource";
-
-console.log(resourceApi);
+import overviewApi from "./overview";
+import loginApi from "./login";
 
 export {
-  resourceApi
+  resourceApi,
+  overviewApi,
+  loginApi
 }

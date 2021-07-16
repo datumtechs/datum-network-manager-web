@@ -1,6 +1,6 @@
 import React from 'react'
 
-const login = React.lazy(() => import('../pages/Login/index').then(({ Login }) => ({ default: Login })))
+const login = React.lazy(() => import('../pages/Login/index').then(_ => (_)))
 const layout = React.lazy(() => import('../layout/index').then(_ => ({ default: _.Layout })))
 const Overview = React.lazy(() => import('../pages/overview/index').then(_ => ({ default: _.Overview })))
 const NodeMgt = React.lazy(() => import('../pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))

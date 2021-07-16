@@ -1,3 +1,5 @@
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const SETMENU = 'SETMENU'
+export const SET_ORIGINAL_DATA = 'SET_ORIGINAL_DATA'
+export const SET_ORG_INFO = 'SET_ORG_INFO'

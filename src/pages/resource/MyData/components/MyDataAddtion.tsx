@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import Bread from '../../../../layout/components/Bread'
 import { MyRadioBtn } from './MyRadioBtn'
 import MyFiledsTable from './MyFiledsTable'
+import { resourceApi } from '../../../../api/index'
 
 export const MyDataAddtion: FC<any> = porps => {
   const { t } = useTranslation()
@@ -12,9 +13,17 @@ export const MyDataAddtion: FC<any> = porps => {
   const [uploadFile, setUploadFile] = useState<any>({})
   const [showTypeError, setShowTypeError] = useState<boolean>(false)
   const [showIncludeError, setShowIncludeError] = useState<boolean>(false)
-  const [radioValue, setRadioValue] = useState(null)
+  const [radioValue, setRadioValue] = useState('')
+  const [total, setTotal] = useState<number>()
+  const [originalData, setOriginalData] = useState([])
+  const [tableData, setTableData] = useState<[]>()
+  const [curPage, setCurPage] = useState<number>(1)
   const history = useHistory()
   const inputRef = createRef<any>()
+
+  const pagenation = {
+    pagesize: 10,
+  }
 
   const selectFileFn = () => { }
   const goBackFn = () => {
@@ -23,27 +32,39 @@ export const MyDataAddtion: FC<any> = porps => {
   const submitFn = () => {
     console.log('submit')
   }
+  const getShowSource = (data) => {
+    return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
+  }
   useEffect(() => {
-    if (inputRef?.current?.input?.files?.length > 0 && uploadFile.type !== 'text/csv') {
+    if (inputRef?.current?.input?.files?.length > 0 && uploadFile.name.split('.')[1] !== 'csv') {
       setShowTypeError(true)
     } else {
       setShowTypeError(false)
     }
   }, [uploadFile])
-
+  const setPage = (page: number) => {
+    setCurPage(page);
+  }
   const uploadFn = () => {
     // 判断文件是否为空 判断是否选择了包含字段
-    console.log(inputRef.current.input.files)
-
-    console.log(Object.keys(uploadFile).length)
     if (!radioValue) {
       setShowIncludeError(true)
-    } else if (inputRef?.current?.input?.files?.length === 0) {
+      return
+    }
+    if (inputRef?.current?.input?.files?.length === 0) {
       message.error('Please select a file first')
-    } else if (!showTypeError) {
+    } else if (showTypeError) {
       setShowTypeError(true)
     }
-    console.log('uploadFn Api')
+
+    const form = new FormData()
+    form.append('file', uploadFile)
+    form.append('hasTitle', radioValue)
+    resourceApi.uploadCsv(form).then(res => {
+      setOriginalData([])
+      setTotal(15)
+      setTableData(getShowSource([]))
+    })
   }
 
   const uploadFileOnChange = e => {
@@ -64,10 +85,10 @@ export const MyDataAddtion: FC<any> = porps => {
         <div className="title-box">{t('myData.plzUploadFile')}</div>
         <div className="label-box">
           <Radio.Group onChange={changeFileIncludeStatusFn} value={radioValue}>
-            <Radio value={0} disabled={formDisable}>
+            <Radio value='true' disabled={formDisable}>
               {t('myData.including')}
             </Radio>
-            <Radio value={1} disabled={formDisable}>
+            <Radio value='false' disabled={formDisable}>
               {t('myData.noIncluding')}
             </Radio>
           </Radio.Group>
@@ -100,10 +121,11 @@ export const MyDataAddtion: FC<any> = porps => {
             >
               <Form.Item
                 label={t('myData.sourceName')}
-                name="sourceName"
                 rules={[{ required: true, message: 'Please input your username!' }]}
               >
-                <Input className="limit-box" />
+                <Form.Item name="sourceName">
+                  <Input className="limit-box" />
+                </Form.Item>
                 <div className="tips">{t('myData.nameTips')}</div>
               </Form.Item>
 
@@ -120,7 +142,7 @@ export const MyDataAddtion: FC<any> = porps => {
         <div className="sub-info-box">
           <div className="title-box">{t('center.fieldInfo')}</div>
           <div>
-            <MyFiledsTable mode='add' />
+            <MyFiledsTable originalData={originalData} tableData={tableData} total={total} setPage={setPage} curPage={curPage} mode='add' />
           </div>
         </div>
       </div>

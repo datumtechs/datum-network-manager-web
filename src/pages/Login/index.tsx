@@ -1,24 +1,60 @@
-
+/* eslint-disable no-empty */
 import { Form, Input, Button } from 'antd'
-import './index.scss';
-import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
-import imageBottom from "../../assets/images/1.bj3.png"
-import square1 from "../../assets/images/1.img1.png"
-import square2 from "../../assets/images/1.img2.png"
-import square3 from "../../assets/images/1.img3.png"
+import { useState } from 'react'
+import { connect } from 'react-redux'
+import './index.scss'
+import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
+import imageBottom from '../../assets/images/1.bj3.png'
+import square1 from '../../assets/images/1.img1.png'
+import square2 from '../../assets/images/1.img2.png'
+import square3 from '../../assets/images/1.img3.png'
+import { loginApi } from '../../api/index'
 
-
-
-export const Login = () => {
+const Login = (props: any) => {
   const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
 
   const history = useHistory()
 
+  // const [baseInfo, setBaseInfo] = useState({
+  //   carrierConnStatus: '',
+  //   carrierConnTime: '',
+  //   carrierIP: '',
+  //   carrierNodeId: '',
+  //   carrierPort: '',
+  //   carrierStatus: '',
+  //   identityId: '',
+  //   name: '',
+  //   recUpdateTime: '',
+  // })
+
   const onFinish = (values: any) => {
-    console.log(values);
-    history.push('/')
+    const {
+      login: { account, password, veriCode = 2222 },
+    } = values
+    console.log(values)
+    loginApi.loginFn({ userName: account, passwd: password, code: veriCode }).then(res => {
+      if (res.status === 0) {
+        loginApi.queryBaseInfo().then(re => {
+          console.log(re)
+          if (re.status === 0 && re.data) {
+            props.saveOrg(re.data)
+            history.push('/')
+            // if (res.data.identityId) {
+            //   history.push('/')
+            // } else {
+            //   // 不存在id 则跳转到id页
+            // }
+          } else {
+            // props.saveOrg(re.data)
+            history.push('/didApplication')
+          }
+        })
+      } else {
+      }
+    })
+    // history.push('/')
   }
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
@@ -45,14 +81,35 @@ export const Login = () => {
         </div>
         <div className="form-box">
           <p className="title">{t('login.login')}</p>
-          <Form form={form} initialValues={{ remember: true }} className="content-box" onFinish={onFinish} validateMessages={validateMessages}>
-            <Form.Item name={['login', 'account']} rules={[{ required: true, message: t('login.plzinput') + t('login.account') }]}>
+          <Form
+            form={form}
+            initialValues={{ remember: true }}
+            className="content-box"
+            onFinish={onFinish}
+            validateMessages={validateMessages}
+          >
+            <Form.Item
+              name={['login', 'account']}
+              rules={[{ required: true, message: t('login.plzinput') + t('login.account') }]}
+            >
               <Input bordered={false} placeholder="Account" className="login-form-height" />
             </Form.Item>
-            <Form.Item name={['login', 'password']} rules={[{ required: true, message: t('login.plzinput') + t('login.password') }]}>
-              <Input.Password visibilityToggle={false} size="large" bordered={false} placeholder="Password" className="login-form-height" />
+            <Form.Item
+              name={['login', 'password']}
+              rules={[{ required: true, message: t('login.plzinput') + t('login.password') }]}
+            >
+              <Input.Password
+                visibilityToggle={false}
+                size="large"
+                bordered={false}
+                placeholder="Password"
+                className="login-form-height"
+              />
             </Form.Item>
-            <Form.Item name={['login', 'veriCode']} rules={[{ required: true, message: t('login.plzinput') + t('login.vericode') }]}>
+            <Form.Item
+              name={['login', 'veriCode']}
+              rules={[{ required: true, message: t('login.plzinput') + t('login.vericode') }]}
+            >
               <Input bordered={false} placeholder="Verification Code" className="login-form-height" />
             </Form.Item>
             <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
@@ -63,5 +120,20 @@ export const Login = () => {
           </Form>
         </div>
       </div>
-    </div >)
+    </div>
+  )
 }
+const mapStateToProps = (state: any) => ({ state })
+
+const mapDispatchToProps = (dispatch: any) => ({
+  saveOrg: (data: any) => {
+    console.log('data=============>', data)
+
+    dispatch({
+      type: 'SET_ORG_INFO',
+      data,
+    })
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

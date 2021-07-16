@@ -1,13 +1,13 @@
-import React, { FC } from 'react'
-import { Table, Progress } from 'antd'
+import React, { FC, useState, useEffect, useMemo } from 'react'
+import { Progress, Empty } from 'antd'
 import { useTranslation } from 'react-i18next'
 import '../scss/OverviewTable.scss'
 import memoryImg from '../../../assets/images/overview/2.icon_Memory.svg'
 import BandwidthImg from '../../../assets/images/overview/2.icon_Bandwidth.svg'
 
 const OverviewTable: FC<any> = (props: any) => {
-  console.log(props)
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const { globalObj, tableData } = props
   const dataSource = [
     {
       key: '1',
@@ -17,7 +17,7 @@ const OverviewTable: FC<any> = (props: any) => {
       cpu: '0',
       memory: '0',
       status: 'free',
-      bandWidth: "0",
+      bandWidth: '0',
       runTime: '',
     },
     {
@@ -27,7 +27,7 @@ const OverviewTable: FC<any> = (props: any) => {
       address: '西湖区湖底公园1号',
       cpu: '75',
       memory: '256',
-      bandWidth: "35",
+      bandWidth: '35',
       status: 'Occupied',
       runTime: '05: 11: 87',
     },
@@ -39,7 +39,7 @@ const OverviewTable: FC<any> = (props: any) => {
       cpu: '88',
       memory: '128',
       status: 'Occupied',
-      bandWidth: "76",
+      bandWidth: '76',
       runTime: '02: 14: 22',
     },
     {
@@ -49,7 +49,7 @@ const OverviewTable: FC<any> = (props: any) => {
       address: '西湖区湖底公园1号',
       cpu: '27',
       memory: '256',
-      bandWidth: "89",
+      bandWidth: '89',
       status: 'Occupied',
       runTime: '07: 11: 33',
     },
@@ -61,7 +61,7 @@ const OverviewTable: FC<any> = (props: any) => {
       cpu: '44',
       memory: '128',
       status: 'Occupied',
-      bandWidth: "17",
+      bandWidth: '17',
       runTime: '15: 28: 56',
     },
     {
@@ -71,7 +71,7 @@ const OverviewTable: FC<any> = (props: any) => {
       address: '西湖区湖底公园1号',
       cpu: '61',
       memory: '256',
-      bandWidth: "63",
+      bandWidth: '63',
       status: 'Occupied',
       runTime: '02: 02: 59',
     },
@@ -83,7 +83,7 @@ const OverviewTable: FC<any> = (props: any) => {
       cpu: '99',
       memory: '128',
       status: 'Occupied',
-      bandWidth: "25",
+      bandWidth: '25',
       runTime: '10: 36: 03',
     },
     {
@@ -93,7 +93,7 @@ const OverviewTable: FC<any> = (props: any) => {
       address: '西湖区湖底公园1号',
       cpu: '87',
       memory: '256',
-      bandWidth: "78",
+      bandWidth: '78',
       status: 'Occupied',
       runTime: '01: 34: 32',
     },
@@ -231,19 +231,38 @@ const OverviewTable: FC<any> = (props: any) => {
   //   },
   // ]
 
+  const cpu = useMemo(() => {
+    return (globalObj.usedProcessor / globalObj.totalProcessor).toFixed(2)
+  }, [globalObj.usedProcessor, globalObj.totalProcessor])
+
+  const memory = useMemo(() => {
+    return (globalObj.usedMem / globalObj.totalMem).toFixed(2)
+  }, [globalObj.totalMem, globalObj.usedMem])
+
+  const bandWidth = useMemo(() => {
+    return (globalObj.usedBandwidth / globalObj.totalBandwidth).toFixed(2)
+  }, [globalObj.totalBandwidth, globalObj.usedBandwidth])
+
   return (
     <div className="my-table-box">
       {/* <Table pagination={false} dataSource={dataSource} columns={columns} />; */}
       <div className="my-table-head">
-        <div className="head-box-name">
-          <p>Commuting</p>
-          <p>Resources</p>
-        </div>
+        {i18n.language === 'en' ? (
+          <div className="head-box-name">
+            <p>{t('overview.commuting')}</p>
+            <p>{t('overview.resources')}</p>
+          </div>
+        ) : (
+          <div className="head-box-name">
+            <p>计算资源</p>
+          </div>
+        )}
+
         <div className="head-box">
           <div className="left">
             <Progress
               type="circle"
-              percent={75}
+              percent={Number(cpu)}
               showInfo={false}
               width={50}
               strokeWidth={10}
@@ -253,7 +272,7 @@ const OverviewTable: FC<any> = (props: any) => {
           </div>
           <div className="right">
             <p className="top">CPU</p>
-            <p className="bottom">75%</p>
+            <p className="bottom">{cpu}%</p>
           </div>
         </div>
         <div className="head-box">
@@ -262,7 +281,7 @@ const OverviewTable: FC<any> = (props: any) => {
           </div>
           <div className="right">
             <p className="top"> {t('overview.memory')}</p>
-            <p className="bottom">50%</p>
+            <p className="bottom">{memory}%</p>
           </div>
         </div>
         <div className="head-box">
@@ -271,42 +290,46 @@ const OverviewTable: FC<any> = (props: any) => {
           </div>
           <div className="right">
             <p className="top"> {t('overview.bandWidth')}</p>
-            <p className="bottom">80%</p>
+            <p className="bottom">{bandWidth}%</p>
           </div>
         </div>
       </div>
       <div className="my-table-body">
-        {dataSource.map(item => {
-          return (
-            <div className="my-table" key={item.name}>
-              <div className="line-first">
-                <div className="name">Computation node：{item.name}</div>
-                {item.runTime ? <div className="time">Continuous run time：{item.runTime}</div> : <></>}
+        {tableData?.length > 0 ? (
+          tableData.map(item => {
+            return (
+              <div className="my-table" key={item.name}>
+                <div className="line-first">
+                  <div className="name">Computation node：{item.name}</div>
+                  {item.runTime ? <div className="time">Continuous run time：{item.runTime}</div> : <></>}
+                </div>
+                <div className="line-second">
+                  <div className="table-cell work-status">
+                    {item.status.toUpperCase() === 'FREE' ? (
+                      <span className="free"> Free </span>
+                    ) : (
+                      <span className="occupied"> Occupied</span>
+                    )}
+                  </div>
+                  <div className="table-cell cpu-status">
+                    <p className="table-title "> CPU</p>
+                    <p className="table-content">{item.cpu}%</p>
+                  </div>
+                  <div className="table-cell memory-status">
+                    <p className="table-title "> {t('overview.memory')}</p>
+                    <p className="table-content">{item.memory}MB</p>
+                  </div>
+                  <div className="table-cell bandwidth-status">
+                    <p className="table-title ">{t('overview.bandWidth')}</p>
+                    <p className="table-content">{item.bandWidth}%</p>
+                  </div>
+                </div>
               </div>
-              <div className="line-second">
-                <div className="table-cell work-status">
-                  {item.status.toUpperCase() === 'FREE' ? (
-                    <span className="free"> Free </span>
-                  ) : (
-                    <span className="occupied"> Occupied</span>
-                  )}
-                </div>
-                <div className="table-cell cpu-status">
-                  <p className="table-title "> CPU</p>
-                  <p className="table-content">{item.cpu}%</p>
-                </div>
-                <div className="table-cell memory-status">
-                  <p className="table-title "> {t('overview.memory')}</p>
-                  <p className="table-content">{item.memory}MB</p>
-                </div>
-                <div className="table-cell bandwidth-status">
-                  <p className="table-title ">{t('overview.bandWidth')}</p>
-                  <p className="table-content">{item.bandWidth}%</p>
-                </div>
-              </div>
-            </div>
-          )
-        })}
+            )
+          })
+        ) : (
+          <Empty className="empty-box" />
+        )}
       </div>
     </div>
   )

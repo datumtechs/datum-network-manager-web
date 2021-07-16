@@ -23,7 +23,9 @@
     "submit": "生成身份凭证,申请网络准入",
     "publishData": "已发布数据",
     "unPublishData": "未发布数据",
-    "taskInProgress": "正在进行中的任务"
+    "taskInProgress": "正在进行中的任务",
+    "commuting": "计算",
+    "resources": "资源"
   },
   "menu": {
     "systemOverview": "系统概况",
@@ -66,7 +68,9 @@
   "node": {
     "addNewComputingNode": "新增计算节点",
     "addNewDataNode": "新增数据节点",
-    "confirmDelete": "请确认是否要删除数据节点"
+    "confirmDelete": "请确认是否要删除数据节点",
+    "connectSuccess": "调度服务连接成功",
+    "connenctFailed": "调度服务连接失败"
   },
   "dataNodeMgt": {
     "nodeName": "数据节点名称与ID",

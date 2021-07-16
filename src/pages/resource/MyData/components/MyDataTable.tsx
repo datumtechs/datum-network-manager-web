@@ -5,9 +5,11 @@ import { Table, Space, message } from 'antd'
 import { resourceApi } from '../../../../api/index'
 import MyModal from '../../../../components/MyModal'
 
-const MyDataTable: FC<any> = () => {
+const MyDataTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const history = useHistory()
+  const { searchText } = props
+  console.log(searchText)
 
   const [pop, setPop] = useState({
     type: '',
@@ -19,10 +21,10 @@ const MyDataTable: FC<any> = () => {
   const [tableData, setTableData] = useState([])
 
   const initTableData = () => {
-    resourceApi.queryMydata({ pageNum: curPage, pageSize: 10 }).then(res => {
+    resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10 }).then(res => {
       if (res.status === 0) {
         setTotalNum(res.total)
-        setTableData(res.list)
+        setTableData(res.data)
       }
     })
   }
@@ -30,6 +32,10 @@ const MyDataTable: FC<any> = () => {
   useEffect(() => {
     initTableData()
   }, [curPage])
+
+  useEffect(() => {
+    initTableData()
+  }, [searchText])
 
   useEffect(() => {
     if (pop.type !== '') {

@@ -7,8 +7,8 @@ const SearchBar: FC<any> = (props: any) => {
   const { t } = useTranslation()
   console.log(props)
 
-  const onSearch = () => {
-    props.onSearch()
+  const onSearch = (e: any) => {
+    props.onSearch(e)
   }
   const addBtn = () => {
     props.onAdd()

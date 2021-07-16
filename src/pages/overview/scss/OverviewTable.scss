@@ -7,6 +7,9 @@ $bandwidth: #5eaafe;
   border-radius: 6px;
   background: #fff;
   overflow: hidden;
+  .empty-box {
+    transform: translateY(100%);
+  }
   // .ant-table-thead {
   //   height: 104px;
   //   position: relative;

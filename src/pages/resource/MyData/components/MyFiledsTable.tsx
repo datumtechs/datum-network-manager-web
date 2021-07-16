@@ -1,6 +1,7 @@
 import React, { FC, useMemo, useEffect, useState, useRef, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { Table, Space, Select, Tabs, Radio, Input } from 'antd'
 import EditTableCell from './EditableCell'
 import { DATATYPE } from '../../../../config/constant'
@@ -12,17 +13,13 @@ interface Item {
   name: string
   dataProvider: number
   visible: string
-  dataType: string
+  columnType: string
   remarks: string
 }
 
 const MyFiledsTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const history = useHistory()
-  const changeVisibleFn = (e, record) => {
-    console.log(record)
-    console.log(e)
-  }
   const { Option } = Select
   const pagination = {
     current: 1,
@@ -31,10 +28,6 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   const [data, setData] = useState<Item[]>([])
   const { mode, tableData, total, setPage, curPage, originalData } = props
-
-  console.log("tableData", tableData);
-  console.log("data======>", data);
-
   // useEffect(() => {
   //   if (isFieldEditing && inputRef.current) {
   //     inputRef.current!.focus();
@@ -44,8 +37,12 @@ const MyFiledsTable: FC<any> = (props: any) => {
   //   history.push('/resource/dataCenter/metaDataDetail')
   // }
   const handleSelectChange = (e, record) => {
-    console.log(record)
-    console.log(e)
+    const rows = [...data]
+    const row = rows.find(item => item.id === record.id)
+    if (row) {
+      row.columnType = e
+    }
+    setData(rows)
   }
   const handleSwitchChange = (e, record) => {
     const rows = [...data]
@@ -56,14 +53,22 @@ const MyFiledsTable: FC<any> = (props: any) => {
     setData(rows)
   }
   const handleCellChange = (e, record, column) => {
-    console.log("column", column)
-
     const rows = [...data]
     const row = rows.find(item => item.id === record.id)
     if (row) {
       row[column] = e.target.value
     }
     setData(rows)
+    // console.log("originalList", props.state.tableData.originalList);
+    // const tempAry = props.state.tableData.originalList
+    // tempAry.forEach(item => {
+    //   if (item.id === record.id) {
+    //     item[column] = e.target.value
+    //   }
+    // })
+    // console.log("updated tempAry===============>", tempAry);
+    props.updateData(data)
+
   }
   const onPageChange = (page: number) => {
     setPage(page)
@@ -72,7 +77,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
     if (tableData && tableData.length > 0) {
       setData(() => [...tableData])
     }
-  }, [])
+  }, [tableData])
 
   const columns = [
     {
@@ -162,4 +167,11 @@ const MyFiledsTable: FC<any> = (props: any) => {
   )
 }
 
-export default memo(MyFiledsTable)
+export default connect((state: any) => ({ state }), (dispatch: any) => ({
+  updateData: (originalData: Array<[]>) => {
+    dispatch({
+      type: 'SET_ORIGINAL_DATA',
+      data: originalData,
+    })
+  },
+}))(MyFiledsTable)

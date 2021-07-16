@@ -23,7 +23,9 @@
     "submit": "Create the identify credential，and apply for network access",
     "publishData": "Published  data",
     "unPublishData": "Unpublished data",
-    "taskInProgress": "Tasks in Progress"
+    "taskInProgress": "Tasks in Progress",
+    "commuting": "Commuting",
+    "resources": "Resources"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -66,7 +68,9 @@
   "node": {
     "addNewComputingNode": "Add a new computing node",
     "addNewDataNode": "Add a new data node",
-    "confirmDelete": "Please ensure that you are deleting the data node"
+    "confirmDelete": "Please ensure that you are deleting the data node",
+    "connectSuccess": "Connection succeeded",
+    "connenctFailed": "Connection failed"
   },
   "dataNodeMgt": {
     "nodeName": "Data node name & ID",

@@ -21,6 +21,9 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   response => {
+    if (response.data.status !== 0) {
+      return message.error(response.data.msg)
+    }
     return response.data;
   },
   error => {
@@ -29,7 +32,8 @@ service.interceptors.response.use(
     //     type: 'error',
     //     duration: 5 * 1000
     // })
-    return Promise.reject(error)
+    return message.error(error)
+    // return Promise.reject(error)
   }
 )
 
