@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { createBrowserHistory } from 'history';
-import { BrowserRouter, useHistory } from 'react-router-dom'
+// import { createBrowserHistory } from 'history';
+// import { BrowserRouter, useHistory } from 'react-router-dom'
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.REACT_APP_BASE_API,
@@ -38,6 +38,7 @@ service.interceptors.response.use(
       //   // window.location.href = "/didApplication"
       //   history.push('/didApplication')
       // }
+
       // if (status === 1002) {
       //   // 调度服务
 
