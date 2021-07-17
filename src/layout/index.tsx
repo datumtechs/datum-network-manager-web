@@ -29,8 +29,6 @@ const Layout = (props: any) => {
   const history = useHistory()
   const hasDid = useDid()
   const baseInfo = useBaseInfo()
-  console.log('baseInfo=============>', baseInfo)
-
   // 计算是否登录
   useEffect(() => {
     if (isLogin) {
@@ -85,11 +83,11 @@ const Layout = (props: any) => {
                     )}
                   />
                 ))}
-                {hasDid ? (
+                {/* {hasDid ? (
                   <Redirect from="/*" exact to="/overview" push />
                 ) : (
                   <Redirect from="/*" to="/didApplication" push />
-                )}
+                )} */}
               </Switch>
             </Suspense>
           </div>
