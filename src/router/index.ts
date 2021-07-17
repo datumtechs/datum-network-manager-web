@@ -1,7 +1,7 @@
 import React from 'react'
 
 const login = React.lazy(() => import('../pages/Login/index').then(_ => (_)))
-const layout = React.lazy(() => import('../layout/index').then(_ => ({ default: _.Layout })))
+const layout = React.lazy(() => import('../layout/index').then(_ => (_)))
 const Overview = React.lazy(() => import('../pages/overview/index').then(_ => ({ default: _.Overview })))
 const NodeMgt = React.lazy(() => import('../pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))
 const Resource = React.lazy(() => import('../pages/resource/index').then(_ => ({ default: _.Resource })))
@@ -11,7 +11,7 @@ const MetaDataDetail = React.lazy(() => import('../pages/resource/DataCenter/Met
 const MyDataAddtion = React.lazy(() => import('../pages/resource/MyData/components/MyDataAddtion').then(_ => ({ default: _.MyDataAddtion })))
 const MyDataDetail = React.lazy(() => import('../pages/resource/MyData/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })))
 const ComputationCenter = React.lazy(() => import('../pages/resource/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })))
-const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => ({ default: _.DispatchConfig })))
+const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => (_)))
 const DataNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })))
 const EditNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(_ => ({ default: _.EditNodeMgt })))
 const ComputeNodeMgt = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })))

@@ -1,12 +1,17 @@
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 import Nav from './Nav'
 import cnSvg from '../../assets/images/2.icon_cn.svg'
 import enSvg from '../../assets/images/2.icon_en.svg'
+import { BaseInfoContext } from '../index'
 
 const Header = (props: any) => {
   const { t, i18n } = useTranslation()
+  const baseInfo = useContext(BaseInfoContext)
+  console.log('baseInfo in Header============>', baseInfo)
+
   const history = useHistory()
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
@@ -31,7 +36,7 @@ const Header = (props: any) => {
       </div>
       <div className="menu">
         <p className="company" onClick={showMessage}>
-          xxxx投资有限公司
+          {baseInfo?.name}
         </p>
         <p className="lang-btn pointer" onClick={changeLanguage}>
           {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}

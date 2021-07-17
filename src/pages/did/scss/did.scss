@@ -26,6 +26,9 @@
     }
   }
   .btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
     .submit-btn {
       width: 350px;
       height: 40px;

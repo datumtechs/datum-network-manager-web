@@ -200,5 +200,11 @@
     "infoTips": "注：请根据需要修改“源文件字段”、“是否对外可见”与“数据类型”，并补充相应的“字段描述”，字段信息提交后仍可以在管理页面修改。",
     "sourceFileID": "源文件ID",
     "sourceFilePath": "源文件路径"
+  },
+  "tip": {
+    "plzInputID": "请输入正确的机构识别名称",
+    "idSuccess": "身份标识申请成功",
+    "idFailed": "身份标识申请失败",
+    "intenalError": "内部错误"
   }
 }

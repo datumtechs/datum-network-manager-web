@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Bread from '../../layout/components/Bread'
 import './scss/config.scss'
 
-export const DispatchConfig: FC<any> = () => {
+const DispatchConfig: FC<any> = () => {
   const { t, i18n } = useTranslation()
   console.log(i18n)
   // const tailLayout = {
@@ -76,3 +76,5 @@ export const DispatchConfig: FC<any> = () => {
     </>
   )
 }
+
+export default DispatchConfig

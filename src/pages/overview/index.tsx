@@ -36,22 +36,22 @@ export const Overview: FC<any> = () => {
     overviewApi.overviewData().then(res => {
       if (res.status === 0) {
         setDataNodeObj({
-          dataNodeCount: res.data.dataNodeCount,
-          publishedDataCount: res.data.publishedDataCount,
-          unpublishedDataCount: res.data.unpublishedDataCount,
+          dataNodeCount: res.data?.dataNodeCount,
+          publishedDataCount: res.data?.publishedDataCount,
+          unpublishedDataCount: res.data?.unpublishedDataCount,
         })
         setPowerDataObj({
-          powerNodeCount: res.data.powerNodeCount,
-          runningTaskCount: res.data.runningTaskCount,
+          powerNodeCount: res.data?.powerNodeCount,
+          runningTaskCount: res.data?.runningTaskCount,
         })
-        setServiceStatus(res.data.status)
+        setServiceStatus(res.data?.status)
         setGlobalObj({
-          totalBandwidth: res.data.totalBandwidth,
-          totalMem: res.data.totalMem,
-          totalProcessor: res.data.totalProcessor,
-          usedBandwidth: res.data.usedBandwidth,
-          usedMem: res.data.usedMem,
-          usedProcessor: res.data.usedProcessor,
+          totalBandwidth: res.data?.totalBandwidth,
+          totalMem: res.data?.totalMem,
+          totalProcessor: res.data?.totalProcessor,
+          usedBandwidth: res.data?.usedBandwidth,
+          usedMem: res.data?.usedMem,
+          usedProcessor: res.data?.usedProcessor,
         })
       }
     })

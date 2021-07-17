@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
+import { BrowserRouter } from 'react-router-dom'
 
 // create an axios instance
 const service = axios.create({
@@ -21,8 +22,22 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   response => {
-    if (response.data.status !== 0) {
-      return message.error(response.data.msg)
+    const { status } = response.data
+    if (status !== 0) {
+      if (status === 1000) {
+        location.href = "/login"
+        return message.error(response.data.msg)
+      }
+
+      if (status === 1001) {
+        // 身份标识
+        // location.href = "/didApplication"
+        return false
+      }
+      if (status === 1002) {
+        // 调度服务
+
+      }
     }
     return response.data;
   },
@@ -32,8 +47,8 @@ service.interceptors.response.use(
     //     type: 'error',
     //     duration: 5 * 1000
     // })
-    return message.error(error)
-    // return Promise.reject(error)
+    message.error('内部错误')
+    return Promise.reject(error)
   }
 )
 

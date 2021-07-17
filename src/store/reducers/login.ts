@@ -7,22 +7,25 @@ interface ReduxState {
 
 interface loginAction {
   type: string
-  count: number,
+  data: string,
 }
 
 const initData = {
   isLogin: 0,
+  token: ''
 }
 
 const login = (state: ReduxState = initData, action: loginAction) => {
   switch (action.type) {
     case LOGIN:
       return {
-        isLogin: 1
+        isLogin: 1,
+        token: action.data
       }
     case LOGOUT:
       return {
-        isLogin: 0
+        isLogin: 0,
+        token: ''
       }
     default:
       return state

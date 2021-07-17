@@ -1,7 +1,6 @@
 /* eslint-disable no-empty */
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { useState } from 'react'
-import { connect } from 'react-redux'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
@@ -33,28 +32,14 @@ const Login = (props: any) => {
     const {
       login: { account, password, veriCode = 2222 },
     } = values
-    console.log(values)
     loginApi.loginFn({ userName: account, passwd: password, code: veriCode }).then(res => {
       if (res.status === 0) {
-        loginApi.queryBaseInfo().then(re => {
-          console.log(re)
-          if (re.status === 0 && re.data) {
-            props.saveOrg(re.data)
-            history.push('/')
-            // if (res.data.identityId) {
-            //   history.push('/')
-            // } else {
-            //   // 不存在id 则跳转到id页
-            // }
-          } else {
-            // props.saveOrg(re.data)
-            history.push('/didApplication')
-          }
-        })
+        history.push('/')
       } else {
+        message.error(res.msg)
       }
     })
-    // history.push('/')
+    //
   }
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
@@ -114,7 +99,7 @@ const Login = (props: any) => {
             </Form.Item>
             <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
               <Button block type="primary" htmlType="submit" className="login-form-height">
-                Sign In
+                {t('login.login')}
               </Button>
             </Form.Item>
           </Form>
@@ -123,17 +108,5 @@ const Login = (props: any) => {
     </div>
   )
 }
-const mapStateToProps = (state: any) => ({ state })
 
-const mapDispatchToProps = (dispatch: any) => ({
-  saveOrg: (data: any) => {
-    console.log('data=============>', data)
-
-    dispatch({
-      type: 'SET_ORG_INFO',
-      data,
-    })
-  },
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default Login

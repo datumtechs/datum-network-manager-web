@@ -1,11 +1,28 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Form, Input } from 'antd'
+import { useHistory } from 'react-router-dom'
+import { Button, Form, Input, message } from 'antd'
 import './scss/did.scss'
+import { loginApi } from '../../api/index'
+import { orgReg } from '../../utils/reg'
 
 export const DidApplication: FC<any> = () => {
   const { t } = useTranslation()
-  const onFinish = () => {}
+  const history = useHistory()
+  const onFinish = ({ identityId = '' }) => {
+    if (!orgReg.test(identityId)) {
+      return message.error(`${t('tip.plzInputID')}`)
+    }
+    loginApi.applyOrgIdentity({ orgName: identityId }).then(res => {
+      // TODO
+      if (res.status === 0) {
+        message.success(`${t('tip.idSuccess')}`)
+        history.push('/overview')
+      } else {
+        message.success(`${t('tip.idFailed')}`)
+      }
+    })
+  }
   const onFinishFailed = () => {}
   return (
     <div className="did-box">
@@ -14,17 +31,19 @@ export const DidApplication: FC<any> = () => {
         <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
           <Form.Item
             label={t('common.orgName')}
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            name="identityId"
+            rules={[{ required: true, message: 'Please input your identityId!' }]}
           >
             <Input placeholder={t('common.noModify')} />
           </Form.Item>
+          <Form.Item>
+            <div className="btn center">
+              <Button type="primary" className="submit-btn" htmlType="submit">
+                {t('common.submit')}
+              </Button>
+            </div>
+          </Form.Item>
         </Form>
-      </div>
-      <div className="btn">
-        <Button type="primary" className="submit-btn">
-          {t('common.submit')}
-        </Button>
       </div>
     </div>
   )

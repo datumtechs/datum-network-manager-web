@@ -200,5 +200,11 @@
     "infoTips": "Note：fields, data types and remarks can be deleted and modified at this page or at the management page after submitting.",
     "sourceFileID": "Source file ID",
     "sourceFilePath": "Source file path"
+  },
+  "tip": {
+    "plzInputID": "Please enter the correct organization identification name",
+    "idSuccess": "ID Application successful",
+    "idFailed": "ID application failed",
+    "intenalError": "internal error"
   }
 }
