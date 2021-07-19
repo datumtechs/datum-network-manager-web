@@ -1,11 +1,14 @@
 /* eslint-disable no-nested-ternary */
 import React, { FC, useContext, useEffect, useState } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, Spin  } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next'
 import Bread from '../../layout/components/Bread'
 import './scss/config.scss'
 import { BaseInfoContext } from '../../layout/index'
 import { nodeApi } from '../../api/index'
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 const DispatchConfig: FC<any> = () => {
   const [form] = Form.useForm()
@@ -15,9 +18,17 @@ const DispatchConfig: FC<any> = () => {
   const [hasService, setHasService] = useState<boolean>(false)
   const [isConnect, setIsConnect] = useState<boolean>(false)
   const [showStatus, setShowStatus] = useState<boolean>(false)
+  const [showLoading, setShowShowLoading] = useState<boolean>(false)
 
   const onFinish = () => {}
   const onFinishFailed = () => {}
+
+  useEffect(() => {
+    form.setFieldsValue({
+      carrierIp:baseInfo.carrierIp,
+      carrierPort:baseInfo.carrierPort
+    })
+  },[baseInfo])
 
   useEffect(() => {
     if (baseInfo.carrierIp) {
@@ -27,11 +38,14 @@ const DispatchConfig: FC<any> = () => {
     }
   }, [baseInfo.carrierIp])
 
+
   const testServiceFn = () => {
+    setShowShowLoading(true)
     // 192.168.21.164:4444
     const { ip, port } = form.getFieldsValue()
     nodeApi.connectNode({ ip, port }).then(res => {
       // setIsConnect()
+      setShowShowLoading(false)
       setShowStatus(true)
       if (res.status === 0) {
         setIsConnect(true)
@@ -58,23 +72,27 @@ const DispatchConfig: FC<any> = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
           >
-            <Form.Item colon label={t('common.orgName')} name="orgName" className="form-item">
+            <Form.Item colon label={t('common.orgName')} name="name" className="form-item">
               <p className="title">{baseInfo.name}</p>
             </Form.Item>
-            <Form.Item colon label={t('common.orgIdentify')} name="orgIdentify" className="form-item">
+            <Form.Item colon label={t('common.orgIdentify')} name="identityId" className="form-item">
               <p className="title">{baseInfo.identityId}</p>
             </Form.Item>
-            <Form.Item colon label={t('common.internalIP')} name="ip" className="form-item">
+            <Form.Item  colon label={t('common.internalIP')} name="carrierIp"  className="form-item">
               <Input className="form-box-input" placeholder={t('common.noModify')} />
             </Form.Item>
-            <Form.Item colon label={t('common.internalPort')} name="port" className="form-item">
+            <Form.Item colon label={t('common.internalPort')} name="carrierPort" className="form-item">
               <Input className="form-box-input" placeholder={t('common.noModify')} />
             </Form.Item>
             {/* <Form.Item label={t('common.status')} name="username" className="form-item">
               <Input className="form-box-input" placeholder={t('common.noModify')} />
             </Form.Item> */}
             <Form.Item>
+              {
+                console.log("hasService",hasService)
+              }
               {hasService ? (
+                 <>
                 <Button
                   type="primary"
                   className="btn submit-btn"
@@ -83,6 +101,18 @@ const DispatchConfig: FC<any> = () => {
                 >
                   {t('node.reConnectService')}
                 </Button>
+                {showLoading?
+                  <Spin className="loading-icon" indicator={antIcon} />: showStatus ? (
+                    isConnect ? (
+                      <span className="success_color status">{t('node.connectSuccess')}</span>
+                    ) : (
+                      <span className="failed_color status">{t('node.connenctFailed')}</span>
+                    )
+                  ) : (
+                    ""
+                  )
+                }
+                </>
               ) : (
                 <>
                   <Button
@@ -93,15 +123,18 @@ const DispatchConfig: FC<any> = () => {
                   >
                     {t('node.connectService')}
                   </Button>
-                  {showStatus ? (
+                  {/* // TODO 需要抽离 */}
+                  {showLoading?
+                  <Spin className="loading-icon" indicator={antIcon} />: showStatus ? (
                     isConnect ? (
                       <span className="success_color status">{t('node.connectSuccess')}</span>
                     ) : (
                       <span className="failed_color status">{t('node.connenctFailed')}</span>
                     )
                   ) : (
-                    <></>
-                  )}
+                    ""
+                  )
+                }
                 </>
               )}
             </Form.Item>
