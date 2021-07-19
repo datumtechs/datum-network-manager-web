@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { Suspense, useEffect, createContext } from 'react'
+import { connect } from 'react-redux'
 import { Route, Redirect, useHistory, Switch } from 'react-router-dom'
 import { Spin } from 'antd'
 import Header from './components/Header'
@@ -11,7 +12,7 @@ import useDid from '../hooks/useHasDid'
 import './scss/layout.scss'
 import { BaseInfo } from '../entity/index'
 
-export const BaseInfoContext = createContext<BaseInfo>({
+export const BaseInfoContext = createContext<any>({
   carrierConnStatus: '',
   carrierConnTime: '',
   carrierIp: '',
@@ -27,10 +28,9 @@ export const BaseInfoContext = createContext<BaseInfo>({
 const Layout = (props: any) => {
   const isLogin = useLogin()
   const history = useHistory()
-  const hasDid = useDid()
+  
   const baseInfo = useBaseInfo()
-  console.log('baseInfo=============>', baseInfo)
-
+  const hasDid = useDid()
   // 计算是否登录
   useEffect(() => {
     if (isLogin) {
@@ -85,7 +85,7 @@ const Layout = (props: any) => {
                     )}
                   />
                 ))}
-                {hasDid ? (
+                {baseInfo?.identityId ? (
                   <Redirect from="/*" exact to="/overview" push />
                 ) : (
                   <Redirect from="/*" to="/didApplication" push />
@@ -99,4 +99,15 @@ const Layout = (props: any) => {
   )
 }
 
-export default Layout
+const mapStateToProps = (state: any) => ({ state })
+
+const mapDispatchToProps = (dispatch: any) => ({
+  saveBaseInfo: (data: any) => {
+    dispatch({
+      type: 'SET_ORG_INFO',
+      data
+    })
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout)

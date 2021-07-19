@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { BrowserRouter } from 'react-router-dom'
+// import { createBrowserHistory } from 'history';
+// import { BrowserRouter, useHistory } from 'react-router-dom'
 
+// const history = createBrowserHistory();
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.REACT_APP_BASE_API,
@@ -19,6 +21,7 @@ service.interceptors.request.use(
   }
 )
 
+
 // response interceptor
 service.interceptors.response.use(
   response => {
@@ -29,6 +32,7 @@ service.interceptors.response.use(
         return message.error(response.data.msg)
       }
 
+<<<<<<< HEAD
       if (status === 1001) {
         // 身份标识
         // location.href = "/didApplication"
@@ -37,8 +41,19 @@ service.interceptors.response.use(
       }
       if (status === 1002) {
         // 调度服务
+=======
+      // if (status === 1001) {
+      //   // 身份标识
+      //   // location.href = "/didApplication"
+      //   // window.location.href = "/didApplication"
+      //   history.push('/didApplication')
+      // }
+>>>>>>> 3bbb6982200a5b27dfa17a17b7f00103d5bbb611
 
-      }
+      // if (status === 1002) {
+      //   // 调度服务
+
+      // }
     }
     return response.data;
   },
