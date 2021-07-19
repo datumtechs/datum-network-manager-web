@@ -126,7 +126,7 @@ blockquote::before,
 blockquote::after,
 q::before,
 q::after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
@@ -193,4 +193,12 @@ a:hover {
 /* 正在点击的链接*/
 a:active {
   text-decoration: none;
+}
+
+.ant-btn-primary[disabled],
+.ant-btn-primary[disabled]:hover,
+.ant-btn-primary[disabled]:focus,
+.ant-btn-primary[disabled]:active {
+  background-color: #595194 !important;
+  opacity: 0.6;
 }

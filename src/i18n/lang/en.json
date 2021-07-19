@@ -70,7 +70,9 @@
     "addNewDataNode": "Add a new data node",
     "confirmDelete": "Please ensure that you are deleting the data node",
     "connectSuccess": "Connection succeeded",
-    "connenctFailed": "Connection failed"
+    "connenctFailed": "Connection failed",
+    "connectService": "Connection Scheduling Service",
+    "reConnectService": "Reconnecting the scheduling service"
   },
   "dataNodeMgt": {
     "nodeName": "Data node name & ID",

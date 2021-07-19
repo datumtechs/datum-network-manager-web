@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import useDid from '../../hooks/useHasDid'
 import { IRoute } from '../../router/index'
 import { businessRouteList } from '../../router/utils'
+import { BaseInfoContext } from '../index'
 
 console.log(businessRouteList)
 
@@ -13,6 +14,7 @@ const Nav = (props: any) => {
   const history = useHistory()
   const { pathname } = useLocation()
   const [curPath, SetCurPath] = useState('')
+  const baseInfo = useContext(BaseInfoContext)
   console.log(curPath)
 
   const hasDid = useDid()
@@ -25,7 +27,7 @@ const Nav = (props: any) => {
   const linkTo = (item: IRoute, e: React.MouseEvent<any, MouseEvent>) => {
     e.stopPropagation()
     if (item.children) return
-    if (!hasDid) {
+    if (!baseInfo?.identityId) {
       SetCurPath('/didApplication')
       history.push('/didApplication')
       return

@@ -15,8 +15,6 @@ const initData = {
 }
 
 const updateData = (state: originalState = initData, action: updateAction) => {
-  console.log("i am in ");
-
   switch (action.type) {
     case SET_ORIGINAL_DATA:
       return {

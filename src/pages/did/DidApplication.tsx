@@ -17,9 +17,10 @@ export const DidApplication: FC<any> = () => {
       // TODO
       if (res.status === 0) {
         message.success(`${t('tip.idSuccess')}`)
-        history.push('/overview')
+        location.href = '/overview'
       } else {
-        message.success(`${t('tip.idFailed')}`)
+        // message.error(`${t('tip.idFailed')}`)
+        message.error(res.msg)
       }
     })
   }

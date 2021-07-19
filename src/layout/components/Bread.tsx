@@ -49,4 +49,4 @@ const Bread: FC<any> = () => {
   )
 }
 
-export default memo(Bread)
+export default Bread

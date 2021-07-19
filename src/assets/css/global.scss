@@ -228,3 +228,15 @@
     color: #fff;
   }
 }
+
+.ant-btn-primary[disabled] {
+  background-color: #3c3588;
+}
+
+.success_color {
+  color: #69bd0d;
+}
+
+.failed_color {
+  color: #f5222d;
+}

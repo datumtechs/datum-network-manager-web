@@ -70,7 +70,9 @@
     "addNewDataNode": "新增数据节点",
     "confirmDelete": "请确认是否要删除数据节点",
     "connectSuccess": "调度服务连接成功",
-    "connenctFailed": "调度服务连接失败"
+    "connenctFailed": "调度服务连接失败",
+    "connectService": "连接调度服务",
+    "reConnectService": "重新连接调度服务"
   },
   "dataNodeMgt": {
     "nodeName": "数据节点名称与ID",

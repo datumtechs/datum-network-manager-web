@@ -1,6 +1,6 @@
 const useHasDid = () => {
   const did = localStorage.getItem('did')
-  return did
+  return true
 }
 
 export default useHasDid

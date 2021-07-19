@@ -26,35 +26,17 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const { status } = response.data
-    if (status !== 0) {
-      if (status === 1000) {
-        location.href = "/login"
-        return message.error(response.data.msg)
-      }
-
-<<<<<<< HEAD
-      if (status === 1001) {
-        // 身份标识
-        // location.href = "/didApplication"
-        history.pushState(null, "/didApplication")
-        return false
-      }
-      if (status === 1002) {
-        // 调度服务
-=======
-      // if (status === 1001) {
-      //   // 身份标识
-      //   // location.href = "/didApplication"
-      //   // window.location.href = "/didApplication"
-      //   history.push('/didApplication')
-      // }
->>>>>>> 3bbb6982200a5b27dfa17a17b7f00103d5bbb611
-
-      // if (status === 1002) {
-      //   // 调度服务
-
-      // }
+    if (status === 1000) {
+      location.href = "/login"
+      return message.error(response.data.msg)
     }
+
+    // if (status === 1001) {
+    //   // 身份标识
+    //   // location.href = "/didApplication"
+    //   // window.location.href = "/didApplication"
+    //   history.push('/didApplication')
+    // }
     return response.data;
   },
   error => {

@@ -36,6 +36,7 @@ const Header = (props: any) => {
       </div>
       <div className="menu">
         <p className="company" onClick={showMessage}>
+          {console.log('inline baseInfo ', baseInfo)}
           {baseInfo?.name}
         </p>
         <p className="lang-btn pointer" onClick={changeLanguage}>
