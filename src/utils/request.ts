@@ -32,6 +32,7 @@ service.interceptors.response.use(
       if (status === 1001) {
         // 身份标识
         // location.href = "/didApplication"
+        history.pushState(null, "/didApplication")
         return false
       }
       if (status === 1002) {
