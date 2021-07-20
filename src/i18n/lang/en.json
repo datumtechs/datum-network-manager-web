@@ -63,7 +63,11 @@
     "enable": "enable",
     "disable": "disable",
     "viewNodeInfo": "details",
-    "remark": "Remarks"
+    "remark": "Remarks",
+    "connectFailed": "Connection failed",
+    "powerdisable": "Power disabled",
+    "powerenable": "Power enabled(free)",
+    "powerOccupied": "Power occupied"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
@@ -72,7 +76,12 @@
     "connectSuccess": "Connection succeeded",
     "connenctFailed": "Connection failed",
     "connectService": "Connection Scheduling Service",
-    "reConnectService": "Reconnecting the scheduling service"
+    "reConnectService": "Reconnecting the scheduling service",
+    "logoutNetwork": "Logout Network",
+    "logoutSuccess": "Logout Success",
+    "logoutFailed": "Logout Failed",
+    "internal": "Internal",
+    "external": "External"
   },
   "dataNodeMgt": {
     "nodeName": "Data node name & ID",
@@ -207,6 +216,7 @@
     "plzInputID": "Please enter the correct organization identification name",
     "idSuccess": "ID Application successful",
     "idFailed": "ID application failed",
-    "intenalError": "internal error"
+    "intenalError": "internal error",
+    "leaveCofirm": "Please ensure that you are leaving this page.Once conformed, the changes will NOT be saved"
   }
 }

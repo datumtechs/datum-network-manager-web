@@ -10,7 +10,6 @@ import { BaseInfoContext } from '../index'
 const Header = (props: any) => {
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
-  console.log('baseInfo in Header============>', baseInfo)
 
   const history = useHistory()
   const changeLanguage = () => {

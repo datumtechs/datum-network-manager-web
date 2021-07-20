@@ -1,67 +1,69 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect, useImperativeHandle } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Table, Space } from 'antd'
 import MyModal from '../../../../components/MyModal'
+import useDatanodeTable from '../../../../hooks/useDatanodeTable'
+import { dataNodeApi } from '../../../../api/index'
 
-const DataTable: FC<any> = () => {
+const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
-  const [curName, SetCurName] = useState('哈哈哈哈哈哈哈哈')
+  const [curName, SetCurName] = useState('')
   const history = useHistory()
+  const [tableData, setTableData] = useState<[]>()
+  const [total, totalSet] = useState<number>(0)
+  const [curPage, setCurPage] = useState<number>(0)
+  const [curId, setCurId] = useState<string>('')
+
+  const { t } = useTranslation()
+
+  const onPageChange = num => {
+    setCurPage(num)
+  }
 
   const pagination = {
+    defaultCurPage: 1,
     current: 1,
     defaultPageSize: 10,
   }
-  const { t } = useTranslation()
 
-  const deleteFn = id => {
-    console.log(id)
-    SetCurName('hahahahahah')
+  const { table } = useDatanodeTable({
+    keyword: props.searchText,
+    pageNumber: curPage,
+    pageSize: pagination.defaultPageSize,
+  })
+
+  useEffect(() => {
+    setTableData(table?.data)
+    totalSet(table?.total)
+  }, [table])
+
+  const deleteFn = row => {
+    SetCurName(row.nodeName)
+    setCurId(row.id)
     SetIsModalVisible(true)
   }
 
-  const editFn = id => {
+  const editFn = row => {
     history.push({
       pathname: '/nodeMgt/dataNodeMgt/editDataNode',
       state: {
         type: 'Edit',
-        id: '11111111',
+        id: row.id,
+        row,
       },
     })
   }
   const dataSource = [
     {
-      key: '1',
+      connStatus: '111',
+      externalIp: '111.111.111.111',
+      externalPort: 9090,
+      id: 0,
+      internalIp: '222.222.222.222',
+      internalPort: 8080,
+      nodeId: '2',
       nodeName: '胡彦斌',
-      status: 'Connection failed',
-      ip: '1010101',
-      port: '9090',
-      address: '西湖区湖底公园1号',
-    },
-    {
-      key: '2',
-      nodeName: '胡彦祖',
-      status: 'Power disabled',
-      ip: '1010101',
-      port: '9090',
-      address: '西湖区湖底公园1号',
-    },
-    {
-      key: '3',
-      nodeName: '胡彦祖',
-      status: 'Power enabled',
-      ip: '1010101',
-      port: '9090',
-      address: '西湖区湖底公园1号',
-    },
-    {
-      key: '4',
-      nodeName: '胡彦祖',
-      status: 'Power occupied',
-      ip: '1010101',
-      port: '9090',
-      address: '西湖区湖底公园1号',
     },
   ]
   const columns = [
@@ -76,18 +78,46 @@ const DataTable: FC<any> = () => {
     },
     {
       title: t('common.status'),
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'connStatus',
+      key: 'connStatus',
     },
     {
       title: t('common.ip'),
       dataIndex: 'ip',
       key: 'ip',
+      render: (text, record, index) => {
+        return (
+          <>
+            <p>
+              <span>{`${t('node.internal')}`}:&nbsp;&nbsp;</span>
+              <span>{record.internalIp}</span>
+            </p>
+            <p>
+              <span>{`${t('node.external')}`}:&nbsp;&nbsp;</span>
+              <span>{record.externalIp}</span>
+            </p>
+          </>
+        )
+      },
     },
     {
       title: t('common.port'),
       dataIndex: 'port',
       key: 'port',
+      render: (text, record, index) => {
+        return (
+          <>
+            <p>
+              <span>{`${t('node.internal')}`}:&nbsp;&nbsp;</span>
+              <span>{record.internalPort}</span>
+            </p>
+            <p>
+              <span>{`${t('node.external')}`}:&nbsp;&nbsp;</span>
+              <span>{record.externalPort}</span>
+            </p>
+          </>
+        )
+      },
     },
     {
       title: t('common.operations'),
@@ -95,14 +125,13 @@ const DataTable: FC<any> = () => {
       dataIndex: 'operations',
       key: 'operations',
       render: (text: any, row: any, index: any) => {
-        console.log('row', row)
         return (
           <Space size={10} className="operation-box">
             <>
-              <span className="btn pointer" onClick={editFn}>
+              <span className="btn pointer" onClick={() => editFn(row)}>
                 {t('common.edit')}
               </span>
-              <span className="btn pointer" onClick={deleteFn}>
+              <span className="btn pointer" onClick={() => deleteFn(row)}>
                 {t('common.delete')}
               </span>
             </>
@@ -112,7 +141,11 @@ const DataTable: FC<any> = () => {
     },
   ]
   const handleOk = () => {
-    console.log('callback 删除改数据节点 Api')
+    dataNodeApi.deleteDatanode({ nodeId: curId }).then(res => {
+      if (res.status === 0) {
+        console.log(res)
+      }
+    })
   }
   const handleCancel = () => {
     SetIsModalVisible(false)
@@ -120,7 +153,12 @@ const DataTable: FC<any> = () => {
 
   return (
     <div className="data-table-box">
-      <Table dataSource={dataSource} columns={columns} pagination={pagination} />
+      <Table
+        // dataSource={tableData}
+        dataSource={dataSource}
+        columns={columns}
+        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+      />
       {/* <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}> */}
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>

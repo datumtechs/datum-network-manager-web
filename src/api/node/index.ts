@@ -24,11 +24,10 @@ const nodeApi = {
     })
   },
   // 注销
-  withDrawNetwork(data: IPObj): Promise<any> {
+  withDrawNetwork(): Promise<any> {
     return axios({
       method: "POST",
       url: `/api/v1/node/corenode/cancelJoinNetwork`,
-      data
     })
   },
 }

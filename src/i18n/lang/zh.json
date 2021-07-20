@@ -63,7 +63,11 @@
     "enable": "启用",
     "disable": "停用算力",
     "viewNodeInfo": "查看计算节点信息",
-    "remark": "备注"
+    "remark": "备注",
+    "connectFailed": "网络连接失败",
+    "powerdisable": "算力未启用(网络已连接)",
+    "powerenable": "算力已启用(空闲)",
+    "powerOccupied": "算力已占用(计算服务算力正在被任务占用)"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
@@ -72,7 +76,12 @@
     "connectSuccess": "调度服务连接成功",
     "connenctFailed": "调度服务连接失败",
     "connectService": "连接调度服务",
-    "reConnectService": "重新连接调度服务"
+    "reConnectService": "重新连接调度服务",
+    "logoutNetwork": "注销网络",
+    "logoutSuccess": "注销网络成功",
+    "logoutFailed": "注销网络失败",
+    "internal": "内部",
+    "external": "外部"
   },
   "dataNodeMgt": {
     "nodeName": "数据节点名称与ID",
@@ -207,6 +216,7 @@
     "plzInputID": "请输入正确的机构识别名称",
     "idSuccess": "身份标识申请成功",
     "idFailed": "身份标识申请失败",
-    "intenalError": "内部错误"
+    "intenalError": "内部错误",
+    "leaveCofirm": "请确认是否要返回管理页面?返回后，已修改的信息不会被保存"
   }
 }

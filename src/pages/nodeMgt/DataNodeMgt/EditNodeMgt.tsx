@@ -1,20 +1,59 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Form, Input, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
+
 import Bread from '../../../layout/components/Bread'
 import '../scss/config.scss'
+import { DataNode } from '../../../entity'
+import { dataNodeApi } from '../../../api/index'
+import MyModal from '../../../components/MyModal'
 
 export const EditNodeMgt: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { location } = props
+  const { type, row, id } = location.state
+  const [form] = Form.useForm()
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  const history = useHistory()
 
-  // const tailLayout = {
-  //   wrapperCol: { offset: 4, span: 8 },
-  // }
-  const { type } = location.state
-  console.log('location.state', type)
-  const onFinish = () => { }
-  const onFinishFailed = () => { }
+  useEffect(() => {
+    if (type === 'edit') {
+      form.setFieldsValue({
+        internalIp: row.internalIp,
+        internalPort: row.internalPort,
+        externalIp: row.externalIp,
+        externalPort: row.externalPort,
+        nodeName: row.nodeName,
+      })
+    }
+  }, [])
+
+  const handleOk = () => {
+    setIsModalVisible(false)
+    history.push('/nodeMgt/dataNodeMgt')
+  }
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+  const onFinish = (values: DataNode) => {
+    console.log(values)
+    if (type === 'edif') {
+      dataNodeApi.updateDataNode(values).then(res => {
+        if (res) console.log(res)
+      })
+    }
+    if (type === 'add') {
+      dataNodeApi.addDataNode(values).then(res => {
+        if (res) console.log(res)
+      })
+    }
+  }
+  const leaveFn = () => {
+    setIsModalVisible(true)
+  }
+  const onFinishFailed = () => {}
   return (
     <div className="layout-box">
       <div className="bread-box">
@@ -25,16 +64,17 @@ export const EditNodeMgt: FC<any> = (props: any) => {
         <Form
           size="large"
           name="basic"
+          form={form}
           labelAlign="left"
-          labelCol={{ style: { width: i18n.language === 'en' ? 200 : 120, whiteSpace: 'pre-wrap' } }}
+          labelCol={{ style: { width: i18n.language === 'en' ? 200 : 160, whiteSpace: 'pre-wrap' } }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item colon label={t('dataNodeMgt.nodeName')} name="nodename" className="form-item">
+          <Form.Item colon label={t('dataNodeMgt.nodeName')} name="nodeName" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
-          <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIP" className="form-item">
+          <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.externalIp')} name="externalIp" className="form-item">
@@ -49,8 +89,10 @@ export const EditNodeMgt: FC<any> = (props: any) => {
           {/* <Form.Item label={t('common.status')} name="username" className="form-item">
               <Input className="form-box-input" placeholder={t('common.noModify')} />
             </Form.Item> */}
-          <Form.Item style={{ marginLeft: i18n.language === 'en' ? 200 : 120 }} className="form-item">
-            <Button className="btn re-btn">{t('common.return')}</Button>
+          <Form.Item style={{ marginLeft: i18n.language === 'en' ? 200 : 160 }} className="form-item">
+            <Button className="btn re-btn" onClick={leaveFn}>
+              {t('common.return')}
+            </Button>
             <Button
               type="primary"
               className="btn sub-btn"
@@ -62,6 +104,9 @@ export const EditNodeMgt: FC<any> = (props: any) => {
           </Form.Item>
         </Form>
       </div>
+      <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <p>{`${t('tip.leaveCofirm')}`}</p>
+      </MyModal>
     </div>
   )
 }

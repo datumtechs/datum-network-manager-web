@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { FC, useContext, useEffect, useState } from 'react'
-import { Form, Input, Button, Spin  } from 'antd'
-import { LoadingOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Spin, message } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import Bread from '../../layout/components/Bread'
 import './scss/config.scss'
@@ -25,10 +25,10 @@ const DispatchConfig: FC<any> = () => {
 
   useEffect(() => {
     form.setFieldsValue({
-      carrierIp:baseInfo.carrierIp,
-      carrierPort:baseInfo.carrierPort
+      carrierIp: baseInfo.carrierIp,
+      carrierPort: baseInfo.carrierPort,
     })
-  },[baseInfo])
+  }, [baseInfo])
 
   useEffect(() => {
     if (baseInfo.carrierIp) {
@@ -37,7 +37,6 @@ const DispatchConfig: FC<any> = () => {
       setHasService(false)
     }
   }, [baseInfo.carrierIp])
-
 
   const testServiceFn = () => {
     setShowShowLoading(true)
@@ -51,6 +50,17 @@ const DispatchConfig: FC<any> = () => {
         setIsConnect(true)
       } else {
         setIsConnect(false)
+      }
+    })
+  }
+
+  const missNetwork = () => {
+    const { ip, port } = form.getFieldsValue()
+    nodeApi.withDrawNetwork().then(res => {
+      if (res.status === 0) {
+        message.success(`${t('node.logoutSuccess')}`)
+      } else {
+        message.error(`${t('node.logoutFailed')}`)
       }
     })
   }
@@ -78,7 +88,7 @@ const DispatchConfig: FC<any> = () => {
             <Form.Item colon label={t('common.orgIdentify')} name="identityId" className="form-item">
               <p className="title">{baseInfo.identityId}</p>
             </Form.Item>
-            <Form.Item  colon label={t('common.internalIP')} name="carrierIp"  className="form-item">
+            <Form.Item colon label={t('common.internalIP')} name="carrierIp" className="form-item">
               <Input className="form-box-input" placeholder={t('common.noModify')} />
             </Form.Item>
             <Form.Item colon label={t('common.internalPort')} name="carrierPort" className="form-item">
@@ -88,30 +98,27 @@ const DispatchConfig: FC<any> = () => {
               <Input className="form-box-input" placeholder={t('common.noModify')} />
             </Form.Item> */}
             <Form.Item>
-              {
-                console.log("hasService",hasService)
-              }
               {hasService ? (
-                 <>
-                <Button
-                  type="primary"
-                  className="btn submit-btn"
-                  style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
-                  onClick={testServiceFn}
-                >
-                  {t('node.reConnectService')}
-                </Button>
-                {showLoading?
-                  <Spin className="loading-icon" indicator={antIcon} />: showStatus ? (
+                <>
+                  <Button
+                    type="primary"
+                    className="btn submit-btn"
+                    style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
+                    onClick={testServiceFn}
+                  >
+                    {t('node.reConnectService')}
+                  </Button>
+                  {showLoading ? (
+                    <Spin className="loading-icon" indicator={antIcon} />
+                  ) : showStatus ? (
                     isConnect ? (
                       <span className="success_color status">{t('node.connectSuccess')}</span>
                     ) : (
                       <span className="failed_color status">{t('node.connenctFailed')}</span>
                     )
                   ) : (
-                    ""
-                  )
-                }
+                    ''
+                  )}
                 </>
               ) : (
                 <>
@@ -124,17 +131,17 @@ const DispatchConfig: FC<any> = () => {
                     {t('node.connectService')}
                   </Button>
                   {/* // TODO 需要抽离 */}
-                  {showLoading?
-                  <Spin className="loading-icon" indicator={antIcon} />: showStatus ? (
+                  {showLoading ? (
+                    <Spin className="loading-icon" indicator={antIcon} />
+                  ) : showStatus ? (
                     isConnect ? (
                       <span className="success_color status">{t('node.connectSuccess')}</span>
                     ) : (
                       <span className="failed_color status">{t('node.connenctFailed')}</span>
                     )
                   ) : (
-                    ""
-                  )
-                }
+                    ''
+                  )}
                 </>
               )}
             </Form.Item>
@@ -143,11 +150,12 @@ const DispatchConfig: FC<any> = () => {
                 <Button
                   type="primary"
                   className="btn submit-btn"
-                  disabled={!isConnect}
+                  // disabled={!isConnect}
+                  onClick={missNetwork}
                   style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
                   htmlType="submit"
                 >
-                  {t('overview.submit')}
+                  {t('node.logoutNetwork')}
                 </Button>
               ) : (
                 <>

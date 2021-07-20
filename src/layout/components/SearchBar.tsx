@@ -5,8 +5,6 @@ import { Button, Input } from 'antd'
 const { Search } = Input
 const SearchBar: FC<any> = (props: any) => {
   const { t } = useTranslation()
-  console.log(props)
-
   const onSearch = (e: any) => {
     props.onSearch(e)
   }
@@ -15,11 +13,13 @@ const SearchBar: FC<any> = (props: any) => {
   }
   return (
     <div className="searchBar-box" style={{}}>
-      {props.text ?
+      {props.text ? (
         <Button type="primary" className="btn pointer" size="large" onClick={addBtn}>
           {props.text}
-        </Button> : ""
-      }
+        </Button>
+      ) : (
+        ''
+      )}
       <Search
         placeholder="input search text"
         size="large"
