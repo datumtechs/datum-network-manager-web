@@ -67,7 +67,8 @@
     "connectFailed": "网络连接失败",
     "powerdisable": "算力未启用(网络已连接)",
     "powerenable": "算力已启用(空闲)",
-    "powerOccupied": "算力已占用(计算服务算力正在被任务占用)"
+    "powerOccupied": "算力已占用(计算服务算力正在被任务占用)",
+    "connectSuccess": "网络连接成功"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",

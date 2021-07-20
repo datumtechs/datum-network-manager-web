@@ -5,6 +5,7 @@ import { Table, Space } from 'antd'
 import MyModal from '../../../../components/MyModal'
 import useDatanodeTable from '../../../../hooks/useDatanodeTable'
 import { dataNodeApi } from '../../../../api/index'
+import UseStatus from '../../../../hooks/useDataStatus'
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
@@ -80,6 +81,11 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.status'),
       dataIndex: 'connStatus',
       key: 'connStatus',
+      render: (text, record, index) => {
+        console.log('status', record.connStatus)
+
+        return <>{UseStatus(record.connStatus)}</>
+      },
     },
     {
       title: t('common.ip'),
@@ -154,8 +160,8 @@ const DataTable: FC<any> = (props: any) => {
   return (
     <div className="data-table-box">
       <Table
-        // dataSource={tableData}
-        dataSource={dataSource}
+        dataSource={tableData}
+        // dataSource={dataSource}
         columns={columns}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
       />

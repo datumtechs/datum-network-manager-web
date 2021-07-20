@@ -7,7 +7,8 @@ import './scss/index.scss'
 import { computeNodeApi } from '../../../../api/index'
 import useComputenodeTable from '../../../../hooks/useComputenodeTable'
 import { BaseInfoContext } from '../../../../layout/index'
-import UseStatus from '../../../../hooks/useStatus'
+import UseStatus from '../../../../hooks/useComputeStatus'
+import { Row } from '../../../../entity/index'
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
@@ -18,6 +19,13 @@ const DataTable: FC<any> = (props: any) => {
   const [tableData, setTableData] = useState<[]>()
   const [curPage, setCurPage] = useState<number>(0)
   const baseInfo = useContext(BaseInfoContext)
+  const [curId, curIdSet] = useState<string>('')
+  const [curRow, setCurRow] = useState<Row>({
+    core: '',
+    memory: '',
+    bandwidth: '',
+    remarks: '',
+  })
 
   const pagination = {
     current: 1,
@@ -36,32 +44,22 @@ const DataTable: FC<any> = (props: any) => {
   })
 
   useEffect(() => {
+    console.log('tableData', table)
     setTableData(table?.data)
     totalSet(table?.total)
   }, [table])
 
-  const deleteFn = row => {
+  const operation = (row, type) => {
     SetCurName(row.powerNodeName)
-    SetModalType('delete')
+    SetModalType(type)
     SetIsModalVisible(true)
+    curIdSet(row.powerNodeId)
+    if (type === 'view') {
+      setCurRow(row)
+    }
   }
-  // 查看简略info
-  const viewFn = row => {
-    SetCurName(row.powerNodeName)
-    SetModalType('view')
-    SetIsModalVisible(true)
-  }
-  const enableFn = row => {
-    SetCurName(row.powerNodeName)
-    SetModalType('enable')
-    SetIsModalVisible(true)
-  }
-  const disableFn = id => {
-    console.log(id)
-    SetCurName('hahahahahah')
-    SetModalType('disable')
-    SetIsModalVisible(true)
-  }
+
+  console.log('curRow', curRow)
 
   const viewInfo = () => {
     history.push({
@@ -71,22 +69,22 @@ const DataTable: FC<any> = (props: any) => {
       },
     })
   }
-  const editFn = id => {
+  const editFn = row => {
     history.push({
       pathname: '/nodeMgt/computeNodeMgt/editComputeNode',
       state: {
         type: 'Edit',
-        id: '11111111',
+        row,
       },
     })
   }
   const dataSource = [
     {
       key: '1',
-      bandwidth: 0,
+      bandwidth: 100,
       connMessage: '',
       connTime: '',
-      core: 0,
+      core: 10,
       createTime: '',
       externalIp: '22222222222222222',
       externalPort: 9090,
@@ -97,7 +95,7 @@ const DataTable: FC<any> = (props: any) => {
       memory: 0,
       powerNodeId: '1111111111133333333333333',
       powerNodeName: '奥术大师多',
-      remarks: '',
+      remarks: '222222222222',
       startTime: '',
       status: 1,
       updateTime: '',
@@ -133,8 +131,6 @@ const DataTable: FC<any> = (props: any) => {
       dataIndex: 'status',
       key: 'status',
       render: (text, record, index) => {
-        console.log('status', record.status)
-
         return <>{UseStatus(record.status)}</>
       },
     },
@@ -182,7 +178,6 @@ const DataTable: FC<any> = (props: any) => {
       dataIndex: 'operations',
       key: 'operations',
       render: (text: any, row: any, index: any) => {
-        console.log('row', row)
         return (
           <Space size={10} className="operation-box">
             {row.status === 0 ? (
@@ -190,7 +185,7 @@ const DataTable: FC<any> = (props: any) => {
                 <span className="btn pointer" onClick={() => editFn(row)}>
                   {t('common.edit')}
                 </span>
-                <span className="btn pointer" onClick={() => deleteFn(row)}>
+                <span className="btn pointer" onClick={() => operation(row, 'delete')}>
                   {t('common.delete')}
                 </span>
               </>
@@ -199,16 +194,16 @@ const DataTable: FC<any> = (props: any) => {
             )}
             {row.status === 1 ? (
               <>
-                <span className="btn pointer" onClick={() => viewFn(row)}>
+                <span className="btn pointer" onClick={() => operation(row, 'view')}>
                   {t('common.view')}
                 </span>
                 <span className="btn pointer" onClick={() => editFn(row)}>
                   {t('common.edit')}
                 </span>
-                <span className="btn pointer" onClick={() => enableFn(row)}>
+                <span className="btn pointer" onClick={() => operation(row, 'enable')}>
                   {t('common.enable')}
                 </span>
-                <span className="btn pointer" onClick={() => deleteFn(row)}>
+                <span className="btn pointer" onClick={() => operation(row, 'delete')}>
                   {t('common.delete')}
                 </span>
               </>
@@ -217,10 +212,10 @@ const DataTable: FC<any> = (props: any) => {
             )}
             {row.status === 2 ? (
               <>
-                <span className="btn pointer" onClick={() => viewFn(row)}>
+                <span className="btn pointer" onClick={() => operation(row, 'view')}>
                   {t('common.view')}
                 </span>
-                <span className="btn pointer" onClick={() => disableFn(row)}>
+                <span className="btn pointer" onClick={() => operation(row, 'disable')}>
                   {t('common.disable')}
                 </span>
               </>
@@ -261,21 +256,28 @@ const DataTable: FC<any> = (props: any) => {
   ]
   const handleOk = () => {
     if (modalType === 'delete') {
-      computeNodeApi.deletePowerNode({ powerNodeId: '' }).then(res => {
+      computeNodeApi.deletePowerNode({ powerNodeId: curId }).then(res => {
         if (res.status === 0) {
           console.log(res)
+          SetIsModalVisible(false)
         }
       })
     } else if (modalType === 'enable') {
-      computeNodeApi.publishPower({ powerNodeId: '' }).then(res => {
+      computeNodeApi.publishPower({ powerNodeId: curId, status }).then(res => {
         if (res.status === 0) {
           console.log(res)
+          SetIsModalVisible(false)
         }
       })
     } else if (modalType === 'disable') {
-      console.log('disable')
+      computeNodeApi.revokePower({ powerNodeId: curId, status }).then(res => {
+        if (res.status === 0) {
+          console.log(res)
+          SetIsModalVisible(false)
+        }
+      })
     } else if (modalType === 'view') {
-      console.log('view')
+      SetIsModalVisible(false)
     }
   }
   const handleCancel = () => {
@@ -303,19 +305,19 @@ const DataTable: FC<any> = (props: any) => {
           <div className="simple-info-box">
             <p>
               <span className="title">CPU:</span>
-              <span>cpu信息</span>
+              <span>{curRow.core}</span>
             </p>
             <p>
               <span className="title">{t('overview.memory')}:</span>
-              <span>Meomory信息</span>
+              <span>{curRow.memory}</span>
             </p>
             <p>
               <span className="title">{t('overview.bandWidth')}:</span>
-              <span>带宽信息</span>
+              <span>{curRow.bandwidth}</span>
             </p>
             <p>
               <span className="title">{t('common.remark')}:</span>
-              <span>备注</span>
+              <span>{curRow.remarks}</span>
             </p>
           </div>
         ) : (

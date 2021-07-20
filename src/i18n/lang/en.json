@@ -67,7 +67,8 @@
     "connectFailed": "Connection failed",
     "powerdisable": "Power disabled",
     "powerenable": "Power enabled(free)",
-    "powerOccupied": "Power occupied"
+    "powerOccupied": "Power occupied",
+    "connectSuccess": "Connection successful"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",

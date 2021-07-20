@@ -36,4 +36,11 @@ interface ComputeNode {
   powerNodeId?: string,
 }
 
-export type { BaseInfo, DataNode, SearchPageTable, ComputeNode }
+interface Row {
+  core: string,
+  memory: string,
+  bandwidth: string,
+  remarks: string,
+}
+
+export type { BaseInfo, DataNode, SearchPageTable, ComputeNode, Row }

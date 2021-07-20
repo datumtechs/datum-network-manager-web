@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react'
 import { Form, Input, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-
 import Bread from '../../../layout/components/Bread'
 import '../scss/config.scss'
 import { DataNode } from '../../../entity'
@@ -18,7 +17,7 @@ export const EditNodeMgt: FC<any> = (props: any) => {
   const history = useHistory()
 
   useEffect(() => {
-    if (type === 'edit') {
+    if (type === 'Edit') {
       form.setFieldsValue({
         internalIp: row.internalIp,
         internalPort: row.internalPort,
@@ -39,12 +38,12 @@ export const EditNodeMgt: FC<any> = (props: any) => {
 
   const onFinish = (values: DataNode) => {
     console.log(values)
-    if (type === 'edif') {
+    if (type === 'Edit') {
       dataNodeApi.updateDataNode(values).then(res => {
         if (res) console.log(res)
       })
     }
-    if (type === 'add') {
+    if (type === 'Add') {
       dataNodeApi.addDataNode(values).then(res => {
         if (res) console.log(res)
       })
