@@ -25,14 +25,14 @@ export const MyDataAddtion: FC<any> = porps => {
     pagesize: 10,
   }
 
-  const selectFileFn = () => { }
+  const selectFileFn = () => {}
   const goBackFn = () => {
     history.go(-1)
   }
   const submitFn = () => {
     console.log('submit')
   }
-  const getShowSource = (data) => {
+  const getShowSource = data => {
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
   useEffect(() => {
@@ -43,7 +43,7 @@ export const MyDataAddtion: FC<any> = porps => {
     }
   }, [uploadFile])
   const setPage = (page: number) => {
-    setCurPage(page);
+    setCurPage(page)
   }
   const uploadFn = () => {
     // 判断文件是否为空 判断是否选择了包含字段
@@ -61,9 +61,11 @@ export const MyDataAddtion: FC<any> = porps => {
     form.append('file', uploadFile)
     form.append('hasTitle', radioValue)
     resourceApi.uploadCsv(form).then(res => {
-      setOriginalData([])
-      setTotal(15)
-      setTableData(getShowSource([]))
+      if (res.status === 0) {
+        setOriginalData(res.data.localMetaDataColumnList)
+        setTotal(res.data.rows)
+        setTableData(getShowSource(res.data.localMetaDataColumnList))
+      }
     })
   }
 
@@ -85,10 +87,10 @@ export const MyDataAddtion: FC<any> = porps => {
         <div className="title-box">{t('myData.plzUploadFile')}</div>
         <div className="label-box">
           <Radio.Group onChange={changeFileIncludeStatusFn} value={radioValue}>
-            <Radio value='true' disabled={formDisable}>
+            <Radio value="true" disabled={formDisable}>
               {t('myData.including')}
             </Radio>
-            <Radio value='false' disabled={formDisable}>
+            <Radio value="false" disabled={formDisable}>
               {t('myData.noIncluding')}
             </Radio>
           </Radio.Group>
@@ -116,8 +118,8 @@ export const MyDataAddtion: FC<any> = porps => {
               labelCol={{ span: 3 }}
               wrapperCol={{ span: 21 }}
               initialValues={{ remember: true }}
-            // onFinish={onFinish}
-            // onFinishFailed={onFinishFailed}
+              // onFinish={onFinish}
+              // onFinishFailed={onFinishFailed}
             >
               <Form.Item
                 label={t('myData.sourceName')}
@@ -142,7 +144,14 @@ export const MyDataAddtion: FC<any> = porps => {
         <div className="sub-info-box">
           <div className="title-box">{t('center.fieldInfo')}</div>
           <div>
-            <MyFiledsTable originalData={originalData} tableData={tableData} total={total} setPage={setPage} curPage={curPage} mode='add' />
+            <MyFiledsTable
+              originalData={originalData}
+              tableData={tableData}
+              total={total}
+              setPage={setPage}
+              curPage={curPage}
+              mode="add"
+            />
           </div>
         </div>
       </div>

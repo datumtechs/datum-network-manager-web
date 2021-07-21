@@ -1,81 +1,58 @@
-import React, { FC } from 'react'
-import { Table } from 'antd'
+import React, { FC, useState, useEffect } from 'react'
+import { Table, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
+import useComputeNodeDetailTable from '../../../../hooks/useComputeNodeDetailTable'
 
 const ComputeDetailTable: FC<any> = (props: any) => {
   const pagination = {
-    current: 1,
     defaultPageSize: 10,
+    pageSize: 10,
   }
+  const { id, core, memory, bandwidth } = props
   const { t } = useTranslation()
+  const [total, totalSet] = useState<number>(0)
+  const [tableData, tableDataSet] = useState([])
+  const [curPage, curPageSet] = useState<number>(1)
+  // const [totalCpu, totalCpuSet] = useState<number>(0)
+  // const [totalMemory, totalMemorySet] = useState<number>(0)
+  // const [totalBandwidth, totalBandwidthSet] = useState<number>(0)
+
+  // TODO 跳转到task部分
   const linkToTask = obj => {}
+  const { table } = useComputeNodeDetailTable({ id, curPage, pageSize: pagination.pageSize })
+
+  const onPageChange = (page: number) => {
+    curPageSet(page)
+  }
+
+  useEffect(() => {
+    if (table) {
+      totalSet(table.total)
+      tableDataSet(table.data)
+    }
+  }, [table])
 
   const dataSource = [
     {
-      key: '1',
-      id: '111111111111111',
-      nodeTask: '胡彦斌',
-      sponsorStartTime: '胡彦斌',
-      sponsor: '张学友',
-      startTime: '1919-19-19',
-      receiver: '胡彦斌',
-      collaborators: '胡彦斌',
-      eachNode: {
-        cpu: 'XX cores （XXX% occupied）',
-        Memory: 'XX MB （XXX% occupied）',
-        Bandwidth: 'XX Mbps （XXX% occupied）',
-      },
-    },
-    {
-      key: '2',
-      id: '222222222222222',
-      nodeTask: '胡彦斌',
-      sponsorStartTime: '胡彦斌',
-      sponsor: '刘德华',
-      startTime: '1919-19-19',
-      receiver: '胡彦斌',
-      collaborators: '胡彦斌',
-      eachNode: {
-        cpu: 'XX cores （XXX% occupied）',
-        Memory: 'XX MB （XXX% occupied）',
-        Bandwidth: 'XX Mbps （XXX% occupied）',
-      },
-    },
-    {
-      key: '3',
-      id: '3333333333333333',
-      nodeTask: '胡彦斌',
-      sponsorStartTime: '胡彦斌',
-      sponsor: '吴彦祖',
-      startTime: '1919-19-19',
-      receiver: '胡彦斌',
-      collaborators: '胡彦斌',
-      eachNode: {
-        cpu: 'XX cores （XXX% occupied）',
-        Memory: 'XX MB （XXX% occupied）',
-        Bandwidth: 'XX Mbps （XXX% occupied）',
-      },
-    },
-    {
-      key: '4',
-      id: '44444444444444444',
-      nodeTask: '胡彦斌',
-      sponsorStartTime: '胡彦斌',
-      sponsor: '金城武',
-      startTime: '1919-19-19',
-      receiver: '胡彦斌',
-      collaborators: '胡彦斌',
-      eachNode: {
-        cpu: 'XX cores （XXX% occupied）',
-        Memory: 'XX MB （XXX% occupied）',
-        Bandwidth: 'XX Mbps （XXX% occupied）',
-      },
+      coordinateSide: 'aaaa',
+      createTime: '111111111111111',
+      id: 0,
+      ownerIdentityId: '1111111111',
+      powerNodeId: '11111',
+      resultSide: '222222',
+      taskId: '3333',
+      taskName: '3344444444444',
+      taskStartTime: '5555555',
+      updateTime: '2222222222222',
+      usedBandwidth: 0,
+      usedCore: 0,
+      usedMemory: 0,
     },
   ]
   const columns = [
     {
       title: '',
-      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
       title: t('computeNodeMgt.nodeTask'),
@@ -84,8 +61,13 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div>
-            <p onClick={() => linkToTask(record)}>{record.nodeTask}</p>
-            <p>{record.id}</p>
+            <p className="details">
+              <span>{record.taskName}</span>
+              <span className="pointer" onClick={() => linkToTask(record)}>
+                {t('computeNodeMgt.detail')}
+              </span>
+            </p>
+            <p>ID:&nbsp; {record.id}</p>
           </div>
         )
       },
@@ -111,8 +93,8 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div>
-            <p>{record.sponsor}</p>
-            <p>{record.startTime}</p>
+            <p>{record.ownerIdentityId}</p>
+            <p>{record.taskStartTime}</p>
           </div>
         )
       },
@@ -124,13 +106,13 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     // },
     {
       title: t('computeNodeMgt.receiver'),
-      dataIndex: 'receiver',
-      key: 'receiver',
+      dataIndex: 'resultSide',
+      key: 'resultSide',
     },
     {
       title: t('computeNodeMgt.collaborators'),
-      dataIndex: 'collaborators',
-      key: 'collaborators',
+      dataIndex: 'coordinateSide',
+      key: 'coordinateSide',
     },
     {
       title: t('computeNodeMgt.eachNode'),
@@ -139,15 +121,27 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div key={index}>
-            {record.eachNode ? (
-              Object.keys(record.eachNode).map(node => (
-                <p key={index}>
-                  {node}:&nbsp;&nbsp; {record.eachNode[node]}
-                </p>
-              ))
-            ) : (
-              <></>
-            )}
+            <Row>
+              <Col span={4}>CPU:</Col>
+              <Col span={8}>{record.usedCore} cores</Col>
+              <Col span={12}>{`(${t('overview.occupied')} ${
+                isNaN(record.usedCore / core) ? '0.00' : record.usedCore / core
+              } %)`}</Col>
+            </Row>
+            <Row>
+              <Col span={4}>{t('overview.memory')}:</Col>
+              <Col span={8}>{record.usedMemory} MB</Col>
+              <Col span={12}>{`(${t('overview.occupied')} ${
+                isNaN(record.usedMemory / memory) ? '0.00' : record.usedMemory / memory
+              } %)`}</Col>
+            </Row>
+            <Row>
+              <Col span={4}>{t('overview.bandwidth')}:</Col>
+              <Col span={8}>{record.usedBandwidth} MB</Col>
+              <Col span={12}>{`(${t('overview.occupied')} ${
+                isNaN(record.usedBandwidth / bandwidth) ? '0.00' : record.usedBandwidth / bandwidth
+              } %)`}</Col>
+            </Row>
           </div>
         )
       },
@@ -155,7 +149,12 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="table-box">
-      <Table dataSource={dataSource} columns={columns} />
+      <Table
+        dataSource={dataSource}
+        // dataSource={tableData}
+        columns={columns}
+        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+      />
     </div>
   )
 }

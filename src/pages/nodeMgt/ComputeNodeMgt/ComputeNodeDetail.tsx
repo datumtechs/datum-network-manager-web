@@ -1,11 +1,13 @@
 import React, { FC, useState, useEffect } from 'react'
 import * as echarts from 'echarts/core'
 import {
+  TitleComponent,
   TitleComponentOption,
   GridComponent,
   GridComponentOption,
   LegendComponent,
   LegendComponentOption,
+  TooltipComponent,
 } from 'echarts/components'
 import { LineChart, LineSeriesOption } from 'echarts/charts'
 import 'echarts/lib/component/grid'
@@ -14,9 +16,11 @@ import { useTranslation } from 'react-i18next'
 import { Button, Space, Progress } from 'antd'
 import Bread from '../../../layout/components/Bread'
 import ComputeDetailTable from './components/ComputeDetailTable'
+import useComputeNodeDetails from '../../../hooks/useComputeNodeDetails'
+import i18n from '../../../i18n/config'
 
-echarts.use([LineChart, GridComponent, CanvasRenderer, LegendComponent])
-export const ComputeNodeDetail: FC<any> = () => {
+echarts.use([TooltipComponent, TitleComponent, LineChart, GridComponent, CanvasRenderer, LegendComponent])
+export const ComputeNodeDetail: FC<any> = (props: any) => {
   // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
   type Option = echarts.ComposeOption<
     LineSeriesOption | TitleComponentOption | GridComponentOption | LegendComponentOption
@@ -29,7 +33,7 @@ export const ComputeNodeDetail: FC<any> = () => {
     const option: Option = {
       color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
       title: {
-        text: '渐变堆叠面积图',
+        text: '',
       },
       tooltip: {
         trigger: 'axis',
@@ -95,11 +99,55 @@ export const ComputeNodeDetail: FC<any> = () => {
     }
     myChart?.setOption(option, true)
   }
-
+  const { location } = props
+  const { id } = location.state
   const { t } = useTranslation()
   const [selectTab, SetSelectTab] = useState('cpu')
+  const [curTitle, curTitleSet] = useState('')
+  const [cpuPar, cpuParSet] = useState<string | number>(0)
+  const [memoryPar, memoryParSet] = useState<string | number>(0)
+  const [bandwithPar, bandwidthParSet] = useState<string | number>(0)
+  const [curPercent, curPercentSet] = useState<number>(0)
+  const [infoTips, infoTipsSet] = useState<string>('')
+
+  // const { details } = useComputeNodeDetails(id)
+  const { details } = useComputeNodeDetails(
+    'jobNode:0x64e0b86f853f8e4de6e95d24625022e308317860e06ae5d712a9ef6dc2e474c3',
+  )
+
   // 按照selectTab的改变 请求api 获取数据
   useEffect(() => initCharts(), [selectTab])
+  useEffect(() => curTitleSet(`${t(`overview.${selectTab}`)}`), [selectTab, i18n.language])
+
+  useEffect(() => {
+    cpuParSet(isNaN(details?.usedCore / details?.core) ? '0.00' : (details?.usedCore / details?.core).toFixed(2))
+    memoryParSet(
+      isNaN(details?.usedMemory / details?.memory) ? '0.00' : (details?.usedMemory / details?.memory).toFixed(2),
+    )
+    bandwidthParSet(
+      isNaN(details?.usedBandwidth / details?.bandwidth)
+        ? '0.00'
+        : (details?.usedBandwidth / details?.bandwidth).toFixed(2),
+    )
+  }, [details])
+
+  useEffect(() => {
+    if (selectTab === 'cpu') {
+      curPercentSet(Number(cpuPar))
+    } else if (selectTab === 'memory') {
+      curPercentSet(Number(memoryPar))
+    } else if (selectTab === 'bandwidth') {
+      curPercentSet(Number(bandwithPar))
+    }
+  }, [selectTab])
+
+  useEffect(() => {
+    if (i18n.language === 'en') {
+      infoTipsSet(`${curTitle} ${t('node.hasOccupied')}`)
+    } else {
+      infoTipsSet(`此节点的${curTitle}占用情况`)
+    }
+  }, [i18n.language, curTitle])
   return (
     <div className="layout-box gray-box">
       <div className="bread-box">
@@ -109,7 +157,7 @@ export const ComputeNodeDetail: FC<any> = () => {
         <div className="node-info">
           <div className="title">
             <span>{t('computeNodeMgt.nodeName')}:</span>
-            <span> XXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+            <span></span>
           </div>
           <div className="btn-group">
             <Space size={30}>
@@ -123,7 +171,7 @@ export const ComputeNodeDetail: FC<any> = () => {
                 type={selectTab === 'bandwidth' ? 'primary' : 'default'}
                 onClick={() => SetSelectTab('bandwidth')}
               >
-                {t('overview.bandWidth')}
+                {t('overview.bandwidth')}
               </Button>
             </Space>
           </div>
@@ -133,16 +181,19 @@ export const ComputeNodeDetail: FC<any> = () => {
         <div className="cpu-info">
           {/* TODO 此处需要根据切换来进行改变 */}
           <div className="title">
-            <span>CPU:</span>
+            <span>{curTitle}:</span>
           </div>
-          <div className="status">CPU of the node has been occupied：</div>
+          <div className="status">
+            {infoTips}
+            {/* {i18n.language === 'en' ? `${curTitle} ${t('node.hasOccupied')}` : `此节点的${curTitle}占用情况`} */}
+          </div>
           <div className="charts">
-            <Progress type="circle" percent={75} width={140} strokeWidth={8} strokeColor="#3c3588" />
+            <Progress type="circle" percent={curPercent} width={140} strokeWidth={8} strokeColor="#3c3588" />
           </div>
         </div>
       </div>
       <div className="white-bg">
-        <ComputeDetailTable />
+        <ComputeDetailTable id={id} bandwidth={details?.bandwidth} memory={details?.memory} core={details?.core} />
       </div>
     </div>
   )

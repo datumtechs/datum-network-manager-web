@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import Bread from '../../../layout/components/Bread'
@@ -28,7 +28,7 @@ export const EditComputeNode: FC<any> = (props: any) => {
     if (type === 'Edit') {
       form.setFieldsValue({
         powerNodeName: row.powerNodeName,
-        nodeID: row.nodeID,
+        nodeID: row.powerNodeId,
         internalIp: row.internalIp,
         internalPort: row.internalPort,
         externalIp: row.externalIp,
@@ -51,11 +51,21 @@ export const EditComputeNode: FC<any> = (props: any) => {
     console.log(type)
     if (type === 'Add') {
       computeNodeApi.addPowerNode(values).then(res => {
-        console.log(11111)
+        if (res.status === 0) {
+          history.push('/nodeMgt/computeNodeMgt')
+          message.success(`${t('tip.addNodeSuccess')}`)
+        } else {
+          message.error(`${t('tip.addNodeFailed')}`)
+        }
       })
     } else if (type === 'edit') {
       computeNodeApi.updatePowerNode(values).then(res => {
-        console.log(11111)
+        if (res.status === 0) {
+          history.push('/nodeMgt/computeNodeMgt')
+          message.success(`${t('tip.updateNodeSuccess')}`)
+        } else {
+          message.error(`${t('tip.updateNodeFailed')}`)
+        }
       })
     }
   }

@@ -71,7 +71,7 @@ const resourceApi = {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
-      responseType: 'blob'
+      // responseType: 'blob'
     })
   }
 }

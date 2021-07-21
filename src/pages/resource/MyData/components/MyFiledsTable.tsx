@@ -68,7 +68,6 @@ const MyFiledsTable: FC<any> = (props: any) => {
     // })
     // console.log("updated tempAry===============>", tempAry);
     props.updateData(data)
-
   }
   const onPageChange = (page: number) => {
     setPage(page)
@@ -127,8 +126,8 @@ const MyFiledsTable: FC<any> = (props: any) => {
     },
     {
       title: t('center.dataType'),
-      dataIndex: 'dataType',
-      key: 'dataType',
+      dataIndex: 'columnType',
+      key: 'columnType',
       editable: 'false',
       render: (text, record, index) => {
         return (
@@ -162,16 +161,26 @@ const MyFiledsTable: FC<any> = (props: any) => {
   return (
     <div className="data-table-box">
       {mode === 'add' ? <div className="tips pb-20">{t('myData.infoTips')}</div> : ''}
-      <Table rowClassName={() => 'editable-row'} rowKey={record => record.id} dataSource={tableData} columns={columns} pagination={{ defaultCurrent: 1, total, onChange: onPageChange }} bordered />
+      <Table
+        rowClassName={() => 'editable-row'}
+        rowKey={record => record.id}
+        dataSource={tableData}
+        columns={columns}
+        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+        bordered
+      />
     </div>
   )
 }
 
-export default connect((state: any) => ({ state }), (dispatch: any) => ({
-  updateData: (originalData: Array<[]>) => {
-    dispatch({
-      type: 'SET_ORIGINAL_DATA',
-      data: originalData,
-    })
-  },
-}))(MyFiledsTable)
+export default connect(
+  (state: any) => ({ state }),
+  (dispatch: any) => ({
+    updateData: (originalData: Array<[]>) => {
+      dispatch({
+        type: 'SET_ORIGINAL_DATA',
+        data: originalData,
+      })
+    },
+  }),
+)(MyFiledsTable)

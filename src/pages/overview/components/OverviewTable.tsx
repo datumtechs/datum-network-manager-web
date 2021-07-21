@@ -232,15 +232,19 @@ const OverviewTable: FC<any> = (props: any) => {
   // ]
 
   const cpu = useMemo(() => {
-    return (globalObj.usedProcessor / globalObj.totalProcessor).toFixed(2)
+    return isNaN(globalObj.usedProcessor / globalObj.totalProcessor)
+      ? '0.00'
+      : (globalObj.usedProcessor / globalObj.totalProcessor).toFixed(2)
   }, [globalObj.usedProcessor, globalObj.totalProcessor])
 
   const memory = useMemo(() => {
-    return (globalObj.usedMem / globalObj.totalMem).toFixed(2)
+    return isNaN(globalObj.usedMem / globalObj.totalMem) ? '0.00' : (globalObj.usedMem / globalObj.totalMem).toFixed(2)
   }, [globalObj.totalMem, globalObj.usedMem])
 
   const bandWidth = useMemo(() => {
-    return (globalObj.usedBandwidth / globalObj.totalBandwidth).toFixed(2)
+    return isNaN(globalObj.usedBandwidth / globalObj.totalBandwidth)
+      ? '0.00'
+      : (globalObj.usedBandwidth / globalObj.totalBandwidth).toFixed(2)
   }, [globalObj.totalBandwidth, globalObj.usedBandwidth])
 
   return (
@@ -289,7 +293,7 @@ const OverviewTable: FC<any> = (props: any) => {
             <img src={BandwidthImg} alt="" />
           </div>
           <div className="right">
-            <p className="top"> {t('overview.bandWidth')}</p>
+            <p className="top"> {t('overview.bandwidth')}</p>
             <p className="bottom">{bandWidth}%</p>
           </div>
         </div>
@@ -298,30 +302,44 @@ const OverviewTable: FC<any> = (props: any) => {
         {tableData?.length > 0 ? (
           tableData.map(item => {
             return (
-              <div className="my-table" key={item.name}>
+              <div className="my-table" key={item.jobNodeName}>
                 <div className="line-first">
-                  <div className="name">Computation node：{item.name}</div>
+                  <div className="name">
+                    {t('overview.computeNode')} ：{item.jobNodeName}
+                  </div>
                   {item.runTime ? <div className="time">Continuous run time：{item.runTime}</div> : <></>}
                 </div>
                 <div className="line-second">
                   <div className="table-cell work-status">
-                    {item.status.toUpperCase() === 'FREE' ? (
-                      <span className="free"> Free </span>
+                    {item.status.toUpperCase() === '0' ? (
+                      <span className="free"> {t('overview.free')} </span>
                     ) : (
-                      <span className="occupied"> Occupied</span>
+                      <span className="occupied">{t('overview.occupied')} </span>
                     )}
                   </div>
                   <div className="table-cell cpu-status">
                     <p className="table-title "> CPU</p>
-                    <p className="table-content">{item.cpu}%</p>
+                    <p className="table-content">
+                      {isNaN(item.usedProcessor / item.totalProcessor)
+                        ? '0.00'
+                        : (item.usedProcessor / item.totalProcessor).toFixed(2)}
+                      %
+                    </p>
                   </div>
                   <div className="table-cell memory-status">
                     <p className="table-title "> {t('overview.memory')}</p>
-                    <p className="table-content">{item.memory}MB</p>
+                    <p className="table-content">
+                      {isNaN(item.usedMem / item.totalMem) ? '0.00' : (item.usedMem / item.totalMem).toFixed(2)}MB
+                    </p>
                   </div>
                   <div className="table-cell bandwidth-status">
-                    <p className="table-title ">{t('overview.bandWidth')}</p>
-                    <p className="table-content">{item.bandWidth}%</p>
+                    <p className="table-title ">{t('overview.bandwidth')}</p>
+                    <p className="table-content">
+                      {isNaN(item.usedBandwidth / item.totalBandwidth)
+                        ? '0.00'
+                        : (item.usedBandwidth / item.totalBandwidth).toFixed(2)}
+                      %
+                    </p>
                   </div>
                 </div>
               </div>

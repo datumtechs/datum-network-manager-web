@@ -12,6 +12,22 @@ export const Tasks: FC<any> = () => {
   const onSearch = () => {}
   const onStatusChange = () => {}
   const capacityChanged = () => {}
+  const statusList = [
+    { label: t('task.pending'), value: 'pending' },
+    { label: t('task.running'), value: 'running' },
+    { label: t('task.failed'), value: 'failed' },
+    { label: t('task.success'), value: 'success' },
+  ]
+
+  const capacityList = [
+    { label: t('task.pending'), value: 'pending' },
+    { label: t('task.running'), value: 'running' },
+    { label: t('task.failed'), value: 'failed' },
+    { label: t('task.success'), value: 'success' },
+  ]
+
+  const roleList = [{}]
+
   return (
     <div className="layout-box">
       <div className="title-box">
@@ -45,21 +61,23 @@ export const Tasks: FC<any> = () => {
           <Select
             showSearch
             style={{ width: 190 }}
-            placeholder="Select a person"
+            placeholder={t('tip.plzSelectStatus')}
             optionFilterProp="children"
             onChange={onStatusChange}
             size="large"
             filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
-            <Option value="tom">Tom</Option>
+            {statusList.map(item => (
+              <Option value={item.value} key={item.value}>
+                {item.label}
+              </Option>
+            ))}
           </Select>
           <Select
             showSearch
             size="large"
             style={{ width: 200 }}
-            placeholder="Select a person"
+            placeholder={t('tip.plzSelectCapacity')}
             optionFilterProp="children"
             onChange={capacityChanged}
             filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}

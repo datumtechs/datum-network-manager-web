@@ -31,11 +31,7 @@ const MyDataTable: FC<any> = (props: any) => {
 
   useEffect(() => {
     initTableData()
-  }, [curPage])
-
-  useEffect(() => {
-    initTableData()
-  }, [searchText])
+  }, [curPage, searchText])
 
   useEffect(() => {
     if (pop.type !== '') {

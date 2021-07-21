@@ -87,7 +87,11 @@ const computeNodeApi = {
   },
 
   // 查询内部任务列表
-  queryPowerJoinTaskList(data: SearchPageTable): Promise<any> {
+  /**
+   * @param data :{ "powerNodeId": string }
+   * @returns 
+   */
+  queryPowerJoinTaskList(data: any): Promise<any> {
     return axios({
       method: "POST",
       url: `/api/v1/node/powernode/queryPowerJoinTaskList`,

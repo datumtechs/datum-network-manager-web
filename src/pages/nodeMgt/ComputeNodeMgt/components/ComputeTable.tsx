@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Table, Space } from 'antd'
+import { Table, Space, message } from 'antd'
 import MyModal from '../../../../components/MyModal'
 import './scss/index.scss'
 import { computeNodeApi } from '../../../../api/index'
@@ -61,14 +61,15 @@ const DataTable: FC<any> = (props: any) => {
 
   console.log('curRow', curRow)
 
-  const viewInfo = () => {
+  const viewInfo = row => {
     history.push({
       pathname: '/nodeMgt/computeNodeMgt/computeNodeDetail',
       state: {
-        id: '11111111',
+        id: row.powerNodeId,
       },
     })
   }
+
   const editFn = row => {
     history.push({
       pathname: '/nodeMgt/computeNodeMgt/editComputeNode',
@@ -78,6 +79,7 @@ const DataTable: FC<any> = (props: any) => {
       },
     })
   }
+
   const dataSource = [
     {
       key: '1',
@@ -97,7 +99,7 @@ const DataTable: FC<any> = (props: any) => {
       powerNodeName: '奥术大师多',
       remarks: '222222222222',
       startTime: '',
-      status: 1,
+      status: 2,
       updateTime: '',
       usedBandwidth: 0,
       usedCore: 0,
@@ -180,7 +182,7 @@ const DataTable: FC<any> = (props: any) => {
       render: (text: any, row: any, index: any) => {
         return (
           <Space size={10} className="operation-box">
-            {row.status === 0 ? (
+            {row.status === -1 ? (
               <>
                 <span className="btn pointer" onClick={() => editFn(row)}>
                   {t('common.edit')}
@@ -192,7 +194,7 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.status === 1 ? (
+            {row.status === 0 ? (
               <>
                 <span className="btn pointer" onClick={() => operation(row, 'view')}>
                   {t('common.view')}
@@ -210,7 +212,7 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.status === 2 ? (
+            {row.status === 1 ? (
               <>
                 <span className="btn pointer" onClick={() => operation(row, 'view')}>
                   {t('common.view')}
@@ -222,9 +224,9 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.status === 3 ? (
+            {row.status === 2 ? (
               <>
-                <span className="btn pointer" onClick={() => viewInfo()}>
+                <span className="btn pointer" onClick={() => viewInfo(row)}>
                   {t('common.viewNodeInfo')}
                 </span>
               </>
@@ -257,23 +259,32 @@ const DataTable: FC<any> = (props: any) => {
   const handleOk = () => {
     if (modalType === 'delete') {
       computeNodeApi.deletePowerNode({ powerNodeId: curId }).then(res => {
+        SetIsModalVisible(false)
         if (res.status === 0) {
           console.log(res)
-          SetIsModalVisible(false)
+          message.success(`${t('tip.deleteSuccess')}`)
+        } else {
+          message.error(`${t('tip.deleteFailed')}`)
         }
       })
     } else if (modalType === 'enable') {
       computeNodeApi.publishPower({ powerNodeId: curId, status }).then(res => {
+        SetIsModalVisible(false)
         if (res.status === 0) {
           console.log(res)
-          SetIsModalVisible(false)
+          message.success(`${t('tip.enableSuccess')}`)
+        } else {
+          message.error(`${t('tip.enableFailed')}`)
         }
       })
     } else if (modalType === 'disable') {
       computeNodeApi.revokePower({ powerNodeId: curId, status }).then(res => {
+        SetIsModalVisible(false)
         if (res.status === 0) {
           console.log(res)
-          SetIsModalVisible(false)
+          message.success(`${t('tip.disableSuccess')}`)
+        } else {
+          message.error(`${t('tip.disableFailed')}`)
         }
       })
     } else if (modalType === 'view') {
@@ -312,7 +323,7 @@ const DataTable: FC<any> = (props: any) => {
               <span>{curRow.memory}</span>
             </p>
             <p>
-              <span className="title">{t('overview.bandWidth')}:</span>
+              <span className="title">{t('overview.bandwidth')}:</span>
               <span>{curRow.bandwidth}</span>
             </p>
             <p>

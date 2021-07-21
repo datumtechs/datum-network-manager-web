@@ -45,7 +45,7 @@ const CenterTable: FC<any> = () => {
       key: 'memory',
     },
     {
-      title: t('center.bandWidth'),
+      title: t('center.bandwidth'),
       dataIndex: 'bandWidth',
       key: 'bandWidth',
     },

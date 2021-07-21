@@ -112,6 +112,10 @@
 
   .table-box {
     padding: 20px;
+    p.details {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   .white-bg {

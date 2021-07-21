@@ -18,14 +18,17 @@
     "authorizedData": "Authorized data",
     "computeNode": "Computing Node",
     "sharedResource": "Shared computing resource",
+    "cpu": "CPU",
     "memory": "Memory",
-    "bandWidth": "Bandwidth",
+    "bandwidth": "Bandwidth",
     "submit": "Create the identify credential，and apply for network access",
     "publishData": "Published  data",
     "unPublishData": "Unpublished data",
     "taskInProgress": "Tasks in Progress",
     "commuting": "Commuting",
-    "resources": "Resources"
+    "resources": "Resources",
+    "free": "Free",
+    "occupied": "Occupied"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -82,7 +85,8 @@
     "logoutSuccess": "Logout Success",
     "logoutFailed": "Logout Failed",
     "internal": "Internal",
-    "external": "External"
+    "external": "External",
+    "hasOccupied": "of the node has been occupied"
   },
   "dataNodeMgt": {
     "nodeName": "Data node name & ID",
@@ -137,7 +141,11 @@
     "name": "Name",
     "identity": "Identifier",
     "metadataNameID": "Metadata name & ID",
-    "occupiedResources": "Occupied resources"
+    "occupiedResources": "Occupied resources",
+    "pending": "Pending",
+    "running": "Computing",
+    "failed": "Failed",
+    "success": "Success"
   },
   "step": {
     "taskStarted": "Task Started",
@@ -155,7 +163,7 @@
     "status": "Status",
     "cpu": "CPU",
     "memory": "Memory",
-    "bandWidth": "BandWidth",
+    "bandwidth": "BandWidth",
     "metaDataDetail": "Metadata Details",
     "name&metaID": "Data resource name & Metadata ID",
     "dataProvider": "Data providers",
@@ -218,6 +226,18 @@
     "idSuccess": "ID Application successful",
     "idFailed": "ID application failed",
     "intenalError": "internal error",
-    "leaveCofirm": "Please ensure that you are leaving this page.Once conformed, the changes will NOT be saved"
+    "leaveCofirm": "Please ensure that you are leaving this page.Once conformed, the changes will NOT be saved",
+    "disableSuccess": "Disabled successfully",
+    "enableSuccess": "Enabled successfully",
+    "deleteSuccess": "Delete successfully",
+    "deleteFailed": "Delete failed",
+    "enableFailed": "Enabled successfully",
+    "disableFailed": "Disabled successfully",
+    "updateNodeSuccess": "Node information updated successfully",
+    "addNodeSuccess": "Node added successfully",
+    "updateNodeFailed": "Node information updated failed",
+    "addNodeFailed": "Node added failed",
+    "plzSelectStatus": "Please select a type of status",
+    "plzSelectCapacity": "Please select a type of capacity"
   }
 }

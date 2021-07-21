@@ -10,7 +10,7 @@ interface BaseInfo {
   recUpdateTime: string | number
 }
 interface SearchPageTable {
-  keyword: string
+  keyword?: string
   pageNumber: number,
   pageSize: number,
   identityId?: string,
