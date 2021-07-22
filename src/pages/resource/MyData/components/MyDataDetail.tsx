@@ -14,13 +14,15 @@ import MyModal from '../../../../components/MyModal'
 const MyData: FC<any> = props => {
   const { TextArea } = Input
   const { location } = props
-  const { type, id } = location.state
+  const { type, id, from } = location.state
   const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
 
   const [total, setTotal] = useState<number>()
   const [baseInfo, setBaseInfo] = useState({
     id: '',
+    orgName: '',
     fileName: '',
+    resourceName: '',
     fileId: '',
     status: '',
     metaDataId: '',
@@ -66,11 +68,13 @@ const MyData: FC<any> = props => {
     isModalVisibleSet(false)
   }
   const initData = () => {
-    resourceApi.queryMetaDataDetail(id).then(res => {
-      console.log(res)
+    const apiName = from === 'dataCenter' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
+    resourceApi[apiName](id).then(res => {
       setBaseInfo({
         id: res.data.id,
+        orgName: res.data.orgName,
         fileName: res.data.fileName,
+        resourceName: res.data.resourceName,
         fileId: res.data.fileId,
         status: res.data.status,
         metaDataId: res.data.metaDataId,
@@ -80,6 +84,7 @@ const MyData: FC<any> = props => {
         columns: res.data.columns,
         remarks: res.data.remarks,
       })
+      from === 'dataCenter' && (res.data.localMetaDataColumnList = res.data.metaDataColumnList)
       setOriginalData(res.data.localMetaDataColumnList)
       setTableData(getShowSource(res.data.localMetaDataColumnList))
       setTotal(res.data.localMetaDataColumnList.length)
@@ -125,35 +130,61 @@ const MyData: FC<any> = props => {
       </div>
       <div className="add-info-box limitLine">
         {type === 'view' ? (
-          <Descriptions column={2} title={`${t('center.basicInfo')}`}>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
-              {baseInfo.fileName}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaStatus')}>
-              {baseInfo.status}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
-              {baseInfo.fileId}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
-              {baseInfo.metaDataId}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFilePath')}>
-              {baseInfo.filePath}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
-              {baseInfo.size}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
-              {baseInfo.rows}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
-              {baseInfo.columns}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
-              <TextArea value={baseInfo.remarks} disabled rows={4} />
-            </Descriptions.Item>
-          </Descriptions>
+          (from !== 'dataCenter' && (
+            <Descriptions column={2} title={`${t('center.basicInfo')}`}>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
+                {baseInfo.fileName}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaStatus')}>
+                {baseInfo.status}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
+                {baseInfo.fileId}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
+                {baseInfo.metaDataId}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFilePath')}>
+                {baseInfo.filePath}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
+                {baseInfo.size}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
+                {baseInfo.rows}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
+                {baseInfo.columns}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
+                <TextArea value={baseInfo.remarks} disabled rows={4} />
+              </Descriptions.Item>
+            </Descriptions>
+          )) || (
+            <Descriptions column={2} title={`${t('center.basicInfo')}`}>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataName')}>
+                {baseInfo.resourceName}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
+                {baseInfo.size}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
+                {baseInfo.metaDataId}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
+                {baseInfo.rows}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataProvider')}>
+                {baseInfo.orgName}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
+                {baseInfo.columns}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
+                <TextArea value={baseInfo.remarks} disabled rows={4} />
+              </Descriptions.Item>
+            </Descriptions>
+          )
         ) : (
           <Descriptions column={1} title={`${t('center.basicInfo')}`}>
             <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>

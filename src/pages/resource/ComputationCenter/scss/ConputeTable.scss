@@ -1,0 +1,18 @@
+.power-col {
+  margin-left: 20px;
+  .name {
+    font-size: 16px;
+    padding-right: 8px;
+  }
+  .remain-num,
+  .remain-unit {
+    margin-left: 4px;
+    font-size: 20px;
+    color: #3c3588;
+    letter-spacing: 1px;
+    line-height: 28px;
+  }
+  .remain-unit {
+    font-size: 14px;
+  }
+}
