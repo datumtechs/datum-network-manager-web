@@ -11,16 +11,17 @@ import { resourceApi } from '../../../../api/index'
 import '../scss/editTable.scss'
 
 const MyData: FC<any> = props => {
-
-  console.log("props==============>", props);
+  console.log('props==============>', props)
   const { TextArea } = Input
   const { location } = props
-  const { type, id } = location.state
+  const { type, id, from } = location.state
 
   const [total, setTotal] = useState<number>()
   const [baseInfo, setBaseInfo] = useState({
     id: '',
+    orgName: '',
     fileName: '',
+    resourceName: '',
     fileId: '',
     status: '',
     metaDataId: '',
@@ -31,7 +32,6 @@ const MyData: FC<any> = props => {
     remarks: '',
   })
 
-
   const [remarks, setRemarks] = useState('')
   const [originalData, setOriginalData] = useState([])
 
@@ -40,11 +40,11 @@ const MyData: FC<any> = props => {
   const { t } = useTranslation()
   const history = useHistory()
   const pagenation = {
-    pagesize: 10
+    pagesize: 10,
   }
 
   const [curPage, setCurPage] = useState<number>(1)
-  const getShowSource = (data) => {
+  const getShowSource = data => {
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
 
@@ -61,11 +61,13 @@ const MyData: FC<any> = props => {
   }
 
   const initData = () => {
-    resourceApi.queryMetaDataDetail(id).then(res => {
-      console.log(res)
+    const apiName = from === 'dataCenter' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
+    resourceApi[apiName](id).then(res => {
       setBaseInfo({
         id: res.data.id,
+        orgName: res.data.orgName,
         fileName: res.data.fileName,
+        resourceName: res.data.resourceName,
         fileId: res.data.fileId,
         status: res.data.status,
         metaDataId: res.data.metaDataId,
@@ -75,6 +77,7 @@ const MyData: FC<any> = props => {
         columns: res.data.columns,
         remarks: res.data.remarks,
       })
+      from === 'dataCenter' && (res.data.localMetaDataColumnList = res.data.metaDataColumnList)
       setOriginalData(res.data.localMetaDataColumnList)
       setTableData(getShowSource(res.data.localMetaDataColumnList))
       setTotal(res.data.localMetaDataColumnList.length)
@@ -86,10 +89,10 @@ const MyData: FC<any> = props => {
     const dataObj = {
       id: baseInfo.id,
       remarks,
-      localMetaDataColumnList: originalData
+      localMetaDataColumnList: originalData,
     }
     resourceApi.updateMetaData(dataObj).then(res => {
-      console.log(res);
+      console.log(res)
     })
   }
 
@@ -98,7 +101,7 @@ const MyData: FC<any> = props => {
   }
 
   const setPage = (page: number) => {
-    setCurPage(page);
+    setCurPage(page)
   }
 
   useEffect(() => {
@@ -111,35 +114,61 @@ const MyData: FC<any> = props => {
       </div>
       <div className="add-info-box limitLine">
         {type === 'view' ? (
-          <Descriptions column={2} title={`${t('center.basicInfo')}`}>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
-              {baseInfo.fileName}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaStatus')}>
-              {baseInfo.status}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
-              {baseInfo.fileId}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
-              {baseInfo.metaDataId}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFilePath')}>
-              {baseInfo.filePath}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
-              {baseInfo.size}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
-              {baseInfo.rows}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
-              {baseInfo.columns}
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
-              <TextArea value={baseInfo.remarks} disabled rows={4} />
-            </Descriptions.Item>
-          </Descriptions>
+          (from !== 'dataCenter' && (
+            <Descriptions column={2} title={`${t('center.basicInfo')}`}>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
+                {baseInfo.fileName}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaStatus')}>
+                {baseInfo.status}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
+                {baseInfo.fileId}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
+                {baseInfo.metaDataId}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFilePath')}>
+                {baseInfo.filePath}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
+                {baseInfo.size}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
+                {baseInfo.rows}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
+                {baseInfo.columns}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
+                <TextArea value={baseInfo.remarks} disabled rows={4} />
+              </Descriptions.Item>
+            </Descriptions>
+          )) || (
+            <Descriptions column={2} title={`${t('center.basicInfo')}`}>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataName')}>
+                {baseInfo.resourceName}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
+                {baseInfo.size}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
+                {baseInfo.metaDataId}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
+                {baseInfo.rows}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataProvider')}>
+                {baseInfo.orgName}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
+                {baseInfo.columns}
+              </Descriptions.Item>
+              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
+                <TextArea value={baseInfo.remarks} disabled rows={4} />
+              </Descriptions.Item>
+            </Descriptions>
+          )
         ) : (
           <Descriptions column={1} title={`${t('center.basicInfo')}`}>
             <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
@@ -156,13 +185,29 @@ const MyData: FC<any> = props => {
       </div>
       <div className="info-box">
         <Descriptions column={2} title={`${t('center.fieldInfo')}`}></Descriptions>
-        {type === 'view' ? <DetailTable tableData={tableData} total={total} setPage={setPage} curPage={curPage} />
-          : <MyFiledsTable originalData={originalData} tableData={tableData} total={total} setPage={setPage} curPage={curPage} mode="edit" />}
+        {type === 'view' ? (
+          <DetailTable tableData={tableData} total={total} setPage={setPage} curPage={curPage} />
+        ) : (
+          <MyFiledsTable
+            originalData={originalData}
+            tableData={tableData}
+            total={total}
+            setPage={setPage}
+            curPage={curPage}
+            mode="edit"
+          />
+        )}
       </div>
       <div className="submit-box">
         <Space size={40} className="btn-group">
           <Button size="large" className="btn" onClick={backFn}>{`${t('common.return')}`}</Button>
-          {type === 'edit' ? <Button type="primary" size="large" className="btn" onClick={updateMetaData}>{`${t('common.submit')}`}</Button> : ''}
+          {type === 'edit' ? (
+            <Button type="primary" size="large" className="btn" onClick={updateMetaData}>{`${t(
+              'common.submit',
+            )}`}</Button>
+          ) : (
+            ''
+          )}
         </Space>
       </div>
     </div>

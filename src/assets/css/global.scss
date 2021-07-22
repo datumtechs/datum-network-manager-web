@@ -244,3 +244,34 @@
 .failed_color {
   color: #f5222d;
 }
+
+.prev-steelblue,
+.prev-seagreen,
+.prev-orange {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0.6em;
+    left: -1.4em;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+}
+
+.prev-orange {
+  &::before {
+    background-color: #ffa505;
+  }
+}
+.prev-seagreen {
+  &::before {
+    background-color: #00bdb3;
+  }
+}
+.prev-steelblue {
+  &::before {
+    background-color: #5eaafe;
+  }
+}
