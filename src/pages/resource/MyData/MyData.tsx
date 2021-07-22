@@ -8,20 +8,18 @@ import MyDataTable from './components/MyDataTable'
 export const MyData: FC<any> = () => {
   const { t } = useTranslation()
   const history = useHistory()
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState<string>('')
 
-  const onAdd = () => {
+  const onAdd = (): void => {
     history.push({
       pathname: '/resource/myData/dataAddition',
       state: {
         type: 'add',
-        id: '11111111',
       },
     })
   }
-  const onSearch = (e) => {
-    console.log(e);
-    setSearchText(e)
+  const onSearch = (e): void => {
+    setSearchText(e.target.value)
   }
   return (
     <div className="layout-box">

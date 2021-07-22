@@ -73,6 +73,19 @@ const resourceApi = {
       },
       // responseType: 'blob'
     })
+  },
+  addMetaData(data: any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/resource/mydata/addMetaData`,
+      data
+    })
+  },
+  checkResourceName(data: any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/resource/mydata/checkResourceName?resourceName=${data.resourceName}`,
+    })
   }
 }
 

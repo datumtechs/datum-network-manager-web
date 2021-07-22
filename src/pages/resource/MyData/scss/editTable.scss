@@ -5,6 +5,8 @@
 .editable-cell-value-wrap {
   padding: 5px 12px;
   cursor: pointer;
+  // line-height: 30px;
+  height: 32px;
 }
 
 .editable-row:hover .editable-cell-value-wrap {
@@ -13,7 +15,7 @@
   border-radius: 4px;
 }
 
-[data-theme='dark'] .editable-row:hover .editable-cell-value-wrap {
+[data-theme="dark"] .editable-row:hover .editable-cell-value-wrap {
   border: 1px solid #434343;
 }
 
@@ -21,4 +23,5 @@
   width: 60%;
 }
 
-.submit-box {}
+.submit-box {
+}

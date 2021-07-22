@@ -1,21 +1,23 @@
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect, useImperativeHandle } from 'react'
 import { Table, Space } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-const MyTable: FC<any> = () => {
+const MyTable = (props, ref) => {
   const history = useHistory()
   const pagination = {
     current: 1,
     defaultPageSize: 10,
   }
   const { t } = useTranslation()
+
   const linkToDetail = () => {
     history.push('/tasks/taskDetail')
   }
   const linkToEvent = () => {
     history.push('/tasks/TaskEvent')
   }
+
   const dataSource = [
     {
       key: '1',
@@ -98,7 +100,12 @@ const MyTable: FC<any> = () => {
   ]
   return (
     <div className="table-box">
-      <Table dataSource={dataSource} columns={columns} bordered />
+      <Table
+        // dataSource={dataSource}
+        dataSource={props.tableData}
+        columns={columns}
+        bordered
+      />
     </div>
   )
 }

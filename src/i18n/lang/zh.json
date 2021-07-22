@@ -195,7 +195,9 @@
     "confirmDelete": "请确认是否要删除源文件",
     "confirmPublish": "请确认是否要上架源文件",
     "confirmWithdraw": "请确认是否要下架源文件",
-    "uploadFile": "添加源文件"
+    "uploadFile": "添加源文件",
+    "pulish": "已发布",
+    "unPublish": "未发布"
   },
   "myData": {
     "plzUploadFile": "请导入本地数据源文件",
@@ -219,14 +221,17 @@
     "nameTips": "注：根据需要修改源文件名称，不可与其他源文件重复，且本次设置之后无法更改。",
     "infoTips": "注：请根据需要修改“源文件字段”、“是否对外可见”与“数据类型”，并补充相应的“字段描述”，字段信息提交后仍可以在管理页面修改。",
     "sourceFileID": "源文件ID",
-    "sourceFilePath": "源文件路径"
+    "sourceFilePath": "源文件路径",
+    "uploadSuccess": "上传成功",
+    "uploadFailed": "上传失败",
+    "plzSelectone": "请先选择要上传的文件"
   },
   "tip": {
     "plzInputID": "请输入正确的机构识别名称",
     "idSuccess": "身份标识申请成功",
     "idFailed": "身份标识申请失败",
     "intenalError": "内部错误",
-    "leaveCofirm": "请确认是否要返回管理页面?返回后，已修改的信息不会被保存",
+    "leaveCofirm": "请确认是否要返回管理页面? 返回后，已修改的信息不会被保存",
     "disableSuccess": "停用成功",
     "enableSuccess": "启用成功",
     "deleteSuccess": "删除成功",
@@ -238,6 +243,12 @@
     "updateNodeFailed": "更新节点信息失败",
     "addNodeFailed": "新增节点失败",
     "plzSelectStatus": "请选择一种状态",
-    "plzSelectCapacity": "请选择角色"
+    "plzSelectCapacity": "请选择角色",
+    "fileNameError": "文件名称不可用请修改",
+    "unavailableFilename": "不可用文件名",
+    "availableFilename": "可用文件名",
+    "updateSuccess": "修改源文件成功",
+    "operationSucces": "操作成功",
+    "operationFailed": "操作失败"
   }
 }

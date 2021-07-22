@@ -13,7 +13,7 @@ const DetailTable: FC<any> = (props: any) => {
   const pagination = {
     defaultPageSize: 10,
   }
-  const handleOk = () => { }
+  const handleOk = () => {}
   const handleCancel = () => {
     setIsModalVisible(false)
   }
@@ -21,7 +21,7 @@ const DetailTable: FC<any> = (props: any) => {
     setPage(page)
   }
 
-  const modifyFn = () => { }
+  const modifyFn = () => {}
   const columns = [
     {
       title: '',
@@ -38,7 +38,7 @@ const DetailTable: FC<any> = (props: any) => {
       dataIndex: 'visible',
       key: 'visible',
       render: (text, record, index) => {
-        return record.visible === 'N' ? 'No' : 'Yes'
+        return record.visible === 'N' ? t('myData.yes') : t('myData.yes')
       },
     },
     {
@@ -54,7 +54,13 @@ const DetailTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="data-table-box">
-      <Table dataSource={tableData} columns={columns} bordered rowKey={record => record.id} pagination={{ defaultCurrent: 1, total, onChange: onPageChange }} />
+      <Table
+        dataSource={tableData}
+        columns={columns}
+        bordered
+        rowKey={record => record.id}
+        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+      />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>{t('center.confirmWithdraw')}:333333333333333333333</p>
       </MyModal>

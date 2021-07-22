@@ -9,8 +9,6 @@ const MyDataTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const history = useHistory()
   const { searchText } = props
-  console.log(searchText)
-
   const [pop, setPop] = useState({
     type: '',
     id: '',
@@ -59,9 +57,10 @@ const MyDataTable: FC<any> = (props: any) => {
     }
     resourceApi.metaDataAction(data).then(res => {
       if (res.status === 0) {
-        console.log(res)
-        message.success('操作成功')
+        message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
+      } else {
+        message.error(`${t('tip.operationFailed')}`)
       }
     })
   }
@@ -111,8 +110,10 @@ const MyDataTable: FC<any> = (props: any) => {
     resourceApi.downloadMeta({ id: row.metaDataId }).then(res => {
       if (res.status === 0) {
         console.log(res)
-        message.success('操作成功')
+        message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
+      } else {
+        message.error(`${t('tip.operationFailed')}`)
       }
     })
   }
@@ -131,6 +132,13 @@ const MyDataTable: FC<any> = (props: any) => {
       title: t('center.metaStatus'),
       dataIndex: 'status',
       key: 'status',
+      render: (text, record, index) => {
+        // 1已发布，0未发布
+        if (record.status === 1) {
+          return t('center.pulish')
+        }
+        return t('center.unPublish')
+      },
     },
     {
       title: t('center.metaFiled'),

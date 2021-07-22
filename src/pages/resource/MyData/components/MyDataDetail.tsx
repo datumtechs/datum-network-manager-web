@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { FC, useEffect, useState, memo } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Descriptions, Input, Space, Button } from 'antd'
+import { Descriptions, Input, Space, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import Bread from '../../../../layout/components/Bread'
@@ -9,13 +9,13 @@ import DetailTable from './DetailTable'
 import MyFiledsTable from './MyFiledsTable'
 import { resourceApi } from '../../../../api/index'
 import '../scss/editTable.scss'
+import MyModal from '../../../../components/MyModal'
 
 const MyData: FC<any> = props => {
-
-  console.log("props==============>", props);
   const { TextArea } = Input
   const { location } = props
   const { type, id } = location.state
+  const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
 
   const [total, setTotal] = useState<number>()
   const [baseInfo, setBaseInfo] = useState({
@@ -31,7 +31,6 @@ const MyData: FC<any> = props => {
     remarks: '',
   })
 
-
   const [remarks, setRemarks] = useState('')
   const [originalData, setOriginalData] = useState([])
 
@@ -40,11 +39,11 @@ const MyData: FC<any> = props => {
   const { t } = useTranslation()
   const history = useHistory()
   const pagenation = {
-    pagesize: 10
+    pagesize: 10,
   }
 
   const [curPage, setCurPage] = useState<number>(1)
-  const getShowSource = (data) => {
+  const getShowSource = data => {
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
 
@@ -57,9 +56,15 @@ const MyData: FC<any> = props => {
   }, [originalData])
 
   const backFn = () => {
+    isModalVisibleSet(true)
+  }
+  const handleOk = () => {
+    isModalVisibleSet(false)
     history.goBack()
   }
-
+  const handleCancel = () => {
+    isModalVisibleSet(false)
+  }
   const initData = () => {
     resourceApi.queryMetaDataDetail(id).then(res => {
       console.log(res)
@@ -86,10 +91,19 @@ const MyData: FC<any> = props => {
     const dataObj = {
       id: baseInfo.id,
       remarks,
-      localMetaDataColumnList: originalData
+      localMetaDataColumnList: originalData,
     }
     resourceApi.updateMetaData(dataObj).then(res => {
-      console.log(res);
+      console.log(res)
+      if (res.status === 0) {
+        // history.push('/resource/myData')
+        message.destroy()
+        message.success(`${t('tip.updateSuccess')}`).then(() => {
+          history.push('/resource/myData')
+        })
+      } else {
+        message.error(res.msg)
+      }
     })
   }
 
@@ -98,7 +112,7 @@ const MyData: FC<any> = props => {
   }
 
   const setPage = (page: number) => {
-    setCurPage(page);
+    setCurPage(page)
   }
 
   useEffect(() => {
@@ -156,15 +170,34 @@ const MyData: FC<any> = props => {
       </div>
       <div className="info-box">
         <Descriptions column={2} title={`${t('center.fieldInfo')}`}></Descriptions>
-        {type === 'view' ? <DetailTable tableData={tableData} total={total} setPage={setPage} curPage={curPage} />
-          : <MyFiledsTable originalData={originalData} tableData={tableData} total={total} setPage={setPage} curPage={curPage} mode="edit" />}
+        {type === 'view' ? (
+          <DetailTable tableData={tableData} total={total} setPage={setPage} curPage={curPage} />
+        ) : (
+          <MyFiledsTable
+            originalData={originalData}
+            tableData={tableData}
+            total={total}
+            setPage={setPage}
+            curPage={curPage}
+            mode="edit"
+          />
+        )}
       </div>
       <div className="submit-box">
         <Space size={40} className="btn-group">
           <Button size="large" className="btn" onClick={backFn}>{`${t('common.return')}`}</Button>
-          {type === 'edit' ? <Button type="primary" size="large" className="btn" onClick={updateMetaData}>{`${t('common.submit')}`}</Button> : ''}
+          {type === 'edit' ? (
+            <Button type="primary" size="large" className="btn" onClick={updateMetaData}>{`${t(
+              'common.submit',
+            )}`}</Button>
+          ) : (
+            ''
+          )}
         </Space>
       </div>
+      <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <p>{`${t('tip.leaveCofirm')}`}</p>
+      </MyModal>
     </div>
   )
 }

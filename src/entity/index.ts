@@ -43,4 +43,25 @@ interface Row {
   remarks: string,
 }
 
-export type { BaseInfo, DataNode, SearchPageTable, ComputeNode, Row }
+interface taskQueryObj {
+  endTime: number,
+  keyWord: string,
+  pageNumber: number,
+  pageSize: number,
+  role: number,
+  startTime: number,
+  status: string
+}
+
+interface TaskObj {
+  createAt: string,
+  id: string,
+  reviewed: boolean,
+  role: number,
+  status: string,
+  taskName: string
+}
+
+
+
+export type { BaseInfo, DataNode, SearchPageTable, ComputeNode, Row, taskQueryObj, TaskObj }

@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Input, Select, Space, DatePicker } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
+import useTaskTable from '../../hooks/useTaskTable'
 
 const { Search } = Input
 const { Option } = Select
@@ -12,6 +13,10 @@ export const Tasks: FC<any> = () => {
   const onSearch = () => {}
   const onStatusChange = () => {}
   const capacityChanged = () => {}
+  const [runningTaskCount, runningTaskCountSet] = useState<number>(0)
+  const [totalTaskCount, totalTaskCountSet] = useState<number>(0)
+  const [tableData, tableDataSet] = useState<[]>([])
+
   const statusList = [
     { label: t('task.pending'), value: 'pending' },
     { label: t('task.running'), value: 'running' },
@@ -25,8 +30,23 @@ export const Tasks: FC<any> = () => {
     { label: t('task.failed'), value: 'failed' },
     { label: t('task.success'), value: 'success' },
   ]
+  const { table, countData } = useTaskTable({
+    endTime: 1626250562,
+    keyWord: '',
+    pageNumber: 1,
+    pageSize: 10,
+    role: 0,
+    startTime: 1626250562,
+    status: 'success',
+  })
 
-  const roleList = [{}]
+  useEffect(() => {
+    console.log('countData', countData)
+    console.log('table', table)
+    tableDataSet(table?.data.list)
+    totalTaskCountSet(countData?.totalTaskCount)
+    runningTaskCountSet(countData?.runningTaskCount)
+  }, [table?.data, countData])
 
   return (
     <div className="layout-box">
@@ -36,11 +56,11 @@ export const Tasks: FC<any> = () => {
           <div className="detail">
             <p className="inProgress">
               <span>{t('task.inProgress')}</span>
-              <span>:11</span>
+              <span>{runningTaskCount}</span>
             </p>
             <p className="totalTask">
               <span>{t('task.totalTask')}</span>
-              <span>:12</span>
+              <span>{totalTaskCount}</span>
             </p>
           </div>
         </div>
@@ -82,9 +102,11 @@ export const Tasks: FC<any> = () => {
             onChange={capacityChanged}
             filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
-            <Option value="tom">Tom</Option>
+            {statusList.map(item => (
+              <Option value={item.value} key={item.value}>
+                {item.label}
+              </Option>
+            ))}
           </Select>
         </Space>
         <Space size={20}>
@@ -93,7 +115,7 @@ export const Tasks: FC<any> = () => {
         </Space>
       </div>
       <div className="task-table-box">
-        <Tasktable />
+        <Tasktable tableData={tableData} />
       </div>
     </div>
   )

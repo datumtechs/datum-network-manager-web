@@ -15,6 +15,7 @@ interface Item {
   visible: string
   columnType: string
   remarks: string
+  columnIdx?: number
 }
 
 const MyFiledsTable: FC<any> = (props: any) => {

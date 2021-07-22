@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { FC, useState, createRef, useEffect } from 'react'
 import { Descriptions, Space, Form, Input, Radio, Button, message } from 'antd'
 import { useHistory } from 'react-router-dom'
@@ -6,6 +7,7 @@ import Bread from '../../../../layout/components/Bread'
 import { MyRadioBtn } from './MyRadioBtn'
 import MyFiledsTable from './MyFiledsTable'
 import { resourceApi } from '../../../../api/index'
+import MyModal from '../../../../components/MyModal'
 
 export const MyDataAddtion: FC<any> = porps => {
   const { t } = useTranslation()
@@ -20,18 +22,55 @@ export const MyDataAddtion: FC<any> = porps => {
   const [curPage, setCurPage] = useState<number>(1)
   const history = useHistory()
   const inputRef = createRef<any>()
+  const [upLoading, upLoadingSet] = useState(false)
+  const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
+  const [resultFileData, resultFileDataSet] = useState<any>({})
+  const [form] = Form.useForm()
+  const [isFileNameRight, isFileNameRightSet] = useState<boolean>(false)
+  const [showFilenameAvailable, showFilenameAvailableSet] = useState<boolean>(false)
 
   const pagenation = {
     pagesize: 10,
   }
 
+  const checkResourceName = filename => {
+    resourceApi.checkResourceName({ resourceName: filename, metaDataId: resultFileData.metaDataId }).then(res => {
+      if (res.status === 0) {
+        showFilenameAvailableSet(true)
+        isFileNameRightSet(res.data.status === 'Y')
+      }
+    })
+  }
+  console.log(isFileNameRight, 'isFileNameRight')
+
   const selectFileFn = () => {}
   const goBackFn = () => {
+    isModalVisibleSet(true)
+  }
+  const handleCancel = () => {
+    isModalVisibleSet(false)
+  }
+  const handleOk = () => {
     history.go(-1)
   }
   const submitFn = () => {
-    console.log('submit')
+    // TODO 判空
+    const queryObj = {
+      localMetaDataColumnList: originalData,
+      metaDataId: resultFileData.metaDataId,
+      remarks: form.getFieldValue('remarks'),
+      resourceName: form.getFieldValue('sourceName'),
+    }
+    resourceApi.addMetaData(queryObj).then(res => {
+      if (res.status === 0) {
+        console.log(res)
+        history.push('/resource/myData')
+      } else {
+        message.error(res.msg)
+      }
+    })
   }
+  // TODO type
   const getShowSource = data => {
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
@@ -42,29 +81,48 @@ export const MyDataAddtion: FC<any> = porps => {
       setShowTypeError(false)
     }
   }, [uploadFile])
+
+  useEffect(() => {
+    if (Object.keys(resultFileData).length > 0) {
+      form.setFieldsValue({
+        sourceName: resultFileData.resourceName,
+        remarks: resultFileData.remarks,
+      })
+    }
+  }, [resultFileData])
+
   const setPage = (page: number) => {
     setCurPage(page)
   }
   const uploadFn = () => {
+    upLoadingSet(true)
     // 判断文件是否为空 判断是否选择了包含字段
     if (!radioValue) {
       setShowIncludeError(true)
+      upLoadingSet(false)
       return
     }
     if (inputRef?.current?.input?.files?.length === 0) {
       message.error('Please select a file first')
+      upLoadingSet(false)
     } else if (showTypeError) {
       setShowTypeError(true)
+      upLoadingSet(false)
     }
 
-    const form = new FormData()
-    form.append('file', uploadFile)
-    form.append('hasTitle', radioValue)
-    resourceApi.uploadCsv(form).then(res => {
+    const formData = new FormData()
+    formData.append('file', uploadFile)
+    formData.append('hasTitle', radioValue)
+    resourceApi.uploadCsv(formData).then(res => {
+      upLoadingSet(false)
       if (res.status === 0) {
         setOriginalData(res.data.localMetaDataColumnList)
         setTotal(res.data.rows)
         setTableData(getShowSource(res.data.localMetaDataColumnList))
+        resultFileDataSet(res.data)
+        message.success(`${t('myData.uploadSuccess')}`)
+      } else {
+        message.error(`${t('myData.uploadFailed')}`)
       }
     })
   }
@@ -115,6 +173,7 @@ export const MyDataAddtion: FC<any> = porps => {
             <Form
               name="basic"
               labelAlign="left"
+              form={form}
               labelCol={{ span: 3 }}
               wrapperCol={{ span: 21 }}
               initialValues={{ remember: true }}
@@ -125,15 +184,23 @@ export const MyDataAddtion: FC<any> = porps => {
                 label={t('myData.sourceName')}
                 rules={[{ required: true, message: 'Please input your username!' }]}
               >
-                <Form.Item name="sourceName">
-                  <Input className="limit-box" />
-                </Form.Item>
+                <Space size={20}>
+                  <Form.Item name="sourceName" noStyle>
+                    <Input onBlur={e => checkResourceName(e.target.value)} className="limit-box" />
+                  </Form.Item>
+                  {showFilenameAvailable &&
+                    (isFileNameRight ? (
+                      <span className="success_color">{`${t('tip.availableFilename')}`}</span>
+                    ) : (
+                      <span className="failed_color"> {`${t('tip.unavailableFilename')}`}</span>
+                    ))}
+                </Space>
                 <div className="tips">{t('myData.nameTips')}</div>
               </Form.Item>
 
               <Form.Item
                 label={t('center.dataDesc')}
-                name="password"
+                name="remarks"
                 rules={[{ required: true, message: 'Please input your password!' }]}
               >
                 <Input.TextArea className="limit-box" />
@@ -149,7 +216,9 @@ export const MyDataAddtion: FC<any> = porps => {
               tableData={tableData}
               total={total}
               setPage={setPage}
+              loading={upLoading}
               curPage={curPage}
+              row-key={re => re.columnIdx}
               mode="add"
             />
           </div>
@@ -165,6 +234,9 @@ export const MyDataAddtion: FC<any> = porps => {
           </Button>
         </Space>
       </div>
+      <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <p>{`${t('tip.leaveCofirm')}`}</p>
+      </MyModal>
     </div>
   )
 }

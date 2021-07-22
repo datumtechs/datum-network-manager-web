@@ -195,7 +195,9 @@
     "confirmDelete": "Please ensure that you are deleting the source file",
     "confirmPublish": "Please ensure that you are publishing the source file",
     "confirmWithdraw": "Please ensure that you are withdrawing the source file",
-    "uploadFile": "Upload a source file"
+    "uploadFile": "Upload a source file",
+    "pulish": "已发布",
+    "unPublish": "未发布"
   },
   "myData": {
     "plzUploadFile": "Please upload your local file",
@@ -219,7 +221,10 @@
     "nameTips": "Note: the source file name can be modified at this page only and cannot be duplicated.",
     "infoTips": "Note：fields, data types and remarks can be deleted and modified at this page or at the management page after submitting.",
     "sourceFileID": "Source file ID",
-    "sourceFilePath": "Source file path"
+    "sourceFilePath": "Source file path",
+    "uploadSuccess": "Upload file successfully",
+    "uploadFailed": "Upload file failed",
+    "plzSelectone": "Please select a file first"
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",
@@ -238,6 +243,12 @@
     "updateNodeFailed": "Node information updated failed",
     "addNodeFailed": "Node added failed",
     "plzSelectStatus": "Please select a type of status",
-    "plzSelectCapacity": "Please select a type of capacity"
+    "plzSelectCapacity": "Please select a type of capacity",
+    "fileNameError": "The file name is not available. Please modify it",
+    "unavailableFilename": "unavailable name",
+    "availableFilename": "available name",
+    "updateSuccess": "Source file updated successfully",
+    "operationSucces": "Operation successful",
+    "operationFailed": "Operation failed"
   }
 }

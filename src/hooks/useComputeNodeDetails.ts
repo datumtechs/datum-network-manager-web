@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { computeNodeApi } from '../api/index'
-import { ComputeNode } from '../entity/index'
 
 
 const useComputeNodeDetails = (id: string): any => {
