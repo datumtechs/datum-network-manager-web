@@ -1,21 +1,86 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Space, Button, Descriptions } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import ProviderTable from './components/ProviderTable'
 import ComputingTable from './components/ComputingTable'
+import { taskApi } from '../../api/index'
 import EventStep from './components/EventStep'
 import './scss/index.scss'
 
-export const TaskDetail: FC<any> = () => {
+export const TaskDetail: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const history = useHistory()
+  const { id } = props.location.state
   const linkReturn = () => {
     history.go(-1)
   }
-  const linkToDetail = () => {
-    history.push('/tasks/taskDetail')
+  const linkToEvent = () => {
+    history.push({
+      pathname: '/tasks/TaskEvent',
+      state: {
+        id,
+      },
+    })
   }
+  const [baseInfo, setBaseInfo] = useState({
+    algoSupplier: {
+      carrierNodeId: '',
+      nodeIdentityId: '',
+      nodeName: '',
+    },
+    costBandwidth: 0,
+    costCore: 0,
+    costMemory: 0,
+    createAt: '',
+    dataSupplier: [
+      {
+        carrierNodeId: '',
+        metaDataId: '',
+        metaDataName: '',
+        nodeIdentityId: '',
+        nodeName: '',
+      },
+    ],
+    duration: '',
+    endAt: '',
+    id: 0,
+    owner: {
+      carrierNodeId: '',
+      nodeIdentityId: '',
+      nodeName: '',
+    },
+    powerSupplier: [
+      {
+        carrierNodeId: '',
+        nodeIdentityId: '',
+        nodeName: '',
+        usedBandwidth: '',
+        usedCore: '',
+        usedMemory: '',
+      },
+    ],
+    receivers: [
+      {
+        carrierNodeId: '',
+        nodeIdentityId: '',
+        nodeName: '',
+      },
+    ],
+    reviewed: false,
+    role: 0,
+    startAt: '',
+    status: '',
+    taskId: '',
+    taskName: '',
+  })
+  useEffect(() => {
+    taskApi.querytaskInfo(id).then(res => {
+      if (res.status === 0 && res.data) {
+        setBaseInfo(res.data)
+      }
+    })
+  }, [])
   return (
     <div className="layout-box">
       <div className="progress-box">
@@ -23,79 +88,127 @@ export const TaskDetail: FC<any> = () => {
           <div className="left">
             <p className="name">
               <span>{t('task.taskName')}:</span>
-              <span>XXXXXXXXXXX</span>
+              <span>{baseInfo.taskName}</span>
             </p>
             <p className="id">
               <span>ID:</span>
-              <span>XXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+              <span>{baseInfo.taskId}</span>
             </p>
           </div>
           <div className="right">
-            <EventStep />
+            <EventStep data={baseInfo} />
           </div>
         </div>
       </div>
       <div className="info-box">
-        <Descriptions column={1} title={t('task.initialInfo')} >
-          <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('task.timeRequire')}>Zhou Maomao</Descriptions.Item>
-          <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('task.computeRequire')}>
+        <Descriptions column={1} title={t('task.initialInfo')}>
+          <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.timeRequire')}>
+            {baseInfo.duration}
+          </Descriptions.Item>
+          <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.computeRequire')}>
             {/* TODO 根据不同角色显示不同的资源 算力提供方：显示计算节点信息 数据提供方：显示数据信息 */}
             <div>
               <p>
-                <span>CPU:</span>
-                <span></span>
+                <span>{t('overview.cpu')}:</span>
+                <span>{baseInfo.costCore}</span>
               </p>
               <p>
-                <span>{t('task.memory')}:</span>
-                <span></span>
+                <span>{t('overview.memory')}:</span>
+                <span>{baseInfo.costMemory}</span>
               </p>
               <p>
-                <span>{t('task.bandWidth')}:</span>
-                <span></span>
+                <span>{t('overview.bandwidth')}:</span>
+                <span>{baseInfo.costBandwidth}</span>
               </p>
             </div>
           </Descriptions.Item>
         </Descriptions>
       </div>
       <div className="info-box">
-        <Descriptions column={1} title={`${t('task.myCapacity')}`} >
-          <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('overview.computeNode')}>Zhou Maomao</Descriptions.Item>
-          <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('task.sourceFile')}>
-          </Descriptions.Item>
+        <Descriptions column={2} title={`${t('task.myCapacity')} : ${t(`task.role.${baseInfo.role}`)}`}>
+          {baseInfo.role === 3 &&
+            baseInfo.powerSupplier.map(item => {
+              return (
+                <>
+                  <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('overview.computeNode')}>
+                    {item.nodeName}
+                  </Descriptions.Item>
+                  <Descriptions.Item labelStyle={{ padding: '0 20px' }} label="ID">
+                    {item.nodeIdentityId}
+                  </Descriptions.Item>
+                </>
+              )
+            })}
+          {baseInfo.role === 2 &&
+            baseInfo.dataSupplier.map(item => {
+              return (
+                <>
+                  <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.sourceFile')}>
+                    {item.metaDataName}
+                  </Descriptions.Item>
+                  <Descriptions.Item labelStyle={{ padding: '0 20px' }} label="ID">
+                    {item.metaDataId}
+                  </Descriptions.Item>
+                </>
+              )
+            })}
         </Descriptions>
       </div>
       <div className="info-box">
-        <Descriptions column={1} title={t('task.partiesInformation')}  >
-          <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('computeNodeMgt.sponsor')}>Zhou Maomao</Descriptions.Item>
-          <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('computeNodeMgt.receiver')}>
-            <div>
-              <p>1. 1111111111111</p>
-              <p>2. 2222222222222</p>
-              <p>3. 333333333333</p>
-            </div>
+        <Descriptions column={1} title={t('task.partiesInformation')}>
+          <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.sponsor')}>
+            <span className="node-name">{baseInfo.owner.nodeName}</span>
+            <span>
+              {t('task.identity')}: {baseInfo.owner.nodeIdentityId}
+            </span>
           </Descriptions.Item>
-          <Descriptions.Item labelStyle={{ padding: "0 20px" }} label={t('task.algorithmProvider')}>Zhou Maomao</Descriptions.Item>
+          <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.receiver')}>
+            <ul>
+              {baseInfo.receivers.map((item, index) => {
+                return (
+                  <li key={item.nodeIdentityId}>
+                    <span className="node-name">
+                      {index + 1}. {item.nodeName}
+                    </span>
+                    <span>
+                      {t('task.identity')}: {item.nodeIdentityId}
+                    </span>
+                  </li>
+                )
+              })}
+            </ul>
+          </Descriptions.Item>
+          <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.algorithmProvider')}>
+            <span className="node-name">{baseInfo.algoSupplier.nodeName}</span>
+            <span>
+              {t('task.identity')}: {baseInfo.algoSupplier.nodeIdentityId}
+            </span>
+          </Descriptions.Item>
         </Descriptions>
       </div>
       <div className="info-box">
         <div className="title-label">{t('task.dataProvider')}</div>
-        <ProviderTable />
+        <ProviderTable tableData={baseInfo.dataSupplier} />
       </div>
       <div className="info-box">
         <div className="title-label">{t('task.conputationProvider')}</div>
-        <ComputingTable />
+        <ComputingTable tableData={baseInfo.powerSupplier} />
       </div>
       <div className="btn-box">
         <Space size={40}>
           <Button className={`${i18n.language === 'en' ? 'btn-en' : 'btn'}`} size="large" onClick={linkReturn}>
             {t('common.return')}
           </Button>
-          <Button className={`${i18n.language === 'en' ? 'btn-en' : 'btn'}`} size="large" type="primary" onClick={linkToDetail}>
+          <Button
+            className={`${i18n.language === 'en' ? 'btn-en' : 'btn'}`}
+            size="large"
+            type="primary"
+            onClick={linkToEvent}
+          >
             {t('task.viewDetail')}
           </Button>
         </Space>
       </div>
     </div>
   )
-
 }

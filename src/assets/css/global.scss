@@ -294,3 +294,12 @@
     background-color: #5eaafe;
   }
 }
+
+.ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+  max-width: 100%;
+}

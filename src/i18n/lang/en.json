@@ -116,8 +116,8 @@
   },
   "task": {
     "myTask": "My Computation Task",
-    "inProgress": "Tasks in progress:",
-    "totalTask": "Total tasks:",
+    "inProgress": "Tasks in progress: {{0}}.",
+    "totalTask": "Total tasks: {{0}}.",
     "taskStatus": "Task Status",
     "capacity": "Capacity",
     "timeSpan": "Time span:",
@@ -137,7 +137,10 @@
     "initialInfo": "Initial Demand Information",
     "timeRequire": "Required time declared by the sponsor",
     "computeRequire": "Computation power declared by the sponsor",
+    "computeNode": "Computation node",
     "sourceFile": "Source file",
+    "sponsor": "Sponsor",
+    "receiver": "Result receiver",
     "partiesInformation": "partiesInformation",
     "algorithmProvider": "Algorithm provider",
     "dataProvider": "Data providers",
@@ -149,7 +152,17 @@
     "pending": "Pending",
     "running": "Computing",
     "failed": "Failed",
-    "success": "Success"
+    "success": "Succeeded",
+    "role": [
+      "undefined",
+      "Sponsor",
+      "Data provider",
+      "Algorithm provider",
+      "Result provider"
+    ],
+    "step": {
+      "start": "Task started"
+    }
   },
   "step": {
     "taskStarted": "Task Started",
@@ -205,8 +218,8 @@
     "confirmPublish": "Please ensure that you are publishing the source file",
     "confirmWithdraw": "Please ensure that you are withdrawing the source file",
     "uploadFile": "Upload a source file",
-    "pulish": "已发布",
-    "unPublish": "未发布"
+    "pulish": "pulish",
+    "unPublish": "unPublish"
   },
   "myData": {
     "plzUploadFile": "Please upload your local file",

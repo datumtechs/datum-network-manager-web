@@ -11,6 +11,23 @@ const taskApi = {
     })
   },
 
+  // 获取任务详情
+  querytaskInfo(taskId: string): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/task/mytask/taskInfo?taskId=${taskId}`,
+    })
+  },
+
+  // 获取任务事件日志列表
+  querytaskEventList(taskId: string): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/task/mytask/taskEventList?taskId=${taskId}`,
+    })
+  },
+
+
 
   // 删除数据节点列表
   /**
