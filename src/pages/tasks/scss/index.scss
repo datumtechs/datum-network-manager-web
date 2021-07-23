@@ -84,3 +84,69 @@
     width: 112px;
   }
 }
+
+.new-tips {
+  &::after {
+    content: 'NEW';
+    position: relative;
+    left: 6px;
+    bottom: 2px;
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #ffa505;
+  }
+}
+
+.node-name {
+  width: 200px;
+  padding-right: 2em;
+  display: inline-block;
+}
+
+.power-occupied-item {
+  display: flex;
+  & > li {
+    flex: 1;
+  }
+}
+
+.task-step {
+  .ant-steps-item-title {
+    white-space: nowrap;
+  }
+}
+
+.step-icon {
+  position: relative;
+  left: 4px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background: #c8c8c8;
+  border-radius: 50%;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 1px solid #c8c8c8;
+    border-radius: 50%;
+  }
+}
+
+.step-icon.active {
+  background: #3c3588;
+  &::before {
+    border: 1px solid #3c3588;
+  }
+}
+
+.step-icon.fail {
+  background: #f24b4b;
+  &::before {
+    border: 1px solid #f24b4b;
+  }
+}

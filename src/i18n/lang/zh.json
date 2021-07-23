@@ -112,8 +112,8 @@
   },
   "task": {
     "myTask": "我的计算任务",
-    "inProgress": "正在进行中的任务:",
-    "totalTask": "总任务:",
+    "inProgress": "正在进行中的任务：{{0}}项;",
+    "totalTask": "总任务：{{0}}项",
     "taskStatus": "任务状态",
     "capacity": "角色",
     "timeSpan": "时间范围",
@@ -133,8 +133,11 @@
     "initialInfo": "初始需求信息",
     "timeRequire": "任务发起方声明的任务所需时间",
     "computeRequire": "任务发起方声明的算力需求",
+    "computeNode": "计算节点",
     "sourceFile": "数据",
     "partiesInformation": "其他参与方信息",
+    "sponsor": "任务发起方",
+    "receiver": "结果使用方",
     "algorithmProvider": "算法提供方",
     "dataProvider": "数据提供方",
     "conputationProvider": "算力提供方",
@@ -145,7 +148,17 @@
     "pending": "等待中",
     "running": "计算中",
     "failed": "失败",
-    "success": "成功"
+    "success": "成功",
+    "role": [
+      "未定义",
+      "发起方",
+      "数据提供方",
+      "计算参与方",
+      "结果提供方"
+    ],
+    "step": {
+      "start": "发起"
+    }
   },
   "step": {
     "taskStarted": "任务发起",

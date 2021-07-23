@@ -10,12 +10,29 @@ const { Search } = Input
 const { Option } = Select
 export const Tasks: FC<any> = () => {
   const { t } = useTranslation()
-  const onSearch = () => {}
-  const onStatusChange = () => {}
-  const capacityChanged = () => {}
   const [runningTaskCount, runningTaskCountSet] = useState<number>(0)
   const [totalTaskCount, totalTaskCountSet] = useState<number>(0)
   const [tableData, tableDataSet] = useState<[]>([])
+  const [searchText, searchTextSet] = useState('')
+  const [searchStatus, searchStatusSet] = useState('')
+  const [searchRole, searchRoleSet] = useState(0)
+  const [searchStartTime, searchStartTimeSet] = useState(0)
+  const [searchEndTime, searchEndTimeSet] = useState(0)
+  const onSearch = text => {
+    searchTextSet(text)
+  }
+  const onStatusChange = text => {
+    searchStatusSet(text)
+  }
+  const capacityChanged = text => {
+    searchRoleSet(text)
+  }
+  const onStartChange = (time, timeStr) => {
+    searchStartTimeSet(time.startOf('day').valueOf())
+  }
+  const onEndChange = time => {
+    searchEndTimeSet(time.endOf('day').valueOf())
+  }
 
   const statusList = [
     { label: t('task.pending'), value: 'pending' },
@@ -25,24 +42,29 @@ export const Tasks: FC<any> = () => {
   ]
 
   const capacityList = [
-    { label: t('task.pending'), value: 'pending' },
-    { label: t('task.running'), value: 'running' },
-    { label: t('task.failed'), value: 'failed' },
-    { label: t('task.success'), value: 'success' },
+    { label: t('task.role.1'), value: 1 },
+    { label: t('task.role.2'), value: 2 },
+    { label: t('task.role.3'), value: 3 },
+    { label: t('task.role.4'), value: 4 },
   ]
-  const { table, countData } = useTaskTable({
-    endTime: 1626250562,
-    keyWord: '',
-    pageNumber: 1,
-    pageSize: 10,
-    role: 0,
-    startTime: 1626250562,
-    status: 'success',
-  })
+  const getParam = () => {
+    return {
+      endTime: searchEndTime || 0,
+      keyWord: searchText,
+      pageNumber: 1,
+      pageSize: 10,
+      role: searchRole || 0,
+      startTime: searchStartTime || 0,
+      status: searchStatus || '',
+    }
+  }
+  const { table, countData, paramSet } = useTaskTable(getParam())
 
   useEffect(() => {
-    console.log('countData', countData)
-    console.log('table', table)
+    paramSet(getParam())
+  }, [searchText, searchStatus, searchRole, searchStartTime, searchEndTime])
+
+  useEffect(() => {
     tableDataSet(table?.data.list)
     totalTaskCountSet(countData?.totalTaskCount)
     runningTaskCountSet(countData?.runningTaskCount)
@@ -55,12 +77,10 @@ export const Tasks: FC<any> = () => {
           <div className="title">{t('task.myTask')}</div>
           <div className="detail">
             <p className="inProgress">
-              <span>{t('task.inProgress')}</span>
-              <span>{runningTaskCount}</span>
+              <span>{t('task.inProgress', [runningTaskCount])}</span>
             </p>
             <p className="totalTask">
-              <span>{t('task.totalTask')}</span>
-              <span>{totalTaskCount}</span>
+              <span>{t('task.totalTask', [totalTaskCount])}</span>
             </p>
           </div>
         </div>
@@ -102,7 +122,7 @@ export const Tasks: FC<any> = () => {
             onChange={capacityChanged}
             filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
-            {statusList.map(item => (
+            {capacityList.map(item => (
               <Option value={item.value} key={item.value}>
                 {item.label}
               </Option>
@@ -110,8 +130,8 @@ export const Tasks: FC<any> = () => {
           </Select>
         </Space>
         <Space size={20}>
-          {t('task.timeSpan')} <DatePicker style={{ width: 200 }} size="large" /> {t('task.to')}{' '}
-          <DatePicker style={{ width: 200 }} size="large" />
+          {t('task.timeSpan')} <DatePicker style={{ width: 200 }} size="large" onChange={onStartChange} />{' '}
+          {t('task.to')} <DatePicker style={{ width: 200 }} size="large" onChange={onEndChange} />
         </Space>
       </div>
       <div className="task-table-box">
