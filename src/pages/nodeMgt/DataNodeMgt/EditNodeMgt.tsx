@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import Bread from '../../../layout/components/Bread'
@@ -37,16 +37,42 @@ export const EditNodeMgt: FC<any> = (props: any) => {
   }
 
   const onFinish = (values: DataNode) => {
-    console.log(values)
+    console.log('values', values)
     if (type === 'Edit') {
-      dataNodeApi.updateDataNode(values).then(res => {
-        if (res) console.log(res)
-      })
+      dataNodeApi
+        .updateDataNode({
+          externalIp: values.externalIp,
+          externalPort: values.externalPort,
+          internalIp: values.externalIp,
+          internalPort: values.internalPort,
+          nodeId: id,
+        })
+        .then(res => {
+          if (res.status === 0) {
+            history.push('/nodeMgt/dataNodeMgt')
+            message.success(`${t('tip.addNodeSuccess')}`)
+          } else {
+            message.error(res.msg)
+          }
+        })
     }
     if (type === 'Add') {
-      dataNodeApi.addDataNode(values).then(res => {
-        if (res) console.log(res)
-      })
+      dataNodeApi
+        .addDataNode({
+          externalIp: values.externalIp,
+          externalPort: values.externalPort,
+          internalIp: values.externalIp,
+          internalPort: values.internalPort,
+          nodeName: '',
+        })
+        .then(res => {
+          if (res.status === 0) {
+            history.push('/nodeMgt/dataNodeMgt')
+            message.success(`${t('tip.updateNodeSuccess')}`)
+          } else {
+            message.error(res.msg)
+          }
+        })
     }
   }
   const leaveFn = () => {

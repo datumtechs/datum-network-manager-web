@@ -22,7 +22,7 @@ interface DataNode {
   externalPort: number,
   internalIp: string,
   internalPort: number,
-  nodeId: string,
+  nodeId?: string,
   nodeName?: string,
 }
 

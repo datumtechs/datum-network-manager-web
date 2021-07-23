@@ -47,6 +47,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       usedBandwidth: 0,
       usedCore: 0,
       usedMemory: 0,
+      connStatus: '2',
     },
   ]
   const columns = [
@@ -150,8 +151,9 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   return (
     <div className="table-box">
       <Table
-        dataSource={dataSource}
-        // dataSource={tableData}
+        // dataSource={dataSource}
+        dataSource={tableData}
+        rowKey={re => re.id}
         columns={columns}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
       />

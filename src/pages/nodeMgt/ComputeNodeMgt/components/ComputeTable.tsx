@@ -1,11 +1,10 @@
-import React, { FC, useState, useEffect, useContext } from 'react'
+import React, { FC, useState, useEffect, useContext, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Table, Space } from 'antd'
+import { Table, Space, message } from 'antd'
 import MyModal from '../../../../components/MyModal'
 import './scss/index.scss'
 import { computeNodeApi } from '../../../../api/index'
-import useComputenodeTable from '../../../../hooks/useComputenodeTable'
 import { BaseInfoContext } from '../../../../layout/index'
 import UseStatus from '../../../../hooks/useComputeStatus'
 import { Row } from '../../../../entity/index'
@@ -36,18 +35,34 @@ const DataTable: FC<any> = (props: any) => {
     setCurPage(num)
   }
 
-  const { table } = useComputenodeTable({
-    identityId: baseInfo?.identityId,
-    keyword: props.searchText,
-    pageNumber: curPage,
-    pageSize: pagination.defaultPageSize,
-  })
+  // const initFn = useComputenodeTable({
+  //   identityId: baseInfo?.identityId,
+  //   keyword: props.searchText,
+  //   pageNumber: curPage,
+  //   pageSize: pagination.defaultPageSize,
+  // })
+
+  const initTable = async () => {
+    const res = await computeNodeApi.queryPowerNodeList({
+      identityId: baseInfo?.identityId,
+      keyword: props.searchText,
+      pageNumber: curPage,
+      pageSize: pagination.defaultPageSize,
+    })
+    if (res.status === 0) {
+      setTableData(res.data)
+      totalSet(res.total)
+    }
+  }
 
   useEffect(() => {
-    console.log('tableData', table)
-    setTableData(table?.data)
-    totalSet(table?.total)
-  }, [table])
+    initTable()
+  }, [props.searchText, curPage])
+  // useEffect(() => {
+  //   console.log('tableData', table)
+  //   setTableData(table?.data)
+  //   totalSet(table?.total)
+  // }, [table])
 
   const operation = (row, type) => {
     SetCurName(row.powerNodeName)
@@ -97,7 +112,7 @@ const DataTable: FC<any> = (props: any) => {
       powerNodeName: '奥术大师多',
       remarks: '222222222222',
       startTime: '',
-      status: 1,
+      connStatus: '2',
       updateTime: '',
       usedBandwidth: 0,
       usedCore: 0,
@@ -131,7 +146,7 @@ const DataTable: FC<any> = (props: any) => {
       dataIndex: 'status',
       key: 'status',
       render: (text, record, index) => {
-        return <>{UseStatus(record.status)}</>
+        return <>{UseStatus(record.connStatus)}</>
       },
     },
     {
@@ -180,7 +195,7 @@ const DataTable: FC<any> = (props: any) => {
       render: (text: any, row: any, index: any) => {
         return (
           <Space size={10} className="operation-box">
-            {row.status === 0 ? (
+            {row.connStatus === '-1' ? (
               <>
                 <span className="btn pointer" onClick={() => editFn(row)}>
                   {t('common.edit')}
@@ -192,7 +207,7 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.status === 1 ? (
+            {row.connStatus === '0' ? (
               <>
                 <span className="btn pointer" onClick={() => operation(row, 'view')}>
                   {t('common.view')}
@@ -210,7 +225,7 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.status === 2 ? (
+            {row.connStatus === '1' ? (
               <>
                 <span className="btn pointer" onClick={() => operation(row, 'view')}>
                   {t('common.view')}
@@ -222,7 +237,7 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.status === 3 ? (
+            {row.connStatus === '2' ? (
               <>
                 <span className="btn pointer" onClick={() => viewInfo()}>
                   {t('common.viewNodeInfo')}
@@ -258,22 +273,31 @@ const DataTable: FC<any> = (props: any) => {
     if (modalType === 'delete') {
       computeNodeApi.deletePowerNode({ powerNodeId: curId }).then(res => {
         if (res.status === 0) {
-          console.log(res)
           SetIsModalVisible(false)
+          message.success(`${t('tip.operationSucces')}`)
+          initTable()
+        } else {
+          message.error(`${t('tip.operationFailed')}`)
         }
       })
     } else if (modalType === 'enable') {
       computeNodeApi.publishPower({ powerNodeId: curId, status }).then(res => {
         if (res.status === 0) {
-          console.log(res)
           SetIsModalVisible(false)
+          message.success(`${t('tip.operationSucces')}`)
+          initTable()
+        } else {
+          message.error(`${t('tip.operationFailed')}`)
         }
       })
     } else if (modalType === 'disable') {
       computeNodeApi.revokePower({ powerNodeId: curId, status }).then(res => {
         if (res.status === 0) {
-          console.log(res)
           SetIsModalVisible(false)
+          message.success(`${t('tip.operationSucces')}`)
+          initTable()
+        } else {
+          message.error(`${t('tip.operationFailed')}`)
         }
       })
     } else if (modalType === 'view') {
@@ -290,6 +314,7 @@ const DataTable: FC<any> = (props: any) => {
         // dataSource={tableData}
         dataSource={dataSource}
         columns={columns}
+        rowKey={record => record.powerNodeId}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
       />
       {/* <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}> */}
@@ -312,7 +337,7 @@ const DataTable: FC<any> = (props: any) => {
               <span>{curRow.memory}</span>
             </p>
             <p>
-              <span className="title">{t('overview.bandWidth')}:</span>
+              <span className="title">{t('overview.bandwidth')}:</span>
               <span>{curRow.bandwidth}</span>
             </p>
             <p>

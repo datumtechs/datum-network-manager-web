@@ -240,6 +240,17 @@
     color: #fff;
   }
 }
+.time-group {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #5d5c65;
+  letter-spacing: 0;
+  .active {
+    font-family: PingFangSC-Medium;
+    color: #3c3588;
+    font-weight: bold;
+  }
+}
 
 .ant-btn-primary[disabled] {
   background-color: #3c3588;
@@ -258,7 +269,7 @@
 .prev-orange {
   position: relative;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0.6em;
     left: -1.4em;

@@ -59,6 +59,7 @@ const MyDataTable: FC<any> = (props: any) => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
+        initTableData()
       } else {
         message.error(`${t('tip.operationFailed')}`)
       }

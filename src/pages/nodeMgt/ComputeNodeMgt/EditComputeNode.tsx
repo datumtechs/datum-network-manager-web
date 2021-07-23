@@ -28,7 +28,7 @@ export const EditComputeNode: FC<any> = (props: any) => {
     if (type === 'Edit') {
       form.setFieldsValue({
         powerNodeName: row.powerNodeName,
-        nodeID: row.powerNodeId,
+        powerNodeId: row.powerNodeId,
         internalIp: row.internalIp,
         internalPort: row.internalPort,
         externalIp: row.externalIp,
@@ -47,26 +47,40 @@ export const EditComputeNode: FC<any> = (props: any) => {
     setIsModalVisible(false)
   }
   const onFinish = values => {
-    console.log(values)
-    console.log(type)
     if (type === 'Add') {
-      computeNodeApi.addPowerNode(values).then(res => {
-        if (res.status === 0) {
-          history.push('/nodeMgt/computeNodeMgt')
-          message.success(`${t('tip.addNodeSuccess')}`)
-        } else {
-          message.error(`${t('tip.addNodeFailed')}`)
-        }
-      })
-    } else if (type === 'edit') {
-      computeNodeApi.updatePowerNode(values).then(res => {
-        if (res.status === 0) {
-          history.push('/nodeMgt/computeNodeMgt')
-          message.success(`${t('tip.updateNodeSuccess')}`)
-        } else {
-          message.error(`${t('tip.updateNodeFailed')}`)
-        }
-      })
+      computeNodeApi
+        .addPowerNode({
+          externalIp: values.externalIp,
+          externalPort: values.externalPort,
+          internalIp: values.externalIp,
+          internalPort: values.internalPort,
+          powerNodeName: values.powerNodeName,
+        })
+        .then(res => {
+          if (res.status === 0) {
+            history.push('/nodeMgt/computeNodeMgt')
+            message.success(`${t('tip.addNodeSuccess')}`)
+          } else {
+            message.error(`${t('tip.addNodeFailed')}`)
+          }
+        })
+    } else if (type === 'Edit') {
+      computeNodeApi
+        .updatePowerNode({
+          externalIp: values.externalIp,
+          externalPort: values.externalPort,
+          internalIp: values.externalIp,
+          internalPort: values.internalPort,
+          powerNodeId: values.powerNodeId,
+        })
+        .then(res => {
+          if (res.status === 0) {
+            history.push('/nodeMgt/computeNodeMgt')
+            message.success(`${t('tip.updateNodeSuccess')}`)
+          } else {
+            message.error(`${t('tip.updateNodeFailed')}`)
+          }
+        })
     }
   }
   const onFinishFailed = () => {}
@@ -89,7 +103,7 @@ export const EditComputeNode: FC<any> = (props: any) => {
           <Form.Item colon label={t('computeNodeMgt.nodeName')} name="powerNodeName" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
-          <Form.Item colon label={t('computeNodeMgt.nodeID')} name="nodeID" className="form-item">
+          <Form.Item colon label={t('computeNodeMgt.nodeID')} name="powerNodeId" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" className="form-item">

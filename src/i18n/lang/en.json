@@ -71,7 +71,11 @@
     "powerdisable": "Power disabled",
     "powerenable": "Power enabled(free)",
     "powerOccupied": "Power occupied",
-    "connectSuccess": "Connection successful"
+    "connectSuccess": "Connection successful",
+    "pass24": "Past 24 hours",
+    "pass7": "Past 7 days",
+    "pass15": "Past 15 days",
+    "pass30": "Past 30 days"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
