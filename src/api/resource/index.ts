@@ -25,7 +25,7 @@ const resourceApi = {
   queryMetaDataDetail(data: string): Promise<any> {
     return axios({
       method: 'GET',
-      url: `/api/v1/resource/mydata/metaDataInfo?metaDataId=${data}`,
+      url: `/api/v1/resource/mydata/metaDataInfo?id=${data}`,
     })
   },
   // 上架
@@ -40,7 +40,8 @@ const resourceApi = {
   downloadMeta(data: any): Promise<any> {
     return axios({
       method: 'GET',
-      url: `/api/v1/resource/mydata/download?metaDataId=${data.id}`,
+      url: `/api/v1/resource/mydata/download?id=${data.id}`,
+      responseType: 'blob'
     })
   },
 
@@ -71,7 +72,6 @@ const resourceApi = {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      responseType: 'blob',
     })
   },
   addMetaData(data: any): Promise<any> {
@@ -93,7 +93,7 @@ const resourceApi = {
   queryDCMetaDataInfo(data: string): Promise<any> {
     return axios({
       method: 'GET',
-      url: `/api/v1/resource/datacenter/metaDataInfo?metaDataId=${data}`,
+      url: `/api/v1/resource/datacenter/metaDataInfo?id=${data}`,
     })
   },
 

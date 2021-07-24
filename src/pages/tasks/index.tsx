@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Input, Select, Space, DatePicker } from 'antd'
+import dayjs from 'dayjs'
 import { SearchOutlined } from '@ant-design/icons'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
@@ -28,10 +29,10 @@ export const Tasks: FC<any> = () => {
     searchRoleSet(text)
   }
   const onStartChange = (time, timeStr) => {
-    searchStartTimeSet(time.startOf('day').valueOf())
+    searchStartTimeSet(dayjs(timeStr).valueOf())
   }
-  const onEndChange = time => {
-    searchEndTimeSet(time.endOf('day').valueOf())
+  const onEndChange = (time, timeStr) => {
+    searchEndTimeSet(dayjs(timeStr).valueOf())
   }
 
   const statusList = [
@@ -61,7 +62,9 @@ export const Tasks: FC<any> = () => {
   const { table, countData, paramSet } = useTaskTable(getParam())
 
   useEffect(() => {
-    paramSet(getParam())
+    if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) {
+      paramSet(getParam())
+    }
   }, [searchText, searchStatus, searchRole, searchStartTime, searchEndTime])
 
   useEffect(() => {
@@ -101,6 +104,7 @@ export const Tasks: FC<any> = () => {
           <Select
             showSearch
             style={{ width: 190 }}
+            allowClear
             placeholder={t('tip.plzSelectStatus')}
             optionFilterProp="children"
             onChange={onStatusChange}
@@ -116,6 +120,7 @@ export const Tasks: FC<any> = () => {
           <Select
             showSearch
             size="large"
+            allowClear
             style={{ width: 200 }}
             placeholder={t('tip.plzSelectCapacity')}
             optionFilterProp="children"

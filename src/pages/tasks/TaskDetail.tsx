@@ -2,10 +2,12 @@ import React, { FC, useEffect, useState } from 'react'
 import { Space, Button, Descriptions } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+import dayjs from 'dayjs'
 import ProviderTable from './components/ProviderTable'
 import ComputingTable from './components/ComputingTable'
 import { taskApi } from '../../api/index'
 import EventStep from './components/EventStep'
+import UseTimeChange from '../../hooks/useTimeChange'
 import './scss/index.scss'
 
 export const TaskDetail: FC<any> = (props: any) => {
@@ -87,11 +89,11 @@ export const TaskDetail: FC<any> = (props: any) => {
         <div className="progress">
           <div className="left">
             <p className="name">
-              <span>{t('task.taskName')}:</span>
+              <span>{t('task.taskName')}:&nbsp;</span>
               <span>{baseInfo.taskName}</span>
             </p>
             <p className="id">
-              <span>ID:</span>
+              <span>ID: &nbsp;</span>
               <span>{baseInfo.taskId}</span>
             </p>
           </div>
@@ -103,21 +105,22 @@ export const TaskDetail: FC<any> = (props: any) => {
       <div className="info-box">
         <Descriptions column={1} title={t('task.initialInfo')}>
           <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.timeRequire')}>
-            {baseInfo.duration}
+            {/* {baseInfo.duration} */}
+            {UseTimeChange(3600000)}
           </Descriptions.Item>
           <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.computeRequire')}>
             {/* TODO 根据不同角色显示不同的资源 算力提供方：显示计算节点信息 数据提供方：显示数据信息 */}
             <div>
               <p>
-                <span>{t('overview.cpu')}:</span>
+                <span>{t('overview.cpu')}&nbsp;:&nbsp;</span>
                 <span>{baseInfo.costCore}</span>
               </p>
               <p>
-                <span>{t('overview.memory')}:</span>
+                <span>{t('overview.memory')}&nbsp;:&nbsp;</span>
                 <span>{baseInfo.costMemory}</span>
               </p>
               <p>
-                <span>{t('overview.bandwidth')}:</span>
+                <span>{t('overview.bandwidth')}&nbsp;:&nbsp;</span>
                 <span>{baseInfo.costBandwidth}</span>
               </p>
             </div>
@@ -126,7 +129,8 @@ export const TaskDetail: FC<any> = (props: any) => {
       </div>
       <div className="info-box">
         <Descriptions column={2} title={`${t('task.myCapacity')} : ${t(`task.role.${baseInfo.role}`)}`}>
-          {baseInfo.role === 3 &&
+          {/* TODO 此处按照要求不展示具体信息 */}
+          {/* {baseInfo.role === 3 &&
             baseInfo.powerSupplier.map(item => {
               return (
                 <>
@@ -151,7 +155,7 @@ export const TaskDetail: FC<any> = (props: any) => {
                   </Descriptions.Item>
                 </>
               )
-            })}
+            })} */}
         </Descriptions>
       </div>
       <div className="info-box">
@@ -205,7 +209,7 @@ export const TaskDetail: FC<any> = (props: any) => {
             type="primary"
             onClick={linkToEvent}
           >
-            {t('task.viewDetail')}
+            {t('task.viewEvent')}
           </Button>
         </Space>
       </div>

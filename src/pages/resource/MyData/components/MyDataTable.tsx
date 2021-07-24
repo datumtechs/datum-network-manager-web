@@ -12,6 +12,7 @@ const MyDataTable: FC<any> = (props: any) => {
   const [pop, setPop] = useState({
     type: '',
     id: '',
+    fileName: '',
   })
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [curPage, setCurPage] = useState(1)
@@ -41,17 +42,17 @@ const MyDataTable: FC<any> = (props: any) => {
     let data = {}
     if (pop.type === 'publish') {
       data = {
-        metaDataId: pop.id,
+        id: pop.id,
         action: 1,
       }
     } else if (pop.type === 'withdraw') {
       data = {
-        metaDataId: pop.id,
+        id: pop.id,
         action: 0,
       }
     } else if (pop.type === 'delete') {
       data = {
-        metaDataId: pop.id,
+        id: pop.id,
         action: -1,
       }
     }
@@ -73,7 +74,7 @@ const MyDataTable: FC<any> = (props: any) => {
       pathname: '/resource/myData/dataDetail',
       state: {
         type: 'view',
-        id: row.metaDataId,
+        id: row.id,
       },
     })
   }
@@ -83,34 +84,50 @@ const MyDataTable: FC<any> = (props: any) => {
       pathname: '/resource/myData/dataDetail',
       state: {
         type: 'edit',
-        id: row.metaDataId,
+        id: row.id,
+        fileName: row.fileName,
       },
     })
   }
   const publishFn = (row: any) => {
     setPop({
       type: 'publish',
-      id: row.metaDataId,
+      id: row.id,
+      fileName: row.fileName,
     })
   }
 
   const deleteFn = (row: any) => {
     setPop({
       type: 'delete',
-      id: row.metaDataId,
+      id: row.id,
+      fileName: row.fileName,
     })
   }
   const withDrawFn = (row: any) => {
     setPop({
       type: 'withdraw',
-      id: row.metaDataId,
+      id: row.id,
+      fileName: row.fileName,
     })
   }
 
+  const download = (data: any, fileName: string) => {
+    const url = window.URL.createObjectURL(new Blob([data]))
+    const link = document.createElement('a')
+    link.style.display = 'none'
+    link.href = url
+    link.setAttribute('download', `${fileName}.csv`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   const downloadFn = (row: any) => {
-    resourceApi.downloadMeta({ id: row.metaDataId }).then(res => {
-      if (res.status === 0) {
-        console.log(res)
+    const { fileName } = row
+    resourceApi.downloadMeta({ id: row.id }).then(res => {
+      if (res) {
+        download(res, fileName)
         message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
       } else {
@@ -135,7 +152,7 @@ const MyDataTable: FC<any> = (props: any) => {
       key: 'status',
       render: (text, record, index) => {
         // 1已发布，0未发布
-        if (record.status === 1) {
+        if (record.status === '1') {
           return t('center.pulish')
         }
         return t('center.unPublish')
@@ -160,7 +177,7 @@ const MyDataTable: FC<any> = (props: any) => {
       dataIndex: 'operations',
       key: 'operations',
       render: (text: any, row: any, index: any) => {
-        if (row.status === 'released') {
+        if (row.status === '1') {
           return (
             <Space size={10} className="operation-box">
               <span className="btn pointer link" onClick={() => viewFn(row)}>
@@ -203,7 +220,7 @@ const MyDataTable: FC<any> = (props: any) => {
         dataSource={tableData}
         columns={columns}
         bordered
-        rowKey={record => record.metaDataId}
+        rowKey={record => record.id}
         pagination={{
           defaultCurrent: 1,
           current: curPage,
@@ -222,21 +239,21 @@ const MyDataTable: FC<any> = (props: any) => {
       >
         {pop.type === 'delete' ? (
           <p>
-            {t('center.confirmDelete')}&nbsp;:&nbsp;{pop.id}
+            {t('center.confirmDelete')}&nbsp;:&nbsp;{pop.fileName}
           </p>
         ) : (
           ''
         )}
         {pop.type === 'publish' ? (
           <p>
-            {t('center.confirmPublish')}&nbsp;:&nbsp;{pop.id}
+            {t('center.confirmPublish')}&nbsp;:&nbsp;{pop.fileName}
           </p>
         ) : (
           ''
         )}
         {pop.type === 'withdraw' ? (
           <p>
-            {t('center.confirmWithdraw')}&nbsp;:&nbsp;{pop.id}
+            {t('center.confirmWithdraw')}&nbsp;:&nbsp;{pop.fileName}
           </p>
         ) : (
           ''

@@ -10,6 +10,7 @@ import MyFiledsTable from './MyFiledsTable'
 import { resourceApi } from '../../../../api/index'
 import '../scss/editTable.scss'
 import MyModal from '../../../../components/MyModal'
+import { fileSizeChange, thousandMark } from '../../../../utils/utils'
 
 const MyData: FC<any> = props => {
   const { TextArea } = Input
@@ -71,10 +72,10 @@ const MyData: FC<any> = props => {
     const apiName = from === 'dataCenter' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
     resourceApi[apiName](id).then(res => {
       setBaseInfo({
-        id: res.data.id,
-        orgName: res.data.orgName,
-        fileName: res.data.fileName,
-        resourceName: res.data.resourceName,
+        id: res.data?.id,
+        orgName: res.data?.orgName,
+        fileName: res.data?.fileName,
+        resourceName: res.data?.resourceName,
         fileId: res.data.fileId,
         status: res.data.status,
         metaDataId: res.data.metaDataId,
@@ -102,10 +103,8 @@ const MyData: FC<any> = props => {
       console.log(res)
       if (res.status === 0) {
         // history.push('/resource/myData')
-        message.destroy()
-        message.success(`${t('tip.updateSuccess')}`).then(() => {
-          history.push('/resource/myData')
-        })
+        history.push('/resource/myData')
+        message.success(`${t('tip.updateSuccess')}`)
       } else {
         message.error(res.msg)
       }
@@ -166,19 +165,19 @@ const MyData: FC<any> = props => {
                 {baseInfo.resourceName}
               </Descriptions.Item>
               <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
-                {baseInfo.size}
+                {fileSizeChange(Number(baseInfo.size))}
               </Descriptions.Item>
               <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
                 {baseInfo.metaDataId}
               </Descriptions.Item>
               <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
-                {baseInfo.rows}
+                {thousandMark(baseInfo.rows)}
               </Descriptions.Item>
               <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataProvider')}>
                 {baseInfo.orgName}
               </Descriptions.Item>
               <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
-                {baseInfo.columns}
+                {thousandMark(baseInfo.columns)}
               </Descriptions.Item>
               <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
                 <TextArea value={baseInfo.remarks} disabled rows={4} />

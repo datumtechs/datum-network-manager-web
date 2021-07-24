@@ -43,14 +43,14 @@ export const EditNodeMgt: FC<any> = (props: any) => {
         .updateDataNode({
           externalIp: values.externalIp,
           externalPort: values.externalPort,
-          internalIp: values.externalIp,
+          internalIp: values.internalIp,
           internalPort: values.internalPort,
-          nodeId: id,
+          nodeId: row.nodeId,
         })
         .then(res => {
           if (res.status === 0) {
             history.push('/nodeMgt/dataNodeMgt')
-            message.success(`${t('tip.addNodeSuccess')}`)
+            message.success(`${t('tip.updateNodeSuccess')}`)
           } else {
             message.error(res.msg)
           }
@@ -61,16 +61,16 @@ export const EditNodeMgt: FC<any> = (props: any) => {
         .addDataNode({
           externalIp: values.externalIp,
           externalPort: values.externalPort,
-          internalIp: values.externalIp,
+          internalIp: values.internalIp,
           internalPort: values.internalPort,
-          nodeName: '',
+          nodeName: values.nodeName,
         })
         .then(res => {
           if (res.status === 0) {
             history.push('/nodeMgt/dataNodeMgt')
-            message.success(`${t('tip.updateNodeSuccess')}`)
+            message.success(`${t('tip.addNodeSuccess')}`)
           } else {
-            message.error(res.msg)
+            message.error(`${t('tip.addNodeFailed')}`)
           }
         })
     }
@@ -97,7 +97,7 @@ export const EditNodeMgt: FC<any> = (props: any) => {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item colon label={t('dataNodeMgt.nodeName')} name="nodeName" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input disabled={type === 'Edit'} className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />

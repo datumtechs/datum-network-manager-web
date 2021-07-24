@@ -14,7 +14,7 @@ const Status: FC<any> = (props: any) => {
   }
   return (
     <span style={{ color: color[props.status] || 'inherit', fontSize: '15px', fontWeight: 'bold' }}>
-      {t(`task.${props.status}`) || '--'}
+      {props.status ? `${t(`task.${props.status}`)}` : '/'}
     </span>
   )
 }

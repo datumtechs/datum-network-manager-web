@@ -57,13 +57,13 @@ export const MyDataAddtion: FC<any> = porps => {
     // TODO 判空
     const queryObj = {
       localMetaDataColumnList: originalData,
-      metaDataId: resultFileData.metaDataId,
+      id: resultFileData.id,
       remarks: form.getFieldValue('remarks'),
       resourceName: form.getFieldValue('sourceName'),
     }
     resourceApi.addMetaData(queryObj).then(res => {
       if (res.status === 0) {
-        console.log(res)
+        message.success(`${t('tip.addMetaDataSuccess')}`)
         history.push('/resource/myData')
       } else {
         message.error(res.msg)

@@ -53,5 +53,3 @@ export function getPagePathList(pathname?: string): string[] {
 export function getBreadcrumbs(): IRoute[] {
   return findRoutesByPaths(getPagePathList(), businessRouteList);
 }
-
-

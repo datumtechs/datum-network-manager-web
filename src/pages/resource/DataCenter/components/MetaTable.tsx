@@ -23,8 +23,8 @@ const MetaTable: FC<any> = (props: any) => {
       pathname: '/resource/myData/dataDetail',
       state: {
         type: 'view',
-        id: row.metaDataId,
-        from: 'dataCenter'
+        id: row.id,
+        from: 'dataCenter',
       },
     })
   }
@@ -81,7 +81,7 @@ const MetaTable: FC<any> = (props: any) => {
         dataSource={dataSource}
         columns={columns}
         pagination={{ total, onChange: onPageChange }}
-        rowKey={_ => _.metaDataId}
+        rowKey={_ => _.id}
         bordered
       />
     </div>

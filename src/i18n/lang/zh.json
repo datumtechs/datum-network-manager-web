@@ -75,7 +75,11 @@
     "pass24": "过去24小时",
     "pass7": "过去7天",
     "pass15": "过去15天",
-    "pass30": "过去30天"
+    "pass30": "过去30天",
+    "hour": "小时",
+    "minute": "分钟",
+    "second": "秒",
+    "day": "天"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
@@ -161,7 +165,12 @@
       "结果提供方"
     ],
     "step": {
-      "start": "发起"
+      "start": "发起",
+      "beginCompute": "开始计算",
+      "computing": "计算中",
+      "computationSucceeded": "计算成功",
+      "computationFailed": "计算失败",
+      "timeSpent": "用时"
     }
   },
   "step": {
@@ -271,6 +280,7 @@
     "availableFilename": "可用文件名",
     "updateSuccess": "修改源文件成功",
     "operationSucces": "操作成功",
-    "operationFailed": "操作失败"
+    "operationFailed": "操作失败",
+    "addMetaDataSuccess": "新增元数据成功"
   }
 }

@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useImperativeHandle } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Table, Space } from 'antd'
+import { Table, Space, message } from 'antd'
 import MyModal from '../../../../components/MyModal'
 import useDatanodeTable from '../../../../hooks/useDatanodeTable'
 import { dataNodeApi } from '../../../../api/index'
@@ -28,20 +28,37 @@ const DataTable: FC<any> = (props: any) => {
     defaultPageSize: 10,
   }
 
-  const { table } = useDatanodeTable({
-    keyword: props.searchText,
-    pageNumber: curPage,
-    pageSize: pagination.defaultPageSize,
-  })
+  // const { table } = useDatanodeTable({
+  //   keyword: props.searchText,
+  //   pageNumber: curPage,
+  //   pageSize: pagination.defaultPageSize,
+  // })
+
+  const initData = async () => {
+    const res = await dataNodeApi.queryDatanodeList({
+      keyword: props.searchText,
+      pageNumber: curPage,
+      pageSize: pagination.defaultPageSize,
+    })
+    console.log('数据节点分页数据 ============>', res)
+    if (res.status === 0) {
+      setTableData(res.data)
+      totalSet(res.total)
+    }
+  }
 
   useEffect(() => {
-    setTableData(table?.data)
-    totalSet(table?.total)
-  }, [table])
+    initData()
+  }, [props.searchText, curPage])
+
+  // useEffect(() => {
+  //   setTableData(table?.data)
+  //   totalSet(table?.total)
+  // }, [table])
 
   const deleteFn = row => {
     SetCurName(row.nodeName)
-    setCurId(row.id)
+    setCurId(row.nodeId)
     SetIsModalVisible(true)
   }
 
@@ -149,7 +166,11 @@ const DataTable: FC<any> = (props: any) => {
   const handleOk = () => {
     dataNodeApi.deleteDatanode({ nodeId: curId }).then(res => {
       if (res.status === 0) {
-        console.log(res)
+        message.success(`${t('tip.deleteSuccess')}`)
+        SetIsModalVisible(false)
+        initData()
+      } else {
+        message.error(`${t('tip.deleteFailed')}`)
       }
     })
   }

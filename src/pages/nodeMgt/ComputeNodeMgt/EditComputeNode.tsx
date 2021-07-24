@@ -52,9 +52,10 @@ export const EditComputeNode: FC<any> = (props: any) => {
         .addPowerNode({
           externalIp: values.externalIp,
           externalPort: values.externalPort,
-          internalIp: values.externalIp,
+          internalIp: values.internalIp,
           internalPort: values.internalPort,
           powerNodeName: values.powerNodeName,
+          remarks: values.remarks,
         })
         .then(res => {
           if (res.status === 0) {
@@ -69,9 +70,10 @@ export const EditComputeNode: FC<any> = (props: any) => {
         .updatePowerNode({
           externalIp: values.externalIp,
           externalPort: values.externalPort,
-          internalIp: values.externalIp,
+          internalIp: values.internalIp,
           internalPort: values.internalPort,
-          powerNodeId: values.powerNodeId,
+          powerNodeId: row.powerNodeId,
+          remarks: values.remarks,
         })
         .then(res => {
           if (res.status === 0) {
@@ -103,9 +105,9 @@ export const EditComputeNode: FC<any> = (props: any) => {
           <Form.Item colon label={t('computeNodeMgt.nodeName')} name="powerNodeName" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
-          <Form.Item colon label={t('computeNodeMgt.nodeID')} name="powerNodeId" className="form-item">
+          {/* <Form.Item colon label={t('computeNodeMgt.nodeID')} name="powerNodeId" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>

@@ -77,6 +77,7 @@
 }
 .btn-box {
   padding: 0 20px;
+  margin-bottom: 30px;
   .btn {
     width: 140px;
   }
@@ -87,7 +88,7 @@
 
 .new-tips {
   &::after {
-    content: 'NEW';
+    content: "NEW";
     position: relative;
     left: 6px;
     bottom: 2px;
@@ -125,7 +126,7 @@
   background: #c8c8c8;
   border-radius: 50%;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -2px;
     left: -2px;

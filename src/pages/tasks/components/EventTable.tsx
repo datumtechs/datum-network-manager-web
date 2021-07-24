@@ -3,7 +3,8 @@ import { Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-const EventTable: FC<any> = () => {
+const EventTable: FC<any> = (props: any) => {
+  const { tableData } = props
   const history = useHistory()
   const pagination = {
     current: 1,
@@ -74,7 +75,7 @@ const EventTable: FC<any> = () => {
   ]
   return (
     <div className="table-box">
-      <Table dataSource={dataSource} columns={columns} bordered />
+      <Table dataSource={tableData} columns={columns} bordered />
     </div>
   )
 }

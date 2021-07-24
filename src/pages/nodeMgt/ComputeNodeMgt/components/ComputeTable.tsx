@@ -70,11 +70,10 @@ const DataTable: FC<any> = (props: any) => {
     SetIsModalVisible(true)
     curIdSet(row.powerNodeId)
     if (type === 'view') {
+      console.log('row', row)
       setCurRow(row)
     }
   }
-
-  console.log('curRow', curRow)
 
   const viewInfo = () => {
     history.push({
@@ -135,7 +134,7 @@ const DataTable: FC<any> = (props: any) => {
               <span>{record.powerNodeName}</span>
             </p>
             <p>
-              <span>ID:{record.powerNodeId}</span>
+              <span>ID: &nbsp;{record.powerNodeId}</span>
             </p>
           </>
         )
@@ -311,8 +310,8 @@ const DataTable: FC<any> = (props: any) => {
   return (
     <div className="data-table-box">
       <Table
-        // dataSource={tableData}
-        dataSource={dataSource}
+        dataSource={tableData}
+        // dataSource={dataSource}
         columns={columns}
         rowKey={record => record.powerNodeId}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
