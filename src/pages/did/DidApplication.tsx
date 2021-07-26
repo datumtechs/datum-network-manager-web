@@ -14,7 +14,6 @@ export const DidApplication: FC<any> = () => {
       return message.error(`${t('tip.plzInputID')}`)
     }
     loginApi.applyOrgIdentity({ orgName: identityId }).then(res => {
-      // TODO
       if (res.status === 0) {
         message.success(`${t('tip.idSuccess')}`)
         location.href = '/overview'

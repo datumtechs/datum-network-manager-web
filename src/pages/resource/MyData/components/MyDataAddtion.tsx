@@ -54,21 +54,43 @@ export const MyDataAddtion: FC<any> = porps => {
     history.go(-1)
   }
   const submitFn = () => {
-    // TODO 判空
-    const queryObj = {
-      localMetaDataColumnList: originalData,
-      id: resultFileData.id,
-      remarks: form.getFieldValue('remarks'),
-      resourceName: form.getFieldValue('sourceName'),
+    console.log('未做判空')
+    if (!radioValue) {
+      setShowIncludeError(true)
+      upLoadingSet(false)
+      return message.error(`${t('tip.plzComplete')}`)
     }
-    resourceApi.addMetaData(queryObj).then(res => {
-      if (res.status === 0) {
-        message.success(`${t('tip.addMetaDataSuccess')}`)
-        history.push('/resource/myData')
-      } else {
-        message.error(res.msg)
-      }
-    })
+    if (inputRef?.current?.input?.files?.length === 0) {
+      upLoadingSet(false)
+      return message.error(`${t('myData.plzSelectone')}`)
+    }
+    if (showTypeError) {
+      setShowTypeError(true)
+      upLoadingSet(false)
+      return
+    }
+
+    form
+      .validateFields()
+      .then(re => {
+        const queryObj = {
+          localMetaDataColumnList: originalData,
+          id: resultFileData.id,
+          remarks: form.getFieldValue('remarks'),
+          resourceName: form.getFieldValue('sourceName'),
+        }
+        resourceApi.addMetaData(queryObj).then(res => {
+          if (res.status === 0) {
+            message.success(`${t('tip.addMetaDataSuccess')}`)
+            history.push('/resource/myData')
+          } else {
+            message.error(res.msg)
+          }
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
   // TODO type
   const getShowSource = data => {
@@ -100,14 +122,17 @@ export const MyDataAddtion: FC<any> = porps => {
     if (!radioValue) {
       setShowIncludeError(true)
       upLoadingSet(false)
-      return
+      return message.error(`${t('tip.plzComplete')}`)
     }
+
     if (inputRef?.current?.input?.files?.length === 0) {
-      message.error('Please select a file first')
       upLoadingSet(false)
-    } else if (showTypeError) {
+      return message.error(`${t('myData.plzSelectone')}`)
+    }
+    if (showTypeError) {
       setShowTypeError(true)
       upLoadingSet(false)
+      return
     }
 
     const formData = new FormData()
@@ -180,12 +205,13 @@ export const MyDataAddtion: FC<any> = porps => {
               // onFinish={onFinish}
               // onFinishFailed={onFinishFailed}
             >
-              <Form.Item
-                label={t('myData.sourceName')}
-                rules={[{ required: true, message: 'Please input your username!' }]}
-              >
+              <Form.Item label={t('myData.sourceName')}>
                 <Space size={20}>
-                  <Form.Item name="sourceName" noStyle>
+                  <Form.Item
+                    name="sourceName"
+                    noStyle
+                    rules={[{ required: true, message: `${t('tip.plzInputName')}` }]}
+                  >
                     <Input onBlur={e => checkResourceName(e.target.value)} className="limit-box" />
                   </Form.Item>
                   {showFilenameAvailable &&
@@ -201,7 +227,7 @@ export const MyDataAddtion: FC<any> = porps => {
               <Form.Item
                 label={t('center.dataDesc')}
                 name="remarks"
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}
               >
                 <Input.TextArea className="limit-box" />
               </Form.Item>

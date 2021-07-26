@@ -283,6 +283,9 @@
     "operationFailed": "Operation failed",
     "addMetaDataSuccess": "Add metadata successful",
     "joinNetworkSuccess": "Successfully applied for network access",
-    "joinNetworkFailed": "Failed to apply for network access"
+    "joinNetworkFailed": "Failed to apply for network access",
+    "plzComplete": "Please complete the form content",
+    "plzInputDesc": "Please fill in the remarks of the data",
+    "plzInputName": "Please fill in the name of the data"
   }
 }

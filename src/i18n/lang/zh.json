@@ -283,6 +283,9 @@
     "operationFailed": "操作失败",
     "addMetaDataSuccess": "新增元数据成功",
     "joinNetworkSuccess": "申请准入网络成功",
-    "joinNetworkFailed": "申请准入网络失败"
+    "joinNetworkFailed": "申请准入网络失败",
+    "plzComplete": "请完善表单内容",
+    "plzInputDesc": "请完善数据的备注",
+    "plzInputName": "请完善数据的名称"
   }
 }

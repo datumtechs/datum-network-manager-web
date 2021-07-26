@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { Table, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
 import useComputeNodeDetailTable from '../../../../hooks/useComputeNodeDetailTable'
 
 const ComputeDetailTable: FC<any> = (props: any) => {
@@ -10,6 +11,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   }
   const { id, core, memory, bandwidth } = props
   const { t } = useTranslation()
+  const history = useHistory()
   const [total, totalSet] = useState<number>(0)
   const [tableData, tableDataSet] = useState([])
   const [curPage, curPageSet] = useState<number>(1)
@@ -18,7 +20,14 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   // const [totalBandwidth, totalBandwidthSet] = useState<number>(0)
 
   // TODO 跳转到task部分
-  const linkToTask = obj => {}
+  const linkToTask = obj => {
+    history.push({
+      pathname: '/tasks/taskDetail',
+      state: {
+        id,
+      },
+    })
+  }
   const { table } = useComputeNodeDetailTable({ id, curPage, pageSize: pagination.pageSize })
 
   const onPageChange = (page: number) => {

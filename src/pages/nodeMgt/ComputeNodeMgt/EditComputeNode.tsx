@@ -103,7 +103,7 @@ export const EditComputeNode: FC<any> = (props: any) => {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item colon label={t('computeNodeMgt.nodeName')} name="powerNodeName" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input disabled={type === 'Edit'} className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item>
           {/* <Form.Item colon label={t('computeNodeMgt.nodeID')} name="powerNodeId" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />

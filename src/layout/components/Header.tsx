@@ -37,12 +37,10 @@ const Header = (props: any) => {
         {t('login.RosettaNet')}
       </div>
       <div className="nav">
-        {/* TODO Nav组件是否配合跳转切换 */}
         <Nav list={props.list} />
       </div>
       <div className="menu">
         <p className="company" onClick={showMessage}>
-          {console.log('inline baseInfo ', baseInfo)}
           {baseInfo?.name}
         </p>
         <p className="lang-btn pointer" onClick={changeLanguage}>
