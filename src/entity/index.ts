@@ -7,7 +7,7 @@ interface BaseInfo {
   carrierStatus: string
   identityId: string | number
   name: string
-  recUpdateTime: string | number
+  recUpdateTime: string | number,
 }
 interface SearchPageTable {
   keyword?: string

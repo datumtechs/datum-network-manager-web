@@ -23,13 +23,13 @@ export const BaseInfoContext = createContext<any>({
   identityId: '',
   name: '',
   recUpdateTime: '',
+  status: '',
 })
 
 // import { getPageTitle, systemRouteList } from '../router/utils';
 const Layout = (props: any) => {
-  const isLogin = useLogin()
   const history = useHistory()
-
+  const { isBaseInfoFresh } = props.state.baseInfo
   const [info, setInfo] = useState<BaseInfo>({
     carrierConnStatus: '',
     carrierConnTime: '',
@@ -41,16 +41,22 @@ const Layout = (props: any) => {
     name: '',
     recUpdateTime: '',
   })
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await loginApi.queryBaseInfo()
-      setInfo(result.data)
-      if (!result.data?.identityId) {
-        history.push('/didApplication')
-      }
+
+  const fetchData = async () => {
+    const result = await loginApi.queryBaseInfo()
+    setInfo(result.data)
+    if (!result.data?.identityId) {
+      history.push('/didApplication')
     }
+  }
+
+  useEffect(() => {
     fetchData()
-  }, [])
+  }, [isBaseInfoFresh])
+  // useEffect(() => {
+  //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  //   fetchData()
+  // }, [])
 
   return (
     <BaseInfoContext.Provider value={info}>
@@ -93,4 +99,4 @@ const Layout = (props: any) => {
   )
 }
 
-export default Layout
+export default connect((state: any) => ({ state }))(Layout)

@@ -9,7 +9,12 @@ import useTaskTable from '../../hooks/useTaskTable'
 
 const { Search } = Input
 const { Option } = Select
+const utc = require('dayjs/plugin/utc')
+const timezone = require('dayjs/plugin/timezone')
+
 export const Tasks: FC<any> = () => {
+  dayjs.extend(utc)
+  dayjs.extend(timezone)
   const { t } = useTranslation()
   const [runningTaskCount, runningTaskCountSet] = useState<number>(0)
   const [totalTaskCount, totalTaskCountSet] = useState<number>(0)

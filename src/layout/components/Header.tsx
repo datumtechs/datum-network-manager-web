@@ -17,6 +17,13 @@ const Header = (props: any) => {
     localStorage.setItem('i18n', i18n.language)
   }
 
+  const linkToHome = () => {
+    if (!baseInfo?.identityId) {
+      return history.push('/didApplication')
+    }
+    return history.push('/overview')
+  }
+
   const switchLogin = () => {
     props.sendAction()
     history.push('/login')
@@ -26,8 +33,8 @@ const Header = (props: any) => {
   }
   return (
     <div className="header-box">
-      <div className="logo">
-        <Link to="/overview">{t('login.RosettaNet')}</Link>
+      <div className="logo pointer" onClick={linkToHome}>
+        {t('login.RosettaNet')}
       </div>
       <div className="nav">
         {/* TODO Nav组件是否配合跳转切换 */}

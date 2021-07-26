@@ -97,7 +97,7 @@
     "hasOccupied": "of the node has been occupied"
   },
   "dataNodeMgt": {
-    "nodeName": "Data node name & ID",
+    "nodeName": "Data node name",
     "internalIP": "Internal IP",
     "externalIp": "External IP",
     "internalPort": "Internal Port",
@@ -281,6 +281,8 @@
     "updateSuccess": "Source file updated successfully",
     "operationSucces": "Operation successful",
     "operationFailed": "Operation failed",
-    "addMetaDataSuccess": "Add metadata successful"
+    "addMetaDataSuccess": "Add metadata successful",
+    "joinNetworkSuccess": "Successfully applied for network access",
+    "joinNetworkFailed": "Failed to apply for network access"
   }
 }

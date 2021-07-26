@@ -7,17 +7,12 @@ import { IRoute } from '../../router/index'
 import { businessRouteList } from '../../router/utils'
 import { BaseInfoContext } from '../index'
 
-console.log(businessRouteList)
-
 const Nav = (props: any) => {
   const menu = props.state.menu.curMenu
   const history = useHistory()
   const { pathname } = useLocation()
   const [curPath, SetCurPath] = useState('')
   const baseInfo = useContext(BaseInfoContext)
-  console.log(curPath)
-
-  const hasDid = useDid()
 
   useEffect(() => {
     console.log('pathname=====>', pathname)

@@ -2,6 +2,7 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import { Form, Input, Button, Spin, message } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
+import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import Bread from '../../layout/components/Bread'
 import './scss/config.scss'
@@ -10,10 +11,11 @@ import { nodeApi } from '../../api/index'
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
-const DispatchConfig: FC<any> = () => {
+const DispatchConfig: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
+  console.log(baseInfo)
 
   const [hasService, setHasService] = useState<boolean>(false)
   const [isConnect, setIsConnect] = useState<boolean>(false)
@@ -31,18 +33,18 @@ const DispatchConfig: FC<any> = () => {
   }, [baseInfo])
 
   useEffect(() => {
-    if (baseInfo.carrierIp) {
+    if (baseInfo.status === 1) {
       setHasService(true)
     } else {
       setHasService(false)
     }
-  }, [baseInfo.carrierIp])
+  }, [baseInfo.status])
 
   const testServiceFn = () => {
     setShowShowLoading(true)
     // 192.168.21.164:4444
-    const { ip, port } = form.getFieldsValue()
-    nodeApi.connectNode({ ip, port }).then(res => {
+    const { carrierIp, carrierPort } = form.getFieldsValue()
+    nodeApi.connectNode({ ip: carrierIp, port: carrierPort }).then(res => {
       // setIsConnect()
       setShowShowLoading(false)
       setShowStatus(true)
@@ -54,11 +56,23 @@ const DispatchConfig: FC<any> = () => {
     })
   }
 
+  const joinNetwork = () => {
+    nodeApi.applyJoinNetwork().then(res => {
+      if (res.status === 0) {
+        message.success(`${t('tip.joinNetworkSuccess')}`)
+        props.setBaseInfoStatus(true)
+      } else {
+        message.error(`${t('tip.joinNetworkFailed')}`)
+      }
+    })
+  }
+
   const missNetwork = () => {
-    const { ip, port } = form.getFieldsValue()
+    // const { ip, port } = form.getFieldsValue()
     nodeApi.withDrawNetwork().then(res => {
       if (res.status === 0) {
         message.success(`${t('node.logoutSuccess')}`)
+        props.setBaseInfoStatus(false)
       } else {
         message.error(`${t('node.logoutFailed')}`)
       }
@@ -163,6 +177,7 @@ const DispatchConfig: FC<any> = () => {
                     type="primary"
                     disabled={!isConnect}
                     className="btn submit-btn"
+                    onClick={joinNetwork}
                     style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
                     htmlType="submit"
                   >
@@ -178,4 +193,14 @@ const DispatchConfig: FC<any> = () => {
   )
 }
 
-export default DispatchConfig
+export default connect(
+  (state: any) => ({ state }),
+  (dispatch: any) => ({
+    setBaseInfoStatus: (data: boolean) => {
+      dispatch({
+        type: 'SET_BASEINFO_STATUS',
+        data,
+      })
+    },
+  }),
+)(DispatchConfig)

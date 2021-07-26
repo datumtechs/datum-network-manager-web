@@ -11,16 +11,15 @@ const nodeApi = {
   connectNode(data: IPObj): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/corenode/connectNode`,
+      url: `/api/v1/node/corenode/connectNode?ip=${data.ip}&port=${data.port}`,
       data
     })
   },
   // 加入
-  applyJoinNetwork(data: IPObj): Promise<any> {
+  applyJoinNetwork(): Promise<any> {
     return axios({
       method: "POST",
       url: `/api/v1/node/corenode/applyJoinNetwork`,
-      data
     })
   },
   // 注销

@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useContext, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Table, Space, message } from 'antd'
+import { Table, Space, message, Tooltip } from 'antd'
 import MyModal from '../../../../components/MyModal'
 import './scss/index.scss'
 import { computeNodeApi } from '../../../../api/index'
@@ -122,20 +122,25 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      width: 80,
     },
     {
       title: t('computeNodeMgt.nodeName'),
       dataIndex: 'nodeName',
       key: 'nodeName',
+      width: 300,
+      ellipsis: true,
       render: (text, record, index) => {
         return (
           <>
-            <p>
-              <span>{record.powerNodeName}</span>
-            </p>
-            <p>
-              <span>ID: &nbsp;{record.powerNodeId}</span>
-            </p>
+            <div>
+              <p>{record.powerNodeName}</p>
+            </div>
+            <div>
+              <Tooltip title={record.powerNodeId}>
+                <p className="ellipsis">ID: &nbsp;{record.powerNodeId}</p>
+              </Tooltip>
+            </div>
           </>
         )
       },
@@ -143,6 +148,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.status'),
       dataIndex: 'status',
+      width: 200,
       key: 'status',
       render: (text, record, index) => {
         return <>{UseStatus(record.connStatus)}</>
@@ -151,6 +157,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.ip'),
       dataIndex: 'ip',
+      width: 200,
       key: 'ip',
       render: (text, record, index) => {
         return (
@@ -170,6 +177,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.port'),
       dataIndex: 'port',
+      width: 200,
       key: 'port',
       render: (text, record, index) => {
         return (
@@ -188,7 +196,7 @@ const DataTable: FC<any> = (props: any) => {
     },
     {
       title: t('common.operations'),
-      width: 500,
+      width: 300,
       dataIndex: 'operations',
       key: 'operations',
       render: (text: any, row: any, index: any) => {

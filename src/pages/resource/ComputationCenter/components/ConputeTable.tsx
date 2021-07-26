@@ -19,7 +19,7 @@ const CenterTable: FC<any> = (props: any) => {
   }
 
   const dealRemain = (all, used) => {
-    return (((all - used) / total) * 100).toFixed(2).replace('.00', '')
+    return (((all - used) / all) * 100).toFixed(2).replace('.00', '')
   }
   const [dataSource, dataSourceSet] = useState([])
   const columns = [
@@ -90,7 +90,8 @@ const CenterTable: FC<any> = (props: any) => {
         return (
           <div className="power-col">
             <div className="prev-steelblue">
-              <span className="name">{text}</span> Mbps
+              <span className="name">{changeSizeFn(text).replace(/[A-Za-z]*$/, '')}</span>
+              {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}/PS
             </div>
             <div>
               {t('center.remaining')}: <span className="remain-num">{dealRemain(text, record.usedBandwidth)}</span>

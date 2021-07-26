@@ -38,13 +38,13 @@ const ComputingTable: FC<any> = (props: any) => {
         return (
           <ul className="power-occupied-item">
             <li>
-              {t('overview.cpu')}: {record.usedCore}
+              {t('overview.cpu')}: {record.usedCore ? record.usedCore : `0.00%`}
             </li>
             <li>
-              {t('overview.memory')}: {record.usedMemory}
+              {t('overview.memory')}: {record.usedMemory ? record.usedMemory : `0.00%`}
             </li>
             <li>
-              {t('overview.bandwidth')}: {record.usedBandwidth}
+              {t('overview.bandwidth')}: {record.usedBandwidth ? record.usedBandwidth : `0.00%`}
             </li>
           </ul>
         )

@@ -97,7 +97,7 @@
     "hasOccupied": "占用此节点情况"
   },
   "dataNodeMgt": {
-    "nodeName": "数据节点名称与ID",
+    "nodeName": "数据节点名称",
     "internalIP": "内部IP",
     "externalIp": "外部IP",
     "internalPort": "内部端口",
@@ -281,6 +281,8 @@
     "updateSuccess": "修改源文件成功",
     "operationSucces": "操作成功",
     "operationFailed": "操作失败",
-    "addMetaDataSuccess": "新增元数据成功"
+    "addMetaDataSuccess": "新增元数据成功",
+    "joinNetworkSuccess": "申请准入网络成功",
+    "joinNetworkFailed": "申请准入网络失败"
   }
 }
