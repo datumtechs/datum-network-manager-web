@@ -2,6 +2,8 @@ import React, { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Input, Select, Space, DatePicker } from 'antd'
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { SearchOutlined } from '@ant-design/icons'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
@@ -9,12 +11,11 @@ import useTaskTable from '../../hooks/useTaskTable'
 
 const { Search } = Input
 const { Option } = Select
-const utc = require('dayjs/plugin/utc')
-const timezone = require('dayjs/plugin/timezone')
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 export const Tasks: FC<any> = () => {
-  dayjs.extend(utc)
-  dayjs.extend(timezone)
   const { t } = useTranslation()
   const [runningTaskCount, runningTaskCountSet] = useState<number>(0)
   const [totalTaskCount, totalTaskCountSet] = useState<number>(0)
@@ -34,10 +35,11 @@ export const Tasks: FC<any> = () => {
     searchRoleSet(text)
   }
   const onStartChange = (time, timeStr) => {
-    searchStartTimeSet(dayjs(timeStr).valueOf())
+    // 获取服务器 shanghai +8
+    searchStartTimeSet(dayjs.utc(time).tz('Asia/Shanghai').valueOf())
   }
   const onEndChange = (time, timeStr) => {
-    searchEndTimeSet(dayjs(timeStr).valueOf())
+    searchEndTimeSet(dayjs.utc(time).tz('Asia/Shanghai').valueOf())
   }
 
   const statusList = [

@@ -119,9 +119,14 @@
   }
   .main-box {
     width: 100%;
-    background: #fff;
+    // background: #fff;
     padding: 30px 82px;
     .wrapper-box {
+      width: 100%;
+      height: calc(100vh - 120px);
+      overflow: hidden;
+    }
+    .main-wrapper-box {
       width: 100%;
       height: calc(100vh - 120px);
       overflow: hidden;

@@ -13,19 +13,20 @@ const SeedNode: FC<any> = (props: any) => {
         <img src={iconImg} alt="" />
       </div>
       <div className="seed-box-title">{t('overview.schedueService')}</div>
-      {serviceStatus === '1' ? (
-        <div className="status">
-          {/* <span className="status-title">{t('overview.schedueService')}:</span> */}
-          <span className="status-text">{t('overview.open')}</span>
-          <span className="open-status-icon status-icon value"></span>
-        </div>
-      ) : (
-        <div className="status">
-          {/* <span className="status-title">{t('overview.schedueService')}:</span> */}
-          <span className="status-text">{t('overview.close')}</span>
-          <span className="close-status-icon status-icon value"></span>
-        </div>
-      )}
+      {serviceStatus &&
+        (serviceStatus === '1' ? (
+          <div className="status">
+            {/* <span className="status-title">{t('overview.schedueService')}:</span> */}
+            <span className="status-text">{t('overview.open')}</span>
+            <span className="open-status-icon status-icon value"></span>
+          </div>
+        ) : (
+          <div className="status">
+            {/* <span className="status-title">{t('overview.schedueService')}:</span> */}
+            <span className="status-text">{t('overview.close')}</span>
+            <span className="close-status-icon status-icon value"></span>
+          </div>
+        ))}
     </div>
   )
 }

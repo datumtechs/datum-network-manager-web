@@ -19,7 +19,7 @@ export const Overview: FC<any> = () => {
     runningTaskCount: 0,
   })
 
-  const [serviceStatus, setServiceStatus] = useState<String>()
+  const [serviceStatus, setServiceStatus] = useState<String>('')
 
   const [globalObj, setGlobalObj] = useState<Object>({
     totalBandwidth: 0,

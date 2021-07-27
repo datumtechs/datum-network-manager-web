@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-key */
 import { Suspense, useEffect, createContext, useState } from 'react'
 import { connect } from 'react-redux'
-import { Route, Redirect, useHistory, Switch } from 'react-router-dom'
+import { Route, Redirect, useHistory, Switch, useLocation } from 'react-router-dom'
 import { Spin } from 'antd'
 import Header from './components/Header'
 import { IRoute } from '../router/index'
@@ -41,7 +41,7 @@ const Layout = (props: any) => {
     name: '',
     recUpdateTime: '',
   })
-
+  const { pathname } = useLocation()
   const fetchData = async () => {
     const result = await loginApi.queryBaseInfo()
     setInfo(result.data)
@@ -63,7 +63,7 @@ const Layout = (props: any) => {
       <div className="main-container">
         <Header list={props.routes} className="header-container" />
         <div className="main-box">
-          <div className="wrapper-box">
+          <div className={pathname === '/overview' ? 'wrapper-box' : 'main-wrapper-box '}>
             <Suspense
               fallback={
                 <div className="layout__loading">

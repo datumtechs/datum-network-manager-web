@@ -102,9 +102,9 @@ export const TaskDetail: FC<any> = (props: any) => {
           </div>
         </div>
       </div>
-      <div className="info-box">
-        <Descriptions column={1} title={t('task.initialInfo')}>
-          <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.timeRequire')}>
+      <div className="info-box" style={{ width: '50%' }}>
+        <Descriptions labelStyle={{ width: '50%' }} column={1} title={t('task.initialInfo')} bordered>
+          <Descriptions.Item labelStyle={{ padding: '0 20px', width: '100px' }} label={t('task.timeRequire')}>
             {/* {baseInfo.duration} */}
             {UseTimeChange(3600000)}
           </Descriptions.Item>
@@ -158,8 +158,8 @@ export const TaskDetail: FC<any> = (props: any) => {
             })} */}
         </Descriptions>
       </div>
-      <div className="info-box">
-        <Descriptions column={1} title={t('task.partiesInformation')}>
+      <div className="info-box" style={{ width: '50%' }}>
+        <Descriptions column={1} title={t('task.partiesInformation')} bordered>
           <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.sponsor')}>
             <span className="node-name">{baseInfo.owner.nodeName}</span>
             <span>
@@ -171,9 +171,7 @@ export const TaskDetail: FC<any> = (props: any) => {
               {baseInfo.receivers.map((item, index) => {
                 return (
                   <li key={item.nodeIdentityId}>
-                    <span className="node-name">
-                      {index + 1}. {item.nodeName}
-                    </span>
+                    <span className="node-name">{item.nodeName}</span>
                     <span>
                       {t('task.identity')}: {item.nodeIdentityId}
                     </span>
