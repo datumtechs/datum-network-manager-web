@@ -13,10 +13,6 @@ function checkAuth(location: RouteComponentProps['location']): boolean {
 }
 
 function Auth(props: AuthProps) {
-  // if (getToken()) {
-  //   return <Redirect to="/login" />
-  // }
-
   if (!checkAuth(props.location)) {
     return <Redirect to="/login" />
   }

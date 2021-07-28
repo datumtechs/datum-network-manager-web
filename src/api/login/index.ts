@@ -20,11 +20,10 @@ const loginApi = {
   },
 
   // 退出登录状态
-  logoutFn(data): Promise<any> {
+  logoutFn(): Promise<any> {
     return axios({
       method: "POST",
       url: `/api/v1/system/user/logout`,
-      data
     })
   },
 

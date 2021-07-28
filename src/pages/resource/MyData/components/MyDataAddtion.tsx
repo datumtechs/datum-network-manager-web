@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { FC, useState, createRef, useEffect } from 'react'
 import { Descriptions, Space, Form, Input, Radio, Button, message } from 'antd'
 import { useHistory } from 'react-router-dom'
@@ -105,6 +106,10 @@ export const MyDataAddtion: FC<any> = porps => {
   }, [uploadFile])
 
   useEffect(() => {
+    curPage && setTableData(getShowSource(originalData))
+  }, [curPage])
+
+  useEffect(() => {
     if (Object.keys(resultFileData).length > 0) {
       form.setFieldsValue({
         sourceName: resultFileData.resourceName,
@@ -141,13 +146,14 @@ export const MyDataAddtion: FC<any> = porps => {
     resourceApi.uploadCsv(formData).then(res => {
       upLoadingSet(false)
       if (res.status === 0) {
-        setOriginalData(res.data.localMetaDataColumnList)
-        setTotal(res.data.rows)
-        setTableData(getShowSource(res.data.localMetaDataColumnList))
+        setOriginalData(res.data?.localMetaDataColumnList)
+        setTotal(res.data?.localMetaDataColumnList?.length)
+        setTableData(getShowSource(res.data?.localMetaDataColumnList))
         resultFileDataSet(res.data)
         message.success(`${t('myData.uploadSuccess')}`)
       } else {
-        message.error(`${t('myData.uploadFailed')}`)
+        // message.error(`${t('myData.uploadFailed')}`)
+        message.error(res.msg)
       }
     })
   }

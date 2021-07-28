@@ -14,7 +14,7 @@ const SeedNode: FC<any> = (props: any) => {
       </div>
       <div className="seed-box-title">{t('overview.schedueService')}</div>
       {serviceStatus &&
-        (serviceStatus === '1' ? (
+        (serviceStatus === 'enabled' ? (
           <div className="status">
             {/* <span className="status-title">{t('overview.schedueService')}:</span> */}
             <span className="status-text">{t('overview.open')}</span>

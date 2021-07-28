@@ -11,7 +11,7 @@ import MyModal from '../../../components/MyModal'
 export const EditNodeMgt: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { location } = props
-  const { type, row, id } = location.state
+  const { type, row, id } = location?.state
   const [form] = Form.useForm()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const history = useHistory()

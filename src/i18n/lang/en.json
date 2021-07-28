@@ -6,7 +6,9 @@
     "account": "account",
     "password": "password",
     "vericode": "vericode",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "plzLogin": "You haven't logged in yet, switched to the login page for you",
+    "internalError": "Internal Error"
   },
   "overview": {
     "seedNode": "Seed Node",

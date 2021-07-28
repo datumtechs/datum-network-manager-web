@@ -1,13 +1,11 @@
 import axios from 'axios'
 import { message } from 'antd'
-// import { createBrowserHistory } from 'history';
-// import { BrowserRouter, useHistory } from 'react-router-dom'
+import i18n from '../i18n/config'
 
-// const history = createBrowserHistory();
-// create an axios instance
+
 const service = axios.create({
   baseURL: process.env.REACT_APP_BASE_API,
-  // withCredentials: true, // send cookies when cross-domain requests
+  withCredentials: true, // send cookies when cross-domain requests
   timeout: 50000 // request timeout
 })
 
@@ -25,10 +23,11 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   response => {
-    const { status } = response.data
+    const { data: { status, msg }, config: { url } } = response
+    console.log(window.location.pathname);
     if (status === 1000) {
-      location.href = "/login"
-      return message.error(response.data.msg)
+      const { pathname } = window.location
+      location.href = `/login?type=redirect#${pathname}`
     }
 
     // if (status === 1001) {
@@ -40,12 +39,7 @@ service.interceptors.response.use(
     return response.data;
   },
   error => {
-    // Message({
-    //     message: error.message,
-    //     type: 'error',
-    //     duration: 5 * 1000
-    // })
-    message.error('内部错误')
+    message.error(`${i18n.t('login.internalError')}`)
     return Promise.reject(error)
   }
 )

@@ -1,6 +1,6 @@
 /* eslint-disable no-empty */
 import { Form, Input, Button, message } from 'antd'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
@@ -15,18 +15,20 @@ const Login = (props: any) => {
   const { t, i18n } = useTranslation()
 
   const history = useHistory()
+  const { hash, search } = history.location
+  const fromPathAry = hash.replace(/#/, '')?.split('/')
+  let redirectPath
+  if (fromPathAry.length > 2) {
+    redirectPath = `/${fromPathAry[1]}/${fromPathAry[2]}`
+  } else {
+    redirectPath = hash.replace(/#/, '')
+  }
 
-  // const [baseInfo, setBaseInfo] = useState({
-  //   carrierConnStatus: '',
-  //   carrierConnTime: '',
-  //   carrierIP: '',
-  //   carrierNodeId: '',
-  //   carrierPort: '',
-  //   carrierStatus: '',
-  //   identityId: '',
-  //   name: '',
-  //   recUpdateTime: '',
-  // })
+  useEffect(() => {
+    if (redirectPath) {
+      message.error(`${t('login.plzLogin')}`)
+    }
+  }, [redirectPath])
 
   const onFinish = (values: any) => {
     const {
@@ -34,6 +36,10 @@ const Login = (props: any) => {
     } = values
     loginApi.loginFn({ userName: account, passwd: password, code: veriCode }).then(res => {
       if (res.status === 0) {
+        if (redirectPath) {
+          return history.push(redirectPath)
+          // return history.go(-1)
+        }
         history.push('/')
       } else {
         message.error(res.msg)

@@ -1,12 +1,14 @@
-import React, { FC } from 'react'
+import React, { FC, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Button, Form, Input, message } from 'antd'
 import './scss/did.scss'
 import { loginApi } from '../../api/index'
 import { orgReg } from '../../utils/reg'
+import { BaseInfoContext } from '../../layout/index'
 
 export const DidApplication: FC<any> = () => {
+  const baseInfo = useContext(BaseInfoContext)
   const { t } = useTranslation()
   const history = useHistory()
   const onFinish = ({ identityId = '' }) => {
@@ -23,12 +25,17 @@ export const DidApplication: FC<any> = () => {
       }
     })
   }
-  const onFinishFailed = () => {}
+
+  useEffect(() => {
+    if (baseInfo?.identityId) {
+      history.push('/overview')
+    }
+  }, [baseInfo])
   return (
     <div className="did-box">
       <div className="title">{t('common.plzApplyDid')}</div>
       <div className="form-box">
-        <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+        <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
           <Form.Item
             label={t('common.orgName')}
             name="identityId"

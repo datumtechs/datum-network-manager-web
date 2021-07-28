@@ -20,7 +20,7 @@ export const MyData: FC<any> = () => {
     })
   }
   const onSearch = (e): void => {
-    setSearchText(e.target.value)
+    setSearchText(e)
   }
   return (
     <div className="layout-box">

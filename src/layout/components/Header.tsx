@@ -6,6 +6,7 @@ import Nav from './Nav'
 import cnSvg from '../../assets/images/2.icon_cn.svg'
 import enSvg from '../../assets/images/2.icon_en.svg'
 import { BaseInfoContext } from '../index'
+import { loginApi } from '../../api'
 
 const Header = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -26,7 +27,9 @@ const Header = (props: any) => {
 
   const switchLogin = () => {
     props.sendAction()
-    history.push('/login')
+    loginApi.logoutFn().then(res => {
+      if (res.status === 0) history.push('/login')
+    })
   }
   const showMessage = () => {
     console.log('TODO message style')
@@ -59,7 +62,7 @@ const mapStateToProps = (state: any) => ({ state })
 const mapDispatchToProps = (dispatch: any) => ({
   sendAction: () => {
     dispatch({
-      type: 'LOGIN',
+      type: 'LOGOUT',
     })
   },
 })

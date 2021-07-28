@@ -71,6 +71,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
     props.updateData(data)
   }
   const onPageChange = (page: number) => {
+    console.log(page)
     setPage(page)
   }
   useEffect(() => {

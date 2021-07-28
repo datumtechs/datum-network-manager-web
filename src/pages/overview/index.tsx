@@ -34,7 +34,7 @@ export const Overview: FC<any> = () => {
 
   const initGlobalData = () => {
     overviewApi.overviewData().then(res => {
-      if (res.status === 0) {
+      if (res?.status === 0) {
         setDataNodeObj({
           dataNodeCount: res.data?.dataNodeCount,
           publishedDataCount: res.data?.publishedDataCount,
@@ -58,7 +58,7 @@ export const Overview: FC<any> = () => {
   }
   const initTableData = () => {
     overviewApi.queryNodelist().then(res => {
-      if (res.status === 0) {
+      if (res?.status === 0) {
         setTableData(res.data)
       }
     })

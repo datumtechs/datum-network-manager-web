@@ -19,6 +19,7 @@ const DataTable: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState<number>(0)
   const baseInfo = useContext(BaseInfoContext)
   const [curId, curIdSet] = useState<string>('')
+  const [curPowerId, curPowerIdSet] = useState<string>('')
   const [curRow, setCurRow] = useState<Row>({
     core: '',
     memory: '',
@@ -58,19 +59,14 @@ const DataTable: FC<any> = (props: any) => {
   useEffect(() => {
     initTable()
   }, [props.searchText, curPage])
-  // useEffect(() => {
-  //   console.log('tableData', table)
-  //   setTableData(table?.data)
-  //   totalSet(table?.total)
-  // }, [table])
 
   const operation = (row, type) => {
     SetCurName(row.powerNodeName)
     SetModalType(type)
     SetIsModalVisible(true)
     curIdSet(row.powerNodeId)
+    curPowerIdSet(row.powerId)
     if (type === 'view') {
-      console.log('row', row)
       setCurRow(row)
     }
   }
@@ -298,7 +294,7 @@ const DataTable: FC<any> = (props: any) => {
         }
       })
     } else if (modalType === 'disable') {
-      computeNodeApi.revokePower({ powerNodeId: curId, status }).then(res => {
+      computeNodeApi.revokePower({ powerNodeId: curPowerId, status }).then(res => {
         if (res.status === 0) {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)

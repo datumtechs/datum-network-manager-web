@@ -59,6 +59,7 @@ const MyData: FC<any> = props => {
   }, [originalData])
 
   const backFn = () => {
+    if (type === 'view') history.push('/resource/myData')
     isModalVisibleSet(true)
   }
   const handleOk = () => {
@@ -111,6 +112,13 @@ const MyData: FC<any> = props => {
     })
   }
 
+  const getStatus = (status: string) => {
+    if (status === '1') {
+      return t('center.pulish')
+    }
+    return t('center.unPublish')
+  }
+
   const onRemarksChange = ({ target: { value } }) => {
     setRemarks(value)
   }
@@ -130,32 +138,47 @@ const MyData: FC<any> = props => {
       <div className="add-info-box limitLine">
         {type === 'view' ? (
           (from !== 'dataCenter' && (
-            <Descriptions column={2} title={`${t('center.basicInfo')}`}>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
+            <Descriptions column={2} title={`${t('center.basicInfo')}`} bordered>
+              <Descriptions.Item
+                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
+                label={t('myData.sourceName')}
+              >
                 {baseInfo.fileName}
               </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaStatus')}>
-                {baseInfo.status}
+              <Descriptions.Item
+                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
+                label={t('center.metaStatus')}
+              >
+                {getStatus(baseInfo.status)}
               </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
+              <Descriptions.Item
+                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
+                label={t('myData.sourceFileID')}
+              >
                 {baseInfo.fileId}
               </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
+              <Descriptions.Item
+                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
+                label={t('center.metaDataID')}
+              >
                 {baseInfo.metaDataId}
               </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFilePath')}>
+              <Descriptions.Item
+                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
+                label={t('myData.sourceFilePath')}
+              >
                 {baseInfo.filePath}
               </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
+              <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.dataSize')}>
                 {baseInfo.size}
               </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
+              <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.rowNum')}>
                 {baseInfo.rows}
               </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
+              <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.colNum')}>
                 {baseInfo.columns}
               </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
+              <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.dataDesc')}>
                 <TextArea value={baseInfo.remarks} disabled rows={4} />
               </Descriptions.Item>
             </Descriptions>

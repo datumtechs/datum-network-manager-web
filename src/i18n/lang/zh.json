@@ -6,7 +6,9 @@
     "account": "账号",
     "password": "密码",
     "vericode": "验证码",
-    "logout": "登 出"
+    "logout": "登 出",
+    "plzLogin": "您还没有登录, 已为您跳转到登录页",
+    "internalError": "内部错误"
   },
   "overview": {
     "seedNode": "种子节点",
