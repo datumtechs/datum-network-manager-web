@@ -21,7 +21,7 @@ const CenterTable: FC<any> = (props: any) => {
   }
 
   const dealRemain = (all, used) => {
-    if (all === 0) return '0%'
+    if (all === 0) return '0'
     return (((all - used) / all) * 100).toFixed(0) // .replace('.00', '')
   }
   const [dataSource, dataSourceSet] = useState([])
