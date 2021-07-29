@@ -170,7 +170,7 @@ const MyData: FC<any> = props => {
                 {baseInfo.filePath}
               </Descriptions.Item>
               <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.dataSize')}>
-                {baseInfo.size}
+                {fileSizeChange(Number(baseInfo.size))}
               </Descriptions.Item>
               <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.rowNum')}>
                 {baseInfo.rows}

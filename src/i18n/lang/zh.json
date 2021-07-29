@@ -30,7 +30,8 @@
     "commuting": "计算",
     "resources": "资源",
     "free": "空闲",
-    "occupied": "占用"
+    "occupied": "占用",
+    "core": "核"
   },
   "menu": {
     "systemOverview": "系统概况",

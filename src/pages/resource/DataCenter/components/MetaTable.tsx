@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { Table, Space } from 'antd'
+import { Table, Space, Tooltip } from 'antd'
 import { resourceApi } from '../../../../api/index'
 import '../scss/index.scss'
 
@@ -33,10 +33,13 @@ const MetaTable: FC<any> = (props: any) => {
     {
       title: '',
       render: (text, record, index) => `${(curPage - 1) * pagination.pageSize + (index + 1)}`,
+      width: 80,
     },
     {
       title: t('center.name&metaID'),
       dataIndex: 'fileName',
+      width: 800,
+      ellipsis: true,
       render: (text, record, index) => {
         return (
           <>
@@ -46,7 +49,9 @@ const MetaTable: FC<any> = (props: any) => {
                 {t('center.viewMetaData')}
               </span>
             </Space>
-            <div>ID: {record.metaDataId}</div>
+            <Tooltip title={record.metaDataId}>
+              <div style={{ whiteSpace: 'nowrap' }}>ID: {record.metaDataId}</div>
+            </Tooltip>
           </>
         )
       },
@@ -56,9 +61,9 @@ const MetaTable: FC<any> = (props: any) => {
       dataIndex: 'orgName',
     },
     {
-      title: t('center.dataFields'),
+      title: t('center.dataDesc'),
       render: (text, record) => {
-        return <>{record.metaDataColumnList.join()}</>
+        return <>{record.remarks}</>
       },
     },
   ]

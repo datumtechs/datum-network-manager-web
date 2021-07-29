@@ -8,6 +8,7 @@ import { computeNodeApi } from '../../../../api/index'
 import { BaseInfoContext } from '../../../../layout/index'
 import UseStatus from '../../../../hooks/useComputeStatus'
 import { Row } from '../../../../entity/index'
+import { changeSizeFn } from '../../../../utils/utils'
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
@@ -333,15 +334,17 @@ const DataTable: FC<any> = (props: any) => {
           <div className="simple-info-box">
             <p>
               <span className="title">CPU:</span>
-              <span>{curRow.core}</span>
+              <span>
+                {curRow.core} {`${t('overview.core')}`}
+              </span>
             </p>
             <p>
               <span className="title">{t('overview.memory')}:</span>
-              <span>{curRow.memory}</span>
+              <span>{changeSizeFn(Number(curRow.memory))}</span>
             </p>
             <p>
               <span className="title">{t('overview.bandwidth')}:</span>
-              <span>{curRow.bandwidth}</span>
+              <span>{`${changeSizeFn(Number(curRow.bandwidth))}PS`}</span>
             </p>
             <p>
               <span className="title">{t('common.remark')}:</span>

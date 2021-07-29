@@ -30,7 +30,8 @@
     "commuting": "Commuting",
     "resources": "Resources",
     "free": "Free",
-    "occupied": "Occupied"
+    "occupied": "Occupied",
+    "core": "cores"
   },
   "menu": {
     "systemOverview": "System Overview",

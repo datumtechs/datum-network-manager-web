@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import '../scss/OverviewTable.scss'
 import memoryImg from '../../../assets/images/overview/2.icon_Memory.svg'
 import BandwidthImg from '../../../assets/images/overview/2.icon_Bandwidth.svg'
+import { fileSizeChange } from '../../../utils/utils'
 
 const OverviewTable: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -99,152 +100,20 @@ const OverviewTable: FC<any> = (props: any) => {
     },
   ]
 
-  // const columns = [
-  //   {
-  //     title: () => {
-  //       return (
-  //         <>
-  //           <div className="task-col">
-  //             <p>Commuting</p>
-  //             <p>Resources</p>
-  //           </div>
-  //         </>
-  //       )
-  //     },
-  //     dataIndex: 'name',
-  //     key: 'name',
-  //     // textWrap: 'word-break',
-  //     ellipsis: true,
-  //     render: (text: any, row: any, index: any) => {
-  //       console.log(text)
-  //       console.log(row)
-  //       console.log(index)
-  //       return (
-  //         <div className="task-cell">
-  //           <div className="top-block">Computation node：{text}</div>
-  //           <div className="bottom-block">{text}</div>
-  //         </div>
-  //       )
-  //     },
-  //   },
-  //   // cpu
-  //   {
-  //     title: () => {
-  //       return (
-  //         <div className="cpu-col">
-  //           <div className="left">
-  //             {/* <img src={memoryImg} alt="" /> */}
-  //             <Progress
-  //               type="circle"
-  //               percent={75}
-  //               showInfo={false}
-  //               width={50}
-  //               strokeWidth={10}
-  //               trailColor="#6359D1"
-  //               strokeColor="#FFA505"
-  //             />
-  //           </div>
-  //           <div className="right">
-  //             <p className="name">CPU</p>
-  //             <p className="precent">75%</p>
-  //           </div>
-  //         </div>
-  //       )
-  //     },
-  //     dataIndex: 'age',
-  //     key: 'age',
-  //     render: (text: any, row: any, index: any) => {
-  //       console.log(text)
-  //       console.log(row)
-  //       console.log(index)
-  //       return (
-  //         <>
-  //           <div></div>
-  //           <div className="table-cell cpu-status">
-  //             {/* <div>
-  //           <p className="cpu-status"></p>
-  //         </div> */}
-  //             <p className="table-title"> CPU</p>
-  //             <p className="table-content">{text}</p>
-  //           </div>
-  //         </>
-  //       )
-  //     },
-  //   },
-  //   // memo
-  //   {
-  //     title: () => {
-  //       return (
-  //         <div className="cpu-col">
-  //           <div className="left">
-  //             <img src={memoryImg} alt="" />
-  //           </div>
-  //           <div className="right">
-  //             <p className="name">{t('overview.memory')}</p>
-  //             <p className="precent">50%</p>
-  //           </div>
-  //         </div>
-  //       )
-  //     },
-  //     dataIndex: 'address',
-  //     key: 'address',
-  //     render: (text: any, row: any, index: any) => {
-  //       console.log(text)
-  //       console.log(row)
-  //       console.log(index)
-  //       return (
-  //         <div className="table-cell memory-status">
-  //           <p className="table-title"> {t('overview.memory')}</p>
-  //           <p className="table-content">{text}</p>
-  //         </div>
-  //       )
-  //     },
-  //   },
-  //   // band
-  //   {
-  //     title: () => {
-  //       return (
-  //         <div className="cpu-col">
-  //           <div className="left">
-  //             <img src={BandwidthImg} alt="" />
-  //           </div>
-  //           <div className="right">
-  //             <p className="name">{t('overview.bandWidth')}</p>
-  //             <p className="precent">80%</p>
-  //           </div>
-  //         </div>
-  //       )
-  //     },
-  //     dataIndex: 'address',
-  //     key: 'address',
-  //     render: (text: any, row: any, index: any) => {
-  //       console.log(text)
-  //       console.log(row)
-  //       console.log(index)
-  //       return (
-  //         <div className="table-cell bandwidth-status">
-  //           <p className="table-title">{t('overview.bandWidth')}</p>
-  //           <p className="table-content">{text}</p>
-  //         </div>
-  //       )
-  //     },
-  //   },
-  // ]
-
   const cpu = useMemo(() => {
     return isNaN(globalObj.usedProcessor / globalObj.totalProcessor)
-      ? '0.00'
-      : (globalObj.usedProcessor / globalObj.totalProcessor).toFixed(2)
+      ? '0'
+      : (globalObj.usedProcessor / globalObj.totalProcessor).toFixed(0)
   }, [globalObj.usedProcessor, globalObj.totalProcessor])
 
   const memory = useMemo(() => {
-    return isNaN(globalObj.usedMem / globalObj.totalMem) ? '0.00' : (globalObj.usedMem / globalObj.totalMem).toFixed(2)
+    return isNaN(globalObj.usedMem / globalObj.totalMem) ? '0' : (globalObj.usedMem / globalObj.totalMem).toFixed(0)
   }, [globalObj.totalMem, globalObj.usedMem])
 
   const bandWidth = useMemo(() => {
     return isNaN(globalObj.usedBandwidth / globalObj.totalBandwidth)
-      ? '0.00'
-      : (globalObj.usedBandwidth / globalObj.totalBandwidth).toFixed(2)
+      ? '0'
+      : (globalObj.usedBandwidth / globalObj.totalBandwidth).toFixed(0)
   }, [globalObj.totalBandwidth, globalObj.usedBandwidth])
 
   return (
@@ -321,24 +190,24 @@ const OverviewTable: FC<any> = (props: any) => {
                     <p className="table-title "> CPU</p>
                     <p className="table-content">
                       {isNaN(item.usedProcessor / item.totalProcessor)
-                        ? '0.00'
-                        : (item.usedProcessor / item.totalProcessor).toFixed(2)}
+                        ? '0'
+                        : (item.usedProcessor / item.totalProcessor).toFixed(0)}
                       %
                     </p>
                   </div>
                   <div className="table-cell memory-status">
                     <p className="table-title "> {t('overview.memory')}</p>
                     <p className="table-content">
-                      {isNaN(item.usedMem / item.totalMem) ? '0.00' : (item.usedMem / item.totalMem).toFixed(2)}MB
+                      {isNaN(item.usedMem / item.totalMem) ? '0B' : fileSizeChange(Number(item.usedMem))}
                     </p>
                   </div>
                   <div className="table-cell bandwidth-status">
                     <p className="table-title ">{t('overview.bandwidth')}</p>
                     <p className="table-content">
                       {isNaN(item.usedBandwidth / item.totalBandwidth)
-                        ? '0.00'
-                        : (item.usedBandwidth / item.totalBandwidth).toFixed(2)}
-                      %
+                        ? '0B'
+                        : fileSizeChange(Number(item.usedBandwidth))}
+                      PS
                     </p>
                   </div>
                 </div>

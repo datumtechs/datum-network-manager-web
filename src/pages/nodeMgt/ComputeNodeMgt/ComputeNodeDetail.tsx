@@ -189,14 +189,14 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   }, [selectTab, i18n.language])
 
   useEffect(() => {
-    cpuParSet(isNaN(details?.usedCore / details?.core) ? '0.00' : (details?.usedCore / details?.core).toFixed(2))
+    cpuParSet(isNaN(details?.usedCore / details?.core) ? '0' : (details?.usedCore / details?.core).toFixed(0))
     memoryParSet(
-      isNaN(details?.usedMemory / details?.memory) ? '0.00' : (details?.usedMemory / details?.memory).toFixed(2),
+      isNaN(details?.usedMemory / details?.memory) ? '0' : (details?.usedMemory / details?.memory).toFixed(0),
     )
     bandwidthParSet(
       isNaN(details?.usedBandwidth / details?.bandwidth)
-        ? '0.00'
-        : (details?.usedBandwidth / details?.bandwidth).toFixed(2),
+        ? '0'
+        : (details?.usedBandwidth / details?.bandwidth).toFixed(0),
     )
   }, [details])
 
