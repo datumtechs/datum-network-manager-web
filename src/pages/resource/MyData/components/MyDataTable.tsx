@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom'
 import { Table, Space, message } from 'antd'
 import { resourceApi } from '../../../../api/index'
 import MyModal from '../../../../components/MyModal'
+import useInterval from '../../../../hooks/useInterval'
+import { tableInterVal } from '../../../../constant/index'
 
 const MyDataTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -37,6 +39,10 @@ const MyDataTable: FC<any> = (props: any) => {
       setIsModalVisible(true)
     }
   }, [pop])
+
+  useInterval(() => {
+    initTableData()
+  }, tableInterVal)
 
   const handleOk = () => {
     let data = {}

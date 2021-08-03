@@ -9,6 +9,8 @@ import { BaseInfoContext } from '../../../../layout/index'
 import UseStatus from '../../../../hooks/useComputeStatus'
 import { Row } from '../../../../entity/index'
 import { changeSizeFn } from '../../../../utils/utils'
+import useInterval from '../../../../hooks/useInterval'
+import { tableInterVal } from '../../../../constant/index'
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
@@ -60,6 +62,10 @@ const DataTable: FC<any> = (props: any) => {
   useEffect(() => {
     initTable()
   }, [props.searchText, curPage])
+
+  useInterval(() => {
+    initTable()
+  }, tableInterVal)
 
   const operation = (row, type) => {
     SetCurName(row.powerNodeName)
@@ -289,17 +295,17 @@ const DataTable: FC<any> = (props: any) => {
         if (res.status === 0) {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
-          initTable()
+          // initTable()
         } else {
           message.error(`${t('tip.operationFailed')}`)
         }
       })
     } else if (modalType === 'disable') {
-      computeNodeApi.revokePower({ powerNodeId: curPowerId, status }).then(res => {
+      computeNodeApi.revokePower({ powerId: curPowerId, status }).then(res => {
         if (res.status === 0) {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
-          initTable()
+          // initTable()
         } else {
           message.error(`${t('tip.operationFailed')}`)
         }

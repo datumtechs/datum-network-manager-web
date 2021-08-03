@@ -1,0 +1,1 @@
+export const tableInterVal = 5 * 1000

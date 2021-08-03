@@ -40,7 +40,6 @@ const DataTable: FC<any> = (props: any) => {
       pageNumber: curPage,
       pageSize: pagination.defaultPageSize,
     })
-    console.log('数据节点分页数据 ============>', res)
     if (res.status === 0) {
       setTableData(res.data)
       totalSet(res.total)
