@@ -53,17 +53,20 @@ const MyTable = (props, ref) => {
   const columns = [
     {
       title: 'No.',
+      width: 80,
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
     {
       title: t('task.nameID'),
       dataIndex: 'taskName',
+      width: 300,
+      ellipsis: true,
       render: (text, record) => {
         return (
           <>
             <div className={record.reviewed ? '' : 'new-tips'}>{text}</div>
-            <div>{record.taskId}</div>
+            <div className="ellipsis">{record.taskId}</div>
           </>
         )
       },
@@ -72,6 +75,7 @@ const MyTable = (props, ref) => {
       title: t('task.status'),
       dataIndex: 'status',
       key: 'status',
+      width: 100,
       render: (text, record) => {
         return <Status status={record.status} />
       },
@@ -79,6 +83,7 @@ const MyTable = (props, ref) => {
     {
       title: t('task.myCapacity'),
       dataIndex: 'role',
+      width: 140,
       render: text => {
         return <>{t(`task.role.${text}`)}</>
       },
@@ -86,6 +91,7 @@ const MyTable = (props, ref) => {
     {
       title: t('task.startTime'),
       dataIndex: 'createAt',
+      width: 200,
       render: text => {
         return <>{dayjs(text).format('YYYY-MM-DD HH:mm:ss')}</>
       },
@@ -93,6 +99,7 @@ const MyTable = (props, ref) => {
     {
       title: t('task.operations'),
       dataIndex: 'taskId',
+      width: 200,
       render: text => {
         return (
           <Space size={50}>

@@ -45,9 +45,9 @@ const Layout = (props: any) => {
   })
   const { pathname } = useLocation()
   const fetchData = async () => {
-    isLoadingSet(true)
+    // isLoadingSet(true)
     const result = await loginApi.queryBaseInfo()
-    isLoadingSet(false)
+    // isLoadingSet(false)
     setInfo(result?.data)
     if (result && !result.data?.identityId) {
       history.push('/didApplication')
