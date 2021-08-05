@@ -7,7 +7,7 @@ import utc from 'dayjs/plugin/utc'
 import { SearchOutlined } from '@ant-design/icons'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
-import useTaskTable from '../../hooks/useTaskTable'
+import { taskApi } from '../../api/index'
 
 const { Search } = Input
 const { Option } = Select
@@ -25,6 +25,8 @@ export const Tasks: FC<any> = () => {
   const [searchRole, searchRoleSet] = useState(0)
   const [searchStartTime, searchStartTimeSet] = useState(0)
   const [searchEndTime, searchEndTimeSet] = useState(0)
+  const [pageNumber, pageNumberSet] = useState(0)
+  const [total, totalSet] = useState(0)
   const onSearch = text => {
     searchTextSet(text)
   }
@@ -59,26 +61,34 @@ export const Tasks: FC<any> = () => {
     return {
       endTime: searchEndTime || 0,
       keyWord: searchText,
-      pageNumber: 1,
+      pageNumber,
       pageSize: 10,
       role: searchRole || 0,
       startTime: searchStartTime || 0,
       status: searchStatus || '',
     }
   }
-  const { table, countData, paramSet } = useTaskTable(getParam())
+  // const { table, countData, paramSet } = useTaskTable(getParam())
+  const queryData = () => {
+    taskApi.taskListByQuery(getParam()).then(res => {
+      if (res.status === 0) {
+        tableDataSet(res.data.list)
+        totalSet(res.total)
+        totalTaskCountSet(res.data.countData.totalTaskCount)
+        runningTaskCountSet(res.data.countData.runningTaskCount)
+      }
+    })
+  }
+
+  const pageChange = page => {
+    pageNumberSet(page)
+  }
 
   useEffect(() => {
     if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) {
-      paramSet(getParam())
+      queryData()
     }
-  }, [searchText, searchStatus, searchRole, searchStartTime, searchEndTime])
-
-  useEffect(() => {
-    tableDataSet(table?.data.list)
-    totalTaskCountSet(countData?.totalTaskCount)
-    runningTaskCountSet(countData?.runningTaskCount)
-  }, [table?.data, countData])
+  }, [searchText, searchStatus, searchRole, searchStartTime, searchEndTime, pageNumber])
 
   return (
     <div className="layout-box">
@@ -147,7 +157,7 @@ export const Tasks: FC<any> = () => {
         </Space>
       </div>
       <div className="task-table-box">
-        <Tasktable tableData={tableData} />
+        <Tasktable tableData={tableData} total={total} pageChange={pageChange} />
       </div>
     </div>
   )

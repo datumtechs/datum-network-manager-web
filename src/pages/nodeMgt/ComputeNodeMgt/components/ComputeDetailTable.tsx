@@ -2,7 +2,9 @@ import React, { FC, useState, useEffect } from 'react'
 import { Table, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+import dayjs from 'dayjs'
 import useComputeNodeDetailTable from '../../../../hooks/useComputeNodeDetailTable'
+import { fileSizeChange } from '../../../../utils/utils'
 
 const ComputeDetailTable: FC<any> = (props: any) => {
   const pagination = {
@@ -73,7 +75,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
           <div>
             <p className="details">
               <span>{record.taskName}</span>
-              <span className="pointer" onClick={() => linkToTask(record)}>
+              <span className="pointer link" onClick={() => linkToTask(record)}>
                 {t('computeNodeMgt.detail')}
               </span>
             </p>
@@ -104,7 +106,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
         return (
           <div>
             <p>{record.ownerIdentityId}</p>
-            <p>{record.taskStartTime}</p>
+            <p>{dayjs(record.taskStartTime).format('YYYY-MM-DD HH:mm:ss')}</p>
           </div>
         )
       },
@@ -116,13 +118,13 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     // },
     {
       title: t('computeNodeMgt.receiver'),
-      dataIndex: 'resultSide',
-      key: 'resultSide',
+      dataIndex: 'resultSideName',
+      key: 'resultSideName',
     },
     {
       title: t('computeNodeMgt.collaborators'),
-      dataIndex: 'coordinateSide',
-      key: 'coordinateSide',
+      dataIndex: 'coordinateSideName',
+      key: 'coordinateSideName',
     },
     {
       title: t('computeNodeMgt.eachNode'),
@@ -135,21 +137,21 @@ const ComputeDetailTable: FC<any> = (props: any) => {
               <Col span={4}>CPU:</Col>
               <Col span={8}>{record.usedCore} cores</Col>
               <Col span={12}>{`(${t('overview.occupied')} ${
-                isNaN(record.usedCore / core) ? '0.00' : record.usedCore / core
+                isNaN(record.usedCore / core) ? '0.00' : ((record.usedCore / core) * 100).toFixed(2)
               } %)`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.memory')}:</Col>
-              <Col span={8}>{record.usedMemory} MB</Col>
+              <Col span={8}>{fileSizeChange(record.usedMemory)}</Col>
               <Col span={12}>{`(${t('overview.occupied')} ${
-                isNaN(record.usedMemory / memory) ? '0.00' : record.usedMemory / memory
+                isNaN(record.usedMemory / memory) ? '0.00' : ((record.usedMemory / memory) * 100).toFixed(2)
               } %)`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.bandwidth')}:</Col>
-              <Col span={8}>{record.usedBandwidth} MB</Col>
+              <Col span={8}>{fileSizeChange(record.usedBandwidth)}PS</Col>
               <Col span={12}>{`(${t('overview.occupied')} ${
-                isNaN(record.usedBandwidth / bandwidth) ? '0.00' : record.usedBandwidth / bandwidth
+                isNaN(record.usedBandwidth / bandwidth) ? '0.00' : ((record.usedBandwidth / bandwidth) * 100).toFixed(2)
               } %)`}</Col>
             </Row>
           </div>

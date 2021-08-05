@@ -12,6 +12,8 @@ import useDid from '../hooks/useHasDid'
 import './scss/layout.scss'
 import { BaseInfo } from '../entity/index'
 import { loginApi } from '../api/index'
+import useInterval from '../hooks/useInterval'
+import { tableInterVal } from '../constant/index'
 
 export const BaseInfoContext = createContext<any>({
   carrierConnStatus: '',
@@ -52,7 +54,11 @@ const Layout = (props: any) => {
 
   useEffect(() => {
     fetchData()
-  }, [isBaseInfoFresh])
+  }, [])
+
+  useInterval(() => {
+    fetchData()
+  }, tableInterVal)
   // useEffect(() => {
   //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   //   fetchData()

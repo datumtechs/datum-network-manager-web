@@ -7,7 +7,7 @@ const NodeMgt = React.lazy(() => import('../pages/nodeMgt/index').then(_ => ({ d
 const Resource = React.lazy(() => import('../pages/resource/index').then(_ => ({ default: _.Resource })))
 const MyData = React.lazy(() => import('../pages/resource/MyData/MyData').then(_ => ({ default: _.MyData })))
 const DataCenter = React.lazy(() => import('../pages/resource/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
-const MetaDataDetail = React.lazy(() => import('../pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
+// const MetaDataDetail = React.lazy(() => import('../pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
 const MyDataAddtion = React.lazy(() => import('../pages/resource/MyData/components/MyDataAddtion').then(_ => ({ default: _.MyDataAddtion })))
 const MyDataDetail = React.lazy(() => import('../pages/resource/MyData/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })))
 const ComputationCenter = React.lazy(() => import('../pages/resource/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })))
@@ -206,14 +206,14 @@ const routes: Array<IRoute> = [
             component: DataCenter,
             meta: { exact: true, title: '', icon: '', show: true },
           },
-          {
-            name: 'MetaDataDetail',
-            label: 'center.metaDataDetail',
-            breadcrumbName: 'center.metaDataDetail',
-            path: '/resource/dataCenter/metaDataDetail',
-            component: MetaDataDetail,
-            meta: { exact: true, title: '', icon: '', show: false },
-          },
+          // {
+          //   name: 'MetaDataDetail',
+          //   label: 'center.metaDataDetail',
+          //   breadcrumbName: 'center.metaDataDetail',
+          //   path: '/resource/dataCenter/metaDataDetail',
+          //   component: MetaDataDetail,
+          //   meta: { exact: true, title: '', icon: '', show: false },
+          // },
           {
             name: 'ComputationCenter',
             label: 'menu.computationCenter',

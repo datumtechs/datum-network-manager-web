@@ -12,7 +12,7 @@ const useComputeNodeDetailTable = (data: any): ComputeNode | any => {
       const res = await computeNodeApi.queryPowerJoinTaskList({ powerNodeId: data.id, pageNumber: data.curPage, pageSize: data.pageSize })
       if (res.status === 0 && res.data) {
         console.log(res);
-        tableSet(res.data)
+        tableSet(res)
       }
     })();
   }, [data.curPage])

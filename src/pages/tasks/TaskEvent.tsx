@@ -61,7 +61,7 @@ export const TaskEvent: FC<any> = (props: any) => {
         </div>
       </div>
       <div className="event-table-box">
-        <EventTable />
+        <EventTable id={id} />
       </div>
       <div className="btn-box">
         <Space size={40}>

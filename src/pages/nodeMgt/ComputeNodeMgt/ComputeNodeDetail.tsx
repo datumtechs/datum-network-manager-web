@@ -20,6 +20,7 @@ import ComputeDetailTable from './components/ComputeDetailTable'
 import useComputeNodeDetails from '../../../hooks/useComputeNodeDetails'
 import i18n from '../../../i18n/config'
 import { computeNodeApi } from '../../../api/index'
+import { fileSizeChange } from '../../../utils/utils'
 
 echarts.use([TooltipComponent, TitleComponent, LineChart, GridComponent, CanvasRenderer, LegendComponent])
 export const ComputeNodeDetail: FC<any> = (props: any) => {
@@ -46,7 +47,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   const getOneDayHours = (unit: string = `${t('common.hour')}`) => {
     const newHour: string[] = []
     for (let i = 0; i < 24; i++) {
-      newHour.unshift(`${dayjs().subtract(i, 'hour').hour()}`)
+      // newHour.unshift(`${dayjs().subtract(i, 'hour').hour()}`)
+      newHour.unshift(`${dayjs().subtract(i, 'hour').format('HH')}${t('common.hour')}`)
     }
     return newHour
   }
@@ -54,7 +56,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   const getDaysByNumber = (days: number, unit: string = `${t('common.day')}`) => {
     const newDays: string[] = []
     for (let i = 0; i < days; i++) {
-      newDays.unshift(`${dayjs().subtract(i, 'day').date()}`)
+      newDays.unshift(`${dayjs().subtract(i, 'day').format('MM-DD')}`)
     }
     return newDays
   }
@@ -73,6 +75,30 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
     },
     tooltip: {
       trigger: 'axis',
+      // axisPointer: {
+      //   type: 'cross',
+      //   label: {
+      //     backgroundColor: '#6a7985',
+      //   },
+      // },
+      formatter: params => {
+        console.log(params, 'paramsparamsparamsparams')
+        let v
+        if (selectTab === '1') {
+          v = `${params[0].data}${t('overview.core')}`
+        }
+        if (selectTab === '2') {
+          v = `${fileSizeChange(params[0].data)}`
+        }
+        if (selectTab === '3') {
+          v = `${fileSizeChange(params[0].data)}PS`
+        }
+        const str = `<div>
+        <p>${params[0].axisValue}</p</>
+        <p>${v}</p</>
+        </div>`
+        return str
+      },
     },
     xAxis: {
       type: 'category',
@@ -80,6 +106,19 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
     },
     yAxis: {
       type: 'value',
+      axisLabel: {
+        formatter: value => {
+          if (selectTab === '1') {
+            return `${value}${t('overview.core')}`
+          }
+          if (selectTab === '2') {
+            return `${fileSizeChange(value)}`
+          }
+          if (selectTab === '3') {
+            return `${fileSizeChange(value)}PS`
+          }
+        },
+      },
     },
     // legend: {
     //   align: 'auto',
@@ -113,7 +152,6 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
         name: 'Past 24 hours',
         type: 'line',
         stack: '总量',
-        // data: [120, 132, 101, 134, 90, 230, 210],
         data: [],
         smooth: true,
       },
@@ -121,7 +159,6 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
         name: 'Past 7 days',
         type: 'line',
         stack: '总量',
-        // data: [220, 182, 191, 234, 290, 330, 310],
         data: [],
         smooth: true,
       },
@@ -129,7 +166,6 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
         name: 'Past 15 days',
         type: 'line',
         stack: '总量',
-        // data: [150, 232, 201, 154, 190, 330, 410],
         data: [],
         smooth: true,
       },
@@ -137,7 +173,6 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
         name: 'Past 30 days',
         type: 'line',
         stack: '总量',
-        // data: [320, 332, 301, 334, 390, 330, 320],
         data: [],
         smooth: true,
       },
@@ -170,12 +205,23 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   }
 
   // const { details } = useComputeNodeDetails(id)
-  const { details } = useComputeNodeDetails(
-    'jobNode:0x64e0b86f853f8e4de6e95d24625022e308317860e06ae5d712a9ef6dc2e474c3',
-  )
+  const { details } = useComputeNodeDetails(id)
 
   // 按照selectTab的改变 请求api 获取数据
   // useEffect(() => initCharts(), [selectTab])
+
+  useEffect(() => {
+    cpuParSet(isNaN(details?.usedCore / details?.core) ? '0' : (details?.usedCore / details?.core).toFixed(2))
+    memoryParSet(
+      isNaN(details?.usedMemory / details?.memory) ? '0' : (details?.usedMemory / details?.memory).toFixed(2),
+    )
+    bandwidthParSet(
+      isNaN(details?.usedBandwidth / details?.bandwidth)
+        ? '0'
+        : (details?.usedBandwidth / details?.bandwidth).toFixed(2),
+    )
+  }, [details])
+
   useEffect(() => {
     if (selectTab === '1') {
       return curTitleSet(`${t(`overview.cpu`)}`)
@@ -189,18 +235,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   }, [selectTab, i18n.language])
 
   useEffect(() => {
-    cpuParSet(isNaN(details?.usedCore / details?.core) ? '0' : (details?.usedCore / details?.core).toFixed(0))
-    memoryParSet(
-      isNaN(details?.usedMemory / details?.memory) ? '0' : (details?.usedMemory / details?.memory).toFixed(0),
-    )
-    bandwidthParSet(
-      isNaN(details?.usedBandwidth / details?.bandwidth)
-        ? '0'
-        : (details?.usedBandwidth / details?.bandwidth).toFixed(0),
-    )
-  }, [details])
+    console.log('selectTab', selectTab)
 
-  useEffect(() => {
     if (selectTab === '1') {
       curPercentSet(Number(cpuPar))
     } else if (selectTab === '2') {
@@ -208,7 +244,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
     } else if (selectTab === '3') {
       curPercentSet(Number(bandwithPar))
     }
-  }, [selectTab])
+  }, [selectTab, cpuPar, memoryPar, bandwithPar])
 
   useEffect(() => {
     if (i18n.language === 'en') {
@@ -237,15 +273,17 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   const queryData = () => {
     computeNodeApi
       .queryPowerNodeUseHistory({
-        // powerNodeId: id,
-        powerNodeId: 'jobNode:0x64e0b86f853f8e4de6e95d24625022e308317860e06ae5d712a9ef6dc2e474c3',
+        powerNodeId: id,
         resourceType: selectTab,
         timeType,
       })
       .then(res => {
-        console.log('optionoptionoptionoptionoptionoptionoptionoptionoptionoption', option)
         if (res.status === 0) {
-          option.series[mapTimeType(timeType)].data = res.data // [2]['data'] = res.data
+          // option.series[mapTimeType(timeType)].data = res.data // [2]['data'] = res.data
+          if (selectTab === '2' || selectTab === '3') {
+            console.log(res.data, 'res.data,res.data')
+          }
+          option.series[mapTimeType(timeType)].data = res.data
           initCharts()
         }
       })
@@ -253,10 +291,9 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
         initCharts()
       })
   }
-
   useEffect(() => {
     queryData()
-  }, [selectTab, oneDayXAxis])
+  }, [selectTab, oneDayXAxis, i18n.language])
 
   useEffect(() => {
     if (timeType === 1) {

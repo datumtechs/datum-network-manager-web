@@ -9,6 +9,7 @@ import { taskApi } from '../../api/index'
 import EventStep from './components/EventStep'
 import UseTimeChange from '../../hooks/useTimeChange'
 import './scss/index.scss'
+import { fileSizeChange } from '../../utils/utils'
 
 export const TaskDetail: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -106,7 +107,7 @@ export const TaskDetail: FC<any> = (props: any) => {
         <Descriptions labelStyle={{ width: '50%' }} column={1} title={t('task.initialInfo')} bordered>
           <Descriptions.Item labelStyle={{ padding: '0 20px', width: '100px' }} label={t('task.timeRequire')}>
             {/* {baseInfo.duration} */}
-            {UseTimeChange(3600000)}
+            {UseTimeChange(baseInfo.duration)}
           </Descriptions.Item>
           <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.computeRequire')}>
             {/* TODO 根据不同角色显示不同的资源 算力提供方：显示计算节点信息 数据提供方：显示数据信息 */}
@@ -117,11 +118,11 @@ export const TaskDetail: FC<any> = (props: any) => {
               </p>
               <p>
                 <span>{t('overview.memory')}&nbsp;:&nbsp;</span>
-                <span>{baseInfo.costMemory}</span>
+                <span>{fileSizeChange(baseInfo.costMemory)}</span>
               </p>
               <p>
                 <span>{t('overview.bandwidth')}&nbsp;:&nbsp;</span>
-                <span>{baseInfo.costBandwidth}</span>
+                <span>{fileSizeChange(baseInfo.costBandwidth)}PS</span>
               </p>
             </div>
           </Descriptions.Item>

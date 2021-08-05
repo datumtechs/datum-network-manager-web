@@ -1,21 +1,20 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Descriptions, Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { fileSizeChange } from '../../../utils/utils'
 
 const ComputingTable: FC<any> = (props: any) => {
   const history = useHistory()
+  const { tableData } = props
+
   const pagination = {
     current: 1,
     defaultPageSize: 10,
   }
+
   const { t } = useTranslation()
-  const linkToDetail = () => {
-    history.push('/tasks/taskDetail')
-  }
-  const linkToEvent = () => {
-    history.push('/tasks/TaskEvent')
-  }
+
   const columns = [
     {
       title: 'No.',
@@ -53,7 +52,19 @@ const ComputingTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="table-box">
-      <Table dataSource={props.tableData} columns={columns} rowKey={_ => _.nodeIdentityId} bordered />
+      <Table
+        dataSource={tableData}
+        columns={columns}
+        rowKey={_ => _.nodeIdentityId}
+        bordered
+        // pagination={{
+        //   defaultCurrent: 1,
+        //   current: curPage,
+        //   pageSize: 10,
+        //   total: tableData.length,
+        //   // onChange: onPageChange,
+        // }}
+      />
     </div>
   )
 }

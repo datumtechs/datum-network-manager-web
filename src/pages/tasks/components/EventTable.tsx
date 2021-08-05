@@ -1,11 +1,12 @@
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { taskApi } from '../../../api/index'
 
 const EventTable: FC<any> = (props: any) => {
-  const { tableData } = props
   const history = useHistory()
+  const { id } = props
   const pagination = {
     current: 1,
     defaultPageSize: 10,
@@ -17,6 +18,19 @@ const EventTable: FC<any> = (props: any) => {
   const linkToEvent = () => {
     history.push('/tasks/taskDaily')
   }
+  const [tableData, tableDataSet] = useState([])
+
+  const queryData = () => {
+    taskApi.querytaskEventList(id).then(res => {
+      if (res.status === 0) {
+        tableDataSet(res.data)
+      }
+    })
+  }
+  useEffect(() => {
+    queryData()
+  }, [])
+
   const dataSource = [
     {
       key: '1',

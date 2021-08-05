@@ -78,11 +78,11 @@ const DataTable: FC<any> = (props: any) => {
     }
   }
 
-  const viewInfo = () => {
+  const viewInfo = row => {
     history.push({
       pathname: '/nodeMgt/computeNodeMgt/computeNodeDetail',
       state: {
-        id: '11111111',
+        id: row.powerNodeId,
       },
     })
   }
@@ -249,7 +249,7 @@ const DataTable: FC<any> = (props: any) => {
             )}
             {row.connStatus === '2' ? (
               <>
-                <span className="btn pointer" onClick={() => viewInfo()}>
+                <span className="btn pointer" onClick={() => viewInfo(row)}>
                   {t('common.viewNodeInfo')}
                 </span>
               </>

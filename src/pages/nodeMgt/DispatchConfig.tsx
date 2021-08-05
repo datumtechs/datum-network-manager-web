@@ -30,7 +30,7 @@ const DispatchConfig: FC<any> = (props: any) => {
       carrierIp: baseInfo.carrierIp,
       carrierPort: baseInfo.carrierPort,
     })
-  }, [baseInfo])
+  }, [])
 
   useEffect(() => {
     if (baseInfo.status === 1) {
@@ -60,10 +60,11 @@ const DispatchConfig: FC<any> = (props: any) => {
     nodeApi.applyJoinNetwork().then(res => {
       if (res.status === 0) {
         // TODO:  临时解决办法 使用5秒后拉取最新状态的方式解决延迟的问题
-        setTimeout(() => {
-          message.success(`${t('tip.joinNetworkSuccess')}`)
-          props.setBaseInfoStatus(true)
-        }, 5000)
+        message.success(`${t('tip.joinNetworkSuccess')}`)
+        // setTimeout(() => {
+        //   message.success(`${t('tip.joinNetworkSuccess')}`)
+        //   // props.setBaseInfoStatus(true)
+        // }, 5000)
       } else {
         message.error(`${t('tip.joinNetworkFailed')}`)
       }
@@ -75,7 +76,10 @@ const DispatchConfig: FC<any> = (props: any) => {
     nodeApi.withDrawNetwork().then(res => {
       if (res.status === 0) {
         message.success(`${t('node.logoutSuccess')}`)
-        props.setBaseInfoStatus(false)
+        // setTimeout(() => {
+        //   message.success(`${t('node.logoutSuccess')}`)
+        //   // props.setBaseInfoStatus(false)
+        // }, 5000)
       } else {
         message.error(`${t('node.logoutFailed')}`)
       }

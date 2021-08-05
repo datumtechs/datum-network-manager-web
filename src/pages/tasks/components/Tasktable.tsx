@@ -6,6 +6,7 @@ import dayjs from 'dayjs'
 
 const Status: FC<any> = (props: any) => {
   const { t } = useTranslation()
+
   const color = {
     pending: '#FFA505',
     running: '#5D5C65',
@@ -20,6 +21,7 @@ const Status: FC<any> = (props: any) => {
 }
 
 const MyTable = (props, ref) => {
+  const { tableData, total } = props
   const history = useHistory()
   const pagination = {
     current: 1,
@@ -43,6 +45,11 @@ const MyTable = (props, ref) => {
       },
     })
   }
+
+  const onPageChange = page => {
+    props.pageChange(page)
+  }
+
   const columns = [
     {
       title: '',
@@ -102,7 +109,13 @@ const MyTable = (props, ref) => {
   ]
   return (
     <div className="table-box">
-      <Table dataSource={props.tableData} columns={columns} rowKey={_ => _.id} bordered />
+      <Table
+        dataSource={tableData}
+        columns={columns}
+        rowKey={_ => _.id}
+        bordered
+        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+      />
     </div>
   )
 }

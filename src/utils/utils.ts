@@ -34,15 +34,16 @@ export const thousandMark = (input) => {
 }
 
 export const fileSizeChange = (input: number) => {
+  if (!input) return 0
   let size = ''
   if (input < 0.1 * 1024) { // 小于0.1KB，则转化成B
-    size = `${input.toFixed(2)}B`
+    size = `${input.toFixed(2)} B`
   } else if (input < 0.1 * 1024 * 1024) { // 小于0.1MB，则转化成KB
-    size = `${(input / 1024).toFixed(2)}KB`
+    size = `${(input / 1024).toFixed(2)} KB`
   } else if (input < 0.1 * 1024 * 1024 * 1024) { // 小于0.1GB，则转化成MB
-    size = `${(input / (1024 * 1024)).toFixed(2)}MB`
+    size = `${(input / (1024 * 1024)).toFixed(2)} MB`
   } else { // 其他转化成GB
-    size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}GB`
+    size = `${(input / (1024 * 1024 * 1024)).toFixed(2)} GB`
   }
-  return isZeroEnd(size)
+  return size
 }
