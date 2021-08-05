@@ -31,7 +31,7 @@ export const BaseInfoContext = createContext<any>({
 // import { getPageTitle, systemRouteList } from '../router/utils';
 const Layout = (props: any) => {
   const history = useHistory()
-  const { isBaseInfoFresh } = props.state.baseInfo
+  const [isLoading, isLoadingSet] = useState<boolean>(false)
   const [info, setInfo] = useState<BaseInfo>({
     carrierConnStatus: '',
     carrierConnTime: '',
@@ -45,7 +45,9 @@ const Layout = (props: any) => {
   })
   const { pathname } = useLocation()
   const fetchData = async () => {
+    isLoadingSet(true)
     const result = await loginApi.queryBaseInfo()
+    isLoadingSet(false)
     setInfo(result?.data)
     if (result && !result.data?.identityId) {
       history.push('/didApplication')
@@ -70,34 +72,40 @@ const Layout = (props: any) => {
         <Header list={props.routes} className="header-container" />
         <div className="main-box">
           <div className={pathname === '/overview' ? 'wrapper-box' : 'main-wrapper-box '}>
-            <Suspense
-              fallback={
-                <div className="layout__loading">
-                  <Spin size="large" />
-                </div>
-              }
-            >
-              <Switch>
-                {props.routes.map((route: IRoute) => (
-                  <Route
-                    path={route.path}
-                    key={route.path}
-                    exact={route.meta.exact}
-                    render={prop => (
-                      <Auth {...props} route={route}>
-                        <route.component {...prop} routes={route.children} />
-                      </Auth>
-                    )}
-                  />
-                ))}
-                <Redirect from="/*" exact to="/overview" push />
-                {/* {info?.identityId ? (
-                    <Redirect from="/*" exact to="/overview" push />
-                  ) : (
-                    <Redirect from="/*" to="/didApplication" push />
-                  )} */}
-              </Switch>
-            </Suspense>
+            {isLoading ? (
+              <div className="layout__loading">
+                <Spin size="large" />
+              </div>
+            ) : (
+              <Suspense
+                fallback={
+                  <div className="layout__loading">
+                    <Spin size="large" />
+                  </div>
+                }
+              >
+                <Switch>
+                  {props.routes.map((route: IRoute) => (
+                    <Route
+                      path={route.path}
+                      key={route.path}
+                      exact={route.meta.exact}
+                      render={prop => (
+                        <Auth {...props} route={route}>
+                          <route.component {...prop} routes={route.children} />
+                        </Auth>
+                      )}
+                    />
+                  ))}
+                  <Redirect from="/*" exact to="/overview" push />
+                  {/* {info?.identityId ? (
+                      <Redirect from="/*" exact to="/overview" push />
+                    ) : (
+                      <Redirect from="/*" to="/didApplication" push />
+                    )} */}
+                </Switch>
+              </Suspense>
+            )}
           </div>
         </div>
       </div>
