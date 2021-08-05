@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react'
 import { Descriptions, Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { fileSizeChange } from '../../../utils/utils'
 
 const ComputingTable: FC<any> = (props: any) => {
   const history = useHistory()
@@ -37,13 +36,25 @@ const ComputingTable: FC<any> = (props: any) => {
         return (
           <ul className="power-occupied-item">
             <li>
-              {t('overview.cpu')}: {record.usedCore ? record.usedCore : `0.00%`}
+              <span>{t('overview.cpu')}: </span>
+              {isNaN(record.usedCore / record.totalCore)
+                ? '0.00'
+                : ((record.usedCore / record.totalCore) * 100).toFixed(2)}
+              %
             </li>
             <li>
-              {t('overview.memory')}: {record.usedMemory ? record.usedMemory : `0.00%`}
+              <span>{t('overview.memory')}: </span>{' '}
+              {isNaN(record.usedMemory / record.totalMemory)
+                ? '0.00'
+                : ((record.usedMemory / record.totalMemory) * 100).toFixed(2)}
+              %
             </li>
             <li>
-              {t('overview.bandwidth')}: {record.usedBandwidth ? record.usedBandwidth : `0.00%`}
+              <span>{t('overview.bandwidth')}: </span>{' '}
+              {isNaN(record.usedBandwidth / record.totalBandwidth)
+                ? '0.00'
+                : ((record.usedBandwidth / record.totalBandwidth) * 100).toFixed(2)}
+              %
             </li>
           </ul>
         )

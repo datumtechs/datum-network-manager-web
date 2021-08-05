@@ -82,7 +82,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: '',
+      title: 'No.',
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {

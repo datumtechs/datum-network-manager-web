@@ -123,7 +123,7 @@ const DataTable: FC<any> = (props: any) => {
   ]
   const columns = [
     {
-      title: '',
+      title: 'No.',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
       width: 80,
     },
@@ -350,7 +350,7 @@ const DataTable: FC<any> = (props: any) => {
             </p>
             <p>
               <span className="title">{t('overview.bandwidth')}:</span>
-              <span>{`${changeSizeFn(Number(curRow.bandwidth))}PS`}</span>
+              <span>{`${changeSizeFn(Number(curRow.bandwidth))}P/S`}</span>
             </p>
             <p>
               <span className="title">{t('common.remark')}:</span>

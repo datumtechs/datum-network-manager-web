@@ -122,7 +122,7 @@ export const TaskDetail: FC<any> = (props: any) => {
               </p>
               <p>
                 <span>{t('overview.bandwidth')}&nbsp;:&nbsp;</span>
-                <span>{fileSizeChange(baseInfo.costBandwidth)}PS</span>
+                <span>{fileSizeChange(baseInfo.costBandwidth)}P/S</span>
               </p>
             </div>
           </Descriptions.Item>
@@ -159,7 +159,7 @@ export const TaskDetail: FC<any> = (props: any) => {
             })} */}
         </Descriptions>
       </div>
-      <div className="info-box" style={{ width: '50%' }}>
+      <div className="info-box flex-info-box">
         <Descriptions column={1} title={t('task.partiesInformation')} bordered>
           <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.sponsor')}>
             <span className="node-name">{baseInfo.owner.nodeName}</span>

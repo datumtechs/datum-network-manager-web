@@ -153,3 +153,11 @@
 .ant-descriptions-view {
   margin-left: 20px;
 }
+
+.flex-info-box {
+  @media screen and (max-width: 1440px) {
+    width: 80%;
+    padding: 0 20px;
+  }
+  width: 50%;
+}

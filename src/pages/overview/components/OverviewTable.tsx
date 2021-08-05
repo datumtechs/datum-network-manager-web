@@ -207,7 +207,7 @@ const OverviewTable: FC<any> = (props: any) => {
                       {isNaN(item.usedBandwidth / item.totalBandwidth)
                         ? '0B'
                         : fileSizeChange(Number(item.usedBandwidth))}
-                      PS
+                      P/S
                     </p>
                   </div>
                 </div>

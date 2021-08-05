@@ -31,26 +31,28 @@ const MetaTable: FC<any> = (props: any) => {
   const [dataSource, dataSourceSet] = useState([])
   const columns = [
     {
-      title: '',
+      title: 'No.',
       render: (text, record, index) => `${(curPage - 1) * pagination.pageSize + (index + 1)}`,
       width: 80,
     },
     {
       title: t('center.name&metaID'),
       dataIndex: 'fileName',
-      width: 800,
+      width: 600,
       ellipsis: true,
       render: (text, record, index) => {
         return (
           <>
-            <Space size={60}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>{text}</span>
-              <span className="link pointer pl-40" onClick={() => linkMeta(record)}>
+              <span style={{ paddingRight: 80 }} className="link pointer" onClick={() => linkMeta(record)}>
                 {t('center.viewMetaData')}
               </span>
-            </Space>
+            </div>
             <Tooltip title={record.metaDataId}>
-              <div style={{ whiteSpace: 'nowrap' }}>ID: {record.metaDataId}</div>
+              <div className="ellipsis" style={{ whiteSpace: 'nowrap' }}>
+                ID: &nbsp;{record.metaDataId}
+              </div>
             </Tooltip>
           </>
         )

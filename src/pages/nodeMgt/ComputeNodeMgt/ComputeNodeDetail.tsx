@@ -91,7 +91,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
           v = `${fileSizeChange(params[0].data)}`
         }
         if (selectTab === '3') {
-          v = `${fileSizeChange(params[0].data)}PS`
+          v = `${fileSizeChange(params[0].data)}P/S`
         }
         const str = `<div>
         <p>${params[0].axisValue}</p</>
@@ -115,7 +115,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
             return `${fileSizeChange(value)}`
           }
           if (selectTab === '3') {
-            return `${fileSizeChange(value)}PS`
+            return `${fileSizeChange(value)}P/S`
           }
         },
       },

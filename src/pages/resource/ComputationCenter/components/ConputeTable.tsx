@@ -27,7 +27,7 @@ const CenterTable: FC<any> = (props: any) => {
   const [dataSource, dataSourceSet] = useState([])
   const columns = [
     {
-      title: '',
+      title: 'No.',
       render: (text, record, index) => `${(curPage - 1) * pagination.pageSize + (index + 1)}`,
     },
     {
@@ -94,7 +94,7 @@ const CenterTable: FC<any> = (props: any) => {
           <div className="power-col">
             <div className="prev-steelblue">
               <span className="name">{changeSizeFn(text).replace(/[A-Za-z]*$/, '')}</span>
-              {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}/PS
+              {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}P/S
             </div>
             <div>
               {t('center.remaining')}: <span className="remain-num">{dealRemain(text, record.usedBandwidth)}</span>

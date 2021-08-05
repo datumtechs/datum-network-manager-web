@@ -63,7 +63,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   ]
   const columns = [
     {
-      title: '',
+      title: 'No.',
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -149,7 +149,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             </Row>
             <Row>
               <Col span={4}>{t('overview.bandwidth')}:</Col>
-              <Col span={8}>{fileSizeChange(record.usedBandwidth)}PS</Col>
+              <Col span={8}>{fileSizeChange(record.usedBandwidth)}P/S</Col>
               <Col span={12}>{`(${t('overview.occupied')} ${
                 isNaN(record.usedBandwidth / bandwidth) ? '0.00' : ((record.usedBandwidth / bandwidth) * 100).toFixed(2)
               } %)`}</Col>
