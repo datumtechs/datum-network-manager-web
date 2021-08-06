@@ -2,10 +2,12 @@ import { FC, useEffect, useState } from 'react'
 import { Descriptions, Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { fileSizeChange } from '../../../utils/utils'
 
 const ComputingTable: FC<any> = (props: any) => {
   const history = useHistory()
   const { tableData } = props
+  const [curPage, curPageSet] = useState<number>(1)
 
   const pagination = {
     current: 1,
@@ -14,11 +16,19 @@ const ComputingTable: FC<any> = (props: any) => {
 
   const { t } = useTranslation()
 
+  const onPageChange = (page: number) => {
+    curPageSet(page)
+  }
+
   const columns = [
     {
       title: 'No.',
       width: 50,
-      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      render: (text, record, index) => {
+        console.log(index, 'index')
+
+        return `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`
+      },
     },
 
     {
@@ -37,24 +47,27 @@ const ComputingTable: FC<any> = (props: any) => {
           <ul className="power-occupied-item">
             <li>
               <span>{t('overview.cpu')}: </span>
-              {isNaN(record.usedCore / record.totalCore)
+              {`${record.usedCore} ${t('overview.core')}`}
+              {/* {isNaN(record.usedCore / record.totalCore)
                 ? '0.00'
                 : ((record.usedCore / record.totalCore) * 100).toFixed(2)}
-              %
+              % */}
             </li>
             <li>
-              <span>{t('overview.memory')}: </span>{' '}
-              {isNaN(record.usedMemory / record.totalMemory)
+              <span>{t('overview.memory')}: </span>
+              {fileSizeChange(record.usedMemory)}
+              {/* {isNaN(record.usedMemory / record.totalMemory)
                 ? '0.00'
                 : ((record.usedMemory / record.totalMemory) * 100).toFixed(2)}
-              %
+              % */}
             </li>
             <li>
-              <span>{t('overview.bandwidth')}: </span>{' '}
-              {isNaN(record.usedBandwidth / record.totalBandwidth)
+              <span>{t('overview.bandwidth')}: </span>
+              {`${fileSizeChange(record.usedBandwidth)}P/S`}
+              {/* {isNaN(record.usedBandwidth / record.totalBandwidth)
                 ? '0.00'
                 : ((record.usedBandwidth / record.totalBandwidth) * 100).toFixed(2)}
-              %
+              % */}
             </li>
           </ul>
         )
@@ -66,15 +79,12 @@ const ComputingTable: FC<any> = (props: any) => {
       <Table
         dataSource={tableData}
         columns={columns}
-        rowKey={_ => _.nodeIdentityId}
         bordered
-        // pagination={{
-        //   defaultCurrent: 1,
-        //   current: curPage,
-        //   pageSize: 10,
-        //   total: tableData.length,
-        //   // onChange: onPageChange,
-        // }}
+        pagination={{
+          defaultCurrent: 1,
+          defaultPageSize: 10,
+          onChange: onPageChange,
+        }}
       />
     </div>
   )

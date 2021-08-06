@@ -14,13 +14,13 @@ const SeedNode: FC<any> = (props: any) => {
   return (
     <div className="seed-box pointer" onClick={linkToCompute}>
       <div className="num">
-        <span className="number">{powerDataObj.runningTaskCount}</span>
+        <span className="number">{powerDataObj.powerNodeCount}</span>
         <span className="title">{t('overview.computeNode')}</span>
       </div>
       <div className="compute-box">
         <div className="title-section">
           <span>{t('overview.taskInProgress')}:</span>
-          <span className="value mainColor">{powerDataObj.powerNodeCount}</span>
+          <span className="value mainColor">{powerDataObj.runningTaskCount}</span>
         </div>
         {/* <div className="ring-box">
           <Progress type="circle" percent={props.precent} width={50} strokeWidth={8} strokeColor="#3c3588" />

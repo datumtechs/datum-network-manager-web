@@ -26,7 +26,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     history.push({
       pathname: '/tasks/taskDetail',
       state: {
-        id,
+        id: obj.taskId,
       },
     })
   }

@@ -114,7 +114,9 @@ export const TaskDetail: FC<any> = (props: any) => {
             <div>
               <p>
                 <span>{t('overview.cpu')}&nbsp;:&nbsp;</span>
-                <span>{baseInfo.costCore}</span>
+                <span>
+                  {baseInfo.costCore} &nbsp;{t('overview.core')}
+                </span>
               </p>
               <p>
                 <span>{t('overview.memory')}&nbsp;:&nbsp;</span>

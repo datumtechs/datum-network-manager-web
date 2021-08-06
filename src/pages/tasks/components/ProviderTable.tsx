@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 
@@ -8,11 +8,15 @@ const ProviderTable: FC<any> = (props: any) => {
     defaultPageSize: 10,
   }
   const { t } = useTranslation()
+  const [curPage, curPageSet] = useState<number>(1)
+  const onPageChange = (page: number) => {
+    curPageSet(page)
+  }
   const columns = [
     {
       title: 'No.',
       width: 50,
-      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
     {
@@ -37,7 +41,16 @@ const ProviderTable: FC<any> = (props: any) => {
   ]
   return (
     <div className="table-box">
-      <Table dataSource={props.tableData} columns={columns} rowKey={_ => _.nodeIdentityId} bordered />
+      <Table
+        dataSource={props.tableData}
+        columns={columns}
+        pagination={{
+          defaultCurrent: 1,
+          defaultPageSize: 10,
+          onChange: onPageChange,
+        }}
+        bordered
+      />
     </div>
   )
 }

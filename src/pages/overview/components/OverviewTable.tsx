@@ -9,111 +9,21 @@ import { fileSizeChange } from '../../../utils/utils'
 const OverviewTable: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { globalObj, tableData } = props
-  const dataSource = [
-    {
-      key: '1',
-      name: '节点1',
-      age: '西湖区湖底公园1号',
-      address: '西湖区湖底公园1号',
-      cpu: '0',
-      memory: '0',
-      status: 'free',
-      bandWidth: '0',
-      runTime: '',
-    },
-    {
-      key: '2',
-      name: '节点2',
-      age: '西湖区湖底公园1号',
-      address: '西湖区湖底公园1号',
-      cpu: '75',
-      memory: '256',
-      bandWidth: '35',
-      status: 'Occupied',
-      runTime: '05: 11: 87',
-    },
-    {
-      key: '111123',
-      name: '节点3',
-      age: '西湖区湖底公园1号',
-      address: '西湖区湖底公园1号',
-      cpu: '88',
-      memory: '128',
-      status: 'Occupied',
-      bandWidth: '76',
-      runTime: '02: 14: 22',
-    },
-    {
-      key: '2333',
-      name: '节点4',
-      age: '西湖区湖底公园1号',
-      address: '西湖区湖底公园1号',
-      cpu: '27',
-      memory: '256',
-      bandWidth: '89',
-      status: 'Occupied',
-      runTime: '07: 11: 33',
-    },
-    {
-      key: '1231',
-      name: '节点5',
-      age: '西湖区湖底公园1号',
-      address: '西湖区湖底公园1号',
-      cpu: '44',
-      memory: '128',
-      status: 'Occupied',
-      bandWidth: '17',
-      runTime: '15: 28: 56',
-    },
-    {
-      key: '122',
-      name: '节点6',
-      age: '西湖区湖底公园1号',
-      address: '西湖区湖底公园1号',
-      cpu: '61',
-      memory: '256',
-      bandWidth: '63',
-      status: 'Occupied',
-      runTime: '02: 02: 59',
-    },
-    {
-      key: '11',
-      name: '节点7',
-      age: '西湖区湖底公园1号',
-      address: '西湖区湖底公园1号',
-      cpu: '99',
-      memory: '128',
-      status: 'Occupied',
-      bandWidth: '25',
-      runTime: '10: 36: 03',
-    },
-    {
-      key: '12',
-      name: '节点8',
-      age: '西湖区湖底公园1号',
-      address: '西湖区湖底公园1号',
-      cpu: '87',
-      memory: '256',
-      bandWidth: '78',
-      status: 'Occupied',
-      runTime: '01: 34: 32',
-    },
-  ]
 
   const cpu = useMemo(() => {
     return isNaN(globalObj.usedProcessor / globalObj.totalProcessor)
       ? '0'
-      : (globalObj.usedProcessor / globalObj.totalProcessor).toFixed(0)
+      : ((globalObj.usedProcessor / globalObj.totalProcessor) * 100).toFixed(2)
   }, [globalObj.usedProcessor, globalObj.totalProcessor])
 
   const memory = useMemo(() => {
-    return isNaN(globalObj.usedMem / globalObj.totalMem) ? '0' : (globalObj.usedMem / globalObj.totalMem).toFixed(0)
+    return isNaN(globalObj.usedMem / globalObj.totalMem) ? '0' : (globalObj.usedMem / globalObj.totalMem).toFixed(2)
   }, [globalObj.totalMem, globalObj.usedMem])
 
   const bandWidth = useMemo(() => {
     return isNaN(globalObj.usedBandwidth / globalObj.totalBandwidth)
       ? '0'
-      : (globalObj.usedBandwidth / globalObj.totalBandwidth).toFixed(0)
+      : (globalObj.usedBandwidth / globalObj.totalBandwidth).toFixed(2)
   }, [globalObj.totalBandwidth, globalObj.usedBandwidth])
 
   return (
@@ -191,7 +101,7 @@ const OverviewTable: FC<any> = (props: any) => {
                     <p className="table-content">
                       {isNaN(item.usedProcessor / item.totalProcessor)
                         ? '0'
-                        : (item.usedProcessor / item.totalProcessor).toFixed(0)}
+                        : ((item.usedProcessor / item.totalProcessor) * 100).toFixed(2)}
                       %
                     </p>
                   </div>
