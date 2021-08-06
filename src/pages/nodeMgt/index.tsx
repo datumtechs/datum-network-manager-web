@@ -3,8 +3,6 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import { IRoute } from '../../router/index'
 
 export const NodeMgt: FC<any> = ({ routes }) => {
-  console.log(routes)
-
   return (
     <Switch>
       {routes.map((route: IRoute) => (

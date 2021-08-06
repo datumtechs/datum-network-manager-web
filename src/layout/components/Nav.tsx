@@ -14,7 +14,6 @@ const Nav = (props: any) => {
   const baseInfo = useContext(BaseInfoContext)
 
   useEffect(() => {
-    console.log('pathname=====>', pathname)
     SetCurPath(pathname === '/' ? '/overview' : pathname)
   }, [pathname])
 

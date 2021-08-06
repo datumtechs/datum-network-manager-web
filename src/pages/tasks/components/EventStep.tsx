@@ -7,14 +7,11 @@ const StepIcon: FC<any> = (props: any) => {
   return <div className={`step-icon ${props.scolor}`}></div>
 }
 const fmtTime = time => {
-  console.log('time: ', time)
   return time ? dayjs(time).format('YYYY-MM-DD HH:mm:ss') : ''
 }
 const LastStep: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { status, duration } = props
-  console.log('props', props)
-
   return (
     <>
       <p>

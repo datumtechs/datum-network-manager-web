@@ -3,7 +3,6 @@ import { Table } from 'antd'
 // import { useTranslation } from 'react-i18next'
 
 const MyTable: FC<any> = (props: any) => {
-  console.log(props)
   // const { t } = useTranslation()
   const pagination = {
     current: 1,

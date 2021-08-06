@@ -11,7 +11,6 @@ const useComputeNodeDetailTable = (data: any): ComputeNode | any => {
     (async () => {
       const res = await computeNodeApi.queryPowerJoinTaskList({ powerNodeId: data.id, pageNumber: data.curPage, pageSize: data.pageSize })
       if (res.status === 0 && res.data) {
-        console.log(res);
         tableSet(res)
       }
     })();

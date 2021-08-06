@@ -24,7 +24,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const { data: { status, msg }, config: { url } } = response
-    console.log(window.location.pathname);
     if (status === 1000) {
       const { pathname } = window.location
       location.href = `/login?type=redirect#${pathname}`

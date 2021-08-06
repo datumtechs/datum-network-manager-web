@@ -60,18 +60,15 @@ const MyFiledsTable: FC<any> = (props: any) => {
       row[column] = e.target.value
     }
     setData(rows)
-    // console.log("originalList", props.state.tableData.originalList);
     // const tempAry = props.state.tableData.originalList
     // tempAry.forEach(item => {
     //   if (item.id === record.id) {
     //     item[column] = e.target.value
     //   }
     // })
-    // console.log("updated tempAry===============>", tempAry);
     props.updateData(data)
   }
   const onPageChange = (page: number) => {
-    console.log(page)
     setPage(page)
   }
   useEffect(() => {

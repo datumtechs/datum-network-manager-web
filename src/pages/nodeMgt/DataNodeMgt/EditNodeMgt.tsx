@@ -37,7 +37,6 @@ export const EditNodeMgt: FC<any> = (props: any) => {
   }
 
   const onFinish = (values: DataNode) => {
-    console.log('values', values)
     if (type === 'Edit') {
       dataNodeApi
         .updateDataNode({

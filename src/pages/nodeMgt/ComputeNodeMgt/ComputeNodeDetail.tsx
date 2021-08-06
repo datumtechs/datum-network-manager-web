@@ -82,7 +82,6 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
       //   },
       // },
       formatter: params => {
-        console.log(params, 'paramsparamsparamsparams')
         let v
         if (selectTab === '1') {
           v = `${params[0].data}${t('overview.core')}`
@@ -280,9 +279,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
       .then(res => {
         if (res.status === 0) {
           // option.series[mapTimeType(timeType)].data = res.data // [2]['data'] = res.data
-          if (selectTab === '2' || selectTab === '3') {
-            console.log(res.data, 'res.data,res.data')
-          }
+          // if (selectTab === '2' || selectTab === '3') {
+          // }
           option.series[mapTimeType(timeType)].data = res.data
           initCharts()
         }

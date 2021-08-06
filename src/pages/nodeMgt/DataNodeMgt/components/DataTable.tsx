@@ -97,11 +97,7 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.status'),
       dataIndex: 'connStatus',
       key: 'connStatus',
-      render: (text, record, index) => {
-        console.log('status', record.connStatus)
-
-        return <>{UseStatus(record.connStatus)}</>
-      },
+      render: (text, record, index) => <>{UseStatus(record.connStatus)}</>,
     },
     {
       title: t('common.ip'),

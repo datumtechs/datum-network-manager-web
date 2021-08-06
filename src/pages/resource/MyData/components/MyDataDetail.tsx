@@ -101,7 +101,6 @@ const MyData: FC<any> = props => {
       localMetaDataColumnList: originalData,
     }
     resourceApi.updateMetaData(dataObj).then(res => {
-      console.log(res)
       if (res.status === 0) {
         // history.push('/resource/myData')
         history.push('/resource/myData')

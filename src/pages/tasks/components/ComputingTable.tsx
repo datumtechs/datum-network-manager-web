@@ -24,11 +24,7 @@ const ComputingTable: FC<any> = (props: any) => {
     {
       title: 'No.',
       width: 50,
-      render: (text, record, index) => {
-        console.log(index, 'index')
-
-        return `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`
-      },
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
     {

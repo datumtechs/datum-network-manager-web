@@ -90,7 +90,6 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     //   dataIndex: 'operations',
     //   key: 'operations',
     //   render: (text: any, row: any, index: any) => {
-    //     console.log('row', row)
     //     return (
     //       <span className="btn pointer" onClick={viewInfo}>
     //         {t('computeNodeMgt.detail')}

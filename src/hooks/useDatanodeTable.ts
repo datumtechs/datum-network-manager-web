@@ -9,9 +9,7 @@ const useDatanodeTable = (data: SearchPageTable): DataNode | any => {
   useEffect(() => {
     (async () => {
       const res = await dataNodeApi.queryDatanodeList(data)
-      console.log("数据节点分页数据 ============>", res);
       if (res.status === 0) {
-        console.log(res);
         tableSet(res)
       }
     })();

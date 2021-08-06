@@ -15,7 +15,6 @@ const DispatchConfig: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
-  console.log(baseInfo)
 
   const [hasService, setHasService] = useState<boolean>(false)
   const [isConnect, setIsConnect] = useState<boolean>(false)

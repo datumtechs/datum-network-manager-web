@@ -42,7 +42,6 @@ export const MyDataAddtion: FC<any> = porps => {
       }
     })
   }
-  console.log(isFileNameRight, 'isFileNameRight')
 
   const selectFileFn = () => {}
   const goBackFn = () => {
@@ -55,7 +54,6 @@ export const MyDataAddtion: FC<any> = porps => {
     history.go(-1)
   }
   const submitFn = () => {
-    console.log('未做判空')
     if (!radioValue) {
       setShowIncludeError(true)
       upLoadingSet(false)
@@ -89,9 +87,7 @@ export const MyDataAddtion: FC<any> = porps => {
           }
         })
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .catch(error => {})
   }
   // TODO type
   const getShowSource = data => {

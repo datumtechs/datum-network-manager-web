@@ -17,9 +17,6 @@ export const EditComputeNode: FC<any> = (props: any) => {
   //   wrapperCol: { offset: 4, span: 8 },
   // }
   const { type, row } = location.state
-  console.log(row)
-
-  console.log('location.state', type)
   const leaveFn = () => {
     setIsModalVisible(true)
   }

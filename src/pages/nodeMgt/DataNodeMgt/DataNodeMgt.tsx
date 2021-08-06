@@ -11,7 +11,6 @@ export const DataNodeMgt: FC<any> = props => {
   const history = useHistory()
   const [searchText, searchTextSet] = useState('')
   const onAdd = () => {
-    console.log('add Btn')
     history.push({
       pathname: '/nodeMgt/dataNodeMgt/addDataNode',
       state: {
