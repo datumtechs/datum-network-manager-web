@@ -33,8 +33,8 @@ export const thousandMark = (input) => {
   return input.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
 }
 
-export const fileSizeChange = (input: number) => {
-  if (input === null || input === undefined) return `0.00 B`
+export const fileSizeChange = (input: any) => {
+  if (input === null || input === undefined || input === "") return `0.00 B`
   let size = ''
   if (input < 0.1 * 1024) { // 小于0.1KB，则转化成B
     size = `${input.toFixed(2)} B`
