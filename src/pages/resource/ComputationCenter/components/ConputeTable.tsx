@@ -17,7 +17,7 @@ const CenterTable: FC<any> = (props: any) => {
   const onPageChange = num => setCurPage(num)
   const dealRemain = (all, used) => {
     if (all === 0) return '0'
-    return (((all - used) / all) * 100).toFixed(0) // .replace('.00', '')
+    return (((all - used) / all) * 100).toFixed(2)
   }
   const [dataSource, dataSourceSet] = useState([])
   const columns = [
