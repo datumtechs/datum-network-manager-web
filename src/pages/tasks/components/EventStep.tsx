@@ -2,16 +2,23 @@ import React, { FC, useState } from 'react'
 import { Steps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
+import { formatDuring } from '../../../utils/utils'
 
 const StepIcon: FC<any> = (props: any) => {
   return <div className={`step-icon ${props.scolor}`}></div>
 }
 const fmtTime = time => {
-  return time ? dayjs(time).format('YYYY-MM-DD HH:mm:ss') : ''
+  return time ? dayjs(time).format('HH:mm:ss') : ''
 }
 const LastStep: FC<any> = (props: any) => {
   const { t } = useTranslation()
-  const { status, duration } = props
+  const { status, endAt, startAt } = props
+
+  // const endAt = 1628734150000
+  // const startAt = 1627783750000
+  console.log(endAt, 'endAt')
+  console.log(startAt, 'startAt')
+
   return (
     <>
       <p>
@@ -20,7 +27,7 @@ const LastStep: FC<any> = (props: any) => {
       </p>
       {status === 'success' ? (
         <p>
-          {t('task.step.timeSpent')}: &nbsp;{fmtTime(duration)}
+          {t('task.step.timeSpent')}: &nbsp;{formatDuring(endAt - startAt)}
         </p>
       ) : (
         ''
@@ -59,7 +66,7 @@ const EventStep: FC<any> = (props: any) => {
         <Step
           title={fmtTime(endAt)}
           icon={<StepIcon scolor={(status === 'failed' && 'fail') || (status === 'success' && 'active')} />}
-          description={<LastStep status={status} duration={duration} />}
+          description={<LastStep status={status} startAt={startAt} endAt={endAt} />}
         />
       </Steps>
     </div>

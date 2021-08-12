@@ -69,7 +69,10 @@
     }
     .right {
       width: 60%;
-      padding: 0px 0px;
+      padding: 0px 50px;
+      @media screen and (max-width: 1366px) {
+        padding: 0px 30px;
+      }
     }
   }
 }
