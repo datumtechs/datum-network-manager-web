@@ -59,7 +59,7 @@ export const formatDuring = time => {
   const hours = parseInt(`${time / (1000 * 60 * 60)}`, 10)
   const minutes = parseInt(`${(time % (1000 * 60 * 60)) / (1000 * 60)}`, 10)
   const seconds = parseInt(`${(time % (1000 * 60)) / 1000}`, 10)
-  const str = `${_isZero(hours)}:${_isZero(minutes)}:${_isZero(seconds)}`
-  return str
+  return `${_isZero(hours)}:${_isZero(minutes)}:${_isZero(seconds)}`
+
 }
 
