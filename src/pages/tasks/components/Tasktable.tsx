@@ -1,5 +1,5 @@
-import React, { FC, useState, useEffect, useImperativeHandle } from 'react'
-import { Table, Space } from 'antd'
+import { FC } from 'react'
+import { Table, Space, Tooltip } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
@@ -66,7 +66,9 @@ const MyTable = (props, ref) => {
         return (
           <>
             <div className={record.reviewed ? '' : 'new-tips'}>{text}</div>
-            <div className="ellipsis">{record.taskId}</div>
+            <Tooltip placement="topLeft" title={record.taskId}>
+              <div className="ellipsis">{record.taskId}</div>
+            </Tooltip>
           </>
         )
       },

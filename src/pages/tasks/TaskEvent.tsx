@@ -52,7 +52,7 @@ export const TaskEvent: FC<any> = (props: any) => {
             </p>
             <p className="id">
               <span>ID:&nbsp;</span>
-              <span>{baseInfo.taskId}</span>
+              <span className="ellipsis taskId">{baseInfo.taskId}</span>
             </p>
           </div>
           <div className="right">

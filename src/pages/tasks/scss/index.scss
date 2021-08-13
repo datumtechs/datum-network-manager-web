@@ -65,10 +65,17 @@
         font-size: 14px;
         color: #1d2832;
         letter-spacing: 0;
+        display: flex;
+      }
+      .taskId {
+        display: inline-block;
+        @media screen and(max-width:1367px) {
+          width: 400px;
+        }
       }
     }
     .right {
-      width: 60%;
+      width: 50%;
       padding: 0px 50px;
       @media screen and (max-width: 1366px) {
         padding: 0px 30px;

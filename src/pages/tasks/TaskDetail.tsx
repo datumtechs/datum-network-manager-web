@@ -1,8 +1,7 @@
-import React, { FC, useEffect, useState } from 'react'
-import { Space, Button, Descriptions } from 'antd'
+import { FC, useEffect, useState } from 'react'
+import { Space, Button, Descriptions, Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import dayjs from 'dayjs'
 import ProviderTable from './components/ProviderTable'
 import ComputingTable from './components/ComputingTable'
 import { taskApi } from '../../api/index'
@@ -95,7 +94,9 @@ export const TaskDetail: FC<any> = (props: any) => {
             </p>
             <p className="id">
               <span>ID: &nbsp;</span>
-              <span>{baseInfo.taskId}</span>
+              <Tooltip placement="topLeft" title={baseInfo.taskId}>
+                <span className="ellipsis taskId">{baseInfo.taskId}</span>
+              </Tooltip>
             </p>
           </div>
           <div className="right">
