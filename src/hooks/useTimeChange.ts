@@ -14,7 +14,7 @@ const useTimeChange = (millisec: any) => {
     return `${seconds} ${t('common.second')}`
     // eslint-disable-next-line no-else-return
   } else if (Number(minutes) < 60) {
-    return `${minutes} ${t('common.minutes')}`
+    return `${minutes} ${t('common.minute')}`
   } else if (Number(hours) < 24) {
     return `${hours} ${t('common.hour')}`
   } else {
