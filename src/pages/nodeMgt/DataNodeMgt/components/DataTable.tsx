@@ -87,6 +87,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: 'No.',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      width: 80,
     },
     {
       title: t('computeNodeMgt.nodeName'),
@@ -139,7 +140,7 @@ const DataTable: FC<any> = (props: any) => {
     },
     {
       title: t('common.operations'),
-      width: 500,
+      width: 300,
       dataIndex: 'operations',
       key: 'operations',
       render: (text: any, row: any, index: any) => {

@@ -9,7 +9,7 @@ const Status: FC<any> = (props: any) => {
 
   const color = {
     pending: '#FFA505',
-    running: '#5D5C65',
+    running: '#F2DB01',
     failed: '#F5222D',
     success: '#0BB27A',
   }

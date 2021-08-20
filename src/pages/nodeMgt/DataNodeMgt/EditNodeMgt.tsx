@@ -95,19 +95,23 @@ export const EditNodeMgt: FC<any> = (props: any) => {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item colon label={t('dataNodeMgt.nodeName')} name="nodeName" className="form-item">
-            <Input disabled={type === 'Edit'} className="form-box-input" placeholder={t('common.noModify')} />
+            <Input
+              disabled={type === 'Edit'}
+              className="form-box-input"
+              placeholder={t('tip.forIdentificationIntheNetwork')}
+            />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('tip.internalHostAddressForData')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.externalIp')} name="externalIp" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('tip.externalHostAddressForData')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.internalPort')} name="internalPort" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('tip.internalPortAddress')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.externalPort')} name="externalPort" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('tip.externalPortAddress')} />
           </Form.Item>
           {/* <Form.Item label={t('common.status')} name="username" className="form-item">
               <Input className="form-box-input" placeholder={t('common.noModify')} />

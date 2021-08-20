@@ -289,6 +289,14 @@
     "joinNetworkFailed": "Failed to apply for network access",
     "plzComplete": "Please complete the form content",
     "plzInputDesc": "Please fill in the remarks of the data",
-    "plzInputName": "Please fill in the name of the data"
+    "plzInputName": "Please fill in the name of the data",
+    "forIdentificationIntheNetwork": "For identification in the network",
+    "internalHostAddressForData": "Internal host address of the data node",
+    "internalHostAddressForCompute": "Internal host address of the compute node",
+    "externalHostAddressForData": "External host address of the data node",
+    "externalHostAddressForCompute": "External host address of the compute node",
+    "internalPortAddress": "Internal port of RPC communication",
+    "externalPortAddress": "External port of RPC communication",
+    "searchTip": "Please enter keydords to search"
   }
 }

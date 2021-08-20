@@ -13,12 +13,6 @@ const fmtTime = time => {
 const LastStep: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { status, endAt, startAt } = props
-
-  // const endAt = 1628734150000
-  // const startAt = 1627783750000
-  console.log(endAt, 'endAt')
-  console.log(startAt, 'startAt')
-
   return (
     <>
       <p>

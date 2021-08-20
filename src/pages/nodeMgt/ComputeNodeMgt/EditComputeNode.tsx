@@ -100,25 +100,29 @@ export const EditComputeNode: FC<any> = (props: any) => {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item colon label={t('computeNodeMgt.nodeName')} name="powerNodeName" className="form-item">
-            <Input disabled={type === 'Edit'} className="form-box-input" placeholder={t('common.noModify')} />
+            <Input
+              disabled={type === 'Edit'}
+              className="form-box-input"
+              placeholder={t('tip.forIdentificationIntheNetwork')}
+            />
           </Form.Item>
           {/* <Form.Item colon label={t('computeNodeMgt.nodeID')} name="powerNodeId" className="form-item">
             <Input className="form-box-input" placeholder={t('common.noModify')} />
           </Form.Item> */}
           <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('tip.internalHostAddressForCompute')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.externalIp')} name="externalIp" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('tip.externalHostAddressForCompute')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.internalPort')} name="internalPort" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('tip.internalPortAddress')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.externalPort')} name="externalPort" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('tip.externalPortAddress')} />
           </Form.Item>
           <Form.Item label={t('common.remark')} name="remarks" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" />
           </Form.Item>
           <Form.Item style={{ marginLeft: i18n.language === 'en' ? 200 : 120 }} className="form-item">
             <Button className="btn re-btn" onClick={() => leaveFn()}>

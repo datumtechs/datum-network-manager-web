@@ -289,6 +289,14 @@
     "joinNetworkFailed": "申请准入网络失败",
     "plzComplete": "请完善表单内容",
     "plzInputDesc": "请完善数据的备注",
-    "plzInputName": "请完善数据的名称"
+    "plzInputName": "请完善数据的名称",
+    "forIdentificationIntheNetwork": "用于方便再全网中识别",
+    "internalHostAddressForData": "数据节点的内部主机地址信息",
+    "internalHostAddressForCompute": "计算节点节点的内部主机地址信息",
+    "externalHostAddressForData": "数据节点的外部主机地址信息",
+    "externalHostAddressForCompute": "计算节点的外部主机地址信息",
+    "internalPortAddress": "进行RPC通信的内部端口",
+    "externalPortAddress": "进行RPC通信的外部端口",
+    "searchTip": "请输入关键字搜索"
   }
 }

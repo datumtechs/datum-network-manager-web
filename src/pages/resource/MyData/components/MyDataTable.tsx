@@ -179,7 +179,7 @@ const MyDataTable: FC<any> = (props: any) => {
     },
     {
       title: t('common.operations'),
-      width: 500,
+      width: 300,
       dataIndex: 'operations',
       key: 'operations',
       render: (text: any, row: any, index: any) => {

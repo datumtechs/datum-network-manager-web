@@ -21,7 +21,7 @@ const SearchBar: FC<any> = (props: any) => {
         ''
       )}
       <Search
-        placeholder="input search text"
+        placeholder={t('tip.searchTip')}
         size="large"
         allowClear
         enterButton={t('common.search')}
