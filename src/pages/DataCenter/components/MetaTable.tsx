@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Table, Space, Tooltip } from 'antd'
-import { resourceApi } from '../../../../api/index'
+import { resourceApi } from '../../../api/index'
 import '../scss/index.scss'
 
 const MetaTable: FC<any> = (props: any) => {

@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Table } from 'antd'
-import { resourceApi } from '../../../../api/index'
-import { changeSizeFn } from '../../../../utils/utils'
+import { resourceApi } from '../../../api/index'
+import { changeSizeFn } from '../../../utils/utils'
 import '../scss/ConputeTable.scss'
 
 const CenterTable: FC<any> = (props: any) => {

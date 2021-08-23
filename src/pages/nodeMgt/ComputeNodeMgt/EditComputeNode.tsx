@@ -85,9 +85,6 @@ export const EditComputeNode: FC<any> = (props: any) => {
   const onFinishFailed = () => {}
   return (
     <div className="layout-box">
-      <div className="bread-box">
-        <Bread />
-      </div>
       <div className="form-box">
         <Form
           size="large"

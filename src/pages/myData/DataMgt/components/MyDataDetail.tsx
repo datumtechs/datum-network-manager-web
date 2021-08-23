@@ -131,9 +131,6 @@ const MyData: FC<any> = props => {
   }, [])
   return (
     <div className="layout-box">
-      <div className="bread-box">
-        <Bread />
-      </div>
       <div className="add-info-box limitLine">
         {type === 'view' ? (
           (from !== 'dataCenter' && (

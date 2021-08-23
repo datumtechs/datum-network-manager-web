@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import { Route, Redirect, useHistory, Switch, useLocation } from 'react-router-dom'
 import { Spin } from 'antd'
 import Header from './components/Header'
-import { IRoute } from '../router/index'
+import SideBar from './components/sideBar'
+import { IRoute } from '../router'
 import Auth from './Auth'
 import './scss/layout.scss'
 import { BaseInfo } from '../entity/index'
@@ -67,8 +68,9 @@ const Layout = (props: any) => {
   return (
     <BaseInfoContext.Provider value={info}>
       <div className="main-container">
-        <Header list={props.routes} className="header-container" />
+        <SideBar list={props.routes}></SideBar>
         <div className="main-box">
+          <Header className="header-container" />
           <div className={pathname === '/overview' ? 'wrapper-box' : 'main-wrapper-box '}>
             {isLoading ? (
               <div className="layout__loading">
@@ -96,11 +98,6 @@ const Layout = (props: any) => {
                     />
                   ))}
                   <Redirect from="/*" exact to="/overview" push />
-                  {/* {info?.identityId ? (
-                      <Redirect from="/*" exact to="/overview" push />
-                    ) : (
-                      <Redirect from="/*" to="/didApplication" push />
-                    )} */}
                 </Switch>
               </Suspense>
             )}

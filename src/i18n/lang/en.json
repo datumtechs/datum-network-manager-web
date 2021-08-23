@@ -8,7 +8,8 @@
     "vericode": "vericode",
     "logout": "Log Out",
     "plzLogin": "You haven't logged in yet, switched to the login page for you",
-    "internalError": "Internal Error"
+    "internalError": "Internal Error",
+    "editOrgName": "Modify organization name"
   },
   "overview": {
     "seedNode": "Seed Node",
@@ -42,11 +43,15 @@
     "dataNodeMgt": "Data Node Management",
     "computeNodeMgt": "Computing Node Management",
     "myData": "My Data",
-    "dataCenter": "Data Resource Center",
-    "computationCenter": "Computing Resource Center",
+    "dataCenter": "Data Center",
+    "computationCenter": "Computing Center",
     "addDataNode": "Add Data Node",
     "editDataNode": "Edit Data Node",
-    "computeNodeDetail": "Computation Node Details"
+    "computeNodeDetail": "Computation Node Details",
+    "didApplication": "Apply Identifier",
+    "dataMgt": "Data Management",
+    "dataAddition": "Data Addition",
+    "dataAuthorization": "Data Authorization"
   },
   "common": {
     "submit": "Submit",
@@ -289,6 +294,7 @@
     "joinNetworkFailed": "Failed to apply for network access",
     "plzComplete": "Please complete the form content",
     "plzInputDesc": "Please fill in the remarks of the data",
-    "plzInputName": "Please fill in the name of the data"
+    "plzInputName": "Please fill in the name of the data",
+    "searchTips": "Search by key words or ID"
   }
 }

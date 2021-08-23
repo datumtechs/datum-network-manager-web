@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
-import Bread from '../../../layout/components/Bread'
-import SearchBar from '../../../layout/components/SearchBar'
+import Bread from '../../layout/components/Bread'
+import SearchBar from '../../layout/components/SearchBar'
 import MetaTable from './components/MetaTable'
 
 export const DataCenter: FC<any> = () => {
@@ -10,12 +10,9 @@ export const DataCenter: FC<any> = () => {
   }
   return (
     <div className="layout-box">
-      <div className="bread-box">
-        <Bread />
-      </div>
       <div className="table-box">
         <SearchBar onSearch={onSearch} />
-        <MetaTable searchText={searchText}/>
+        <MetaTable searchText={searchText} />
       </div>
     </div>
   )

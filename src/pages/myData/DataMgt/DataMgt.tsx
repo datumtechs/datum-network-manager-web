@@ -6,7 +6,7 @@ import Bread from '../../../layout/components/Bread'
 import SearchBar from '../../../layout/components/SearchBar'
 import MyDataTable from './components/MyDataTable'
 
-export const MyData: FC<any> = () => {
+export const DataMgt: FC<any> = () => {
   const { t } = useTranslation()
   const history = useHistory()
   const [searchText, setSearchText] = useState<string>('')
@@ -24,9 +24,6 @@ export const MyData: FC<any> = () => {
   }
   return (
     <div className="layout-box">
-      <div className="bread-box">
-        <Bread />
-      </div>
       <div className="table-box">
         <SearchBar text={t('center.uploadFile')} onAdd={onAdd} onSearch={onSearch} />
         <MyDataTable searchText={searchText} />

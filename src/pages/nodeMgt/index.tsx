@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { IRoute } from '../../router/index'
+import { IRoute } from '../../router'
 
 export const NodeMgt: FC<any> = ({ routes }) => {
   return (

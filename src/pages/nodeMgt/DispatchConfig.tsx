@@ -88,9 +88,6 @@ const DispatchConfig: FC<any> = (props: any) => {
   return (
     <>
       <div className="layout-box">
-        <div className="bread-box">
-          <Bread />
-        </div>
         <div className="form-box">
           <Form
             size="large"

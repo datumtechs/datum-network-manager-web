@@ -303,9 +303,6 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
 
   return (
     <div className="layout-box gray-box">
-      <div className="bread-box">
-        <Bread />
-      </div>
       <div className="charts-box">
         <div className="node-info">
           <div className="title">

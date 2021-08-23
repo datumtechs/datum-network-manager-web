@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { IRoute } from '../../router/index'
+import { IRoute } from '../../router'
 
-export const Resource: FC<any> = ({ routes }) => (
+export const MyData: FC<any> = ({ routes }) => (
   <Switch>
     {routes.map((route: IRoute) => (
       <Route
@@ -12,9 +12,9 @@ export const Resource: FC<any> = ({ routes }) => (
         render={prop => <route.component {...prop} routes={route.children ?? route.children} />}
       ></Route>
     ))}
-    <Redirect from="/resource" exact to="/resource/myData" push />
+    <Redirect from="/myData" exact to="/myData/dataMgt" push />
     {/* <Route path="/nodeMgt/dispatchConfig" component={dispatchConfig}></Route> */}
   </Switch>
 )
 
-export default Resource
+export default MyData

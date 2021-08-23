@@ -165,9 +165,6 @@ export const MyDataAddtion: FC<any> = porps => {
   }
   return (
     <div className="layout-box">
-      <div className="bread-box">
-        <Bread />
-      </div>
       <div className="add-info-box">
         <div className="title-box">{t('myData.plzUploadFile')}</div>
         <div className="label-box">

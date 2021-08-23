@@ -5,7 +5,7 @@ import { Spin, ConfigProvider } from 'antd'
 import { useTranslation } from 'react-i18next'
 import zh from 'antd/lib/locale/zh_CN'
 import en from 'antd/lib/locale/en_GB'
-import layoutRoutes, { IRoute } from './router/index'
+import layoutRoutes, { IRoute } from './router'
 import useWinWidth from './hooks/useWinWidth'
 
 const App: FC<any> = () => {

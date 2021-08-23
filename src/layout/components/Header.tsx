@@ -1,15 +1,20 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
-import Nav from './Nav'
+import { useHistory } from 'react-router-dom'
+import { Dropdown, Menu, Space } from 'antd'
+import GlobalSearch from '../../components/GlobalSearch'
+import Bread from './Bread'
 import cnSvg from '../../assets/images/2.icon_cn.svg'
 import enSvg from '../../assets/images/2.icon_en.svg'
+import menuSvg from '../../assets/images/1.3.svg'
+import searchSvg from '../../assets/images/1.1.svg'
 import { BaseInfoContext } from '../index'
 import { loginApi } from '../../api'
 
 const Header = (props: any) => {
   const { t, i18n } = useTranslation()
+  const [showSearch, showSearchSet] = useState(false)
   const baseInfo = useContext(BaseInfoContext)
 
   const history = useHistory()
@@ -34,25 +39,43 @@ const Header = (props: any) => {
   const showMessage = () => {
     console.log('TODO message style')
   }
+
+  const menu = () => {
+    return (
+      <Menu className="personal-box">
+        {baseInfo && baseInfo.name ? (
+          <>
+            <Menu.Item key="name">{baseInfo?.name}</Menu.Item>{' '}
+            <Menu.Item key="edit">{t('login.editOrgName')}</Menu.Item>
+          </>
+        ) : null}
+
+        <Menu.Item key="logout" onClick={switchLogin}>
+          {t('login.logout')}
+        </Menu.Item>
+      </Menu>
+    )
+  }
+
   return (
     <div className="header-box">
-      <div className="logo pointer" onClick={linkToHome}>
-        {t('login.RosettaNet')}
+      <div className="bread-box">
+        <Bread />
       </div>
-      <div className="nav">
-        <Nav list={props.list} />
-      </div>
-      <div className="menu">
-        <p className="company" onClick={showMessage}>
-          {baseInfo?.name}
-        </p>
-        <p className="lang-btn pointer" onClick={changeLanguage}>
+      <Space className="operation-box" size={20}>
+        {showSearch ? <GlobalSearch></GlobalSearch> : ''}
+        <div className="pointer" onClick={() => showSearchSet(!showSearch)}>
+          <img src={searchSvg} alt="" />
+        </div>
+        <div className="lang-btn pointer" onClick={changeLanguage}>
           {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
-        </p>
-        <p className="logout pointer" onClick={switchLogin}>
-          {t('login.logout')}
-        </p>
-      </div>
+        </div>
+        <div className="pointer">
+          <Dropdown overlay={menu} placement="bottomRight" arrow>
+            <img src={menuSvg} alt="" />
+          </Dropdown>
+        </div>
+      </Space>
     </div>
   )
 }

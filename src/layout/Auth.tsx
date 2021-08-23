@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { Redirect, RouteComponentProps } from 'react-router-dom'
-import { IRoute } from '../router/index'
+import { IRoute } from '../router'
 
 interface AuthProps extends RouteComponentProps {
   route: IRoute

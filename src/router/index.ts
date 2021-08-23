@@ -1,26 +1,53 @@
 import React from 'react'
 
-const login = React.lazy(() => import('../pages/Login/index').then(_ => (_)))
-const layout = React.lazy(() => import('../layout/index').then(_ => (_)))
+const login = React.lazy(() => import('../pages/Login/index').then(_ => _))
+const layout = React.lazy(() => import('../layout/index').then(_ => _))
 const Overview = React.lazy(() => import('../pages/overview/index').then(_ => ({ default: _.Overview })))
 const NodeMgt = React.lazy(() => import('../pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))
-const Resource = React.lazy(() => import('../pages/resource/index').then(_ => ({ default: _.Resource })))
-const MyData = React.lazy(() => import('../pages/resource/MyData/MyData').then(_ => ({ default: _.MyData })))
-const DataCenter = React.lazy(() => import('../pages/resource/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
+// const Resource = React.lazy(() => import('../pages/resource/index').then(_ => ({ default: _.Resource })))
+const MyData = React.lazy(() => import('../pages/myData/index').then(_ => ({ default: _.MyData })))
+const DataMgt = React.lazy(() => import('../pages/myData/DataMgt/DataMgt').then(_ => ({ default: _.DataMgt })))
+
 // const MetaDataDetail = React.lazy(() => import('../pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
-const MyDataAddtion = React.lazy(() => import('../pages/resource/MyData/components/MyDataAddtion').then(_ => ({ default: _.MyDataAddtion })))
-const MyDataDetail = React.lazy(() => import('../pages/resource/MyData/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })))
-const ComputationCenter = React.lazy(() => import('../pages/resource/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })))
-const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => (_)))
-const DataNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })))
-const EditNodeMgt = React.lazy(() => import('../pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(_ => ({ default: _.EditNodeMgt })))
-const ComputeNodeMgt = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })))
-const EditComputeNode = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/EditComputeNode').then(_ => ({ default: _.EditComputeNode })))
-const ComputeNodeDetail = React.lazy(() => import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeDetail').then(_ => ({ default: _.ComputeNodeDetail })))
+
+const DataAddition = React.lazy(() =>
+  import('../pages/myData/DataAddition/index').then(_ => ({ default: _.DataAddition })),
+)
+const MyDataDetail = React.lazy(() =>
+  import('../pages/myData/DataMgt/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })),
+)
+const DataAuthorization = React.lazy(() =>
+  import('../pages/myData/DataAuthorization').then(_ => ({ default: _.DataAuthorization })),
+)
+
+const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => _))
+const DataNodeMgt = React.lazy(() =>
+  import('../pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })),
+)
+const EditNodeMgt = React.lazy(() =>
+  import('../pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(_ => ({ default: _.EditNodeMgt })),
+)
+const ComputeNodeMgt = React.lazy(() =>
+  import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })),
+)
+const EditComputeNode = React.lazy(() =>
+  import('../pages/nodeMgt/ComputeNodeMgt/EditComputeNode').then(_ => ({ default: _.EditComputeNode })),
+)
+const ComputeNodeDetail = React.lazy(() =>
+  import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeDetail').then(_ => ({ default: _.ComputeNodeDetail })),
+)
 const Tasks = React.lazy(() => import('../pages/tasks/index').then(_ => ({ default: _.Tasks })))
 const TaskDetail = React.lazy(() => import('../pages/tasks/TaskDetail').then(_ => ({ default: _.TaskDetail })))
 const TaskEvent = React.lazy(() => import('../pages/tasks/TaskEvent').then(_ => ({ default: _.TaskEvent })))
-const DidApplication = React.lazy(() => import('../pages/did/DidApplication').then(_ => ({ default: _.DidApplication })))
+const DidApplication = React.lazy(() =>
+  import('../pages/did/DidApplication').then(_ => ({ default: _.DidApplication })),
+)
+
+const DataCenter = React.lazy(() => import('../pages/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
+const ComputationCenter = React.lazy(() =>
+  import('../pages/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })),
+)
+
 // const did = React.lazy(() => import('../pages/did/index').then(_ => ({ default: _.did })))
 
 export interface IRouteMeta {
@@ -37,7 +64,6 @@ export interface IRouteBase {
   meta: IRouteMeta
   redirect?: string
   breadcrumbName: string
-
 }
 
 export interface IRoute extends IRouteBase {
@@ -45,7 +71,14 @@ export interface IRoute extends IRouteBase {
 }
 
 const routes: Array<IRoute> = [
-  { name: 'login', breadcrumbName: '', label: 'login', path: '/login', component: login, meta: { exact: true, title: '', icon: '', show: false } },
+  {
+    name: 'login',
+    breadcrumbName: '',
+    label: 'login',
+    path: '/login',
+    component: login,
+    meta: { exact: true, title: '', icon: '', show: false },
+  },
   // {
   //   name: 'menu.dispatchConfig',
   //   path: '/nodeMgt/dispatchConfig',
@@ -72,7 +105,7 @@ const routes: Array<IRoute> = [
         breadcrumbName: 'menu.didApplication',
         path: '/didApplication',
         component: DidApplication,
-        meta: { exact: true, title: '', icon: '', show: false }
+        meta: { exact: true, title: '', icon: '', show: false },
       },
       {
         name: 'nodeMgt',
@@ -105,8 +138,11 @@ const routes: Array<IRoute> = [
             path: '/nodeMgt/dataNodeMgt/editDataNode',
             component: EditNodeMgt,
             meta: {
-              exact: true, title: '', icon: '', show: false
-            }
+              exact: true,
+              title: '',
+              icon: '',
+              show: false,
+            },
           },
           {
             name: 'addDataNodeMgt',
@@ -115,8 +151,11 @@ const routes: Array<IRoute> = [
             path: '/nodeMgt/dataNodeMgt/addDataNode',
             component: EditNodeMgt,
             meta: {
-              exact: true, title: '', icon: '', show: false
-            }
+              exact: true,
+              title: '',
+              icon: '',
+              show: false,
+            },
           },
           {
             name: 'computeNodeMgt',
@@ -133,8 +172,11 @@ const routes: Array<IRoute> = [
             path: '/nodeMgt/computeNodeMgt/editComputeNode',
             component: EditComputeNode,
             meta: {
-              exact: true, title: '', icon: '', show: false
-            }
+              exact: true,
+              title: '',
+              icon: '',
+              show: false,
+            },
           },
           {
             name: 'addComputeNodeMgt',
@@ -143,8 +185,11 @@ const routes: Array<IRoute> = [
             path: '/nodeMgt/computeNodeMgt/addComputeNode',
             component: EditComputeNode,
             meta: {
-              exact: true, title: '', icon: '', show: false
-            }
+              exact: true,
+              title: '',
+              icon: '',
+              show: false,
+            },
           },
           {
             name: 'computeNodeDetail',
@@ -153,40 +198,59 @@ const routes: Array<IRoute> = [
             path: '/nodeMgt/computeNodeMgt/computeNodeDetail',
             component: ComputeNodeDetail,
             meta: {
-              exact: true, title: '', icon: '', show: false
-            }
+              exact: true,
+              title: '',
+              icon: '',
+              show: false,
+            },
           },
         ],
       },
       {
-        name: 'resourceCenter',
-        label: 'menu.resourceCenter',
-        breadcrumbName: 'menu.resourceCenter',
-        path: '/resource',
-        component: Resource,
+        name: 'myData',
+        label: 'menu.myData',
+        breadcrumbName: 'menu.myData',
+        path: '/myData',
+        component: MyData,
         meta: { exact: false, title: '', icon: '', show: true },
         children: [
+          // {
+          //   name: 'myData',
+          //   label: 'menu.myData',
+          //   breadcrumbName: 'menu.myData',
+          //   path: '/resource/myData',
+          //   component: MyData,
+          //   meta: { exact: true, title: '', icon: '', show: true },
+          // },
           {
-            name: 'myData',
-            label: 'menu.myData',
-            breadcrumbName: 'menu.myData',
-            path: '/resource/myData',
-            component: MyData,
+            name: 'dataMgt',
+            label: 'menu.dataMgt',
+            breadcrumbName: 'menu.dataMgt',
+            path: '/myData/dataMgt',
+            component: DataMgt,
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
             name: 'dataAddition',
-            label: 'center.dataAddition',
-            breadcrumbName: 'center.dataAddition',
-            path: '/resource/myData/dataAddition',
-            component: MyDataAddtion,
-            meta: { exact: true, title: '', icon: '', show: false },
+            label: 'menu.dataAddition',
+            breadcrumbName: 'menu.dataAddition',
+            path: '/myData/dataAddition',
+            component: DataAddition,
+            meta: { exact: true, title: '', icon: '', show: true },
+          },
+          {
+            name: 'dataAuthorization',
+            label: 'menu.dataAuthorization',
+            breadcrumbName: 'menu.dataAuthorization',
+            path: '/myData/dataAuthorization',
+            component: DataAuthorization,
+            meta: { exact: true, title: '', icon: '', show: true },
           },
           {
             name: 'dataDetail',
             label: 'center.dataDetail',
             breadcrumbName: 'center.dataDetail',
-            path: '/resource/myData/dataDetail',
+            path: '/myData/dataDetail',
             component: MyDataDetail,
             meta: { exact: true, title: '', icon: '', show: false },
           },
@@ -194,33 +258,9 @@ const routes: Array<IRoute> = [
             name: 'infoModify',
             label: 'center.infoModify',
             breadcrumbName: 'center.infoModify',
-            path: '/resource/myData/infoModify',
+            path: '/myData/infoModify',
             component: MyDataDetail,
             meta: { exact: true, title: '', icon: '', show: false },
-          },
-          {
-            name: 'DataCenter',
-            label: 'menu.dataCenter',
-            breadcrumbName: 'menu.dataCenter',
-            path: '/resource/dataCenter',
-            component: DataCenter,
-            meta: { exact: true, title: '', icon: '', show: true },
-          },
-          // {
-          //   name: 'MetaDataDetail',
-          //   label: 'center.metaDataDetail',
-          //   breadcrumbName: 'center.metaDataDetail',
-          //   path: '/resource/dataCenter/metaDataDetail',
-          //   component: MetaDataDetail,
-          //   meta: { exact: true, title: '', icon: '', show: false },
-          // },
-          {
-            name: 'ComputationCenter',
-            label: 'menu.computationCenter',
-            breadcrumbName: 'menu.computationCenter',
-            path: '/resource/computationCenter',
-            component: ComputationCenter,
-            meta: { exact: true, title: '', icon: '', show: true },
           },
         ],
       },
@@ -248,13 +288,22 @@ const routes: Array<IRoute> = [
         component: TaskEvent,
         meta: { exact: true, title: '', icon: '', show: false },
       },
-      // {
-      //   name: 'DID & Credentials',
-      //   path: '/did',
-      //   component: did,
-      //   meta: { exact: true, title: '', icon: '' },
-      //   children: [],
-      // },
+      {
+        name: 'DataCenter',
+        label: 'menu.dataCenter',
+        breadcrumbName: 'menu.dataCenter',
+        path: '/dataCenter',
+        component: DataCenter,
+        meta: { exact: true, title: '', icon: '', show: true },
+      },
+      {
+        name: 'ComputationCenter',
+        label: 'menu.computationCenter',
+        breadcrumbName: 'menu.computationCenter',
+        path: '/computationCenter',
+        component: ComputationCenter,
+        meta: { exact: true, title: '', icon: '', show: true },
+      },
     ],
   },
 ]

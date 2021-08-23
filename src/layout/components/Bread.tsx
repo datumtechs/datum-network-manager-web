@@ -1,9 +1,8 @@
-import { FC, memo, useState, useEffect } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { Breadcrumb } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory, Link } from 'react-router-dom'
-import { LeftOutlined } from '@ant-design/icons'
-import { IRoute } from '../../router/index'
+import { IRoute } from '../../router'
 import { getBreadcrumbs } from '../../router/utils'
 
 const Bread: FC<any> = () => {
@@ -17,20 +16,13 @@ const Bread: FC<any> = () => {
     const unListen = history.listen(() => {
       setBreadcrumbs(getBreadcrumbs())
     })
-
     return () => {
       unListen()
     }
   }, [])
-  const goBack = () => {
-    history.goBack()
-  }
   return (
     <>
-      <div className="pointer" onClick={goBack}>
-        <LeftOutlined className="pointer" />
-      </div>
-      <Breadcrumb>
+      <Breadcrumb separator=">">
         {breadcrumbs.map((route: IRoute, index: number) => {
           if (index !== 0 && index !== len - 1)
             return (

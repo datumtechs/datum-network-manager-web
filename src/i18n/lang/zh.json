@@ -1,14 +1,15 @@
 {
   "login": {
     "RosettaNet": "隐私计算网络",
-    "login": "登录",
+    "login": "登 录",
     "plzinput": "请输入您的 ",
     "account": "账号",
     "password": "密码",
     "vericode": "验证码",
     "logout": "登 出",
     "plzLogin": "您还没有登录, 已为您跳转到登录页",
-    "internalError": "内部错误"
+    "internalError": "内部错误",
+    "editOrgName": "修改组织名称"
   },
   "overview": {
     "seedNode": "种子节点",
@@ -46,7 +47,11 @@
     "computationCenter": "全网算力",
     "addDataNode": "添加数据节点",
     "editDataNode": "编辑数据节点",
-    "computeNodeDetail": "计算节点详情"
+    "computeNodeDetail": "计算节点详情",
+    "didApplication": "申请机构识别名称",
+    "dataMgt": "数据管理",
+    "dataAddition": "数据添加",
+    "dataAuthorization": "数据授权"
   },
   "common": {
     "submit": "提交",
@@ -289,6 +294,7 @@
     "joinNetworkFailed": "申请准入网络失败",
     "plzComplete": "请完善表单内容",
     "plzInputDesc": "请完善数据的备注",
-    "plzInputName": "请完善数据的名称"
+    "plzInputName": "请完善数据的名称",
+    "searchTips": "请输入关键字或ID搜索"
   }
 }

@@ -21,16 +21,13 @@
 
 .layout-box {
   width: 100%;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 130px);
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 rgba(10, 16, 81, 0.08);
+  border-radius: 6px;
   overflow-y: scroll;
   .submit-box {
     padding: 20px;
-  }
-
-  .bread-box > .ant-breadcrumb {
-    height: 50px;
-    line-height: 50px;
-    padding-left: 10px;
   }
 
   &.gray-box {
@@ -41,8 +38,6 @@
     background: #fff;
     border-bottom: 1px solid #ebeef9;
     display: flex;
-    align-items: center;
-    padding-left: 12px;
   }
 
   .form-box {
