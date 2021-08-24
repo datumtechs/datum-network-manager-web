@@ -40,6 +40,10 @@ const Header = (props: any) => {
     console.log('TODO message style')
   }
 
+  const handleOnBlur = () => {
+    showSearchSet(false)
+  }
+
   const menu = () => {
     return (
       <Menu className="personal-box">
@@ -63,7 +67,7 @@ const Header = (props: any) => {
         <Bread />
       </div>
       <Space className="operation-box" size={20}>
-        {showSearch ? <GlobalSearch></GlobalSearch> : ''}
+        {showSearch ? <GlobalSearch handleOnBlur={handleOnBlur}></GlobalSearch> : ''}
         <div className="pointer" onClick={() => showSearchSet(!showSearch)}>
           <img src={searchSvg} alt="" />
         </div>

@@ -2,19 +2,6 @@
   cursor: pointer;
 }
 
-.main-wrapper {
-  display: flex;
-
-  .left-side {
-    width: 263px;
-  }
-
-  .right-side {
-    flex: 1;
-    margin-left: 30px;
-  }
-}
-
 .link {
   color: $mainColor;
 }

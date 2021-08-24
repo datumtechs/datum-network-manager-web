@@ -64,6 +64,7 @@ export interface IRouteBase {
   meta: IRouteMeta
   redirect?: string
   breadcrumbName: string
+  isOpen?: boolean
 }
 
 export interface IRoute extends IRouteBase {
@@ -114,6 +115,7 @@ const routes: Array<IRoute> = [
         path: '/nodeMgt',
         component: NodeMgt,
         meta: { exact: false, title: '', icon: '', show: true },
+        isOpen: false,
         children: [
           {
             name: 'dispatchConfig',
@@ -213,6 +215,7 @@ const routes: Array<IRoute> = [
         path: '/myData',
         component: MyData,
         meta: { exact: false, title: '', icon: '', show: true },
+        isOpen: false,
         children: [
           // {
           //   name: 'myData',

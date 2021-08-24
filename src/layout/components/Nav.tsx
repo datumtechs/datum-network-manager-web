@@ -3,7 +3,6 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { IRoute } from '../../router'
-import { businessRouteList } from '../../router/utils'
 import { BaseInfoContext } from '../index'
 
 const Nav = (props: any) => {
@@ -31,71 +30,60 @@ const Nav = (props: any) => {
     SetCurPath(item.path)
     history.push(item.path)
   }
-  const { t, i18n } = useTranslation()
-  // const mouseEnter = (item: IRoute, e: React.MouseEvent<any, MouseEvent>) => {
-  //   e.stopPropagation()
-  //   if (item.children) {
-  //     props.setMenu(item.name)
-  //   }
-  // }
-  // const mouseLeave = (e: React.MouseEvent<any, MouseEvent>) => {
-  //   e.stopPropagation()
-  //   props.setMenu('')
-  // }
+  const { t } = useTranslation()
+  const showSubMenu = item => {
+    if (item.name !== menu) return props.setMenu(item.name)
+    return props.setMenu('')
+  }
 
   return (
     <div className="nav-box">
       {props.list.map((item: IRoute) =>
         item.meta.show ? (
-          <div className="sub-nav-box pointer" key={item.name}>
-            <div
-              className={`sub-nav ${curPath.includes(item.path) ? 'activeMenu' : ''}`}
-              key={item.name}
-              onClick={e => linkTo(item, e)}
-            >
-              <div className="nav-title">
-                <div className="nav-label">
+          <div className="nav-wrapper pointer" key={item.name}>
+            {item.children ? (
+              <div className="nav-label-box">
+                <div
+                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu' : ''} `}
+                  onClick={() => showSubMenu(item)}
+                >
+                  {t(`${item.label}`)}{' '}
+                  {item.children && item.name === menu ? (
+                    <div className="triangle-down hasChild"></div>
+                  ) : (
+                    <div className="triangle-up hasChild"></div>
+                  )}
+                </div>
+                {menu === item.name ? (
+                  <ul className="sub-nav-box slideIn">
+                    {item.children.map(child =>
+                      child.meta.show ? (
+                        <li
+                          className={`sub-nav-label ${curPath.includes(child.path) ? 'activeSubMenu' : ''}`}
+                          key={child.name}
+                          onClick={e => linkTo(child, e)}
+                        >
+                          {t(`${child.label}`)}
+                        </li>
+                      ) : (
+                        ''
+                      ),
+                    )}
+                  </ul>
+                ) : (
+                  <ul className="slideOut"></ul>
+                )}
+              </div>
+            ) : (
+              <div className="nav-label-box">
+                <div
+                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu' : ''}`}
+                  onClick={e => linkTo(item, e)}
+                >
                   {t(`${item.label}`)}
-                  {item.children && <div className="triangle-up hasChild"></div>}
                 </div>
               </div>
-              {item.children ? (
-                // <div className="child-box">
-                //   <ul className="child-nav" style={{ width: i18n.language === 'en' ? '137px' : '107px' }}>
-                //     {item.children.map(child =>
-                //       child.meta.show ? (
-                //         <li
-                //           className={`${curPath.includes(child.path) ? 'activeSubMenu' : ''}`}
-                //           key={child.name}
-                //           onClick={e => linkTo(child, e)}
-                //         >
-                //           {t(`${child.label}`)}
-                //         </li>
-                //       ) : (
-                //         ''
-                //       ),
-                //     )}
-                //   </ul>
-                // </div>
-                <ul className="child-nav">
-                  {item.children.map(child =>
-                    child.meta.show ? (
-                      <li
-                        className={`${curPath.includes(child.path) ? 'activeSubMenu' : ''}`}
-                        key={child.name}
-                        onClick={e => linkTo(child, e)}
-                      >
-                        {t(`${child.label}`)}
-                      </li>
-                    ) : (
-                      ''
-                    ),
-                  )}
-                </ul>
-              ) : (
-                ''
-              )}
-            </div>
+            )}
           </div>
         ) : (
           ''

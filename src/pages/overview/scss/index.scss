@@ -1,0 +1,38 @@
+.overview-box {
+  width: 100%;
+  height: calc(100vh - 100px);
+  background-color: #b3aeae;
+  border: 1px solid red;
+  .overview-title {
+    font-family: AlibabaPuHuiTi-Medium;
+    font-size: 16px;
+    color: #344563;
+    letter-spacing: -0.5px;
+  }
+  .overview-content-box {
+    display: flex;
+    .overview-cpu,
+    .overview-memory,
+    .overview-bandwidth {
+      width: 16.3vw;
+      height: 14.3vh;
+      background: #ffffff;
+      box-shadow: 0 0 10px 0 rgba(10, 16, 81, 0.08);
+      border-radius: 6px;
+    }
+  }
+  .overview-tasks {
+    width: 19.1vw;
+    height: 53.4vh;
+    background: #ffffff;
+    box-shadow: 0 0 10px 0 rgba(10, 16, 81, 0.08);
+    border-radius: 6px;
+  }
+  .overview-publish-data {
+    width: 51.9vw;
+    height: 36.5vh;
+    background: #ffffff;
+    box-shadow: 0 0 10px 0 rgba(10, 16, 81, 0.08);
+    border-radius: 6px;
+  }
+}

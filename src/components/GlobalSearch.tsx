@@ -6,9 +6,12 @@ const { Option } = Select
 
 const GlobalSearch = (props: any) => {
   const [value, valueSet] = useState<''>()
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const handleSearch = () => {}
   const handleChange = () => {}
+  const handleOnBlur = () => {
+    props.handleOnBlur()
+  }
 
   return (
     <Select
@@ -19,6 +22,7 @@ const GlobalSearch = (props: any) => {
       defaultActiveFirstOption={false} // 是否高亮第一个选项
       showArrow={false}
       onSearch={handleSearch}
+      onBlur={handleOnBlur}
       onChange={handleChange}
       notFoundContent={null} // 当下拉列表为空时显示的内容
     ></Select>

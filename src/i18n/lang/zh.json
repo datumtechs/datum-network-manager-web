@@ -32,7 +32,8 @@
     "resources": "资源",
     "free": "空闲",
     "occupied": "占用",
-    "core": "核"
+    "core": "核",
+    "totalOccupied": "总计算资源的占用情况"
   },
   "menu": {
     "systemOverview": "系统概况",

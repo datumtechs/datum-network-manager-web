@@ -32,7 +32,8 @@
     "resources": "Resources",
     "free": "Free",
     "occupied": "Occupied",
-    "core": "cores"
+    "core": "cores",
+    "totalOccupied": "Occupied Computing Resources"
   },
   "menu": {
     "systemOverview": "System Overview",
