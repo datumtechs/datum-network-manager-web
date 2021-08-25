@@ -1,13 +1,20 @@
+/* eslint-disable react/no-string-refs */
 import { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import * as echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
+import 'echarts/lib/component/grid'
+
+import useWinWidth from '../../../../hooks/useWinWidth'
 
 const TaskChart: FC<any> = (props: any) => {
   const { t } = useTranslation()
+  const { width } = useWinWidth()
+
   useEffect(() => {
     const chart = echarts.init(document.getElementById('taskChart'))
     const option = {
@@ -72,7 +79,9 @@ const TaskChart: FC<any> = (props: any) => {
       ],
     }
     chart.setOption(option)
-  }, [])
+    chart.resize()
+  }, [width])
+
   return (
     <div className="overview-tasks item">
       <div className="overview-tasks-title">{t('overview.myTask')}</div>
