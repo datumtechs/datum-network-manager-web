@@ -33,7 +33,8 @@
     "free": "Free",
     "occupied": "Occupied",
     "core": "cores",
-    "totalOccupied": "Occupied Computing Resources"
+    "totalOccupied": "Occupied Computing Resources",
+    "myTask": "My Computation Tasks"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -164,6 +165,7 @@
     "occupiedResources": "Occupied resources",
     "pending": "Pending",
     "running": "Computing",
+    "computing": "Computing",
     "failed": "Failed",
     "success": "Succeeded",
     "role": [
@@ -180,7 +182,8 @@
       "computationSucceeded": "Computation succeeded",
       "computationFailed": "Computation failed",
       "timeSpent": "time spent"
-    }
+    },
+    "tasks": "Total Tasks"
   },
   "step": {
     "taskStarted": "Task Started",

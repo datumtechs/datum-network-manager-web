@@ -46,7 +46,7 @@ export const Tasks: FC<any> = () => {
 
   const statusList = [
     { label: t('task.pending'), value: 'pending' },
-    { label: t('task.running'), value: 'running' },
+    { label: t('task.computing'), value: 'running' },
     { label: t('task.failed'), value: 'failed' },
     { label: t('task.success'), value: 'success' },
   ]

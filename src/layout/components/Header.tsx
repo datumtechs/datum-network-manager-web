@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { Dropdown, Menu, Space } from 'antd'
 import GlobalSearch from '../../components/GlobalSearch'
 import Bread from './Bread'
@@ -16,7 +16,7 @@ const Header = (props: any) => {
   const { t, i18n } = useTranslation()
   const [showSearch, showSearchSet] = useState(false)
   const baseInfo = useContext(BaseInfoContext)
-
+  const { pathname } = useLocation()
   const history = useHistory()
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
@@ -62,7 +62,7 @@ const Header = (props: any) => {
   }
 
   return (
-    <div className="header-box">
+    <div className={pathname === '/overview' ? 'main-head-box' : 'header-box '}>
       <div className="bread-box">
         <Bread />
       </div>
