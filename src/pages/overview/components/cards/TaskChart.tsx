@@ -12,14 +12,14 @@ import 'echarts/lib/component/grid'
 import useWinWidth from '../../../../hooks/useWinWidth'
 
 const TaskChart: FC<any> = (props: any) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
 
   useEffect(() => {
     const chart = echarts.init(document.getElementById('taskChart'))
     const option = {
       color: ['#63C7BB', '#F167A8', '#F29201', '#657ACD'],
-      grid: { left: '0%', top: '10%', right: '10%', bottom: '10%' },
+      grid: { left: '10%', top: '10%', right: '10%', bottom: '10%' },
       title: {
         zlevel: 0,
         text: `a1a1a1`,
@@ -80,11 +80,11 @@ const TaskChart: FC<any> = (props: any) => {
     }
     chart.setOption(option)
     chart.resize()
-  }, [width])
+  }, [width, i18n.language])
 
   return (
     <div className="overview-tasks item">
-      <div className="overview-tasks-title">{t('overview.myTask')}</div>
+      <div className="data-name">{t('overview.myTask')}</div>
       <div className="taskChart-box">
         <div id="taskChart"></div>
       </div>

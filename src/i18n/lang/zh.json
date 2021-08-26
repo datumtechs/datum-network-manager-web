@@ -34,7 +34,20 @@
     "occupied": "占用",
     "core": "核",
     "totalOccupied": "总计算资源的占用情况",
-    "myTask": "我的计算任务概况"
+    "myTask": "我的计算任务概况",
+    "growth": "增长量",
+    "totalData": "数据总量",
+    "dataAmount": "数据",
+    "computingPower": "算力",
+    "dataAmountRosettaNet": "全网数据总量走势",
+    "powerRosettaNet": "全网算力总量走势",
+    "myData": "我发布的数据",
+    "myPower": "我发布的算力",
+    "dataAmountInRosetta": "全网数据总量",
+    "powerAmountInRosetta": "全网算力总量",
+    "mom": "月环比",
+    "wow": "月同比",
+    "dataAuthorizationApplication": "数据授权申请"
   },
   "menu": {
     "systemOverview": "系统概况",
@@ -89,7 +102,8 @@
     "hour": "小时",
     "minute": "分钟",
     "second": "秒",
-    "day": "天"
+    "day": "天",
+    "month": "月"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",

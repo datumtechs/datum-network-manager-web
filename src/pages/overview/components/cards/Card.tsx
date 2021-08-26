@@ -9,14 +9,17 @@ const Card: FC<any> = (props: any) => {
     <div className="overview-card item" style={{ backgroundColor: bgColor }}>
       <div className="overview-card-left">
         <div className="title">{t(`overview.${type}`)}</div>
-        <div className="content">content</div>
+        <div className="content">
+          <span className="value">812.88</span>
+          <span className="unit">MBp/s</span>
+        </div>
       </div>
       <div className="overview-card-right">
         <Progress
           className="progress"
           type="circle"
           percent={Number(precent)}
-          width={75}
+          width={70}
           strokeWidth={10}
           trailColor="rgba(255,255,255,0.2)"
           strokeColor="#FFF"

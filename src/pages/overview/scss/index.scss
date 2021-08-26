@@ -30,7 +30,7 @@ $pending: #657acd;
         height: 14.3vh;
         display: flex;
         justify-content: space-between;
-        padding: 1.8vw 1.2vw;
+        padding: 1.8vh 1.2vw;
         position: relative;
         .overview-card-left {
           display: flex;
@@ -47,11 +47,20 @@ $pending: #657acd;
             font-size: 32px;
             color: #ffffff;
             letter-spacing: 0;
-            line-height: 38px;
+            line-height: 26px;
+            .value {
+              font-size: 26px;
+            }
+            .unit {
+              font-size: 12px;
+            }
           }
         }
         .overview-card-right {
           position: relative;
+          display: flex;
+          justify-content: flex-end;
+          flex-direction: column;
           .ant-progress-text {
             color: #ffffff !important;
           }
@@ -67,6 +76,18 @@ $pending: #657acd;
       width: 51.9vw;
       height: 36.5vh;
       margin-bottom: 2.7vh;
+      .publish-data-box {
+        padding: 1.8vh 1.5vw;
+        .publish-data-title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1.2vh;
+        }
+        #publishData {
+          height: 28vh;
+        }
+      }
     }
 
     .overview-data-box {
@@ -75,10 +96,78 @@ $pending: #657acd;
         width: 34.1vw;
         height: 26.8vh;
         margin-right: 1.5vw;
+        padding: 1vh 1.5vw;
+
+        .overview-data-title {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        #totalData {
+          margin-top: 20px;
+          height: 18vh;
+        }
       }
       .overview-data-amount2 {
         width: 16.3vw;
         height: 26.8vh;
+        padding: 1.8vh 1vw;
+        .overview-data-amount2-content {
+          display: flex;
+          justify-content: center;
+          margin: 5.1vh 0 4.3vh;
+          .value {
+            font-family: AlibabaPuHuiTi-Medium;
+            font-size: 32px;
+            color: #3c3588;
+            letter-spacing: 0;
+            line-height: 38px;
+          }
+          .unit {
+            font-family: AlibabaPuHuiTi-Medium;
+            font-size: 14px;
+            color: #00173a;
+            letter-spacing: 0;
+            line-height: 50px;
+            margin-left: 10px;
+          }
+        }
+        .ratio-box {
+          display: flex;
+          & img {
+            width: 18px;
+          }
+          .upRatio,
+          .downRatio {
+            flex: 1;
+            .ratio-line {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 15px;
+              letter-spacing: 0;
+              line-height: 16px;
+              p {
+                padding-left: 0.5vw;
+              }
+            }
+            .name {
+              margin-top: 1vh;
+              font-size: 12px;
+              color: #5e6c84;
+              letter-spacing: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+          .upRatio {
+            color: #45b854;
+          }
+          .downRatio {
+            color: #f45564;
+          }
+        }
       }
     }
   }
@@ -90,12 +179,6 @@ $pending: #657acd;
       width: 19.1vw;
       height: 53.4vh;
       padding: 2.6vh 1.5vw;
-      .overview-tasks-title {
-        font-family: AlibabaPuHuiTi-Medium;
-        font-size: 16px;
-        color: #344563;
-        letter-spacing: -0.5px;
-      }
       .taskChart-box {
         margin-top: 20px;
         #taskChart {
@@ -164,6 +247,38 @@ $pending: #657acd;
       width: 100%;
       height: 26.8vh;
       margin-top: 2.6vh;
+      padding: 1.8vh 1.5vw;
+      .auth-list {
+        width: 100%;
+        height: 21vh;
+        overflow-y: scroll;
+        margin-top: 10px;
+        .auth-list-box {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 10px;
+          .auth-list-name {
+            margin-bottom: 6px;
+            display: flex;
+            img {
+              width: 14px;
+            }
+            .auth-list-date {
+              font-family: AlibabaPuHuiTi-Medium;
+              font-size: 12px;
+              color: #344563;
+              letter-spacing: 0;
+              padding-left: 6px;
+            }
+          }
+          .auth-list-remark {
+            font-family: AlibabaPuHuiTi-Regular;
+            font-size: 12px;
+            color: #5e6c84;
+            letter-spacing: 0;
+          }
+        }
+      }
     }
   }
 
@@ -171,5 +286,40 @@ $pending: #657acd;
     background: #ffffff;
     box-shadow: 0 0 10px 0 rgba(10, 16, 81, 0.08);
     border-radius: 6px;
+  }
+  .data-name {
+    font-family: AlibabaPuHuiTi-Medium;
+    font-size: 16px;
+    color: #344563;
+    letter-spacing: -0.5px;
+  }
+  .data-switch {
+    width: 10.8vw;
+    height: 3.5vh;
+    background: #3c3588;
+    border-radius: 6px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0.5vh 0.3vw;
+    gap: 5px;
+    .switchBtn {
+      text-align: center;
+      height: 3.5vh;
+      font-family: AlibabaPuHuiTi-Medium;
+      font-size: 12px;
+      letter-spacing: -0.5px;
+      line-height: 10px;
+      width: 5vw;
+      height: 3vh;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .active {
+      background-color: #fff;
+      color: #3c3588;
+    }
   }
 }

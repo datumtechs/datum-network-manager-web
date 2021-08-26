@@ -25,7 +25,7 @@
     "memory": "Memory",
     "bandwidth": "Bandwidth",
     "submit": "Create the identify credential，and apply for network access",
-    "publishData": "Published  data",
+    "publishData": "My Published data",
     "unPublishData": "Unpublished data",
     "taskInProgress": "Tasks in Progress",
     "commuting": "Commuting",
@@ -34,7 +34,20 @@
     "occupied": "Occupied",
     "core": "cores",
     "totalOccupied": "Occupied Computing Resources",
-    "myTask": "My Computation Tasks"
+    "myTask": "My Computation Tasks",
+    "growth": "Growth",
+    "totalData": "Total data",
+    "dataAmount": "Data Amount",
+    "computingPower": "Computing Power",
+    "dataAmountRosettaNet": "Data Amount Trend in The RosettaNet",
+    "powerRosettaNet": "Computing Power Trend in The RosettaNet",
+    "myData": "My Published Data",
+    "myPower": "My Published Computing Power",
+    "dataAmountInRosetta": "Data amount in the RosettaNet",
+    "powerAmountInRosetta": "Computing Power in The RosettaNet",
+    "mom": "MoM ratio",
+    "wow": "WoW ratio",
+    "dataAuthorizationApplication": "Data Authorization Application"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -89,7 +102,8 @@
     "hour": "Hours",
     "minute": "Minutes",
     "second": "Seconds",
-    "day": "Days"
+    "day": "Days",
+    "month": "Month"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",

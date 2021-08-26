@@ -1,7 +1,44 @@
-import React from 'react'
+import { FC, useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import emphasizeSvg from '../../../../assets/images/8.icon1.svg'
 
-function RecordCard() {
-  return <div className="overview-authorization item">RecordCard</div>
+const RecordCard: FC<any> = (props: any) => {
+  const { t } = useTranslation()
+  const [dataList, dataListSet] = useState<any>([])
+
+  useEffect(() => {
+    dataListSet([
+      {
+        id: '1',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '1',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+    ])
+  }, [])
+
+  return (
+    <div className="overview-authorization item">
+      <div className="data-name">{t('overview.dataAuthorizationApplication')}</div>
+      <div className="auth-list">
+        {dataList.map(item => {
+          return (
+            <div className="auth-list-box" key={item.id}>
+              <div className="auth-list-name">
+                <img src={emphasizeSvg} alt="" />
+                <div className="auth-list-date">{item.date}</div>
+              </div>
+              <div className="auth-list-remark">{item.remark}</div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
 
 export default RecordCard

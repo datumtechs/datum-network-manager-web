@@ -7,13 +7,15 @@ import menu from './reducers/menu'
 import tableData from './reducers/tableData'
 import org from './reducers/org'
 import baseInfo from './reducers/baseInfo'
+import dataSwitch from './reducers/dataSwitch'
 
 const allReducers = combineReducers({
   login,
   menu,
   tableData,
   org,
-  baseInfo
+  baseInfo,
+  dataSwitch
 })
 const enhancers = applyMiddleware(reduxThunk);
 const appStore = createStore(allReducers, composeWithDevTools(...[enhancers]))
