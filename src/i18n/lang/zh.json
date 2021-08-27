@@ -37,6 +37,7 @@
     "myTask": "我的计算任务概况",
     "growth": "增长量",
     "totalData": "数据总量",
+    "totalMemory": "内存总量",
     "dataAmount": "数据",
     "computingPower": "算力",
     "dataAmountRosettaNet": "全网数据总量走势",
@@ -66,7 +67,9 @@
     "didApplication": "申请机构识别名称",
     "dataMgt": "数据管理",
     "dataAddition": "数据添加",
-    "dataAuthorization": "数据授权"
+    "dataAuthorization": "数据授权",
+    "seedNodeMgt": "种子节点管理",
+    "addSeedNode": "种子节点添加"
   },
   "common": {
     "submit": "提交",
@@ -81,7 +84,7 @@
     "status": "状态",
     "ip": "IP",
     "port": "端口",
-    "operations": "操作",
+    "actions": "操作",
     "edit": "编辑",
     "delete": "删除",
     "tips": "提示",
@@ -103,7 +106,11 @@
     "minute": "分钟",
     "second": "秒",
     "day": "天",
-    "month": "月"
+    "month": "月",
+    "yes": "是",
+    "no": "否",
+    "save": "保存",
+    "cancel": "取消"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
@@ -118,7 +125,12 @@
     "logoutFailed": "注销网络失败",
     "internal": "内部",
     "external": "外部",
-    "hasOccupied": "占用此节点情况"
+    "hasOccupied": "占用此节点情况",
+    "addSeedNode": "添加种子节点",
+    "seedNodeAndNodePK": "种子节点名称与节点公钥",
+    "npk": "节点公钥",
+    "initialNode": "初始节点",
+    "internalNetworkAddress": "内部网络地址"
   },
   "dataNodeMgt": {
     "nodeName": "数据节点名称",

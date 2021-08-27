@@ -48,6 +48,8 @@ const ComputationCenter = React.lazy(() =>
   import('../pages/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })),
 )
 
+const SeedNodeMgt = React.lazy(() => import('../pages/nodeMgt/SeedNode/SeedNodeMgt').then(_ => ({ default: _.SeedNodeMgt })))
+const AddSeedNode = React.lazy(() => import('../pages/nodeMgt/SeedNode/AddSeedNode').then(_ => ({ default: _.AddSeedNode })))
 // const did = React.lazy(() => import('../pages/did/index').then(_ => ({ default: _.did })))
 
 export interface IRouteMeta {
@@ -117,6 +119,24 @@ const routes: Array<IRoute> = [
         meta: { exact: false, title: '', icon: '', show: true },
         isOpen: false,
         children: [
+          {
+
+            name: 'seedNodeMgt',
+            label: 'menu.seedNodeMgt',
+            breadcrumbName: 'menu.seedNodeMgt',
+            path: '/nodeMgt/SeedNodeMgt',
+            component: SeedNodeMgt,
+            meta: { exact: true, title: '/nodeMgt/SeedNodeMgt', icon: '', show: true },
+          },
+          {
+
+            name: 'addSeedNode',
+            label: 'menu.addSeedNode',
+            breadcrumbName: 'menu.addSeedNode',
+            path: '/nodeMgt/SeedNodeMgt/addSeedNode',
+            component: AddSeedNode,
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
           {
             name: 'dispatchConfig',
             label: 'menu.dispatchConfig',

@@ -1,0 +1,17 @@
+.bottom8p {
+  margin-bottom: 8px;
+}
+.seedNode-edit-box {
+  .seedNode-edit-cell {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    .seedNode-edit-input {
+      height: 22px;
+      margin-left: 10px;
+      border: 1px solid rgba(60, 53, 136, 0.2);
+      border-radius: 1px;
+    }
+  }
+}

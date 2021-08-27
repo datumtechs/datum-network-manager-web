@@ -84,19 +84,6 @@ const ComputeDetailTable: FC<any> = (props: any) => {
         )
       },
     },
-    // {
-    //   title: t('common.operations'),
-    //   width: 120,
-    //   dataIndex: 'operations',
-    //   key: 'operations',
-    //   render: (text: any, row: any, index: any) => {
-    //     return (
-    //       <span className="btn pointer" onClick={viewInfo}>
-    //         {t('computeNodeMgt.detail')}
-    //       </span>
-    //     )
-    //   },
-    // },
     {
       title: t('computeNodeMgt.sponsorStartTime'),
       dataIndex: 'sponsorStartTime',

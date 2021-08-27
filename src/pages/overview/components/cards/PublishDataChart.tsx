@@ -57,8 +57,8 @@ const PublishDataChart: FC<any> = (props: any) => {
           scale: true,
         },
         {
-          name: t('overview.totalData'),
-          nameTextStyle: { align: 'left' },
+          name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
+          nameTextStyle: { align: 'center' },
           axisLabel: {
             fontSize: 12,
             color: '#8E9EB9',
@@ -95,6 +95,7 @@ const PublishDataChart: FC<any> = (props: any) => {
           name: t('overview.totalData'),
           type: 'line',
           yAxisIndex: 1,
+          symbolSize: 7,
           itemStyle: {
             color: '#FFA505',
           },
@@ -115,7 +116,7 @@ const PublishDataChart: FC<any> = (props: any) => {
     }
     chart.setOption(option)
     chart.resize()
-  }, [width, i18n.language])
+  }, [width, i18n.language, curSwitch])
 
   return (
     <div className="publish-data-box">

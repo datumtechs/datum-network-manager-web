@@ -20,14 +20,18 @@ const SearchBar: FC<any> = (props: any) => {
       ) : (
         ''
       )}
-      <Search
-        placeholder="input search text"
-        size="large"
-        allowClear
-        enterButton={t('common.search')}
-        onSearch={onSearch}
-        style={{ width: 334 }}
-      />
+      {props.hideSearch ? (
+        ''
+      ) : (
+        <Search
+          placeholder="input search text"
+          size="large"
+          allowClear
+          enterButton={t('common.search')}
+          onSearch={onSearch}
+          style={{ width: 334 }}
+        />
+      )}
     </div>
   )
 }

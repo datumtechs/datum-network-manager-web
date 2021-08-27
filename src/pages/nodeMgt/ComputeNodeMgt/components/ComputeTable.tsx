@@ -198,10 +198,10 @@ const DataTable: FC<any> = (props: any) => {
       },
     },
     {
-      title: t('common.operations'),
+      title: t('common.actions'),
       width: 300,
-      dataIndex: 'operations',
-      key: 'operations',
+      dataIndex: 'actions',
+      key: 'actions',
       render: (text: any, row: any, index: any) => {
         return (
           <Space size={10} className="operation-box">

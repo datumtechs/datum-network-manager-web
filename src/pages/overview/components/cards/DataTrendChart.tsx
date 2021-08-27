@@ -30,7 +30,7 @@ const TrendChart: FC<any> = (props: any) => {
   useEffect(() => {
     const chart = echarts.init(document.getElementById('totalData'))
     const option = {
-      grid: { left: 60, top: 30, right: 10, bottom: 20 },
+      grid: { left: 70, top: 30, right: 10, bottom: 20 },
       tooltip: {
         trigger: 'item',
       },
@@ -40,8 +40,8 @@ const TrendChart: FC<any> = (props: any) => {
       },
       yAxis: [
         {
-          name: t('overview.totalData'),
-          nameTextStyle: { align: 'right' },
+          name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
+          nameTextStyle: { align: 'center' },
           axisLabel: {
             fontSize: 12,
             color: '#8E9EB9',
@@ -61,7 +61,7 @@ const TrendChart: FC<any> = (props: any) => {
         {
           name: t('overview.totalData'),
           type: 'line',
-
+          symbolSize: 7,
           itemStyle: {
             color: '#FFA505',
           },
@@ -82,7 +82,7 @@ const TrendChart: FC<any> = (props: any) => {
     }
     chart.setOption(option)
     chart.resize()
-  }, [width, i18n.language])
+  }, [width, i18n.language, curSwitch])
   return (
     <div className="overview-data-amount1 item">
       <div className="overview-data-title">

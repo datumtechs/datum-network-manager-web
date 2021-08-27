@@ -13,7 +13,7 @@ const DataTable: FC<any> = (props: any) => {
   const history = useHistory()
   const [tableData, setTableData] = useState<[]>()
   const [total, totalSet] = useState<number>(0)
-  const [curPage, setCurPage] = useState<number>(0)
+  const [curPage, setCurPage] = useState<number>(1)
   const [curId, setCurId] = useState<string>('')
 
   const { t } = useTranslation()
@@ -86,7 +86,7 @@ const DataTable: FC<any> = (props: any) => {
   const columns = [
     {
       title: 'No.',
-      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
       title: t('computeNodeMgt.nodeName'),
@@ -138,10 +138,10 @@ const DataTable: FC<any> = (props: any) => {
       },
     },
     {
-      title: t('common.operations'),
+      title: t('common.actions'),
       width: 500,
-      dataIndex: 'operations',
-      key: 'operations',
+      dataIndex: 'actions',
+      key: 'actions',
       render: (text: any, row: any, index: any) => {
         return (
           <Space size={10} className="operation-box">
