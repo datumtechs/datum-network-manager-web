@@ -14,7 +14,47 @@ const RecordCard: FC<any> = (props: any) => {
         remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
       },
       {
-        id: '1',
+        id: '2',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '3',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '4',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '5',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '6',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '7',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '8',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '9',
+        date: '2021-3-3 12:30:59',
+        remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
+      },
+      {
+        id: '10',
         date: '2021-3-3 12:30:59',
         remark: 'Bank of AAA has initiated an authorization application of XXXXXX.',
       },

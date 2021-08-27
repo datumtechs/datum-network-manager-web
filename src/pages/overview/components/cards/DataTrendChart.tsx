@@ -30,7 +30,7 @@ const TrendChart: FC<any> = (props: any) => {
   useEffect(() => {
     const chart = echarts.init(document.getElementById('totalData'))
     const option = {
-      grid: { left: 50, top: 30, right: 10, bottom: 20 },
+      grid: { left: 60, top: 30, right: 10, bottom: 20 },
       tooltip: {
         trigger: 'item',
       },

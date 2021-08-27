@@ -29,7 +29,7 @@ const PublishDataChart: FC<any> = (props: any) => {
   useEffect(() => {
     const chart = echarts.init(document.getElementById('publishData'))
     const option = {
-      grid: { left: 50, top: 40, right: 50, bottom: 20 },
+      grid: { left: 50, top: 40, right: 60, bottom: 20 },
       tooltip: {
         trigger: 'item',
       },
