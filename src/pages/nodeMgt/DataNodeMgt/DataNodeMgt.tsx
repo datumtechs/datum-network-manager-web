@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import Bread from '../../../layout/components/Bread'
 import SearchBar from '../../../layout/components/SearchBar'
 import DataTable from './components/DataTable'
-import '../scss/config.scss'
+import '../scss/index.scss'
 
 export const DataNodeMgt: FC<any> = props => {
   const { t } = useTranslation()

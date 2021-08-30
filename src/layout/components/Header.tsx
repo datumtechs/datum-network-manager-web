@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
-import { Dropdown, Menu, Space } from 'antd'
+import { Dropdown, Menu, Space, Input, Form } from 'antd'
 import GlobalSearch from '../../components/GlobalSearch'
 import Bread from './Bread'
 import cnSvg from '../../assets/images/2.icon_cn.svg'
@@ -11,9 +11,11 @@ import menuSvg from '../../assets/images/1.3.svg'
 import searchSvg from '../../assets/images/1.1.svg'
 import { BaseInfoContext } from '../index'
 import { loginApi } from '../../api'
+import MyModal from '../../components/MyModal'
 
 const Header = (props: any) => {
   const { t, i18n } = useTranslation()
+  const [isModalVisible, isModalVisibleSet] = useState(false)
   const [showSearch, showSearchSet] = useState(false)
   const baseInfo = useContext(BaseInfoContext)
   const { pathname } = useLocation()
@@ -43,6 +45,15 @@ const Header = (props: any) => {
   const handleOnBlur = () => {
     showSearchSet(false)
   }
+  const handleOk = () => {
+    // TODO 更换名称
+  }
+  const handleCancel = () => {
+    isModalVisibleSet(false)
+  }
+  const showChangeName = () => {
+    isModalVisibleSet(true)
+  }
 
   const menu = () => {
     return (
@@ -50,7 +61,9 @@ const Header = (props: any) => {
         {baseInfo && baseInfo.name ? (
           <>
             <Menu.Item key="name">{baseInfo?.name}</Menu.Item>{' '}
-            <Menu.Item key="edit">{t('login.editOrgName')}</Menu.Item>
+            <Menu.Item key="edit" onClick={showChangeName}>
+              {t('login.editOrgName')}
+            </Menu.Item>
           </>
         ) : null}
 
@@ -62,25 +75,35 @@ const Header = (props: any) => {
   }
 
   return (
-    <div className={pathname === '/overview' ? 'main-head-box' : 'header-box '}>
-      <div className="bread-box">
-        <Bread />
+    <>
+      <div className={pathname === '/overview' ? 'main-head-box' : 'header-box '}>
+        <div className="bread-box">
+          <Bread />
+        </div>
+        <Space className="operation-box" size={20}>
+          {showSearch ? <GlobalSearch handleOnBlur={handleOnBlur}></GlobalSearch> : ''}
+          <div className="pointer" onClick={() => showSearchSet(!showSearch)}>
+            <img src={searchSvg} alt="" />
+          </div>
+          {/* 是否已经入网 TODO */}
+          <div className="lang-btn pointer" onClick={changeLanguage}>
+            {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
+          </div>
+          <div className="pointer">
+            <Dropdown overlay={menu} placement="bottomRight" arrow>
+              <img src={menuSvg} alt="" />
+            </Dropdown>
+          </div>
+        </Space>
       </div>
-      <Space className="operation-box" size={20}>
-        {showSearch ? <GlobalSearch handleOnBlur={handleOnBlur}></GlobalSearch> : ''}
-        <div className="pointer" onClick={() => showSearchSet(!showSearch)}>
-          <img src={searchSvg} alt="" />
-        </div>
-        <div className="lang-btn pointer" onClick={changeLanguage}>
-          {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
-        </div>
-        <div className="pointer">
-          <Dropdown overlay={menu} placement="bottomRight" arrow>
-            <img src={menuSvg} alt="" />
-          </Dropdown>
-        </div>
-      </Space>
-    </div>
+      <MyModal width={600} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Form size="large" layout="vertical" name="renameOrg" labelAlign="left" initialValues={{ remember: true }}>
+          <Form.Item colon label={t('common.orgName')} name="name" className="form-item">
+            <Input />
+          </Form.Item>
+        </Form>
+      </MyModal>
+    </>
   )
 }
 

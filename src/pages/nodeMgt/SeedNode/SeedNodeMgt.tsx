@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import SeedNodeTable from './components/SeedNodeTable'
 import SearchBar from '../../../layout/components/SearchBar'
-import '../scss/seed.scss'
+import '../scss/index.scss'
 
 export const SeedNodeMgt: FC<any> = (props: any) => {
   const { t } = useTranslation()

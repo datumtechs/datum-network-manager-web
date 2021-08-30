@@ -3,7 +3,7 @@ import { Form, Input, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import Bread from '../../../layout/components/Bread'
-import '../scss/config.scss'
+import '../scss/index.scss'
 import { computeNodeApi } from '../../../api/index'
 import MyModal from '../../../components/MyModal'
 

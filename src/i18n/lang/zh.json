@@ -9,7 +9,8 @@
     "logout": "登 出",
     "plzLogin": "您还没有登录, 已为您跳转到登录页",
     "internalError": "内部错误",
-    "editOrgName": "修改组织名称"
+    "editOrgName": "修改组织名称",
+    "rename": "请输入新的机构识别名称"
   },
   "overview": {
     "seedNode": "种子节点",
@@ -48,7 +49,11 @@
     "powerAmountInRosetta": "全网算力总量",
     "mom": "月环比",
     "wow": "月同比",
-    "dataAuthorizationApplication": "数据授权申请"
+    "dataAuthorizationApplication": "数据授权申请",
+    "setYourOrgName": "请设置机构识别名称",
+    "setOrgNameTips": "用于在整个网络中代表参与方",
+    "inProgress": "共识中,请稍等",
+    "connectNum": "连接外部组织的数量"
   },
   "menu": {
     "systemOverview": "系统概况",
@@ -73,6 +78,7 @@
   },
   "common": {
     "submit": "提交",
+    "submitApplication": "提交申请",
     "return": "返回",
     "plzApplyDid": "使用平台功能需要申请身份标识",
     "orgName": "机构识别名称",
@@ -130,7 +136,13 @@
     "seedNodeAndNodePK": "种子节点名称与节点公钥",
     "npk": "节点公钥",
     "initialNode": "初始节点",
-    "internalNetworkAddress": "内部网络地址"
+    "internalNetworkAddress": "内部网络地址",
+    "noRepeatSeedName": "种子节点名称不可重复，且本次设置之后无法修改；其他配置提交后可以在种子节点管理页面更改。",
+    "nodeSeedName": "种子节点名称",
+    "NodePublicKey": "节点公钥",
+    "forSelfidentity": "用于自己识别",
+    "submitAddtion": "添加",
+    "unconnected": "调度服务未连接"
   },
   "dataNodeMgt": {
     "nodeName": "数据节点名称",
@@ -325,6 +337,7 @@
     "plzComplete": "请完善表单内容",
     "plzInputDesc": "请完善数据的备注",
     "plzInputName": "请完善数据的名称",
-    "searchTips": "请输入关键字或ID搜索"
+    "searchTips": "请输入关键字或ID搜索",
+    "plzInput": "请填写"
   }
 }

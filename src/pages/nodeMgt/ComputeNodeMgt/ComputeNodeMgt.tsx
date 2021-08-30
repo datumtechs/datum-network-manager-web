@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import Bread from '../../../layout/components/Bread'
 import SearchBar from '../../../layout/components/SearchBar'
 import ComputeTable from './components/ComputeTable'
-import '../scss/config.scss'
+import '../scss/index.scss'
 
 export const ComputeNodeMgt: FC<any> = () => {
   const { t } = useTranslation()

@@ -9,7 +9,8 @@
     "logout": "Log Out",
     "plzLogin": "You haven't logged in yet, switched to the login page for you",
     "internalError": "Internal Error",
-    "editOrgName": "Modify organization name"
+    "editOrgName": "Modify organization name",
+    "rename": "Your new organization name"
   },
   "overview": {
     "seedNode": "Seed Node",
@@ -48,7 +49,11 @@
     "powerAmountInRosetta": "Computing Power in The RosettaNet",
     "mom": "MoM ratio",
     "wow": "WoW ratio",
-    "dataAuthorizationApplication": "Data Authorization Application"
+    "dataAuthorizationApplication": "Data Authorization Application",
+    "setYourOrgName": "Set your organization name",
+    "setOrgNameTips": "For representing participants in the RosettaNet",
+    "inProgress": "In progress，just a second",
+    "connectNum": "Number of connected external organizations"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -73,8 +78,9 @@
   },
   "common": {
     "submit": "Submit",
+    "submitApplication": "Submit",
     "return": "Return",
-    "plzApplyDid": "First of all, please apply a DID",
+    "plzApplyDid": "First of all, apply an identifier",
     "orgName": "Organization name",
     "orgIdentify": "Organization identifier",
     "internalIP": "Internal IP",
@@ -130,7 +136,13 @@
     "seedNodeAndNodePK": "Seed node name & Node public key",
     "npk": "NPK",
     "initialNode": "Initial Node",
-    "internalNetworkAddress": "Internal network address"
+    "internalNetworkAddress": "Internal network address",
+    "noRepeatSeedName": "Seed node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
+    "nodeSeedName": "Seed node name",
+    "NodePublicKey": "Node public key",
+    "forSelfidentity": "For self-identification",
+    "submitAddtion": "Submit",
+    "unconnected": "调度服务未连接"
   },
   "dataNodeMgt": {
     "nodeName": "Data node name",
@@ -325,6 +337,7 @@
     "plzComplete": "Please complete the form content",
     "plzInputDesc": "Please fill in the remarks of the data",
     "plzInputName": "Please fill in the name of the data",
-    "searchTips": "Search by key words or ID"
+    "searchTips": "Search by key words or ID",
+    "plzInput": "please input your"
   }
 }

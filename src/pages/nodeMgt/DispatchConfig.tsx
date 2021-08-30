@@ -5,9 +5,10 @@ import { LoadingOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import Bread from '../../layout/components/Bread'
-import './scss/config.scss'
+import './scss/index.scss'
 import { BaseInfoContext } from '../../layout/index'
 import { nodeApi } from '../../api/index'
+import MyTag from '../../components/MyTag'
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
@@ -15,11 +16,13 @@ const DispatchConfig: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
+  const [editStatus, editStatusSet] = useState<boolean>(false) // 是否编辑状态
 
-  const [hasService, setHasService] = useState<boolean>(false)
-  const [isConnect, setIsConnect] = useState<boolean>(false)
-  const [showStatus, setShowStatus] = useState<boolean>(false)
-  const [showLoading, setShowShowLoading] = useState<boolean>(false)
+  const [hasService, setHasService] = useState<boolean>(false) // 是否已经连接
+  const [showTestConnect, showTestConnectSet] = useState<boolean>(false) // 是否显示测试状态
+  const [isConnect, setIsConnect] = useState<boolean>(false) // 测试是否可连接
+  // const [showStatus, setShowStatus] = useState<boolean>(false)
+  const [showJoinLoading, setshowJoinLoading] = useState<boolean>(false)
 
   const onFinish = () => {}
   const onFinishFailed = () => {}
@@ -29,10 +32,10 @@ const DispatchConfig: FC<any> = (props: any) => {
       carrierIp: baseInfo.carrierIp,
       carrierPort: baseInfo.carrierPort,
     })
-  }, [])
+  }, [hasService])
 
   useEffect(() => {
-    if (baseInfo.status === 1) {
+    if (baseInfo.status === 0) {
       setHasService(true)
     } else {
       setHasService(false)
@@ -40,13 +43,10 @@ const DispatchConfig: FC<any> = (props: any) => {
   }, [baseInfo.status])
 
   const testServiceFn = () => {
-    setShowShowLoading(true)
     // 192.168.21.164:4444
     const { carrierIp, carrierPort } = form.getFieldsValue()
     nodeApi.connectNode({ ip: carrierIp, port: carrierPort }).then(res => {
-      // setIsConnect()
-      setShowShowLoading(false)
-      setShowStatus(true)
+      showTestConnectSet(true)
       if (res.status === 0) {
         setIsConnect(true)
       } else {
@@ -56,14 +56,12 @@ const DispatchConfig: FC<any> = (props: any) => {
   }
 
   const joinNetwork = () => {
+    setshowJoinLoading(true)
     nodeApi.applyJoinNetwork().then(res => {
+      setshowJoinLoading(false)
       if (res.status === 0) {
         // TODO:  临时解决办法 使用5秒后拉取最新状态的方式解决延迟的问题
         message.success(`${t('tip.joinNetworkSuccess')}`)
-        // setTimeout(() => {
-        //   message.success(`${t('tip.joinNetworkSuccess')}`)
-        //   // props.setBaseInfoStatus(true)
-        // }, 5000)
       } else {
         message.error(`${t('tip.joinNetworkFailed')}`)
       }
@@ -75,26 +73,27 @@ const DispatchConfig: FC<any> = (props: any) => {
     nodeApi.withDrawNetwork().then(res => {
       if (res.status === 0) {
         message.success(`${t('node.logoutSuccess')}`)
-        // setTimeout(() => {
-        //   message.success(`${t('node.logoutSuccess')}`)
-        //   // props.setBaseInfoStatus(false)
-        // }, 5000)
       } else {
         message.error(`${t('node.logoutFailed')}`)
       }
     })
   }
 
+  const switchEditStatus = (boolean: boolean) => {
+    editStatusSet(boolean)
+  }
+
   return (
     <>
       <div className="layout-box">
+        <div className="tip-box">{t('node.noRepeatSeedName')}</div>
         <div className="form-box">
           <Form
             size="large"
             name="basic"
             form={form}
             labelAlign="left"
-            labelCol={{ style: { width: i18n.language === 'en' ? 180 : 120, whiteSpace: 'pre-wrap' } }}
+            labelCol={{ style: { width: i18n.language === 'en' ? 180 : 160, whiteSpace: 'pre-wrap' } }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -105,16 +104,99 @@ const DispatchConfig: FC<any> = (props: any) => {
             <Form.Item colon label={t('common.orgIdentify')} name="identityId" className="form-item">
               <p className="title">{baseInfo.identityId}</p>
             </Form.Item>
-            <Form.Item colon label={t('common.internalIP')} name="carrierIp" className="form-item">
-              <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Form.Item colon label={t('common.internalIP')} className="form-item">
+              <div className="form-group">
+                <Form.Item name="carrierIp">
+                  <Input disabled={!editStatus} className="form-box-input" placeholder={t('common.noModify')} />
+                </Form.Item>
+                {editStatus ? (
+                  <div className="pointer form-group-btn" onClick={() => switchEditStatus(false)}>
+                    {t('common.cancel')}
+                  </div>
+                ) : (
+                  <div className="pointer form-group-btn" onClick={() => switchEditStatus(true)}>
+                    {t('common.edit')}
+                  </div>
+                )}
+              </div>
             </Form.Item>
             <Form.Item colon label={t('common.internalPort')} name="carrierPort" className="form-item">
-              <Input className="form-box-input" placeholder={t('common.noModify')} />
+              <div className="form-group">
+                <Form.Item name="carrierPort">
+                  <Input disabled={!editStatus} className="form-box-input" placeholder={t('common.noModify')} />
+                </Form.Item>
+                {editStatus ? (
+                  <div className="pointer form-group-btn" onClick={() => switchEditStatus(false)}>
+                    {t('common.cancel')}
+                  </div>
+                ) : (
+                  <div className="pointer form-group-btn" onClick={() => switchEditStatus(true)}>
+                    {t('common.edit')}
+                  </div>
+                )}
+              </div>
             </Form.Item>
+            {!hasService ? ( // 是否已经连接
+              <>
+                <Form.Item colon label={t('common.status')} className="form-item">
+                  <div className="form-group">
+                    <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
+                  </div>
+                </Form.Item>
+                <Form.Item colon label={t('overview.connectNum')} className="form-item">
+                  {editStatus ? 'N/A' : 22}
+                </Form.Item>
+              </>
+            ) : (
+              <>
+                <Form.Item className="form-item">
+                  <div className="form-group">
+                    <Button
+                      className="btn"
+                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                      onClick={testServiceFn}
+                    >
+                      {t('node.connectService')}
+                    </Button>
+
+                    {showTestConnect ? (
+                      isConnect ? (
+                        <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
+                      ) : (
+                        <MyTag content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
+                      )
+                    ) : (
+                      <MyTag content={`${t('node.unconnected')}`} bgColor="#C9C9C9" color="#FFFFFF" border="#999999" />
+                    )}
+                  </div>
+                </Form.Item>
+                <Form.Item className="form-item">
+                  {showJoinLoading ? (
+                    <Button
+                      loading
+                      disabled={!isConnect}
+                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                      onClick={joinNetwork}
+                    >
+                      {t('overview.inProgress')}
+                    </Button>
+                  ) : (
+                    <Button
+                      type="primary"
+                      disabled={!isConnect}
+                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                      onClick={joinNetwork}
+                    >
+                      {t('overview.submit')}
+                    </Button>
+                  )}
+                </Form.Item>
+              </>
+            )}
             {/* <Form.Item label={t('common.status')} name="username" className="form-item">
               <Input className="form-box-input" placeholder={t('common.noModify')} />
             </Form.Item> */}
-            <Form.Item>
+            {/* <Form.Item>
               {hasService ? (
                 <>
                   <Button
@@ -147,7 +229,6 @@ const DispatchConfig: FC<any> = (props: any) => {
                   >
                     {t('node.connectService')}
                   </Button>
-                  {/* // TODO 需要抽离 */}
                   {showLoading ? (
                     <Spin className="loading-icon" indicator={antIcon} />
                   ) : showStatus ? (
@@ -162,12 +243,11 @@ const DispatchConfig: FC<any> = (props: any) => {
                 </>
               )}
             </Form.Item>
-            <Form.Item>
-              {hasService ? (
+            <Form.Item> */}
+            {/* {hasService ? (
                 <Button
                   type="primary"
                   className="btn submit-btn"
-                  // disabled={!isConnect}
                   onClick={missNetwork}
                   style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
                   htmlType="submit"
@@ -188,7 +268,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                   </Button>
                 </>
               )}
-            </Form.Item>
+            </Form.Item> */}
           </Form>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Button, Form, Input, message } from 'antd'
@@ -9,6 +9,7 @@ import { BaseInfoContext } from '../../layout/index'
 
 export const DidApplication: FC<any> = () => {
   const baseInfo = useContext(BaseInfoContext)
+
   const { t } = useTranslation()
   const history = useHistory()
   const onFinish = ({ identityId = '' }) => {
@@ -35,13 +36,13 @@ export const DidApplication: FC<any> = () => {
     <div className="did-box">
       <div className="title">{t('common.plzApplyDid')}</div>
       <div className="form-box">
-        <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
+        <Form name="basic" layout="vertical" initialValues={{ remember: true }} onFinish={onFinish}>
           <Form.Item
-            label={t('common.orgName')}
+            label={t('overview.setYourOrgName')}
             name="identityId"
             rules={[{ required: true, message: 'Please input your identityId!' }]}
           >
-            <Input placeholder={t('common.noModify')} />
+            <Input placeholder={t('overview.setOrgNameTips')} />
           </Form.Item>
           <Form.Item>
             <div className="btn center">

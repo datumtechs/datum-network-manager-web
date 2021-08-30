@@ -1,0 +1,97 @@
+.submit-btn {
+  width: 264px;
+  span {
+    font-family: AlibabaPuHuiTi-Medium;
+    width: 180px;
+    margin: 0 auto;
+    font-size: 12px;
+    color: #ffffff;
+    letter-spacing: 0;
+    line-height: 14px;
+    word-break: normal;
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+}
+
+.status {
+  padding-left: 20px;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  font-family: PingFang-SC-Medium;
+}
+.loading-icon {
+  padding-left: 20px;
+}
+.bottom8p {
+  margin-bottom: 8px;
+}
+.seedNode-edit-box {
+  .seedNode-edit-cell {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    .seedNode-edit-input {
+      height: 22px;
+      margin-left: 10px;
+      border: 1px solid rgba(60, 53, 136, 0.2);
+      border-radius: 1px;
+    }
+  }
+}
+.tip-box {
+  width: 650px;
+  height: 60px;
+  background: #f9f9c8;
+  border: 1px solid #ffe58f;
+  border-radius: 4px;
+  padding: 10px 38px;
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  letter-spacing: 0;
+  position: relative;
+  &::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background: url("../../../assets/images/10icon1.svg");
+    position: absolute;
+    left: 16px;
+    top: 13px;
+  }
+}
+.form-item {
+  .title {
+    font-family: AlibabaPuHuiTi-Medium;
+    font-size: 14px;
+    color: #1d2832;
+    letter-spacing: 0;
+  }
+  .form-box-input {
+    width: 457px;
+  }
+  .btn {
+    width: 112px;
+  }
+  .re-btn {
+    margin-right: 40px;
+  }
+  .form-group {
+    display: flex;
+    align-items: center;
+    .form-group-btn {
+      font-family: AlibabaPuHuiTi-Medium;
+      font-size: 14px;
+      color: #3c3588;
+      letter-spacing: 0;
+    }
+  }
+}

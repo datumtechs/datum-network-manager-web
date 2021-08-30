@@ -53,6 +53,13 @@ const SeedNodeTable: FC<any> = (props: any) => {
     tableDataSet(dataSource)
   }
 
+  const saveFn = () => {}
+
+  const deleteFn = record => {
+    isModalVisibleSet(true)
+    curNameSet(record.name)
+  }
+
   const columns: Array<object> = [
     {
       title: 'No.',
@@ -77,7 +84,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
             ) : (
               <Tooltip title={record.publickey}>
                 <p className="ellipsis" style={{ whiteSpace: 'nowrap' }}>
-                  {t('node.npk')}:&nbsp; {record.publickey}
+                  {t('node.npk')}&nbsp;:&nbsp;{record.publickey}
                 </p>
               </Tooltip>
             )}
@@ -94,7 +101,11 @@ const SeedNodeTable: FC<any> = (props: any) => {
         return (
           <div className="status-box">
             {record.status === 0 ? <img src={successSvg} alt="" /> : <img src={failedSvg} alt="" />}
-            {record.status === 0 ? <span>{t('common.connectSuccess')}</span> : <span>{t('common.connectFailed')}</span>}
+            {record.status === 0 ? (
+              <span className="success_color">{t('common.connectSuccess')}</span>
+            ) : (
+              <span className="failed_color">{t('common.connectFailed')}</span>
+            )}
           </div>
         )
       },
@@ -120,7 +131,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
                 <Input className="seedNode-edit-input" />
               </div>
             ) : (
-              <div className="bottom8p">IP: {record.ip}</div>
+              <div className="bottom8p">IP : {record.ip}</div>
             )}
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
@@ -129,7 +140,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
               </div>
             ) : (
               <div>
-                {t('common.port')}:{record.port}
+                {t('common.port')} : {record.port}
               </div>
             )}
           </div>
@@ -146,15 +157,21 @@ const SeedNodeTable: FC<any> = (props: any) => {
           <>
             {record.isEdit ? (
               <Space size={10}>
-                <span>{t('common.save')}</span>
-                <span onClick={() => setEditStatus(record, false)}>{t('common.cancel')}</span>
+                <span className="main_color pointer" onClick={() => saveFn()}>
+                  {t('common.save')}
+                </span>
+                <span className="main_color pointer" onClick={() => setEditStatus(record, false)}>
+                  {t('common.cancel')}
+                </span>
               </Space>
             ) : (
               <Space size={10}>
-                <span className="pointer" onClick={() => setEditStatus(record, true)}>
+                <span className="pointer main_color" onClick={() => setEditStatus(record, true)}>
                   {t('common.edit')}
                 </span>
-                <span className="pointer">{t('common.delete')}</span>
+                <span className="pointer main_color" onClick={() => deleteFn(record)}>
+                  {t('common.delete')}
+                </span>
               </Space>
             )}
           </>
