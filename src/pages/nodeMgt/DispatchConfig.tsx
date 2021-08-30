@@ -28,31 +28,40 @@ const DispatchConfig: FC<any> = (props: any) => {
   const onFinishFailed = () => {}
 
   useEffect(() => {
-    form.setFieldsValue({
-      carrierIp: baseInfo.carrierIp,
-      carrierPort: baseInfo.carrierPort,
-    })
-  }, [hasService])
-
-  useEffect(() => {
-    if (baseInfo.status === 0) {
+    if (baseInfo.status === 1) {
       setHasService(true)
+      form.setFieldsValue({
+        carrierIp: baseInfo.carrierIp,
+        carrierPort: baseInfo.carrierPort,
+      })
     } else {
       setHasService(false)
     }
+    console.log(hasService)
   }, [baseInfo.status])
 
   const testServiceFn = () => {
+    form
+      .validateFields()
+      .then(values => {
+        console.log(values)
+        const { errorFields } = values
+        if (errorFields) return
+        const { carrierIp, carrierPort } = form.getFieldsValue()
+        nodeApi.connectNode({ ip: carrierIp, port: carrierPort }).then(res => {
+          showTestConnectSet(true)
+          if (res.status === 0 && res.data.carrierConnStatus === 'enabled') {
+            setIsConnect(true)
+          } else {
+            setIsConnect(false)
+          }
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
     // 192.168.21.164:4444
-    const { carrierIp, carrierPort } = form.getFieldsValue()
-    nodeApi.connectNode({ ip: carrierIp, port: carrierPort }).then(res => {
-      showTestConnectSet(true)
-      if (res.status === 0) {
-        setIsConnect(true)
-      } else {
-        setIsConnect(false)
-      }
-    })
   }
 
   const joinNetwork = () => {
@@ -106,37 +115,59 @@ const DispatchConfig: FC<any> = (props: any) => {
             </Form.Item>
             <Form.Item colon label={t('common.internalIP')} className="form-item">
               <div className="form-group">
-                <Form.Item name="carrierIp">
-                  <Input disabled={!editStatus} className="form-box-input" placeholder={t('common.noModify')} />
+                <Form.Item
+                  name="carrierIp"
+                  rules={[{ required: true, message: `${t('login.plzinput')}${t('dataNodeMgt.internalIP')}` }]}
+                >
+                  <Input
+                    disabled={hasService && !editStatus}
+                    className="form-box-input"
+                    placeholder={t('common.noModify')}
+                  />
                 </Form.Item>
-                {editStatus ? (
-                  <div className="pointer form-group-btn" onClick={() => switchEditStatus(false)}>
-                    {t('common.cancel')}
-                  </div>
+                {hasService ? (
+                  editStatus ? (
+                    <div className="pointer form-group-btn" onClick={() => switchEditStatus(false)}>
+                      {t('common.cancel')}
+                    </div>
+                  ) : (
+                    <div className="pointer form-group-btn" onClick={() => switchEditStatus(true)}>
+                      {t('common.edit')}
+                    </div>
+                  )
                 ) : (
-                  <div className="pointer form-group-btn" onClick={() => switchEditStatus(true)}>
-                    {t('common.edit')}
-                  </div>
+                  ''
                 )}
               </div>
             </Form.Item>
             <Form.Item colon label={t('common.internalPort')} name="carrierPort" className="form-item">
               <div className="form-group">
-                <Form.Item name="carrierPort">
-                  <Input disabled={!editStatus} className="form-box-input" placeholder={t('common.noModify')} />
+                <Form.Item
+                  name="carrierPort"
+                  rules={[{ required: true, message: `${t('login.plzinput')}${t('dataNodeMgt.internalPort')}` }]}
+                >
+                  <Input
+                    disabled={hasService && !editStatus}
+                    className="form-box-input"
+                    placeholder={t('common.noModify')}
+                  />
                 </Form.Item>
-                {editStatus ? (
-                  <div className="pointer form-group-btn" onClick={() => switchEditStatus(false)}>
-                    {t('common.cancel')}
-                  </div>
+                {hasService ? (
+                  editStatus ? (
+                    <div className="pointer form-group-btn" onClick={() => switchEditStatus(false)}>
+                      {t('common.cancel')}
+                    </div>
+                  ) : (
+                    <div className="pointer form-group-btn" onClick={() => switchEditStatus(true)}>
+                      {t('common.edit')}
+                    </div>
+                  )
                 ) : (
-                  <div className="pointer form-group-btn" onClick={() => switchEditStatus(true)}>
-                    {t('common.edit')}
-                  </div>
+                  ''
                 )}
               </div>
             </Form.Item>
-            {!hasService ? ( // 是否已经连接
+            {hasService ? ( // 是否已经连接
               <>
                 <Form.Item colon label={t('common.status')} className="form-item">
                   <div className="form-group">
@@ -151,11 +182,7 @@ const DispatchConfig: FC<any> = (props: any) => {
               <>
                 <Form.Item className="form-item">
                   <div className="form-group">
-                    <Button
-                      className="btn"
-                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
-                      onClick={testServiceFn}
-                    >
+                    <Button style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }} onClick={testServiceFn}>
                       {t('node.connectService')}
                     </Button>
 
