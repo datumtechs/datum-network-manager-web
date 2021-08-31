@@ -25,7 +25,7 @@
     "cpu": "CPU",
     "memory": "Memory",
     "bandwidth": "Bandwidth",
-    "submit": "Create the identify credential，and apply for network access",
+    "submit": "Create the identify credential, and apply for network access",
     "publishData": "My Published data",
     "unPublishData": "Unpublished data",
     "taskInProgress": "Tasks in Progress",
@@ -52,7 +52,7 @@
     "dataAuthorizationApplication": "Data Authorization Application",
     "setYourOrgName": "Set your organization name",
     "setOrgNameTips": "For representing participants in the RosettaNet",
-    "inProgress": "In progress，just a second",
+    "inProgress": "In progress, just a second",
     "connectNum": "Number of connected external organizations"
   },
   "menu": {
@@ -90,7 +90,7 @@
     "status": "Status",
     "ip": "IP",
     "port": "Port",
-    "operations": "Operations",
+    "actions": "actions",
     "edit": "Edit",
     "delete": "Delete",
     "tips": "Reminder",
@@ -142,7 +142,14 @@
     "NodePublicKey": "Node public key",
     "forSelfidentity": "For self-identification",
     "submitAddtion": "Submit",
-    "unconnected": "调度服务未连接"
+    "unconnected": "Unconnected",
+    "writeOffNetwork": "Write off the identify crednetial, exit the network",
+    "addDataNodeTips": "Data node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
+    "internalIpPlaceholder": "Internal host address of the data node",
+    "externalIpPlaceholder": "External host address of the data node",
+    "internalPortPlaceholder": "Internal port of RPC communication",
+    "externalPortPlaceholder": "External port of RPC communication",
+    "addComputeNodeTips": "Data node name cannot be duplicated, and it cannot be modified after submitting. other configurations can be altered later."
   },
   "dataNodeMgt": {
     "nodeName": "Data node name",
@@ -338,6 +345,7 @@
     "plzInputDesc": "Please fill in the remarks of the data",
     "plzInputName": "Please fill in the name of the data",
     "searchTips": "Search by key words or ID",
-    "plzInput": "please input your"
+    "plzInput": "please input your",
+    "searchText": "input search text"
   }
 }

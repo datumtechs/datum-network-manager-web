@@ -107,7 +107,7 @@ export const Tasks: FC<any> = () => {
         <div className="search-bar">
           <Search
             prefix={<SearchOutlined />}
-            placeholder="input search text"
+            placeholder={t('tips.searchText')}
             size="large"
             allowClear
             enterButton={t('common.search')}

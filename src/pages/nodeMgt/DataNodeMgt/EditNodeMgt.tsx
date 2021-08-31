@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { Form, Input, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import Bread from '../../../layout/components/Bread'
+import MyTag from '../../../components/MyTag'
 import '../scss/index.scss'
 import { DataNode } from '../../../entity'
 import { dataNodeApi } from '../../../api/index'
@@ -16,17 +16,18 @@ export const EditNodeMgt: FC<any> = (props: any) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const history = useHistory()
 
-  useEffect(() => {
-    if (type === 'Edit') {
-      form.setFieldsValue({
-        internalIp: row.internalIp,
-        internalPort: row.internalPort,
-        externalIp: row.externalIp,
-        externalPort: row.externalPort,
-        nodeName: row.nodeName,
-      })
-    }
-  }, [])
+  // 不存在编辑状态 只有新增
+  // useEffect(() => {
+  //   if (type === 'Edit') {
+  //     form.setFieldsValue({
+  //       internalIp: row.internalIp,
+  //       internalPort: row.internalPort,
+  //       externalIp: row.externalIp,
+  //       externalPort: row.externalPort,
+  //       nodeName: row.nodeName,
+  //     })
+  //   }
+  // }, [])
 
   const handleOk = () => {
     setIsModalVisible(false)
@@ -37,42 +38,40 @@ export const EditNodeMgt: FC<any> = (props: any) => {
   }
 
   const onFinish = (values: DataNode) => {
-    if (type === 'Edit') {
-      dataNodeApi
-        .updateDataNode({
-          externalIp: values.externalIp,
-          externalPort: values.externalPort,
-          internalIp: values.internalIp,
-          internalPort: values.internalPort,
-          nodeId: row.nodeId,
-        })
-        .then(res => {
-          if (res.status === 0) {
-            history.push('/nodeMgt/dataNodeMgt')
-            message.success(`${t('tip.updateNodeSuccess')}`)
-          } else {
-            message.error(res.msg)
-          }
-        })
-    }
-    if (type === 'Add') {
-      dataNodeApi
-        .addDataNode({
-          externalIp: values.externalIp,
-          externalPort: values.externalPort,
-          internalIp: values.internalIp,
-          internalPort: values.internalPort,
-          nodeName: values.nodeName,
-        })
-        .then(res => {
-          if (res.status === 0) {
-            history.push('/nodeMgt/dataNodeMgt')
-            message.success(`${t('tip.addNodeSuccess')}`)
-          } else {
-            message.error(`${t('tip.addNodeFailed')}`)
-          }
-        })
-    }
+    // if (type === 'Edit') {
+    //   dataNodeApi
+    //     .updateDataNode({
+    //       externalIp: values.externalIp,
+    //       externalPort: values.externalPort,
+    //       internalIp: values.internalIp,
+    //       internalPort: values.internalPort,
+    //       nodeId: row.nodeId,
+    //     })
+    //     .then(res => {
+    //       if (res.status === 0) {
+    //         history.push('/nodeMgt/dataNodeMgt')
+    //         message.success(`${t('tip.updateNodeSuccess')}`)
+    //       } else {
+    //         message.error(res.msg)
+    //       }
+    //     })
+    // }
+    dataNodeApi
+      .addDataNode({
+        externalIp: values.externalIp,
+        externalPort: values.externalPort,
+        internalIp: values.internalIp,
+        internalPort: values.internalPort,
+        nodeName: values.nodeName,
+      })
+      .then(res => {
+        if (res.status === 0) {
+          history.push('/nodeMgt/dataNodeMgt')
+          message.success(`${t('tip.addNodeSuccess')}`)
+        } else {
+          message.error(`${t('tip.addNodeFailed')}`)
+        }
+      })
   }
   const leaveFn = () => {
     setIsModalVisible(true)
@@ -80,6 +79,7 @@ export const EditNodeMgt: FC<any> = (props: any) => {
   const onFinishFailed = () => {}
   return (
     <div className="layout-box">
+      <div className="tip-box">{t('node.addDataNodeTips')}</div>
       <div className="form-box">
         <Form
           size="large"
@@ -91,20 +91,26 @@ export const EditNodeMgt: FC<any> = (props: any) => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item colon label={t('dataNodeMgt.nodeName')} name="nodeName" className="form-item">
-            <Input disabled={type === 'Edit'} className="form-box-input" placeholder={t('common.noModify')} />
+          <Form.Item colon label={t('dataNodeMgt.nodeName')} className="form-item">
+            <div className="form-group">
+              <Form.Item name="nodeName">
+                <Input className="form-box-input" placeholder={t('node.forSelfidentity')} />
+              </Form.Item>
+              <MyTag content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" />
+              <MyTag content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" />
+            </div>
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('node.internalIpPlaceholder')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.externalIp')} name="externalIp" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('node.externalIpPlaceholder')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.internalPort')} name="internalPort" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('node.internalPortPlaceholder')} />
           </Form.Item>
           <Form.Item colon label={t('dataNodeMgt.externalPort')} name="externalPort" className="form-item">
-            <Input className="form-box-input" placeholder={t('common.noModify')} />
+            <Input className="form-box-input" placeholder={t('node.externalPortPlaceholder')} />
           </Form.Item>
           {/* <Form.Item label={t('common.status')} name="username" className="form-item">
               <Input className="form-box-input" placeholder={t('common.noModify')} />

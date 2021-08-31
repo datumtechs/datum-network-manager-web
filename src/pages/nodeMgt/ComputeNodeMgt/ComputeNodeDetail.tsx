@@ -30,9 +30,9 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   >
   let myChart: any = null
 
-  const [xAxis, xAxisSet] = useState([])
+  // const [xAxis, xAxisSet] = useState([])
   const { location } = props
-  const { id } = location.state
+  const { id, name } = location.state
   const { t } = useTranslation()
   const [selectTab, SetSelectTab] = useState('1')
   const [curTitle, curTitleSet] = useState('')
@@ -42,7 +42,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   const [curPercent, curPercentSet] = useState<number>(0)
   const [infoTips, infoTipsSet] = useState<string>('')
   const [timeType, timeTypeSet] = useState<number>(1)
-  const [curYAxis, curYAxisSet] = useState([])
+  // const [curYAxis, curYAxisSet] = useState([])
 
   const getOneDayHours = (unit: string = `${t('common.hour')}`) => {
     const newHour: string[] = []
@@ -302,23 +302,43 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   }, [timeType])
 
   return (
-    <div className="layout-box gray-box">
+    <div className="layout-gray-box">
+      <div className="title-box">
+        <p className="title-name">
+          <span>{t('computeNodeMgt.nodeName')}:&nbsp;&nbsp;</span>
+          <span>{name}</span>
+        </p>
+        <p className="title-id">
+          <span>ID:&nbsp;&nbsp;</span>
+          <span>{id}</span>
+        </p>
+      </div>
       <div className="charts-box">
         <div className="node-info">
-          <div className="title">
-            <span>{t('computeNodeMgt.nodeName')}:</span>
-            <span></span>
-          </div>
           <div className="btn-group">
             <Space size={30}>
-              <Button type={selectTab === '1' ? 'primary' : 'default'} onClick={() => SetSelectTab('1')}>
-                CPU
+              <Button
+                className="node-info-btn"
+                type={selectTab === '1' ? 'primary' : 'default'}
+                onClick={() => SetSelectTab('1')}
+              >
+                CPU:&nbsp;{details?.usedCore}
+                {/* TODO单位 */}
               </Button>
-              <Button type={selectTab === '2' ? 'primary' : 'default'} onClick={() => SetSelectTab('2')}>
-                {t('overview.memory')}
+              <Button
+                className="node-info-btn"
+                type={selectTab === '2' ? 'primary' : 'default'}
+                onClick={() => SetSelectTab('2')}
+              >
+                {t('overview.memory')}:&nbsp;{details?.usedMemory}
+                {/* TODO单位 */}
               </Button>
-              <Button type={selectTab === '3' ? 'primary' : 'default'} onClick={() => SetSelectTab('3')}>
-                {t('overview.bandwidth')}
+              <Button
+                className="node-info-btn"
+                type={selectTab === '3' ? 'primary' : 'default'}
+                onClick={() => SetSelectTab('3')}
+              >
+                {t('overview.bandwidth')}:&nbsp;{details?.usedBandwidth}
               </Button>
             </Space>
           </div>
@@ -349,9 +369,9 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
         </div>
         <div className="cpu-info">
           {/* TODO 此处需要根据切换来进行改变 */}
-          <div className="title">
+          {/* <div className="title">
             <span>{curTitle}:</span>
-          </div>
+          </div> */}
           <div className="status">
             {infoTips}
             {/* {i18n.language === 'en' ? `${curTitle} ${t('node.hasOccupied')}` : `此节点的${curTitle}占用情况`} */}
@@ -361,9 +381,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
           </div>
         </div>
       </div>
-      <div className="white-bg">
-        <ComputeDetailTable id={id} bandwidth={details?.bandwidth} memory={details?.memory} core={details?.core} />
-      </div>
+      <ComputeDetailTable id={id} bandwidth={details?.bandwidth} memory={details?.memory} core={details?.core} />
     </div>
   )
 }

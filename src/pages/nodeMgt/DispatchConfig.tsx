@@ -23,24 +23,25 @@ const DispatchConfig: FC<any> = (props: any) => {
   const [isConnect, setIsConnect] = useState<boolean>(false) // 测试是否可连接
   // const [showStatus, setShowStatus] = useState<boolean>(false)
   const [showJoinLoading, setshowJoinLoading] = useState<boolean>(false)
+  const [showTestLoading, showTestLoadingSet] = useState<boolean>(false)
 
   const onFinish = () => {}
   const onFinishFailed = () => {}
 
   useEffect(() => {
     if (baseInfo.status === 1) {
-      setHasService(true)
-      form.setFieldsValue({
-        carrierIp: baseInfo.carrierIp,
-        carrierPort: baseInfo.carrierPort,
-      })
-    } else {
       setHasService(false)
+    } else {
+      setHasService(true)
     }
-    console.log(hasService)
+    form.setFieldsValue({
+      carrierIp: baseInfo.carrierIp,
+      carrierPort: baseInfo.carrierPort,
+    })
   }, [baseInfo.status])
 
   const testServiceFn = () => {
+    showTestLoadingSet(true)
     form
       .validateFields()
       .then(values => {
@@ -49,6 +50,7 @@ const DispatchConfig: FC<any> = (props: any) => {
         if (errorFields) return
         const { carrierIp, carrierPort } = form.getFieldsValue()
         nodeApi.connectNode({ ip: carrierIp, port: carrierPort }).then(res => {
+          showTestLoadingSet(false)
           showTestConnectSet(true)
           if (res.status === 0 && res.data.carrierConnStatus === 'enabled') {
             setIsConnect(true)
@@ -66,15 +68,26 @@ const DispatchConfig: FC<any> = (props: any) => {
 
   const joinNetwork = () => {
     setshowJoinLoading(true)
-    nodeApi.applyJoinNetwork().then(res => {
-      setshowJoinLoading(false)
-      if (res.status === 0) {
-        // TODO:  临时解决办法 使用5秒后拉取最新状态的方式解决延迟的问题
-        message.success(`${t('tip.joinNetworkSuccess')}`)
-      } else {
-        message.error(`${t('tip.joinNetworkFailed')}`)
-      }
-    })
+    form
+      .validateFields()
+      .then(values => {
+        console.log(values)
+        const { errorFields } = values
+        if (errorFields) return
+        const { carrierIp, carrierPort } = form.getFieldsValue()
+        nodeApi.applyJoinNetwork().then(res => {
+          setshowJoinLoading(false)
+          if (res.status === 0) {
+            // TODO:  临时解决办法 使用5秒后拉取最新状态的方式解决延迟的问题
+            message.success(`${t('tip.joinNetworkSuccess')}`)
+          } else {
+            message.error(`${t('tip.joinNetworkFailed')}`)
+          }
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   const missNetwork = () => {
@@ -90,6 +103,8 @@ const DispatchConfig: FC<any> = (props: any) => {
 
   const switchEditStatus = (boolean: boolean) => {
     editStatusSet(boolean)
+    if (boolean === false) showTestConnectSet(false)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   }
 
   return (
@@ -119,19 +134,15 @@ const DispatchConfig: FC<any> = (props: any) => {
                   name="carrierIp"
                   rules={[{ required: true, message: `${t('login.plzinput')}${t('dataNodeMgt.internalIP')}` }]}
                 >
-                  <Input
-                    disabled={hasService && !editStatus}
-                    className="form-box-input"
-                    placeholder={t('common.noModify')}
-                  />
+                  <Input disabled={hasService && !editStatus} className="form-box-input" />
                 </Form.Item>
                 {hasService ? (
                   editStatus ? (
-                    <div className="pointer form-group-btn" onClick={() => switchEditStatus(false)}>
+                    <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(false)}>
                       {t('common.cancel')}
                     </div>
                   ) : (
-                    <div className="pointer form-group-btn" onClick={() => switchEditStatus(true)}>
+                    <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(true)}>
                       {t('common.edit')}
                     </div>
                   )
@@ -146,19 +157,15 @@ const DispatchConfig: FC<any> = (props: any) => {
                   name="carrierPort"
                   rules={[{ required: true, message: `${t('login.plzinput')}${t('dataNodeMgt.internalPort')}` }]}
                 >
-                  <Input
-                    disabled={hasService && !editStatus}
-                    className="form-box-input"
-                    placeholder={t('common.noModify')}
-                  />
+                  <Input disabled={hasService && !editStatus} className="form-box-input" />
                 </Form.Item>
                 {hasService ? (
                   editStatus ? (
-                    <div className="pointer form-group-btn" onClick={() => switchEditStatus(false)}>
+                    <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(false)}>
                       {t('common.cancel')}
                     </div>
                   ) : (
-                    <div className="pointer form-group-btn" onClick={() => switchEditStatus(true)}>
+                    <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(true)}>
                       {t('common.edit')}
                     </div>
                   )
@@ -167,22 +174,63 @@ const DispatchConfig: FC<any> = (props: any) => {
                 )}
               </div>
             </Form.Item>
+
+            {/* 以上为 ip port 以下为按钮操作 */}
+
             {hasService ? ( // 是否已经连接
               <>
                 <Form.Item colon label={t('common.status')} className="form-item">
                   <div className="form-group">
-                    <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
+                    {/* 重新连接调度服务 */}
+                    {editStatus ? (
+                      <Button loading={showTestLoading} onClick={testServiceFn}>
+                        {t('node.reConnectService')}
+                      </Button>
+                    ) : (
+                      ''
+                    )}
+                    {editStatus ? (
+                      showTestConnect ? (
+                        isConnect ? (
+                          <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
+                        ) : (
+                          <MyTag content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
+                        )
+                      ) : (
+                        <MyTag
+                          content={`${t('node.unconnected')}`}
+                          bgColor="#C9C9C9"
+                          color="#FFFFFF"
+                          border="#999999"
+                        />
+                      )
+                    ) : (
+                      <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
+                    )}
                   </div>
                 </Form.Item>
                 <Form.Item colon label={t('overview.connectNum')} className="form-item">
-                  {editStatus ? 'N/A' : 22}
+                  {editStatus ? <span className="title">N/A</span> : <span className="title">22</span>}
+                </Form.Item>
+                <Form.Item className="form-item">
+                  <Button
+                    type="primary"
+                    style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                    onClick={missNetwork}
+                  >
+                    {t('node.writeOffNetwork')}
+                  </Button>
                 </Form.Item>
               </>
             ) : (
               <>
                 <Form.Item className="form-item">
                   <div className="form-group">
-                    <Button style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }} onClick={testServiceFn}>
+                    <Button
+                      loading={showTestLoading}
+                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                      onClick={testServiceFn}
+                    >
                       {t('node.connectService')}
                     </Button>
 

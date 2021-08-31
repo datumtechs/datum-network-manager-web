@@ -49,7 +49,6 @@ const SeedNodeTable: FC<any> = (props: any) => {
         item.isEdit = bool
       }
     })
-
     tableDataSet(dataSource)
   }
 

@@ -99,7 +99,7 @@ const MyTable = (props, ref) => {
       },
     },
     {
-      title: t('task.operations'),
+      title: t('task.actions'),
       dataIndex: 'taskId',
       width: 200,
       render: text => {

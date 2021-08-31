@@ -51,7 +51,6 @@ $bandwidth: #5eaafe;
   //       display: flex;
   //       flex-direction: column;
   //       .name {
-  //         font-family: PingFangSC-Regular;
   //         font-size: 16px;
   //         color: #ffffff;
   //         line-height: 26px;
@@ -155,14 +154,13 @@ $bandwidth: #5eaafe;
       }
       .right {
         .top {
-          font-family: PingFangSC-Regular;
           font-size: 16px;
           color: #ffffff;
           line-height: 26px;
         }
         .bottom {
           margin-top: 9px;
-          font-family: PingFang-SC-Medium;
+          font-family: AlibabaPuHuiTi-Medium;
           font-size: 28px;
           color: #ffffff;
           letter-spacing: 1px;
@@ -235,12 +233,11 @@ $bandwidth: #5eaafe;
           }
 
           .table-title {
-            font-family: PingFangSC-Regular;
             font-size: 12px;
             color: #1d2832;
           }
           .table-content {
-            font-family: PingFang-SC-Medium;
+            font-family: AlibabaPuHuiTi-Medium;
             font-size: 20px;
             color: #3c3588;
             letter-spacing: 1px;

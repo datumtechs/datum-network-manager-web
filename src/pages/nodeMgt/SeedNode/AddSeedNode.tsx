@@ -41,8 +41,8 @@ export const AddSeedNode: FC<any> = (props: any) => {
               placeholder={t('node.forSelfidentity')}
               className="form-box-input"
             />
-            <MyTag content="available name" bgColor="#B7EB8F" color="#45B854" />
-            <MyTag content="unavailabel name" bgColor="#FFA39E" color="#F45564" />
+            <MyTag content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" />
+            <MyTag content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" />
           </div>
         </Form.Item>
         <Form.Item
