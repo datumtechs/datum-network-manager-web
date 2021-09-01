@@ -67,79 +67,75 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
-      title: t('computeNodeMgt.nodeTask'),
-      dataIndex: 'nodeTask',
-      key: 'nodeTask',
-      render: (text, record, index) => {
-        return (
-          <div>
-            <p className="details">
-              <span>{record.taskName}</span>
-              <span className="pointer link" onClick={() => linkToTask(record)}>
-                {t('computeNodeMgt.detail')}
-              </span>
-            </p>
-            <p>ID:&nbsp; {record.id}</p>
-          </div>
-        )
-      },
+      title: t('node.curTaskByNode'),
+      dataIndex: 'taskName',
+      key: 'taskName',
     },
     {
-      title: t('computeNodeMgt.sponsorStartTime'),
+      title: t('node.startInfoAndTaskTime'),
       dataIndex: 'sponsorStartTime',
       key: 'sponsorStartTime',
       render: (text, record, index) => {
         return (
-          <div>
-            <p>{record.ownerIdentityId}</p>
-            <p>{dayjs(record.taskStartTime).format('YYYY-MM-DD HH:mm:ss')}</p>
-          </div>
+          <>
+            <Row>
+              <Col span={6}>{t('computeNodeMgt.startTime')}:</Col>
+              <Col span={18}>{record.taskStartTime}</Col>
+            </Row>
+            <Row>
+              <Col span={6}>{t('computeNodeMgt.sponsor')}:</Col>
+              <Col span={18}>{}</Col>
+            </Row>
+            <Row>
+              <Col span={6}>{t('computeNodeMgt.timeSpan')}:</Col>
+              <Col span={18}>{}</Col>
+            </Row>
+          </>
         )
       },
     },
-    // {
-    //   title: t('computeNodeMgt.startTime'),
-    //   dataIndex: 'startTime',
-    //   key: 'startTime',
-    // },
     {
-      title: t('computeNodeMgt.receiver'),
-      dataIndex: 'resultSideName',
-      key: 'resultSideName',
-    },
-    {
-      title: t('computeNodeMgt.collaborators'),
-      dataIndex: 'coordinateSideName',
-      key: 'coordinateSideName',
-    },
-    {
-      title: t('computeNodeMgt.eachNode'),
+      title: t('node.eachTaskCost'),
       dataIndex: 'eachNode',
       key: 'eachNode',
       render: (text, record, index) => {
         return (
-          <div key={index}>
+          <>
             <Row>
               <Col span={4}>CPU:</Col>
               <Col span={8}>{record.usedCore} cores</Col>
-              <Col span={12}>{`(${t('overview.occupied')} ${
+              <Col span={12}>{`( ${
                 isNaN(record.usedCore / core) ? '0.00' : ((record.usedCore / core) * 100).toFixed(2)
-              } %)`}</Col>
+              } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.memory')}:</Col>
               <Col span={8}>{fileSizeChange(record.usedMemory)}</Col>
-              <Col span={12}>{`(${t('overview.occupied')} ${
+              <Col span={12}>{`( ${
                 isNaN(record.usedMemory / memory) ? '0.00' : ((record.usedMemory / memory) * 100).toFixed(2)
-              } %)`}</Col>
+              } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.bandwidth')}:</Col>
               <Col span={8}>{fileSizeChange(record.usedBandwidth)}P/S</Col>
-              <Col span={12}>{`(${t('overview.occupied')} ${
+              <Col span={12}>{`( ${
                 isNaN(record.usedBandwidth / bandwidth) ? '0.00' : ((record.usedBandwidth / bandwidth) * 100).toFixed(2)
-              } %)`}</Col>
+              } % ${t('overview.occupied')} )`}</Col>
             </Row>
+          </>
+        )
+      },
+    },
+    {
+      title: t('task.actions'),
+      dataIndex: 'sponsorStartTime',
+      key: 'sponsorStartTime',
+      render: (text, record, index) => {
+        return (
+          <div className="AliMedium pointer link">
+            {t('task.viewDetail')}
+            {/* <p>{record.ownerIdentityId}</p>
+            <p>{dayjs(record.taskStartTime).format('YYYY-MM-DD HH:mm:ss')}</p> */}
           </div>
         )
       },
@@ -148,8 +144,8 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   return (
     <div className="table-box">
       <Table
-        // dataSource={dataSource}
-        dataSource={tableData}
+        dataSource={dataSource}
+        // dataSource={tableData}
         rowKey={re => re.id}
         columns={columns}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}

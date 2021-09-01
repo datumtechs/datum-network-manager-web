@@ -149,7 +149,13 @@
     "externalIpPlaceholder": "External host address of the data node",
     "internalPortPlaceholder": "Internal port of RPC communication",
     "externalPortPlaceholder": "External port of RPC communication",
-    "addComputeNodeTips": "Data node name cannot be duplicated, and it cannot be modified after submitting. other configurations can be altered later."
+    "addComputeNodeTips": "Data node name cannot be duplicated, and it cannot be modified after submitting. other configurations can be altered later.",
+    "totalCpu": "Total Cpu",
+    "totalMemory": "Total Memory",
+    "totalBandwidth": "Total Bandwidth",
+    "curTaskByNode": "Participated task in progress",
+    "startInfoAndTaskTime": "Initiation information & Time spent",
+    "eachTaskCost": "Occupied resources of each task at this node"
   },
   "dataNodeMgt": {
     "nodeName": "Data node name",
@@ -171,7 +177,8 @@
     "collaborators": "Collaborators",
     "eachNode": "Occupied resources of each task at this node",
     "detail": "detail",
-    "sponsorStartTime": "Sponsor & Start time"
+    "sponsorStartTime": "Sponsor & Start time",
+    "timeSpan": "Time span"
   },
   "task": {
     "myTask": "My Computation Task",

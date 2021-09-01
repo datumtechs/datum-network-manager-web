@@ -149,7 +149,13 @@
     "externalIpPlaceholder": "数据节点的外部主机地址信息",
     "internalPortPlaceholder": "进行RPC通信的内部端口",
     "externalPortPlaceholder": "进行RPC通信的外部端口",
-    "addComputeNodeTips": "计算节点名称不可重复, 且本次设置之后无法修改, 其他配置提交后可以在计算节点管理页面更改。"
+    "addComputeNodeTips": "计算节点名称不可重复, 且本次设置之后无法修改, 其他配置提交后可以在计算节点管理页面更改。",
+    "totalCpu": "总CPU",
+    "totalMemory": "总内存",
+    "totalBandwidth": "总带宽",
+    "curTaskByNode": "此节点正在参与的任务",
+    "startInfoAndTaskTime": "发起信息与任务用时",
+    "eachTaskCost": "各个任务占用此节点总算力的实况"
   },
   "dataNodeMgt": {
     "nodeName": "数据节点名称",
@@ -171,7 +177,8 @@
     "collaborators": "协作方",
     "eachNode": "各个任务占用此节点总算力的实况",
     "detail": "查看详情",
-    "sponsorStartTime": "发起方与发起时间"
+    "sponsorStartTime": "发起方与发起时间",
+    "timeSpan": "Time span"
   },
   "task": {
     "myTask": "我的计算任务",

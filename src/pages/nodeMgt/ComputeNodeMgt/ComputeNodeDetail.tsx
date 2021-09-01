@@ -322,7 +322,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
                 type={selectTab === '1' ? 'primary' : 'default'}
                 onClick={() => SetSelectTab('1')}
               >
-                CPU:&nbsp;{details?.usedCore}
+                {t('node.totalCpu')}:&nbsp;{details?.usedCore}
                 {/* TODO单位 */}
               </Button>
               <Button
@@ -330,7 +330,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
                 type={selectTab === '2' ? 'primary' : 'default'}
                 onClick={() => SetSelectTab('2')}
               >
-                {t('overview.memory')}:&nbsp;{details?.usedMemory}
+                {t('node.totalMemory')}:&nbsp;{details?.usedMemory}
                 {/* TODO单位 */}
               </Button>
               <Button
@@ -338,7 +338,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
                 type={selectTab === '3' ? 'primary' : 'default'}
                 onClick={() => SetSelectTab('3')}
               >
-                {t('overview.bandwidth')}:&nbsp;{details?.usedBandwidth}
+                {t('node.totalBandwidth')}:&nbsp;{details?.usedBandwidth}
               </Button>
             </Space>
           </div>
