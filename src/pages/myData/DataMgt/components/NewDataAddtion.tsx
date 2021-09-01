@@ -11,7 +11,7 @@ import MyTag from '../../../../components/MyTag'
 import { INDUSTRYLIST } from '../../../../config/constant'
 
 export const NewDataAddtion: FC<any> = (props: any) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { Option } = Select
   const { location } = props
   const { type, id, filename } = location.state
@@ -176,8 +176,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           name="basic"
           labelAlign="left"
           form={form}
-          labelCol={{ span: 3 }}
-          wrapperCol={{ span: 21 }}
+          labelCol={{ span: i18n.language === 'en' ? 4 : 3 }}
+          wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
           // onFinish={onFinish}
           // onFinishFailed={onFinishFailed}
@@ -202,35 +202,37 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           </div>
           <div className="sub-info-box">
             <div className="title-box">{t('center.basicInfo')}</div>
-            <Form.Item label={t('myData.sourceName')} name="sourceName">
-              {/* <Input onBlur={e => checkResourceName(e.target.value)} className="limit-box" /> */}
-              <p></p>
-              {/* <div className="tips">{t('myData.nameTips')}</div> */}
-            </Form.Item>
-            <Form.Item label={t('myData.sourceFileID')} name="sourceName">
-              <p></p>
-            </Form.Item>
-            <Form.Item label={t('myData.sourceFilePath')} name="sourceName">
-              <p></p>
-            </Form.Item>
-            <Form.Item label={t('myData.industryOfData')}>
-              <Form.Item name="sourceName" noStyle>
-                <Select className="limit-box">
-                  {INDUSTRYLIST.map(item => {
-                    return (
-                      <Option key={item.id} value={item.id}>
-                        {t(`myData.${item.text}`)}
-                      </Option>
-                    )
-                  })}
-                </Select>
+            <div className="sub-padding-box">
+              <Form.Item label={t('myData.sourceName')} name="sourceName">
+                {/* <Input onBlur={e => checkResourceName(e.target.value)} className="limit-box" /> */}
+                <p></p>
+                {/* <div className="tips">{t('myData.nameTips')}</div> */}
               </Form.Item>
-            </Form.Item>
-            <Form.Item label={t('center.dataDesc')} name="remarks">
-              <Form.Item noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
-                <Input.TextArea className="limit-box" />
+              <Form.Item label={t('myData.sourceFileID')} name="sourceName">
+                <p></p>
               </Form.Item>
-            </Form.Item>
+              <Form.Item label={t('myData.sourceFilePath')} name="sourceName">
+                <p></p>
+              </Form.Item>
+              <Form.Item label={t('myData.industryOfData')}>
+                <Form.Item name="sourceName" noStyle>
+                  <Select className="limit-box">
+                    {INDUSTRYLIST.map(item => {
+                      return (
+                        <Option key={item.id} value={item.id}>
+                          {t(`myData.${item.text}`)}
+                        </Option>
+                      )
+                    })}
+                  </Select>
+                </Form.Item>
+              </Form.Item>
+              <Form.Item label={t('center.dataDesc')} name="remarks">
+                <Form.Item noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
+                  <Input.TextArea className="limit-box" />
+                </Form.Item>
+              </Form.Item>
+            </div>
           </div>
           <div className="sub-info-box">
             <div className="title-box">{t('center.fieldInfo')}</div>

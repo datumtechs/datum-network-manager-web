@@ -87,9 +87,8 @@
   .add-info-box,
   .add-data-box {
     .limit-box {
-      width: 572px;
+      width: 40%;
     }
-
     .title-box {
       flex: auto;
       overflow: hidden;
@@ -119,6 +118,9 @@
 
     .sub-info-box {
       margin-bottom: 20px;
+      .sub-padding-box {
+        padding-left: 12px;
+      }
       .sub-ori-name {
         display: flex;
         font-family: AlibabaPuHuiTi-Medium;
@@ -210,9 +212,6 @@
       font-size: 14px;
       padding: 20px;
       letter-spacing: 0;
-
-      title {
-      }
 
       .status {
         margin-top: 28px;

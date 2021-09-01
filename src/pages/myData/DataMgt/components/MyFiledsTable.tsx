@@ -2,7 +2,7 @@ import React, { FC, useMemo, useEffect, useState, useRef, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Table, Space, Select, Tabs, Radio, Input } from 'antd'
+import { Table, Space, Select, Tabs, Switch, Input } from 'antd'
 import EditTableCell from './EditableCell'
 import { DATATYPE } from '../../../../config/constant'
 import '../scss/editTable.scss'
@@ -37,6 +37,17 @@ const MyFiledsTable: FC<any> = (props: any) => {
   // const linkMeta = () => {
   //   history.push('/resource/dataCenter/metaDataDetail')
   // }
+
+  const dataSource = [
+    {
+      id: 0,
+      columnName: '郑克爽',
+      visible: 'Y',
+      dataType: 'STRING',
+      remarks: '优势在我, 优势在我',
+    },
+  ]
+
   const handleSelectChange = (e, record) => {
     const rows = [...data]
     const row = rows.find(item => item.id === record.id)
@@ -106,20 +117,11 @@ const MyFiledsTable: FC<any> = (props: any) => {
       // }),
       render: (text, record, index) => {
         return (
-          <div>
-            <Radio.Group
-              defaultValue="Y"
-              value={record.visible}
-              optionType="button"
-              buttonStyle="solid"
-              onChange={e => handleSwitchChange(e, record)}
-            >
-              <Radio.Button checked value="Y">
-                {t('myData.yes')}
-              </Radio.Button>
-              <Radio.Button value="N">{t('myData.no')}</Radio.Button>
-            </Radio.Group>
-          </div>
+          <Space size={20}>
+            {record.visible === 'Y' ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
+
+            <Switch size="small" defaultChecked={record.visible === 'Y'} />
+          </Space>
         )
       },
     },
@@ -163,7 +165,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
       <Table
         rowClassName={() => 'editable-row'}
         rowKey={record => record.id}
-        dataSource={tableData}
+        dataSource={dataSource}
         columns={columns}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
         bordered
