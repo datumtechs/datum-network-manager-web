@@ -61,7 +61,7 @@
     content: "";
     width: 14px;
     height: 14px;
-    background: url("../../../assets/images/10icon1.svg");
+    background: url("../../../assets/images/10.icon1.svg");
     position: absolute;
     left: 16px;
     top: 13px;
@@ -82,22 +82,5 @@
   }
   .re-btn {
     margin-right: 40px;
-  }
-  .form-group {
-    display: flex;
-    align-items: center;
-    .form-group-btn {
-      font-family: AlibabaPuHuiTi-Medium;
-      font-size: 14px;
-      color: #ffffff;
-      letter-spacing: 0;
-      padding-left: 20px;
-    }
-    .black-btn {
-      color: #3c3588;
-    }
-    & > .ant-form-item {
-      margin-bottom: 0 !important;
-    }
   }
 }

@@ -14,7 +14,7 @@ const ProviderTable: FC<any> = (props: any) => {
   }
   const columns = [
     {
-      title: 'No.',
+      title: t('common.Num'),
       width: 50,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },

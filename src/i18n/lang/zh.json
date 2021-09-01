@@ -116,7 +116,8 @@
     "yes": "是",
     "no": "否",
     "save": "保存",
-    "cancel": "取消"
+    "cancel": "取消",
+    "Num": "序号"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
@@ -276,8 +277,8 @@
     "dataType": "数据类型",
     "remarks": "字段描述",
     "download": "下载",
-    "withdraw": "下架",
-    "publish": "上架",
+    "withdraw": "撤回",
+    "publish": "发布",
     "view": "查看",
     "delete": "删除",
     "modify": "修改",
@@ -289,10 +290,11 @@
     "metaFiled": "元数据摘要",
     "confirmDelete": "请确认是否要删除源文件",
     "confirmPublish": "请确认是否要上架源文件",
-    "confirmWithdraw": "请确认是否要下架源文件",
+    "confirmWithdraw": "请确认是否要撤回源文件",
     "uploadFile": "添加源文件",
     "pulish": "已发布",
-    "unPublish": "未发布"
+    "unPublish": "未发布",
+    "saveAsNewData": "另存为新数据"
   },
   "myData": {
     "plzUploadFile": "请导入本地数据源文件",
@@ -319,7 +321,26 @@
     "sourceFilePath": "源文件路径",
     "uploadSuccess": "上传成功",
     "uploadFailed": "上传失败",
-    "plzSelectone": "请先选择要上传的文件"
+    "plzSelectone": "请先选择要上传的文件",
+    "dataSize": "数据大小",
+    "lastUpdateTime": "元数据最近更新时间",
+    "taskNum": "参与任务数量",
+    "newDataAddtion": "新数据添加",
+    "newDataName": "新数据名称",
+    "originalDataName": "原数据名称",
+    "industryOfData": "所属行业",
+    "banking": "金融业（银行）",
+    "insurance": "金融业（保险）",
+    "securities": "金融业（证券",
+    "othersFinance": "金融业（其他",
+    "ICT": "ICT行业",
+    "manufacturing": "制造业",
+    "energyIndustry": "能源业",
+    "transportation": "交通运输业",
+    "healthcare": "医疗健康业",
+    "publicServices": "公共服务业",
+    "mediaAdvertising": "传媒广告业",
+    "otherIndustries": "其他行业"
   },
   "tip": {
     "plzInputID": "请输入正确的机构识别名称",

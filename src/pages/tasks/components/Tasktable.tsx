@@ -52,7 +52,7 @@ const MyTable = (props, ref) => {
 
   const columns = [
     {
-      title: 'No.',
+      title: t('common.Num'),
       width: 80,
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },

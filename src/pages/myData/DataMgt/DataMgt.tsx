@@ -11,7 +11,7 @@ export const DataMgt: FC<any> = () => {
 
   const onAdd = (): void => {
     history.push({
-      pathname: '/resource/myData/dataAddition',
+      pathname: '/myData/dataAddition',
       state: {
         type: 'add',
       },

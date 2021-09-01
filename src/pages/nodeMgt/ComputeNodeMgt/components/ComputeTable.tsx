@@ -205,8 +205,8 @@ const DataTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: 'No.',
-      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      title: t('common.Num'),
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
       width: 80,
     },
     {

@@ -72,25 +72,27 @@ const MyData: FC<any> = props => {
   const initData = () => {
     const apiName = from === 'dataCenter' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
     resourceApi[apiName](id).then(res => {
-      setBaseInfo({
-        id: res.data?.id,
-        orgName: res.data?.orgName,
-        fileName: res.data?.fileName,
-        resourceName: res.data?.resourceName,
-        fileId: res.data.fileId,
-        status: res.data.status,
-        metaDataId: res.data.metaDataId,
-        filePath: res.data.filePath,
-        size: res.data.size,
-        rows: res.data.rows,
-        columns: res.data.columns,
-        remarks: res.data.remarks,
-      })
-      from === 'dataCenter' && (res.data.localMetaDataColumnList = res.data.metaDataColumnList)
-      setOriginalData(res.data.localMetaDataColumnList)
-      setTableData(getShowSource(res.data.localMetaDataColumnList))
-      setTotal(res.data.localMetaDataColumnList.length)
-      setRemarks(res.data.remarks)
+      if (res.status === 0) {
+        setBaseInfo({
+          id: res.data?.id,
+          orgName: res.data?.orgName,
+          fileName: res.data?.fileName,
+          resourceName: res.data?.resourceName,
+          fileId: res.data.fileId,
+          status: res.data.status,
+          metaDataId: res.data.metaDataId,
+          filePath: res.data.filePath,
+          size: res.data.size,
+          rows: res.data.rows,
+          columns: res.data.columns,
+          remarks: res.data.remarks,
+        })
+        from === 'dataCenter' && (res.data.localMetaDataColumnList = res.data.metaDataColumnList)
+        setOriginalData(res.data.localMetaDataColumnList)
+        setTableData(getShowSource(res.data.localMetaDataColumnList))
+        setTotal(res.data.localMetaDataColumnList.length)
+        setRemarks(res.data.remarks)
+      }
     })
   }
 

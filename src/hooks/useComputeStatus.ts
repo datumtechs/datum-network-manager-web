@@ -2,7 +2,7 @@
 import { useTranslation } from 'react-i18next'
 
 import errorSvg from '../assets/images/11.icon1.svg'
-import warnSvg from '../assets/images/10icon1.svg'
+import warnSvg from '../assets/images/10.icon1.svg'
 import freeSvg from '../assets/images/23.icon3.svg'
 import enableSvg from '../assets/images/23.icon4.svg'
 

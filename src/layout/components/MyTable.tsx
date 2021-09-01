@@ -24,7 +24,7 @@ const MyTable: FC<any> = (props: any) => {
   ]
   const columns = [
     {
-      title: 'No.',
+      title: '',
       render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 

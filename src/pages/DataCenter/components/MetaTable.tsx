@@ -31,7 +31,7 @@ const MetaTable: FC<any> = (props: any) => {
   const [dataSource, dataSourceSet] = useState([])
   const columns = [
     {
-      title: 'No.',
+      title: t('common.Num'),
       render: (text, record, index) => `${(curPage - 1) * pagination.pageSize + (index + 1)}`,
       width: 80,
     },

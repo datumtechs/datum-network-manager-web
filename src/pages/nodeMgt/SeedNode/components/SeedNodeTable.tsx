@@ -61,7 +61,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
 
   const columns: Array<object> = [
     {
-      title: 'No.',
+      title: t('common.Num'),
       width: 60,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },

@@ -6,6 +6,8 @@ import { resourceApi } from '../../../../api/index'
 import MyModal from '../../../../components/MyModal'
 import useInterval from '../../../../hooks/useInterval'
 import { tableInterVal } from '../../../../constant/index'
+import warnSvg from '../../../../assets/images/10.icon1.svg'
+import successSvg from '../../../../assets/images/9.icon1.svg'
 
 const MyDataTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -20,6 +22,29 @@ const MyDataTable: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1)
   const [totalNum, setTotalNum] = useState(0)
   const [tableData, setTableData] = useState([])
+  const pagination = {
+    current: 1,
+    defaultPageSize: 10,
+  }
+
+  const dataSource = [
+    {
+      id: 0,
+      fileName: '遏必隆',
+      status: '1',
+      dataSize: 22222222222222222,
+      lastUpdateTime: 111111111111111111,
+      taskNum: 12123,
+    },
+    {
+      id: 1,
+      fileName: '索额图',
+      status: '0',
+      dataSize: 22222222222222222,
+      lastUpdateTime: 111111111111111111,
+      taskNum: 12123,
+    },
+  ]
 
   const initTableData = () => {
     resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10 }).then(res => {
@@ -77,7 +102,7 @@ const MyDataTable: FC<any> = (props: any) => {
   }
   const viewFn = row => {
     history.push({
-      pathname: '/resource/myData/dataDetail',
+      pathname: '/myData/dataMgt/dataDetail',
       state: {
         type: 'view',
         id: row.id,
@@ -85,11 +110,11 @@ const MyDataTable: FC<any> = (props: any) => {
     })
   }
 
-  const modifyFn = row => {
+  const saveAsNewData = row => {
     history.push({
-      pathname: '/resource/myData/dataDetail',
+      pathname: '/myData/dataMgt/saveNewData',
       state: {
-        type: 'edit',
+        type: 'newData',
         id: row.id,
         fileName: row.fileName,
       },
@@ -110,6 +135,7 @@ const MyDataTable: FC<any> = (props: any) => {
       fileName: row.fileName,
     })
   }
+
   const withDrawFn = (row: any) => {
     setPop({
       type: 'withdraw',
@@ -148,6 +174,11 @@ const MyDataTable: FC<any> = (props: any) => {
 
   const columns = [
     {
+      title: t('common.Num'),
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
+      width: 80,
+    },
+    {
       title: t('center.metaName'),
       dataIndex: 'fileName',
       key: 'fileName',
@@ -159,24 +190,44 @@ const MyDataTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         // 1已发布，0未发布
         if (record.status === '1') {
-          return t('center.pulish')
+          return (
+            <div className="status-box">
+              <img src={successSvg} alt="" />
+              <p>{t('center.pulish')}</p>
+            </div>
+          )
         }
-        return t('center.unPublish')
+        return (
+          <div className="status-box">
+            <img src={warnSvg} alt="" />
+            <p>{t('center.unPublish')}</p>
+          </div>
+        )
       },
     },
     {
-      title: t('center.metaFiled'),
-      dataIndex: 'metaDataColumnList',
-      key: 'metaDataColumnList',
-      width: 400,
-      render: (text: any) => (
-        <Space size={10} wrap>
-          {text.map(item => (
-            <span key={item}>{item}</span>
-          ))}
-        </Space>
-      ),
+      title: t('myData.dataSize'),
+      dataIndex: 'dataSize',
+      key: 'dataSize',
     },
+    {
+      title: t('myData.taskNum'),
+      dataIndex: 'taskNum',
+      key: 'taskNum',
+    },
+    // {
+    //   title: t('center.metaFiled'),
+    //   dataIndex: 'metaDataColumnList',
+    //   key: 'metaDataColumnList',
+    //   width: 400,
+    //   render: (text: any) => (
+    //     <Space size={10} wrap>
+    //       {text.map(item => (
+    //         <span key={item}>{item}</span>
+    //       ))}
+    //     </Space>
+    //   ),
+    // },
     {
       title: t('common.actions'),
       width: 500,
@@ -203,14 +254,14 @@ const MyDataTable: FC<any> = (props: any) => {
             <span className="btn pointer link" onClick={() => viewFn(row)}>
               {t('center.view')}
             </span>
-            <span className="btn pointer link" onClick={() => modifyFn(row)}>
-              {t('center.modify')}
-            </span>
             <span className="btn pointer link" onClick={() => downloadFn(row)}>
               {t('center.download')}
             </span>
             <span className="btn pointer link" onClick={() => publishFn(row)}>
               {t('center.publish')}
+            </span>
+            <span className="btn pointer link" onClick={() => saveAsNewData(row)}>
+              {t('center.saveAsNewData')}
             </span>
             <span className="btn pointer link" onClick={() => deleteFn(row)}>
               {t('center.delete')}
@@ -223,7 +274,8 @@ const MyDataTable: FC<any> = (props: any) => {
   return (
     <div className="data-table-box">
       <Table
-        dataSource={tableData}
+        // dataSource={tableData}
+        dataSource={dataSource}
         columns={columns}
         bordered
         rowKey={record => record.id}
@@ -235,14 +287,7 @@ const MyDataTable: FC<any> = (props: any) => {
           onChange: OnPageChange,
         }}
       />
-      <MyModal
-        width={600}
-        title={t('common.tips')}
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        bordered
-      >
+      <MyModal width={600} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} bordered>
         {pop.type === 'delete' ? (
           <p>
             {t('center.confirmDelete')}&nbsp;:&nbsp;{pop.fileName}

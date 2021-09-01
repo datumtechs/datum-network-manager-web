@@ -10,8 +10,14 @@ const DataMgt = React.lazy(() => import('../pages/myData/DataMgt/DataMgt').then(
 
 // const MetaDataDetail = React.lazy(() => import('../pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
 
-const DataAddition = React.lazy(() =>
-  import('../pages/myData/DataAddition/index').then(_ => ({ default: _.DataAddition })),
+
+
+
+const MyDataAddtion = React.lazy(() =>
+  import('../pages/myData/DataAddition/MyDataAddtion').then(_ => ({ default: _.MyDataAddtion })),
+)
+const NewDataAddtion = React.lazy(() =>
+  import('../pages/myData/DataMgt/components/NewDataAddtion').then(_ => ({ default: _.NewDataAddtion })),
 )
 const MyDataDetail = React.lazy(() =>
   import('../pages/myData/DataMgt/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })),
@@ -254,11 +260,27 @@ const routes: Array<IRoute> = [
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
+            name: 'newDataAddtion',
+            label: 'myData.newDataAddtion',
+            breadcrumbName: 'myData.newDataAddtion',
+            path: '/myData/dataMgt/saveNewData',
+            component: NewDataAddtion,
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
+          {
+            name: 'dataDetail',
+            label: 'center.dataDetail',
+            breadcrumbName: 'center.dataDetail',
+            path: '/myData/dataMgt/dataDetail',
+            component: MyDataDetail,
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
+          {
             name: 'dataAddition',
             label: 'menu.dataAddition',
             breadcrumbName: 'menu.dataAddition',
             path: '/myData/dataAddition',
-            component: DataAddition,
+            component: MyDataAddtion,
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
@@ -269,14 +291,7 @@ const routes: Array<IRoute> = [
             component: DataAuthorization,
             meta: { exact: true, title: '', icon: '', show: true },
           },
-          {
-            name: 'dataDetail',
-            label: 'center.dataDetail',
-            breadcrumbName: 'center.dataDetail',
-            path: '/myData/dataDetail',
-            component: MyDataDetail,
-            meta: { exact: true, title: '', icon: '', show: false },
-          },
+
           {
             name: 'infoModify',
             label: 'center.infoModify',

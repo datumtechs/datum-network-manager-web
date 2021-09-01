@@ -116,7 +116,8 @@
     "yes": "YES",
     "no": "NO",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "Num": "No."
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
@@ -275,11 +276,11 @@
     "fileField": "Field",
     "dataType": "Data Type",
     "remarks": "Remarks",
-    "download": "download",
-    "withdraw": "withdraw",
-    "publish": "publish",
-    "view": "view",
-    "delete": "delete",
+    "download": "Download",
+    "withdraw": "Withdraw",
+    "publish": "Publish",
+    "view": "View",
+    "delete": "Delete",
     "modify": "modify",
     "dataAddition": "Data Resource Addition",
     "dataDetail": "Data Resource Details",
@@ -291,8 +292,9 @@
     "confirmPublish": "Please ensure that you are publishing the source file",
     "confirmWithdraw": "Please ensure that you are withdrawing the source file",
     "uploadFile": "Upload a source file",
-    "pulish": "pulish",
-    "unPublish": "unPublish"
+    "pulish": "Pulished",
+    "unPublish": "UnPublish",
+    "saveAsNewData": "Save as new data"
   },
   "myData": {
     "plzUploadFile": "Please upload your local file",
@@ -319,7 +321,26 @@
     "sourceFilePath": "Source file path",
     "uploadSuccess": "Upload file successfully",
     "uploadFailed": "Upload file failed",
-    "plzSelectone": "Please select a file first"
+    "plzSelectone": "Please select a file first",
+    "dataSize": "Data size",
+    "lastUpdateTime": "Last update time",
+    "taskNum": "Number of tasks involved",
+    "newDataAddtion": "New Data Addition",
+    "newDataName": "New data name",
+    "originalDataName": "Original data name",
+    "industryOfData": "Industry of data",
+    "banking": "Finance（Banking）",
+    "insurance": "Finance（Insurance）",
+    "securities": "Finance（Securities）",
+    "othersFinance": "Finance（Others）",
+    "ICT": "ICT",
+    "manufacturing": "Manufacturing",
+    "energyIndustry": "Energy industry",
+    "transportation": "Transportation",
+    "healthcare": "Healthcare",
+    "publicServices": "Public services",
+    "mediaAdvertising": "Media advertising",
+    "otherIndustries": "Other industries"
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",

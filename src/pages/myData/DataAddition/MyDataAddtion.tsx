@@ -4,14 +4,15 @@ import React, { FC, useState, createRef, useEffect } from 'react'
 import { Descriptions, Space, Form, Input, Radio, Button, message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import Bread from '../../../../layout/components/Bread'
-import { MyRadioBtn } from './MyRadioBtn'
-import MyFiledsTable from './MyFiledsTable'
-import { resourceApi } from '../../../../api/index'
-import MyModal from '../../../../components/MyModal'
+import { MyRadioBtn } from '../DataMgt/components/MyRadioBtn'
+import MyFiledsTable from '../DataMgt/components/MyFiledsTable'
+import { resourceApi } from '../../../api/index'
+import MyModal from '../../../components/MyModal'
 
-export const MyDataAddtion: FC<any> = porps => {
+export const MyDataAddtion: FC<any> = (props: any) => {
   const { t } = useTranslation()
+  const { location } = props
+  const { type, id, filename } = location.state
   const [formDisable, setFormDiasble] = useState(false)
   const [uploadFile, setUploadFile] = useState<any>({})
   const [showTypeError, setShowTypeError] = useState<boolean>(false)
@@ -34,8 +35,8 @@ export const MyDataAddtion: FC<any> = porps => {
     pagesize: 10,
   }
 
-  const checkResourceName = filename => {
-    resourceApi.checkResourceName({ resourceName: filename, metaDataId: resultFileData.metaDataId }).then(res => {
+  const checkResourceName = name => {
+    resourceApi.checkResourceName({ resourceName: name, metaDataId: resultFileData.metaDataId }).then(res => {
       if (res.status === 0) {
         showFilenameAvailableSet(true)
         isFileNameRightSet(res.data.status === 'Y')
