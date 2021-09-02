@@ -289,7 +289,7 @@
     "metaName": "源文件名称与ID",
     "metaFiled": "元数据摘要",
     "confirmDelete": "请确认是否要删除源文件",
-    "confirmPublish": "请确认是否要上架源文件",
+    "confirmPublish": "请确认是否要发布源文件",
     "confirmWithdraw": "请确认是否要撤回源文件",
     "uploadFile": "添加源文件",
     "pulish": "已发布",
@@ -340,7 +340,11 @@
     "healthcare": "医疗健康业",
     "publicServices": "公共服务业",
     "mediaAdvertising": "传媒广告业",
-    "otherIndustries": "其他行业"
+    "otherIndustries": "其他行业",
+    "viewTask": "查看此数据参与的任务",
+    "dataNameTooltip": "根据需要修改数据名称，不可与其他数据重复，且本次设置之后无法修改。",
+    "fieldInfoTooltip": "请根据需要修改“源文件字段”、“是否对外可见”与“数据类型”，并补充相应的“字段描述”，字段信息提交后仍可以在管理页面修改。",
+    "uploadFiletips": "点击选择文件或将文件拖入此处"
   },
   "tip": {
     "plzInputID": "请输入正确的机构识别名称",

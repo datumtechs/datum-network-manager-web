@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Table, Space, Select, Tabs, Switch, Input } from 'antd'
-import EditTableCell from './EditableCell'
-import { DATATYPE } from '../../../../config/constant'
-import '../scss/editTable.scss'
+import EditTableCell from '../pages/myData/DataMgt/components/EditableCell'
+import { DATATYPE } from '../config/constant'
+import './scss/dataDetail.scss'
 
 interface Item {
   id: String
@@ -64,6 +64,17 @@ const MyFiledsTable: FC<any> = (props: any) => {
     }
     setData(rows)
   }
+
+  const switchVisiable = (checked, record) => {
+    const rows = [...data]
+    const row = rows.find(item => item.id === record.id)
+    if (row) {
+      row.visible = checked
+    }
+    setData(rows)
+  }
+
+
   const handleCellChange = (e, record, column) => {
     const rows = [...data]
     const row = rows.find(item => item.id === record.id)
@@ -119,8 +130,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
         return (
           <Space size={20}>
             {record.visible === 'Y' ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
-
-            <Switch size="small" defaultChecked={record.visible === 'Y'} />
+            <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === 'Y'} />
           </Space>
         )
       },
@@ -161,7 +171,6 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   return (
     <div className="data-table-box">
-      {mode === 'add' ? <div className="tips pb-20">{t('myData.infoTips')}</div> : ''}
       <Table
         rowClassName={() => 'editable-row'}
         rowKey={record => record.id}

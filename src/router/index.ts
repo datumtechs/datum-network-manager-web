@@ -4,7 +4,6 @@ const login = React.lazy(() => import('../pages/Login/index').then(_ => _))
 const layout = React.lazy(() => import('../layout/index').then(_ => _))
 const Overview = React.lazy(() => import('../pages/overview/index').then(_ => ({ default: _.Overview })))
 const NodeMgt = React.lazy(() => import('../pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))
-// const Resource = React.lazy(() => import('../pages/resource/index').then(_ => ({ default: _.Resource })))
 const MyData = React.lazy(() => import('../pages/myData/index').then(_ => ({ default: _.MyData })))
 const DataMgt = React.lazy(() => import('../pages/myData/DataMgt/DataMgt').then(_ => ({ default: _.DataMgt })))
 
@@ -21,6 +20,9 @@ const NewDataAddtion = React.lazy(() =>
 )
 const MyDataDetail = React.lazy(() =>
   import('../pages/myData/DataMgt/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })),
+)
+const DataDetail = React.lazy(() =>
+  import('../components/DataDetail').then(_ => ({ default: _.DataDetail })),
 )
 const DataAuthorization = React.lazy(() =>
   import('../pages/myData/DataAuthorization').then(_ => ({ default: _.DataAuthorization })),
@@ -272,7 +274,7 @@ const routes: Array<IRoute> = [
             label: 'center.dataDetail',
             breadcrumbName: 'center.dataDetail',
             path: '/myData/dataMgt/dataDetail',
-            component: MyDataDetail,
+            component: DataDetail,
             meta: { exact: true, title: '', icon: '', show: false },
           },
           {

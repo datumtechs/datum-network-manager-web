@@ -1,18 +1,18 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import React, { FC, useState, createRef, useEffect } from 'react'
-import { Descriptions, Space, Form, Input, Radio, Button, message } from 'antd'
+import { FC, useState, createRef, useEffect, useRef } from 'react'
+import { Tooltip, Space, Form, Input, Radio, Button, message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { MyRadioBtn } from '../DataMgt/components/MyRadioBtn'
-import MyFiledsTable from '../DataMgt/components/MyFiledsTable'
+import { QuestionCircleOutlined } from '@ant-design/icons'
+import MyDragger from '../DataMgt/components/MyDragger'
+import MyFiledsTable from '../../../components/MyFiledsTable'
 import { resourceApi } from '../../../api/index'
 import MyModal from '../../../components/MyModal'
 
 export const MyDataAddtion: FC<any> = (props: any) => {
   const { t } = useTranslation()
-  const { location } = props
-  const { type, id, filename } = location.state
+
   const [formDisable, setFormDiasble] = useState(false)
   const [uploadFile, setUploadFile] = useState<any>({})
   const [showTypeError, setShowTypeError] = useState<boolean>(false)
@@ -23,7 +23,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const [tableData, setTableData] = useState<[]>()
   const [curPage, setCurPage] = useState<number>(1)
   const history = useHistory()
-  const inputRef = createRef<any>()
+  const draggerRef = useRef<any>(null)
   const [upLoading, upLoadingSet] = useState(false)
   const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
   const [resultFileData, resultFileDataSet] = useState<any>({})
@@ -44,7 +44,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     })
   }
 
-  const selectFileFn = () => {}
+  const selectFileFn = () => { }
   const goBackFn = () => {
     isModalVisibleSet(true)
   }
@@ -60,7 +60,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       upLoadingSet(false)
       return message.error(`${t('tip.plzComplete')}`)
     }
-    if (inputRef?.current?.input?.files?.length === 0) {
+    if (draggerRef?.current?.input?.files?.length === 0) {
       upLoadingSet(false)
       return message.error(`${t('myData.plzSelectone')}`)
     }
@@ -82,20 +82,20 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         resourceApi.addMetaData(queryObj).then(res => {
           if (res.status === 0) {
             message.success(`${t('tip.addMetaDataSuccess')}`)
-            history.push('/resource/myData')
+            history.push('/myData')
           } else {
             message.error(res.msg)
           }
         })
       })
-      .catch(error => {})
+      .catch(error => { })
   }
   // TODO type
   const getShowSource = data => {
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
   useEffect(() => {
-    if (inputRef?.current?.input?.files?.length > 0 && uploadFile.name.split('.')[1] !== 'csv') {
+    if (draggerRef?.current?.input?.files?.length > 0 && uploadFile.name.split('.')[1] !== 'csv') {
       setShowTypeError(true)
     } else {
       setShowTypeError(false)
@@ -127,7 +127,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       return message.error(`${t('tip.plzComplete')}`)
     }
 
-    if (inputRef?.current?.input?.files?.length === 0) {
+    if (draggerRef?.current?.input?.files?.length === 0) {
       upLoadingSet(false)
       return message.error(`${t('myData.plzSelectone')}`)
     }
@@ -160,13 +160,19 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     setUploadFile(file)
   }
 
+  const uploadByDrag = e => {
+    const file = e.dataTransfer.files[0]
+    setUploadFile(file)
+  }
+
   const changeFileIncludeStatusFn = (e: any) => {
     setShowIncludeError(false)
     setRadioValue(e.target.value)
   }
+
   return (
     <div className="layout-box">
-      <div className="add-info-box">
+      <div className="add-data-box">
         <div className="title-box">{t('myData.plzUploadFile')}</div>
         <div className="label-box">
           <Radio.Group onChange={changeFileIncludeStatusFn} value={radioValue}>
@@ -180,21 +186,22 @@ export const MyDataAddtion: FC<any> = (props: any) => {
           {showIncludeError ? <p className="note-box">{t('myData.plzAnnounceIncludesFields')}</p> : ''}
         </div>
         <div className="label-box limit-box">
-          <MyRadioBtn
-            ref={inputRef}
+          <MyDragger
+            ref={draggerRef}
             file={uploadFile}
             onSearch={selectFileFn}
             uploadFn={uploadFn}
+            uploadByDrag={uploadByDrag}
             onChange={uploadFileOnChange}
           />
           {showTypeError ? <p className="note-box">{t('myData.onlyCsv')}</p> : ''}
         </div>
       </div>
-      <div className="add-info-box">
-        <div className="title-box">{t('myData.plzConfigureMetaData')}</div>
+      <div className="add-data-box">
+        <div className="title-box mb20">{t('myData.plzConfigureMetaData')}</div>
         <div className="sub-info-box">
-          <div className="title-box">{t('center.basicInfo')}</div>
-          <div>
+          <div className="sub-title-box">{t('center.basicInfo')}</div>
+          <div className="pl12">
             <Form
               name="basic"
               labelAlign="left"
@@ -202,18 +209,22 @@ export const MyDataAddtion: FC<any> = (props: any) => {
               labelCol={{ span: 3 }}
               wrapperCol={{ span: 21 }}
               initialValues={{ remember: true }}
-              // onFinish={onFinish}
-              // onFinishFailed={onFinishFailed}
+            // onFinish={onFinish}
+            // onFinishFailed={onFinishFailed}
             >
               <Form.Item label={t('myData.sourceName')}>
-                <Space size={20}>
-                  <Form.Item
-                    name="sourceName"
-                    noStyle
-                    rules={[{ required: true, message: `${t('tip.plzInputName')}` }]}
-                  >
-                    <Input onBlur={e => checkResourceName(e.target.value)} className="limit-box" />
-                  </Form.Item>
+                <Form.Item
+                  name="sourceName"
+                  noStyle
+                  rules={[{ required: true, message: `${t('tip.plzInputName')}` }]}
+                >
+                  <Input size="large" className="width457" onBlur={e => checkResourceName(e.target.value)} />
+                </Form.Item>
+
+                <Space size={20} className="pl20">
+                  <Tooltip placement="topLeft" title={t('myData.dataNameTooltip')}>
+                    <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588' }} />
+                  </Tooltip>
                   {showFilenameAvailable &&
                     (isFileNameRight ? (
                       <span className="success_color">{`${t('tip.availableFilename')}`}</span>
@@ -221,21 +232,25 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                       <span className="failed_color"> {`${t('tip.unavailableFilename')}`}</span>
                     ))}
                 </Space>
-                <div className="tips">{t('myData.nameTips')}</div>
-              </Form.Item>
 
+              </Form.Item>
               <Form.Item
                 label={t('center.dataDesc')}
                 name="remarks"
                 rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}
               >
-                <Input.TextArea className="limit-box" />
+                <Input.TextArea className="width457 limit-box" />
               </Form.Item>
             </Form>
           </div>
         </div>
         <div className="sub-info-box">
-          <div className="title-box">{t('center.fieldInfo')}</div>
+          <div className="sub-title-box spaceBetween">
+            {t('center.fieldInfo')}
+            <Tooltip placement="topLeft" title={t('myData.fieldInfoTooltip')}>
+              <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588' }} />
+            </Tooltip>
+          </div>
           <div>
             <MyFiledsTable
               originalData={originalData}
@@ -250,7 +265,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
           </div>
         </div>
       </div>
-      <div className="add-info-box">
+      <div className="sub-info-box mb40">
         <Space size={40} className="btn-group">
           <Button size="large" className="btn" onClick={goBackFn}>
             {t('common.return')}

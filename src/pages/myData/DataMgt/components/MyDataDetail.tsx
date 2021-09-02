@@ -4,13 +4,13 @@ import { useHistory } from 'react-router-dom'
 import { Descriptions, Input, Space, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import Bread from '../../../../layout/components/Bread'
 import DetailTable from './DetailTable'
-import MyFiledsTable from './MyFiledsTable'
+import MyFiledsTable from '../../../../components/MyFiledsTable'
 import { resourceApi } from '../../../../api/index'
-import '../scss/editTable.scss'
+
 import MyModal from '../../../../components/MyModal'
 import { fileSizeChange, thousandMark } from '../../../../utils/utils'
+import '../scss/index.scss'
 
 const MyData: FC<any> = props => {
   const { TextArea } = Input
@@ -59,7 +59,7 @@ const MyData: FC<any> = props => {
   }, [originalData])
 
   const backFn = () => {
-    if (type === 'view') history.push('/resource/myData')
+    if (type === 'view') history.push('/myData')
     isModalVisibleSet(true)
   }
   const handleOk = () => {
@@ -105,7 +105,7 @@ const MyData: FC<any> = props => {
     resourceApi.updateMetaData(dataObj).then(res => {
       if (res.status === 0) {
         // history.push('/resource/myData')
-        history.push('/resource/myData')
+        history.push('/myData')
         message.success(`${t('tip.updateSuccess')}`)
       } else {
         message.error(res.msg)
@@ -133,10 +133,10 @@ const MyData: FC<any> = props => {
   }, [])
   return (
     <div className="layout-box">
-      <div className="add-info-box limitLine">
+      <div className="add-data-box limitLine">
         {type === 'view' ? (
           (from !== 'dataCenter' && (
-            <Descriptions column={2} title={`${t('center.basicInfo')}`} bordered>
+            <Descriptions column={2} title={`${t('center.basicInfo')}`}>
               <Descriptions.Item
                 labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
                 label={t('myData.sourceName')}

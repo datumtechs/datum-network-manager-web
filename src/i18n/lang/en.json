@@ -272,7 +272,7 @@
     "metaDataID": "Metadata ID",
     "rowNum": "Number of data(rows)",
     "colNum": "Number of fields(columns)",
-    "dataDesc": "Description",
+    "dataDesc": "Data description",
     "fileField": "Field",
     "dataType": "Data Type",
     "remarks": "Remarks",
@@ -313,8 +313,8 @@
     "sourceName": "Source file name",
     "select": "select",
     "visible": "Externally visible",
-    "yes": "YES",
-    "no": "NO",
+    "yes": "Visible",
+    "no": "Invisible",
     "nameTips": "Note: the source file name can be modified at this page only and cannot be duplicated.",
     "infoTips": "Note：fields, data types and remarks can be deleted and modified at this page or at the management page after submitting.",
     "sourceFileID": "Source file ID",
@@ -340,7 +340,11 @@
     "healthcare": "Healthcare",
     "publicServices": "Public services",
     "mediaAdvertising": "Media advertising",
-    "otherIndustries": "Other industries"
+    "otherIndustries": "Other industries",
+    "viewTask": "View tasks of the data",
+    "dataNameTooltip": "Modify the data name as required, which cannot be repeated with other data, and cannot be modified after this setting.",
+    "fieldInfoTooltip": "Please modify 'source file field', 'visible' and 'data type' as needed, and supplement the corresponding 'field description'. The field information can still be modified on the management page after submission.",
+    "uploadFiletips": "Drag and drop the file here or upload."
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",

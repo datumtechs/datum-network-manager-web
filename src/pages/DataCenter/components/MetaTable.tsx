@@ -20,7 +20,7 @@ const MetaTable: FC<any> = (props: any) => {
   }
   const linkMeta = row => {
     history.push({
-      pathname: '/resource/myData/dataDetail',
+      pathname: '/myData/dataDetail',
       state: {
         type: 'view',
         id: row.id,

@@ -84,11 +84,11 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.sponsor')}:</Col>
-              <Col span={18}>{}</Col>
+              <Col span={18}>{ }</Col>
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.timeSpan')}:</Col>
-              <Col span={18}>{}</Col>
+              <Col span={18}>{ }</Col>
             </Row>
           </>
         )
@@ -104,23 +104,20 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             <Row>
               <Col span={4}>CPU:</Col>
               <Col span={8}>{record.usedCore} cores</Col>
-              <Col span={12}>{`( ${
-                isNaN(record.usedCore / core) ? '0.00' : ((record.usedCore / core) * 100).toFixed(2)
-              } % ${t('overview.occupied')} )`}</Col>
+              <Col span={12}>{`( ${isNaN(record.usedCore / core) ? '0.00' : ((record.usedCore / core) * 100).toFixed(2)
+                } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.memory')}:</Col>
               <Col span={8}>{fileSizeChange(record.usedMemory)}</Col>
-              <Col span={12}>{`( ${
-                isNaN(record.usedMemory / memory) ? '0.00' : ((record.usedMemory / memory) * 100).toFixed(2)
-              } % ${t('overview.occupied')} )`}</Col>
+              <Col span={12}>{`( ${isNaN(record.usedMemory / memory) ? '0.00' : ((record.usedMemory / memory) * 100).toFixed(2)
+                } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.bandwidth')}:</Col>
               <Col span={8}>{fileSizeChange(record.usedBandwidth)}P/S</Col>
-              <Col span={12}>{`( ${
-                isNaN(record.usedBandwidth / bandwidth) ? '0.00' : ((record.usedBandwidth / bandwidth) * 100).toFixed(2)
-              } % ${t('overview.occupied')} )`}</Col>
+              <Col span={12}>{`( ${isNaN(record.usedBandwidth / bandwidth) ? '0.00' : ((record.usedBandwidth / bandwidth) * 100).toFixed(2)
+                } % ${t('overview.occupied')} )`}</Col>
             </Row>
           </>
         )
@@ -132,7 +129,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       key: 'sponsorStartTime',
       render: (text, record, index) => {
         return (
-          <div className="AliMedium pointer link">
+          <div className="AliM pointer link">
             {t('task.viewDetail')}
             {/* <p>{record.ownerIdentityId}</p>
             <p>{dayjs(record.taskStartTime).format('YYYY-MM-DD HH:mm:ss')}</p> */}

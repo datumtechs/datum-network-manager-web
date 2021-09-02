@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Input } from 'antd'
-import '../scss/editTable.scss'
+import '../scss/index.scss'
 
 const EditTableCell: FC<any> = (props: any) => {
   const [isFieldEditing, setIsFieldEditing] = useState<boolean>(false)

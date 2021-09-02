@@ -4,7 +4,7 @@ import { Descriptions, Space, Form, Input, Radio, Button, message, Select } from
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { MyRadioBtn } from './MyRadioBtn'
-import MyFiledsTable from './MyFiledsTable'
+import MyFiledsTable from '../../../../components/MyFiledsTable'
 import { resourceApi } from '../../../../api/index'
 import MyModal from '../../../../components/MyModal'
 import MyTag from '../../../../components/MyTag'
@@ -84,13 +84,13 @@ export const NewDataAddtion: FC<any> = (props: any) => {
         resourceApi.addMetaData(queryObj).then(res => {
           if (res.status === 0) {
             message.success(`${t('tip.addMetaDataSuccess')}`)
-            history.push('/resource/myData')
+            history.push('/myData')
           } else {
             message.error(res.msg)
           }
         })
       })
-      .catch(error => {})
+      .catch(error => { })
   }
   // TODO type
   const getShowSource = data => {
@@ -157,17 +157,12 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     })
   }
 
-  const uploadFileOnChange = e => {
-    const file = e.target.files[0]
-    setUploadFile(file)
-  }
-
   const changeFileIncludeStatusFn = (e: any) => {
     setShowIncludeError(false)
     setRadioValue(e.target.value)
   }
 
-  const onOnInputChange = () => {}
+  const onOnInputChange = () => { }
 
   return (
     <div className="layout-box">
@@ -179,8 +174,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           labelCol={{ span: i18n.language === 'en' ? 4 : 3 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
-          // onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
+        // onFinish={onFinish}
+        // onFinishFailed={onFinishFailed}
         >
           <div className="sub-info-box">
             <Form.Item label={t('myData.originalDataName')} className="sub-ori-name">
@@ -189,7 +184,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             <Form.Item label={t('myData.newDataName')}>
               <div className="form-group">
                 <Form.Item noStyle>
-                  <Input onBlur={e => checkResourceName(e.target.value)} value={newDataName} className="limit-box" />
+                  <Input size="large" onBlur={e => checkResourceName(e.target.value)} value={newDataName} className="limit-box width457" />
                 </Form.Item>
                 {showFilenameAvailable &&
                   (isFileNameRight ? (
@@ -201,8 +196,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             </Form.Item>
           </div>
           <div className="sub-info-box">
-            <div className="title-box">{t('center.basicInfo')}</div>
-            <div className="sub-padding-box">
+            <div className="sub-title-box">{t('center.basicInfo')}</div>
+            <div className="pl12">
               <Form.Item label={t('myData.sourceName')} name="sourceName">
                 {/* <Input onBlur={e => checkResourceName(e.target.value)} className="limit-box" /> */}
                 <p></p>
@@ -216,7 +211,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
               </Form.Item>
               <Form.Item label={t('myData.industryOfData')}>
                 <Form.Item name="sourceName" noStyle>
-                  <Select className="limit-box">
+                  <Select size="large" className="limit-box width457">
                     {INDUSTRYLIST.map(item => {
                       return (
                         <Option key={item.id} value={item.id}>
@@ -229,13 +224,13 @@ export const NewDataAddtion: FC<any> = (props: any) => {
               </Form.Item>
               <Form.Item label={t('center.dataDesc')} name="remarks">
                 <Form.Item noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
-                  <Input.TextArea className="limit-box" />
+                  <Input.TextArea className="limit-box width457" />
                 </Form.Item>
               </Form.Item>
             </div>
           </div>
           <div className="sub-info-box">
-            <div className="title-box">{t('center.fieldInfo')}</div>
+            <div className="sub-title-box">{t('center.fieldInfo')}</div>
             <MyFiledsTable
               originalData={originalData}
               tableData={tableData}
@@ -248,17 +243,18 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             />
           </div>
         </Form>
+        <div className="sub-info-box mb40">
+          <Space size={40} className="btn-group">
+            <Button size="large" className="btn" onClick={goBackFn}>
+              {t('common.return')}
+            </Button>
+            <Button size="large" className="btn" type="primary" onClick={submitFn}>
+              {t('common.submit')}
+            </Button>
+          </Space>
+        </div>
       </div>
-      <div className="add-info-box">
-        <Space size={40} className="btn-group">
-          <Button size="large" className="btn" onClick={goBackFn}>
-            {t('common.return')}
-          </Button>
-          <Button size="large" className="btn" type="primary" onClick={submitFn}>
-            {t('common.submit')}
-          </Button>
-        </Space>
-      </div>
+
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>{`${t('tip.leaveCofirm')}`}</p>
       </MyModal>

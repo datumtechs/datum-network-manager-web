@@ -58,7 +58,7 @@ const Layout = (props: any) => {
   }, [])
 
   useInterval(() => {
-    fetchData()
+    // fetchData()
   }, tableInterVal)
   // useEffect(() => {
   //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
