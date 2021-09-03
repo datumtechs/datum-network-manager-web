@@ -64,14 +64,17 @@ const resourceApi = {
   },
 
   // 上传内容
-  uploadCsv(data: any): Promise<any> {
+  uploadCsv({ data, fn }): Promise<any> {
     return axios({
       method: 'POST',
       url: '/api/v1/resource/mydata/uploadFile',
       data,
+      onUploadProgress: fn,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+    }).catch(err => {
+      console.log(err, 'errrrrrrrrrrrrrr');
     })
   },
   addMetaData(data: any): Promise<any> {

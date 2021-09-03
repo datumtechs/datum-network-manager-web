@@ -19,7 +19,7 @@ const DataTable: FC<any> = (props: any) => {
   const [total, totalSet] = useState<number>(0)
   const history = useHistory()
   const [tableData, tableDataSet] = useState<Array<object>>([])
-  const [curPage, setCurPage] = useState<number>(0)
+  const [curPage, setCurPage] = useState<number>(1)
   const baseInfo = useContext(BaseInfoContext)
   const [curId, curIdSet] = useState<string>('')
   const { t } = useTranslation()
@@ -46,7 +46,7 @@ const DataTable: FC<any> = (props: any) => {
   //   pageNumber: curPage,
   //   pageSize: pagination.defaultPageSize,
   // })
-  const saveFn = () => {}
+  const saveFn = () => { }
   const initTable = async () => {
     const res = await computeNodeApi.queryPowerNodeList({
       identityId: baseInfo?.identityId,
@@ -88,7 +88,7 @@ const DataTable: FC<any> = (props: any) => {
       },
     })
   }
-  const editFn = row => {}
+  const editFn = row => { }
 
   // 节点状态，-1: 未被调度服务连接上; 0: 连接上; 1: 算力启用<计算服务>; 2: 算力被占用(计算服务算力正在被任务占用)',
   const dataSource = [
@@ -99,11 +99,11 @@ const DataTable: FC<any> = (props: any) => {
       connTime: '',
       core: 10,
       createTime: '',
-      externalIp: '22222222222222222',
+      externalIp: '192.168.18.34',
       externalPort: 9090,
       id: 0,
       identityId: '11111111111111111',
-      internalIp: '11111111111111111',
+      internalIp: '192.168.18.34',
       internalPort: 8080,
       memory: 0,
       powerNodeId: '1111111111133333333333333',
@@ -124,11 +124,11 @@ const DataTable: FC<any> = (props: any) => {
       connTime: '',
       core: 10,
       createTime: '',
-      externalIp: '22222222222222222',
+      externalIp: '192.168.18.34',
       externalPort: 9090,
       id: 1,
       identityId: '11111111111111111',
-      internalIp: '11111111111111111',
+      internalIp: '192.168.18.34',
       internalPort: 8080,
       memory: 0,
       powerNodeId: '1111111111133333333333333',
@@ -149,11 +149,11 @@ const DataTable: FC<any> = (props: any) => {
       connTime: '',
       core: 10,
       createTime: '',
-      externalIp: '22222222222222222',
+      externalIp: '192.168.18.34',
       externalPort: 9090,
       id: 3,
       identityId: '11111111111111111',
-      internalIp: '11111111111111111',
+      internalIp: '192.168.18.34',
       internalPort: 8080,
       memory: 0,
       powerNodeId: '1111111111133333333333333',
@@ -174,11 +174,11 @@ const DataTable: FC<any> = (props: any) => {
       connTime: '',
       core: 10,
       createTime: '',
-      externalIp: '22222222222222222',
+      externalIp: '192.168.18.34',
       externalPort: 9090,
       id: 4,
       identityId: '11111111111111111',
-      internalIp: '11111111111111111',
+      internalIp: '192.168.18.34',
       internalPort: 8080,
       memory: 0,
       powerNodeId: '1111111111133333333333333',
@@ -207,13 +207,13 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.Num'),
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-      width: 80,
+      width: 40,
     },
     {
       title: t('computeNodeMgt.nodeName'),
       dataIndex: 'nodeName',
       key: 'nodeName',
-      width: 250,
+      width: 80,
       ellipsis: true,
       render: (text, record, index) => {
         return <p>{record.powerNodeName}</p>
@@ -222,7 +222,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.status'),
       dataIndex: 'status',
-      width: 200,
+      width: 80,
       key: 'status',
       render: (text, record, index) => {
         const { img, content } = UseStatus(record.connStatus)
@@ -237,7 +237,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.ip'),
       dataIndex: 'ip',
-      width: 200,
+      width: 110,
       key: 'ip',
       render: (text, record, index) => {
         return (
@@ -269,7 +269,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.port'),
       dataIndex: 'port',
-      width: 200,
+      width: 100,
       key: 'port',
       render: (text, record, index) => {
         return (
@@ -300,7 +300,7 @@ const DataTable: FC<any> = (props: any) => {
     },
     {
       title: t('common.actions'),
-      width: 200,
+      width: 100,
       dataIndex: 'actions',
       key: 'actions',
       render: (text: any, row: any, index: any) => {
@@ -476,6 +476,7 @@ const DataTable: FC<any> = (props: any) => {
       <Table
         dataSource={tableData}
         columns={columns}
+        scroll={{ x: 990 }}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
       />
       {/* <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}> */}

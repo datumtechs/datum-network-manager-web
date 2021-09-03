@@ -1,19 +1,31 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FC, forwardRef, useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Input, Space, Button, Upload } from 'antd'
+import { Input, Space, Button, Progress } from 'antd'
 
 const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
   const { t } = useTranslation()
-  const { file } = props
-  const { Dragger } = Upload;
+  const { file, uploadProgress } = props
   const inputRef = useRef<any>()
   const [dragging, setDragging] = useState<boolean>(false);
+  const [progressStatus, progressStatusSet] = useState<any>('')
+
+  useEffect(() => {
+    if (uploadProgress > 0 && uploadProgress < 100) {
+      progressStatusSet('active')
+    } else if (uploadProgress === 100 || uploadProgress === 0) {
+      progressStatusSet('')
+    } else {
+      // TODO 异常显示
+      progressStatusSet('exception')
+    }
+  }, [uploadProgress])
+
+  console.log(uploadProgress);
+
   const triggerUpload = () => {
     inputRef.current.input.click()
   }
-  console.log(dragging);
-
   const handleDragOver = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -67,11 +79,11 @@ const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
         {
           file?.name ? <div className="dragger-box-title">
             {file.name}
+            <Progress percent={uploadProgress} status={progressStatus} />
           </div> : <div className="content-box">
             {t('myData.uploadFiletips')}
           </div>
         }
-
 
         <Input
           id="fileInput"

@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Descriptions, Input, Space, Button, message, Form, Row, Col } from 'antd'
+import { Input, Space, Button, message, Form, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -13,7 +13,6 @@ export const DataDetail: FC<any> = (props: any) => {
   const { location } = props
   const { type, id, from } = location.state
   const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
-
   const [total, setTotal] = useState<number>()
   const [baseInfo, setBaseInfo] = useState({
     id: '',
@@ -52,7 +51,11 @@ export const DataDetail: FC<any> = (props: any) => {
   }
 
   const goBackFn = () => { }
-  const viewTask = () => { }
+  const viewTask = () => {
+    history.push({
+      pathname: '/myData/dataMgt/dataDetail/dataDetailTask',
+    })
+  }
   const saveAndReturn = () => { }
 
   return (<div className="layout-box">

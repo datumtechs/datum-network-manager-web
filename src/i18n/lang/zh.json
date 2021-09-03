@@ -74,7 +74,8 @@
     "dataAddition": "数据添加",
     "dataAuthorization": "数据授权",
     "seedNodeMgt": "种子节点管理",
-    "addSeedNode": "种子节点添加"
+    "addSeedNode": "种子节点添加",
+    "dataDetailTask": "此数据参与的任务"
   },
   "common": {
     "submit": "提交",
@@ -236,7 +237,8 @@
       "computationFailed": "计算失败",
       "timeSpent": "用时"
     },
-    "tasks": "总任务数"
+    "tasks": "总任务数",
+    "startTimeAndTaskSpent": "起时间与任务用时"
   },
   "step": {
     "taskStarted": "任务发起",
@@ -374,7 +376,7 @@
     "joinNetworkSuccess": "申请准入网络成功",
     "joinNetworkFailed": "申请准入网络失败",
     "plzComplete": "请完善表单内容",
-    "plzInputDesc": "请完善数据的备注",
+    "plzInputDesc": "请完善数据的描述",
     "plzInputName": "请完善数据的名称",
     "searchTips": "请输入关键字或ID搜索",
     "plzInput": "请填写",

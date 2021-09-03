@@ -32,7 +32,7 @@ const MyDataTable: FC<any> = (props: any) => {
       id: 0,
       fileName: '遏必隆',
       status: '1',
-      dataSize: 22222222222222222,
+      dataSize: 222222,
       lastUpdateTime: 111111111111111111,
       taskNum: 12123,
     },
@@ -40,7 +40,7 @@ const MyDataTable: FC<any> = (props: any) => {
       id: 1,
       fileName: '索额图',
       status: '0',
-      dataSize: 22222222222222222,
+      dataSize: 2222222,
       lastUpdateTime: 111111111111111111,
       taskNum: 12123,
     },
@@ -179,14 +179,16 @@ const MyDataTable: FC<any> = (props: any) => {
       width: 80,
     },
     {
-      title: t('center.metaName'),
+      title: t('center.dataName'),
       dataIndex: 'fileName',
       key: 'fileName',
+      width: 180,
     },
     {
       title: t('center.metaStatus'),
       dataIndex: 'status',
       key: 'status',
+      width: 100,
       render: (text, record, index) => {
         // 1已发布，0未发布
         if (record.status === '1') {
@@ -209,11 +211,13 @@ const MyDataTable: FC<any> = (props: any) => {
       title: t('myData.dataSize'),
       dataIndex: 'dataSize',
       key: 'dataSize',
+      width: 100,
     },
     {
       title: t('myData.taskNum'),
       dataIndex: 'taskNum',
       key: 'taskNum',
+      width: 100,
     },
     // {
     //   title: t('center.metaFiled'),
@@ -230,43 +234,43 @@ const MyDataTable: FC<any> = (props: any) => {
     // },
     {
       title: t('common.actions'),
-      width: 500,
+      width: 220,
       dataIndex: 'actions',
       key: 'actions',
       render: (text: any, row: any, index: any) => {
         if (row.status === '1') {
           return (
-            <Space size={10} className="operation-box">
-              <span className="btn pointer link" onClick={() => viewFn(row)}>
+            <div className="operation-box">
+              <p className="btn pointer link pr10" onClick={() => viewFn(row)}>
                 {t('center.view')}
-              </span>
-              <span className="btn pointer link" onClick={() => downloadFn(row)}>
+              </p>
+              <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
                 {t('center.download')}
-              </span>
-              <span className="btn pointer link" onClick={() => withDrawFn(row)}>
+              </p>
+              <p className="btn pointer link pr10" onClick={() => withDrawFn(row)}>
                 {t('center.withdraw')}
-              </span>
-            </Space>
+              </p>
+            </div>
           )
         }
         return (
-          <Space size={10} className="operation-box">
-            <span className="btn pointer link" onClick={() => viewFn(row)}>
+          <div className="operation-box">
+            <p className="btn pointer link pr10" onClick={() => viewFn(row)}>
               {t('center.view')}
-            </span>
-            <span className="btn pointer link" onClick={() => downloadFn(row)}>
+            </p>
+            <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
               {t('center.download')}
-            </span>
-            <span className="btn pointer link" onClick={() => publishFn(row)}>
+            </p>
+            <p className="btn pointer link pr10" onClick={() => publishFn(row)}>
               {t('center.publish')}
-            </span>
-            <span className="btn pointer link" onClick={() => saveAsNewData(row)}>
+            </p>
+            <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
               {t('center.saveAsNewData')}
-            </span>
-            <span className="btn pointer link" onClick={() => deleteFn(row)}>
+            </p>
+            <p className="btn pointer link pr10" onClick={() => deleteFn(row)}>
               {t('center.delete')}
-            </span>
-          </Space>
+            </p>
+          </div>
         )
       },
     },

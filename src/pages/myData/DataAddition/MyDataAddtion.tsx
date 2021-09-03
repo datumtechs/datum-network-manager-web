@@ -31,6 +31,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const [isFileNameRight, isFileNameRightSet] = useState<boolean>(false)
   const [showFilenameAvailable, showFilenameAvailableSet] = useState<boolean>(false)
 
+  const [uploadProgress, uploadProgressSet] = useState<number>(0)
+
+
   const pagenation = {
     pagesize: 10,
   }
@@ -88,7 +91,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
           }
         })
       })
-      .catch(error => { })
+      .catch(error => {
+        console.log(error);
+      })
   }
   // TODO type
   const getShowSource = data => {
@@ -118,6 +123,20 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const setPage = (page: number) => {
     setCurPage(page)
   }
+
+  const _uploadProgress = (evt) => {
+    console.log(evt, "evt===========>");
+
+    if (evt.lengthComputable) {
+      const percent = Math.round(evt.loaded * 100 / evt.total);
+      uploadProgressSet(percent)
+      // document.getElementById('progress').innerHTML = percent.toFixed(2) + '%';//设置进度显示百分比
+      // document.getElementById('progress').style.width = percent.toFixed(2) + '%';//设置完成的进度条宽度
+    }
+    else {
+      // document.getElementById('progress').innerHTML = 'unable to compute';
+    }
+  }
   const uploadFn = () => {
     upLoadingSet(true)
     // 判断文件是否为空 判断是否选择了包含字段
@@ -140,7 +159,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     const formData = new FormData()
     formData.append('file', uploadFile)
     formData.append('hasTitle', radioValue)
-    resourceApi.uploadCsv(formData).then(res => {
+    resourceApi.uploadCsv({ data: formData, fn: _uploadProgress }).then(res => {
       upLoadingSet(false)
       if (res.status === 0) {
         setOriginalData(res.data?.localMetaDataColumnList)
@@ -152,6 +171,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         // message.error(`${t('myData.uploadFailed')}`)
         message.error(res.msg)
       }
+    }).catch(e => {
+      console.log(e);
+
     })
   }
 
@@ -189,6 +211,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
           <MyDragger
             ref={draggerRef}
             file={uploadFile}
+            uploadProgress={uploadProgress}
             onSearch={selectFileFn}
             uploadFn={uploadFn}
             uploadByDrag={uploadByDrag}
@@ -236,10 +259,10 @@ export const MyDataAddtion: FC<any> = (props: any) => {
               </Form.Item>
               <Form.Item
                 label={t('center.dataDesc')}
-                name="remarks"
-                rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}
               >
-                <Input.TextArea className="width457 limit-box" />
+                <Form.Item name="remarks" noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
+                  <Input.TextArea className="width457 limit-box" />
+                </Form.Item>
               </Form.Item>
             </Form>
           </div>

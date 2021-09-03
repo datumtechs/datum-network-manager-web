@@ -74,7 +74,8 @@
     "dataAddition": "Data Addition",
     "dataAuthorization": "Data Authorization",
     "seedNodeMgt": "Seed Node Management",
-    "addSeedNode": "Seed Node Addition"
+    "addSeedNode": "Seed Node Addition",
+    "dataDetailTask": "Tasks of The Data"
   },
   "common": {
     "submit": "Submit",
@@ -236,7 +237,8 @@
       "computationFailed": "Computation failed",
       "timeSpent": "time spent"
     },
-    "tasks": "Total Tasks"
+    "tasks": "Total Tasks",
+    "startTimeAndTaskSpent": "Start time & Time spent"
   },
   "step": {
     "taskStarted": "Task Started",

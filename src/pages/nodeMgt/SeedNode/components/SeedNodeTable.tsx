@@ -52,7 +52,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
     tableDataSet(dataSource)
   }
 
-  const saveFn = () => {}
+  const saveFn = () => { }
 
   const deleteFn = record => {
     isModalVisibleSet(true)
@@ -155,20 +155,20 @@ const SeedNodeTable: FC<any> = (props: any) => {
         return (
           <>
             {record.isEdit ? (
-              <Space size={10}>
-                <span className="main_color pointer" onClick={() => saveFn()}>
+              <Space size={10} className="operation-box">
+                <span className="btn pointer" onClick={() => saveFn()}>
                   {t('common.save')}
                 </span>
-                <span className="main_color pointer" onClick={() => setEditStatus(record, false)}>
+                <span className="btn pointer" onClick={() => setEditStatus(record, false)}>
                   {t('common.cancel')}
                 </span>
               </Space>
             ) : (
-              <Space size={10}>
-                <span className="pointer main_color" onClick={() => setEditStatus(record, true)}>
+              <Space size={10} className="operation-box">
+                <span className="pointer btn" onClick={() => setEditStatus(record, true)}>
                   {t('common.edit')}
                 </span>
-                <span className="pointer main_color" onClick={() => deleteFn(record)}>
+                <span className="pointer btn" onClick={() => deleteFn(record)}>
                   {t('common.delete')}
                 </span>
               </Space>
@@ -180,8 +180,8 @@ const SeedNodeTable: FC<any> = (props: any) => {
   ]
 
   // methods
-  const onPageChange = () => {}
-  const handleOk = () => {}
+  const onPageChange = () => { }
+  const handleOk = () => { }
   const handleCancel = () => isModalVisibleSet(false)
 
   useEffect(() => {

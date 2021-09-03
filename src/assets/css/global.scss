@@ -8,12 +8,13 @@
 
 .layout-box {
   width: 100%;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 110px);
   background-color: #fff;
   box-shadow: 0 0 10px 0 rgba(10, 16, 81, 0.08);
   border-radius: 6px;
   overflow-y: scroll;
   padding: 20px;
+
   .submit-box {
     padding: 20px;
   }
@@ -170,11 +171,28 @@
         width: 457px;
       }
     }
+    .top-title-box {
+      display: flex;
+      margin-bottom: 20px;
+      height: 20px;
+      &:first-child {
+        font-family: AlibabaPuHuiTi-Medium;
+        font-size: 16px;
+        color: #000000;
+        letter-spacing: 0;
+        margin-bottom: 12px;
+        height: 22px;
+      }
+    }
   }
 
   .data-table-box {
     width: 100%;
+    font-size: 12px;
     .operation-box {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
       .btn {
         font-family: AlibabaPuHuiTi-Medium;
         font-size: 14px;
@@ -394,6 +412,10 @@
 
 .pl20 {
   padding-left: 20px;
+}
+
+.pr10 {
+  padding-right: 10px;
 }
 
 .mb20 {

@@ -55,7 +55,7 @@ const DataTable: FC<any> = (props: any) => {
     setCurId(row.nodeId)
     SetIsModalVisible(true)
   }
-  const saveFn = () => {}
+  const saveFn = () => { }
 
   const dataSource = [
     {
@@ -203,21 +203,21 @@ const DataTable: FC<any> = (props: any) => {
         return (
           <>
             {record.isEdit ? (
-              <Space size={10}>
-                <span className="main_color pointer" onClick={() => saveFn()}>
+              <Space size={10} className="operation-box">
+                <span className="main_color pointer btn" onClick={() => saveFn()}>
                   {t('common.save')}
                 </span>
-                <span className="main_color pointer" onClick={() => setEditStatus(record, false)}>
+                <span className="main_color pointer btn" onClick={() => setEditStatus(record, false)}>
                   {t('common.cancel')}
                 </span>
               </Space>
             ) : (
-              <Space size={10}>
-                <span className="pointer main_color" onClick={() => setEditStatus(record, true)}>
+              <Space size={10} className="operation-box">
+                <span className="pointer main_color btn" onClick={() => setEditStatus(record, true)}>
                   {t('common.edit')}
                 </span>
                 {record.connStatus === -1 ? (
-                  <span className="pointer main_color" onClick={() => deleteFn(record)}>
+                  <span className="pointer main_color btn" onClick={() => deleteFn(record)}>
                     {t('common.delete')}
                   </span>
                 ) : (

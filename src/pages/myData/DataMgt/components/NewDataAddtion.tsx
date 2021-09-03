@@ -120,49 +120,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const setPage = (page: number) => {
     setCurPage(page)
   }
-  const uploadFn = () => {
-    upLoadingSet(true)
-    // 判断文件是否为空 判断是否选择了包含字段
-    if (!radioValue) {
-      setShowIncludeError(true)
-      upLoadingSet(false)
-      return message.error(`${t('tip.plzComplete')}`)
-    }
-
-    if (inputRef?.current?.input?.files?.length === 0) {
-      upLoadingSet(false)
-      return message.error(`${t('myData.plzSelectone')}`)
-    }
-    if (showTypeError) {
-      setShowTypeError(true)
-      upLoadingSet(false)
-      return
-    }
-
-    const formData = new FormData()
-    formData.append('file', uploadFile)
-    formData.append('hasTitle', radioValue)
-    resourceApi.uploadCsv(formData).then(res => {
-      upLoadingSet(false)
-      if (res.status === 0) {
-        setOriginalData(res.data?.localMetaDataColumnList)
-        setTotal(res.data?.localMetaDataColumnList?.length)
-        setTableData(getShowSource(res.data?.localMetaDataColumnList))
-        resultFileDataSet(res.data)
-        message.success(`${t('myData.uploadSuccess')}`)
-      } else {
-        // message.error(`${t('myData.uploadFailed')}`)
-        message.error(res.msg)
-      }
-    })
-  }
 
   const changeFileIncludeStatusFn = (e: any) => {
     setShowIncludeError(false)
     setRadioValue(e.target.value)
   }
-
-  const onOnInputChange = () => { }
 
   return (
     <div className="layout-box">
