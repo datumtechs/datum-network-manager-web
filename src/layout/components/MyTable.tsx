@@ -45,7 +45,7 @@ const MyTable: FC<any> = (props: any) => {
     },
   ]
   return (
-    <div className="table-box">
+    <div className="data-table-box">
       <Table dataSource={dataSource} columns={columns} bordered />
     </div>
   )

@@ -1,10 +1,9 @@
 import { FC, useState } from 'react'
-import { Input, Space, Button, message, Form, Row, Col } from 'antd'
+import { Input, Space, Button, Form, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { resourceApi } from '../api/index'
-import MyModal from './MyModal'
 import MyFiledsTable from './MyFiledsTable'
 import { fileSizeChange, thousandMark } from '../utils/utils'
 
@@ -12,7 +11,6 @@ export const DataDetail: FC<any> = (props: any) => {
   const { TextArea } = Input
   const { location } = props
   const { type, id, from } = location.state
-  const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
   const [total, setTotal] = useState<number>()
   const [baseInfo, setBaseInfo] = useState({
     id: '',

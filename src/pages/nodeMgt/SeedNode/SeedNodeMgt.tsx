@@ -18,7 +18,7 @@ export const SeedNodeMgt: FC<any> = (props: any) => {
   }
   return (
     <div className="layout-box">
-      <div className="table-box">
+      <div className="data-table-box">
         <SearchBar text={t('node.addSeedNode')} onAdd={onAdd} hideSearch />
         <SeedNodeTable />
       </div>

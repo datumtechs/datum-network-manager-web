@@ -16,6 +16,9 @@ const MyDataAddtion = React.lazy(() =>
 const NewDataAddtion = React.lazy(() =>
   import('../pages/myData/DataMgt/components/NewDataAddtion').then(_ => ({ default: _.NewDataAddtion })),
 )
+const AuthInfo = React.lazy(() =>
+  import('../pages/myData/DataAuthorization/AuthInfo').then(_ => ({ default: _.AuthInfo })),
+)
 const MyDataDetail = React.lazy(() =>
   import('../pages/myData/DataMgt/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })),
 )
@@ -299,7 +302,14 @@ const routes: Array<IRoute> = [
             component: DataAuthorization,
             meta: { exact: true, title: '', icon: '', show: true },
           },
-
+          {
+            name: 'authInfo',
+            label: 'menu.viewAuthInfo',
+            breadcrumbName: 'menu.viewAuthInfo',
+            path: '/myData/dataAuthorization/authInfo',
+            component: AuthInfo,
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
           {
             name: 'infoModify',
             label: 'center.infoModify',

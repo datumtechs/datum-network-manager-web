@@ -22,7 +22,7 @@ export const DataMgt: FC<any> = () => {
   }
   return (
     <div className="layout-box">
-      <div className="table-box">
+      <div className="data-table-box">
         <SearchBar text={t('center.uploadFile')} onAdd={onAdd} onSearch={onSearch} />
         <MyDataTable searchText={searchText} />
       </div>

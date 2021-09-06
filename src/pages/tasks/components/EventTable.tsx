@@ -66,7 +66,7 @@ const EventTable: FC<any> = (props: any) => {
     },
   ]
   return (
-    <div className="table-box">
+    <div className="data-table-box">
       <Table
         dataSource={tableData}
         columns={columns}

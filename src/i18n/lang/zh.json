@@ -75,7 +75,8 @@
     "dataAuthorization": "数据授权",
     "seedNodeMgt": "种子节点管理",
     "addSeedNode": "种子节点添加",
-    "dataDetailTask": "此数据参与的任务"
+    "dataDetailTask": "此数据参与的任务",
+    "viewAuthInfo": "授权申请查看"
   },
   "common": {
     "submit": "提交",
@@ -118,7 +119,9 @@
     "no": "否",
     "save": "保存",
     "cancel": "取消",
-    "Num": "序号"
+    "Num": "序号",
+    "decline": "拒绝",
+    "agree": "同意"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
@@ -175,6 +178,9 @@
     "nodeTask": "此节点参与的任务",
     "startTime": "发起时间",
     "sponsor": "发起方",
+    "dataSupplier": "数据提供方",
+    "algoSupplier": "算法提供方",
+    "powerSupplier": "算力提供方",
     "receiver": "结果方",
     "collaborators": "协作方",
     "eachNode": "各个任务占用此节点总算力的实况",
@@ -346,7 +352,19 @@
     "viewTask": "查看此数据参与的任务",
     "dataNameTooltip": "根据需要修改数据名称，不可与其他数据重复，且本次设置之后无法修改。",
     "fieldInfoTooltip": "请根据需要修改“源文件字段”、“是否对外可见”与“数据类型”，并补充相应的“字段描述”，字段信息提交后仍可以在管理页面修改。",
-    "uploadFiletips": "点击选择文件或将文件拖入此处"
+    "uploadFiletips": "点击选择文件或将文件拖入此处",
+    "dataNameAndApplicantAccount": "数据名称与授权发起的账户",
+    "authType": "授权方式",
+    "authValue": "授权值",
+    "authStartTime": "授权发起时间",
+    "authorized": "已授权",
+    "unauthorized": "未授权",
+    "period": "时间",
+    "count": "次数",
+    "dataName": "数据名称",
+    "authInfo": "授权申请信息",
+    "authAccount": "授权发起的账户",
+    "metaDataPublishTime": "元数据发布时间"
   },
   "tip": {
     "plzInputID": "请输入正确的机构识别名称",
@@ -380,6 +398,8 @@
     "plzInputName": "请完善数据的名称",
     "searchTips": "请输入关键字或ID搜索",
     "plzInput": "请填写",
-    "searchText": "输入关键字搜索"
+    "searchText": "输入关键字搜索",
+    "isAuthData": "请确认是否要同意授权数据",
+    "isUnAuthData": "请确认是否要拒绝授权数据"
   }
 }

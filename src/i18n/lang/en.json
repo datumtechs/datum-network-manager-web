@@ -75,7 +75,8 @@
     "dataAuthorization": "Data Authorization",
     "seedNodeMgt": "Seed Node Management",
     "addSeedNode": "Seed Node Addition",
-    "dataDetailTask": "Tasks of The Data"
+    "dataDetailTask": "Tasks of The Data",
+    "viewAuthInfo": "Authorization Application Details"
   },
   "common": {
     "submit": "Submit",
@@ -118,7 +119,9 @@
     "no": "NO",
     "save": "Save",
     "cancel": "Cancel",
-    "Num": "No."
+    "Num": "No.",
+    "decline": "Decline",
+    "agree": "Agree"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
@@ -175,6 +178,9 @@
     "nodeTask": "Participated task",
     "startTime": "Start Time",
     "sponsor": "Sponsor",
+    "dataSupplier": "Data supplier",
+    "algoSupplier": "Algorithm provider",
+    "powerSupplier": "Power supplier",
     "receiver": "Result receiver",
     "collaborators": "Collaborators",
     "eachNode": "Occupied resources of each task at this node",
@@ -346,7 +352,19 @@
     "viewTask": "View tasks of the data",
     "dataNameTooltip": "Modify the data name as required, which cannot be repeated with other data, and cannot be modified after this setting.",
     "fieldInfoTooltip": "Please modify 'source file field', 'visible' and 'data type' as needed, and supplement the corresponding 'field description'. The field information can still be modified on the management page after submission.",
-    "uploadFiletips": "Drag and drop the file here or upload."
+    "uploadFiletips": "Drag and drop the file here or upload.",
+    "dataNameAndApplicantAccount": "Data name & Applicant account",
+    "authType": "Authorization method",
+    "authValue": "Authorization value",
+    "authStartTime": "Application time",
+    "authorized": "Authorized",
+    "unauthorized": "Unauthorized",
+    "period": "Period",
+    "count": "Usage count",
+    "dataName": "Data name",
+    "authInfo": "Authorization Application Information",
+    "authAccount": "Applicant account",
+    "metaDataPublishTime": "Time of publication"
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",
@@ -380,6 +398,8 @@
     "plzInputName": "Please fill in the name of the data",
     "searchTips": "Search by key words or ID",
     "plzInput": "please input your",
-    "searchText": "input search text"
+    "searchText": "input search text",
+    "isAuthData": "Please ensure that you are agreeing the data authorization application of:",
+    "isUnAuthData": "Please ensure that you are declining the data authorization application of:"
   }
 }

@@ -117,7 +117,7 @@ const MyTable = (props, ref) => {
     },
   ]
   return (
-    <div className="table-box">
+    <div className="data-table-box">
       <Table
         dataSource={tableData}
         columns={columns}

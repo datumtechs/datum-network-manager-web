@@ -40,7 +40,7 @@ const ProviderTable: FC<any> = (props: any) => {
     },
   ]
   return (
-    <div className="table-box">
+    <div className="data-table-box">
       <Table
         dataSource={props.tableData}
         columns={columns}

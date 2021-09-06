@@ -51,17 +51,10 @@
   }
 
   .table-box {
-    p.details {
-      display: flex;
-      justify-content: space-between;
-    }
-    .status-box {
-      display: flex;
-      align-items: center;
-      & > img:first-child {
-        padding-right: 10px;
-      }
-    }
+    // p.details {
+    //   display: flex;
+    //   justify-content: space-between;
+    // }
   }
 
   .white-bg {
@@ -78,6 +71,15 @@
       color: #000000;
       letter-spacing: 0;
       font-weight: 600;
+    }
+  }
+  .author-tab {
+    margin: 0 0 20px 78px;
+    .tab-title {
+      font-family: AlibabaPuHuiTi-Medium;
+      font-size: 14px;
+      color: #3c3588;
+      letter-spacing: 0;
     }
   }
 
@@ -118,8 +120,6 @@
         }
         &.dot-line {
           border: 1px dashed #d9e1ff;
-        }
-        .content-box {
         }
         .dragger-box-title {
           position: absolute;
@@ -188,7 +188,6 @@
 
   .data-table-box {
     width: 100%;
-    font-size: 12px;
     .operation-box {
       display: flex;
       justify-content: flex-start;
@@ -199,6 +198,13 @@
         color: #3c3588;
         letter-spacing: 0;
         line-height: 16.8px;
+      }
+    }
+    .status-box {
+      display: flex;
+      align-items: center;
+      & > img:first-child {
+        padding-right: 10px;
       }
     }
   }
@@ -311,6 +317,16 @@
     background: $mainColor;
     color: #fff;
   }
+  .green-btn {
+    border: 1px solid #0bb27a;
+    color: #0bb27a;
+    padding: unset;
+  }
+  .red-btn {
+    border: 1px solid #f32e25;
+    color: #f32e25;
+    padding: unset;
+  }
 }
 .time-group {
   margin-top: 15px;
@@ -329,15 +345,15 @@
 }
 
 .success_color {
-  color: #69bd0d;
+  color: #69bd0d !important;
 }
 
 .failed_color {
-  color: #f5222d;
+  color: #f5222d !important;
 }
 
 .main_color {
-  color: #3c3588;
+  color: #3c3588 !important;
 }
 
 .prev-steelblue,

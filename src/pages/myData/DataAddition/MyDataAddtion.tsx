@@ -9,6 +9,7 @@ import MyDragger from '../DataMgt/components/MyDragger'
 import MyFiledsTable from '../../../components/MyFiledsTable'
 import { resourceApi } from '../../../api/index'
 import MyModal from '../../../components/MyModal'
+import MyTag from '../../../components/MyTag'
 
 export const MyDataAddtion: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -250,9 +251,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                   </Tooltip>
                   {showFilenameAvailable &&
                     (isFileNameRight ? (
-                      <span className="success_color">{`${t('tip.availableFilename')}`}</span>
+                      <MyTag content={t('tip.availableFilename')} bgColor="#B7EB8F" color="#45B854" />
                     ) : (
-                      <span className="failed_color"> {`${t('tip.unavailableFilename')}`}</span>
+                      <MyTag content={t('tip.unavailableFilename')} bgColor="#FFA39E" color="#F45564" />
                     ))}
                 </Space>
 

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Table } from 'antd'
+import { Table, Space } from 'antd'
 import MyTaskStatusBar from './MyTaskStatusBar'
 
 export const MyDetailTask: FC<any> = (props: any) => {
@@ -8,14 +8,46 @@ export const MyDetailTask: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const [curPage, curPageSet] = useState<number>(1)
   const [totalNum, totalNumSet] = useState<number>(0)
+
+  const goDetail = (record) => { }
+  const goEvent = (record) => { }
+
   const dataSource = [
     {
       id: '1',
       taskName: '明珠',
       status: 'pending',
+      role: 'owner',
+      duration: '1111'
+    },
+    {
+      id: '2',
+      taskName: '明珠',
+      status: 'failed',
+      role: 'dataSupplier',
+      duration: '1111'
+    },
+    {
+      id: '3',
+      taskName: '明珠',
+      status: 'succeeded',
       role: 'algoSupplier',
       duration: '1111'
-    }
+    },
+    {
+      id: '4',
+      taskName: '明珠',
+      status: 'computing',
+      role: 'receiver',
+      duration: '1111'
+    },
+    {
+      id: '5',
+      taskName: '明珠',
+      status: 'computing',
+      role: 'powerSupplier',
+      duration: '1111'
+    },
   ]
   const pagination = {
     defaultPageSize: 10,
@@ -37,7 +69,8 @@ export const MyDetailTask: FC<any> = (props: any) => {
       dataIndex: 'status',
       key: 'status',
       render: (text, record, index) => {
-        return <></>
+        return <MyTaskStatusBar status={record.status} padding={10} />
+
       }
     },
     // owner: 任务发起方; dataSupplier: 数据提供方: powerSupplier: 算力提供方; receiver: 结果接收方; algoSupplier:算法提供方)'
@@ -46,8 +79,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
       dataIndex: 'role',
       key: 'role',
       render: (text, record, index) => {
-        return <MyTaskStatusBar status={record.status} padding={38} />
-
+        return <MyTaskStatusBar role={record.role} padding={38} />
       }
     },
     {
@@ -64,7 +96,10 @@ export const MyDetailTask: FC<any> = (props: any) => {
     {
       title: t('common.actions'),
       render: (text, record, index) => {
-        return <></>
+        return <Space className="operation-box" size={10}>
+          <span onClick={() => goDetail(record)} className="btn pointer">{t('task.viewDetail')}</span>
+          <span onClick={() => goEvent(record)} className="btn pointer">{t('task.viewEvent')}</span>
+        </Space>
       }
     },
   ]
