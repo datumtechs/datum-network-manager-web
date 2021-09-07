@@ -3,6 +3,7 @@ import { Table, Space, Tooltip } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
+import MyTaskStatusBar from '../../myData/DataMgt/components/MyTaskStatusBar'
 
 const Status: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -53,19 +54,28 @@ const MyTable = (props, ref) => {
   const columns = [
     {
       title: t('common.Num'),
-      width: 80,
-      render: (text, record, index) => `${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`,
+      width: 60,
+      render: (text, record, index) => {
+        return <>
+          <p className={record.reviewed ? '' : 'new-tips'}></p>
+          <p>
+            <span>
+              {`${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`}
+            </span>
+          </p>
+        </>
+      }
     },
 
     {
       title: t('task.nameID'),
       dataIndex: 'taskName',
-      width: 300,
+      width: 120,
       ellipsis: true,
       render: (text, record) => {
         return (
           <>
-            <div className={record.reviewed ? '' : 'new-tips'}>{text}</div>
+            <div>{text}</div>
             <Tooltip placement="topLeft" title={record.taskId}>
               <div className="ellipsis">{record.taskId}</div>
             </Tooltip>
@@ -77,40 +87,47 @@ const MyTable = (props, ref) => {
       title: t('task.status'),
       dataIndex: 'status',
       key: 'status',
-      width: 100,
+      width: 80,
       render: (text, record) => {
-        return <Status status={record.status} />
+        return <MyTaskStatusBar status={record.status} width={82} />
       },
     },
     {
       title: t('task.myCapacity'),
       dataIndex: 'role',
-      width: 140,
-      render: text => {
-        return <>{t(`task.role.${text}`)}</>
+      width: 100,
+      render: (text, record) => {
+        return <MyTaskStatusBar role={record.role} width={122} />
       },
     },
     {
-      title: t('task.startTime'),
-      dataIndex: 'createAt',
-      width: 200,
-      render: text => {
-        return <>{dayjs(text).format('YYYY-MM-DD HH:mm:ss')}</>
+      title: `${t('task.startTimeAndTaskSpent')}`,
+      width: 100,
+      render: (text, record) => {
+        return <>
+          <p>{dayjs(record.taskStartTime).format('YYYY-MM-DD HH:mm:ss')}</p>
+          <p>
+            {t('myData.duration')}:{ }
+          </p>
+          <p>
+            {t('myData.timeSpent')}:{ }
+          </p>
+        </>
       },
     },
     {
       title: t('task.actions'),
       dataIndex: 'taskId',
-      width: 200,
+      width: 100,
       render: text => {
         return (
           <Space size={50}>
-            <span onClick={() => linkToDetail(text)} className="pointer link">
+            <p onClick={() => linkToDetail(text)} className="pointer link">
               {t('task.viewDetail')}
-            </span>
-            <span onClick={() => linkToEvent(text)} className="pointer link">
+            </p>
+            <p onClick={() => linkToEvent(text)} className="pointer link">
               {t('task.viewEvent')}
-            </span>
+            </p>
           </Space>
         )
       },

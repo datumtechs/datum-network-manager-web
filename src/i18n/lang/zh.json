@@ -76,7 +76,9 @@
     "seedNodeMgt": "种子节点管理",
     "addSeedNode": "种子节点添加",
     "dataDetailTask": "此数据参与的任务",
-    "viewAuthInfo": "授权申请查看"
+    "viewAuthInfo": "授权申请查看",
+    "taskDetail": "任务详情",
+    "taskEvents": "任务日志"
   },
   "common": {
     "submit": "提交",
@@ -121,7 +123,10 @@
     "cancel": "取消",
     "Num": "序号",
     "decline": "拒绝",
-    "agree": "同意"
+    "agree": "同意",
+    "agreed": "已同意",
+    "declined": "已拒绝",
+    "and": "与"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
@@ -186,7 +191,7 @@
     "eachNode": "各个任务占用此节点总算力的实况",
     "detail": "查看详情",
     "sponsorStartTime": "发起方与发起时间",
-    "timeSpan": "Time span"
+    "timeSpan": "任务用时"
   },
   "task": {
     "myTask": "我的计算任务",
@@ -244,7 +249,10 @@
       "timeSpent": "用时"
     },
     "tasks": "总任务数",
-    "startTimeAndTaskSpent": "起时间与任务用时"
+    "startTimeAndTaskSpent": "起时间与任务用时",
+    "initialAccount": "任务发起的账户",
+    "algoNameAndId": "算法名称与ID",
+    "dataNameAndId": "数据名称与元数据ID"
   },
   "step": {
     "taskStarted": "任务发起",
@@ -364,7 +372,10 @@
     "dataName": "数据名称",
     "authInfo": "授权申请信息",
     "authAccount": "授权发起的账户",
-    "metaDataPublishTime": "元数据发布时间"
+    "metaDataPublishTime": "元数据发布时间",
+    "authResultAndTime": "授权结果与时间",
+    "duration": "总用时",
+    "timeSpent": "已用时"
   },
   "tip": {
     "plzInputID": "请输入正确的机构识别名称",
@@ -400,6 +411,8 @@
     "plzInput": "请填写",
     "searchText": "输入关键字搜索",
     "isAuthData": "请确认是否要同意授权数据",
-    "isUnAuthData": "请确认是否要拒绝授权数据"
+    "isUnAuthData": "请确认是否要拒绝授权数据",
+    "capacityChartTip": "点击图中的扇面,下方列表只显示此角色下的任务;点击图中心,下方列表显示全部角色下的任务。",
+    "statusChartTip": "点击图中的扇面,下方列表只显示此状态下的任务;点击图中心,下方列表显示全部状态下的任务。"
   }
 }

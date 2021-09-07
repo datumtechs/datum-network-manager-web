@@ -76,7 +76,9 @@
     "seedNodeMgt": "Seed Node Management",
     "addSeedNode": "Seed Node Addition",
     "dataDetailTask": "Tasks of The Data",
-    "viewAuthInfo": "Authorization Application Details"
+    "viewAuthInfo": "Authorization Application Details",
+    "taskDetail": "Task Details",
+    "taskEvents": "Task Events"
   },
   "common": {
     "submit": "Submit",
@@ -121,7 +123,10 @@
     "cancel": "Cancel",
     "Num": "No.",
     "decline": "Decline",
-    "agree": "Agree"
+    "agree": "Agree",
+    "agreed": "Agreed",
+    "declined": "Declined",
+    "and": "&"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
@@ -244,7 +249,10 @@
       "timeSpent": "time spent"
     },
     "tasks": "Total Tasks",
-    "startTimeAndTaskSpent": "Start time & Time spent"
+    "startTimeAndTaskSpent": "Start time & Time spent",
+    "initialAccount": "Account that initiated the task",
+    "algoNameAndId": "Algorithm name & ID",
+    "dataNameAndId": "Data name & Metadata ID"
   },
   "step": {
     "taskStarted": "Task Started",
@@ -364,7 +372,10 @@
     "dataName": "Data name",
     "authInfo": "Authorization Application Information",
     "authAccount": "Applicant account",
-    "metaDataPublishTime": "Time of publication"
+    "metaDataPublishTime": "Time of publication",
+    "authResultAndTime": "Authorization result & time",
+    "duration": "Duration",
+    "timeSpent": "Time spent"
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",
@@ -400,6 +411,8 @@
     "plzInput": "please input your",
     "searchText": "input search text",
     "isAuthData": "Please ensure that you are agreeing the data authorization application of:",
-    "isUnAuthData": "Please ensure that you are declining the data authorization application of:"
+    "isUnAuthData": "Please ensure that you are declining the data authorization application of:",
+    "capacityChartTip": "The list displays tasks of the specific capacity by clicking the sector and displays tasks of all capacities  by clicking the center.",
+    "statusChartTip": "The list displays tasks of the specific status by clicking the sector and displays tasks of all status by clicking the center."
   }
 }

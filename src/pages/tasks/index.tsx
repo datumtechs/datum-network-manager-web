@@ -8,6 +8,8 @@ import { SearchOutlined } from '@ant-design/icons'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
 import { taskApi } from '../../api/index'
+import StatusChart from './components/StatusChart'
+import CapacityChart from './components/CapacityChart'
 
 const { Search } = Input
 const { Option } = Select
@@ -17,8 +19,8 @@ dayjs.extend(timezone)
 
 export const Tasks: FC<any> = () => {
   const { t } = useTranslation()
-  const [runningTaskCount, runningTaskCountSet] = useState<number>(0)
-  const [totalTaskCount, totalTaskCountSet] = useState<number>(0)
+  // const [runningTaskCount, runningTaskCountSet] = useState<number>(0)
+  // const [totalTaskCount, totalTaskCountSet] = useState<number>(0)
   const [tableData, tableDataSet] = useState<[]>([])
   const [searchText, searchTextSet] = useState('')
   const [searchStatus, searchStatusSet] = useState('')
@@ -27,6 +29,10 @@ export const Tasks: FC<any> = () => {
   const [searchEndTime, searchEndTimeSet] = useState(0)
   const [pageNumber, pageNumberSet] = useState(0)
   const [total, totalSet] = useState(0)
+
+  const [capacity, capacitySet] = useState<string>('')
+  const [status, statusSet] = useState<string>('')
+
   const onSearch = text => {
     searchTextSet(text)
   }
@@ -43,6 +49,54 @@ export const Tasks: FC<any> = () => {
   const onEndChange = (time, timeStr) => {
     searchEndTimeSet(dayjs.utc(time).tz('Asia/Shanghai').valueOf())
   }
+
+  const dataScource = [
+    {
+      "createAt": 0,
+      "id": 0,
+      "reviewed": false,
+      "role": 0,
+      "status": "failed",
+      "taskId": "11111111111111111111111",
+      "taskName": "11111111111111111111111111"
+    },
+    {
+      "createAt": 0,
+      "id": 1,
+      "reviewed": false,
+      "role": 1,
+      "status": "pending",
+      "taskId": "222222222222222222",
+      "taskName": "222222222222222222222222"
+    },
+    {
+      "createAt": 0,
+      "id": 2,
+      "reviewed": true,
+      "role": 2,
+      "status": "success",
+      "taskId": "3333333333333333333333",
+      "taskName": "33333333333333333333333333"
+    },
+    {
+      "createAt": 0,
+      "id": 3,
+      "reviewed": false,
+      "role": 3,
+      "status": "computing",
+      "taskId": "4444444444444444444444",
+      "taskName": "444444444444444444444444444"
+    },
+    {
+      "createAt": 0,
+      "id": 4,
+      "reviewed": true,
+      "role": 4,
+      "status": "computing",
+      "taskId": "5555555555555",
+      "taskName": "55555555555555555555555555555"
+    }
+  ]
 
   const statusList = [
     { label: t('task.pending'), value: 'pending' },
@@ -74,11 +128,23 @@ export const Tasks: FC<any> = () => {
       if (res.status === 0) {
         tableDataSet(res.data.list)
         totalSet(res.total)
-        totalTaskCountSet(res.data.countData.totalTaskCount)
-        runningTaskCountSet(res.data.countData.runningTaskCount)
+        // totalTaskCountSet(res.data?.countData?.totalTaskCount)
+        // runningTaskCountSet(res.data?.countData?.runningTaskCount)
       }
     })
   }
+
+  const setCapacity = (capa: string) => {
+    console.log(capa);
+    capacitySet(capa)
+  }
+
+
+  const setStatus = (sta: string) => {
+    console.log(sta);
+    statusSet(sta)
+  }
+
 
   const pageChange = page => {
     pageNumberSet(page)
@@ -94,70 +160,35 @@ export const Tasks: FC<any> = () => {
     <div className="layout-box">
       <div className="title-box">
         <div className="title-label">
-          <div className="title">{t('task.myTask')}</div>
-          <div className="detail">
+          <div className="title">
+            {t('task.myTask')}:&nbsp;
+            { }1111,111,111,111.11
+          </div>
+          {/* <div className="detail">
             <p className="inProgress">
               <span>{t('task.inProgress', [runningTaskCount])}</span>
             </p>
             <p className="totalTask">
               <span>{t('task.totalTask', [totalTaskCount])}</span>
             </p>
-          </div>
-        </div>
-        <div className="search-bar">
-          <Search
-            prefix={<SearchOutlined />}
-            placeholder={t('tips.searchText')}
-            size="large"
-            allowClear
-            enterButton={t('common.search')}
-            onSearch={onSearch}
-            style={{ width: 334 }}
-          />
+          </div> */}
         </div>
       </div>
+      <div className="task-charts-box">
+        <StatusChart statusFn={setStatus} />
+        <CapacityChart capacityFn={setCapacity} />
+      </div>
       <div className="filter-box">
-        <Space size={43}>
-          <Select
-            showSearch
-            style={{ width: 190 }}
-            allowClear
-            placeholder={t('tip.plzSelectStatus')}
-            optionFilterProp="children"
-            onChange={onStatusChange}
-            size="large"
-            filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-          >
-            {statusList.map(item => (
-              <Option value={item.value} key={item.value}>
-                {item.label}
-              </Option>
-            ))}
-          </Select>
-          <Select
-            showSearch
-            size="large"
-            allowClear
-            style={{ width: 200 }}
-            placeholder={t('tip.plzSelectCapacity')}
-            optionFilterProp="children"
-            onChange={capacityChanged}
-            filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-          >
-            {capacityList.map(item => (
-              <Option value={item.value} key={item.value}>
-                {item.label}
-              </Option>
-            ))}
-          </Select>
-        </Space>
         <Space size={20}>
           {t('task.timeSpan')} <DatePicker style={{ width: 200 }} size="large" onChange={onStartChange} />{' '}
           {t('task.to')} <DatePicker style={{ width: 200 }} size="large" onChange={onEndChange} />
         </Space>
       </div>
       <div className="task-table-box">
-        <Tasktable tableData={tableData} total={total} pageChange={pageChange} />
+        <Tasktable
+          // tableData={tableData}
+          tableData={dataScource}
+          total={total} pageChange={pageChange} />
       </div>
     </div>
   )

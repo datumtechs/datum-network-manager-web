@@ -68,8 +68,8 @@ export const MyDetailTask: FC<any> = (props: any) => {
       title: t('task.status'),
       dataIndex: 'status',
       key: 'status',
-      render: (text, record, index) => {
-        return <MyTaskStatusBar status={record.status} padding={10} />
+      render: (text, record) => {
+        return <MyTaskStatusBar status={record.status} width={82} />
 
       }
     },
@@ -78,15 +78,15 @@ export const MyDetailTask: FC<any> = (props: any) => {
       title: t('task.myCapacity'),
       dataIndex: 'role',
       key: 'role',
-      render: (text, record, index) => {
-        return <MyTaskStatusBar role={record.role} padding={38} />
+      render: (text, record) => {
+        return <MyTaskStatusBar role={record.role} width={122} />
       }
     },
     {
       title: t('task.startTimeAndTaskSpent'),
       dataIndex: 'startAt',
       key: 'startAt',
-      render: (text, record, index) => {
+      render: (text, record) => {
         return <>
           <p>{record.startAt}</p>
           <p>{record.duration}</p>

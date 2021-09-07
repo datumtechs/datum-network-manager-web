@@ -43,7 +43,26 @@ export const TaskEvent: FC<any> = (props: any) => {
   }, [])
   return (
     <div className="layout-box">
-      <div className="progress-box">
+      <div className="add-data-box">
+        <div className="task-progress-box">
+          <div className="task-progress-left-box">
+            <div className="top-title-box">
+              <p className="title">{t('task.taskName')}:&nbsp;&nbsp;</p>
+              <p> {baseInfo.taskName}</p>
+            </div>
+            <div className="top-title-box">
+              <p className="title">ID:&nbsp;&nbsp;</p>
+              <p className="ellipsis taskId">{baseInfo.taskId}</p>
+            </div>
+          </div>
+          <div className="progress-box">
+            <div className="progress">
+              <EventStep data={baseInfo} />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className="progress-box">
         <div className="progress">
           <div className="left">
             <p className="name">
@@ -59,7 +78,7 @@ export const TaskEvent: FC<any> = (props: any) => {
             <EventStep data={baseInfo} />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="event-table-box">
         <EventTable id={id} />
       </div>

@@ -62,17 +62,6 @@
     background: #fff;
   }
 
-  .info-box {
-    padding: 20px 20px 0px;
-
-    .title-label {
-      font-family: AlibabaPuHuiTi-Medium;
-      font-size: 16px;
-      color: #000000;
-      letter-spacing: 0;
-      font-weight: 600;
-    }
-  }
   .author-tab {
     margin: 0 0 20px 78px;
     .tab-title {
@@ -135,6 +124,14 @@
 
     .sub-info-box {
       margin-bottom: 20px;
+      .title-label {
+        font-family: AlibabaPuHuiTi-Medium;
+        font-size: 14px;
+        color: #3c3588;
+        letter-spacing: 0;
+        padding-left: 78px;
+        margin-bottom: 10px;
+      }
       .sub-ori-name {
         display: flex;
         font-family: AlibabaPuHuiTi-Medium;
@@ -147,6 +144,9 @@
         .ant-form-item-control-input-content {
           font-size: 16px;
         }
+      }
+      .ant-form-item {
+        margin-bottom: 20px;
       }
       .sub-new-name {
         font-size: 14px;
@@ -171,6 +171,13 @@
         width: 457px;
       }
     }
+    .task-progress-box {
+      display: flex;
+      margin-bottom: 20px;
+      .task-progress-left-box {
+        width: 251px;
+      }
+    }
     .top-title-box {
       display: flex;
       margin-bottom: 20px;
@@ -182,6 +189,9 @@
         letter-spacing: 0;
         margin-bottom: 12px;
         height: 22px;
+      }
+      .title {
+        white-space: nowrap;
       }
     }
   }
@@ -423,7 +433,7 @@
 }
 
 .pl12 {
-  padding-left: 12px;
+  padding-left: 12px !important;
 }
 
 .pl20 {

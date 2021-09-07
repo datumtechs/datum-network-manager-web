@@ -3,7 +3,7 @@
   background: #fff;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 20px;
+  padding: 0px 20px 0px;
   .title-label {
     display: flex;
     align-items: center;
@@ -25,6 +25,81 @@
     }
   }
 }
+.task-charts-box {
+  display: flex;
+  height: 222px;
+  margin: 10px 0 30px;
+  border-bottom: 1px solid #edeaf9;
+  .charts-status {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 60%;
+      background-color: #edeaf9;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+  }
+  .charts-capacity {
+    flex: 1;
+    display: flex;
+    position: relative;
+    align-items: center;
+  }
+
+  .chart-list {
+    padding-left: 43px;
+    .chart-list-line {
+      line-height: 17px;
+      font-family: AlibabaPuHuiTi-Regular;
+      font-size: 14px;
+      color: #31394d;
+      letter-spacing: 0;
+      margin-top: 13px;
+      position: relative;
+      &:not(:last-child) {
+        margin-top: 13px;
+      }
+      .chart-icon {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 10px;
+        top: 0;
+        left: -27px;
+      }
+      .label {
+        color: #31394d;
+        padding-right: 50px;
+      }
+      .value {
+        font-family: AlibabaPuHuiTi-Bold;
+        color: #31394d;
+        padding-right: 10px;
+      }
+      .par {
+        color: #001b00;
+      }
+    }
+  }
+
+  #statusChart,
+  #capacityChart {
+    width: 200px;
+    height: 200px;
+  }
+  .chart-tip {
+    position: absolute;
+    left: 180px;
+    top: 20px;
+  }
+}
 .filter-box {
   display: flex;
   background: #fff;
@@ -43,35 +118,17 @@
 }
 .progress-box {
   box-sizing: border-box;
-  padding: 20px;
+  flex: 1;
+  padding-left: 50px;
   .progress {
+    width: 100%;
+    max-width: 700px;
     background: #eef1ff;
     border-radius: 2px;
-    height: 157px;
+    height: 111px;
     display: flex;
+    flex: 1;
     align-items: center;
-    .left {
-      padding: 40px 50px;
-      .name {
-        font-family: AlibabaPuHuiTi-Medium;
-        font-size: 22px;
-        color: #000000;
-        line-height: 24px;
-      }
-      .id {
-        margin-top: 33px;
-        font-size: 14px;
-        color: #1d2832;
-        letter-spacing: 0;
-        display: flex;
-      }
-      .taskId {
-        display: inline-block;
-        @media screen and(max-width:1367px) {
-          width: 400px;
-        }
-      }
-    }
     .right {
       width: 50%;
       padding: 0px 50px;
@@ -81,8 +138,12 @@
     }
   }
 }
+
+.event-table-box {
+  margin-bottom: 40px;
+}
+
 .btn-box {
-  padding: 0 20px;
   margin-bottom: 30px;
   .btn {
     width: 140px;
@@ -96,7 +157,6 @@
   &::after {
     content: "NEW";
     position: relative;
-    left: 6px;
     bottom: 2px;
     font-size: 12px;
     color: #ffa505;
@@ -158,7 +218,7 @@
 }
 
 .ant-descriptions-view {
-  margin-left: 20px;
+  margin-left: 12px;
 }
 
 .flex-info-box {

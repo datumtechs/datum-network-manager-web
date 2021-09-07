@@ -44,27 +44,25 @@ const EventStep: FC<any> = (props: any) => {
   const { t } = useTranslation()
 
   return (
-    <div>
-      <Steps
-        size="small"
-        labelPlacement="vertical"
-        current={status ? stepMap.get(status) : stepMap.get('running')}
-        className="task-step"
-      >
-        <Step title={fmtTime(createAt)} icon={<StepIcon scolor="active" />} description={t('task.step.start')} />
-        <Step
-          title={fmtTime(startAt)}
-          // icon={<StepIcon scolor={stepMap.get(status)[status] > 0 ? 'active' : ''} />}
-          icon={<StepIcon scolor="active" />}
-          description={t('task.step.beginCompute')}
-        />
-        <Step
-          title={fmtTime(endAt)}
-          icon={<StepIcon scolor={(status === 'failed' && 'fail') || (status === 'success' && 'active')} />}
-          description={<LastStep status={status} startAt={startAt} endAt={endAt} />}
-        />
-      </Steps>
-    </div>
+    <Steps
+      size="small"
+      labelPlacement="vertical"
+      current={status ? stepMap.get(status) : stepMap.get('running')}
+      className="task-step"
+    >
+      <Step title={fmtTime(createAt)} icon={<StepIcon scolor="active" />} description={t('task.step.start')} />
+      <Step
+        title={fmtTime(startAt)}
+        // icon={<StepIcon scolor={stepMap.get(status)[status] > 0 ? 'active' : ''} />}
+        icon={<StepIcon scolor="active" />}
+        description={t('task.step.beginCompute')}
+      />
+      <Step
+        title={fmtTime(endAt)}
+        icon={<StepIcon scolor={(status === 'failed' && 'fail') || (status === 'success' && 'active')} />}
+        description={<LastStep status={status} startAt={startAt} endAt={endAt} />}
+      />
+    </Steps>
   )
 }
 

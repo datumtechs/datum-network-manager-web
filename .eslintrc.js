@@ -32,6 +32,7 @@ module.exports = {
     'vue/no-unused-vars': 'off',
     'no-named-as-default': 0,
     'no-console': 'off',
+    "eqeqeq":['off'],
     indent: ['off', 2],
     'react/jsx-one-expression-per-line': 0,
     'react/prop-types': 0,

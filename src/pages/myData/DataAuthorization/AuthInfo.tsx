@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Row, Col, Form, Input, Space, Button } from 'antd'
 import AuthInfoTable from './AuthInfoTable'
 import MyModal from '../../../components/MyModal'
+import MyTag from '../../../components/MyTag'
 
 export const AuthInfo: FC<any> = (props: any) => {
   const { location } = props
@@ -123,9 +124,23 @@ export const AuthInfo: FC<any> = (props: any) => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                {/* <Form.Item label={t('myData.lastUpdateTime')}>
-                  <p className="datail-box-content">1111111</p>
-                </Form.Item> */}
+                {isAuthed ?
+                  <Form.Item label={t('myData.authResultAndTime')}>
+                    <p className="datail-box-content">
+                      <Space size={10}>
+                        <span>{ }2021-02-22 12: 34: 56</span>
+                        <MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" />
+                      </Space>
+                    </p>
+                  </Form.Item>
+                  : <Form.Item label={t('myData.authResultAndTime')}>
+                    <p className="datail-box-content">
+                      <Space size={10}>
+                        <span>{ }2021-02-22 12: 34: 56</span>
+                        <MyTag content={t('common.declined')} bgColor="#F9DDDB" color="#F45564" border="#FFA39E" />
+                      </Space>
+                    </p>
+                  </Form.Item>}
               </Col>
             </Row>
             <Form.Item labelCol={{ span: 5 }}

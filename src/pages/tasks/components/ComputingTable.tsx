@@ -23,12 +23,13 @@ const ComputingTable: FC<any> = (props: any) => {
   const columns = [
     {
       title: t('common.Num'),
-      width: 50,
+      width: 80,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
 
     {
       title: t('task.name'),
+      width: 300,
       dataIndex: 'nodeName',
     },
     {

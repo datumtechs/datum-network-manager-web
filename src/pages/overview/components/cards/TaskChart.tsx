@@ -55,7 +55,7 @@ const TaskChart: FC<any> = (props: any) => {
         {
           name: '',
           type: 'pie',
-          radius: ['73%', '85%'],
+          radius: ['70%', '85%'],
           avoidLabelOverlap: false,
           itemStyle: {
             borderRadius: 10,

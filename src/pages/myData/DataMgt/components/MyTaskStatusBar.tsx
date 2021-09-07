@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next'
 import MyTag from '../../../../components/MyTag'
 
 const MyTaskStatusBar: FC<any> = (props: any) => {
-  const { status, role, padding = 10 } = props
+  const { status, role, width } = props
   const { t } = useTranslation()
   const [color, colorSet] = useState<string>('')
   const [bgColor, bgColorSet] = useState<string>('')
   const [content, contentSet] = useState<string>('')
   const [border, borderSet] = useState<string>('')
   useEffect(() => {
-    if (status === 'succeeded') {
+    if (status === 'succeeded' || status === 'success') {
       colorSet('#52C41A')
       bgColorSet('#EBFDDA')
       contentSet(t('task.success'))
@@ -35,27 +35,27 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
   }, [status])
 
   useEffect(() => {
-    if (role === 'owner') {
+    if (role === 'owner' || role === 0) {
       colorSet('#52C41A')
       bgColorSet('#EBFDDA')
       contentSet(t('computeNodeMgt.sponsor'))
       borderSet('#B7EB8F')
-    } else if (role === 'dataSupplier') {
+    } else if (role === 'dataSupplier' || role === 1) {
       colorSet('#F5222D')
       bgColorSet('#F9DDDB')
       contentSet(t('computeNodeMgt.dataSupplier'))
       borderSet('#FFA39E')
-    } else if (role === 'algoSupplier') {
+    } else if (role === 'algoSupplier' || role === 3) {
       colorSet('#1A6FC4')
       bgColorSet('#DAE6FD')
       contentSet(t('computeNodeMgt.algoSupplier'))
       borderSet('#8FBDEB')
-    } else if (role === 'receiver') {
+    } else if (role === 'receiver' || role === 4) {
       colorSet('#781AC4')
       bgColorSet('#F3DAFD')
       contentSet(t('computeNodeMgt.receiver'))
       borderSet('#D08FEB')
-    } else if (role === 'powerSupplier') {
+    } else if (role === 'powerSupplier' || role === 2) {
       colorSet('#FAAD14')
       bgColorSet('#FDFCDA')
       contentSet(t('computeNodeMgt.powerSupplier'))
@@ -63,7 +63,7 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
     }
   }, [role])
 
-  return <MyTag content={content} radius='2' color={color} bgColor={bgColor} padding={padding} border={border}></MyTag>
+  return <MyTag content={content} radius='2' color={color} bgColor={bgColor} width={width} border={border}></MyTag>
 
 }
 
