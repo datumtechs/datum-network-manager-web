@@ -105,79 +105,42 @@ export const TaskDetail: FC<any> = (props: any) => {
         </div>
         <div className="sub-info-box" >
           <div className="sub-title-box">{t('task.initialInfo')}</div>
-
           <Form labelAlign="left" className="pl12"
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 14 }}>
-            <Form.Item label={t('task.initialAccount')}>11111111111111111</Form.Item>
-            <Form.Item label={t('task.timeRequire')}>1111111111111</Form.Item>
+            <Form.Item label={t('task.initialAccount')}>
+              <div className="value-text">11111111111111111</div>
+            </Form.Item>
+            <Form.Item label={t('task.timeRequire')}>
+              <div className="value-text">1111111111111</div>
+            </Form.Item>
             <Form.Item label={t('task.computeRequire')}>
-              <>
-                <p>
-                  <span>{t('overview.cpu')}&nbsp;: &nbsp; </span>
-                  <span>
-                    {baseInfo.costCore} &nbsp; {t('overview.core')}
-                  </span>
-                </p>
-                <p>
-                  <span>{t('overview.memory')}&nbsp;: &nbsp; </span>
-                  <span>{fileSizeChange(baseInfo.costMemory)}</span>
-                </p>
-                <p>
-                  <span>{t('overview.bandwidth')}&nbsp;: &nbsp; </span>
-                  <span>{fileSizeChange(baseInfo.costBandwidth)}P/S</span>
-                </p>
-              </>
+              <p className="value-text">
+                <span>{t('overview.cpu')}&nbsp;: &nbsp; </span>
+                <span>
+                  {baseInfo.costCore} &nbsp; {t('overview.core')}
+                </span>
+              </p>
+              <p className="value-text">
+                <span>{t('overview.memory')}&nbsp;: &nbsp; </span>
+                <span >{fileSizeChange(baseInfo.costMemory)}</span>
+              </p>
+              <p className="value-text">
+                <span>{t('overview.bandwidth')}&nbsp;: &nbsp; </span>
+                <span >{fileSizeChange(baseInfo.costBandwidth)}P/S</span>
+              </p>
             </Form.Item>
           </Form>
-
-          {/* <Descriptions style={{ 'width': '60%' }} column={1} bordered>
-            <Descriptions.Item label={t('task.timeRequire')}>
-              {UseTimeChange(baseInfo.duration)}
-            </Descriptions.Item>
-            <Descriptions.Item label={t('task.computeRequire')}>
-            
-            </Descriptions.Item>
-          </Descriptions> */}
-
         </div>
         <div className="sub-info-box">
           <div className="sub-title-box">{t('task.partiesInformation')}</div>
           <Form labelAlign="left" className="pl12"
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 14 }}>
-            <Form.Item label={t('task.myCapacity')}>2222222222</Form.Item>
+            <Form.Item label={t('task.myCapacity')}>
+              <div className="value-text">2222222222</div>
+            </Form.Item>
           </Form>
-
-
-          {/* <Descriptions column={1} title={t('task.partiesInformation')} bordered>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.sponsor')}>
-              <span className="node-name">{baseInfo.owner.nodeName}</span>
-              <span>
-                {t('task.identity')}: {baseInfo.owner.nodeIdentityId}
-              </span>
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.receiver')}>
-              <ul>
-                {baseInfo.receivers.map((item, index) => {
-                  return (
-                    <li key={item.nodeIdentityId}>
-                      <span className="node-name">{item.nodeName}</span>
-                      <span>
-                        {t('task.identity')}: {item.nodeIdentityId}
-                      </span>
-                    </li>
-                  )
-                })}
-              </ul>
-            </Descriptions.Item>
-            <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.algorithmProvider')}>
-              <span className="node-name">{baseInfo.algoSupplier.nodeName}</span>
-              <span>
-                {t('task.identity')}: {baseInfo.algoSupplier.nodeIdentityId}
-              </span>
-            </Descriptions.Item>
-          </Descriptions> */}
         </div>
         <div className="sub-info-box">
           <div className="title-label">{t('task.sponsor')}</div>

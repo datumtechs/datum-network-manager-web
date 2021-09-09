@@ -11,21 +11,19 @@ const DataTable: FC<any> = (props: any) => {
     props.onCancel()
   }
 
-  useEffect(() => {}, [title])
+  useEffect(() => { }, [title])
 
   return (
-    <div className="data-table-box">
-      <Modal
-        destroyOnClose
-        width={width}
-        visible={visible}
-        title={title || <img src={warnSvg} alt="" />}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        {Array.isArray(children) ? children.map(child => child) : <>{children}</>}
-      </Modal>
-    </div>
+    <Modal
+      destroyOnClose
+      width={width}
+      visible={visible}
+      title={title || <img src={warnSvg} alt="" />}
+      onOk={handleOk}
+      onCancel={handleCancel}
+    >
+      {Array.isArray(children) ? children.map(child => child) : <>{children}</>}
+    </Modal>
   )
 }
 

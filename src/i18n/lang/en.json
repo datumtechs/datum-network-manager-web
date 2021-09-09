@@ -53,7 +53,10 @@
     "setYourOrgName": "Set your organization name",
     "setOrgNameTips": "For representing participants in the RosettaNet",
     "inProgress": "In progress, just a second",
-    "connectNum": "Number of connected external organizations"
+    "connectNum": "Number of connected external organizations",
+    "rosettaMemory": "RosettaNet Memory",
+    "rosettaCpu": "RosettaNet CPU",
+    "rosettaBandwidth": "RosettaNet Bandwidth"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -78,7 +81,8 @@
     "dataDetailTask": "Tasks of The Data",
     "viewAuthInfo": "Authorization Application Details",
     "taskDetail": "Task Details",
-    "taskEvents": "Task Events"
+    "taskEvents": "Task Events",
+    "metaDataDetail": "Metadata Detail"
   },
   "common": {
     "submit": "Submit",
@@ -310,7 +314,8 @@
     "uploadFile": "Upload a source file",
     "pulish": "Pulished",
     "unPublish": "UnPublish",
-    "saveAsNewData": "Save as new data"
+    "saveAsNewData": "Save as new data",
+    "dataProviderAndIdentifier": "Data provider name & Identifier"
   },
   "myData": {
     "plzUploadFile": "Please upload your local file",

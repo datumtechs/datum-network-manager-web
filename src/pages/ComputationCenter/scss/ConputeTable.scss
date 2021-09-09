@@ -7,12 +7,18 @@
   .remain-num,
   .remain-unit {
     margin-left: 4px;
-    font-size: 20px;
+    font-size: 14px;
     color: #3c3588;
     letter-spacing: 1px;
     line-height: 28px;
   }
-  .remain-unit {
-    font-size: 14px;
+}
+.center-compute-card-box {
+  display: flex;
+  gap: 2.2vw;
+  height: 12.5vh;
+  .center-compute-card {
+    flex: 1;
+    height: 100%;
   }
 }

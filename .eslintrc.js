@@ -27,6 +27,7 @@ module.exports = {
     },
   ],
   rules: {
+    "no-nested-ternary":['off'],
     'arrow-body-style': 0,
     'no-unused-vars': 'off',
     'vue/no-unused-vars': 'off',

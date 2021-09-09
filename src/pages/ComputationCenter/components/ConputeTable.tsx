@@ -1,12 +1,13 @@
-import React, { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Table } from 'antd'
 import { resourceApi } from '../../../api/index'
 import { changeSizeFn } from '../../../utils/utils'
+import MyTag from '../../../components/MyTag'
 import '../scss/ConputeTable.scss'
 
 const CenterTable: FC<any> = (props: any) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const pagination = {
     current: 1,
@@ -20,6 +21,11 @@ const CenterTable: FC<any> = (props: any) => {
     return (((all - used) / all) * 100).toFixed(2)
   }
   const [dataSource, dataSourceSet] = useState([])
+
+  const tableData = [
+    { id: 1, identityId: 11111111, status: '1', totalCore: 11111111, totalMemory: 2222222, totalBandwidth: 3333333 }
+  ]
+
   const columns = [
     {
       title: t('common.Num'),
@@ -38,11 +44,12 @@ const CenterTable: FC<any> = (props: any) => {
       },
     },
     {
-      title: t('center.status'),
+      title: t('center.status'), // 算力状态
       dataIndex: 'status',
       render: text => {
         // return <>{t(`center. ${text === '1' ? 'stsOccupied' : 'stsFree'}`)}</>
-        return <>{text === '1' ? t('center.stsOccupied') : t('center.stsFree')}</>
+        return <>{text === '1' ? <MyTag width={82} content={t('center.stsOccupied')} bgColor='#F9DDDB' color='#F5222D' radius={2} border='#FFA39E' />
+          : <MyTag width={82} content={t('center.stsFree')} bgColor='#EBFDDA' color='#52C41A' border='#B7EB8F' radius={2} />}</>
       },
     },
     {
@@ -55,10 +62,10 @@ const CenterTable: FC<any> = (props: any) => {
               <span className="name">{text}</span>
               {t('center.cores')}
             </div>
-            <div>
-              {t('center.remaining')}: <span className="remain-num">{dealRemain(text, record.usedCore)}</span>
-              <span className="remain-unit">%</span>
-            </div>
+            {
+              record.status === 1 ? '' :
+                i18n.language === 'en' ? `${text} ${t('overview.occupied')}` : `${t('overview.occupied')}: ${text}`
+            }
           </div>
         )
       },
@@ -73,10 +80,10 @@ const CenterTable: FC<any> = (props: any) => {
               <span className="name">{changeSizeFn(text).replace(/[A-Za-z]*$/, '')}</span>
               {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}
             </div>
-            <div>
-              {t('center.remaining')}: <span className="remain-num">{dealRemain(text, record.usedMemory)}</span>
-              <span className="remain-unit">%</span>
-            </div>
+            {
+              record.status === 1 ? '' :
+                i18n.language === 'en' ? `${text} ${t('overview.occupied')}` : `${t('overview.occupied')}: ${text}`
+            }
           </div>
         )
       },
@@ -91,10 +98,10 @@ const CenterTable: FC<any> = (props: any) => {
               <span className="name">{changeSizeFn(text).replace(/[A-Za-z]*$/, '')}</span>
               {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}P/S
             </div>
-            <div>
-              {t('center.remaining')}: <span className="remain-num">{dealRemain(text, record.usedBandwidth)}</span>
-              <span className="remain-unit">%</span>
-            </div>
+            {
+              record.status === 1 ? '' :
+                i18n.language === 'en' ? `${text} ${t('overview.occupied')}` : `${t('overview.occupied')}: ${text}`
+            }
           </div>
         )
       },
@@ -114,9 +121,10 @@ const CenterTable: FC<any> = (props: any) => {
     getList()
   }, [props.searchText, curPage])
   return (
-    <div className="data-table-box">
+    <div className="table-box">
       <Table
-        dataSource={dataSource}
+        dataSource={tableData}
+        // dataSource={dataSource}
         pagination={{ total, onChange: onPageChange }}
         columns={columns}
         rowKey={_ => _.identityId}

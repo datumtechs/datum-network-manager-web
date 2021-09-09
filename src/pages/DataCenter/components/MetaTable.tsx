@@ -20,11 +20,10 @@ const MetaTable: FC<any> = (props: any) => {
   }
   const linkMeta = row => {
     history.push({
-      pathname: '/myData/dataDetail',
+      pathname: '/dataCenter/metaDataDetail',
       state: {
-        type: 'view',
         id: row.id,
-        from: 'dataCenter',
+        type: 'view'
       },
     })
   }
@@ -38,16 +37,13 @@ const MetaTable: FC<any> = (props: any) => {
     {
       title: t('center.name&metaID'),
       dataIndex: 'fileName',
-      width: 600,
+      width: 300,
       ellipsis: true,
       render: (text, record, index) => {
         return (
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>{text}</span>
-              <span style={{ paddingRight: 80 }} className="link pointer" onClick={() => linkMeta(record)}>
-                {t('center.viewMetaData')}
-              </span>
             </div>
             <Tooltip title={record.metaDataId}>
               <div className="ellipsis" style={{ whiteSpace: 'nowrap' }}>
@@ -59,15 +55,33 @@ const MetaTable: FC<any> = (props: any) => {
       },
     },
     {
-      title: t('center.dataProvider'),
-      dataIndex: 'orgName',
-    },
-    {
-      title: t('center.dataDesc'),
+      title: t('center.dataProviderAndIdentifier'),
       render: (text, record) => {
         return <>{record.remarks}</>
       },
     },
+    {
+      title: t('center.dataSize'),
+      render: (text, record) => {
+        return <>{record.remarks}</>
+      },
+    },
+    {
+      title: t('myData.metaDataPublishTime'),
+      render: (text, record) => {
+        return <>{record.remarks}</>
+      },
+    },
+    {
+      title: t('common.actions'),
+      width: 120,
+      render: (text, record) => {
+        return <span className="link pointer" onClick={() => linkMeta(record)}>
+          {t('center.viewMetaData')}
+        </span>
+      },
+    },
+
   ]
   const getList = () => {
     const param = { keyword: props.searchText, pageNumber: curPage, pageSize: 10 }

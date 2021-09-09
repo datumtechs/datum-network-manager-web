@@ -59,7 +59,8 @@ const ComputationCenter = React.lazy(() =>
 
 const SeedNodeMgt = React.lazy(() => import('../pages/nodeMgt/SeedNode/SeedNodeMgt').then(_ => ({ default: _.SeedNodeMgt })))
 const AddSeedNode = React.lazy(() => import('../pages/nodeMgt/SeedNode/AddSeedNode').then(_ => ({ default: _.AddSeedNode })))
-// const did = React.lazy(() => import('../pages/did/index').then(_ => ({ default: _.did })))
+
+// const did = React.lazy(() => import('../pages/did/index').then(_ => ({ default: _.did }))) /dataCenter/metaDataDetail
 
 export interface IRouteMeta {
   title: string
@@ -351,6 +352,14 @@ const routes: Array<IRoute> = [
         path: '/dataCenter',
         component: DataCenter,
         meta: { exact: true, title: '', icon: '', show: true },
+      },
+      {
+        name: 'MetaDataDetail',
+        label: 'menu.metaDataDetail',
+        breadcrumbName: 'menu.metaDataDetail',
+        path: '/dataCenter/metaDataDetail',
+        component: DataDetail,
+        meta: { exact: true, title: '', icon: '', show: false },
       },
       {
         name: 'ComputationCenter',

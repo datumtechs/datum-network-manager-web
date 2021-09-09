@@ -19,6 +19,7 @@ interface Item {
 }
 
 const MyFiledsTable: FC<any> = (props: any) => {
+  const { type } = props
   const { t } = useTranslation()
   const history = useHistory()
   const { Option } = Select
@@ -74,6 +75,10 @@ const MyFiledsTable: FC<any> = (props: any) => {
     setData(rows)
   }
 
+  const mapVisiable = (v) => {
+    if (v === 'Y') return <span>{t('myData.yes')}</span>
+    return <span>{t('myData.no')}</span>
+  }
 
   const handleCellChange = (e, record, column) => {
     const rows = [...data]
@@ -111,7 +116,12 @@ const MyFiledsTable: FC<any> = (props: any) => {
       key: 'columnName',
       editable: 'true',
       render: (text, record, index) => (
-        <EditTableCell record={record} column="columnName" handleCellChange={handleCellChange} />
+        <>
+          {
+            type === 'view' ? text :
+              <EditTableCell record={record} column="columnName" handleCellChange={handleCellChange} />
+          }
+        </>
       ),
     },
     {
@@ -128,10 +138,15 @@ const MyFiledsTable: FC<any> = (props: any) => {
       // }),
       render: (text, record, index) => {
         return (
-          <Space size={20}>
-            {record.visible === 'Y' ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
-            <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === 'Y'} />
-          </Space>
+          <>
+            {
+              type === 'view' ? mapVisiable(record.visible) : <Space size={20}>
+                {record.visible === 'Y' ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
+                <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === 'Y'} />
+              </Space>
+            }
+          </>
+
         )
       },
     },
@@ -141,20 +156,19 @@ const MyFiledsTable: FC<any> = (props: any) => {
       key: 'columnType',
       editable: 'false',
       render: (text, record, index) => {
-        return (
-          <Select
-            onChange={e => handleSelectChange(e, record)}
-            defaultValue="STRING"
-            style={{ width: 100 }}
-            placeholder="Select a type"
-          >
-            {DATATYPE.map(type => (
-              <Option value={type.label} key={type.id}>
-                {type.label}
-              </Option>
-            ))}
-          </Select>
-        )
+        return (<>{type === 'view' ? <span>{record.dataType}</span> : <Select
+          onChange={e => handleSelectChange(e, record)}
+          defaultValue="STRING"
+          style={{ width: 100 }}
+          placeholder="Select a type"
+        >
+          {DATATYPE.map(item => (
+            <Option value={item.label} key={item.id}>
+              {item.label}
+            </Option>
+          ))}
+        </Select>}
+        </>)
       },
     },
     {
@@ -164,7 +178,12 @@ const MyFiledsTable: FC<any> = (props: any) => {
       key: 'remarks',
       width: '35%',
       render: (text, record, index) => (
-        <EditTableCell record={record} column="remarks" handleCellChange={handleCellChange} />
+        <>
+          {
+            type === 'view' ? <span>{text}</span> :
+              <EditTableCell record={record} column="remarks" handleCellChange={handleCellChange} />
+          }
+        </>
       ),
     },
   ]

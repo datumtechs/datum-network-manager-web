@@ -7,3 +7,19 @@
 .limitLine {
   width: 60%;
 }
+
+.gray-chart-box {
+  width: 100%;
+  background-color: #fff;
+  .gray-chart-title {
+    font-family: AlibabaPuHuiTi-Medium;
+    font-size: 16px;
+    color: #344563;
+    letter-spacing: -0.5px;
+    padding: 26px 32px;
+  }
+  #globalDataChart {
+    width: 100%;
+    height: 312px;
+  }
+}

@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react'
-import Bread from '../../layout/components/Bread'
-import SearchBar from '../../layout/components/SearchBar'
 import ConputeTable from './components/ConputeTable'
+import CardLayout from './components/CardLayout'
 
 export const ComputationCenter: FC<any> = () => {
   const [searchText, searchTextSet] = useState('')
@@ -9,11 +8,9 @@ export const ComputationCenter: FC<any> = () => {
     searchTextSet(text)
   }
   return (
-    <div className="layout-box">
-      <div className="data-table-box">
-        <SearchBar onSearch={onSearch} />
-        <ConputeTable searchText={searchText} />
-      </div>
+    <div className="layout-gray-box">
+      <CardLayout />
+      <ConputeTable searchText={searchText} />
     </div>
   )
 }

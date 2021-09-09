@@ -53,7 +53,10 @@
     "setYourOrgName": "请设置机构识别名称",
     "setOrgNameTips": "用于在整个网络中代表参与方",
     "inProgress": "共识中,请稍等",
-    "connectNum": "连接外部组织的数量"
+    "connectNum": "连接外部组织的数量",
+    "rosettaMemory": "RosettaNet 总内存",
+    "rosettaCpu": "RosettaNet 总CPU",
+    "rosettaBandwidth": "RosettaNet 总带宽"
   },
   "menu": {
     "systemOverview": "系统概况",
@@ -78,7 +81,8 @@
     "dataDetailTask": "此数据参与的任务",
     "viewAuthInfo": "授权申请查看",
     "taskDetail": "任务详情",
-    "taskEvents": "任务日志"
+    "taskEvents": "任务日志",
+    "metaDataDetail": "元数据详情"
   },
   "common": {
     "submit": "提交",
@@ -310,7 +314,8 @@
     "uploadFile": "添加源文件",
     "pulish": "已发布",
     "unPublish": "未发布",
-    "saveAsNewData": "另存为新数据"
+    "saveAsNewData": "另存为新数据",
+    "dataProviderAndIdentifier": "数据提供方名称与身份标识"
   },
   "myData": {
     "plzUploadFile": "请导入本地数据源文件",

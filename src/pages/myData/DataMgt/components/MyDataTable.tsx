@@ -104,7 +104,7 @@ const MyDataTable: FC<any> = (props: any) => {
     history.push({
       pathname: '/myData/dataMgt/dataDetail',
       state: {
-        type: 'view',
+        type: 'edit',
         id: row.id,
       },
     })

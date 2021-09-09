@@ -50,13 +50,6 @@
     margin-top: 30px;
   }
 
-  .table-box {
-    // p.details {
-    //   display: flex;
-    //   justify-content: space-between;
-    // }
-  }
-
   .white-bg {
     margin-top: 30px;
     background: #fff;
@@ -78,6 +71,12 @@
       width: 60%;
       @media screen and (max-width: 1366px) {
         width: 90%;
+      }
+      .edit-btn {
+        font-family: AlibabaPuHuiTi-Medium;
+        font-size: 14px;
+        color: #3c3588;
+        letter-spacing: 0;
       }
     }
     .title-box {
@@ -145,6 +144,14 @@
           font-size: 16px;
         }
       }
+
+      .value-text {
+        font-family: AlibabaPuHuiTi-Medium;
+        font-size: 14px;
+        color: #1d2832;
+        letter-spacing: 0;
+      }
+
       .ant-form-item {
         margin-bottom: 20px;
       }
@@ -227,6 +234,9 @@
 }
 
 .layout-gray-box {
+  width: 100%;
+  height: calc(100vh - 110px);
+  border-radius: 6px;
   .title-box {
     padding-left: 20px;
     line-height: 22px;
@@ -370,15 +380,15 @@
 .prev-seagreen,
 .prev-orange {
   position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0.6em;
-    left: -1.4em;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-  }
+  // &::before {
+  //   content: "";
+  //   position: absolute;
+  //   top: 0.6em;
+  //   left: -1.4em;
+  //   width: 10px;
+  //   height: 10px;
+  //   border-radius: 50%;
+  // }
 }
 
 .prev-orange {
@@ -440,6 +450,10 @@
   padding-left: 20px;
 }
 
+.pl40 {
+  padding-left: 40px !important;
+}
+
 .pr10 {
   padding-right: 10px;
 }
@@ -452,8 +466,21 @@
   margin-bottom: 40px !important;
 }
 
+.pd20 {
+  padding: 20px;
+}
+
 .spaceBetween {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.text-area {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.no-warp {
+  white-space: nowrap;
 }

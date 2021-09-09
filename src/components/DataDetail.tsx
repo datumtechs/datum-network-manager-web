@@ -1,17 +1,67 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { Input, Space, Button, Form, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { resourceApi } from '../api/index'
 import MyFiledsTable from './MyFiledsTable'
-import { fileSizeChange, thousandMark } from '../utils/utils'
+
+
+
+export const EditText: FC<any> = (props: any) => {
+  const { t } = useTranslation()
+  const { TextArea, } = Input
+  const { editable, baseInfo } = props
+
+  const handleEditable = () => {
+    props.handleEditable(!editable)
+  }
+
+  return <>{editable ?
+    <div style={{ "display": "flex" }}>
+      <TextArea value={baseInfo.remarks} rows={4} />
+      <div className="pl40 pointer no-warp edit-btn" onClick={handleEditable}>{t('common.cancel')}</div>
+    </div>
+    : <div style={{ "display": "flex" }}>
+      <div className="text-area">TextAreaTextAreaTextAreaTextAreaTextArea,TextAreaTextAreaTextAreaTextAreaTextArea,TextAreaTextAreaTextAreaTextAreaTextArea
+      </div>
+      <div className="pl40 pointer no-warp edit-btn" onClick={handleEditable}>{t('common.edit')}</div>
+    </div>
+  }</>
+}
+
+// EditInput
+
+export const EditInput: FC<any> = (props: any) => {
+  const { t } = useTranslation()
+  const { TextArea, } = Input
+  const { editInput, baseInfo } = props
+
+  const handleEditInput = () => {
+    props.handleEditInput(!editInput)
+  }
+
+  return <>{editInput ?
+    <div style={{ "display": "flex" }}>
+      <Input value={baseInfo.remarks} />
+      <div className="pl40 pointer no-warp edit-btn" onClick={handleEditInput}>{t('common.cancel')}</div>
+    </div>
+    : <div style={{ "display": "flex" }}>
+      <div className="text-area datail-box-content">1,1,1
+      </div>
+      <div className="pl40 pointer no-warp edit-btn" onClick={handleEditInput}>{t('common.edit')}</div>
+    </div>
+  }</>
+}
 
 export const DataDetail: FC<any> = (props: any) => {
-  const { TextArea } = Input
   const { location } = props
-  const { type, id, from } = location.state
+  const { type, id } = location.state
   const [total, setTotal] = useState<number>()
+
+
+  const [editable, editableSet] = useState<boolean>(false)
+  const [editInput, editInputSet] = useState<boolean>(false)
+
+
   const [baseInfo, setBaseInfo] = useState({
     id: '',
     orgName: '',
@@ -26,12 +76,12 @@ export const DataDetail: FC<any> = (props: any) => {
     columns: '',
     remarks: '',
   })
+
   const [remarks, setRemarks] = useState('')
   const [originalData, setOriginalData] = useState([])
-
   const [tableData, setTableData] = useState<[]>()
   const [curPage, setCurPage] = useState<number>(1)
-  const [upLoading, upLoadingSet] = useState(false)
+  const [upLoading, upLoadingSet] = useState<boolean>(false)
   const [form] = Form.useForm()
   const { t } = useTranslation()
   const history = useHistory()
@@ -48,6 +98,14 @@ export const DataDetail: FC<any> = (props: any) => {
     return t('center.unPublish')
   }
 
+  const handleEditable = (flag: boolean) => {
+    editableSet(flag)
+  }
+
+  const handleEditInput = (flag: boolean) => {
+    editInputSet(flag)
+  }
+
   const goBackFn = () => { }
   const viewTask = () => {
     history.push({
@@ -56,15 +114,23 @@ export const DataDetail: FC<any> = (props: any) => {
   }
   const saveAndReturn = () => { }
 
+  const onTextChange = () => {
+    // setText
+  }
+
+  const onInputChange = () => {
+    // setInput
+  }
+
   return (<div className="layout-box">
     <div className="add-data-box">
       <div className="top-title-box">
         <p className="top-title-">{t('center.dataName')}:&nbsp;&nbsp;</p>
-        <p>{ }222222222222222222222222222222222</p>
+        <p>222222222222222222222222222222222</p>
       </div>
       <div className="top-title-box">
         <p>{t('center.metaDataID')}:&nbsp;&nbsp;</p>
-        <p>{ }222222222222222222222222222222222</p>
+        <p>222222222222222222222222222222222</p>
       </div>
       <div className="sub-info-box">
         <div className="sub-title-box">{t('center.basicInfo')}</div>
@@ -123,22 +189,26 @@ export const DataDetail: FC<any> = (props: any) => {
             <Row>
               <Col span={12}>
                 <Form.Item label={t('myData.taskNum')}>
-                  <p className="datail-box-content">1111111</p>
+                  <p className="datail-box-content">1111111111</p>
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item label={t('myData.industryOfData')}>
-                  <p className="datail-box-content">111111</p>
+                  {
+                    type === 'view' ? <div className="text-area datail-box-content">1,2,3
+                    </div> : <EditInput baseInfo={baseInfo} editInput={editInput} onChange={onInputChange} handleEditInput={handleEditInput} />
+                  }
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item labelCol={{ span: 5 }}
-              wrapperCol={{ span: 14 }} label={t('center.dataDesc')}>
-              <TextArea value={baseInfo.remarks} rows={4} />
+            <Form.Item labelCol={{ span: 5 }} wrapperCol={{ span: 14 }} label={t('center.dataDesc')}>
+              {
+                type === 'view' ? <div className="text-area">TextAreaTextAreaTextAreaTextAreaTextArea,TextAreaTextAreaTextAreaTextAreaTextArea,TextAreaTextAreaTextAreaTextAreaTextArea
+                </div> : <EditText baseInfo={baseInfo} editable={editable} onChange={onTextChange} handleEditable={handleEditable} />
+              }
             </Form.Item>
           </Form>
         </div>
-
       </div>
       <div className="sub-info-box">
         <div className="sub-title-box">{t('center.fieldInfo')}</div>
@@ -146,6 +216,7 @@ export const DataDetail: FC<any> = (props: any) => {
           originalData={originalData}
           tableData={tableData}
           total={total}
+          type={type}
           setPage={setPage}
           loading={upLoading}
           curPage={curPage}
