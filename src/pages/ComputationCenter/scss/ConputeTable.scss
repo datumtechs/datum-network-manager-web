@@ -19,6 +19,42 @@
   height: 12.5vh;
   .center-compute-card {
     flex: 1;
+    width: 22.7vw;
     height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1.3vh 1.2vw;
+    .center-compute-card-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .center-compute-card-title {
+        font-family: AlibabaPuHuiTi-Medium;
+        font-size: 16px;
+        color: #ffffff;
+        letter-spacing: 0;
+      }
+      .center-compute-card-content {
+        font-family: AlibabaPuHuiTi-Medium;
+        font-size: 32px;
+        color: #ffffff;
+        letter-spacing: 0;
+        line-height: 38px;
+        .value {
+          font-size: 32px;
+        }
+        .unit {
+          font-size: 14px;
+        }
+      }
+    }
+    .center-compute-card-progress {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      .ant-progress-text {
+        color: #ffffff !important;
+      }
+    }
   }
 }
