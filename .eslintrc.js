@@ -12,34 +12,42 @@ module.exports = {
       version: '17',
     },
     polyfills: ['Promise', 'URL'],
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', './src/'],
+        ],
+      }
+    }
   },
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'babel', '@typescript-eslint', 'react-hooks', 'unicorn'],
   // https://github.com/typescript-eslint/typescript-eslint/issues/46#issuecomment-470486034
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      rules: {
-        '@typescript-eslint/no-unused-vars': 'off',
-        'no-unused-expressions': 'off',
-        '@typescript-eslint/no-unused-expressions': 2,
-      },
+  overrides: [{
+    files: ['*.ts', '*.tsx'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-expressions': 'off',
+      '@typescript-eslint/no-unused-expressions': 2,
     },
-  ],
+  }, ],
   rules: {
-    "no-nested-ternary":['off'],
+    "no-nested-ternary": ['off'],
     'arrow-body-style': 0,
     'no-unused-vars': 'off',
     'vue/no-unused-vars': 'off',
     'no-named-as-default': 0,
     'no-console': 'off',
-    "eqeqeq":['off'],
+    "eqeqeq": ['off'],
     indent: ['off', 2],
     'react/jsx-one-expression-per-line': 0,
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-indent': 0,
-    'react/jsx-wrap-multilines': [0, { declaration: false, assignment: false }],
+    'react/jsx-wrap-multilines': [0, {
+      declaration: false,
+      assignment: false
+    }],
     'react/jsx-filename-extension': 0,
     'react/state-in-constructor': 0,
     'react/jsx-props-no-spreading': 0,
@@ -100,7 +108,9 @@ module.exports = {
     'no-use-before-define': 0,
     '@typescript-eslint/no-use-before-define': 2,
     'no-shadow': 0,
-    '@typescript-eslint/no-shadow': [2, { ignoreTypeValueShadow: true }],
+    '@typescript-eslint/no-shadow': [2, {
+      ignoreTypeValueShadow: true
+    }],
     // https://github.com/typescript-eslint/typescript-eslint/issues/2528#issuecomment-689369395
     'no-undef': 0,
     'react/react-in-jsx-scope': 0,

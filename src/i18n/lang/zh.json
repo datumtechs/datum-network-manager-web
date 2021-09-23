@@ -10,7 +10,9 @@
     "plzLogin": "您还没有登录, 已为您跳转到登录页",
     "internalError": "内部错误",
     "editOrgName": "修改组织名称",
-    "rename": "请输入新的机构识别名称"
+    "rename": "请输入新的机构识别名称",
+    "loginSlogan": "隐私计算让数据像资产一样流动",
+    "loginRemarks": "本平台已满足《互联网个人信息安全保护指南》、《数据安全管理办法》、《信息安全技术个人信息安全规范》等法律法规要求"
   },
   "overview": {
     "seedNode": "种子节点",

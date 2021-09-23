@@ -1,13 +1,15 @@
-const { createProxyMiddleware } = require('http-proxy-middleware')
+const {
+  createProxyMiddleware
+} = require('http-proxy-middleware')
 
 module.exports = function (app) {
   app.use(
-    createProxyMiddleware('/rosettanet-admin', {
+    createProxyMiddleware('/metis-admin', {
       // target: 'http://192.168.21.201:9090', // 树禹
-      target: 'http://192.168.10.151:9090',
+      target: 'http://192.168.10.146:9091',
       changeOrigin: true,
       pathRewrite: {
-        '^/rosettanet-admin': '/rosettanet-admin',
+        '^/metis-admin': '/metis-admin',
       },
     }),
   )

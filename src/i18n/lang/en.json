@@ -10,7 +10,9 @@
     "plzLogin": "You haven't logged in yet, switched to the login page for you",
     "internalError": "Internal Error",
     "editOrgName": "Modify organization name",
-    "rename": "Your new organization name"
+    "rename": "Your new organization name",
+    "loginSlogan": "Privacy-preserving computing platform enables data to flow like assets.",
+    "loginRemarks": "The RosettaNet Console has satisfied the relevant requirements of laws and requirements."
   },
   "overview": {
     "seedNode": "Seed Node",

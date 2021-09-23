@@ -1,6 +1,7 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // eslint-disable-next-line import/no-named-as-default
+import { overviewApi } from '../../api/index'
 import Card from './components/cards/Card'
 import PublishDataChart from './components/cards/PublishDataChart'
 import DataTrendChart from './components/cards/DataTrendChart'
@@ -9,8 +10,23 @@ import TaskChart from './components/cards/TaskChart'
 import RecordCard from './components/cards/RecordCard'
 import './scss/index.scss'
 
+
 export const Overview: FC<any> = () => {
   const { t } = useTranslation()
+
+  const queryTotalResourced = (): void => {
+    overviewApi.queryUsedTotalResource().then(res => {
+      console.log(res);
+
+    })
+  }
+
+  useEffect(() => {
+    queryTotalResourced()
+  }, [])
+
+
+
   return (
     <>
       <div className="overview-title">{t('overview.totalOccupied')}</div>

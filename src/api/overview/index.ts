@@ -15,6 +15,15 @@ const overviewApi = {
       url: `/api/v1/system/index/overview`,
     })
   },
+
+  // 查询总计算资源占用情况 /metis-admin/api/v1/system/index/queryUsedTotalResource
+  queryUsedTotalResource(): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/system/index/queryUsedTotalResource`,
+    })
+  },
+
 }
 
 

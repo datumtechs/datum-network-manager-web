@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+import MyWave from '../../components/MyWave'
 import imageBottom from '../../assets/images/1.bj3.png'
 import square1 from '../../assets/images/1.img1.png'
 import square2 from '../../assets/images/1.img2.png'
 import square3 from '../../assets/images/1.img3.png'
+import cnSvg from '../../assets/images/2.icon_cn.svg'
+import enSvg from '../../assets/images/2.icon_en.svg'
 import { loginApi } from '../../api/index'
 
 const Login = (props: any) => {
@@ -57,9 +60,10 @@ const Login = (props: any) => {
   /* eslint-enable no-template-curly-in-string */
   return (
     <div className="login-box">
-      <img src={imageBottom} alt="" className="login-bottom-img" />
+      {/* <img src={imageBottom} alt="" className="login-bottom-img" /> */}
+      <MyWave />
       <div className="login-form-box">
-        <img src={square1} onClick={changeLanguage} alt="" className="login-square-img1" />
+        <img src={square1} alt="" className="login-square-img1" />
         <img src={square2} alt="" className="login-square-img2" />
         <img src={square3} alt="" className="login-square-img3" />
         <p className="login-ball1" />
@@ -67,10 +71,14 @@ const Login = (props: any) => {
         <p className="login-ball3" />
         <div className="text-box">
           <p className="p1">{t('login.RosettaNet')}</p>
-          <p className="p2">Privacy-preserving computing flatform enables data to flow like assets.</p>
-          <p className="p3">The RosettaNet Console has satisfied the relevant requirements of laws and requirements.</p>
+          <p className="p2">{t('login.loginSlogan')}</p>
+          {/* <p className="p2">Privacy-preserving computing flatform enables data to flow like assets.</p> */}
+          <p className="p3">{t('login.loginRemarks')}</p>
         </div>
         <div className="form-box">
+          <div className="switch-lang pointer" onClick={changeLanguage}>
+            {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
+          </div>
           <p className="title">{t('login.login')}</p>
           <Form
             form={form}
