@@ -79,7 +79,8 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       .then(re => {
         const queryObj = {
           localMetaDataColumnList: originalData,
-          id: resultFileData.id,
+          id: resultFileData.metaDataPKId,
+          industry: 1,
           remarks: form.getFieldValue('remarks'),
           resourceName: form.getFieldValue('sourceName'),
         }

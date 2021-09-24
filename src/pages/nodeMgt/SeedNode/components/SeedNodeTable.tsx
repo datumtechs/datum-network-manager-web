@@ -5,6 +5,7 @@ import { Table, Space, message, Tooltip, Input } from 'antd'
 import MyModal from '../../../../components/MyModal'
 import failedSvg from '../../../../assets/images/11.icon1.svg'
 import successSvg from '../../../../assets/images/9.icon1.svg'
+import { nodeApi } from '../../../../api/index'
 
 const SeedNodeTable: FC<any> = (props: any) => {
   // attribute
@@ -184,8 +185,19 @@ const SeedNodeTable: FC<any> = (props: any) => {
   const handleOk = () => { }
   const handleCancel = () => isModalVisibleSet(false)
 
+  const querySeedNodeList = () => {
+    nodeApi.querySeedNodeList({
+      keyWord: '',
+      pageNumber: curPage,
+      pageSize: pagination.defaultPageSize
+    }).then((result) => {
+
+    })
+  }
+
   useEffect(() => {
-    tableDataSet(dataSource)
+    // tableDataSet(dataSource)
+    querySeedNodeList()
   }, [])
 
   // jsx

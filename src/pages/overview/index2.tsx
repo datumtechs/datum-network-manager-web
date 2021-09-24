@@ -6,7 +6,7 @@ import OverviewTable from './components/OverviewTable'
 import { overviewApi } from '../../api/index'
 
 export const Overview: FC<any> = () => {
-  const showName = () => {}
+  const showName = () => { }
 
   const [dataNodeObj, setDataNodeObj] = useState<Object>({
     dataNodeCount: 0,
@@ -29,6 +29,7 @@ export const Overview: FC<any> = () => {
     usedMem: 0,
     usedProcessor: 0,
   })
+
 
   const [tableData, setTableData] = useState<Array<{}>>()
 

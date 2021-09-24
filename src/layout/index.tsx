@@ -43,27 +43,25 @@ const Layout = (props: any) => {
     recUpdateTime: '',
   })
   const { pathname } = useLocation()
+
   const fetchData = async () => {
-    // isLoadingSet(true)
     const result = await loginApi.queryBaseInfo()
-    // isLoadingSet(false)
     setInfo(result?.data)
-    if (result && !result.data?.identityId) {
-      history.push('/didApplication')
-    }
   }
 
-  useEffect(() => {
-    fetchData()
+  useEffect((): any => {
+    isLoadingSet(true)
+    loginApi.queryBaseInfo().then(res => {
+      isLoadingSet(false)
+      if (res.status === 0 && !res.data?.identityId) {
+        history.push('/didApplication')
+      }
+    })
   }, [])
 
   useInterval(() => {
-    // fetchData()
+    fetchData()
   }, tableInterVal)
-  // useEffect(() => {
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  //   fetchData()
-  // }, [])
 
   return (
     <BaseInfoContext.Provider value={info}>

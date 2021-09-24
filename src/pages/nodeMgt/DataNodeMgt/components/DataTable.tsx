@@ -11,7 +11,8 @@ const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
   const [curName, SetCurName] = useState('')
   const history = useHistory()
-  const [tableData, tableDataSet] = useState<Array<object>>([])
+  const [tableData, tableDataSet] = useState<Array<any>>([])
+  const [tempTableData, tempTableDataSet] = useState<Array<any>>([])
   const [total, totalSet] = useState<number>(0)
   const [curPage, setCurPage] = useState<number>(1)
   const [curId, setCurId] = useState<string>('')
@@ -41,13 +42,19 @@ const DataTable: FC<any> = (props: any) => {
       pageSize: pagination.defaultPageSize,
     })
     if (res.status === 0) {
-      tableDataSet(res.data)
+      const newTableData: any[] = []
+      res.data.forEach((item) => {
+        newTableData.push(({ ...item, 'isEdit': false }))
+      })
+      // 一为真实数据 另为展示数据
+      tableDataSet(newTableData)
+      tempTableDataSet(JSON.parse(JSON.stringify(newTableData)))
       totalSet(res.total)
     }
   }
 
   useEffect(() => {
-    // initData()
+    initData()
   }, [props.searchText, curPage])
 
   const deleteFn = row => {
@@ -55,7 +62,20 @@ const DataTable: FC<any> = (props: any) => {
     setCurId(row.nodeId)
     SetIsModalVisible(true)
   }
-  const saveFn = () => { }
+  const saveFn = (record, index) => {
+    dataNodeApi.updateDataNode({
+      "externalIp": tempTableData[index].externalIp,
+      "externalPort": tempTableData[index].externalPort,
+      "internalIp": tempTableData[index].internalIp,
+      "internalPort": tempTableData[index].internalPort,
+      "nodeId": record.nodeId,
+    }).then(res => {
+      if (res.status === 0) {
+        message.success(`${t('tip.operationSucces')}`)
+        initData()
+      }
+    })
+  }
 
   const dataSource = [
     {
@@ -81,13 +101,30 @@ const DataTable: FC<any> = (props: any) => {
       isEdit: false,
     },
   ]
-  const setEditStatus = (record, bool) => {
-    dataSource.forEach(item => {
+
+  const handleChange = (type, index, e) => {
+    tempTableDataSet(() => {
+      tempTableData[index][type] = e.target.value
+      return [...tempTableData]
+    })
+  }
+
+  const setEditStatus = (record, bool, index) => {
+    tableData.forEach(item => {
       if (item.id === record.id) {
         item.isEdit = bool
       }
     })
-    tableDataSet(dataSource)
+    tableDataSet([...tableData])
+    if (!bool) {
+      tempTableDataSet(() => {
+        tempTableData[index].internalIp = tableData[index].internalIp
+        tempTableData[index].internalPort = tableData[index].internalPort
+        tempTableData[index].externalIp = tableData[index].externalIp
+        tempTableData[index].externalPort = tableData[index].externalPort
+        return [...tempTableData]
+      })
+    }
   }
   const columns = [
     {
@@ -141,7 +178,7 @@ const DataTable: FC<any> = (props: any) => {
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
                 <p className="seed-name">{t('dataNodeMgt.internalIP')}&nbsp;:&nbsp;</p>
-                <Input className="seedNode-edit-input" />
+                <Input value={tempTableData[index]?.internalIp} onChange={(e) => handleChange('internalIp', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div className="bottom8p">
@@ -151,7 +188,7 @@ const DataTable: FC<any> = (props: any) => {
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
                 <p className="seed-name">{t('dataNodeMgt.externalIp')}&nbsp;:&nbsp;</p>
-                <Input className="seedNode-edit-input" />
+                <Input value={tempTableData[index]?.externalIp} onChange={(e) => handleChange('externalIp', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div>
@@ -173,7 +210,7 @@ const DataTable: FC<any> = (props: any) => {
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
                 <p className="seed-name">{t('dataNodeMgt.internalPort')}&nbsp;:&nbsp;</p>
-                <Input className="seedNode-edit-input" />
+                <Input value={tempTableData[index].internalPort} onChange={(e) => handleChange('internalPort', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div className="bottom8p">
@@ -183,7 +220,7 @@ const DataTable: FC<any> = (props: any) => {
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
                 <p className="seed-name">{t('dataNodeMgt.externalPort')}&nbsp;:&nbsp;</p>
-                <Input className="seedNode-edit-input" />
+                <Input value={tempTableData[index].externalPort} onChange={(e) => handleChange('externalPort', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div>
@@ -204,16 +241,16 @@ const DataTable: FC<any> = (props: any) => {
           <>
             {record.isEdit ? (
               <Space size={10} className="operation-box">
-                <span className="main_color pointer btn" onClick={() => saveFn()}>
+                <span className="main_color pointer btn" onClick={() => saveFn(record, index)}>
                   {t('common.save')}
                 </span>
-                <span className="main_color pointer btn" onClick={() => setEditStatus(record, false)}>
+                <span className="main_color pointer btn" onClick={() => setEditStatus(record, false, index)}>
                   {t('common.cancel')}
                 </span>
               </Space>
             ) : (
               <Space size={10} className="operation-box">
-                <span className="pointer main_color btn" onClick={() => setEditStatus(record, true)}>
+                <span className="pointer main_color btn" onClick={() => setEditStatus(record, true, index)}>
                   {t('common.edit')}
                 </span>
                 {record.connStatus === -1 ? (
@@ -245,9 +282,9 @@ const DataTable: FC<any> = (props: any) => {
     SetIsModalVisible(false)
   }
 
-  useEffect(() => {
-    tableDataSet(dataSource)
-  }, [])
+  // useEffect(() => {
+  //   tableDataSet(dataSource)
+  // }, [])
 
   return (
     <div className="data-table-box">

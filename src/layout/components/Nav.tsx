@@ -22,11 +22,11 @@ const Nav = (props: any) => {
       props.setMenu(item.name)
       return
     }
-    if (!baseInfo?.identityId) {
-      SetCurPath('/didApplication')
-      history.push('/didApplication')
-      return
-    }
+    // if (!baseInfo?.identityId) {
+    //   SetCurPath('/didApplication')
+    //   history.push('/didApplication')
+    //   return
+    // }
     SetCurPath(item.path)
     history.push(item.path)
   }

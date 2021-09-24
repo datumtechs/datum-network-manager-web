@@ -25,8 +25,6 @@ export const Overview: FC<any> = () => {
     queryTotalResourced()
   }, [])
 
-
-
   return (
     <>
       <div className="overview-title">{t('overview.totalOccupied')}</div>

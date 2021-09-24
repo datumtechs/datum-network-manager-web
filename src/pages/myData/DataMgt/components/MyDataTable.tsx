@@ -278,8 +278,8 @@ const MyDataTable: FC<any> = (props: any) => {
   return (
     <div className="data-table-box">
       <Table
-        // dataSource={tableData}
-        dataSource={dataSource}
+        dataSource={tableData}
+        // dataSource={dataSource}
         columns={columns}
         bordered
         rowKey={record => record.id}

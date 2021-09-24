@@ -25,14 +25,14 @@ const DispatchConfig: FC<any> = (props: any) => {
   const [showJoinLoading, setshowJoinLoading] = useState<boolean>(false)
   const [showTestLoading, showTestLoadingSet] = useState<boolean>(false)
 
-  const onFinish = () => {}
-  const onFinishFailed = () => {}
+  const onFinish = () => { }
+  const onFinishFailed = () => { }
 
   useEffect(() => {
     if (baseInfo.status === 1) {
-      setHasService(false)
-    } else {
       setHasService(true)
+    } else {
+      setHasService(false)
     }
     form.setFieldsValue({
       carrierIp: baseInfo.carrierIp,

@@ -193,7 +193,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
       <Table
         rowClassName={() => 'editable-row'}
         rowKey={record => record.id}
-        dataSource={dataSource}
+        dataSource={tableData}
         columns={columns}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
         bordered

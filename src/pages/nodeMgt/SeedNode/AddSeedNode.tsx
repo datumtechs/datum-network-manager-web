@@ -3,19 +3,27 @@ import { useTranslation } from 'react-i18next'
 import { Form, Input, Button } from 'antd'
 import MyTag from '../../../components/MyTag'
 import '../scss/index.scss'
+import { nodeApi } from '../../../api'
 
 export const AddSeedNode: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
-  const [showNameStatus, showNameStatusSet] = useState(false)
-  const onFinish = () => {}
-  const whenInputName = () => {
-    // api 查询名字是否可用
-    console.log('名字不可用')
-    // if(){ // TODO 如果为空提示 不可为空 return 否则查询api是否正确
-    // }
-  }
-  const whenInputChange = () => {
-    console.log('名字改变')
+  const [form] = Form.useForm();
+  const [showNameStatus, showNameStatusSet] = useState<boolean>(false)
+  const [nameStatus, nameStatusSet] = useState<boolean>(false)
+  const onFinish = () => { }
+  const whenInputChange = (e) => {
+    const name = e.target.value
+    if (name) {
+      nodeApi.checkSeedNodeName({ seedNodeName: name }).then(res => {
+        showNameStatusSet(true)
+        if (res.status === 0) {
+          return nameStatusSet(true)
+        }
+        return nameStatusSet(false)
+      })
+    } else {
+      showNameStatusSet(false)
+    }
   }
   return (
     <div className="layout-box">
@@ -27,6 +35,7 @@ export const AddSeedNode: FC<any> = (props: any) => {
         labelAlign="left"
         labelCol={{ style: { width: i18n.language === 'en' ? 180 : 120, whiteSpace: 'pre-wrap' } }}
         onFinish={onFinish}
+        form={form}
       >
         <Form.Item
           label={t('node.nodeSeedName')}
@@ -36,13 +45,15 @@ export const AddSeedNode: FC<any> = (props: any) => {
         >
           <div className="form-group">
             <Input
-              onBlur={whenInputName}
+              // onBlur={whenInputName}
               onChange={whenInputChange}
               placeholder={t('node.forSelfidentity')}
               className="form-box-input"
             />
-            <MyTag content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" />
-            <MyTag content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" />
+            {
+              showNameStatus ? nameStatus ? <MyTag content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" /> :
+                <MyTag content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" /> : ''
+            }
           </div>
         </Form.Item>
         <Form.Item

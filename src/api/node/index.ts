@@ -29,6 +29,25 @@ const nodeApi = {
       url: `/api/v1/node/corenode/cancelJoinNetwork`,
     })
   },
+
+  // 查询种子节点列表
+  querySeedNodeList(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/node/seednode/querySeedNodeList`,
+      data
+    })
+  },
+
+  // 种子节点名称是否可用
+  checkSeedNodeName(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/node/seednode/checkSeedNodeName`,
+      data
+    })
+  },
+
 }
 
 
