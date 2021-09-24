@@ -114,7 +114,7 @@ const MyDataTable: FC<any> = (props: any) => {
     history.push({
       pathname: '/myData/dataMgt/saveNewData',
       state: {
-        type: 'newData',
+        type: 'save',
         id: row.id,
         fileName: row.fileName,
       },

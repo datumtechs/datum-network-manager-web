@@ -13,6 +13,7 @@ import MyTag from '../../../components/MyTag'
 
 export const MyDataAddtion: FC<any> = (props: any) => {
   const { t } = useTranslation()
+  const { state } = props.location
 
   const [formDisable, setFormDiasble] = useState(false)
   const [uploadFile, setUploadFile] = useState<any>({})
@@ -32,7 +33,15 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const [isFileNameRight, isFileNameRightSet] = useState<boolean>(false)
   const [showFilenameAvailable, showFilenameAvailableSet] = useState<boolean>(false)
 
+  const [addType, addTypeSet] = useState<string>('add')
+
   const [uploadProgress, uploadProgressSet] = useState<number>(0)
+
+  useEffect(() => {
+    if (state?.type) {
+      addTypeSet(state.type)
+    }
+  }, [state])
 
 
   const pagenation = {
@@ -78,8 +87,10 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       .validateFields()
       .then(re => {
         const queryObj = {
+          addType: addType === 'add' ? 1 : 2,
           localMetaDataColumnList: originalData,
-          id: resultFileData.metaDataPKId,
+          id: resultFileData.id,
+          metaDataPKId: resultFileData.metaDataPKId,
           industry: 1,
           remarks: form.getFieldValue('remarks'),
           resourceName: form.getFieldValue('sourceName'),
