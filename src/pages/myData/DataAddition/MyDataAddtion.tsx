@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FC, useState, createRef, useEffect, useRef } from 'react'
-import { Tooltip, Space, Form, Input, Radio, Button, message } from 'antd'
+import { Tooltip, Space, Form, Input, Radio, Button, message, Select } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { QuestionCircleOutlined } from '@ant-design/icons'
@@ -10,12 +10,14 @@ import MyFiledsTable from '../../../components/MyFiledsTable'
 import { resourceApi } from '../../../api/index'
 import MyModal from '../../../components/MyModal'
 import MyTag from '../../../components/MyTag'
+import { INDUSTRYLIST } from '../../../config/constant'
 
 export const MyDataAddtion: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { state } = props.location
-
+  const { Option } = Select
   const [formDisable, setFormDiasble] = useState(false)
+  const [industry, industrySet] = useState<string>('')
   const [uploadFile, setUploadFile] = useState<any>({})
   const [showTypeError, setShowTypeError] = useState<boolean>(false)
   const [showIncludeError, setShowIncludeError] = useState<boolean>(false)
@@ -89,13 +91,13 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         const queryObj = {
           addType: addType === 'add' ? 1 : 2,
           localMetaDataColumnList: originalData,
-          id: resultFileData.id,
-          metaDataPKId: resultFileData.metaDataPKId,
-          industry: 1,
+          // id: resultFileData.id,
+          fileId: resultFileData.fileId,
+          industry,
           remarks: form.getFieldValue('remarks'),
           resourceName: form.getFieldValue('sourceName'),
         }
-        resourceApi.addMetaData(queryObj).then(res => {
+        resourceApi.addLocalMetaData(queryObj).then(res => {
           if (res.status === 0) {
             message.success(`${t('tip.addMetaDataSuccess')}`)
             history.push('/myData')
@@ -175,9 +177,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     resourceApi.uploadCsv({ data: formData, fn: _uploadProgress }).then(res => {
       upLoadingSet(false)
       if (res.status === 0) {
-        setOriginalData(res.data?.localMetaDataColumnList)
-        setTotal(res.data?.localMetaDataColumnList?.length)
-        setTableData(getShowSource(res.data?.localMetaDataColumnList))
+        setOriginalData(res.data?.localDataFileColumnList)
+        setTotal(res.data?.localDataFileColumnList?.length)
+        setTableData(getShowSource(res.data?.localDataFileColumnList))
         resultFileDataSet(res.data)
         message.success(`${t('myData.uploadSuccess')}`)
       } else {
@@ -186,7 +188,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       }
     }).catch(e => {
       console.log(e);
-
     })
   }
 
@@ -203,6 +204,10 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const changeFileIncludeStatusFn = (e: any) => {
     setShowIncludeError(false)
     setRadioValue(e.target.value)
+  }
+
+  const handleSelectChange = (value: any) => {
+    industrySet(value)
   }
 
   return (
@@ -268,7 +273,19 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                       <MyTag content={t('tip.unavailableFilename')} bgColor="#FFA39E" color="#F45564" />
                     ))}
                 </Space>
-
+              </Form.Item>
+              <Form.Item label={t('myData.industryOfData')}>
+                <Form.Item name="industry" noStyle rules={[{ required: true, message: `${t('tip.plzSelectIndustry')}` }]}>
+                  <Select size="large" onChange={handleSelectChange} className="limit-box width457">
+                    {INDUSTRYLIST.map(item => {
+                      return (
+                        <Option key={item.id} value={item.id}>
+                          {t(`myData.${item.text}`)}
+                        </Option>
+                      )
+                    })}
+                  </Select>
+                </Form.Item>
               </Form.Item>
               <Form.Item
                 label={t('center.dataDesc')}

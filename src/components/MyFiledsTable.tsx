@@ -82,7 +82,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   const handleCellChange = (e, record, column) => {
     const rows = [...data]
-    const row = rows.find(item => item.id === record.id)
+    const row = rows.find(item => item.columnIdx === record.columnIdx)
     if (row) {
       row[column] = e.target.value
     }

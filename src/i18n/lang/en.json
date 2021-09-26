@@ -413,6 +413,7 @@
     "joinNetworkFailed": "Failed to apply for network access",
     "plzComplete": "Please complete the form content",
     "plzInputDesc": "Please fill in the remarks of the data",
+    "plzSelectIndustry": "Please select your industry",
     "plzInputName": "Please fill in the name of the data",
     "searchTips": "Search by key words or ID",
     "plzInput": "please input your",

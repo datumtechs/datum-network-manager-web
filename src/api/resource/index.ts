@@ -22,7 +22,7 @@ const resourceApi = {
     })
   },
   // 查看详情
-  queryMetaDataDetail(data: string): Promise<any> {
+  queryMetaDataDetail(data): Promise<any> {
     return axios({
       method: 'GET',
       url: `/api/v1/resource/mydata/metaDataInfo?id=${data}`,
@@ -77,10 +77,10 @@ const resourceApi = {
       console.log(err, 'errrrrrrrrrrrrrr');
     })
   },
-  addMetaData(data: any): Promise<any> {
+  addLocalMetaData(data: any): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/resource/mydata/addMetaData`,
+      url: `/api/v1/resource/mydata/addLocalMetaData`,
       data
     })
   },

@@ -413,6 +413,7 @@
     "joinNetworkFailed": "申请准入网络失败",
     "plzComplete": "请完善表单内容",
     "plzInputDesc": "请完善数据的描述",
+    "plzSelectIndustry": "请选择所属行业",
     "plzInputName": "请完善数据的名称",
     "searchTips": "请输入关键字或ID搜索",
     "plzInput": "请填写",

@@ -14,13 +14,17 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { Option } = Select
   const { location } = props
-  const { type, id, filename } = location.state
-  const [formDisable, setFormDiasble] = useState(false)
+  const { type, id, fileName } = location.state
   const [uploadFile, setUploadFile] = useState<any>({})
-  const [showTypeError, setShowTypeError] = useState<boolean>(false)
-  const [showIncludeError, setShowIncludeError] = useState<boolean>(false)
   const [newDataName, newDataNameSet] = useState<string>('')
-  const [radioValue, setRadioValue] = useState('')
+  const [sourceName, sourceNameSet] = useState<string>('')
+  const [sourceFileID, sourceFileIDSet] = useState<string>('')
+  const [sourceFilePath, sourceFilePathSet] = useState<string>('')
+  const [industry, industrySet] = useState<number>()
+  const [remarks, remarksSet] = useState<string>('')
+  const [metaDataPKId, metaDataPKIdSet] = useState<string>('')
+
+
   const [total, setTotal] = useState<number>()
   const [originalData, setOriginalData] = useState([])
   const [tableData, setTableData] = useState<[]>()
@@ -57,31 +61,22 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     history.go(-1)
   }
   const submitFn = () => {
-    if (!radioValue) {
-      setShowIncludeError(true)
-      upLoadingSet(false)
-      return message.error(`${t('tip.plzComplete')}`)
-    }
-    if (inputRef?.current?.input?.files?.length === 0) {
-      upLoadingSet(false)
-      return message.error(`${t('myData.plzSelectone')}`)
-    }
-    if (showTypeError) {
-      setShowTypeError(true)
-      upLoadingSet(false)
-      return
-    }
-
     form
       .validateFields()
-      .then(re => {
+      .then(values => {
+        console.log(values);
+
         const queryObj = {
+          addType: 2,
+          industry,
+          fileId: '',
           localMetaDataColumnList: originalData,
-          id: resultFileData.id,
+          // id: resultFileData.id,
           remarks: form.getFieldValue('remarks'),
-          resourceName: form.getFieldValue('sourceName'),
+          resourceName: form.getFieldValue('newDataName'), // 新资源名称
+
         }
-        resourceApi.addMetaData(queryObj).then(res => {
+        resourceApi.addLocalMetaData(queryObj).then(res => {
           if (res.status === 0) {
             message.success(`${t('tip.addMetaDataSuccess')}`)
             history.push('/myData')
@@ -96,13 +91,10 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const getShowSource = data => {
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
-  useEffect(() => {
-    if (inputRef?.current?.input?.files?.length > 0 && uploadFile.name.split('.')[1] !== 'csv') {
-      setShowTypeError(true)
-    } else {
-      setShowTypeError(false)
-    }
-  }, [uploadFile])
+
+  const handleRemarkChange = (e) => {
+    remarksSet(e.target.value)
+  }
 
   useEffect(() => {
     curPage && setTableData(getShowSource(originalData))
@@ -121,10 +113,25 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     setCurPage(page)
   }
 
-  const changeFileIncludeStatusFn = (e: any) => {
-    setShowIncludeError(false)
-    setRadioValue(e.target.value)
-  }
+  useEffect(() => {
+    // 初始化查询当前id 数据
+    resourceApi.queryMetaDataDetail(id).then(res => {
+      console.log(res);
+      const { data } = res
+      if (res.status === 0) {
+        industrySet(data.industry)
+        form.setFieldsValue({ industry: data.industry })
+        sourceNameSet(data.fileName)
+        sourceFileIDSet(data.fileId)
+        sourceFilePathSet(data.filePath)
+        remarksSet(data.remarks)
+        setOriginalData(data.localMetaDataColumnList)
+        setTableData(getShowSource(data.localMetaDataColumnList))
+        metaDataPKIdSet(data.metaDataPkId)
+      }
+    })
+  }, [])
+
 
   return (
     <div className="layout-box">
@@ -141,12 +148,12 @@ export const NewDataAddtion: FC<any> = (props: any) => {
         >
           <div className="sub-info-box">
             <Form.Item label={t('myData.originalDataName')} className="sub-ori-name">
-              <p>{filename}2222222222222222222222222222222222222222222</p>
+              <p>{fileName}</p>
             </Form.Item>
             <Form.Item label={t('myData.newDataName')}>
               <div className="form-group">
-                <Form.Item noStyle>
-                  <Input size="large" onBlur={e => checkResourceName(e.target.value)} value={newDataName} className="limit-box width457" />
+                <Form.Item noStyle name="newDataName" rules={[{ required: true, message: `${t('tip.plzInputName')}` }]}>
+                  <Input size="large" onBlur={e => checkResourceName(e.target.value)} className="limit-box width457" />
                 </Form.Item>
                 {showFilenameAvailable &&
                   (isFileNameRight ? (
@@ -162,18 +169,18 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             <div className="pl12">
               <Form.Item label={t('myData.sourceName')} name="sourceName">
                 {/* <Input onBlur={e => checkResourceName(e.target.value)} className="limit-box" /> */}
-                <p></p>
+                <p>{sourceName}</p>
                 {/* <div className="tips">{t('myData.nameTips')}</div> */}
               </Form.Item>
-              <Form.Item label={t('myData.sourceFileID')} name="sourceName">
-                <p></p>
+              <Form.Item label={t('myData.sourceFileID')} name="sourceFileID">
+                <p>{sourceFileID}</p>
               </Form.Item>
-              <Form.Item label={t('myData.sourceFilePath')} name="sourceName">
-                <p></p>
+              <Form.Item label={t('myData.sourceFilePath')} name="sourceFilePath">
+                <p>{sourceFilePath}</p>
               </Form.Item>
               <Form.Item label={t('myData.industryOfData')}>
-                <Form.Item name="sourceName" noStyle>
-                  <Select size="large" className="limit-box width457">
+                <Form.Item name="industry" noStyle initialValue={industry} rules={[{ required: true, message: `${t('tip.plzSelectIndustry')}` }]}>
+                  <Select defaultValue={industry} key={industry} size="large" className="limit-box width457">
                     {INDUSTRYLIST.map(item => {
                       return (
                         <Option key={item.id} value={item.id}>
@@ -184,9 +191,9 @@ export const NewDataAddtion: FC<any> = (props: any) => {
                   </Select>
                 </Form.Item>
               </Form.Item>
-              <Form.Item label={t('center.dataDesc')} name="remarks">
-                <Form.Item noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
-                  <Input.TextArea className="limit-box width457" />
+              <Form.Item label={t('center.dataDesc')}>
+                <Form.Item name="remarks" noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
+                  <Input.TextArea value={remarks} onChange={handleRemarkChange} className="limit-box width457" />
                 </Form.Item>
               </Form.Item>
             </div>
@@ -210,7 +217,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             <Button size="large" className="btn" onClick={goBackFn}>
               {t('common.return')}
             </Button>
-            <Button size="large" className="btn" type="primary" onClick={submitFn}>
+            <Button size="large" className="btn" type="primary" htmlType="submit" onClick={submitFn}>
               {t('common.submit')}
             </Button>
           </Space>

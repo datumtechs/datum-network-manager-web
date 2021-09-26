@@ -8,6 +8,7 @@ import useInterval from '../../../../hooks/useInterval'
 import { tableInterVal } from '../../../../constant/index'
 import warnSvg from '../../../../assets/images/10.icon1.svg'
 import successSvg from '../../../../assets/images/9.icon1.svg'
+import { changeSizeFn } from '../../../../utils/utils'
 
 const MyDataTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -209,14 +210,17 @@ const MyDataTable: FC<any> = (props: any) => {
     },
     {
       title: t('myData.dataSize'),
-      dataIndex: 'dataSize',
-      key: 'dataSize',
+      dataIndex: 'size',
+      key: 'size',
       width: 100,
+      render: (text, record, index) => {
+        return <>{changeSizeFn(text)}</>
+      }
     },
     {
       title: t('myData.taskNum'),
-      dataIndex: 'taskNum',
-      key: 'taskNum',
+      dataIndex: 'attendTaskCount',
+      key: 'attendTaskCount',
       width: 100,
     },
     // {

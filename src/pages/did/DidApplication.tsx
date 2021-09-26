@@ -8,10 +8,8 @@ import { orgReg } from '../../utils/reg'
 import { BaseInfoContext } from '../../layout/index'
 
 export const DidApplication: FC<any> = () => {
-  const baseInfo = useContext(BaseInfoContext)
-
   const { t } = useTranslation()
-  const history = useHistory()
+
   const onFinish = ({ identityId = '' }) => {
     if (!orgReg.test(identityId)) {
       return message.error(`${t('tip.plzInputID')}`)
@@ -27,11 +25,7 @@ export const DidApplication: FC<any> = () => {
     })
   }
 
-  useEffect(() => {
-    if (baseInfo?.identityId) {
-      history.push('/overview')
-    }
-  }, [baseInfo])
+
   return (
     <div className="did-box">
       <div className="title">{t('common.plzApplyDid')}</div>

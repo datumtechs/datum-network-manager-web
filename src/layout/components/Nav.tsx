@@ -6,6 +6,7 @@ import { IRoute } from '../../router'
 import { BaseInfoContext } from '../index'
 
 const Nav = (props: any) => {
+  const { state: { isReg } } = props
   const menu = props.state.menu.curMenu
   const history = useHistory()
   const { pathname } = useLocation()
@@ -20,6 +21,11 @@ const Nav = (props: any) => {
     e.stopPropagation()
     if (item.children) {
       props.setMenu(item.name)
+      return
+    }
+    if (!isReg) {
+      SetCurPath('/didApplication')
+      history.push('/didApplication')
       return
     }
     // if (!baseInfo?.identityId) {

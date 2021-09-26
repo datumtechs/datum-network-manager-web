@@ -6,10 +6,12 @@ import login from './reducers/login'
 import menu from './reducers/menu'
 import tableData from './reducers/tableData'
 import org from './reducers/org'
+import isReg from './reducers/isReg'
 import baseInfo from './reducers/baseInfo'
 import dataSwitch from './reducers/dataSwitch'
 
 const allReducers = combineReducers({
+  isReg,
   login,
   menu,
   tableData,

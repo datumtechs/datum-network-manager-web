@@ -53,9 +53,12 @@ const Layout = (props: any) => {
     isLoadingSet(true)
     loginApi.queryBaseInfo().then(res => {
       isLoadingSet(false)
-      if (res.status === 0 && !res.data?.identityId) {
+      if (res.status === 1001) {
+        props.setIsReg(false)
         history.push('/didApplication')
+        return
       }
+      props.setIsReg(true)
     })
   }, [])
 
@@ -105,5 +108,12 @@ const Layout = (props: any) => {
     </BaseInfoContext.Provider>
   )
 }
-
-export default connect((state: any) => ({ state }))(Layout)
+const mapDispatchToProps = (dispatch: any) => ({
+  setIsReg: (data) => {
+    dispatch({
+      type: 'SET_ISREG',
+      data
+    })
+  },
+})
+export default connect((state: any) => ({ state }), mapDispatchToProps)(Layout)
