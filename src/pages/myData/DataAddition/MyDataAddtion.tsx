@@ -10,7 +10,7 @@ import MyFiledsTable from '../../../components/MyFiledsTable'
 import { resourceApi } from '../../../api/index'
 import MyModal from '../../../components/MyModal'
 import MyTag from '../../../components/MyTag'
-import { INDUSTRYLIST } from '../../../config/constant'
+import { INDUSTRYLIST } from '../../../constant/constant'
 
 export const MyDataAddtion: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -90,7 +90,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       .then(re => {
         const queryObj = {
           addType: addType === 'add' ? 1 : 2,
-          localMetaDataColumnList: originalData,
+          localDataFileColumnList: originalData,
           // id: resultFileData.id,
           fileId: resultFileData.fileId,
           industry,
@@ -112,6 +112,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }
   // TODO type
   const getShowSource = data => {
+    if (!data) return
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
   useEffect(() => {

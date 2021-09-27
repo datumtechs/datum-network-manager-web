@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Table, Space, Select, Tabs, Switch, Input } from 'antd'
 import EditTableCell from '../pages/myData/DataMgt/components/EditableCell'
-import { DATATYPE } from '../config/constant'
+import { DATATYPE } from '../constant/constant'
 import './scss/dataDetail.scss'
 
 interface Item {
@@ -43,7 +43,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
     {
       id: 0,
       columnName: '郑克爽',
-      visible: 'Y',
+      visible: true,
       dataType: 'STRING',
       remarks: '优势在我, 优势在我',
     },
@@ -51,7 +51,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   const handleSelectChange = (e, record) => {
     const rows = [...data]
-    const row = rows.find(item => item.id === record.id)
+    const row = rows.find(item => item.columnIdx === record.columnIdx)
     if (row) {
       row.columnType = e
     }
@@ -59,7 +59,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
   }
   const handleSwitchChange = (e, record) => {
     const rows = [...data]
-    const row = rows.find(item => item.id === record.id)
+    const row = rows.find(item => item.columnIdx === record.columnIdx)
     if (row) {
       row.visible = e.target.value
     }
@@ -68,7 +68,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   const switchVisiable = (checked, record) => {
     const rows = [...data]
-    const row = rows.find(item => item.id === record.id)
+    const row = rows.find(item => item.columnIdx === record.columnIdx)
     if (row) {
       row.visible = checked
     }
@@ -141,8 +141,8 @@ const MyFiledsTable: FC<any> = (props: any) => {
           <>
             {
               type === 'view' ? mapVisiable(record.visible) : <Space size={20}>
-                {record.visible === 'Y' ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
-                <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === 'Y'} />
+                {record.visible ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
+                <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === true} />
               </Space>
             }
           </>
@@ -192,7 +192,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
     <div className="data-table-box">
       <Table
         rowClassName={() => 'editable-row'}
-        rowKey={record => record.id}
+        rowKey={record => record.columnIdx}
         dataSource={tableData}
         columns={columns}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}

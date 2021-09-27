@@ -47,6 +47,7 @@ const MyData: FC<any> = props => {
 
   const [curPage, setCurPage] = useState<number>(1)
   const getShowSource = data => {
+    if (!data) return
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
 

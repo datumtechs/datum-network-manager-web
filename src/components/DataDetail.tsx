@@ -1,11 +1,13 @@
 import { FC, useState, useEffect } from 'react'
-import { Input, Space, Button, Form, Row, Col } from 'antd'
+import { Input, Space, Button, Form, Row, Col, Select, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
 import MyFiledsTable from './MyFiledsTable'
+import MyModal from './MyModal'
 import { resourceApi } from '../api/index'
 import { changeSizeFn } from '../utils/utils'
+import { INDUSTRYLIST, INDUSTRYMAP } from '../constant/constant'
 
 
 
@@ -13,7 +15,8 @@ import { changeSizeFn } from '../utils/utils'
 export const EditText: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { TextArea, } = Input
-  const { editText, baseInfo } = props
+
+  const { editText, baseInfo, remarks } = props
 
   const handleTextSwitch = () => {
     props.handleTextSwitch(!editText)
@@ -29,7 +32,7 @@ export const EditText: FC<any> = (props: any) => {
       <div className="pl40 pointer no-warp edit-btn" onClick={handleTextSwitch}>{t('common.cancel')}</div>
     </div>
     : <div style={{ "display": "flex" }}>
-      <div className="text-area">{baseInfo.remarks}</div>
+      <div className="text-area">{remarks}</div>
       <div className="pl40 pointer no-warp edit-btn" onClick={handleTextSwitch}>{t('common.edit')}</div>
     </div>
   }</>
@@ -37,19 +40,40 @@ export const EditText: FC<any> = (props: any) => {
 
 export const EditSelect: FC<any> = (props: any) => {
   const { t } = useTranslation()
-  const { TextArea, } = Input
-  const { editSelect, baseInfo } = props
+  const { editSelect, baseInfo, industry } = props
+  const { Option } = Select
 
   const editSelectSet = () => {
     props.handleEditSelect(!editSelect)
   }
 
+  const handleSelectChange = (value: any) => {
+    props.onSelectChange(value)
+  }
+
+  const mapIndustry = (indust: string) => {
+    const isArray = Array.isArray(indust)
+    const industryList = []
+    if (isArray) {
+      indust.split(',').forEach((item: string) => {
+        industryList.push(t(`myData.${INDUSTRYMAP.get(Number(indust))}`))
+      })
+      return industryList.join(',')
+    }
+    return t(`myData.${INDUSTRYMAP.get(Number(indust))}`)
+  }
+
   return <>{editSelect ?
     <div style={{ "display": "flex" }}>
+      <Select value={baseInfo.industry} onChange={handleSelectChange}>
+        {INDUSTRYLIST.map((item) =>
+          (<Option value={item.id} key={item.id}>{t(`myData.${item.text}`)}</Option>)
+        )}
+      </Select>
       <div className="pl40 pointer no-warp edit-btn" onClick={editSelectSet}>{t('common.cancel')}</div>
     </div>
     : <div style={{ "display": "flex" }}>
-      <div className="text-area datail-box-content">1,1,1
+      <div className="text-area datail-box-content">{mapIndustry(industry)}
       </div>
       <div className="pl40 pointer no-warp edit-btn" onClick={editSelectSet}>{t('common.edit')}</div>
     </div>
@@ -71,9 +95,11 @@ export const DataDetail: FC<any> = (props: any) => {
     fileType: '',// 文件后缀类型
     id: '', // meataData序号
     columns: '', // 数据列数
+    industry: '',
+    localDataFileColumnList: [],
     attendTaskCount: '', // 参与任务数量
+    recCreateTime: '', // 参与任务数量
     recUpdateTime: '',// 元数据最近更新时间
-    orgName: '',
     resourceName: '',
     status: '',
     metaDataId: '', // 元数据id hash
@@ -83,12 +109,15 @@ export const DataDetail: FC<any> = (props: any) => {
   })
 
   const [originalData, setOriginalData] = useState([])
+  const [industry, industrySet] = useState()
+  const [remarks, remarksSet] = useState()
   const [tableData, setTableData] = useState([])
   const [curPage, setCurPage] = useState<number>(1)
   const [upLoading, upLoadingSet] = useState<boolean>(false)
   const [form] = Form.useForm()
   const { t } = useTranslation()
   const history = useHistory()
+  const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
   const pagenation = {
     pagesize: 10,
   }
@@ -97,6 +126,7 @@ export const DataDetail: FC<any> = (props: any) => {
   }
 
   const getShowSource = data => {
+    if (!data) return
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
 
@@ -122,20 +152,50 @@ export const DataDetail: FC<any> = (props: any) => {
     editSelectSet(flag)
   }
 
-  const goBackFn = () => { }
+  const goBackFn = () => {
+    isModalVisibleSet(true)
+  }
+
+  const handleOk = () => {
+    history.go(-1)
+  }
+
+  const handleCancel = () => {
+    isModalVisibleSet(false)
+  }
+
   const viewTask = () => {
     history.push({
       pathname: '/myData/dataMgt/dataDetail/dataDetailTask',
+      state: {
+        metadataName: baseInfo.resourceName,
+        metadataId: baseInfo.id,
+      }
     })
   }
-  const saveAndReturn = () => { }
+  const saveAndReturn = () => {
 
-  const onTextChange = () => {
-    // setText
+    resourceApi.updateMetaData({
+      id: baseInfo.id,
+      industry: baseInfo.industry,
+      localDataFileColumnList: originalData,
+      remarks: baseInfo.remarks,
+    }).then(res => {
+      if (res.status === 0) {
+        message.success(`${t('tip.operationSucces')}`)
+        history.push('/myData/dataMgt')
+      } else {
+        message.error(`${t('tip.operationFailed')}`)
+      }
+    })
   }
 
-  const onSelectChange = () => {
-    // setInput
+  const onSelectChange = (value) => {
+    // setSelect
+    setBaseInfo({
+      ...baseInfo,
+      industry: value
+    })
   }
 
   useEffect(() => {
@@ -146,8 +206,10 @@ export const DataDetail: FC<any> = (props: any) => {
       if (res.status === 0) {
         console.log(data);
         setBaseInfo(data)
-        setOriginalData(data.localMetaDataColumnList)
-        setTableData(getShowSource(data.localMetaDataColumnList))
+        industrySet(data.industry)
+        remarksSet(data.remarks)
+        setOriginalData(data.localDataFileColumnList)
+        setTableData(getShowSource(data.localDataFileColumnList))
       }
     })
 
@@ -227,7 +289,7 @@ export const DataDetail: FC<any> = (props: any) => {
                 <Form.Item label={t('myData.industryOfData')}>
                   {
                     type === 'view' ? <div className="text-area datail-box-content">1,2,3
-                    </div> : <EditSelect baseInfo={baseInfo} editSelect={editSelect} onChange={onSelectChange} handleEditSelect={handleEditSelect} />
+                    </div> : <EditSelect baseInfo={baseInfo} editSelect={editSelect} industry={industry} onSelectChange={onSelectChange} handleEditSelect={handleEditSelect} />
                   }
 
                 </Form.Item>
@@ -236,7 +298,7 @@ export const DataDetail: FC<any> = (props: any) => {
             <Form.Item labelCol={{ span: 5 }} wrapperCol={{ span: 14 }} label={t('center.dataDesc')}>
               {
                 type === 'view' ? <div className="text-area"> </div>
-                  : <EditText baseInfo={baseInfo} editText={editText} onChange={onTextChange} handleTextSwitch={handleTextSwitch} handleEditText={handleEditText} />
+                  : <EditText baseInfo={baseInfo} editText={editText} remarks={remarks} handleTextSwitch={handleTextSwitch} handleEditText={handleEditText} />
               }
             </Form.Item>
           </Form>
@@ -270,6 +332,9 @@ export const DataDetail: FC<any> = (props: any) => {
         </Space>
       </div>
     </div>
+    <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <p>{`${t('tip.leaveCofirm')}`}</p>
+    </MyModal>
   </div >
   )
 }

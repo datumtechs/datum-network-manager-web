@@ -77,6 +77,7 @@ const resourceApi = {
       console.log(err, 'errrrrrrrrrrrrrr');
     })
   },
+
   addLocalMetaData(data: any): Promise<any> {
     return axios({
       method: "POST",
@@ -84,13 +85,13 @@ const resourceApi = {
       data
     })
   },
+
   checkResourceName(data: any): Promise<any> {
     return axios({
       method: "POST",
       url: `/api/v1/resource/mydata/checkResourceName?resourceName=${data.resourceName}`,
     })
   },
-
 
   // 数据中心 - 数据详情  DC=datacenter
   queryDCMetaDataInfo(data: string): Promise<any> {
@@ -132,6 +133,15 @@ const resourceApi = {
     return axios({
       method: 'POST',
       url: `/api/v1/resource/powercenter/powerListByKeyWord`,
+      data,
+    })
+  },
+
+  // 数据参与的任务信息列表
+  queryDataJoinTaskList(data: any): Promise<any> {
+    return axios({
+      method: 'POST',
+      url: `/api/v1/resource/mydata/queryDataJoinTaskList`,
       data,
     })
   },

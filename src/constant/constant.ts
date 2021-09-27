@@ -28,7 +28,7 @@ export const INDUSTRYLIST = [
   { id: 12, text: 'otherIndustries' },
 ]
 
-export const INDUSTRY = new Map([
+export const INDUSTRYMAP = new Map([
   [1, 'banking'],
   [2, 'insurance'],
   [3, 'securities'],

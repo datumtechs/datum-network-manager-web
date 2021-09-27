@@ -8,21 +8,18 @@ import MyFiledsTable from '../../../../components/MyFiledsTable'
 import { resourceApi } from '../../../../api/index'
 import MyModal from '../../../../components/MyModal'
 import MyTag from '../../../../components/MyTag'
-import { INDUSTRYLIST } from '../../../../config/constant'
+import { INDUSTRYLIST } from '../../../../constant/constant'
 
 export const NewDataAddtion: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { Option } = Select
   const { location } = props
   const { type, id, fileName } = location.state
-  const [uploadFile, setUploadFile] = useState<any>({})
-  const [newDataName, newDataNameSet] = useState<string>('')
   const [sourceName, sourceNameSet] = useState<string>('')
   const [sourceFileID, sourceFileIDSet] = useState<string>('')
   const [sourceFilePath, sourceFilePathSet] = useState<string>('')
   const [industry, industrySet] = useState<number>()
   const [remarks, remarksSet] = useState<string>('')
-  const [metaDataPKId, metaDataPKIdSet] = useState<string>('')
 
 
   const [total, setTotal] = useState<number>()
@@ -69,8 +66,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
         const queryObj = {
           addType: 2,
           industry,
-          fileId: '',
-          localMetaDataColumnList: originalData,
+          fileId: sourceFileID,
+          localDataFileColumnList: originalData,
           // id: resultFileData.id,
           remarks: form.getFieldValue('remarks'),
           resourceName: form.getFieldValue('newDataName'), // 新资源名称
@@ -89,6 +86,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   }
   // TODO type
   const getShowSource = data => {
+    if (!data) return
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
 
@@ -100,14 +98,14 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     curPage && setTableData(getShowSource(originalData))
   }, [curPage])
 
-  useEffect(() => {
-    if (Object.keys(resultFileData).length > 0) {
-      form.setFieldsValue({
-        sourceName: resultFileData.resourceName,
-        remarks: resultFileData.remarks,
-      })
-    }
-  }, [resultFileData])
+  // useEffect(() => {
+  //   if (Object.keys(resultFileData).length > 0) {
+  //     form.setFieldsValue({
+  //       sourceName: resultFileData.resourceName,
+  //       remarks: resultFileData.remarks,
+  //     })
+  //   }
+  // }, [resultFileData])
 
   const setPage = (page: number) => {
     setCurPage(page)
@@ -120,14 +118,13 @@ export const NewDataAddtion: FC<any> = (props: any) => {
       const { data } = res
       if (res.status === 0) {
         industrySet(data.industry)
-        form.setFieldsValue({ industry: data.industry })
+        form.setFieldsValue({ industry: data.industry, remarks: data.remarks })
         sourceNameSet(data.fileName)
         sourceFileIDSet(data.fileId)
         sourceFilePathSet(data.filePath)
         remarksSet(data.remarks)
-        setOriginalData(data.localMetaDataColumnList)
-        setTableData(getShowSource(data.localMetaDataColumnList))
-        metaDataPKIdSet(data.metaDataPkId)
+        setOriginalData(data.localDataFileColumnList)
+        setTableData(getShowSource(data.localDataFileColumnList))
       }
     })
   }, [])
@@ -142,9 +139,6 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           form={form}
           labelCol={{ span: i18n.language === 'en' ? 4 : 3 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
-        // onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
         >
           <div className="sub-info-box">
             <Form.Item label={t('myData.originalDataName')} className="sub-ori-name">
@@ -179,8 +173,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
                 <p>{sourceFilePath}</p>
               </Form.Item>
               <Form.Item label={t('myData.industryOfData')}>
-                <Form.Item name="industry" noStyle initialValue={industry} rules={[{ required: true, message: `${t('tip.plzSelectIndustry')}` }]}>
-                  <Select defaultValue={industry} key={industry} size="large" className="limit-box width457">
+                <Form.Item name="industry" noStyle rules={[{ required: true, message: `${t('tip.plzSelectIndustry')}` }]}>
+                  <Select size="large" className="limit-box width457">
                     {INDUSTRYLIST.map(item => {
                       return (
                         <Option key={item.id} value={item.id}>

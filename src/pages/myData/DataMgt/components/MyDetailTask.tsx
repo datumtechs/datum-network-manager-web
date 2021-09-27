@@ -1,13 +1,16 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Table, Space } from 'antd'
 import MyTaskStatusBar from './MyTaskStatusBar'
+import { resourceApi } from '../../../../api/index'
 
 export const MyDetailTask: FC<any> = (props: any) => {
 
   const { t } = useTranslation()
+  const { metadataName, metadataId } = props.location.state
   const [curPage, curPageSet] = useState<number>(1)
   const [totalNum, totalNumSet] = useState<number>(0)
+  const [tableData, tableDataSet] = useState([])
 
   const goDetail = (record) => { }
   const goEvent = (record) => { }
@@ -106,21 +109,40 @@ export const MyDetailTask: FC<any> = (props: any) => {
 
   const OnPageChange = () => { }
 
+
+  const initTabel = () => {
+    resourceApi.queryDataJoinTaskList({
+      keyword: '',
+      metadataId,
+      pageNumber: curPage,
+      pageSize: 10,
+    }).then(res => {
+      if (res.status === 0) {
+        tableDataSet(res.data)
+      }
+    })
+  }
+
+
+  useEffect(() => {
+    initTabel()
+  }, [])
+
   return <div className="layout-box">
     <div className="add-data-box">
       <div className="top-title-box">
         <p className="top-title-">{t('center.dataName')}:&nbsp;&nbsp;</p>
-        <p>{ }222222222222222222222222222222222</p>
+        <p>{metadataName}</p>
       </div>
       <div className="top-title-box">
         <p>{t('center.metaDataID')}:&nbsp;&nbsp;</p>
-        <p>{ }222222222222222222222222222222222</p>
+        <p>{metadataId}</p>
       </div>
     </div>
     <div className="data-table-box">
       <Table
-        // dataSource={tableData}
-        dataSource={dataSource}
+        dataSource={tableData}
+        // dataSource={dataSource}
         columns={columns}
         bordered
         pagination={{
