@@ -18,7 +18,8 @@ const DataTable: FC<any> = (props: any) => {
   const [curName, SetCurName] = useState('')
   const [total, totalSet] = useState<number>(0)
   const history = useHistory()
-  const [tableData, tableDataSet] = useState<Array<object>>([])
+  const [tableData, tableDataSet] = useState<Array<any>>([])
+  const [tempTableData, tempTableDataSet] = useState<Array<any>>([])
   const [curPage, setCurPage] = useState<number>(1)
   const baseInfo = useContext(BaseInfoContext)
   const [curId, curIdSet] = useState<string>('')
@@ -46,6 +47,12 @@ const DataTable: FC<any> = (props: any) => {
   //   pageNumber: curPage,
   //   pageSize: pagination.defaultPageSize,
   // })
+  const handleChange = (type, index, e) => {
+    tempTableDataSet(() => {
+      tempTableData[index][type] = e.target.value
+      return [...tempTableData]
+    })
+  }
   const saveFn = () => { }
   const initTable = async () => {
     const res = await computeNodeApi.queryPowerNodeList({
@@ -55,7 +62,12 @@ const DataTable: FC<any> = (props: any) => {
       pageSize: pagination.defaultPageSize,
     })
     if (res.status === 0) {
+      const newTableData: any[] = []
+      res.data.forEach((item) => {
+        newTableData.push(({ ...item, 'isEdit': false }))
+      })
       tableDataSet(res.data)
+      tempTableDataSet(JSON.parse(JSON.stringify(newTableData)))
       totalSet(res.total)
     }
   }
@@ -64,9 +76,6 @@ const DataTable: FC<any> = (props: any) => {
     initTable() // TODO
   }, [props.searchText, curPage])
 
-  useInterval(() => {
-    // initTable() TODO
-  }, tableInterVal)
 
   const operation = (row, type) => {
     SetCurName(row.powerNodeName)
@@ -194,13 +203,22 @@ const DataTable: FC<any> = (props: any) => {
     },
   ]
 
-  const setEditStatus = (record, bool) => {
-    dataSource.forEach(item => {
+  const setEditStatus = (record, bool, index) => {
+    tableData.forEach(item => {
       if (item.id === record.id) {
         item.isEdit = bool
       }
     })
-    tableDataSet(dataSource)
+    tableDataSet([...tableData])
+    if (!bool) {
+      tempTableDataSet(() => {
+        tempTableData[index].internalIp = tableData[index].internalIp
+        tempTableData[index].internalPort = tableData[index].internalPort
+        tempTableData[index].externalIp = tableData[index].externalIp
+        tempTableData[index].externalPort = tableData[index].externalPort
+        return [...tempTableData]
+      })
+    }
   }
 
   const columns = [
@@ -249,7 +267,7 @@ const DataTable: FC<any> = (props: any) => {
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
                 <p className="seed-name">{t('dataNodeMgt.internalIP')}&nbsp;:&nbsp;</p>
-                <Input className="seedNode-edit-input" />
+                <Input value={tempTableData[index]?.internalIp} onChange={(e) => handleChange('internalIp', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div className="bottom8p">
@@ -259,7 +277,7 @@ const DataTable: FC<any> = (props: any) => {
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
                 <p className="seed-name">{t('dataNodeMgt.externalIp')}&nbsp;:&nbsp;</p>
-                <Input className="seedNode-edit-input" />
+                <Input value={tempTableData[index]?.externalIp} onChange={(e) => handleChange('externalIp', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div>
@@ -281,7 +299,7 @@ const DataTable: FC<any> = (props: any) => {
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
                 <p className="seed-name">{t('dataNodeMgt.internalPort')}&nbsp;:&nbsp;</p>
-                <Input className="seedNode-edit-input" />
+                <Input value={tempTableData[index].internalPort} onChange={(e) => handleChange('internalPort', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div className="bottom8p">
@@ -291,7 +309,7 @@ const DataTable: FC<any> = (props: any) => {
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
                 <p className="seed-name">{t('dataNodeMgt.externalPort')}&nbsp;:&nbsp;</p>
-                <Input className="seedNode-edit-input" />
+                <Input value={tempTableData[index].externalPort} onChange={(e) => handleChange('externalPort', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div>
@@ -324,13 +342,13 @@ const DataTable: FC<any> = (props: any) => {
                     <span className="btn main_color pointer" onClick={() => saveFn()}>
                       {t('common.save')}
                     </span>
-                    <span className="btn main_color pointer" onClick={() => setEditStatus(row, false)}>
+                    <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
                       {t('common.cancel')}
                     </span>
                   </Space>
                 ) : (
                   <Space size={10}>
-                    <span className="btn pointer main_color" onClick={() => setEditStatus(row, true)}>
+                    <span className="btn pointer main_color" onClick={() => setEditStatus(row, true, index)}>
                       {t('common.edit')}
                     </span>
                     <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
@@ -349,13 +367,13 @@ const DataTable: FC<any> = (props: any) => {
                     <span className="btn main_color pointer" onClick={() => saveFn()}>
                       {t('common.save')}
                     </span>
-                    <span className="btn main_color pointer" onClick={() => setEditStatus(row, false)}>
+                    <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
                       {t('common.cancel')}
                     </span>
                   </Space>
                 ) : (
                   <Space size={10}>
-                    <span className="btn pointer main_color" onClick={() => setEditStatus(row, true)}>
+                    <span className="btn pointer main_color" onClick={() => setEditStatus(row, true, index)}>
                       {t('common.edit')}
                     </span>
                     <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
