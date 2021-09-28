@@ -3,9 +3,10 @@ import { Table, Space } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import MyModal from '../../../components/MyModal'
+import { authApi } from '../../../api/index'
 
 export const DataAuthorization: FC<any> = props => {
-  const [curType, curTypeSet] = useState<string>('')
+  const [curType, curTypeSet] = useState<number>(1)
   const { t } = useTranslation()
   const [curPage, curPageSet] = useState<number>(1)
   const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
@@ -13,6 +14,8 @@ export const DataAuthorization: FC<any> = props => {
   const [opType, opTypeSet] = useState<string>('')
   const [curName, curNameSet] = useState<string>('')
   const [curId, curIdSet] = useState<string>('')
+  const [tableData, tableDataSet] = useState([])
+
   const history = useHistory()
 
   const dataSource = [{
@@ -106,20 +109,29 @@ export const DataAuthorization: FC<any> = props => {
 
   // TODO: change type 替换数据
 
+  useEffect(() => {
+    authApi.authDataList({
+      "keyWord": "",
+      "pageNumber": 1,
+      "pageSize": 10,
+      "status": curType // 0：未定义， 1:待授权数据， 2:已授权数据(同意授权 + 拒绝授权)
+    }).then(res => {
+      console.log(res);
 
-  useEffect(() => { }, [curType])
+    })
+  }, [curType])
 
   return <div className="layout-box">
     <div className="author-tab">
-      <Space size={36}>
-        <span className="tab-title pointer" onClick={() => curTypeSet('unauthorized')}>{t('myData.unauthorized')}:&nbsp;{ }</span>
-        <span className="tab-title pointer" onClick={() => curTypeSet('authorized')}>{t('myData.authorized')}:&nbsp;{ }</span>
+      <Space size={100}>
+        <span className="tab-title pointer" onClick={() => curTypeSet(1)}>{t('myData.unauthorized')}:&nbsp;{ }</span>
+        <span className="tab-title pointer" onClick={() => curTypeSet(2)}>{t('myData.authorized')}:&nbsp;{ }</span>
       </Space>
     </div>
     <div className="data-table-box">
       <Table
-        // dataSource={tableData}
-        dataSource={dataSource}
+        dataSource={tableData}
+        // dataSource={dataSource}
         columns={columns}
         bordered
         pagination={{

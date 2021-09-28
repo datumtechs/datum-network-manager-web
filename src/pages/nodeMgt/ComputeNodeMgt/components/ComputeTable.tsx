@@ -61,7 +61,7 @@ const DataTable: FC<any> = (props: any) => {
   }
 
   useEffect(() => {
-    // initTable() TODO
+    initTable() // TODO
   }, [props.searchText, curPage])
 
   useInterval(() => {
@@ -225,7 +225,11 @@ const DataTable: FC<any> = (props: any) => {
       width: 80,
       key: 'status',
       render: (text, record, index) => {
-        const { img, content } = UseStatus(record.connStatus)
+        /**
+         * 连接状态 connStatus 0 1
+         * 算力节点状态 0 未知 1 未启用 2 空闲(已启用) 3 占用(已启用) 4:已撤销
+         */
+        const { img, content } = UseStatus(record.connStatus, record.powerStatus)
         return (
           <div className="status-box">
             <img src={img} alt="" />
@@ -306,7 +310,7 @@ const DataTable: FC<any> = (props: any) => {
       render: (text: any, row: any, index: any) => {
         return (
           <Space size={10} className="operation-box">
-            {row.connStatus === '-1' ? (
+            {row.connStatus === 0 ? (
               <>
                 {/* <span className="btn pointer" onClick={() => editFn(row)}>
                   {t('common.edit')}
@@ -338,7 +342,7 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.connStatus === '0' ? (
+            {row.connStatus === 1 && (row.powerStatus === 1 || row.powerStatus === 4) ? (
               <>
                 {row.isEdit ? (
                   <Space size={10}>
@@ -383,7 +387,7 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.connStatus === '1' ? (
+            {row.connStatus === 1 && row.powerStatus === 2 ? (
               <>
                 <span className="btn pointer" onClick={() => operation(row, 'view')}>
                   {t('common.view')}
@@ -395,7 +399,7 @@ const DataTable: FC<any> = (props: any) => {
             ) : (
               <></>
             )}
-            {row.connStatus === '2' ? (
+            {row.connStatus === 1 && row.powerStatus === 3 ? (
               <>
                 <span className="btn pointer" onClick={() => viewInfo(row)}>
                   {t('common.viewNodeInfo')}
@@ -444,17 +448,17 @@ const DataTable: FC<any> = (props: any) => {
         if (res.status === 0) {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
-          // initTable()
+          initTable()
         } else {
           message.error(`${t('tip.operationFailed')}`)
         }
       })
     } else if (modalType === 'disable') {
-      computeNodeApi.revokePower({ powerId: curPowerId, status }).then(res => {
+      computeNodeApi.revokePower({ powerNodeId: curId, status }).then(res => {
         if (res.status === 0) {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
-          // initTable()
+          initTable()
         } else {
           message.error(`${t('tip.operationFailed')}`)
         }
@@ -466,10 +470,6 @@ const DataTable: FC<any> = (props: any) => {
   const handleCancel = () => {
     SetIsModalVisible(false)
   }
-
-  useEffect(() => {
-    tableDataSet(dataSource)
-  }, [])
 
   return (
     <div className="data-table-box">

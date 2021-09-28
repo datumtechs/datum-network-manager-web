@@ -96,7 +96,7 @@ export const DataDetail: FC<any> = (props: any) => {
     id: '', // meataData序号
     columns: '', // 数据列数
     industry: '',
-    localDataFileColumnList: [],
+    localMetaDataColumnList: [],
     attendTaskCount: '', // 参与任务数量
     recCreateTime: '', // 参与任务数量
     recUpdateTime: '',// 元数据最近更新时间
@@ -178,7 +178,7 @@ export const DataDetail: FC<any> = (props: any) => {
     resourceApi.updateMetaData({
       id: baseInfo.id,
       industry: baseInfo.industry,
-      localDataFileColumnList: originalData,
+      localMetaDataColumnList: originalData,
       remarks: baseInfo.remarks,
     }).then(res => {
       if (res.status === 0) {
@@ -208,8 +208,8 @@ export const DataDetail: FC<any> = (props: any) => {
         setBaseInfo(data)
         industrySet(data.industry)
         remarksSet(data.remarks)
-        setOriginalData(data.localDataFileColumnList)
-        setTableData(getShowSource(data.localDataFileColumnList))
+        setOriginalData(data.localMetaDataColumnList)
+        setTableData(getShowSource(data.localMetaDataColumnList))
       }
     })
 

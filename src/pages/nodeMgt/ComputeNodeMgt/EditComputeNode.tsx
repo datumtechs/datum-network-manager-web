@@ -13,6 +13,9 @@ export const EditComputeNode: FC<any> = (props: any) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const history = useHistory()
   const [form] = Form.useForm()
+  const [showNameStatus, showNameStatusSet] = useState<boolean>(false)
+  const [nameStatus, nameStatusSet] = useState<boolean>(false)
+
   // const tailLayout = {
   //   wrapperCol: { offset: 4, span: 8 },
   // }
@@ -21,20 +24,34 @@ export const EditComputeNode: FC<any> = (props: any) => {
     setIsModalVisible(true)
   }
 
-  useEffect(() => {
-    if (type === 'Edit') {
-      form.setFieldsValue({
-        powerNodeName: row.powerNodeName,
-        powerNodeId: row.powerNodeId,
-        internalIp: row.internalIp,
-        internalPort: row.internalPort,
-        externalIp: row.externalIp,
-        externalPort: row.externalPort,
-        nodeName: row.nodeName,
-        remarks: row.remarks,
+  // useEffect(() => {
+  //   if (type === 'Edit') {
+  //     form.setFieldsValue({
+  //       powerNodeName: row.powerNodeName,
+  //       powerNodeId: row.powerNodeId,
+  //       internalIp: row.internalIp,
+  //       internalPort: row.internalPort,
+  //       externalIp: row.externalIp,
+  //       externalPort: row.externalPort,
+  //       nodeName: row.nodeName,
+  //       remarks: row.remarks,
+  //     })
+  //   }
+  // }, [])
+  const whenInputChange = (e) => {
+    const name = e.target.value
+    if (name) {
+      computeNodeApi.checkPowerNodeName({ powerNodeName: name }).then(res => {
+        showNameStatusSet(true)
+        if (res.status === 0) {
+          return nameStatusSet(true)
+        }
+        return nameStatusSet(false)
       })
+    } else {
+      showNameStatusSet(false)
     }
-  }, [])
+  }
 
   const handleOk = () => {
     setIsModalVisible(false)
@@ -44,45 +61,45 @@ export const EditComputeNode: FC<any> = (props: any) => {
     setIsModalVisible(false)
   }
   const onFinish = values => {
-    if (type === 'Add') {
-      computeNodeApi
-        .addPowerNode({
-          externalIp: values.externalIp,
-          externalPort: values.externalPort,
-          internalIp: values.internalIp,
-          internalPort: values.internalPort,
-          powerNodeName: values.powerNodeName,
-          remarks: values.remarks,
-        })
-        .then(res => {
-          if (res.status === 0) {
-            history.push('/nodeMgt/computeNodeMgt')
-            message.success(`${t('tip.addNodeSuccess')}`)
-          } else {
-            message.error(`${t('tip.addNodeFailed')}`)
-          }
-        })
-    } else if (type === 'Edit') {
-      computeNodeApi
-        .updatePowerNode({
-          externalIp: values.externalIp,
-          externalPort: values.externalPort,
-          internalIp: values.internalIp,
-          internalPort: values.internalPort,
-          powerNodeId: row.powerNodeId,
-          remarks: values.remarks,
-        })
-        .then(res => {
-          if (res.status === 0) {
-            history.push('/nodeMgt/computeNodeMgt')
-            message.success(`${t('tip.updateNodeSuccess')}`)
-          } else {
-            message.error(`${t('tip.updateNodeFailed')}`)
-          }
-        })
-    }
+    computeNodeApi
+      .addPowerNode({
+        externalIp: values.externalIp,
+        externalPort: values.externalPort,
+        internalIp: values.internalIp,
+        internalPort: values.internalPort,
+        powerNodeName: values.powerNodeName,
+        remarks: values.remarks,
+      })
+      .then(res => {
+        if (res.status === 0) {
+          history.push('/nodeMgt/computeNodeMgt')
+          message.success(`${t('tip.addNodeSuccess')}`)
+        } else {
+          message.error(`${t('tip.addNodeFailed')}`)
+        }
+      })
+
+    // else if (type === 'Edit') {
+    //   computeNodeApi
+    //     .updatePowerNode({
+    //       externalIp: values.externalIp,
+    //       externalPort: values.externalPort,
+    //       internalIp: values.internalIp,
+    //       internalPort: values.internalPort,
+    //       powerNodeId: row.powerNodeId,
+    //       remarks: values.remarks,
+    //     })
+    //     .then(res => {
+    //       if (res.status === 0) {
+    //         history.push('/nodeMgt/computeNodeMgt')
+    //         message.success(`${t('tip.updateNodeSuccess')}`)
+    //       } else {
+    //         message.error(`${t('tip.updateNodeFailed')}`)
+    //       }
+    //     })
+    // }
   }
-  const onFinishFailed = () => {}
+  const onFinishFailed = () => { }
   return (
     <div className="layout-box">
       <div className="tip-box">{t('node.addComputeNodeTips')}</div>
@@ -99,23 +116,25 @@ export const EditComputeNode: FC<any> = (props: any) => {
         >
           <Form.Item colon label={t('computeNodeMgt.nodeName')} className="form-item">
             <div className="form-group">
-              <Form.Item name="powerNodeName">
-                <Input className="form-box-input" placeholder={t('node.forSelfidentity')} />
+              <Form.Item name="powerNodeName" rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.nodeName')}` }]}>
+                <Input onChange={whenInputChange} className="form-box-input" placeholder={t('node.forSelfidentity')} />
               </Form.Item>
-              <MyTag content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" />
-              <MyTag content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" />
+              {
+                showNameStatus ? nameStatus ? <MyTag content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" /> :
+                  <MyTag content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" /> : ''
+              }
             </div>
           </Form.Item>
-          <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" className="form-item">
+          <Form.Item colon label={t('dataNodeMgt.internalIP')} name="internalIp" rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.internalIP')}` }]} className="form-item">
             <Input className="form-box-input" placeholder={t('node.internalIpPlaceholder')} />
           </Form.Item>
-          <Form.Item colon label={t('dataNodeMgt.externalIp')} name="externalIp" className="form-item">
+          <Form.Item colon label={t('dataNodeMgt.externalIp')} name="externalIp" rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.externalIp')}` }]} className="form-item">
             <Input className="form-box-input" placeholder={t('node.externalIpPlaceholder')} />
           </Form.Item>
-          <Form.Item colon label={t('dataNodeMgt.internalPort')} name="internalPort" className="form-item">
+          <Form.Item colon label={t('dataNodeMgt.internalPort')} name="internalPort" rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.internalPort')}` }]} className="form-item">
             <Input className="form-box-input" placeholder={t('node.internalPortPlaceholder')} />
           </Form.Item>
-          <Form.Item colon label={t('dataNodeMgt.externalPort')} name="externalPort" className="form-item">
+          <Form.Item colon label={t('dataNodeMgt.externalPort')} name="externalPort" rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.externalPort')}` }]} className="form-item">
             <Input className="form-box-input" placeholder={t('node.externalPortPlaceholder')} />
           </Form.Item>
           <Form.Item style={{ marginLeft: i18n.language === 'en' ? 200 : 120 }} className="form-item">

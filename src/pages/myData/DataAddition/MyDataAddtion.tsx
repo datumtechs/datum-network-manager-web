@@ -90,7 +90,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       .then(re => {
         const queryObj = {
           addType: addType === 'add' ? 1 : 2,
-          localDataFileColumnList: originalData,
+          localMetaDataColumnList: originalData,
           // id: resultFileData.id,
           fileId: resultFileData.fileId,
           industry,
@@ -178,9 +178,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     resourceApi.uploadCsv({ data: formData, fn: _uploadProgress }).then(res => {
       upLoadingSet(false)
       if (res.status === 0) {
-        setOriginalData(res.data?.localDataFileColumnList)
-        setTotal(res.data?.localDataFileColumnList?.length)
-        setTableData(getShowSource(res.data?.localDataFileColumnList))
+        setOriginalData(res.data?.localMetaDataColumnList)
+        setTotal(res.data?.localMetaDataColumnList?.length)
+        setTableData(getShowSource(res.data?.localMetaDataColumnList))
         resultFileDataSet(res.data)
         message.success(`${t('myData.uploadSuccess')}`)
       } else {

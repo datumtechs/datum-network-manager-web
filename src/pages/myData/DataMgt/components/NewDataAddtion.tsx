@@ -67,7 +67,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           addType: 2,
           industry,
           fileId: sourceFileID,
-          localDataFileColumnList: originalData,
+          localMetaDataColumnList: originalData,
           // id: resultFileData.id,
           remarks: form.getFieldValue('remarks'),
           resourceName: form.getFieldValue('newDataName'), // 新资源名称
@@ -123,8 +123,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
         sourceFileIDSet(data.fileId)
         sourceFilePathSet(data.filePath)
         remarksSet(data.remarks)
-        setOriginalData(data.localDataFileColumnList)
-        setTableData(getShowSource(data.localDataFileColumnList))
+        setOriginalData(data.localMetaDataColumnList)
+        setTableData(getShowSource(data.localMetaDataColumnList))
       }
     })
   }, [])
