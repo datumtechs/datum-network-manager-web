@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 const AuthInfoTable: FC<any> = (props: any) => {
   const { tableData, curPage, totalNum } = props
+  console.log('tableData', tableData);
+
   const { t } = useTranslation()
   const onPageChange = (page: number) => {
     props.setPage(page)
@@ -14,6 +16,7 @@ const AuthInfoTable: FC<any> = (props: any) => {
 
   const columns = [{
     title: t('common.Num'),
+    width: 100,
     render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
   }, {
     title: t('center.fileField'),

@@ -230,7 +230,7 @@ export const DataDetail: FC<any> = (props: any) => {
         <div className="limit-box pl12">
           <Form name="detail" labelAlign="left" form={form}
             labelCol={{ span: 10 }}
-            wrapperCol={{ span: 14 }}>
+            wrapperCol={{ span: 12 }}>
             <Row>
               <Col span={12}>
                 <Form.Item label={t('center.metaStatus')}>
@@ -251,7 +251,7 @@ export const DataDetail: FC<any> = (props: any) => {
               </Col>
               <Col span={12}>
                 <Form.Item label={t('myData.sourceFileID')}>
-                  <p className="datail-box-content">{baseInfo.fileId}</p>
+                  <div className="datail-box-content">{baseInfo.fileId}</div>
                 </Form.Item>
               </Col>
             </Row>

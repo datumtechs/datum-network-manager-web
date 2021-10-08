@@ -132,7 +132,8 @@
     "agree": "Agree",
     "agreed": "Agreed",
     "declined": "Declined",
-    "and": "&"
+    "and": "&",
+    "times": "times"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
@@ -229,7 +230,7 @@
     "partiesInformation": "partiesInformation",
     "algorithmProvider": "Algorithm provider",
     "dataProvider": "Data providers",
-    "conputationProvider": "Computing executors",
+    "powerProvider": "Computing executors",
     "name": "Name",
     "identity": "Identifier",
     "metadataNameID": "Metadata name & ID",

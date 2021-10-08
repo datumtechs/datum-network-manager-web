@@ -12,17 +12,17 @@ import useWinWidth from '../../../hooks/useWinWidth'
 
 
 const CapacityChart: FC<any> = (props: any) => {
-  const { capacityFn } = props
+  const { capacityFn, capacityObj } = props
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
 
 
   const capaList = [
-    { id: 1, label: t('task.sponsor'), color: '#63C7BB', value: 500, par: '50%' },
-    { id: 2, label: t('task.receiver'), color: '#F167A8', value: 100, par: '10%' },
-    { id: 3, label: t('task.conputationProvider'), color: '#657ACD', value: 100, par: '10%' },
-    { id: 4, label: t('task.dataProvider'), color: '#FFA958', value: 100, par: '10%' },
-    { id: 5, label: t('task.algorithmProvider'), color: '#F2DB01', value: 100, par: '10%' },
+    { id: 1, label: t('task.sponsor'), color: '#63C7BB', value: capacityObj.ownerCount, par: capacityObj.ownerCount ? `${(capacityObj.ownerCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
+    { id: 2, label: t('task.receiver'), color: '#F167A8', value: capacityObj.receiverCount, par: capacityObj.receiverCount ? `${(capacityObj.receiverCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
+    { id: 3, label: t('task.powerProvider'), color: '#657ACD', value: capacityObj.powerSupplierCount, par: capacityObj.powerSupplierCount ? `${(capacityObj.powerSupplierCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
+    { id: 4, label: t('task.dataProvider'), color: '#FFA958', value: capacityObj.dataSupplierCount, par: capacityObj.dataSupplierCount ? `${(capacityObj.dataSupplierCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
+    { id: 5, label: t('task.algorithmProvider'), color: '#F2DB01', value: capacityObj.algoSupplierCount, par: capacityObj.algoSupplierCount ? `${(capacityObj.algoSupplierCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
   ]
 
   const handleClick = (prarms) => {
@@ -87,11 +87,11 @@ const CapacityChart: FC<any> = (props: any) => {
             show: false,
           },
           data: [
-            { value: 1048, name: t('task.sponsor') },
-            { value: 735, name: t('task.receiver') },
-            { value: 580, name: t('task.conputationProvider') },
-            { value: 484, name: t('task.dataProvider') },
-            { value: 684, name: t('task.algorithmProvider') },
+            { value: capacityObj.ownerCount, name: t('task.sponsor') },
+            { value: capacityObj.receiverCount, name: t('task.receiver') },
+            { value: capacityObj.powerSupplierCount, name: t('task.powerProvider') },
+            { value: capacityObj.dataSupplierCount, name: t('task.dataProvider') },
+            { value: capacityObj.algoSupplierCount, name: t('task.algorithmProvider') },
           ],
         },
       ],
@@ -99,7 +99,7 @@ const CapacityChart: FC<any> = (props: any) => {
     chart.setOption(option)
     chart.resize()
     chart.on('click', handleClick)
-  }, [width, i18n.language])
+  }, [width, i18n.language, capacityObj])
   return <div className="charts-capacity">
     <div id="capacityChart">
     </div>

@@ -155,10 +155,13 @@
 
 .new-tips {
   border-radius: 10px;
-  background: #ffa505;
+  background: #ee502f;
   padding: 0px 6px;
   display: inline-block;
   font-size: 12px;
+  position: absolute;
+  top: 13px;
+  transform: scale(0.7);
   &::after {
     content: "NEW";
     position: relative;

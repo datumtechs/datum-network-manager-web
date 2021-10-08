@@ -132,7 +132,8 @@
     "agree": "同意",
     "agreed": "已同意",
     "declined": "已拒绝",
-    "and": "与"
+    "and": "与",
+    "times": "次"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
@@ -229,7 +230,7 @@
     "receiver": "结果使用方",
     "algorithmProvider": "算法提供方",
     "dataProvider": "数据提供方",
-    "conputationProvider": "算力提供方",
+    "powerProvider": "算力提供方",
     "name": "名称",
     "identity": "身份标识",
     "metadataNameID": "元数据名称与ID",

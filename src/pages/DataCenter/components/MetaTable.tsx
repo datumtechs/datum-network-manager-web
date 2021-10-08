@@ -84,8 +84,8 @@ const MetaTable: FC<any> = (props: any) => {
 
   ]
   const getList = () => {
-    const param = { keyword: props.searchText, pageNumber: curPage, pageSize: 10 }
-    const apiName = props.searchText ? 'queryDCMetaDataListByKeyWord' : 'queryDCMetaDataList'
+    const param = { pageNumber: curPage, pageSize: 10 }
+    const apiName = 'queryDCMetaDataList'
     resourceApi[apiName](param).then(res => {
       if (res?.status === 0) {
         dataSourceSet(res.data)
@@ -95,9 +95,9 @@ const MetaTable: FC<any> = (props: any) => {
   }
   useEffect(() => {
     getList()
-  }, [props.searchText, curPage])
+  }, [curPage])
   return (
-    <div className="data-table-box">
+    <div className="table-box">
       <Table
         dataSource={dataSource}
         columns={columns}

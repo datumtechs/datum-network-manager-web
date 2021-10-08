@@ -22,26 +22,38 @@ export const Tasks: FC<any> = () => {
   // const [runningTaskCount, runningTaskCountSet] = useState<number>(0)
   // const [totalTaskCount, totalTaskCountSet] = useState<number>(0)
   const [tableData, tableDataSet] = useState<[]>([])
-  const [searchText, searchTextSet] = useState('')
-  const [searchStatus, searchStatusSet] = useState('')
-  const [searchRole, searchRoleSet] = useState(0)
+  // const [searchText, searchTextSet] = useState('')
+  // const [searchStatus, searchStatusSet] = useState('')
+  // const [searchRole, searchRoleSet] = useState(0)
   const [searchStartTime, searchStartTimeSet] = useState(0)
   const [searchEndTime, searchEndTimeSet] = useState(0)
-  const [pageNumber, pageNumberSet] = useState(0)
+  const [pageNumber, pageNumberSet] = useState(1)
   const [total, totalSet] = useState(0)
+  const [statusObj, statusObjSet] = useState({
+    ownerCount: '',
+    dataSupplierCount: '',
+    powerSupplierCount: '',
+    receiverCount: '',
+    algoSupplierCount: '',
+    totalTaskCount: '',
+    taskSuccessCount: '',
+    taskFailedCount: '',
+    taskPendingCount: '',
+    taskRunningCount: '',
+  })
 
   const [capacity, capacitySet] = useState<string>('')
   const [status, statusSet] = useState<string>('')
 
-  const onSearch = text => {
-    searchTextSet(text)
-  }
-  const onStatusChange = text => {
-    searchStatusSet(text)
-  }
-  const capacityChanged = text => {
-    searchRoleSet(text)
-  }
+  // const onSearch = text => {
+  //   searchTextSet(text)
+  // }
+  // const onStatusChange = text => {
+  //   searchStatusSet(text)
+  // }
+  // const capacityChanged = text => {
+  //   searchRoleSet(text)
+  // }
   const onStartChange = (time, timeStr) => {
     // 获取服务器 shanghai +8
     searchStartTimeSet(dayjs.utc(time).tz('Asia/Shanghai').valueOf())
@@ -114,12 +126,12 @@ export const Tasks: FC<any> = () => {
   const getParam = () => {
     return {
       endTime: searchEndTime || 0,
-      keyWord: searchText,
+      // keyWord: searchText,
       pageNumber,
-      pageSize: 10,
-      role: searchRole || 0,
+      pageSize: 5,
+      // role: searchRole || 0,
       startTime: searchStartTime || 0,
-      status: searchStatus || '',
+      // status: searchStatus || '',
     }
   }
   // const { table, countData, paramSet } = useTaskTable(getParam())
@@ -128,6 +140,7 @@ export const Tasks: FC<any> = () => {
       if (res.status === 0) {
         tableDataSet(res.data.list)
         totalSet(res.total)
+        statusObjSet(res.data.taskStatisticsRes)
         // totalTaskCountSet(res.data?.countData?.totalTaskCount)
         // runningTaskCountSet(res.data?.countData?.runningTaskCount)
       }
@@ -135,13 +148,11 @@ export const Tasks: FC<any> = () => {
   }
 
   const setCapacity = (capa: string) => {
-    console.log(capa);
     capacitySet(capa)
   }
 
 
   const setStatus = (sta: string) => {
-    console.log(sta);
     statusSet(sta)
   }
 
@@ -154,7 +165,7 @@ export const Tasks: FC<any> = () => {
     if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) {
       queryData()
     }
-  }, [searchText, searchStatus, searchRole, searchStartTime, searchEndTime, pageNumber])
+  }, [searchStartTime, searchEndTime, pageNumber])
 
   return (
     <div className="layout-box">
@@ -162,7 +173,7 @@ export const Tasks: FC<any> = () => {
         <div className="title-label">
           <div className="title">
             {t('task.myTask')}:&nbsp;
-            { }1111,111,111,111.11
+            {statusObj.totalTaskCount}
           </div>
           {/* <div className="detail">
             <p className="inProgress">
@@ -175,8 +186,8 @@ export const Tasks: FC<any> = () => {
         </div>
       </div>
       <div className="task-charts-box">
-        <StatusChart statusFn={setStatus} />
-        <CapacityChart capacityFn={setCapacity} />
+        <StatusChart statusObj={statusObj} statusFn={setStatus} />
+        <CapacityChart capacityObj={statusObj} capacityFn={setCapacity} />
       </div>
       <div className="filter-box">
         <Space size={20}>
@@ -186,8 +197,8 @@ export const Tasks: FC<any> = () => {
       </div>
       <div className="task-table-box">
         <Tasktable
-          // tableData={tableData}
-          tableData={dataScource}
+          tableData={tableData}
+          // tableData={dataScource}
           total={total} pageChange={pageChange} />
       </div>
     </div>

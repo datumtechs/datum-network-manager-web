@@ -11,22 +11,22 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
   const [content, contentSet] = useState<string>('')
   const [border, borderSet] = useState<string>('')
   useEffect(() => {
-    if (status === 'succeeded' || status === 'success') {
+    if (status === 4) {
       colorSet('#52C41A')
       bgColorSet('#EBFDDA')
       contentSet(t('task.success'))
       borderSet('#B7EB8F')
-    } else if (status === 'failed') {
+    } else if (status === 3) {
       colorSet('#F5222D')
       bgColorSet('#F9DDDB')
       contentSet(t('task.failed'))
       borderSet('#FFA39E')
-    } else if (status === 'pending') {
+    } else if (status === 1) {
       colorSet('#1A6FC4')
       bgColorSet('#DAE6FD')
       contentSet(t('task.pending'))
       borderSet('#8FBDEB')
-    } else if (status === 'computing') {
+    } else if (status === 2) {
       colorSet('#781AC4')
       bgColorSet('#F3DAFD')
       contentSet(t('task.computing'))
@@ -35,17 +35,17 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
   }, [status])
 
   useEffect(() => {
-    if (role === 'owner' || role === 0) {
+    if (role === 'owner' || role === 1) {
       colorSet('#52C41A')
       bgColorSet('#EBFDDA')
       contentSet(t('computeNodeMgt.sponsor'))
       borderSet('#B7EB8F')
-    } else if (role === 'dataSupplier' || role === 1) {
+    } else if (role === 'dataSupplier' || role === 2) {
       colorSet('#F5222D')
       bgColorSet('#F9DDDB')
       contentSet(t('computeNodeMgt.dataSupplier'))
       borderSet('#FFA39E')
-    } else if (role === 'algoSupplier' || role === 3) {
+    } else if (role === 'algoSupplier' || role === 5) {
       colorSet('#1A6FC4')
       bgColorSet('#DAE6FD')
       contentSet(t('computeNodeMgt.algoSupplier'))
@@ -55,7 +55,7 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
       bgColorSet('#F3DAFD')
       contentSet(t('computeNodeMgt.receiver'))
       borderSet('#D08FEB')
-    } else if (role === 'powerSupplier' || role === 2) {
+    } else if (role === 'powerSupplier' || role === 3) {
       colorSet('#FAAD14')
       bgColorSet('#FDFCDA')
       contentSet(t('computeNodeMgt.powerSupplier'))

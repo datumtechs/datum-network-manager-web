@@ -8,12 +8,14 @@ import { taskApi } from '../../api/index'
 import EventStep from './components/EventStep'
 import UseTimeChange from '../../hooks/useTimeChange'
 import './scss/index.scss'
-import { fileSizeChange } from '../../utils/utils'
+import { fileSizeChange, formatDuring } from '../../utils/utils'
+import useCapacity from '../../hooks/useCapacity'
 
 export const TaskDetail: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const history = useHistory()
-  const { id } = props.location.state
+
+  const { state: { taskId = '', taskName = '' } } = props.location
   const linkReturn = () => {
     history.go(-1)
   }
@@ -21,11 +23,12 @@ export const TaskDetail: FC<any> = (props: any) => {
     history.push({
       pathname: '/tasks/TaskEvent',
       state: {
-        id,
+        taskId,
+        taskName
       },
     })
   }
-  const [baseInfo, setBaseInfo] = useState({
+  const [baseInfo, setBaseInfo] = useState<any>({
     algoSupplier: {
       carrierNodeId: '',
       nodeIdentityId: '',
@@ -77,7 +80,7 @@ export const TaskDetail: FC<any> = (props: any) => {
     taskName: '',
   })
   useEffect(() => {
-    taskApi.querytaskInfo(id).then(res => {
+    taskApi.querytaskInfo(taskId).then(res => {
       if (res.status === 0 && res.data) {
         setBaseInfo(res.data)
       }
@@ -90,11 +93,11 @@ export const TaskDetail: FC<any> = (props: any) => {
           <div className="task-progress-left-box">
             <div className="top-title-box">
               <p className="title">{t('task.taskName')}:&nbsp;&nbsp;</p>
-              < p > { }222222222222222222</p>
+              < p > {taskName}</p>
             </div>
             <div className="top-title-box">
               <p className="title">ID:&nbsp;&nbsp;</p>
-              <p>{ }2222222222222222</p>
+              <p>{taskId}</p>
             </div>
           </div>
           <div className="progress-box">
@@ -109,10 +112,10 @@ export const TaskDetail: FC<any> = (props: any) => {
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 14 }}>
             <Form.Item label={t('task.initialAccount')}>
-              <div className="value-text">11111111111111111</div>
+              <div className="value-text">{baseInfo.applyUser}</div>
             </Form.Item>
             <Form.Item label={t('task.timeRequire')}>
-              <div className="value-text">1111111111111</div>
+              <div className="value-text">{formatDuring(baseInfo.duration)}</div>
             </Form.Item>
             <Form.Item label={t('task.computeRequire')}>
               <p className="value-text">
@@ -138,7 +141,7 @@ export const TaskDetail: FC<any> = (props: any) => {
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 14 }}>
             <Form.Item label={t('task.myCapacity')}>
-              <div className="value-text">2222222222</div>
+              <div className="value-text">{useCapacity(baseInfo.role)}</div>
             </Form.Item>
           </Form>
         </div>
@@ -151,7 +154,7 @@ export const TaskDetail: FC<any> = (props: any) => {
           <ProviderTable type="receiver" tableData={baseInfo.dataSupplier} />
         </div>
         <div className="sub-info-box">
-          <div className="title-label">{t('task.conputationProvider')}</div>
+          <div className="title-label">{t('task.powerProvider')}</div>
           <ComputingTable tableData={baseInfo.powerSupplier} />
         </div>
         <div className="sub-info-box">
@@ -163,8 +166,6 @@ export const TaskDetail: FC<any> = (props: any) => {
           <ProviderTable type="algorithmProvider" tableData={baseInfo.dataSupplier} />
         </div>
       </div>
-
-
       {/* <div className="info-box">
         <Descriptions column={2} title={`${t('task.myCapacity')} : ${t(`task.role.${baseInfo.role}`)}`}> */}
       {/* TODO 此处按照要求不展示具体信息 */}

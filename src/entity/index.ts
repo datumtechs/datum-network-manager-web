@@ -45,12 +45,12 @@ interface Row {
 
 interface taskQueryObj {
   endTime: number,
-  keyWord: string,
+  keyWord?: string,
   pageNumber: number,
   pageSize: number,
-  role: number,
+  role?: number,
   startTime: number,
-  status: string
+  status?: string
 }
 
 interface TaskObj {

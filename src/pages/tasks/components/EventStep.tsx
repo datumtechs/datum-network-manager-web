@@ -17,10 +17,10 @@ const LastStep: FC<any> = (props: any) => {
   return (
     <>
       <p>
-        {status === 'running' ? t('task.step.computing') : ''}
-        {status === 'failed' ? t('task.step.computationFailed') : ''}
+        {status === 2 ? t('task.step.computing') : ''}
+        {status === 3 ? t('task.step.computationFailed') : ''}
       </p>
-      {status === 'success' ? (
+      {status === 4 ? (
         <p>
           {t('task.step.timeSpent')}: &nbsp;{formatDuring(endAt - startAt)}
         </p>
@@ -34,12 +34,14 @@ const LastStep: FC<any> = (props: any) => {
 const EventStep: FC<any> = (props: any) => {
   const stsMap = { pending: 0, running: 1, failed: 2, success: 2 }
   const stepMap = new Map([
-    ['running', 2],
-    ['pending', 2],
-    ['failed', 2],
-    ['success', 3],
+    [1, 2],
+    [2, 2],
+    [3, 2],
+    [4, 3],
   ])
   const { status = 'running', createAt, startAt, endAt, duration } = props.data
+  console.log(status, 'status,status,status');
+
   const { Step } = Steps
   const { t } = useTranslation()
 
@@ -47,7 +49,7 @@ const EventStep: FC<any> = (props: any) => {
     <Steps
       size="small"
       labelPlacement="vertical"
-      current={status ? stepMap.get(status) : stepMap.get('running')}
+      current={status ? stepMap.get(status) : stepMap.get(1)}
       className="task-step"
     >
       <Step title={fmtTime(createAt)} icon={<StepIcon scolor="active" />} description={t('task.step.start')} />
@@ -59,7 +61,7 @@ const EventStep: FC<any> = (props: any) => {
       />
       <Step
         title={fmtTime(endAt)}
-        icon={<StepIcon scolor={(status === 'failed' && 'fail') || (status === 'success' && 'active')} />}
+        icon={<StepIcon scolor={(status === 3) || (status === 4)} />}
         description={<LastStep status={status} startAt={startAt} endAt={endAt} />}
       />
     </Steps>

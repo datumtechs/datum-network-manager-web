@@ -46,7 +46,6 @@
 
   .charts-box {
     display: flex;
-
     margin-top: 30px;
   }
 
@@ -62,6 +61,23 @@
       font-size: 14px;
       color: #3c3588;
       letter-spacing: 0;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        border-bottom: 2px solid #3c3588;
+        height: 2px;
+        width: 0%;
+        left: 0;
+        bottom: -10px;
+        transition: width 0.3s;
+      }
+      &:hover:after {
+        width: 100%;
+      }
+      &.active:after {
+        width: 100%;
+      }
     }
   }
 
@@ -182,7 +198,9 @@
       display: flex;
       margin-bottom: 20px;
       .task-progress-left-box {
-        width: 251px;
+        @media screen and (max-width: 1440px) {
+          width: 251px;
+        }
       }
     }
     .top-title-box {

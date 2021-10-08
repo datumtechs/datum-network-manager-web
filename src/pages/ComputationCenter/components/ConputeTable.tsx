@@ -20,9 +20,9 @@ const CenterTable: FC<any> = (props: any) => {
     if (all === 0) return '0'
     return (((all - used) / all) * 100).toFixed(2)
   }
-  const [dataSource, dataSourceSet] = useState([])
+  const [tableData, tableDataSet] = useState([])
 
-  const tableData = [
+  const dataSource = [
     { id: 1, identityId: 11111111, status: '1', totalCore: 11111111, totalMemory: 2222222, totalBandwidth: 3333333 }
   ]
 
@@ -63,8 +63,8 @@ const CenterTable: FC<any> = (props: any) => {
               {t('center.cores')}
             </div>
             {
-              record.status === 1 ? '' :
-                i18n.language === 'en' ? `${text} ${t('overview.occupied')}` : `${t('overview.occupied')}: ${text}`
+              record.status === '0' ? '' :
+                i18n.language === 'en' ? `${(record.usedCore * 100 / record.totalCore).toFixed(2)}% ${t('overview.occupied')}` : `${t('overview.occupied')}: ${(record.usedCore * 100 / record.totalCore).toFixed(2)}%`
             }
           </div>
         )
@@ -81,7 +81,7 @@ const CenterTable: FC<any> = (props: any) => {
               {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}
             </div>
             {
-              record.status === 1 ? '' :
+              record.status === '0' ? '' :
                 i18n.language === 'en' ? `${text} ${t('overview.occupied')}` : `${t('overview.occupied')}: ${text}`
             }
           </div>
@@ -99,7 +99,7 @@ const CenterTable: FC<any> = (props: any) => {
               {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}P/S
             </div>
             {
-              record.status === 1 ? '' :
+              record.status === '0' ? '' :
                 i18n.language === 'en' ? `${text} ${t('overview.occupied')}` : `${t('overview.occupied')}: ${text}`
             }
           </div>
@@ -108,11 +108,11 @@ const CenterTable: FC<any> = (props: any) => {
     },
   ]
   const getList = () => {
-    const param = { keyword: props.searchText, pageNumber: curPage, pageSize: 10 }
-    const apiName = props.searchText ? 'queryPCMetaDataListByKeyWord' : 'queryPCMetaDataList'
+    const param = { pageNumber: curPage, pageSize: 10 }
+    const apiName = 'queryPCMetaDataList'
     resourceApi[apiName](param).then(res => {
       if (res?.status === 0) {
-        dataSourceSet(res.data)
+        tableDataSet(res.data)
         totalSet(res.total)
       }
     })

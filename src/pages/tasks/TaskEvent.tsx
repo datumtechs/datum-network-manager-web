@@ -9,7 +9,7 @@ import { taskApi } from '../../api/index'
 
 export const TaskEvent: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
-  const { id } = props.location.state
+  const { state: { taskId = '', taskName = '' } } = props.location
   const history = useHistory()
   const linkReturn = () => {
     history.go(-1)
@@ -18,7 +18,8 @@ export const TaskEvent: FC<any> = (props: any) => {
     history.push({
       pathname: '/tasks/taskDetail',
       state: {
-        id,
+        taskId,
+        taskName
       },
     })
   }
@@ -35,7 +36,7 @@ export const TaskEvent: FC<any> = (props: any) => {
   })
 
   useEffect(() => {
-    taskApi.querytaskInfo(id).then(res => {
+    taskApi.querytaskInfo(taskId).then(res => {
       if (res.status === 0 && res.data) {
         setBaseInfo(res.data)
       }
@@ -48,11 +49,11 @@ export const TaskEvent: FC<any> = (props: any) => {
           <div className="task-progress-left-box">
             <div className="top-title-box">
               <p className="title">{t('task.taskName')}:&nbsp;&nbsp;</p>
-              <p> {baseInfo.taskName}</p>
+              <p> {taskName}</p>
             </div>
             <div className="top-title-box">
               <p className="title">ID:&nbsp;&nbsp;</p>
-              <p className="ellipsis taskId">{baseInfo.taskId}</p>
+              <p className="ellipsis taskId">{taskId}</p>
             </div>
           </div>
           <div className="progress-box">
@@ -80,7 +81,7 @@ export const TaskEvent: FC<any> = (props: any) => {
         </div>
       </div> */}
       <div className="event-table-box">
-        <EventTable id={id} />
+        <EventTable id={taskId} />
       </div>
       <div className="btn-box">
         <Space size={40}>

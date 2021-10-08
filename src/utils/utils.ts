@@ -1,4 +1,5 @@
 export const changeSizeFn = (input: number): string => {
+  if (!input) return '0B'
   let size = "";
   if (input < 0.1 * 1024) {                            // 小于0.1KB，则转化成B
     size = `${input.toFixed(2)}B`

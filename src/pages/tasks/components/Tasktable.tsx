@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
 import MyTaskStatusBar from '../../myData/DataMgt/components/MyTaskStatusBar'
+import { formatDuring } from '../../../utils/utils'
 
 const Status: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -30,19 +31,21 @@ const MyTable = (props, ref) => {
   }
   const { t } = useTranslation()
 
-  const linkToDetail = id => {
+  const linkToDetail = obj => {
     history.push({
       pathname: '/tasks/taskDetail',
       state: {
-        id,
+        taskId: obj.taskId,
+        taskName: obj.taskName
       },
     })
   }
-  const linkToEvent = id => {
+  const linkToEvent = obj => {
     history.push({
       pathname: '/tasks/TaskEvent',
       state: {
-        id,
+        taskId: obj.taskId,
+        taskName: obj.taskName
       },
     })
   }
@@ -54,15 +57,13 @@ const MyTable = (props, ref) => {
   const columns = [
     {
       title: t('common.Num'),
-      width: 60,
+      width: 30,
       render: (text, record, index) => {
         return <>
-          <p className={record.reviewed ? '' : 'new-tips'}></p>
-          <p>
-            <span>
-              {`${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`}
-            </span>
-          </p>
+          <span>
+            {`${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`}
+          </span>
+          <span className='new-tips'></span>
         </>
       }
     },
@@ -105,13 +106,20 @@ const MyTable = (props, ref) => {
       width: 100,
       render: (text, record) => {
         return <>
-          <p>{dayjs(record.taskStartTime).format('YYYY-MM-DD HH:mm:ss')}</p>
-          <p>
-            {t('myData.duration')}:{ }
-          </p>
-          <p>
-            {t('myData.timeSpent')}:{ }
-          </p>
+          <p>{dayjs(record.createAt).format('YYYY-MM-DD HH:mm:ss')}</p>
+          {
+            record.status === 3 || record.status === 4 ?
+              <p>
+                {t('myData.duration')}:&nbsp;{formatDuring(record.endAt - record.createAt)}
+              </p>
+              : ''
+          }
+          {
+            record.status === 1 || record.status === 2 ?
+              <p>
+                {t('myData.timeSpent')}:&nbsp;{formatDuring(Date.now() - record.createAt)}
+              </p> : ''
+          }
         </>
       },
     },
@@ -119,13 +127,13 @@ const MyTable = (props, ref) => {
       title: t('task.actions'),
       dataIndex: 'taskId',
       width: 100,
-      render: text => {
+      render: (text, record) => {
         return (
           <Space size={50}>
-            <p onClick={() => linkToDetail(text)} className="pointer link">
+            <p onClick={() => linkToDetail(record)} className="pointer link">
               {t('task.viewDetail')}
             </p>
-            <p onClick={() => linkToEvent(text)} className="pointer link">
+            <p onClick={() => linkToEvent(record)} className="pointer link">
               {t('task.viewEvent')}
             </p>
           </Space>

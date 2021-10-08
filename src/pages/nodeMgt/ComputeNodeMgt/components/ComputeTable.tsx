@@ -53,7 +53,7 @@ const DataTable: FC<any> = (props: any) => {
       return [...tempTableData]
     })
   }
-  const saveFn = () => { }
+
   const initTable = async () => {
     const res = await computeNodeApi.queryPowerNodeList({
       identityId: baseInfo?.identityId,
@@ -71,7 +71,23 @@ const DataTable: FC<any> = (props: any) => {
       totalSet(res.total)
     }
   }
-
+  const saveFn = (record, index) => {
+    computeNodeApi.updatePowerNode({
+      "externalIp": tempTableData[index].externalIp,
+      "externalPort": tempTableData[index].externalPort,
+      "internalIp": tempTableData[index].internalIp,
+      "internalPort": tempTableData[index].internalPort,
+      "remarks": '',
+      "powerNodeId": record.powerNodeId,
+    }).then(res => {
+      if (res.status === 0) {
+        message.success(`${t('tip.operationSucces')}`)
+        initTable()
+      } else {
+        message.error(`${t('tip.operationFailed')}`)
+      }
+    })
+  }
   useEffect(() => {
     initTable() // TODO
   }, [props.searchText, curPage])
@@ -221,6 +237,8 @@ const DataTable: FC<any> = (props: any) => {
     }
   }
 
+
+
   const columns = [
     {
       title: t('common.Num'),
@@ -339,7 +357,7 @@ const DataTable: FC<any> = (props: any) => {
 
                 {row.isEdit ? (
                   <Space size={10}>
-                    <span className="btn main_color pointer" onClick={() => saveFn()}>
+                    <span className="btn main_color pointer" onClick={() => saveFn(row, index)}>
                       {t('common.save')}
                     </span>
                     <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
@@ -364,7 +382,7 @@ const DataTable: FC<any> = (props: any) => {
               <>
                 {row.isEdit ? (
                   <Space size={10}>
-                    <span className="btn main_color pointer" onClick={() => saveFn()}>
+                    <span className="btn main_color pointer" onClick={() => saveFn(row, index)}>
                       {t('common.save')}
                     </span>
                     <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
