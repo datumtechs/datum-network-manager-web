@@ -8,78 +8,86 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
-
 import useWinWidth from '../../../../hooks/useWinWidth'
+import { overviewApi } from '../../../../api'
 
 const TaskChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
 
+  const initChart = () => {
+    overviewApi.queryMyCalculateTaskStats().then(res => {
+      const chart = echarts.init(document.getElementById('taskChart'))
+      const option = {
+        color: ['#63C7BB', '#F167A8', '#F29201', '#657ACD'],
+        grid: { left: '10%', top: '10%', right: '10%', bottom: '10%' },
+        title: {
+          zlevel: 0,
+          text: `a1a1a1`,
+          subtext: `${t('task.tasks')}`,
+          top: '50%',
+          left: '50%',
+          textAlign: 'center',
+          textStyle: {
+            color: '#3C3588',
+            fontSize: 18,
+            rich: {
+              value: {
+                color: '#303133',
+                fontSize: 24,
+                lineHeight: 24,
+              },
+              name: {
+                color: '#909399',
+                fontSize: 14,
+                lineHeight: 35,
+              },
+            },
+          },
+          subtextStyle: {
+            color: '#5D5C65 ',
+            fontSize: 12,
+          },
+        },
+        tooltip: {
+          trigger: 'item',
+        },
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: ['70%', '85%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2,
+            },
+            label: {
+              show: false,
+              position: 'center',
+            },
+            labelLine: {
+              show: false,
+            },
+            data: [
+              { value: 1048, name: t('task.success') },
+              { value: 735, name: t('task.computing') },
+              { value: 580, name: t('task.pending') },
+              { value: 484, name: t('task.failed') },
+            ],
+          },
+        ],
+      }
+      chart.setOption(option)
+      chart.resize()
+    })
+
+  }
+
+
   useEffect(() => {
-    const chart = echarts.init(document.getElementById('taskChart'))
-    const option = {
-      color: ['#63C7BB', '#F167A8', '#F29201', '#657ACD'],
-      grid: { left: '10%', top: '10%', right: '10%', bottom: '10%' },
-      title: {
-        zlevel: 0,
-        text: `a1a1a1`,
-        subtext: `${t('task.tasks')}`,
-        top: '50%',
-        left: '50%',
-        textAlign: 'center',
-        textStyle: {
-          color: '#3C3588',
-          fontSize: 18,
-          rich: {
-            value: {
-              color: '#303133',
-              fontSize: 24,
-              lineHeight: 24,
-            },
-            name: {
-              color: '#909399',
-              fontSize: 14,
-              lineHeight: 35,
-            },
-          },
-        },
-        subtextStyle: {
-          color: '#5D5C65 ',
-          fontSize: 12,
-        },
-      },
-      tooltip: {
-        trigger: 'item',
-      },
-      series: [
-        {
-          name: '',
-          type: 'pie',
-          radius: ['70%', '85%'],
-          avoidLabelOverlap: false,
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: '#fff',
-            borderWidth: 2,
-          },
-          label: {
-            show: false,
-            position: 'center',
-          },
-          labelLine: {
-            show: false,
-          },
-          data: [
-            { value: 1048, name: t('task.success') },
-            { value: 735, name: t('task.computing') },
-            { value: 580, name: t('task.pending') },
-            { value: 484, name: t('task.failed') },
-          ],
-        },
-      ],
-    }
-    chart.setOption(option)
-    chart.resize()
+    initChart()
   }, [width, i18n.language])
 
   return (

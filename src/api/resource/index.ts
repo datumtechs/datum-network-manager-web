@@ -97,7 +97,7 @@ const resourceApi = {
   queryDCMetaDataInfo(data: string): Promise<any> {
     return axios({
       method: 'GET',
-      url: `/api/v1/resource/datacenter/metaDataInfo?id=${data}`,
+      url: `/api/v1/resource/datacenter/metaDataInfo?metaDataId=${data}`,
     })
   },
 
@@ -145,6 +145,16 @@ const resourceApi = {
       data,
     })
   },
+
+  // 全网算力或者数据走势
+  queryWholeNetDateOrPower(data: any): Promise<any> {
+    return axios({
+      method: 'POST',
+      url: `/api/v1/system/index/queryWholeNetDateOrPower`,
+      data,
+    })
+  },
+
 }
 
 export default resourceApi

@@ -23,11 +23,11 @@ const Status: FC<any> = (props: any) => {
 }
 
 const MyTable = (props, ref) => {
-  const { tableData, total } = props
+  const { tableData, total, pageNumber } = props
   const history = useHistory()
   const pagination = {
     current: 1,
-    defaultPageSize: 10,
+    defaultPageSize: 5,
   }
   const { t } = useTranslation()
 
@@ -61,7 +61,7 @@ const MyTable = (props, ref) => {
       render: (text, record, index) => {
         return <>
           <span>
-            {`${(pagination.current - 1) * pagination.defaultPageSize + (index + 1)}`}
+            {`${(pageNumber - 1) * pagination.defaultPageSize + (index + 1)}`}
           </span>
           <span className='new-tips'></span>
         </>

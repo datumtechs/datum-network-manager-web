@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Table, Space, Tooltip } from 'antd'
 import { resourceApi } from '../../../api/index'
+import { changeSizeFn } from '../../../utils/utils'
 import '../scss/index.scss'
 
 const MetaTable: FC<any> = (props: any) => {
@@ -57,19 +58,27 @@ const MetaTable: FC<any> = (props: any) => {
     {
       title: t('center.dataProviderAndIdentifier'),
       render: (text, record) => {
-        return <>{record.remarks}</>
+        return <>
+          <div>{record.orgName}</div>
+          <Tooltip title={record.identityId}>
+            <div className="ellipsis" style={{ whiteSpace: 'nowrap' }}>
+              ID: &nbsp;{record.identityId}
+            </div>
+          </Tooltip>
+        </>
       },
     },
     {
       title: t('center.dataSize'),
+      width: 120,
       render: (text, record) => {
-        return <>{record.remarks}</>
+        return <>{changeSizeFn(record.size)}</>
       },
     },
     {
       title: t('myData.metaDataPublishTime'),
       render: (text, record) => {
-        return <>{record.remarks}</>
+        return <>{record.publishTime}</>
       },
     },
     {

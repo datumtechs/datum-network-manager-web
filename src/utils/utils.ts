@@ -20,6 +20,29 @@ export const changeSizeFn = (input: number): string => {
   return size;
 }
 
+export const changeSizeObj = (input: number): any => {
+  if (!input) return '0B'
+  let size: string
+  let unit: string
+  if (input < 0.1 * 1024) {                            // 小于0.1KB，则转化成B
+    size = `${input.toFixed(2)}`
+    unit = 'B'
+  } else if (input < 0.1 * 1024 * 1024) {            // 小于0.1MB，则转化成KB
+    size = `${(input / 1024).toFixed(2)}`
+    unit = 'KB'
+  } else if (input < 0.1 * 1024 * 1024 * 1024) {        // 小于0.1GB，则转化成MB
+    size = `${(input / (1024 * 1024)).toFixed(2)}`
+    unit = 'MB'
+  } else {                                            // 其他转化成GB
+    size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}`
+    unit = 'GB'
+  }
+
+  return { size, unit };
+}
+
+
+
 const isZeroEnd = (input) => {
   const sizeStr = `${input}`
   const index = sizeStr.indexOf('.')

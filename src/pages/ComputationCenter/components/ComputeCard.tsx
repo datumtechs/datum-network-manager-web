@@ -3,6 +3,7 @@ import { Progress } from 'antd'
 import useWinWidth from '../../../hooks/useWinWidth'
 
 
+
 const ComputeCard: FC<any> = (props: any) => {
 
   const size = useWinWidth()
@@ -17,23 +18,24 @@ const ComputeCard: FC<any> = (props: any) => {
   }, [size.width])
 
   console.log(size.width);
-  const { label, bgColor, value, precent } = props
+  const { label, bgColor, value, percent, unit } = props
   return <div className="center-compute-card" style={{ 'backgroundColor': bgColor }}>
     <div className="center-compute-card-left">
       <div className="center-compute-card-title">
         {label}
       </div>
       <div className="center-compute-card-content">
-        <span className="value">{value}.11111</span>
-        <span className="unit">unit</span>
+        <span className="value">{value}</span>
+        <span className="unit" style={{ paddingLeft: '5px' }}>{unit}</span>
       </div>
     </div>
-    <Progress className="center-compute-card-progress" percent={Number(precent)} type="circle"
+    <Progress className="center-compute-card-progress" percent={Number(percent)} type="circle"
+      status="normal"
       width={progressSize}
       strokeWidth={10}
       trailColor="rgba(255,255,255,0.2)"
       strokeColor="#FFF" />
-  </div>
+  </div >
 }
 
 export default ComputeCard

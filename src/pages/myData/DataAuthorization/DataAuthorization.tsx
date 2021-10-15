@@ -94,9 +94,8 @@ export const DataAuthorization: FC<any> = props => {
   {
     title: t('myData.authStartTime'),
     render: (text, record, index) => {
-      return <>
-        <p>{dayjs(record.reateAt).format('YYYY-MM-DD HH:mm:ss')}</p>
-      </>
+      return <p>{dayjs(record.createAt).format('YYYY-MM-DD HH:mm:ss')}</p>
+
     }
   },
   {

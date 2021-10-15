@@ -199,6 +199,7 @@ export const Tasks: FC<any> = () => {
         <Tasktable
           tableData={tableData}
           // tableData={dataScource}
+          pageNumber={pageNumber}
           total={total} pageChange={pageChange} />
       </div>
     </div>

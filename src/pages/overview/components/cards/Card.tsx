@@ -3,15 +3,16 @@ import { Progress } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 const Card: FC<any> = (props: any) => {
-  const { precent, type, bgColor } = props
+  const { precent, type, bgColor, unit, value } = props
+
   const { t } = useTranslation()
   return (
     <div className="overview-card item" style={{ backgroundColor: bgColor }}>
       <div className="overview-card-left">
         <div className="title">{t(`overview.${type}`)}</div>
         <div className="content">
-          <span className="value">812.88</span>
-          <span className="unit">MBp/s</span>
+          <span className="value">{value}</span>
+          <span className="unit">{unit}</span>
         </div>
       </div>
       <div className="overview-card-right">

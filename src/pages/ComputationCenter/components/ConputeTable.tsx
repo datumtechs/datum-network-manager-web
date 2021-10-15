@@ -64,7 +64,9 @@ const CenterTable: FC<any> = (props: any) => {
             </div>
             {
               record.status === '0' ? '' :
-                i18n.language === 'en' ? `${(record.usedCore * 100 / record.totalCore).toFixed(2)}% ${t('overview.occupied')}` : `${t('overview.occupied')}: ${(record.usedCore * 100 / record.totalCore).toFixed(2)}%`
+                i18n.language === 'en' ?
+                  record.totalCore === 0 ? `0% ${t('overview.occupied')}` : `${(record.usedCore * 100 / record.totalCore).toFixed(2)}% ${t('overview.occupied')}`
+                  : record.totalCore === 0 ? `${t('overview.occupied')}: 0%` : `${t('overview.occupied')}: ${(record.usedCore * 100 / record.totalCore).toFixed(2)}%`
             }
           </div>
         )
@@ -82,7 +84,9 @@ const CenterTable: FC<any> = (props: any) => {
             </div>
             {
               record.status === '0' ? '' :
-                i18n.language === 'en' ? `${text} ${t('overview.occupied')}` : `${t('overview.occupied')}: ${text}`
+                i18n.language === 'en' ?
+                  record.totalMemory === 0 ? `0% ${t('overview.occupied')}` : `${(record.usedMemory * 100 / record.totalMemory).toFixed(2)}% ${t('overview.occupied')}`
+                  : record.totalMemory === 0 ? `${t('overview.occupied')}: 0%` : `${t('overview.occupied')}: ${(record.usedMemory * 100 / record.totalMemory).toFixed(2)}%`
             }
           </div>
         )
@@ -100,7 +104,9 @@ const CenterTable: FC<any> = (props: any) => {
             </div>
             {
               record.status === '0' ? '' :
-                i18n.language === 'en' ? `${text} ${t('overview.occupied')}` : `${t('overview.occupied')}: ${text}`
+                i18n.language === 'en' ?
+                  record.totalBandwidth === 0 ? `0% ${t('overview.occupied')}` : `${(record.usedBandwidth * 100 / record.totalBandwidth).toFixed(2)}% ${t('overview.occupied')}`
+                  : record.totalBandwidth === 0 ? `${t('overview.occupied')}: 0%` : `${t('overview.occupied')}: ${(record.usedBandwidth * 100 / record.totalBandwidth).toFixed(2)}%`
             }
           </div>
         )
