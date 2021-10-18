@@ -10,8 +10,8 @@ const AmountCard: FC<any> = (props: any) => {
   const { dataSwitch } = props.state
 
   const [ratio, ratioSet] = useState({
-    ringRatio: '',
-    sameRatio: '',
+    ringRatio: 0,
+    sameRatio: 0,
   })
 
   useEffect(() => {
@@ -32,14 +32,14 @@ const AmountCard: FC<any> = (props: any) => {
         <div className="upRatio">
           <div className="ratio-line">
             <img src={upIcon} alt="" />
-            <p className="success_color">{ratio.sameRatio}%</p>
+            <p className="success_color">{ratio?.sameRatio}%</p>
           </div>
           <p className="name">{t('overview.mom')}</p>
         </div>
         <div className="downRatio">
           <div className="ratio-line">
             <img src={downIcon} alt="" />
-            <p className="failed_color">{ratio.ringRatio}%</p>
+            <p className="failed_color">{ratio?.ringRatio}%</p>
           </div>
           <p className="name">{t('overview.wow')}</p>
         </div>

@@ -209,11 +209,11 @@ export const DataDetail: FC<any> = (props: any) => {
         industrySet(data.industry)
         remarksSet(data.remarks)
         setOriginalData(data.localMetaDataColumnList)
+        setTotal(data.localMetaDataColumnList?.length)
         setTableData(getShowSource(data.localMetaDataColumnList))
       }
     })
-
-  }, [])
+  }, [curPage])
 
   return (<div className="layout-box">
     <div className="add-data-box">

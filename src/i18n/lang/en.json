@@ -58,7 +58,8 @@
     "connectNum": "Number of connected external organizations",
     "rosettaMemory": "RosettaNet Memory",
     "rosettaCpu": "RosettaNet CPU",
-    "rosettaBandwidth": "RosettaNet Bandwidth"
+    "rosettaBandwidth": "RosettaNet Bandwidth",
+    "viewAll": "View all"
   },
   "menu": {
     "systemOverview": "System Overview",

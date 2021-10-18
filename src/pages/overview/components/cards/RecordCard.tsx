@@ -1,4 +1,5 @@
 import { FC, useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
 import emphasizeSvg from '../../../../assets/images/8.icon1.svg'
@@ -8,11 +9,16 @@ import { overviewApi } from '../../../../api'
 const RecordCard: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const [dataList, dataListSet] = useState<any>([])
+  const history = useHistory()
 
   const queryData = () => {
     overviewApi.queryWaitAuthDataList().then(res => {
       dataListSet(res.data)
     })
+  }
+
+  const linkToAuthorization = () => {
+    history.push('/myData/dataAuthorization')
   }
 
   useEffect(() => {
@@ -74,6 +80,7 @@ const RecordCard: FC<any> = (props: any) => {
   return (
     <div className="overview-authorization item">
       <div className="data-name">{t('overview.dataAuthorizationApplication')}</div>
+      <div className="pointer view-link" onClick={linkToAuthorization}>{t('overview.viewAll')}</div>
       <div className="auth-list">
         {dataList.map(item => {
           return (
@@ -87,7 +94,7 @@ const RecordCard: FC<any> = (props: any) => {
           )
         })}
       </div>
-    </div>
+    </div >
   )
 }
 

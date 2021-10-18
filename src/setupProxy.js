@@ -5,7 +5,7 @@ const {
 module.exports = function (app) {
   app.use(
     createProxyMiddleware('/metis-admin', {
-      // target: 'http://192.168.21.201:9090', // 树禹
+      // target: 'http://192.168.10.146:9091',
       target: 'http://192.168.120.157:9090',
       changeOrigin: true,
       pathRewrite: {

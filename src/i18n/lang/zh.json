@@ -58,7 +58,8 @@
     "connectNum": "连接外部组织的数量",
     "rosettaMemory": "RosettaNet 总内存",
     "rosettaCpu": "RosettaNet 总CPU",
-    "rosettaBandwidth": "RosettaNet 总带宽"
+    "rosettaBandwidth": "RosettaNet 总带宽",
+    "viewAll": "查看全部"
   },
   "menu": {
     "systemOverview": "系统概况",

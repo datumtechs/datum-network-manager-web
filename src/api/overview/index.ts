@@ -65,6 +65,11 @@ const overviewApi = {
       url: `/api/v1/system/index/queryWaitAuthDataList`,
     })
   },
+
+  // 查询发布数据 /api/v1/system/index/listGlobalPowerStatsTrend
+
+  // 全网走势 /api/v1/system/index/listGlobalDataFileStatsTrend
+
 }
 
 
