@@ -20,7 +20,7 @@ const overviewApi = {
   queryUsedTotalResource(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/index/queryUsedTotalResource`,
+      url: `/api/v1/system/index/localPowerUsage`,
     })
   },
 
@@ -32,14 +32,22 @@ const overviewApi = {
     })
   },
 
-  // 查询我发布的数据或算力
-  queryPublishDataOrPower(data): Promise<any> {
+  // 查询我发布的数据
+  localDataFileStatsTrendMonthly(): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/system/index/queryPublishDataOrPower`,
-      data
+      url: `/api/v1/system/index/localDataFileStatsTrendMonthly`,
     })
   },
+
+  // 查询我发布的算力
+  localPowerStatsTrendMonthly(): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/system/index/localPowerStatsTrendMonthly`,
+    })
+  },
+
 
   // 查询全网数据或算力环比
   queryWholeNetDateRatio(): Promise<any> {
@@ -49,12 +57,20 @@ const overviewApi = {
     })
   },
 
-  // 查询全网数据或算力总量走势
-  queryWholeNetDateOrPower(data): Promise<any> {
+
+  // 查询全网算力走势
+  globalPowerStatsTrendMonthly(): Promise<any> {
     return axios({
-      method: "POST",
-      url: `/api/v1/system/index/queryWholeNetDateOrPower`,
-      data
+      method: "GET",
+      url: `/api/v1/system/index/globalPowerStatsTrendMonthly`,
+    })
+  },
+
+  // 查询全网数据走势
+  globalDataFileStatsTrendMonthly(): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/system/index/globalDataFileStatsTrendMonthly`,
     })
   },
 

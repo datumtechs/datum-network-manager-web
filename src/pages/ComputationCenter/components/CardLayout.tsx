@@ -20,7 +20,9 @@ const CardLayout: FC<any> = (props: any) => {
 
   const queryUsedTotalResource = () => {
     overviewApi.queryUsedTotalResource().then(res => {
-      totalResourceSet(res.data)
+      if (res.status === 0 && res.data) {
+        totalResourceSet(res.data)
+      }
     })
   }
 

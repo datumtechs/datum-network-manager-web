@@ -146,12 +146,11 @@ const resourceApi = {
     })
   },
 
-  // 全网算力或者数据走势
-  queryWholeNetDateOrPower(data: any): Promise<any> {
+  // 全网数据走势
+  globalDataFileStatsTrendDaily(): Promise<any> {
     return axios({
-      method: 'POST',
-      url: `/api/v1/system/index/queryWholeNetDateOrPower`,
-      data,
+      method: 'GET',
+      url: `/api/v1/resource/datacenter/globalDataFileStatsTrendDaily`,
     })
   },
 

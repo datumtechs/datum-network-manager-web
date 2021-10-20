@@ -9,6 +9,7 @@ import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import useWinWidth from '../../../../hooks/useWinWidth'
+import { overviewApi } from '../../../../api'
 
 const TrendChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -27,61 +28,81 @@ const TrendChart: FC<any> = (props: any) => {
     curSwitchSet(type)
     props.setDataSwitch(type)
   }
+  const option = {
+    grid: { left: 70, top: 30, right: 10, bottom: 20 },
+    tooltip: {
+      trigger: 'item',
+    },
+    xAxis: {
+      type: 'category',
+      data: getMonthsByNumber(12),
+    },
+    yAxis: [
+      {
+        name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
+        nameTextStyle: { align: 'center' },
+        axisLabel: {
+          fontSize: 12,
+          color: '#8E9EB9',
+          formatter: params => params,
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#F0F3F6',
+            width: 1,
+          },
+        },
+        type: 'value',
+        scale: true,
+      },
+    ],
+    series: [
+      {
+        name: t('overview.totalData'),
+        type: 'line',
+        symbolSize: 7,
+        itemStyle: {
+          color: '#FFA505',
+        },
+        lineStyle: {
+          width: 3,
+          color: '#FFA505',
+        },
+        smooth: true,
+        data: [],
+        label: {
+          formatter: params => {
+            console.log(params)
+            return t(params.name)
+          },
+        },
+      },
+    ],
+  }
   useEffect(() => {
     const chart = echarts.init(document.getElementById('totalData'))
-    const option = {
-      grid: { left: 70, top: 30, right: 10, bottom: 20 },
-      tooltip: {
-        trigger: 'item',
-      },
-      xAxis: {
-        type: 'category',
-        data: getMonthsByNumber(12),
-      },
-      yAxis: [
-        {
-          name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
-          nameTextStyle: { align: 'center' },
-          axisLabel: {
-            fontSize: 12,
-            color: '#8E9EB9',
-            formatter: params => params,
-          },
-          splitLine: {
-            lineStyle: {
-              color: '#F0F3F6',
-              width: 1,
-            },
-          },
-          type: 'value',
-          scale: true,
-        },
-      ],
-      series: [
-        {
-          name: t('overview.totalData'),
-          type: 'line',
-          symbolSize: 7,
-          itemStyle: {
-            color: '#FFA505',
-          },
-          lineStyle: {
-            width: 3,
-            color: '#FFA505',
-          },
-          smooth: true,
-          data: [820, 932, 901, 934, 1290, 1330, 820, 932, 901, 934, 1290, 1330],
-          label: {
-            formatter: params => {
-              console.log(params)
-              return t(params.name)
-            },
-          },
-        },
-      ],
+    if (curSwitch === 'data') {
+      overviewApi.globalDataFileStatsTrendMonthly().then(res => {
+        option.series[0].data = res.data.map(data => data.totalValue)
+        chart.setOption(option)
+        chart.resize()
+      })
+    } else {
+      overviewApi.globalPowerStatsTrendMonthly().then(res => {
+        option.series[0].data = res.data.map(data => data.totalValue)
+        chart.setOption(option)
+        chart.resize()
+      })
     }
-    chart.setOption(option)
-    chart.resize()
+    // overviewApi.globalPowerStatsTrendMonthly(
+    // ).then(res => {
+    //   if (res.status === 0) {
+    //     option.series[0].data = res.data
+    //     chart.setOption(option)
+    //     chart.resize()
+    //   }
+    // })
+
   }, [width, i18n.language, curSwitch])
   return (
     <div className="overview-data-amount1 item">

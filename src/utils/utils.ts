@@ -21,7 +21,7 @@ export const changeSizeFn = (input: number): string => {
 }
 
 export const changeSizeObj = (input: number): any => {
-  if (!input) return '0B'
+  if (!input) return { size: 0, unit: '' };
   let size: string
   let unit: string
   if (input < 0.1 * 1024) {                            // 小于0.1KB，则转化成B
@@ -84,6 +84,5 @@ export const formatDuring = time => {
   const minutes = parseInt(`${(time % (1000 * 60 * 60)) / (1000 * 60)}`, 10)
   const seconds = parseInt(`${(time % (1000 * 60)) / 1000}`, 10)
   return `${_isZero(hours)}:${_isZero(minutes)}:${_isZero(seconds)}`
-
 }
 

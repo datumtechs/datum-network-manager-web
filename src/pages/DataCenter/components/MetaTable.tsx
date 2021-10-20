@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+import dayjs from 'dayjs'
 import { Table, Space, Tooltip } from 'antd'
 import { resourceApi } from '../../../api/index'
 import { changeSizeFn } from '../../../utils/utils'
@@ -78,7 +79,7 @@ const MetaTable: FC<any> = (props: any) => {
     {
       title: t('myData.metaDataPublishTime'),
       render: (text, record) => {
-        return <>{record.publishTime}</>
+        return <>{dayjs(record.publishTime).format('YYYY-MM-DD HH:mm:ss')}</>
       },
     },
     {

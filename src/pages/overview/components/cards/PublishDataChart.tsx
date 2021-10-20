@@ -9,6 +9,7 @@ import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import useWinWidth from '../../../../hooks/useWinWidth'
+import { overviewApi } from '../../../../api'
 
 const PublishDataChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -26,96 +27,115 @@ const PublishDataChart: FC<any> = (props: any) => {
 
   const switchData = type => curSwitchSet(type)
 
+  const option = {
+    grid: { left: 50, top: 40, right: 60, bottom: 20 },
+    tooltip: {
+      trigger: 'item',
+    },
+    xAxis: {
+      type: 'category',
+      data: getMonthsByNumber(12),
+    },
+    yAxis: [
+      {
+        name: t('overview.growth'),
+        nameTextStyle: { align: 'right' },
+        axisLabel: {
+          fontSize: 12,
+          color: '#8E9EB9',
+          formatter: params => params,
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#F0F3F6',
+            width: 1,
+          },
+        },
+
+        type: 'value',
+        scale: true,
+      },
+      {
+        name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
+        nameTextStyle: { align: 'center' },
+        axisLabel: {
+          fontSize: 12,
+          color: '#8E9EB9',
+          formatter: params => params,
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#F0F3F6',
+            width: 1,
+          },
+        },
+        type: 'value',
+        scale: true,
+      },
+    ],
+    series: [
+      {
+        name: t('overview.growth'),
+        type: 'bar',
+        yAxisIndex: 0,
+        barWidth: '30%',
+        itemStyle: {
+          color: '#3C3588',
+        },
+        data: [],
+        label: {
+          formatter: params => {
+            console.log(params.name)
+            return t(params.name)
+          },
+        },
+      },
+      {
+        name: t('overview.totalData'),
+        type: 'line',
+        yAxisIndex: 1,
+        symbolSize: 7,
+        itemStyle: {
+          color: '#FFA505',
+        },
+        lineStyle: {
+          width: 4,
+          color: '#FFA505',
+        },
+        smooth: true,
+        data: [],
+        label: {
+          formatter: params => {
+            console.log(params)
+            return t(params.name)
+          },
+        },
+      },
+    ],
+  }
+
   useEffect(() => {
     const chart = echarts.init(document.getElementById('publishData'))
-    const option = {
-      grid: { left: 50, top: 40, right: 60, bottom: 20 },
-      tooltip: {
-        trigger: 'item',
-      },
-      xAxis: {
-        type: 'category',
-        data: getMonthsByNumber(12),
-      },
-      yAxis: [
-        {
-          name: t('overview.growth'),
-          nameTextStyle: { align: 'right' },
-          axisLabel: {
-            fontSize: 12,
-            color: '#8E9EB9',
-            formatter: params => params,
-          },
-          splitLine: {
-            lineStyle: {
-              color: '#F0F3F6',
-              width: 1,
-            },
-          },
-
-          type: 'value',
-          scale: true,
-        },
-        {
-          name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
-          nameTextStyle: { align: 'center' },
-          axisLabel: {
-            fontSize: 12,
-            color: '#8E9EB9',
-            formatter: params => params,
-          },
-          splitLine: {
-            lineStyle: {
-              color: '#F0F3F6',
-              width: 1,
-            },
-          },
-          type: 'value',
-          scale: true,
-        },
-      ],
-      series: [
-        {
-          name: t('overview.growth'),
-          type: 'bar',
-          yAxisIndex: 0,
-          barWidth: '30%',
-          itemStyle: {
-            color: '#3C3588',
-          },
-          data: [820, 932, 901, 934, 1290, 1330, 820, 932, 901, 934, 1290, 1330],
-          label: {
-            formatter: params => {
-              console.log(params.name)
-              return t(params.name)
-            },
-          },
-        },
-        {
-          name: t('overview.totalData'),
-          type: 'line',
-          yAxisIndex: 1,
-          symbolSize: 7,
-          itemStyle: {
-            color: '#FFA505',
-          },
-          lineStyle: {
-            width: 4,
-            color: '#FFA505',
-          },
-          smooth: true,
-          data: [820, 932, 901, 934, 1290, 1330, 820, 932, 901, 934, 1290, 1330],
-          label: {
-            formatter: params => {
-              console.log(params)
-              return t(params.name)
-            },
-          },
-        },
-      ],
+    if (curSwitch === 'data') {
+      overviewApi.localDataFileStatsTrendMonthly().then(res => {
+        if (res.status === 0 && res.data) {
+          option.series[0].data = res.data.map(data => data.incrementValue)
+          option.series[1].data = res.data.map(data => data.totalValue)
+          chart.setOption(option)
+          chart.resize()
+        }
+      })
+    } else {
+      overviewApi.localPowerStatsTrendMonthly().then(res => {
+        if (res.status === 0 && res.data) {
+          option.series[0].data = res.data.map(data => data.incrementValue)
+          option.series[1].data = res.data.map(data => data.totalValue)
+          chart.setOption(option)
+          chart.resize()
+        }
+      })
     }
-    chart.setOption(option)
-    chart.resize()
+
   }, [width, i18n.language, curSwitch])
 
   return (

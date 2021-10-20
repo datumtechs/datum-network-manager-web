@@ -24,7 +24,9 @@ export const Overview: FC<any> = () => {
   })
   const queryTotalResourced = (): void => {
     overviewApi.queryUsedTotalResource().then(res => {
-      totalResourceSet(res.data)
+      if (res.status === 0 && res.data) {
+        totalResourceSet(res.data)
+      }
     })
   }
 
@@ -39,8 +41,8 @@ export const Overview: FC<any> = () => {
         <div className="overview-left">
           <div className="overview-content-box">
             <Card type="cpu" bgColor="#657ACD" precent={19} value={totalResource?.usedCore} unit={t('overview.core')} />
-            <Card type="memory" bgColor="#4F9CFF" precent={49} value={changeSizeObj(totalResource?.usedMemory).size} unit={changeSizeObj(totalResource.usedMemory).unit} />
-            <Card type="bandwidth" bgColor="#FF7688" precent={39} value={changeSizeObj(totalResource?.usedBandwidth).size} unit={`${changeSizeObj(totalResource.usedBandwidth).unit}P/S`} />
+            <Card type="memory" bgColor="#4F9CFF" precent={49} value={changeSizeObj(totalResource?.usedMemory) ? changeSizeObj(totalResource?.usedMemory).size : 0} unit={changeSizeObj(totalResource.usedMemory).unit} />
+            <Card type="bandwidth" bgColor="#FF7688" precent={39} value={changeSizeObj(totalResource?.usedBandwidth) ? changeSizeObj(totalResource?.usedBandwidth).size : 0} unit={changeSizeObj(totalResource.usedBandwidth) ? `${changeSizeObj(totalResource.usedBandwidth).unit}P/S` : 0} />
           </div>
           <div className="overview-publish-data item">
             <PublishDataChart />
