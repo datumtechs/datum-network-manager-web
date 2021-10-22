@@ -25,6 +25,13 @@ const ProviderTable: FC<any> = (props: any) => {
       title: t('task.name'),
       width: 300,
       dataIndex: 'nodeName',
+      render: (text, record, index) => {
+        return (
+          <div>
+            <span>{text}</span> <span>({record.partyId})</span>
+          </div>
+        )
+      }
     },
     {
       title: t('task.identity'),
