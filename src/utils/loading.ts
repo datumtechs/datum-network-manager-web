@@ -7,21 +7,20 @@ export const requestLoading = {
   add(str: string) {
     if (!noInclude.includes(str)) {
       queryList.add(str)
-      appStore.dispatch({ type: 'Loading', data: true })
+      appStore.dispatch({ type: 'LOADING', data: true })
     }
   },
   del(str) {
     if (!noInclude.includes(str)) {
       queryList.delete(str)
-      const list = Array.from(queryList)
-      if (!list.length) {
-        appStore.dispatch({ type: 'Loading', data: false })
+      if (!queryList.size) {
+        appStore.dispatch({ type: 'LOADING', data: false })
       }
     }
   },
   reset() {
     queryList.clear()
-    appStore.dispatch({ type: 'Loading', data: false })
+    appStore.dispatch({ type: 'LOADING', data: false })
   },
   upLoading() {
     console.log('kong');

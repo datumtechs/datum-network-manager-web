@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../actionType/index'
+import { LOADING } from '../actionType/index'
 
 
 interface ReduxState {
@@ -17,7 +17,7 @@ const initData = {
 const Loading = (state: ReduxState = initData, action: loginAction) => {
   // console.log(action);
   switch (action.type) {
-    case 'Loading':
+    case LOADING:
       return {
         Loading: action.data
       }
