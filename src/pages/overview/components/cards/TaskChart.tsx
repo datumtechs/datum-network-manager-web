@@ -110,8 +110,8 @@ const TaskChart: FC<any> = (props: any) => {
             statusMap.set('success', data.statusCount)
           }
         })
-        console.log(statusMap);
-        console.log(statusMap.get('pending'));
+        // console.log(statusMap);
+        // console.log(statusMap.get('pending'));
 
         option.series[0].data[0].value = getValue('pending') //  statusMap.get('pending') ? Number(statusMap.get('pending')) : 0
         option.series[0].data[1].value = getValue('running') // statusMap.get('running') ? Number(statusMap.get('running')) : 0
@@ -121,7 +121,7 @@ const TaskChart: FC<any> = (props: any) => {
         runningNumSet(getValue('running'))
         failedNumSet(getValue('failed'))
         successNumSet(getValue('success'))
-        option.title.text = `${Number(pendingNum) + Number(runningNum) + Number(failedNum) + Number(successNum)}`
+        option.title.text = `${Number(getValue('pending')) + Number(getValue('running')) + Number(getValue('failed')) + Number(getValue('success'))}`
         chart.setOption(option)
         chart.resize()
       }

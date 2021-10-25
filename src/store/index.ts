@@ -9,6 +9,7 @@ import org from './reducers/org'
 import isReg from './reducers/isReg'
 import baseInfo from './reducers/baseInfo'
 import dataSwitch from './reducers/dataSwitch'
+import Loading from './reducers/loading'
 
 const allReducers = combineReducers({
   isReg,
@@ -17,7 +18,8 @@ const allReducers = combineReducers({
   tableData,
   org,
   baseInfo,
-  dataSwitch
+  dataSwitch,
+  Loading
 })
 const enhancers = applyMiddleware(reduxThunk);
 const appStore = createStore(allReducers, composeWithDevTools(...[enhancers]))

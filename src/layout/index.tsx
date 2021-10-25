@@ -29,6 +29,7 @@ export const BaseInfoContext = createContext<any>({
 
 // import { getPageTitle, systemRouteList } from '../router/utils';
 const Layout = (props: any) => {
+  const { state: { Loading } } = props
   const history = useHistory()
   const [isLoading, isLoadingSet] = useState<boolean>(false)
   const [info, setInfo] = useState<BaseInfo>({
@@ -73,11 +74,12 @@ const Layout = (props: any) => {
         <div className="main-box">
           <Header className="header-container" />
           <div className={pathname === '/overview' ? 'wrapper-box' : 'main-wrapper-box '}>
-            {isLoading ? (
+            {/* {isLoading ? (
               <div className="layout__loading">
                 <Spin size="large" />
               </div>
-            ) : (
+            ) : ( */}
+            <Spin spinning={Loading.Loading}>
               <Suspense
                 fallback={
                   <div className="layout__loading">
@@ -101,7 +103,8 @@ const Layout = (props: any) => {
                   <Redirect from="/*" exact to="/overview" push />
                 </Switch>
               </Suspense>
-            )}
+            </Spin>
+            {/* )} */}
           </div>
         </div>
       </div>

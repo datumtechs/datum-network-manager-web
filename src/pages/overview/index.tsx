@@ -5,7 +5,7 @@ import { overviewApi } from '../../api/index'
 import Card from './components/cards/Card'
 import PublishDataChart from './components/cards/PublishDataChart'
 import DataTrendChart from './components/cards/DataTrendChart'
-import DataAmountCard from './components/cards/DataAmountCard'
+// import DataAmountCard from './components/cards/DataAmountCard'
 import TaskChart from './components/cards/TaskChart'
 import RecordCard from './components/cards/RecordCard'
 import './scss/index.scss'
@@ -49,7 +49,7 @@ export const Overview: FC<any> = () => {
           </div>
           <div className="overview-data-box">
             <DataTrendChart />
-            <DataAmountCard />
+            {/* <DataAmountCard /> */}
           </div>
         </div>
         <div className="overview-right">
