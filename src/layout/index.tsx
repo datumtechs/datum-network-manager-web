@@ -79,7 +79,8 @@ const Layout = (props: any) => {
                 <Spin size="large" />
               </div>
             ) : ( */}
-            <Spin spinning={Loading.Loading}>
+            {/* <Spin spinning={Loading.Loading}> */}
+            <Spin size="large" spinning={Loading.Loading} style={{ height: '90vh', maxHeight: '90vh' }}>
               <Suspense
                 fallback={
                   <div className="layout__loading">
