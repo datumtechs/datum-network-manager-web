@@ -6,7 +6,16 @@ const taskApi = {
   taskListByQuery(data: taskQueryObj): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/task/mytask/taskListByQuery`,
+      url: `/api/v1/task/mytask/listMyTask`,
+      data
+    })
+  },
+
+  // 获取计算任务详情
+  taskDetailsByQuery(data: taskQueryObj): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/task/mytask/myTaskStatistics`,
       data
     })
   },

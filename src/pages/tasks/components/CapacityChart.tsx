@@ -18,11 +18,11 @@ const CapacityChart: FC<any> = (props: any) => {
 
 
   const capaList = [
-    { id: 1, label: t('task.sponsor'), color: '#63C7BB', value: capacityObj.ownerCount, par: capacityObj.ownerCount ? `${(capacityObj.ownerCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
-    { id: 2, label: t('task.receiver'), color: '#F167A8', value: capacityObj.receiverCount, par: capacityObj.receiverCount ? `${(capacityObj.receiverCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
-    { id: 3, label: t('task.powerProvider'), color: '#657ACD', value: capacityObj.powerSupplierCount, par: capacityObj.powerSupplierCount ? `${(capacityObj.powerSupplierCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
-    { id: 4, label: t('task.dataProvider'), color: '#FFA958', value: capacityObj.dataSupplierCount, par: capacityObj.dataSupplierCount ? `${(capacityObj.dataSupplierCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
-    { id: 5, label: t('task.algorithmProvider'), color: '#F2DB01', value: capacityObj.algoSupplierCount, par: capacityObj.algoSupplierCount ? `${(capacityObj.algoSupplierCount * 100 / capacityObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
+    { id: 1, label: t('task.sponsor'), color: '#63C7BB', value: capacityObj.ownerCount, par: capacityObj.ownerCount ? `${(capacityObj.ownerCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 2, label: t('task.receiver'), color: '#F167A8', value: capacityObj.resultReceiverCount, par: capacityObj.resultReceiverCount ? `${(capacityObj.resultReceiverCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 3, label: t('task.powerProvider'), color: '#657ACD', value: capacityObj.powerProviderCount, par: capacityObj.powerProviderCount ? `${(capacityObj.powerProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 4, label: t('task.dataProvider'), color: '#FFA958', value: capacityObj.dataProviderCount, par: capacityObj.dataProviderCount ? `${(capacityObj.dataProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 5, label: t('task.algorithmProvider'), color: '#F2DB01', value: capacityObj.algoProviderCount, par: capacityObj.algoProviderCount ? `${(capacityObj.algoProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
   ]
 
   const handleClick = (prarms) => {
@@ -88,10 +88,10 @@ const CapacityChart: FC<any> = (props: any) => {
           },
           data: [
             { value: capacityObj.ownerCount, name: t('task.sponsor') },
-            { value: capacityObj.receiverCount, name: t('task.receiver') },
-            { value: capacityObj.powerSupplierCount, name: t('task.powerProvider') },
-            { value: capacityObj.dataSupplierCount, name: t('task.dataProvider') },
-            { value: capacityObj.algoSupplierCount, name: t('task.algorithmProvider') },
+            { value: capacityObj.resultReceiverCount, name: t('task.receiver') },
+            { value: capacityObj.powerProviderCount, name: t('task.powerProvider') },
+            { value: capacityObj.dataProviderCount, name: t('task.dataProvider') },
+            { value: capacityObj.algoProviderCount, name: t('task.algorithmProvider') },
           ],
         },
       ],
