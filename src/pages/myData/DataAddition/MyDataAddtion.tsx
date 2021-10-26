@@ -153,6 +153,18 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       // document.getElementById('progress').innerHTML = 'unable to compute';
     }
   }
+
+  const filterData = list => {
+    if (!list || list && !list.length) {
+      return []
+    }
+    return list.map(v => {
+      v.visible = true
+      return { ...v }
+    })
+  }
+
+
   const uploadFn = () => {
     upLoadingSet(true)
     // 判断文件是否为空 判断是否选择了包含字段
@@ -178,9 +190,10 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     resourceApi.uploadCsv({ data: formData, fn: _uploadProgress }).then(res => {
       upLoadingSet(false)
       if (res.status === 0) {
-        setOriginalData(res.data?.localMetaDataColumnList)
-        setTotal(res.data?.localMetaDataColumnList?.length)
-        setTableData(getShowSource(res.data?.localMetaDataColumnList))
+        const list = filterData(res.data?.localMetaDataColumnList)
+        setOriginalData(list)
+        setTotal(list.length)
+        setTableData(getShowSource(list))
         resultFileDataSet(res.data)
         message.success(`${t('myData.uploadSuccess')}`)
       } else {
