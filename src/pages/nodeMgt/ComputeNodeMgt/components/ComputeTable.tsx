@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useContext, useCallback } from 'react'
+import { FC, useState, useEffect, useContext, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Table, Space, message, Input } from 'antd'
@@ -9,8 +9,113 @@ import { BaseInfoContext } from '../../../../layout/index'
 import UseStatus from '../../../../hooks/useComputeStatus'
 import { Row } from '../../../../entity/index'
 import { changeSizeFn } from '../../../../utils/utils'
-import useInterval from '../../../../hooks/useInterval'
-import { tableInterVal } from '../../../../constant/index'
+// import useInterval from '../../../../hooks/useInterval'
+// import { tableInterVal } from '../../../../constant/index'
+
+// 节点状态，-1: 未被调度服务连接上; 0: 连接上; 1: 算力启用<计算服务>; 2: 算力被占用(计算服务算力正在被任务占用)',
+const dataSource = [
+  {
+    key: '1',
+    bandwidth: 100,
+    connMessage: '',
+    connTime: '',
+    core: 10,
+    createTime: '',
+    externalIp: '192.168.18.34',
+    externalPort: 9090,
+    id: 0,
+    identityId: '11111111111111111',
+    internalIp: '192.168.18.34',
+    internalPort: 8080,
+    memory: 0,
+    powerNodeId: '1111111111133333333333333',
+    powerNodeName: '奥术大师多',
+    remarks: '222222222222',
+    startTime: '',
+    connStatus: '-1',
+    updateTime: '',
+    usedBandwidth: 0,
+    usedCore: 0,
+    usedMemory: 0,
+    isEdit: true,
+  },
+  {
+    key: '2',
+    bandwidth: 100,
+    connMessage: '',
+    connTime: '',
+    core: 10,
+    createTime: '',
+    externalIp: '192.168.18.34',
+    externalPort: 9090,
+    id: 1,
+    identityId: '11111111111111111',
+    internalIp: '192.168.18.34',
+    internalPort: 8080,
+    memory: 0,
+    powerNodeId: '1111111111133333333333333',
+    powerNodeName: '奥术大师多',
+    remarks: '222222222222',
+    startTime: '',
+    connStatus: '0',
+    updateTime: '',
+    usedBandwidth: 0,
+    usedCore: 0,
+    usedMemory: 0,
+    isEdit: false,
+  },
+  {
+    key: '2',
+    bandwidth: 100,
+    connMessage: '',
+    connTime: '',
+    core: 10,
+    createTime: '',
+    externalIp: '192.168.18.34',
+    externalPort: 9090,
+    id: 3,
+    identityId: '11111111111111111',
+    internalIp: '192.168.18.34',
+    internalPort: 8080,
+    memory: 0,
+    powerNodeId: '1111111111133333333333333',
+    powerNodeName: '奥术大师多',
+    remarks: '222222222222',
+    startTime: '',
+    connStatus: '1',
+    updateTime: '',
+    usedBandwidth: 0,
+    usedCore: 0,
+    usedMemory: 0,
+    isEdit: false,
+  },
+  {
+    key: '3',
+    bandwidth: 100,
+    connMessage: '',
+    connTime: '',
+    core: 10,
+    createTime: '',
+    externalIp: '192.168.18.34',
+    externalPort: 9090,
+    id: 4,
+    identityId: '11111111111111111',
+    internalIp: '192.168.18.34',
+    internalPort: 8080,
+    memory: 0,
+    powerNodeId: '1111111111133333333333333',
+    powerNodeName: '奥术大师多',
+    remarks: '222222222222',
+    startTime: '',
+    connStatus: '2',
+    updateTime: '',
+    usedBandwidth: 0,
+    usedCore: 0,
+    usedMemory: 0,
+    isEdit: false,
+  },
+]
+
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
@@ -70,6 +175,7 @@ const DataTable: FC<any> = (props: any) => {
       tempTableDataSet(JSON.parse(JSON.stringify(newTableData)))
       totalSet(res.total)
     }
+    // tableDataSet([...dataSource])
   }
   const saveFn = (record, index) => {
     computeNodeApi.updatePowerNode({
@@ -113,111 +219,7 @@ const DataTable: FC<any> = (props: any) => {
       },
     })
   }
-  const editFn = row => { }
-
-  // 节点状态，-1: 未被调度服务连接上; 0: 连接上; 1: 算力启用<计算服务>; 2: 算力被占用(计算服务算力正在被任务占用)',
-  const dataSource = [
-    {
-      key: '1',
-      bandwidth: 100,
-      connMessage: '',
-      connTime: '',
-      core: 10,
-      createTime: '',
-      externalIp: '192.168.18.34',
-      externalPort: 9090,
-      id: 0,
-      identityId: '11111111111111111',
-      internalIp: '192.168.18.34',
-      internalPort: 8080,
-      memory: 0,
-      powerNodeId: '1111111111133333333333333',
-      powerNodeName: '奥术大师多',
-      remarks: '222222222222',
-      startTime: '',
-      connStatus: '-1',
-      updateTime: '',
-      usedBandwidth: 0,
-      usedCore: 0,
-      usedMemory: 0,
-      isEdit: false,
-    },
-    {
-      key: '2',
-      bandwidth: 100,
-      connMessage: '',
-      connTime: '',
-      core: 10,
-      createTime: '',
-      externalIp: '192.168.18.34',
-      externalPort: 9090,
-      id: 1,
-      identityId: '11111111111111111',
-      internalIp: '192.168.18.34',
-      internalPort: 8080,
-      memory: 0,
-      powerNodeId: '1111111111133333333333333',
-      powerNodeName: '奥术大师多',
-      remarks: '222222222222',
-      startTime: '',
-      connStatus: '0',
-      updateTime: '',
-      usedBandwidth: 0,
-      usedCore: 0,
-      usedMemory: 0,
-      isEdit: false,
-    },
-    {
-      key: '2',
-      bandwidth: 100,
-      connMessage: '',
-      connTime: '',
-      core: 10,
-      createTime: '',
-      externalIp: '192.168.18.34',
-      externalPort: 9090,
-      id: 3,
-      identityId: '11111111111111111',
-      internalIp: '192.168.18.34',
-      internalPort: 8080,
-      memory: 0,
-      powerNodeId: '1111111111133333333333333',
-      powerNodeName: '奥术大师多',
-      remarks: '222222222222',
-      startTime: '',
-      connStatus: '1',
-      updateTime: '',
-      usedBandwidth: 0,
-      usedCore: 0,
-      usedMemory: 0,
-      isEdit: false,
-    },
-    {
-      key: '3',
-      bandwidth: 100,
-      connMessage: '',
-      connTime: '',
-      core: 10,
-      createTime: '',
-      externalIp: '192.168.18.34',
-      externalPort: 9090,
-      id: 4,
-      identityId: '11111111111111111',
-      internalIp: '192.168.18.34',
-      internalPort: 8080,
-      memory: 0,
-      powerNodeId: '1111111111133333333333333',
-      powerNodeName: '奥术大师多',
-      remarks: '222222222222',
-      startTime: '',
-      connStatus: '2',
-      updateTime: '',
-      usedBandwidth: 0,
-      usedCore: 0,
-      usedMemory: 0,
-      isEdit: false,
-    },
-  ]
+  // const editFn = row => { }
 
   const setEditStatus = (record, bool, index) => {
     tableData.forEach(item => {

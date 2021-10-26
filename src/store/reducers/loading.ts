@@ -11,7 +11,7 @@ interface loginAction {
 }
 
 const initData = {
-  Loading: true
+  Loading: false
 }
 
 const Loading = (state: ReduxState = initData, action: loginAction) => {
