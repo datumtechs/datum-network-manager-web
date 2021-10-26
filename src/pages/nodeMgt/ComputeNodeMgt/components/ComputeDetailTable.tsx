@@ -43,24 +43,24 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     }
   }, [table])
 
-  // const dataSource = [
-  //   {
-  //     coordinateSide: 'aaaa',
-  //     createTime: '111111111111111',
-  //     id: 0,
-  //     ownerIdentityId: '1111111111',
-  //     powerNodeId: '11111',
-  //     resultSide: '222222',
-  //     taskId: '3333',
-  //     taskName: '3344444444444',
-  //     taskStartTime: '5555555',
-  //     updateTime: '2222222222222',
-  //     usedBandwidth: 0,
-  //     usedCore: 0,
-  //     usedMemory: 0,
-  //     connStatus: '2',
-  //   },
-  // ]
+  const dataSource = [
+    {
+      coordinateSide: 'aaaa',
+      createTime: '111111111111111',
+      id: 0,
+      ownerIdentityId: '1111111111',
+      powerNodeId: '11111',
+      resultSide: '222222',
+      taskId: '3333',
+      taskName: '3344444444444',
+      taskStartTime: '5555555',
+      updateTime: '2222222222222',
+      usedBandwidth: 0,
+      usedCore: 0,
+      usedMemory: 0,
+      connStatus: '2',
+    },
+  ]
   const columns = [
     {
       title: t('common.Num'),
@@ -141,6 +141,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   return (
     <div className="data-table-box">
       <Table
+        // dataSource={dataSource}
         dataSource={tableData}
         rowKey={re => re.id}
         columns={columns}
