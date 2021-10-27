@@ -35,9 +35,10 @@ export const Overview: FC<any> = () => {
           usedMemory_rate: 0,
           usedBandwidth_rate: 0
         }
-        item.usedCore_rate = (item.usedCore / item.totalCore).toFixed(2)
-        item.usedMemory_rate = (item.usedMemory / item.totalMemory).toFixed(2)
-        item.usedBandwidth_rate = (item.usedBandwidth / item.totalBandwidth).toFixed(2)
+        item.usedCore_rate = Number((item.usedCore / item.totalCore).toFixed(2)) * 100
+        item.usedMemory_rate = Number((item.usedMemory / item.totalMemory).toFixed(2)) * 100
+        item.usedBandwidth_rate = Number((item.usedBandwidth / item.totalBandwidth).toFixed(2)) * 100
+        // console.log(item);
         totalResourceSet(item)
       }
     })
@@ -54,7 +55,7 @@ export const Overview: FC<any> = () => {
         <div className="overview-left">
           <div className="overview-content-box">
             <Card type="cpu" bgColor="#657ACD" precent={totalResource.usedCore_rate} value={totalResource?.totalCore} unit={t('overview.core')} />
-            <Card type="memory" bgColor="#4F9CFF" precent={totalResource.usedMemory_rate} value={changeSizeObj(totalResource?.usedMemory) ? changeSizeObj(totalResource?.usedMemory).size : 0} unit={changeSizeObj(totalResource.usedMemory).unit} />
+            <Card type="memory" bgColor="#4F9CFF" precent={totalResource.usedMemory_rate} value={changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource?.totalMemory).size : 0} unit={changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource.totalMemory).unit : changeSizeObj(totalResource?.totalMemory).unit} />
             <Card type="bandwidth" bgColor="#FF7688" precent={totalResource.usedBandwidth_rate} value={changeSizeObj(totalResource?.usedBandwidth) ? changeSizeObj(totalResource?.usedBandwidth).size : 0} unit={changeSizeObj(totalResource.usedBandwidth) ? `${changeSizeObj(totalResource.usedBandwidth).unit}P/S` : 0} />
           </div>
           <div className="overview-publish-data item">

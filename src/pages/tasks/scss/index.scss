@@ -76,7 +76,10 @@
       }
       .label {
         color: #31394d;
-        padding-right: 50px;
+        width: 6vw;
+        min-width: 80px;
+        display: inline-block;
+        // padding-right: 50px;
       }
       .value {
         font-family: AlibabaPuHuiTi-Bold;

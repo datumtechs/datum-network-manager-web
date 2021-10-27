@@ -33,7 +33,7 @@ const TaskChart: FC<any> = (props: any) => {
 
   const initChart = () => {
     const option = {
-      color: ['#63C7BB', '#F167A8', '#F29201', '#657ACD'],
+      color: ['#63C7BB', '#657ACD', '#F167A8', '#F29201',],
       grid: { left: '10%', top: '10%', right: '10%', bottom: '10%' },
       title: {
         zlevel: 0,
@@ -85,10 +85,10 @@ const TaskChart: FC<any> = (props: any) => {
             show: false,
           },
           data: [
-            { value: 0, name: t('task.pending') },
-            { value: 0, name: t('task.computing') },
-            { value: 0, name: t('task.failed') },
             { value: 0, name: t('task.success') },
+            { value: 0, name: t('task.pending') },
+            { value: 0, name: t('task.failed') },
+            { value: 0, name: t('task.computing') },
           ],
         },
       ],
@@ -113,14 +113,16 @@ const TaskChart: FC<any> = (props: any) => {
         // console.log(statusMap);
         // console.log(statusMap.get('pending'));
 
-        option.series[0].data[0].value = getValue('pending') //  statusMap.get('pending') ? Number(statusMap.get('pending')) : 0
-        option.series[0].data[1].value = getValue('running') // statusMap.get('running') ? Number(statusMap.get('running')) : 0
+        option.series[0].data[0].value = getValue('success') // statusMap.get('success') ? Number(statusMap.get('success')) : 0
+        option.series[0].data[1].value = getValue('pending') //  statusMap.get('pending') ? Number(statusMap.get('pending')) : 0
         option.series[0].data[2].value = getValue('failed') //  statusMap.get('failed') ? Number(statusMap.get('failed')) : 0
-        option.series[0].data[3].value = getValue('success') // statusMap.get('success') ? Number(statusMap.get('success')) : 0
-        pendingNumSet(getValue('pending'))
-        runningNumSet(getValue('running'))
-        failedNumSet(getValue('failed'))
+        option.series[0].data[3].value = getValue('running') // statusMap.get('running') ? Number(statusMap.get('running')) : 0
+
         successNumSet(getValue('success'))
+        pendingNumSet(getValue('pending'))
+        failedNumSet(getValue('failed'))
+        runningNumSet(getValue('running'))
+
         option.title.text = `${Number(getValue('pending')) + Number(getValue('running')) + Number(getValue('failed')) + Number(getValue('success'))}`
         chart.setOption(option)
         chart.resize()
