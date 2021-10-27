@@ -46,7 +46,7 @@ const CardLayout: FC<any> = (props: any) => {
       label: t('overview.rosettaCpu'),
       value: totalResource.totalCore,
       unit: t('overview.core'),
-      percent: ((totalResource.totalCore / totalResource.totalCore) * 100).toFixed(2),
+      percent: ((totalResource.usedCore / totalResource.totalCore) * 100).toFixed(2),
     }, {
       id: 3,
       bgColor: '#FF7688',
