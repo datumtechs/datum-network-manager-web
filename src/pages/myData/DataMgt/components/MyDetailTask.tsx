@@ -113,7 +113,8 @@ export const MyDetailTask: FC<any> = (props: any) => {
   const initTabel = () => {
     resourceApi.queryDataJoinTaskList({
       keyword: '',
-      metadataId,
+      // metadataId
+      metaDataId: metadataId,
       pageNumber: curPage,
       pageSize: 10,
     }).then(res => {

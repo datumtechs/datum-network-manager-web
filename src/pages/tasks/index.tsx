@@ -33,16 +33,16 @@ export const Tasks: FC<any> = () => {
   const [pageNumber, pageNumberSet] = useState(1)
   const [total, totalSet] = useState(0)
   const [statusObj, statusObjSet] = useState({
-    // ownerCount: '',
-    // dataSupplierCount: '',
-    // powerSupplierCount: '',
-    // receiverCount: '',
-    // algoSupplierCount: '',
-    // totalTaskCount: '',
-    // taskSuccessCount: '',
-    // taskFailedCount: '',
-    // taskPendingCount: '',
-    // taskRunningCount: '',
+    ownerCount: '',
+    dataSupplierCount: '',
+    powerSupplierCount: '',
+    receiverCount: '',
+    algoSupplierCount: '',
+    totalTaskCount: '',
+    taskSuccessCount: '',
+    taskFailedCount: '',
+    taskPendingCount: '',
+    taskRunningCount: '',
     totalCount: ''
   })
 
@@ -67,19 +67,24 @@ export const Tasks: FC<any> = () => {
   // const { table, countData, paramSet } = useTaskTable(getParam())
   const queryData = () => {
     const params = getParam()
-    Promise.all([taskApi.taskDetailsByQuery(params), taskApi.taskListByQuery(params)]).then(res => {
-      if (res[0].status === 0) {
-        // console.log(res[0].data);
-        const item = { ...res[0].data }
+    taskApi.taskListByQuery(params).then(res => {
+      if (res.status === 0) {
+        tableDataSet(res.data)
+        totalSet(res.total)
+      }
+    })
+  }
+
+  const queryTaskDetails = () => {
+    const params = getParam()
+    taskApi.taskDetailsByQuery(params).then(res => {
+      if (res.status === 0) {
+        const item = { ...res.data }
         item.totalCount = Number(item.successCount)
           + Number(item.failedCount)
           + Number(item.pendingCount)
           + Number(item.runningCount)
         statusObjSet(item)
-      }
-      if (res[1].status === 0) {
-        tableDataSet(res[1].data.list)
-        totalSet(res[1].total)
       }
     })
   }
@@ -101,6 +106,7 @@ export const Tasks: FC<any> = () => {
   useEffect(() => {
     if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) {
       queryData()
+      queryTaskDetails()
     }
   }, [searchStartTime, searchEndTime, pageNumber])
 

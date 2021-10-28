@@ -10,11 +10,13 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import useWinWidth from '../../../../hooks/useWinWidth'
 import { overviewApi } from '../../../../api'
+import { changeSizeObj } from '../../../../utils/utils'
 
 const TrendChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
   const [curSwitch, curSwitchSet] = useState('data')
+  const [MaxTotal, setMaxTotal] = useState(0)
 
   const getMonthsByNumber = (month: number) => {
     const newDays: string[] = []
@@ -39,7 +41,7 @@ const TrendChart: FC<any> = (props: any) => {
     },
     yAxis: [
       {
-        name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
+        name: (curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory')) + (`(${changeSizeObj(MaxTotal).unit || 'B'})` || ""),
         nameTextStyle: { align: 'center' },
         axisLabel: {
           fontSize: 12,
@@ -82,14 +84,18 @@ const TrendChart: FC<any> = (props: any) => {
   useEffect(() => {
     const chart = echarts.init(document.getElementById('totalData'))
     if (curSwitch === 'data') {
-      overviewApi.globalDataFileStatsTrendMonthly().then(res => {
+      overviewApi.globalDataFileStatsTrendMonthly().then((res) => {
         option.series[0].data = res.data.map(data => data.totalValue)
+        const maxdata = Math.max(...option.series[0].data)
+        option.yAxis[0].name = `${t('overview.totalData')}(${changeSizeObj(maxdata).unit || 'B'})`
         chart.setOption(option)
         chart.resize()
       })
     } else {
-      overviewApi.globalPowerStatsTrendMonthly().then(res => {
+      overviewApi.globalPowerStatsTrendMonthly().then((res) => {
         option.series[0].data = res.data.map(data => data.totalValue)
+        const maxdata = Math.max(...option.series[0].data)
+        option.yAxis[0].name = `${t('overview.totalMemory')}(${changeSizeObj(maxdata).unit || 'B'})`
         chart.setOption(option)
         chart.resize()
       })

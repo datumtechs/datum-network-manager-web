@@ -9,7 +9,7 @@ const Bread: FC<any> = () => {
   const [breadcrumbs, setBreadcrumbs] = useState<IRoute[]>([])
   const { t } = useTranslation()
   const history = useHistory()
-  const len = breadcrumbs.length
+  const len = breadcrumbs.length - 1
 
   useEffect(() => {
     setBreadcrumbs(getBreadcrumbs())
@@ -20,14 +20,21 @@ const Bread: FC<any> = () => {
       unListen()
     }
   }, [])
+
+  const goBackFn = (index) => {
+    console.log(index)
+    history.go(-index)
+  }
+
   return (
     <>
       <Breadcrumb separator=">">
         {breadcrumbs.map((route: IRoute, index: number) => {
-          if (index !== 0 && index !== len - 1)
+          if (index !== 0 && index !== len)
             return (
               <Breadcrumb.Item key={route.path}>
-                <Link to={route.path}>{t(route.breadcrumbName)}</Link>
+                <span onClick={goBackFn.bind(this, len - index)}>{t(route.breadcrumbName)}</span>
+                {/* <Link to={route.path}>{t(route.breadcrumbName)}</Link> */}
               </Breadcrumb.Item>
             )
           return (

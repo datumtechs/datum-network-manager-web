@@ -91,7 +91,7 @@ const Login = (props: any) => {
               name={['login', 'account']}
               rules={[{ required: true, message: t('login.plzinput') + t('login.account') }]}
             >
-              <Input bordered={false} placeholder="Account" className="login-form-height" />
+              <Input bordered={false} placeholder={t('login.account')} className="login-form-height" />
             </Form.Item>
             <Form.Item
               name={['login', 'password']}
@@ -101,7 +101,7 @@ const Login = (props: any) => {
                 visibilityToggle={false}
                 size="large"
                 bordered={false}
-                placeholder="Password"
+                placeholder={t('login.password')}
                 className="login-form-height"
               />
             </Form.Item>
@@ -109,7 +109,7 @@ const Login = (props: any) => {
               name={['login', 'veriCode']}
               rules={[{ required: true, message: t('login.plzinput') + t('login.vericode') }]}
             >
-              <Input bordered={false} placeholder="Verification Code" className="login-form-height" />
+              <Input bordered={false} placeholder={t('login.vericode')} className="login-form-height" />
             </Form.Item>
             <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
               <Button block type="primary" htmlType="submit" className="login-form-height">

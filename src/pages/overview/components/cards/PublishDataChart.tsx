@@ -10,11 +10,15 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import useWinWidth from '../../../../hooks/useWinWidth'
 import { overviewApi } from '../../../../api'
+import { changeSizeObj } from '../../../../utils/utils'
+
 
 const PublishDataChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
   const [curSwitch, curSwitchSet] = useState('data')
+  const [MaxincrementValue, setMaxIncrementValue] = useState(0)
+  const [MaxTotal, setMaxTotal] = useState(0)
 
   const getMonthsByNumber = (month: number) => {
     const newDays: string[] = []
@@ -56,6 +60,7 @@ const PublishDataChart: FC<any> = (props: any) => {
         scale: true,
       },
       {
+        // name: curSwitch === 'data' ? `${t('overview.totalData')} (${changeSizeObj(MaxincrementValue).unit || 'B'})` : `${t('overview.totalMemory')} (${changeSizeObj(MaxTotal).unit || 'B'})`,
         name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
         nameTextStyle: { align: 'center' },
         axisLabel: {
@@ -117,19 +122,23 @@ const PublishDataChart: FC<any> = (props: any) => {
   useEffect(() => {
     const chart = echarts.init(document.getElementById('publishData'))
     if (curSwitch === 'data') {
-      overviewApi.localDataFileStatsTrendMonthly().then(res => {
+      overviewApi.localDataFileStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
           option.series[0].data = res.data.map(data => data.incrementValue)
           option.series[1].data = res.data.map(data => data.totalValue)
+          const maxData = Math.max(...option.series[0].data)
+          option.yAxis[1].name = `${t('overview.totalData')}(${changeSizeObj(maxData).unit || 'B'})`
           chart.setOption(option)
           chart.resize()
         }
       })
     } else {
-      overviewApi.localPowerStatsTrendMonthly().then(res => {
+      overviewApi.localPowerStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
           option.series[0].data = res.data.map(data => data.incrementValue)
           option.series[1].data = res.data.map(data => data.totalValue)
+          const maxData = Math.max(...option.series[1].data)
+          option.yAxis[1].name = `${t('overview.totalMemory')}(${changeSizeObj(maxData).unit || 'B'})`
           chart.setOption(option)
           chart.resize()
         }
@@ -137,6 +146,8 @@ const PublishDataChart: FC<any> = (props: any) => {
     }
 
   }, [width, i18n.language, curSwitch])
+
+
 
   return (
     <div className="publish-data-box">

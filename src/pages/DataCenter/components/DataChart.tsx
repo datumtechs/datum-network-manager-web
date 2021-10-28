@@ -10,6 +10,7 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import useWinWidth from '../../../hooks/useWinWidth'
 import { resourceApi } from '../../../api'
+import { changeSizeObj } from '../../../utils/utils'
 
 const DataChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -117,10 +118,12 @@ const DataChart: FC<any> = (props: any) => {
         const totalAry = ary.map((data) => data.totalValue)
         option.series[0].data = growAry
         option.series[1].data = totalAry
+        const maxData = Math.max(...totalAry)
+        option.yAxis[1].name = `${t('overview.totalData')}(${changeSizeObj(maxData).unit || 'B'})`
         chart.setOption(option)
         chart.resize()
+        // }, 10)
       }
-
     })
   }
 

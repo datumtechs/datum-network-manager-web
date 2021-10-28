@@ -24,7 +24,7 @@ const MetaTable: FC<any> = (props: any) => {
     history.push({
       pathname: '/dataCenter/metaDataDetail',
       state: {
-        id: row.id,
+        id: row.metaDataId,
         type: 'view'
       },
     })
@@ -112,7 +112,7 @@ const MetaTable: FC<any> = (props: any) => {
         dataSource={dataSource}
         columns={columns}
         pagination={{ total, onChange: onPageChange }}
-        rowKey={_ => _.id}
+        rowKey={_ => _.metaDataId}
         bordered
       />
     </div>
