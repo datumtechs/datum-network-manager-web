@@ -27,11 +27,11 @@ const Login = (props: any) => {
     redirectPath = hash.replace(/#/, '')
   }
 
-  useEffect(() => {
-    if (redirectPath) {
-      message.error(`${t('login.plzLogin')}`)
-    }
-  }, [redirectPath])
+  // useEffect(() => {
+  //   if (redirectPath) {
+  //     message.error(`${t('login.plzLogin')}`)
+  //   }
+  // }, [redirectPath])
 
   const onFinish = (values: any) => {
     const {
