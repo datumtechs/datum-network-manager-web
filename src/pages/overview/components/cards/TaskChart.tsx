@@ -39,7 +39,7 @@ const TaskChart: FC<any> = (props: any) => {
         zlevel: 0,
         text: ``,
         subtext: `${t('task.tasks')}`,
-        top: '48%',
+        top: '41%',
         left: '48%',
         textAlign: 'center',
         textStyle: {

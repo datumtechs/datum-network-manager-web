@@ -509,3 +509,8 @@
   color: $mainColor;
   font-family: AlibabaPuHuiTi-Medium;
 }
+
+.view-link-left {
+  @extend .view-link;
+  text-align: left;
+}

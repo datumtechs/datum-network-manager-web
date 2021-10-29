@@ -82,7 +82,7 @@ export const EditSelect: FC<any> = (props: any) => {
 
 export const DataDetail: FC<any> = (props: any) => {
   const { location } = props
-  const { type, id } = location.state || { type: 'view' }
+  const { type, id } = location.state
   const [total, setTotal] = useState<number>()
   const [editText, editTextSet] = useState<boolean>(false)
   const [editSelect, editSelectSet] = useState<boolean>(false)
@@ -157,11 +157,11 @@ export const DataDetail: FC<any> = (props: any) => {
   }
 
   const goBackFn = () => {
-    if (type === 'view') {
-      handleOk()
-    } else {
-      isModalVisibleSet(true)
-    }
+    // if (type === 'view') {
+    //   handleOk()
+    // } else {
+    isModalVisibleSet(true)
+    // }
   }
 
 
@@ -207,8 +207,8 @@ export const DataDetail: FC<any> = (props: any) => {
 
   useEffect(() => {
     // 根据id查询
-    const url = type == 'view' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
-    resourceApi[url](id).then(res => {
+    // const url = type == 'view' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
+    resourceApi.queryDCMetaDataInfo(id).then(res => {
       console.log(res);
       const { data } = res
       if (res.status === 0) {
@@ -238,10 +238,10 @@ export const DataDetail: FC<any> = (props: any) => {
       </div>
       <div className="sub-info-box">
         <div className="sub-title-box">{t('center.basicInfo')}</div>
-        <div className="limit-box pl12 _details_form_margin">
-          <Form name="detail" labelAlign="right" form={form}
+        <div className="limit-box pl12">
+          <Form name="detail" labelAlign="left" form={form}
             labelCol={{ span: 10 }}
-            wrapperCol={{ span: 20 }}>
+            wrapperCol={{ span: 12 }}>
             <Row>
               <Col span={12}>
                 <Form.Item label={t('center.metaStatus')}>
@@ -290,21 +290,22 @@ export const DataDetail: FC<any> = (props: any) => {
               </Col>
               <Col span={12}>
                 <Form.Item label={t('myData.industryOfData')}>
-                  {
-                    type === 'view' ?
-                      <div className="text-area datail-box-content">{industry}</div> :
-                      <EditSelect baseInfo={baseInfo} editSelect={editSelect}
-                        industry={industry} onSelectChange={onSelectChange}
-                        handleEditSelect={handleEditSelect} />
-                  }
+                  {/* { */}
+                  {/* // type === 'view' ?
+                      // <div className="text-area datail-box-content">{industry}</div> : */}
+                  <EditSelect baseInfo={baseInfo} editSelect={editSelect}
+                    industry={industry} onSelectChange={onSelectChange}
+                    handleEditSelect={handleEditSelect} />
+                  {/* // } */}
                 </Form.Item>
               </Col>
             </Row>
             <Form.Item labelCol={{ span: 5 }} label={t('center.dataDesc')}>
-              {
-                type === 'view' ? <div className="text-area"> {remarks}</div>
-                  : <EditText baseInfo={baseInfo} editText={editText} remarks={remarks} handleTextSwitch={handleTextSwitch} handleEditText={handleEditText} />
-              }
+              {/* { */}
+              {/* // type === 'view' ? <div className="text-area"> {remarks}</div> */}
+              {/* //   : */}
+              <EditText baseInfo={baseInfo} editText={editText} remarks={remarks} handleTextSwitch={handleTextSwitch} handleEditText={handleEditText} />
+              {/* } */}
             </Form.Item>
           </Form>
         </div>
@@ -334,12 +335,12 @@ export const DataDetail: FC<any> = (props: any) => {
             </Button>
             : ''
           }
-          {
-            type === 'view' ? '' :
-              <Button size="large" className="btn" type="primary" onClick={saveAndReturn}>
-                {t('common.submit')}
-              </Button>
-          }
+          {/* { */}
+          {/* type === 'view' ? '' : */}
+          <Button size="large" className="btn" type="primary" onClick={saveAndReturn}>
+            {t('common.submit')}
+          </Button>
+          {/* } */}
         </Space>
       </div>
     </div>

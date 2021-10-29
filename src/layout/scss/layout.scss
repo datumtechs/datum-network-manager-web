@@ -38,7 +38,9 @@
             flex-direction: column;
             width: 179px;
             z-index: 1000;
-
+            margin: 0 15px;
+            border-radius: 10px;
+            position: relative;
             .nav-label {
               position: relative;
               border-radius: 10px;
@@ -99,14 +101,25 @@
             border-bottom: 8px solid #1e255f;
           }
           &:before {
-            content: "";
-            width: 3px;
-            height: 66.7%;
-            background: #ffa505;
+            content: " ";
+            display: inline-block;
+            // width: 3px;
+            height: 35px;
+            border-width: 3px;
+            border: solid;
+            border-color: #ffa505;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
             left: 0;
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 3%;
+          }
+          
+        }
+        .activeMenuBeforeTop{
+          &:before{
+            top: 13.6%;
           }
         }
         .activeSubMenu {

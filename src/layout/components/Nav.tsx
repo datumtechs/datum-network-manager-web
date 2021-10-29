@@ -48,9 +48,12 @@ const Nav = (props: any) => {
         item.meta.show ? (
           <div className="nav-wrapper pointer" key={item.name}>
             {item.children ? (
-              <div className="nav-label-box">
+              // <div className="nav-label-box">
+              <div className={`nav-label-box ${curPath.includes(item.path) ? 'activeMenu' : ''}`}>
+                {/* <div
+                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu' : ''} `} */}
                 <div
-                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu' : ''} `}
+                  className="nav-label"
                   onClick={() => showSubMenu(item)}
                 >
                   {t(`${item.label}`)}{' '}
@@ -83,7 +86,7 @@ const Nav = (props: any) => {
             ) : (
               <div className="nav-label-box">
                 <div
-                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu' : ''}`}
+                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu activeMenuBeforeTop' : ''}`}
                   onClick={e => linkTo(item, e)}
                 >
                   {t(`${item.label}`)}

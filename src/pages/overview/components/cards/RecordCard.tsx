@@ -83,7 +83,6 @@ const RecordCard: FC<any> = (props: any) => {
   return (
     <div className="overview-authorization item">
       <div className="data-name">{t('overview.dataAuthorizationApplication')}</div>
-      <div className="pointer view-link" onClick={linkToAuthorization}>{t('overview.viewAll')}</div>
       <div className="auth-list">
         {dataList.map(item => {
           return (
@@ -97,6 +96,9 @@ const RecordCard: FC<any> = (props: any) => {
           )
         })}
       </div>
+      {/* {dataList.length ? */}
+      <div className="pointer view-link-left" onClick={linkToAuthorization}>{t('overview.viewAll')}</div>
+      {/* // : ''} */}
     </div >
   )
 }

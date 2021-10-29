@@ -38,7 +38,7 @@ export const Overview: FC<any> = () => {
         item.usedCore_rate = ((item.usedCore / item.totalCore) * 100).toFixed(2)
         item.usedMemory_rate = ((item.usedMemory / item.totalMemory) * 100).toFixed(2)
         item.usedBandwidth_rate = ((item.usedBandwidth / item.totalBandwidth) * 100).toFixed(2)
-        // console.log(item);
+        console.log(item);
         totalResourceSet(item)
       }
     })
@@ -54,9 +54,9 @@ export const Overview: FC<any> = () => {
       <div className="overview-box">
         <div className="overview-left">
           <div className="overview-content-box">
-            <Card type="cpu" bgColor="#657ACD" precent={totalResource.usedCore_rate} value={totalResource?.totalCore} unit={t('overview.core')} />
-            <Card type="memory" bgColor="#4F9CFF" precent={totalResource.usedMemory_rate} value={changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource?.totalMemory).size : 0} unit={changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource.totalMemory).unit : changeSizeObj(totalResource?.totalMemory).unit} />
-            <Card type="bandwidth" bgColor="#FF7688" precent={totalResource.usedBandwidth_rate} value={changeSizeObj(totalResource?.totalBandwidth) ? changeSizeObj(totalResource?.totalBandwidth).size : 0} unit={changeSizeObj(totalResource.totalBandwidth) ? `${changeSizeObj(totalResource.totalBandwidth).unit}P/S` : 0} />
+            <Card type="cpu" bgColor="#657ACD" precent={totalResource.usedCore_rate} value={totalResource?.totalCore || 0} unit={totalResource.totalCore ? t('overview.core') : ''} />
+            <Card type="memory" bgColor="#4F9CFF" precent={totalResource.usedMemory_rate} value={changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource?.totalMemory).size : 0} unit={totalResource.totalMemory ? changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource.totalMemory).unit : changeSizeObj(totalResource?.totalMemory).unit : ''} />
+            <Card type="bandwidth" bgColor="#FF7688" precent={totalResource.usedBandwidth_rate} value={changeSizeObj(totalResource?.totalBandwidth) ? changeSizeObj(totalResource?.totalBandwidth).size : 0} unit={totalResource.totalBandwidth ? changeSizeObj(totalResource.totalBandwidth) ? `${changeSizeObj(totalResource.totalBandwidth).unit}P/S` : '' : ''} />
           </div>
           <div className="overview-publish-data item">
             <PublishDataChart />

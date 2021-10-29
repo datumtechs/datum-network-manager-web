@@ -51,6 +51,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }
 
   const checkResourceName = name => {
+    // console.log(name);
+    showFilenameAvailableSet(false)
+    if (!name) return;
     resourceApi.checkResourceName({ resourceName: name, metaDataId: resultFileData.metaDataId }).then(res => {
       if (res.status === 0) {
         showFilenameAvailableSet(true)
@@ -227,7 +230,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   return (
     <div className="layout-box">
       <div className="add-data-box">
-        <div className="title-box">{t('myData.plzUploadFile')}</div>
+        <div className="title-box bold-ident">{t('myData.plzUploadFile')}</div>
         <div className="label-box">
           <Radio.Group onChange={changeFileIncludeStatusFn} value={radioValue}>
             <Radio value="true" disabled={formDisable}>
@@ -253,7 +256,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         </div>
       </div>
       <div className="add-data-box">
-        <div className="title-box mb20">{t('myData.plzConfigureMetaData')}</div>
+        <div className="title-box mb20 bold-ident">{t('myData.plzConfigureMetaData')}</div>
         <div className="sub-info-box">
           <div className="sub-title-box">{t('center.basicInfo')}</div>
           <div className="pl12">
@@ -345,6 +348,14 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>{`${t('tip.leaveCofirm')}`}</p>
       </MyModal>
+      <style>
+        {`
+          .bold-ident{
+            font-weight: 600;
+            font-size: 15px !important;
+        }
+      ` }
+      </style>
     </div>
   )
 }

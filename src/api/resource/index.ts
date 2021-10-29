@@ -27,7 +27,6 @@ const resourceApi = {
     return axios({
       method: 'GET',
       url: `/api/v1/resource/mydata/metaDataInfo?id=${data}`,
-      // url: `/api/v1/resource/datacenter/metaDataInfo?metaDataId=${data}`,
     })
   },
   // 上架

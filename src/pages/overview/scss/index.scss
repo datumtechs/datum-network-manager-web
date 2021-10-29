@@ -14,6 +14,7 @@ $pending: #657acd;
 }
 .overview-box {
   width: 100%;
+  min-height: 500px;
   display: flex;
   .overview-left {
     flex: 1;
@@ -184,6 +185,8 @@ $pending: #657acd;
       width: 19.1vw;
       height: 53.4vh;
       padding: 2.6vh 1.5vw;
+      overflow: hidden;
+      ::-webkit-scrollbar{width:0;}
       .taskChart-box {
         margin-top: 20px;
         #taskChart {
@@ -194,6 +197,8 @@ $pending: #657acd;
       }
       .overview-tasks-detail {
         width: 100%;
+        box-sizing: border-box;
+        padding-bottom: 1.7vw;
         .detail-line {
           display: flex;
           justify-content: space-between;
@@ -255,12 +260,13 @@ $pending: #657acd;
       padding: 1.8vh 1.5vw;
       .auth-list {
         width: 100%;
-        height: 19vh;
+        height: 18.5vh;
         @media screen and (max-width: 1366px) {
           height: 16.5vh;
         }
         overflow-y: scroll;
-        margin-top: 20px;
+        margin-top: 15px;
+        margin-bottom: 5px;
         .auth-list-box {
           display: flex;
           flex-direction: column;
@@ -305,22 +311,23 @@ $pending: #657acd;
     width: 10.8vw;
     height: 3.5vh;
     background: #3c3588;
-    border-radius: 6px;
+    border-radius: .6vh;
     color: #fff;
     display: flex;
     align-items: center;
-    padding: 0.5vh 0.3vw;
-    gap: 5px;
+    padding: 0.4vh;
+    box-sizing: border-box;
+    justify-content: space-between;
+    // gap: 5px;
     .switchBtn {
       text-align: center;
-      height: 3.5vh;
       font-family: AlibabaPuHuiTi-Medium;
       font-size: 12px;
       letter-spacing: -0.5px;
       line-height: 10px;
       width: 5vw;
-      height: 3vh;
-      border-radius: 6px;
+      height: 2.8vh;
+      border-radius: .6vh;
       display: flex;
       align-items: center;
       justify-content: center;
