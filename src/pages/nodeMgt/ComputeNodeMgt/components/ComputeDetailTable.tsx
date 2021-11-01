@@ -43,24 +43,24 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     }
   }, [table])
 
-  const dataSource = [
-    {
-      coordinateSide: 'aaaa',
-      createTime: '111111111111111',
-      id: 0,
-      ownerIdentityId: '1111111111',
-      powerNodeId: '11111',
-      resultSide: '222222',
-      taskId: '3333',
-      taskName: '3344444444444',
-      taskStartTime: '5555555',
-      updateTime: '2222222222222',
-      usedBandwidth: 0,
-      usedCore: 0,
-      usedMemory: 0,
-      connStatus: '2',
-    },
-  ]
+  // const dataSource = [
+  //   {
+  //     coordinateSide: 'aaaa',
+  //     createTime: '111111111111111',
+  //     id: 0,
+  //     ownerIdentityId: '1111111111',
+  //     powerNodeId: '11111',
+  //     resultSide: '222222',
+  //     taskId: '3333',
+  //     taskName: '3344444444444',
+  //     taskStartTime: '5555555',
+  //     updateTime: '2222222222222',
+  //     usedBandwidth: 0,
+  //     usedCore: 0,
+  //     usedMemory: 0,
+  //     connStatus: '2',
+  //   },
+  // ]
   const columns = [
     {
       title: t('common.Num'),
@@ -84,11 +84,11 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.sponsor')}:</Col>
-              <Col span={18}>{ }</Col>
+              <Col span={18}>{record.ownerIdentityName}</Col>
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.timeSpan')}:</Col>
-              <Col span={18}>{ }</Col>
+              <Col span={18}>{record.taskStartTime}</Col>
             </Row>
           </>
         )

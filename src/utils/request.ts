@@ -11,6 +11,10 @@ const service = axios.create({
 // const queryList = new Set()
 // const noInclude = ['/api/v1/system/queryBaseInfo']
 
+message.config({
+  maxCount: 3
+})
+
 // request interceptor
 service.interceptors.request.use(
   (config: any) => {

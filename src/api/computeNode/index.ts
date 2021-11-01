@@ -7,7 +7,8 @@ const computeNodeApi = {
   queryPowerNodeList(data: SearchPageTable): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/queryPowerNodeList`,
+      // url: `/api/v1/node/powernode/queryPowerNodeList`,
+      url: `/api/v1/powernode/listPowerNode`,
       data
     })
   },
@@ -20,7 +21,8 @@ const computeNodeApi = {
   queryPowerNodeUseHistory(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/queryPowerNodeUseHistory`,
+      // url: `/api/v1/node/powernode/queryPowerNodeUseHistory`,
+      url: `/api/v1/powernode/listPowerNodeUseHistory`,
       data
     })
   },
@@ -33,7 +35,8 @@ const computeNodeApi = {
   publishPower(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/publishPower`,
+      // url: `/api/v1/node/powernode/publishPower`,
+      url: `/api/v1/powernode/publishPower`,
       data
     })
   },
@@ -46,7 +49,8 @@ const computeNodeApi = {
   revokePower(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/revokePower`,
+      // url: `/api/v1/node/powernode/revokePower`,
+      url: `/api/v1/powernode/revokePower`,
       data
     })
   },
@@ -55,7 +59,8 @@ const computeNodeApi = {
   addPowerNode(data: ComputeNode): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/addPowerNode`,
+      // url: `/api/v1/node/powernode/addPowerNode`,
+      url: `/api/v1/powernode/addPowerNode`,
       data
     })
   },
@@ -68,7 +73,8 @@ const computeNodeApi = {
   checkPowerNodeName(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/checkPowerNodeName`,
+      // url: `/api/v1/node/powernode/checkPowerNodeName`,
+      url: `/api/v1/powernode/checkPowerNodeName`,
       data
     })
   },
@@ -81,7 +87,8 @@ const computeNodeApi = {
   deletePowerNode(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/deletePowerNode`,
+      // url: `/api/v1/node/powernode/deletePowerNode`,
+      url: `/api/v1/powernode/deletePowerNode`,
       data
     })
   },
@@ -94,7 +101,8 @@ const computeNodeApi = {
   queryPowerJoinTaskList(data: any): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/queryPowerJoinTaskList`,
+      // url: `/api/v1/node/powernode/queryPowerJoinTaskList`,
+      url: `/api/v1/powernode/listRunningTaskByPowerNodeId`,
       data
     })
   },
@@ -107,7 +115,8 @@ const computeNodeApi = {
   queryPowerNodeDetails(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/queryPowerNodeDetails`,
+      // url: `/api/v1/node/powernode/queryPowerNodeDetails`,
+      url: `/api/v1/powernode/queryPowerNodeDetails`,
       data
     })
   },
@@ -116,7 +125,8 @@ const computeNodeApi = {
   updatePowerNode(data: ComputeNode): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/powernode/updatePowerNode`,
+      // url: `/api/v1/node/powernode/updatePowerNode`,
+      url: `/api/v1/powernode/updatePowerNode`,
       data
     })
   },

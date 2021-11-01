@@ -180,7 +180,8 @@
     "internalIP": "Internal IP",
     "externalIp": "External IP",
     "internalPort": "Internal Port",
-    "externalPort": "External Port"
+    "externalPort": "External Port",
+    "addNodeSuccess": "Add Node Success"
   },
   "computeNodeMgt": {
     "nodeName": "Compute node name",

@@ -177,10 +177,11 @@
   },
   "dataNodeMgt": {
     "nodeName": "数据节点名称",
-    "internalIP": "内部IP",
+    "internalIP": "节点IP",
     "externalIp": "外部IP",
-    "internalPort": "内部端口",
-    "externalPort": "外部端口"
+    "internalPort": "节点端口",
+    "externalPort": "外部端口",
+    "addNodeSuccess": "添加节点成功"
   },
   "computeNodeMgt": {
     "nodeName": "计算节点名称",

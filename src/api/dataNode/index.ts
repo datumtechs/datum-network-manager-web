@@ -6,7 +6,8 @@ const dataNodeApi = {
   queryDatanodeList(data: SearchPageTable): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/datanode/listNode`,
+      // url: `/api/v1/node/datanode/listNode`,
+      url: `/api/v1/datanode/listNode`,
       data
     })
   },
@@ -20,7 +21,8 @@ const dataNodeApi = {
   deleteDatanode(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/datanode/deleteDataNode`,
+      // url: `/api/v1/node/datanode/deleteDataNode`,
+      url: `/api/v1/datanode/deleteDataNode`,
       data
     })
   },
@@ -33,7 +35,8 @@ const dataNodeApi = {
   checkDataNodeName(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/datanode/checkDataNodeName`,
+      // url: `/api/v1/node/datanode/checkDataNodeName`,
+      url: `/api/v1/datanode/checkDataNodeName`,
       data
     })
   },
@@ -46,7 +49,8 @@ const dataNodeApi = {
   updateDataNode(data: DataNode): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/datanode/updateDataNode`,
+      // url: `/api/v1/node/datanode/updateDataNode`,
+      url: `/api/v1/datanode/updateDataNode`,
       data
     })
   },
@@ -59,7 +63,8 @@ const dataNodeApi = {
   addDataNode(data: DataNode): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/datanode/addDataNode`,
+      // url: `/api/v1/node/datanode/addDataNode`,
+      url: `/api/v1/datanode/addDataNode`,
       data
     })
   },

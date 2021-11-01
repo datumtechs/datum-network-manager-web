@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import MyTag from '../../../components/MyTag'
 import '../scss/index.scss'
 import { nodeApi } from '../../../api'
@@ -10,7 +10,26 @@ export const AddSeedNode: FC<any> = (props: any) => {
   const [form] = Form.useForm();
   const [showNameStatus, showNameStatusSet] = useState<boolean>(false)
   const [nameStatus, nameStatusSet] = useState<boolean>(false)
-  const onFinish = () => { }
+
+  const onFinish = (values) => {
+    if (values) {
+      nodeApi.addSeedNode({
+        seedNodeName: values.nodeSeedName,
+        nodeId: values.NodePublicKey,
+        internalPort: values.internalPort,
+        internalIp: values.internalIP,
+      }).then(res => {
+        console.log(res);
+        if (res.status === 0) {
+          message.success(t('dataNodeMgt.addNodeSuccess'))
+          history.go(-1)
+        } else {
+          message.error(res.msg)
+        }
+      })
+    }
+
+  }
   const whenInputChange = (e) => {
     const name = e.target.value
     if (name) {

@@ -15,25 +15,27 @@ interface pageObject {
 }
 
 const resourceApi = {
-  queryMydata(data: pageObject): Promise<any> {
-    return axios({
-      method: 'GET',
-      url: `/api/v1/resource/mydata/metaDataList?pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`,
-      // url: `/api/v1/resource/datacenter/metaDataList?pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`,
-    })
-  },
-  // 查看详情
+  // queryMydata(data: pageObject): Promise<any> {
+  //   return axios({
+  //     method: 'GET',
+  //     url: `/api/v1/resource/mydata/metaDataList?pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`,
+  //     // url: `/api/v1/resource/datacenter/metaDataList?pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`,
+  //   })
+  // },
+  // 查看元数据详情
   queryMetaDataDetail(data): Promise<any> {
     return axios({
       method: 'GET',
-      url: `/api/v1/resource/mydata/metaDataInfo?id=${data}`,
+      // url: `/api/v1/resource/mydata/metaDataInfo?id=${data}`,
+      url: `/api/v1/data/localMetaDataInfo?id=${data}`,
     })
   },
-  // 上架
+  // 元数据操作：上架、下架和删除
   metaDataAction(data: any): Promise<any> {
     return axios({
       method: 'POST',
-      url: `/api/v1/resource/mydata/actionMetaData`,
+      // url: `/api/v1/resource/mydata/actionMetaData`,
+      url: `/api/v1/data/localMetaDataOp`,
       data,
     })
   },
@@ -41,7 +43,8 @@ const resourceApi = {
   downloadMeta(data: any): Promise<any> {
     return axios({
       method: 'GET',
-      url: `/api/v1/resource/mydata/download?id=${data.id}`,
+      // url: `/api/v1/resource/mydata/download?id=${data.id}`,
+      url: `/api/v1/data/download?id=${data.id}`,
       responseType: 'blob'
     })
   },
@@ -50,7 +53,8 @@ const resourceApi = {
   updateMetaData(data: any): Promise<any> {
     return axios({
       method: 'POST',
-      url: `/api/v1/resource/mydata/updateMetaData`,
+      // url: `/api/v1/resource/mydata/updateMetaData`,
+      url: `/api/v1/data/updateLocalMetaData`,
       data,
     })
   },
@@ -59,7 +63,8 @@ const resourceApi = {
   queryMydataByKeyword(data: any): Promise<any> {
     return axios({
       method: 'POST',
-      url: `/api/v1/resource/mydata/metaDataListByKeyWord`,
+      // url: `/api/v1/resource/mydata/metaDataListByKeyWord`,
+      url: `/api/v1/data/listLocalMetaDataByKeyword`,
       data,
     })
   },
@@ -68,7 +73,8 @@ const resourceApi = {
   uploadCsv({ data, fn }): Promise<any> {
     return axios({
       method: 'POST',
-      url: '/api/v1/resource/mydata/uploadFile',
+      // url: '/api/v1/resource/mydata/uploadFile',
+      url: '/api/v1/data/uploadFile',
       data,
       onUploadProgress: fn,
       headers: {
@@ -79,18 +85,22 @@ const resourceApi = {
     })
   },
 
+  // 添加数据/另存为新数据
   addLocalMetaData(data: any): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/resource/mydata/addLocalMetaData`,
+      // url: `/api/v1/resource/mydata/addLocalMetaData`,
+      url: `/api/v1/data/addLocalMetaData`,
       data
     })
   },
 
+  // 校验元数据资源名称是否合法
   checkResourceName(data: any): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/resource/mydata/checkResourceName?resourceName=${data.resourceName}`,
+      // url: `/api/v1/resource/mydata/checkResourceName?resourceName=${data.resourceName}`,
+      url: `/api/v1/data/checkResourceName?resourceName=${data.resourceName}`,
     })
   },
 
@@ -98,7 +108,8 @@ const resourceApi = {
   queryDCMetaDataInfo(data: string): Promise<any> {
     return axios({
       method: 'GET',
-      url: `/api/v1/resource/datacenter/metaDataInfo?metaDataId=${data}`,
+      // url: `/api/v1/resource/datacenter/metaDataInfo?metaDataId=${data}`,
+      url: `/api/v1/data/globalMetaDataDetail?metaDataId=${data}`,
     })
   },
 
@@ -106,7 +117,8 @@ const resourceApi = {
   queryDCMetaDataList(data: pageObject): Promise<any> {
     return axios({
       method: 'POST',
-      url: `/api/v1/resource/datacenter/metaDataList`,
+      // url: `/api/v1/resource/datacenter/metaDataList`,
+      url: `/api/v1/data/listGlobalMetaData`,
       data,
     })
   },
@@ -115,7 +127,8 @@ const resourceApi = {
   queryDCMetaDataListByKeyWord(data: pageObject): Promise<any> {
     return axios({
       method: 'POST',
-      url: `/api/v1/resource/datacenter/metaDataListByKeyWord`,
+      // url: `/api/v1/resource/datacenter/metaDataListByKeyWord`,
+      url: `/api/v1/data/listGlobalMetaDataByKeyword`,
       data,
     })
   },
@@ -124,7 +137,8 @@ const resourceApi = {
   queryPCMetaDataList(data: pageObject): Promise<any> {
     return axios({
       method: 'POST',
-      url: `/api/v1/resource/powercenter/powerList`,
+      // url: `/api/v1/resource/powercenter/powerList`,
+      url: `/api/v1/power/listGlobalPower`,
       data,
     })
   },
@@ -133,7 +147,8 @@ const resourceApi = {
   queryPCMetaDataListByKeyWord(data: pageObject): Promise<any> {
     return axios({
       method: 'POST',
-      url: `/api/v1/resource/powercenter/powerListByKeyWord`,
+      // url: `/api/v1/resource/powercenter/powerListByKeyWord`,
+      url: `/api/v1/power/listGlobalPowerByKeyword`,
       data,
     })
   },
@@ -142,7 +157,8 @@ const resourceApi = {
   queryDataJoinTaskList(data: any): Promise<any> {
     return axios({
       method: 'POST',
-      url: `/api/v1/resource/mydata/queryDataJoinTaskList`,
+      // url: `/api/v1/resource/mydata/queryDataJoinTaskList`,
+      url: `/api/v1/data/listTaskByMetaDataId`,
       data,
     })
   },
@@ -151,7 +167,8 @@ const resourceApi = {
   globalDataFileStatsTrendDaily(): Promise<any> {
     return axios({
       method: 'GET',
-      url: `/api/v1/resource/datacenter/globalDataFileStatsTrendDaily`,
+      // url: `/api/v1/resource/datacenter/globalDataFileStatsTrendDaily`,
+      url: `/api/v1/data/globalDataFileStatsTrendDaily`,
     })
   },
 

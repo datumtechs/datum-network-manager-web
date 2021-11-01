@@ -5,24 +5,27 @@ const authApi = {
   authDataList(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/resource/auth/authDataList`,
+      // url: `/api/v1/resource/auth/authDataList`,
+      url: `/api/v1/data/listLocalDataAuth`,
       data
     })
   },
 
-  // 获取数据 /api/v1/resource/auth/authDataStatistics
+  // 获取数据 授权数据数量统计
   authDataStatistics(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/resource/auth/authDataStatistics`,
+      // url: `/api/v1/resource/auth/authDataStatistics`,
+      url: `/api/v1/data/dataAuthStatistics`,
     })
   },
 
-  // 授权同意 /api/v1/resource/auth/actionAuthData
+  // 授权同意、拒绝 
   actionAuthData(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/resource/auth/actionAuthData`,
+      // url: `/api/v1/resource/auth/actionAuthData`,
+      url: `/api/v1/data/replyDataAuth`,
       data
     })
   },
@@ -31,7 +34,8 @@ const authApi = {
   authDataDetail(data): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/resource/auth/authDataDetail`,
+      // url: `/api/v1/resource/auth/authDataDetail`,
+      url: `/api/v1/data/dataAuthDetail`,
       params: data
     })
   },

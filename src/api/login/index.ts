@@ -5,7 +5,8 @@ const loginApi = {
   loginFn(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/system/user/login`,
+      // url: `/api/v1/system/user/login`,
+      url: `/api/v1/user/login`,
       data
     })
   },
@@ -14,7 +15,8 @@ const loginApi = {
   applyOrgIdentity(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/system/user/applyOrgIdentity`,
+      // url: `/api/v1/system/user/applyOrgIdentity`,
+      url: `/api/v1/user/applyOrgIdentity`,
       data
     })
   },
@@ -23,7 +25,8 @@ const loginApi = {
   logoutFn(): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/system/user/logout`,
+      // url: `/api/v1/system/user/logout`,
+      url: `/api/v1/user/logout`,
     })
   },
 
@@ -31,7 +34,8 @@ const loginApi = {
   getVerCode(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/user/verificationCode`,
+      // url: `/api/v1/system/user/verificationCode`,
+      url: `/api/v1/user/verificationCode`,
     })
   },
 
@@ -39,7 +43,8 @@ const loginApi = {
   queryBaseInfo(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/queryBaseInfo`,
+      // url: `/api/v1/system/queryBaseInfo`,
+      url: `/api/v1/user/findLocalOrgInfo`,
     })
   },
 }

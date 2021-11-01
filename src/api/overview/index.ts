@@ -1,34 +1,36 @@
 import axios from "../../utils/request"
 
 const overviewApi = {
-  // 首页计算节点列表
-  queryNodelist(): Promise<any> {
-    return axios({
-      method: "GET",
-      url: `/api/v1/system/index/nodeList`,
-    })
-  },
+  // // 首页计算节点列表
+  // queryNodelist(): Promise<any> {
+  //   return axios({
+  //     method: "GET",
+  //     url: `/api/v1/system/index/nodeList`,
+  //   })
+  // },
   // 首页信息统计信息
-  overviewData(): Promise<any> {
-    return axios({
-      method: "GET",
-      url: `/api/v1/system/index/overview`,
-    })
-  },
+  // overviewData(): Promise<any> {
+  //   return axios({
+  //     method: "GET",
+  //     url: `/api/v1/system/index/overview`,
+  //   })
+  // },
 
   // 查询总计算资源占用情况 /metis-admin/api/v1/system/index/queryUsedTotalResource
+  // 查询本地计算资源占用情况
   queryUsedTotalResource(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/index/localPowerUsage`,
+      url: `/api/v1/overview/localPowerUsage`,
     })
   },
 
-  // 查询计算任务概况
+  // 查询计算任务概况  // 查询我的计算任务概况
   queryMyCalculateTaskStats(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/index/queryMyCalculateTaskStats`,
+      // url: `/api/v1/system/index/queryMyCalculateTaskStats`,
+      url: `/api/v1/overview/myTaskOverview`,
     })
   },
 
@@ -36,7 +38,8 @@ const overviewApi = {
   localDataFileStatsTrendMonthly(): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/system/index/localDataFileStatsTrendMonthly`,
+      // url: `/api/v1/system/index/localDataFileStatsTrendMonthly`,
+      url: `/api/v1/overview/localDataFileStatsTrendMonthly`,
     })
   },
 
@@ -44,7 +47,8 @@ const overviewApi = {
   localPowerStatsTrendMonthly(): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/system/index/localPowerStatsTrendMonthly`,
+      // url: `/api/v1/system/index/localPowerStatsTrendMonthly`,
+      url: `/api/v1/overview/localPowerStatsTrendMonthly`,
     })
   },
 
@@ -53,7 +57,8 @@ const overviewApi = {
   queryWholeNetDateRatio(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/index/queryWholeNetDateRatio`,
+      // url: `/api/v1/system/index/queryWholeNetDateRatio`,
+      url: `/api/v1/overview/queryWholeNetDateRatio`,
     })
   },
 
@@ -62,7 +67,8 @@ const overviewApi = {
   globalPowerStatsTrendMonthly(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/index/globalPowerStatsTrendMonthly`,
+      // url: `/api/v1/system/index/globalPowerStatsTrendMonthly`,
+      url: `/api/v1/overview/globalPowerStatsTrendMonthly`,
     })
   },
 
@@ -70,7 +76,8 @@ const overviewApi = {
   globalDataFileStatsTrendMonthly(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/index/globalDataFileStatsTrendMonthly`,
+      // url: `/api/v1/system/index/globalDataFileStatsTrendMonthly`,
+      url: `/api/v1/overview/globalDataFileStatsTrendMonthly`,
     })
   },
 
@@ -78,7 +85,8 @@ const overviewApi = {
   queryWaitAuthDataList(): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/system/index/queryWaitAuthDataList`,
+      // url: `/api/v1/system/index/queryWaitAuthDataList`,
+      url: `/api/v1/overview/queryWaitAuthDataList`,
     })
   },
 

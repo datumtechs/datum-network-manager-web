@@ -34,35 +34,35 @@ export const Overview: FC<any> = () => {
   const [tableData, setTableData] = useState<Array<{}>>()
 
   const initGlobalData = () => {
-    overviewApi.overviewData().then(res => {
-      if (res?.status === 0) {
-        setDataNodeObj({
-          dataNodeCount: res.data?.dataNodeCount,
-          publishedDataCount: res.data?.publishedDataCount,
-          unpublishedDataCount: res.data?.unpublishedDataCount,
-        })
-        setPowerDataObj({
-          powerNodeCount: res.data?.powerNodeCount,
-          runningTaskCount: res.data?.runningTaskCount,
-        })
-        setServiceStatus(res.data?.status)
-        setGlobalObj({
-          totalBandwidth: res.data?.totalBandwidth,
-          totalMem: res.data?.totalMem,
-          totalProcessor: res.data?.totalProcessor,
-          usedBandwidth: res.data?.usedBandwidth,
-          usedMem: res.data?.usedMem,
-          usedProcessor: res.data?.usedProcessor,
-        })
-      }
-    })
+    // overviewApi.overviewData().then(res => {
+    //   if (res?.status === 0) {
+    //     setDataNodeObj({
+    //       dataNodeCount: res.data?.dataNodeCount,
+    //       publishedDataCount: res.data?.publishedDataCount,
+    //       unpublishedDataCount: res.data?.unpublishedDataCount,
+    //     })
+    //     setPowerDataObj({
+    //       powerNodeCount: res.data?.powerNodeCount,
+    //       runningTaskCount: res.data?.runningTaskCount,
+    //     })
+    //     setServiceStatus(res.data?.status)
+    //     setGlobalObj({
+    //       totalBandwidth: res.data?.totalBandwidth,
+    //       totalMem: res.data?.totalMem,
+    //       totalProcessor: res.data?.totalProcessor,
+    //       usedBandwidth: res.data?.usedBandwidth,
+    //       usedMem: res.data?.usedMem,
+    //       usedProcessor: res.data?.usedProcessor,
+    //     })
+    //   }
+    // })
   }
   const initTableData = () => {
-    overviewApi.queryNodelist().then(res => {
-      if (res?.status === 0) {
-        setTableData(res.data)
-      }
-    })
+    // overviewApi.queryNodelist().then(res => {
+    //   if (res?.status === 0) {
+    //     setTableData(res.data)
+    //   }
+    // })
   }
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { LOADING } from "../store/actionType/index"
 
 const queryList = new Set()
 
-export const noInclude = ['/api/v1/system/queryBaseInfo']
+export const noInclude = ['/api/v1/system/queryBaseInfo', '/api/v1/user/findLocalOrgInfo']
 export const requestLoading = {
   add(str: string) {
     if (!noInclude.includes(str)) {

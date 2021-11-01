@@ -22,35 +22,35 @@ const SeedNodeTable: FC<any> = (props: any) => {
     current: 1,
     defaultPageSize: 10,
   }
-  const dataSource = [
-    {
-      id: 0,
-      name: '尼克萨哈',
-      publickey: '1111111111111111111111111111112222222222',
-      status: -1,
-      isInitial: 0,
-      ip: '1111',
-      port: '222',
-      isEdit: false,
-    },
-    {
-      id: 1,
-      name: '索尼',
-      publickey: '3333333333333333333333333333332222222222',
-      status: 0,
-      isInitial: 1,
-      ip: '3333',
-      port: '444',
-      isEdit: false,
-    },
-  ]
+  // const dataSource = [
+  //   {
+  //     id: 0,
+  //     name: '尼克萨哈',
+  //     publickey: '1111111111111111111111111111112222222222',
+  //     status: -1,
+  //     isInitial: 0,
+  //     ip: '1111',
+  //     port: '222',
+  //     isEdit: false,
+  //   },
+  //   {
+  //     id: 1,
+  //     name: '索尼',
+  //     publickey: '3333333333333333333333333333332222222222',
+  //     status: 0,
+  //     isInitial: 1,
+  //     ip: '3333',
+  //     port: '444',
+  //     isEdit: false,
+  //   },
+  // ]
   const setEditStatus = (record, bool) => {
-    dataSource.forEach(item => {
+    tableData.forEach((item: any) => {
       if (item.id === record.id) {
         item.isEdit = bool
       }
     })
-    tableDataSet(dataSource)
+    tableDataSet(tableData)
   }
 
   const saveFn = () => { }
@@ -190,8 +190,11 @@ const SeedNodeTable: FC<any> = (props: any) => {
       keyWord: '',
       pageNumber: curPage,
       pageSize: pagination.defaultPageSize
-    }).then((result) => {
-
+    }).then((res) => {
+      if (res.status === 0) {
+        tableDataSet(res.data)
+        totalSet(res.total)
+      }
     })
   }
 
