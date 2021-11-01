@@ -6,16 +6,18 @@ const taskApi = {
   taskListByQuery(data: taskQueryObj): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/task/mytask/listMyTask`,
+      // url: `/api/v1/task/mytask/listMyTask`,
+      url: `/api/v1/task/listMyTask`,
       data
     })
   },
 
-  // 获取计算任务详情
+  // 获取计算任务详情  参与的任务情况统计
   taskDetailsByQuery(data: taskQueryObj): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/task/mytask/myTaskStatistics`,
+      // url: `/api/v1/task/mytask/myTaskStatistics`,
+      url: `/api/v1/task/myTaskStatistics`,
       data
     })
   },
@@ -24,7 +26,8 @@ const taskApi = {
   querytaskInfo(taskId: string): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/task/mytask/taskInfo?taskId=${taskId}`,
+      // url: `/api/v1/task/mytask/taskInfo?taskId=${taskId}`,
+      url: `/api/v1/task/taskInfo?taskId=${taskId}`,
     })
   },
 
@@ -32,7 +35,8 @@ const taskApi = {
   querytaskEventList(taskId: string): Promise<any> {
     return axios({
       method: "GET",
-      url: `/api/v1/task/mytask/taskEventList?taskId=${taskId}`,
+      // url: `/api/v1/task/mytask/taskEventList?taskId=${taskId}`,
+      url: `/api/v1/task/listTaskEvent?taskId=${taskId}`,
     })
   },
 

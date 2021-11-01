@@ -17,13 +17,13 @@ const PublishDataChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
   const [curSwitch, curSwitchSet] = useState('data')
-  const [MaxincrementValue, setMaxIncrementValue] = useState(0)
-  const [MaxTotal, setMaxTotal] = useState(0)
+  // const [MaxincrementValue, setMaxIncrementValue] = useState(0)
+  // const [MaxTotal, setMaxTotal] = useState(0)
 
   const getMonthsByNumber = (month: number) => {
     const newDays: string[] = []
     for (let i = 0; i < month; i++) {
-      const mmm = dayjs().subtract(i + 1, 'month')
+      const mmm = dayjs().subtract(i, 'month')
       newDays.unshift(i18n.language === 'en' ? mmm.format('MMM') : `${mmm.format('MM')}${t('common.month')}`)
     }
     return newDays

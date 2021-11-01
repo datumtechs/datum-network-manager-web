@@ -21,7 +21,7 @@ const TrendChart: FC<any> = (props: any) => {
   const getMonthsByNumber = (month: number) => {
     const newDays: string[] = []
     for (let i = 0; i < month; i++) {
-      const mmm = dayjs().subtract(i + 1, 'month')
+      const mmm = dayjs().subtract(i, 'month')
       newDays.unshift(i18n.language === 'en' ? mmm.format('MMM') : `${mmm.format('MM')}${t('common.month')}`)
     }
     return newDays
