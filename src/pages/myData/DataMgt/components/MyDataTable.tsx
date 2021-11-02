@@ -28,24 +28,24 @@ const MyDataTable: FC<any> = (props: any) => {
     defaultPageSize: 10,
   }
 
-  const dataSource = [
-    {
-      id: 0,
-      fileName: '遏必隆',
-      status: '1',
-      dataSize: 222222,
-      lastUpdateTime: 111111111111111111,
-      taskNum: 12123,
-    },
-    {
-      id: 1,
-      fileName: '索额图',
-      status: '0',
-      dataSize: 2222222,
-      lastUpdateTime: 111111111111111111,
-      taskNum: 12123,
-    },
-  ]
+  // const dataSource = [
+  //   {
+  //     id: 0,
+  //     fileName: '遏必隆',
+  //     status: '1',
+  //     dataSize: 222222,
+  //     lastUpdateTime: 111111111111111111,
+  //     taskNum: 12123,
+  //   },
+  //   {
+  //     id: 1,
+  //     fileName: '索额图',
+  //     status: '0',
+  //     dataSize: 2222222,
+  //     lastUpdateTime: 111111111111111111,
+  //     taskNum: 12123,
+  //   },
+  // ]
 
   const initTableData = () => {
     resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10 }).then(res => {
@@ -107,6 +107,7 @@ const MyDataTable: FC<any> = (props: any) => {
       state: {
         type: 'edit',
         id: row.id,
+        metaDataId: row.metaDataId
       },
     })
   }

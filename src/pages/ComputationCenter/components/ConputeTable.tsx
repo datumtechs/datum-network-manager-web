@@ -22,9 +22,9 @@ const CenterTable: FC<any> = (props: any) => {
   }
   const [tableData, tableDataSet] = useState([])
 
-  const dataSource = [
-    { id: 1, identityId: 11111111, status: '1', totalCore: 11111111, totalMemory: 2222222, totalBandwidth: 3333333 }
-  ]
+  // const dataSource = [
+  //   { id: 1, identityId: 11111111, status: '1', totalCore: 11111111, totalMemory: 2222222, totalBandwidth: 3333333 }
+  // ]
 
   const columns = [
     {
@@ -59,14 +59,14 @@ const CenterTable: FC<any> = (props: any) => {
         return (
           <div className="power-col">
             <div className="prev-orange">
-              <span className="name">{text}</span>
-              {t('center.cores')}
+              <span className="name">{text || 0}</span>
+              {text ? t('center.cores') : ''}
             </div>
             {
               record.status === '0' ? '' :
                 i18n.language === 'en' ?
-                  record.totalCore === 0 ? `0% ${t('overview.occupied')}` : `${(record.usedCore * 100 / record.totalCore).toFixed(2)}% ${t('overview.occupied')}`
-                  : record.totalCore === 0 ? `${t('overview.occupied')}: 0%` : `${t('overview.occupied')}: ${(record.usedCore * 100 / record.totalCore).toFixed(2)}%`
+                  !record.totalCore ? `0 ${t('overview.occupied')}` : `${(record.usedCore * 100 / record.totalCore).toFixed(2)}% ${t('overview.occupied')}`
+                  : !record.totalCore ? `${t('overview.occupied')}: 0` : `${t('overview.occupied')}: ${(record.usedCore * 100 / record.totalCore).toFixed(2)}%`
             }
           </div>
         )
@@ -80,7 +80,7 @@ const CenterTable: FC<any> = (props: any) => {
           <div className="power-col">
             <div className="prev-seagreen">
               <span className="name">{changeSizeFn(text).replace(/[A-Za-z]*$/, '')}</span>
-              {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}
+              {text ? changeSizeFn(text).replace(/^[^A-Za-z]*/, '') : ''}
             </div>
             {
               record.status === '0' ? '' :
@@ -100,7 +100,7 @@ const CenterTable: FC<any> = (props: any) => {
           <div className="power-col">
             <div className="prev-steelblue">
               <span className="name">{changeSizeFn(text).replace(/[A-Za-z]*$/, '')}</span>
-              {changeSizeFn(text).replace(/^[^A-Za-z]*/, '')}P/S
+              {text ? `${changeSizeFn(text).replace(/^[^A-Za-z]*/, '')} P/S` : ''}
             </div>
             {
               record.status === '0' ? '' :

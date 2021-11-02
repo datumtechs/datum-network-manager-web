@@ -118,8 +118,8 @@ const MyFiledsTable: FC<any> = (props: any) => {
       render: (text, record, index) => (
         <>
           {
-            type === 'view' ? text :
-              <EditTableCell record={record} column="columnName" handleCellChange={handleCellChange} />
+            // type === 'view' ? text :
+            <EditTableCell record={record} column="columnName" handleCellChange={handleCellChange} />
           }
         </>
       ),
@@ -140,7 +140,8 @@ const MyFiledsTable: FC<any> = (props: any) => {
         return (
           <>
             {
-              type === 'view' ? mapVisiable(record.visible) : <Space size={20}>
+              // type === 'view' ? mapVisiable(record.visible) :
+              <Space size={20}>
                 {record.visible ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
                 <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === true} />
               </Space>
@@ -156,18 +157,20 @@ const MyFiledsTable: FC<any> = (props: any) => {
       key: 'columnType',
       editable: 'false',
       render: (text, record, index) => {
-        return (<>{type === 'view' ? <span>{record.dataType}</span> : <Select
-          onChange={e => handleSelectChange(e, record)}
-          defaultValue="STRING"
-          style={{ width: 100 }}
-          placeholder="Select a type"
-        >
-          {DATATYPE.map(item => (
-            <Option value={item.label} key={item.id}>
-              {item.label}
-            </Option>
-          ))}
-        </Select>}
+        return (<>{
+          // type === 'view' ? <span>{record.dataType}</span> :
+          <Select
+            onChange={e => handleSelectChange(e, record)}
+            defaultValue="STRING"
+            style={{ width: 100 }}
+            placeholder="Select a type"
+          >
+            {DATATYPE.map(item => (
+              <Option value={item.label} key={item.id}>
+                {item.label}
+              </Option>
+            ))}
+          </Select>}
         </>)
       },
     },
@@ -180,8 +183,8 @@ const MyFiledsTable: FC<any> = (props: any) => {
       render: (text, record, index) => (
         <>
           {
-            type === 'view' ? <span>{text}</span> :
-              <EditTableCell record={record} column="remarks" handleCellChange={handleCellChange} />
+            // type === 'view' ? <span>{text}</span> :
+            <EditTableCell record={record} column="remarks" handleCellChange={handleCellChange} />
           }
         </>
       ),

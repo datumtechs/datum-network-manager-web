@@ -207,8 +207,9 @@ export const DataDetail: FC<any> = (props: any) => {
 
   useEffect(() => {
     // 根据id查询
-    // const url = type == 'view' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
-    resourceApi.queryDCMetaDataInfo(id).then(res => {
+    const url = type == 'Global' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
+    // resourceApi.queryDCMetaDataInfo(id).then(res => {
+    resourceApi[url](id).then(res => {
       console.log(res);
       const { data } = res
       if (res.status === 0) {

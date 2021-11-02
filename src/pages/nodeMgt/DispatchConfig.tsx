@@ -210,7 +210,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                   </div>
                 </Form.Item>
                 <Form.Item colon label={t('overview.connectNum')} className="form-item">
-                  {editStatus ? <span className="title">N/A</span> : <span className="title">22</span>}
+                  {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo.connNodeCount}</span>}
                 </Form.Item>
                 <Form.Item className="form-item">
                   <Button

@@ -25,7 +25,7 @@ const MetaTable: FC<any> = (props: any) => {
       pathname: '/dataCenter/metaDataDetail',
       state: {
         id: row.metaDataId,
-        type: 'view'
+        type: 'Global'
       },
     })
   }

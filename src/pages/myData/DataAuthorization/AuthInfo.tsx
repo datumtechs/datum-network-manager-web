@@ -83,7 +83,12 @@ export const AuthInfo: FC<any> = (props: any) => {
       if (res.status === 0) {
         authInfoSet(res.data.authInfo)
         baseInfoSet(res.data.basicDataInfo)
-        tableDataSet(res.data.localMetaDataColumnList)
+        if (res.data.localMetaDataColumnList.length) {
+          tableDataSet(res.data.localMetaDataColumnList.map((v, index) => {
+            v.index = index + 1
+            return v
+          }))
+        }
       }
     })
   }

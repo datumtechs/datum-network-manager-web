@@ -60,7 +60,7 @@ const MyData: FC<any> = props => {
   }, [originalData])
 
   const backFn = () => {
-    if (type === 'view') history.push('/myData')
+    // if (type === 'view') history.push('/myData')
     isModalVisibleSet(true)
   }
   const handleOk = () => {
@@ -135,7 +135,7 @@ const MyData: FC<any> = props => {
   return (
     <div className="layout-box">
       <div className="add-data-box limitLine">
-        {type === 'view' ? (
+        {/* {type === 'view' ? (
           (from !== 'dataCenter' && (
             <Descriptions column={2} title={`${t('center.basicInfo')}`}>
               <Descriptions.Item
@@ -206,34 +206,34 @@ const MyData: FC<any> = props => {
               </Descriptions.Item>
             </Descriptions>
           )
-        ) : (
-          <Descriptions column={1} title={`${t('center.basicInfo')}`}>
-            <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
-              {baseInfo.fileName}
-            </Descriptions.Item>
-            <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
-              {baseInfo.fileId}
-            </Descriptions.Item>
-            <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
-              <TextArea onChange={onRemarksChange} value={remarks} rows={4} />
-            </Descriptions.Item>
-          </Descriptions>
-        )}
+        ) : ( */}
+        <Descriptions column={1} title={`${t('center.basicInfo')}`}>
+          <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
+            {baseInfo.fileName}
+          </Descriptions.Item>
+          <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceFileID')}>
+            {baseInfo.fileId}
+          </Descriptions.Item>
+          <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
+            <TextArea onChange={onRemarksChange} value={remarks} rows={4} />
+          </Descriptions.Item>
+        </Descriptions>
+        {/* )} */}
       </div>
       <div className="info-box">
         <Descriptions column={2} title={`${t('center.fieldInfo')}`}></Descriptions>
-        {type === 'view' ? (
+        {/* {type === 'view' ? (
           <DetailTable tableData={tableData} total={total} setPage={setPage} curPage={curPage} />
-        ) : (
-          <MyFiledsTable
-            originalData={originalData}
-            tableData={tableData}
-            total={total}
-            setPage={setPage}
-            curPage={curPage}
-            mode="edit"
-          />
-        )}
+        ) : ( */}
+        <MyFiledsTable
+          originalData={originalData}
+          tableData={tableData}
+          total={total}
+          setPage={setPage}
+          curPage={curPage}
+          mode="edit"
+        />
+        {/* )} */}
       </div>
       <div className="submit-box">
         <Space size={40} className="btn-group">

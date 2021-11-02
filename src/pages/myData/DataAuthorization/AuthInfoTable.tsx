@@ -17,7 +17,7 @@ const AuthInfoTable: FC<any> = (props: any) => {
   const columns = [{
     title: t('common.Num'),
     width: 100,
-    render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
+    render: (text, record, index) => record.index,
   }, {
     title: t('center.fileField'),
     dataIndex: 'columnName',
