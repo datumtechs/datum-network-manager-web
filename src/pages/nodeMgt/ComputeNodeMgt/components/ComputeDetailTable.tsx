@@ -11,7 +11,9 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     defaultPageSize: 10,
     pageSize: 10,
   }
-  const { id, core, memory, bandwidth, identityId } = props
+  const { id,
+    // core, memory, bandwidth,
+    identityId } = props
   const { t } = useTranslation()
   const history = useHistory()
   const [total, totalSet] = useState<number>(0)
@@ -43,24 +45,6 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     }
   }, [table])
 
-  // const dataSource = [
-  //   {
-  //     coordinateSide: 'aaaa',
-  //     createTime: '111111111111111',
-  //     id: 0,
-  //     ownerIdentityId: '1111111111',
-  //     powerNodeId: '11111',
-  //     resultSide: '222222',
-  //     taskId: '3333',
-  //     taskName: '3344444444444',
-  //     taskStartTime: '5555555',
-  //     updateTime: '2222222222222',
-  //     usedBandwidth: 0,
-  //     usedCore: 0,
-  //     usedMemory: 0,
-  //     connStatus: '2',
-  //   },
-  // ]
   const linkToDetail = obj => {
     history.push({
       pathname: '/tasks/taskDetail',
@@ -91,7 +75,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             <Row>
               <Col span={6}>{t('computeNodeMgt.startTime')}:</Col>
               {/* <Col span={18}>{record.taskStartTime}</Col> */}
-              <Col span={18}>{record.startTime}</Col>
+              <Col span={18}>{record.createTime}</Col>
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.sponsor')}:</Col>
@@ -115,20 +99,20 @@ const ComputeDetailTable: FC<any> = (props: any) => {
           <>
             <Row>
               <Col span={4}>CPU:</Col>
-              <Col span={8}>{record.usedCore} cores</Col>
-              <Col span={12}>{`( ${isNaN(record.usedCore / core) ? '0.00' : ((record.usedCore / core) * 100).toFixed(2)
+              <Col span={8}>{record.core} {t('overview.core')}</Col>
+              <Col span={12}>{`( ${isNaN(record.usedCore / record.core) ? '0.00' : ((record.usedCore / record.core) * 100).toFixed(2)
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.memory')}:</Col>
-              <Col span={8}>{fileSizeChange(record.usedMemory)}</Col>
-              <Col span={12}>{`( ${isNaN(record.usedMemory / memory) ? '0.00' : ((record.usedMemory / memory) * 100).toFixed(2)
+              <Col span={8}>{fileSizeChange(record.memory)}</Col>
+              <Col span={12}>{`( ${isNaN(record.usedMemory / record.memory) ? '0.00' : ((record.usedMemory / record.memory) * 100).toFixed(2)
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.bandwidth')}:</Col>
-              <Col span={8}>{fileSizeChange(record.usedBandwidth)}P/S</Col>
-              <Col span={12}>{`( ${isNaN(record.usedBandwidth / bandwidth) ? '0.00' : ((record.usedBandwidth / bandwidth) * 100).toFixed(2)
+              <Col span={8}>{fileSizeChange(record.bandwidth)}P/S</Col>
+              <Col span={12}>{`( ${isNaN(record.usedBandwidth / record.bandwidth) ? '0.00' : ((record.usedBandwidth / record.bandwidth) * 100).toFixed(2)
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
           </>
@@ -155,7 +139,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       <Table
         // dataSource={dataSource}
         dataSource={tableData}
-        rowKey={re => re.id}
+        rowKey={re => `${re.identityId}_${re.id}`}
         columns={columns}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
       />

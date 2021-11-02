@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import MyTag from '../../../../components/MyTag'
 
 const MyTaskStatusBar: FC<any> = (props: any) => {
-  const { status, role, width } = props
+  const { status, role, width, margin } = props
   const { t } = useTranslation()
   const [color, colorSet] = useState<string>('')
   const [bgColor, bgColorSet] = useState<string>('')
@@ -35,7 +35,7 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
   }, [status])
 
   useEffect(() => {
-    if (role === 'owner' || role === 1) { // 发起方
+    if (role === 'taskSponsor' || role === 1) { // 发起方
       colorSet('#52C41A')
       bgColorSet('#EBFDDA')
       contentSet(t('computeNodeMgt.sponsor'))
@@ -63,7 +63,7 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
     }
   }, [role])
 
-  return <MyTag content={content} radius='2' color={color} bgColor={bgColor} width={width} border={border}></MyTag>
+  return <MyTag content={content} radius='2' color={color} bgColor={bgColor} width={width} border={border} margin={margin}></MyTag>
 
 }
 

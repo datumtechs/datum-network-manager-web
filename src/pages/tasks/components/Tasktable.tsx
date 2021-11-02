@@ -57,11 +57,11 @@ const MyTable = (props, ref) => {
   const role = obj => {
     return Object.keys(obj).map((v) => {
       if (!obj[v]) return ''
-      return <MyTaskStatusBar key={obj[v]} role={v} width={122} />
+      return <MyTaskStatusBar key={obj[v]} role={v} width={120} margin={1} />
     })
   }
 
-  const columns = [
+  const columns: any = [
     {
       title: t('common.Num'),
       width: 30,
@@ -97,12 +97,13 @@ const MyTable = (props, ref) => {
       key: 'status',
       width: 80,
       render: (text, record) => {
-        return <MyTaskStatusBar status={record.status} width={82} />
+        return <MyTaskStatusBar status={record.status} width={80} />
       },
     },
     {
       title: t('task.myCapacity'),
       dataIndex: 'role',
+      align: 'center',
       width: 100,
       render: (text, record) => {
         return role(record.dynamicFields)
