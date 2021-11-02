@@ -57,7 +57,7 @@ const MyTable = (props, ref) => {
   const role = obj => {
     return Object.keys(obj).map((v) => {
       if (!obj[v]) return ''
-      return <MyTaskStatusBar key={obj[v]} role={obj[v]} width={122} />
+      return <MyTaskStatusBar key={obj[v]} role={v} width={122} />
     })
   }
 

@@ -35,27 +35,27 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
   }, [status])
 
   useEffect(() => {
-    if (role === 'owner' || role === 1) {
+    if (role === 'owner' || role === 1) { // 发起方
       colorSet('#52C41A')
       bgColorSet('#EBFDDA')
       contentSet(t('computeNodeMgt.sponsor'))
       borderSet('#B7EB8F')
-    } else if (role === 'dataSupplier' || role === 2) {
+    } else if (role === 'dataProvider' || role === 2) { // 数据提供者
       colorSet('#F5222D')
       bgColorSet('#F9DDDB')
       contentSet(t('computeNodeMgt.dataSupplier'))
       borderSet('#FFA39E')
-    } else if (role === 'algoSupplier' || role === 5) {
+    } else if (role === 'algoProvider' || role === 5) { // algoProvider 算法提供
       colorSet('#1A6FC4')
       bgColorSet('#DAE6FD')
       contentSet(t('computeNodeMgt.algoSupplier'))
       borderSet('#8FBDEB')
-    } else if (role === 'receiver' || role === 4) {
+    } else if (role === 'resultConsumer' || role === 4) { // resultConsumer 使用方
       colorSet('#781AC4')
       bgColorSet('#F3DAFD')
       contentSet(t('computeNodeMgt.receiver'))
       borderSet('#D08FEB')
-    } else if (role === 'powerSupplier' || role === 3) {
+    } else if (role === 'powerProvider' || role === 3) { // powerProvider 算力提供方
       colorSet('#FAAD14')
       bgColorSet('#FDFCDA')
       contentSet(t('computeNodeMgt.powerSupplier'))
