@@ -20,10 +20,10 @@ const computeNodeApi = {
   */
   queryPowerNodeUseHistory(data): Promise<any> {
     return axios({
-      method: "POST",
+      method: "GET",
       // url: `/api/v1/node/powernode/queryPowerNodeUseHistory`,
-      url: `/api/v1/powernode/listPowerNodeUseHistory`,
-      data
+      url: `/api/v1/powernode/listLocalPowerLoadSnapshotByPowerNodeId`,
+      params: { ...data }
     })
   },
 
@@ -102,7 +102,7 @@ const computeNodeApi = {
     return axios({
       method: "POST",
       // url: `/api/v1/node/powernode/queryPowerJoinTaskList`,
-      url: `/api/v1/powernode/listRunningTaskByPowerNodeId`,
+      url: `/api/v1/powernode/listPowerNode`,
       data
     })
   },
@@ -116,7 +116,7 @@ const computeNodeApi = {
     return axios({
       method: "POST",
       // url: `/api/v1/node/powernode/queryPowerNodeDetails`,
-      url: `/api/v1/powernode/queryPowerNodeDetails`,
+      url: `/api/v1/powernode/powerNodeDetails`,
       data
     })
   },

@@ -70,6 +70,8 @@ export const Tasks: FC<any> = () => {
     taskApi.taskListByQuery(params).then(res => {
       if (res.status === 0) {
         tableDataSet(res.data)
+        console.log(res.total);
+
         totalSet(res.total)
       }
     })

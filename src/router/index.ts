@@ -345,14 +345,15 @@ const routes: Array<IRoute> = [
         component: TaskEvent,
         meta: { exact: true, title: '', icon: '', show: false },
       },
-      {
-        name: 'DataCenter',
-        label: 'menu.dataCenter',
-        breadcrumbName: 'menu.dataCenter',
-        path: '/dataCenter',
-        component: DataCenter,
-        meta: { exact: true, title: '', icon: '', show: true },
-      },
+      // 全网数据暂时隐藏 2021 11 02 李发攀
+      // {
+      //   name: 'DataCenter',
+      //   label: 'menu.dataCenter',
+      //   breadcrumbName: 'menu.dataCenter',
+      //   path: '/dataCenter',
+      //   component: DataCenter,
+      //   meta: { exact: true, title: '', icon: '', show: true },
+      // },
       {
         name: 'MetaDataDetail',
         label: 'menu.metaDataDetail',
@@ -361,14 +362,15 @@ const routes: Array<IRoute> = [
         component: DataDetail,
         meta: { exact: true, title: '', icon: '', show: false },
       },
-      {
-        name: 'ComputationCenter',
-        label: 'menu.computationCenter',
-        breadcrumbName: 'menu.computationCenter',
-        path: '/computationCenter',
-        component: ComputationCenter,
-        meta: { exact: true, title: '', icon: '', show: true },
-      },
+      // 全网算力暂时隐藏 2021 11 02 李发攀
+      // {
+      //   name: 'ComputationCenter',
+      //   label: 'menu.computationCenter',
+      //   breadcrumbName: 'menu.computationCenter',
+      //   path: '/computationCenter',
+      //   component: ComputationCenter,
+      //   meta: { exact: true, title: '', icon: '', show: true },
+      // },
     ],
   },
 ]

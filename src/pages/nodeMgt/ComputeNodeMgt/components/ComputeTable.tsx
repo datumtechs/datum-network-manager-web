@@ -216,6 +216,7 @@ const DataTable: FC<any> = (props: any) => {
       state: {
         id: row.powerNodeId,
         name: row.powerNodeName,
+        identityId: row.identityId
       },
     })
   }

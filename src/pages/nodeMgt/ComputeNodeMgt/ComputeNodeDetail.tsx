@@ -32,7 +32,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
 
   // const [xAxis, xAxisSet] = useState([])
   const { location } = props
-  const { id, name } = location.state
+  const { id, name, identityId } = location.state
   const { t } = useTranslation()
   const [selectTab, SetSelectTab] = useState('1')
   const [curTitle, curTitleSet] = useState('')
@@ -273,8 +273,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
     computeNodeApi
       .queryPowerNodeUseHistory({
         powerNodeId: id,
-        resourceType: selectTab,
-        timeType,
+        // resourceType: selectTab,
+        // timeType,
       })
       .then(res => {
         if (res.status === 0) {
@@ -381,7 +381,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
           </div>
         </div>
       </div>
-      <ComputeDetailTable id={id} bandwidth={details?.bandwidth} memory={details?.memory} core={details?.core} />
+      {/* {identityId} */}
+      <ComputeDetailTable identityId={identityId} bandwidth={details?.bandwidth} memory={details?.memory} core={details?.core} />
     </div>
   )
 }

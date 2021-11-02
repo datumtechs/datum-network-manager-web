@@ -11,7 +11,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     defaultPageSize: 10,
     pageSize: 10,
   }
-  const { id, core, memory, bandwidth } = props
+  const { id, core, memory, bandwidth, identityId } = props
   const { t } = useTranslation()
   const history = useHistory()
   const [total, totalSet] = useState<number>(0)
@@ -30,7 +30,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       },
     })
   }
-  const { table } = useComputeNodeDetailTable({ id, curPage, pageSize: pagination.pageSize })
+  const { table } = useComputeNodeDetailTable({ id, identityId, curPage, pageSize: pagination.pageSize })
 
   const onPageChange = (page: number) => {
     curPageSet(page)
@@ -61,6 +61,16 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   //     connStatus: '2',
   //   },
   // ]
+  const linkToDetail = obj => {
+    history.push({
+      pathname: '/tasks/taskDetail',
+      state: {
+        taskId: obj.taskId,
+        taskName: obj.taskName
+      },
+    })
+  }
+
   const columns = [
     {
       title: t('common.Num'),
@@ -80,7 +90,8 @@ const ComputeDetailTable: FC<any> = (props: any) => {
           <>
             <Row>
               <Col span={6}>{t('computeNodeMgt.startTime')}:</Col>
-              <Col span={18}>{record.taskStartTime}</Col>
+              {/* <Col span={18}>{record.taskStartTime}</Col> */}
+              <Col span={18}>{record.startTime}</Col>
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.sponsor')}:</Col>
@@ -88,7 +99,8 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.timeSpan')}:</Col>
-              <Col span={18}>{record.taskStartTime}</Col>
+              {/* <Col span={18}>{record.taskStartTime}</Col> */}
+              <Col span={18}>{record.startTime}</Col>
             </Row>
           </>
         )
@@ -129,7 +141,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       key: 'sponsorStartTime',
       render: (text, record, index) => {
         return (
-          <div className="AliM pointer link">
+          <div className="AliM pointer link" onClick={linkToDetail.bind(this, record)}>
             {t('task.viewDetail')}
             {/* <p>{record.ownerIdentityId}</p>
             <p>{dayjs(record.taskStartTime).format('YYYY-MM-DD HH:mm:ss')}</p> */}

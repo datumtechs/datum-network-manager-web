@@ -18,9 +18,11 @@ const DataChart: FC<any> = (props: any) => {
 
   const getDaysByNumber = (days: number, unit: string = `${t('common.day')}`) => {
     const newDays: string[] = []
-    for (let i = 1; i < days + 1; i++) {
+    // for (let i = 1; i < days + 1; i++) {
+    for (let i = 0; i <= days; i++) {
       newDays.unshift(`${dayjs().subtract(i, 'day').format('MM-DD')}`)
     }
+    console.log(newDays);
     return newDays
   }
   const option = {

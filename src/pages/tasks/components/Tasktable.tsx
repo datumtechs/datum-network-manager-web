@@ -54,6 +54,13 @@ const MyTable = (props, ref) => {
     props.pageChange(page)
   }
 
+  const role = obj => {
+    return Object.keys(obj).map((v) => {
+      if (!obj[v]) return ''
+      return <MyTaskStatusBar key={obj[v]} role={obj[v]} width={122} />
+    })
+  }
+
   const columns = [
     {
       title: t('common.Num'),
@@ -98,7 +105,7 @@ const MyTable = (props, ref) => {
       dataIndex: 'role',
       width: 100,
       render: (text, record) => {
-        return <MyTaskStatusBar role={record.role} width={122} />
+        return role(record.dynamicFields)
       },
     },
     {
@@ -148,7 +155,7 @@ const MyTable = (props, ref) => {
         columns={columns}
         rowKey={_ => _.id}
         bordered
-        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+        pagination={{ defaultCurrent: 1, defaultPageSize: 5, total, onChange: onPageChange }}
       />
     </div>
   )

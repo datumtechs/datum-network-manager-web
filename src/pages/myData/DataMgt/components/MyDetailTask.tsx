@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Table, Space } from 'antd'
+import { useHistory } from 'react-router-dom'
 import MyTaskStatusBar from './MyTaskStatusBar'
 import { resourceApi } from '../../../../api/index'
 
@@ -11,9 +12,26 @@ export const MyDetailTask: FC<any> = (props: any) => {
   const [curPage, curPageSet] = useState<number>(1)
   const [totalNum, totalNumSet] = useState<number>(0)
   const [tableData, tableDataSet] = useState([])
+  const history = useHistory()
 
-  const goDetail = (record) => { }
-  const goEvent = (record) => { }
+  const goDetail = (record) => {
+    history.push({
+      pathname: '/tasks/taskDetail',
+      state: {
+        taskId: record.taskId,
+        taskName: record.taskName
+      },
+    })
+  }
+  const goEvent = (record) => {
+    history.push({
+      pathname: '/tasks/TaskEvent',
+      state: {
+        taskId: record.taskId,
+        taskName: record.taskName
+      },
+    })
+  }
 
   const dataSource = [
     {
@@ -55,6 +73,13 @@ export const MyDetailTask: FC<any> = (props: any) => {
   const pagination = {
     defaultPageSize: 10,
   }
+
+  const role = obj => {
+    return Object.keys(obj).map((v) => {
+      if (!obj[v]) return ''
+      return <MyTaskStatusBar key={obj[v]} role={obj[v]} width={122} />
+    })
+  }
   const columns = [
     {
       title: t('common.Num'),
@@ -82,7 +107,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
       dataIndex: 'role',
       key: 'role',
       render: (text, record) => {
-        return <MyTaskStatusBar role={record.role} width={122} />
+        return role(record.dynamicFields)
       }
     },
     {
