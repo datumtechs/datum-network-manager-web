@@ -63,6 +63,14 @@ const nodeApi = {
       data
     })
   },
+  // 删除种子节点
+  delSeedNode(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/seednode/deleteSeedNode`,
+      data
+    })
+  },
 }
 
 

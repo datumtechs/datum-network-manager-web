@@ -183,7 +183,8 @@ export const DataDetail: FC<any> = (props: any) => {
   const saveAndReturn = () => {
     resourceApi.updateMetaData({
       // id: baseInfo.id,
-      id: baseInfo.metaDataId,
+      // id: baseInfo.metaDataId || id,
+      id: id || baseInfo.metaDataId,
       industry: baseInfo.industry,
       localMetaDataColumnList: originalData,
       remarks: baseInfo.remarks,
