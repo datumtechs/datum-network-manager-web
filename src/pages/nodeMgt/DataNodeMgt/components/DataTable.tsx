@@ -77,31 +77,6 @@ const DataTable: FC<any> = (props: any) => {
     })
   }
 
-  const dataSource = [
-    {
-      connStatus: -1,
-      externalIp: '111.111.111.111',
-      externalPort: 9090,
-      id: 0,
-      internalIp: '222.222.222.222',
-      internalPort: 8080,
-      nodeId: '2',
-      nodeName: '胡彦斌',
-      isEdit: false,
-    },
-    {
-      connStatus: 0,
-      externalIp: '111.111.111.111',
-      externalPort: 9090,
-      id: 1,
-      internalIp: '222.222.222.222',
-      internalPort: 8080,
-      nodeId: '2',
-      nodeName: '胡彦斌',
-      isEdit: false,
-    },
-  ]
-
   const handleChange = (type, index, e) => {
     tempTableDataSet(() => {
       tempTableData[index][type] = e.target.value
@@ -163,17 +138,6 @@ const DataTable: FC<any> = (props: any) => {
       key: 'ip',
       render: (text, record, index) => {
         return (
-          // <>
-          //   <p>
-          //     <span>{`${t('node.internal')}`}:&nbsp;&nbsp;</span>
-          //     <span>{record.internalIp}</span>
-          //   </p>
-          //   <p>
-          //     <span>{`${t('node.external')}`}:&nbsp;&nbsp;</span>
-          //     <span>{record.externalIp}</span>
-          //   </p>
-
-          // </>
           <div className="seedNode-edit-box ">
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
@@ -250,9 +214,14 @@ const DataTable: FC<any> = (props: any) => {
               </Space>
             ) : (
               <Space size={10} className="operation-box">
-                <span className="pointer main_color btn" onClick={() => setEditStatus(record, true, index)}>
-                  {t('common.edit')}
-                </span>
+                {
+                  record.connStatus === 1 ?
+                    <span className="span-view"> {t('common.edit')}</span>
+                    :
+                    <span className="pointer main_color btn" onClick={() => setEditStatus(record, true, index)}>
+                      {t('common.edit')}
+                    </span>
+                }
                 {record.connStatus === 0 ? (
                   <span className="pointer main_color btn" onClick={() => deleteFn(record)}>
                     {t('common.delete')}

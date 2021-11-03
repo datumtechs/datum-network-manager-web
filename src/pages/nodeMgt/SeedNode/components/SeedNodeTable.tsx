@@ -79,11 +79,11 @@ const SeedNodeTable: FC<any> = (props: any) => {
         return (
           <>
             <Space size={10} className="operation-box">
-              {record.initFlag ?
+              {!record.initFlag ?
                 <span className="pointer btn" onClick={() => deleteFn(record)}>
                   {t('common.delete')}
                 </span> :
-                (<span style={{ color: '#dadbdb' }}>{t('common.delete')}</span>)
+                (<span className="span-view">{t('common.delete')}</span>)
               }
             </Space>
           </>
