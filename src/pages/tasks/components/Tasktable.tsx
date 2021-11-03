@@ -118,14 +118,14 @@ const MyTable = (props, ref) => {
           {
             record.status === 3 || record.status === 4 ?
               <p>
-                {t('myData.duration')}:&nbsp;{formatDuring(record.endAt - record.createAt)}
+                {t('myData.duration')}:&nbsp;{formatDuring(dayjs(record.endAt).valueOf() - dayjs(record.createAt).valueOf())}
               </p>
               : ''
           }
           {
             record.status === 1 || record.status === 2 ?
               <p>
-                {t('myData.timeSpent')}:&nbsp;{formatDuring(Date.now() - record.createAt)}
+                {t('myData.timeSpent')}:&nbsp;{formatDuring(dayjs(Date.now()).valueOf() - dayjs(record.createAt).valueOf())}
               </p> : ''
           }
         </>
@@ -154,7 +154,7 @@ const MyTable = (props, ref) => {
       <Table
         dataSource={tableData}
         columns={columns}
-        rowKey={_ => _.id}
+        rowKey={_ => (_.id + _.ownerIdentityId)}
         bordered
         pagination={{ defaultCurrent: 1, defaultPageSize: 5, total, onChange: onPageChange }}
       />

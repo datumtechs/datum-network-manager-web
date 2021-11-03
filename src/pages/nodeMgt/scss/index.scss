@@ -84,3 +84,15 @@
     margin-right: 40px;
   }
 }
+
+.step-error{
+  .ant-steps-item-container{
+    .step-icon{
+      background: #f14a4a;
+      &::before{
+        border-color: #f14a4a;
+      }
+    }
+  }
+
+}

@@ -13,7 +13,7 @@ const fmtTime = time => {
 const LastStep: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { status, endAt, startAt } = props
-
+  console.log(dayjs(endAt).valueOf(), dayjs(startAt).valueOf());
   return (
     <>
       <p>
@@ -22,7 +22,7 @@ const LastStep: FC<any> = (props: any) => {
       </p>
       {status === 4 ? (
         <p>
-          {t('task.step.timeSpent')}: &nbsp;{formatDuring(endAt - startAt)}
+          {t('task.step.timeSpent')}: &nbsp;{formatDuring(dayjs(endAt).valueOf() - dayjs(startAt).valueOf())}
         </p>
       ) : (
         ''
@@ -30,6 +30,7 @@ const LastStep: FC<any> = (props: any) => {
     </>
   )
 }
+
 
 const EventStep: FC<any> = (props: any) => {
   const stsMap = { pending: 0, running: 1, failed: 2, success: 2 }
@@ -61,6 +62,7 @@ const EventStep: FC<any> = (props: any) => {
       />
       <Step
         title={fmtTime(endAt)}
+        className={status === 3 ? 'step-error' : ''}
         icon={<StepIcon scolor={(status === 3) || (status === 4)} />}
         description={<LastStep status={status} startAt={startAt} endAt={endAt} />}
       />

@@ -29,12 +29,6 @@ const DataTable: FC<any> = (props: any) => {
     defaultPageSize: 10,
   }
 
-  // const { table } = useDatanodeTable({
-  //   keyword: props.searchText,
-  //   pageNumber: curPage,
-  //   pageSize: pagination.defaultPageSize,
-  // })
-
   const initData = async () => {
     const res = await dataNodeApi.queryDatanodeList({
       keyword: props.searchText,
@@ -214,14 +208,9 @@ const DataTable: FC<any> = (props: any) => {
               </Space>
             ) : (
               <Space size={10} className="operation-box">
-                {
-                  record.connStatus === 1 ?
-                    <span className="span-view"> {t('common.edit')}</span>
-                    :
-                    <span className="pointer main_color btn" onClick={() => setEditStatus(record, true, index)}>
-                      {t('common.edit')}
-                    </span>
-                }
+                <span className="pointer main_color btn" onClick={() => setEditStatus(record, true, index)}>
+                  {t('common.edit')}
+                </span>
                 {record.connStatus === 0 ? (
                   <span className="pointer main_color btn" onClick={() => deleteFn(record)}>
                     {t('common.delete')}

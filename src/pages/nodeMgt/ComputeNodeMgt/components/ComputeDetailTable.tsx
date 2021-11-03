@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
 import useComputeNodeDetailTable from '../../../../hooks/useComputeNodeDetailTable'
-import { fileSizeChange } from '../../../../utils/utils'
+import { fileSizeChange, formatDuring } from '../../../../utils/utils'
 
 const ComputeDetailTable: FC<any> = (props: any) => {
   const pagination = {
@@ -55,12 +55,12 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     })
   }
 
-  const handleTime = (startTime, endTime) => {
-    const date1 = dayjs(startTime)
-    const date2 = dayjs(endTime)
-    const slightly = date1.diff(date2)
-    return dayjs(slightly).format('HH:mm:ss')
-  }
+  // const handleTime = (startTime, endTime) => {
+  //   const date1 = dayjs(startTime)
+  //   const date2 = dayjs(endTime)
+  //   const slightly = date1.diff(date2)
+  //   return dayjs(slightly).format('HH:mm:ss')
+  // }
 
 
 
@@ -91,7 +91,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.timeSpan')}:</Col>
-              <Col span={18}>{handleTime(record.startAt, record.endAt)}</Col>
+              <Col span={18}>{formatDuring(dayjs(record.endAt).valueOf() - dayjs(record.startAt).valueOf())}</Col>
             </Row>
           </>
         )
