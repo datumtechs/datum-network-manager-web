@@ -28,14 +28,18 @@ const ProviderTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div>
-            <span>{text}</span> <span>({record.partyId})</span>
+            <span>{record?.dynamicFields?.nodeName || 'N/A'}</span> <span>({record.partyId})</span>
           </div>
         )
       }
     },
     {
       title: t('task.identity'),
+      ellipsis: true,
       dataIndex: 'nodeIdentityId',
+      render: (text, record, index) => {
+        return <span>{record?.dynamicFields?.nodeId || 'N/A'}</span>
+      }
     }
   ]
 
@@ -53,18 +57,18 @@ const ProviderTable: FC<any> = (props: any) => {
     },
   ]
 
-  const algoColumns = [
-    {
-      title: t('task.algoNameAndId'),
-      dataIndex: 'algoDataName',
-      render: (text, record) => {
-        return (
-          <div>
-            {text}(ID:&nbsp;{record.id})
-          </div>
-        )
-      },
-    }
+  const algoColumns = [ // 暂不需要
+    // {
+    //   title: t('task.algoNameAndId'),
+    //   dataIndex: 'algoDataName',
+    //   render: (text, record) => {
+    //     return (
+    //       <div>
+    //         {text}(ID:&nbsp;{record.id})
+    //       </div>
+    //     )
+    //   },
+    // }
   ]
 
   useEffect(() => {
@@ -83,6 +87,7 @@ const ProviderTable: FC<any> = (props: any) => {
       <Table
         dataSource={props.tableData}
         columns={columns}
+        scroll={{ x: '100%' }}
         pagination={{
           defaultCurrent: 1,
           defaultPageSize: 10,

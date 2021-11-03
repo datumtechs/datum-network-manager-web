@@ -12,12 +12,14 @@ export const AddSeedNode: FC<any> = (props: any) => {
   const [nameStatus, nameStatusSet] = useState<boolean>(false)
 
   const onFinish = (values) => {
+    // console.log(values);
+
     if (values) {
       nodeApi.addSeedNode({
-        seedNodeName: values.nodeSeedName,
-        nodeId: values.NodePublicKey,
-        internalPort: values.internalPort,
-        internalIp: values.internalIP,
+        seedNodeId: values.nodeSeedNodeId,
+        // nodeId: values.NodePublicKey,
+        // internalPort: values.internalPort,
+        // internalIp: values.internalIP,
       }).then(res => {
         console.log(res);
         if (res.status === 0) {
@@ -33,7 +35,7 @@ export const AddSeedNode: FC<any> = (props: any) => {
   const whenInputChange = (e) => {
     const name = e.target.value
     if (name) {
-      nodeApi.checkSeedNodeName({ seedNodeName: name }).then(res => {
+      nodeApi.checkSeedNodeName({ seedNodeId: name }).then(res => {
         showNameStatusSet(true)
         if (res.status === 0) {
           return nameStatusSet(true)
@@ -57,13 +59,13 @@ export const AddSeedNode: FC<any> = (props: any) => {
         form={form}
       >
         <Form.Item
-          label={t('node.nodeSeedName')}
-          name="nodeSeedName"
-          rules={[{ required: true, message: `${t('tip.plzInput')}${t('node.nodeSeedName')}` }]}
+          label={t('node.nodeSeedNodeId')}
+          name="nodeSeedNodeId"
+          rules={[{ required: true, message: `${t('tip.plzInput')}${t('node.nodeSeedNodeId')}` }]}
           className="form-item"
         >
           <div className="form-group">
-            <Input
+            <Input.TextArea
               // onBlur={whenInputName}
               onChange={whenInputChange}
               placeholder={t('node.forSelfidentity')}
@@ -75,15 +77,15 @@ export const AddSeedNode: FC<any> = (props: any) => {
             }
           </div>
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           label={t('node.NodePublicKey')}
           name="NodePublicKey"
           rules={[{ required: true, message: `${t('tip.plzInput')}${t('node.NodePublicKey')}` }]}
           className="form-item"
         >
           <Input className="form-box-input" />
-        </Form.Item>
-        <Form.Item
+        </Form.Item> */}
+        {/* <Form.Item
           label={t('dataNodeMgt.internalIP')}
           name="internalIP"
           rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.internalIP')}` }]}
@@ -98,7 +100,7 @@ export const AddSeedNode: FC<any> = (props: any) => {
           className="form-item"
         >
           <Input className="form-box-input" />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item className="form-item">
           <Button className="btn re-btn" htmlType="submit" style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}>
             {t('common.return')}

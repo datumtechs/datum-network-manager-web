@@ -38,7 +38,8 @@ const nodeApi = {
   querySeedNodeList(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/seednode/querySeedNodeList`,
+      // url: `/api/v1/node/seednode/querySeedNodeList`,
+      url: `/api/v1/seednode/listSeedNode`,
       data
     })
   },
@@ -47,7 +48,8 @@ const nodeApi = {
   checkSeedNodeName(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/seednode/checkSeedNodeName`,
+      // url: `/api/v1/node/seednode/checkSeedNodeName`,
+      url: `/api/v1/seednode/checkSeedNodeId`,
       data
     })
   },
@@ -56,7 +58,8 @@ const nodeApi = {
   addSeedNode(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/node/seednode/addSeedNode`,
+      // url: `/api/v1/node/seednode/addSeedNode`,
+      url: `/api/v1/seednode/addSeedNode`,
       data
     })
   },

@@ -48,12 +48,9 @@ const Nav = (props: any) => {
         item.meta.show ? (
           <div className="nav-wrapper pointer" key={item.name}>
             {item.children ? (
-              // <div className="nav-label-box">
               <div className={`nav-label-box ${curPath.includes(item.path) ? 'activeMenu' : ''}`}>
-                {/* <div
-                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu' : ''} `} */}
                 <div
-                  className="nav-label"
+                  className="nav-label hover-color"
                   onClick={() => showSubMenu(item)}
                 >
                   {t(`${item.label}`)}{' '}

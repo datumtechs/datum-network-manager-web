@@ -166,39 +166,6 @@ export const TaskDetail: FC<any> = (props: any) => {
           <ProviderTable type="algorithmProvider" tableData={baseInfo.dataSupplier} />
         </div>
       </div>
-      {/* <div className="info-box">
-        <Descriptions column={2} title={`${t('task.myCapacity')} : ${t(`task.role.${baseInfo.role}`)}`}> */}
-      {/* TODO 此处按照要求不展示具体信息 */}
-      {/* {baseInfo.role === 3 &&
-            baseInfo.powerSupplier.map(item => {
-              return (
-                <>
-                  <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('overview.computeNode')}>
-                    {item.nodeName}
-                  </Descriptions.Item>
-                  <Descriptions.Item labelStyle={{ padding: '0 20px' }} label="ID">
-                    {item.nodeIdentityId}
-                  </Descriptions.Item>
-                </>
-              )
-            })}
-          {baseInfo.role === 2 &&
-            baseInfo.dataSupplier.map(item => {
-              return (
-                <>
-                  <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('task.sourceFile')}>
-                    {item.metaDataName}
-                  </Descriptions.Item>
-                  <Descriptions.Item labelStyle={{ padding: '0 20px' }} label="ID">
-                    {item.metaDataId}
-                  </Descriptions.Item>
-                </>
-              )
-            })} */}
-      {/* </Descriptions>
-      </div> */}
-
-
       <div className="btn-box">
         <Space size={40}>
           <Button className={`${i18n.language === 'en' ? 'btn-en' : 'btn'}`} size="large" onClick={linkReturn}>

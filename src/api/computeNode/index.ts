@@ -102,7 +102,7 @@ const computeNodeApi = {
     return axios({
       method: "POST",
       // url: `/api/v1/node/powernode/queryPowerJoinTaskList`,
-      url: `/api/v1/powernode/listPowerNode`,
+      url: `/api/v1/powernode/listRunningTaskByPowerNodeId`,
       data
     })
   },

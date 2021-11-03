@@ -143,7 +143,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
         ? '0'
         : ((details?.usedBandwidth / details?.bandwidth) * 100).toFixed(2),
     )
-    console.log(111);
+    // console.log(111);
   }, [details])
 
 
@@ -268,8 +268,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
           </div>
         </div>
       </div>
-      <ComputeDetailTable identityId={identityId}
-      // bandwidth={details?.bandwidth} memory={details?.memory} core={details?.core}
+      <ComputeDetailTable id={id} identityId={identityId}
+        bandwidth={details?.bandwidth} memory={details?.memory} core={details?.core}
       />
     </div>
   )
