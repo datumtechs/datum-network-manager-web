@@ -50,7 +50,7 @@ const Nav = (props: any) => {
             {item.children ? (
               <div className={`nav-label-box ${curPath.includes(item.path) ? 'activeMenu' : ''}`}>
                 <div
-                  className="nav-label hover-color"
+                  className="nav-label"
                   onClick={() => showSubMenu(item)}
                 >
                   {t(`${item.label}`)}{' '}

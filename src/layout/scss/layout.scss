@@ -16,7 +16,7 @@
     .logo {
       margin-top: 20px;
     }
-    .logo-img{
+    .logo-img {
       width: 110px;
     }
     .sys-name {
@@ -55,15 +55,14 @@
                 color: #fff;
               }
             }
-            .hover-color:hover{
-              color: #ffa505;
-            }
+            // .hover-color:hover {
+            //   color: #ffa505;
+            // }
             .sub-nav-box {
               display: flex;
               flex-direction: column;
               text-align: left;
-              transition: all 2s;
-
+              padding-bottom: 10px;
               .sub-nav-label {
                 display: flex;
                 font-size: 14px;
@@ -75,7 +74,7 @@
                 height: 40px;
                 margin: 5px 0;
                 &:hover {
-                  color: #ffa505;
+                  color: #fff;
                 }
               }
             }
@@ -83,10 +82,10 @@
               margin-left: 8px;
             }
             .slideIn {
-              animation: slideIn 0.2s;
+              animation: slideIn 0.3s;
             }
             .slideOut {
-              animation: slideOut 0.2s;
+              animation: slideOut 0.3s;
             }
           }
         }
@@ -94,17 +93,20 @@
           background: #ffffff;
           color: #1e255f !important;
           font-weight: bold;
-         
-          & > .triangle-down {
+          & .sub-nav-label:hover,
+          .nav-label:hover {
+            color: #ffa505 !important;
+          }
+          & .triangle-down {
             position: absolute;
             right: 10px;
-            bottom: 2px;
+            bottom: 3px;
             border-top: 8px solid #1e255f;
           }
-          & > .triangle-up {
+          & .triangle-up {
             position: absolute;
             right: 10px;
-            bottom: 2px;
+            bottom: 3px;
             border-bottom: 8px solid #1e255f;
           }
           &:before {
@@ -122,10 +124,9 @@
             position: absolute;
             top: 3%;
           }
-          
         }
-        .activeMenuBeforeTop{
-          &:before{
+        .activeMenuBeforeTop {
+          &:before {
             top: 13.6%;
           }
         }
