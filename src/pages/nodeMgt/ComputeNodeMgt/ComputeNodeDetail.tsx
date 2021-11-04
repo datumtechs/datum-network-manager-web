@@ -48,6 +48,12 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
     { id: 0, value: 1, label: t('common.pass24') }
   ]
 
+  const getDaysByNumber = (days) => {
+    // 此处换行不要删除 echars 会自动解析
+    return `${dayjs(days).subtract(0, 'day').format('MM-DD')}
+${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
+  }
+
   const option: any = {
     color: ['#3C3588'],
     title: {
@@ -169,7 +175,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   const filterData = (data) => {
     const timeList: any = []
     option.series[0].data = data.reverse().map(v => {
-      timeList.push(`${v.snapshotTime.split(' ')[1]}时`)
+      getDaysByNumber(v.snapshotTime)
+      timeList.push(getDaysByNumber(v.snapshotTime))
       let num = v.corePc
       if (selectTab === '2') {
         num = v.memoryPct
