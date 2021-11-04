@@ -213,7 +213,7 @@ const routes: Array<IRoute> = [
           {
             name: 'addComputeNodeMgt',
             label: 'menu.addDataNode',
-            breadcrumbName: 'menu.addDataNode',
+            breadcrumbName: 'menu.addComputeNodeMgt',
             path: '/nodeMgt/computeNodeMgt/addComputeNode',
             component: EditComputeNode,
             meta: {

@@ -35,8 +35,8 @@ const SeedNodeTable: FC<any> = (props: any) => {
   const saveFn = () => { }
 
   const deleteFn = record => {
-    isModalVisibleSet(true)
     curNameSet(record.seedNodeId)
+    isModalVisibleSet(true)
   }
 
   const columns: Array<object> = [
@@ -60,8 +60,8 @@ const SeedNodeTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div className="status-box">
-            {record.connStatus === 0 ? <img src={successSvg} alt="" /> : <img src={failedSvg} alt="" />}
-            {record.connStatus === 0 ? (
+            {record.connStatus === 1 ? <img src={successSvg} alt="" /> : <img src={failedSvg} alt="" />}
+            {record.connStatus === 1 ? (
               <span className="success_color">{t('common.connectSuccess')}</span>
             ) : (
               <span className="failed_color">{t('common.connectFailed')}</span>
@@ -94,16 +94,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
 
   // methods
   const onPageChange = () => { }
-  const handleOk = () => {
-    nodeApi.delSeedNode({
-      seedNodeId: curName
-    }).then((res) => {
-      if (res.status === 0) {
-        tableDataSet(res.data)
-        totalSet(res.total)
-      }
-    })
-  }
+
   const handleCancel = () => isModalVisibleSet(false)
 
   const querySeedNodeList = () => {
@@ -115,6 +106,18 @@ const SeedNodeTable: FC<any> = (props: any) => {
       if (res.status === 0) {
         tableDataSet(res.data)
         totalSet(res.total)
+      }
+    })
+  }
+
+
+  const handleOk = () => {
+    nodeApi.delSeedNode({
+      seedNodeId: curName
+    }).then((res) => {
+      if (res.status === 0) {
+        querySeedNodeList()
+        isModalVisibleSet(false)
       }
     })
   }

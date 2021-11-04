@@ -55,14 +55,6 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     })
   }
 
-  // const handleTime = (startTime, endTime) => {
-  //   const date1 = dayjs(startTime)
-  //   const date2 = dayjs(endTime)
-  //   const slightly = date1.diff(date2)
-  //   return dayjs(slightly).format('HH:mm:ss')
-  // }
-
-
 
   const columns = [
     {
@@ -107,19 +99,19 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             <Row>
               <Col span={4}>CPU:</Col>
               <Col span={8}>{record.costCore} {record.costCore ? t('overview.core') : ''}</Col>
-              <Col span={12}>{`( ${record.costCore / core ? '0' : (((record.costCore / core) || 0) * 100).toFixed(2)
+              <Col span={12}>{`( ${(record.costCore / core) ? (((record.costCore / core) || 0) * 100).toFixed(2) : 0
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.memory')}:</Col>
               <Col span={8}>{fileSizeChange(record.costMemory)}</Col>
-              <Col span={12}>{`( ${record.costMemory / memory ? '0.00' : (((record.costMemory / memory) || 0) * 100).toFixed(2)
+              <Col span={12}>{`( ${record.costMemory / memory ? (((record.costMemory / memory) || 0) * 100).toFixed(2) : '0.00'
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.bandwidth')}:</Col>
               <Col span={8}>{fileSizeChange(record.costBandwidth)}P/S</Col>
-              <Col span={12}>{`( ${record.costBandwidth / bandwidth ? '0.00' : (((record.costBandwidth / bandwidth) || 0) * 100).toFixed(2)
+              <Col span={12}>{`( ${record.costBandwidth / bandwidth ? (((record.costBandwidth / bandwidth) || 0) * 100).toFixed(2) : '0.00'
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
           </>

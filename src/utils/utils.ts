@@ -1,3 +1,7 @@
+import { number } from "echarts/core";
+import i18n from '../i18n/config'
+
+
 export const changeSizeFn = (input: number): string => {
   if (!input) return '0B'
   let size = "";
@@ -80,9 +84,14 @@ const _isZero = (time) => {
 }
 
 export const formatDuring = time => {
-  const hours = parseInt(`${time / (1000 * 60 * 60)}`, 10)
+  let hours = parseInt(`${time / (1000 * 60 * 60)}`, 10)
   const minutes = parseInt(`${(time % (1000 * 60 * 60)) / (1000 * 60)}`, 10)
   const seconds = parseInt(`${(time % (1000 * 60)) / 1000}`, 10)
+  const day = parseInt(`${hours / 24}`, 10)
+  if (day) {
+    hours = parseInt(`${+hours % 24}`, 10)
+    return `${day}${i18n.language === 'zh' ? '天' : 'Day'} ${_isZero(hours)}:${_isZero(minutes)}:${_isZero(seconds)}`
+  }
   return `${_isZero(hours)}:${_isZero(minutes)}:${_isZero(seconds)}`
 }
 

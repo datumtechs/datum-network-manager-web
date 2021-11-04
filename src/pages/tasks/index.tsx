@@ -108,9 +108,12 @@ export const Tasks: FC<any> = () => {
   useEffect(() => {
     if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) {
       queryData()
-      queryTaskDetails()
     }
   }, [searchStartTime, searchEndTime, pageNumber])
+
+  useEffect(() => {
+    queryTaskDetails()
+  }, [])
 
   return (
     <div className="layout-box">

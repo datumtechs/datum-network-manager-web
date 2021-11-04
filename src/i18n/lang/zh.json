@@ -69,6 +69,7 @@
     "dispatchConfig": "调度服务配置",
     "dataNodeMgt": "数据节点管理",
     "computeNodeMgt": "计算节点管理",
+    "addComputeNodeMgt": "添加计算节点",
     "myData": "我的数据",
     "dataCenter": "全网数据",
     "computationCenter": "全网算力",

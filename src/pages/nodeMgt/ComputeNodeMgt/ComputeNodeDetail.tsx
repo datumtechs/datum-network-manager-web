@@ -268,8 +268,11 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
           </div>
         </div>
       </div>
+      {/* {JSON.stringify(details?.core)} */}
       <ComputeDetailTable id={id} identityId={identityId}
-        bandwidth={details?.bandwidth} memory={details?.memory} core={details?.core}
+        bandwidth={details?.bandwidth}
+        memory={details?.memory}
+        core={details?.core}
       />
     </div>
   )

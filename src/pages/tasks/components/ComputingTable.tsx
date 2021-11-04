@@ -34,7 +34,7 @@ const ComputingTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div>
-            <span>{record?.dynamicFields?.nodeName || 'N/A'}</span>
+            <span>{record?.dynamicFields?.nodeName || 'N/A'}({record?.partyId} )</span>
             {/* <span>({record.partyId})</span> */}
           </div>
         )
