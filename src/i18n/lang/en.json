@@ -69,6 +69,7 @@
     "dispatchConfig": "Scheduling Service Configuration",
     "dataNodeMgt": "Data Node Management",
     "computeNodeMgt": "Computing Node Management",
+    "addComputeNodeMgt": "Add Compute Node ",
     "myData": "My Data",
     "dataCenter": "Data Center",
     "computationCenter": "Computing Center",

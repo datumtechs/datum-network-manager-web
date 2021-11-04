@@ -35,8 +35,8 @@ const SeedNodeTable: FC<any> = (props: any) => {
   const saveFn = () => { }
 
   const deleteFn = record => {
-    isModalVisibleSet(true)
     curNameSet(record.seedNodeId)
+    isModalVisibleSet(true)
   }
 
   const columns: Array<object> = [
@@ -94,16 +94,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
 
   // methods
   const onPageChange = () => { }
-  const handleOk = () => {
-    nodeApi.delSeedNode({
-      seedNodeId: curName
-    }).then((res) => {
-      if (res.status === 0) {
-        tableDataSet(res.data)
-        totalSet(res.total)
-      }
-    })
-  }
+
   const handleCancel = () => isModalVisibleSet(false)
 
   const querySeedNodeList = () => {
@@ -115,6 +106,18 @@ const SeedNodeTable: FC<any> = (props: any) => {
       if (res.status === 0) {
         tableDataSet(res.data)
         totalSet(res.total)
+      }
+    })
+  }
+
+
+  const handleOk = () => {
+    nodeApi.delSeedNode({
+      seedNodeId: curName
+    }).then((res) => {
+      if (res.status === 0) {
+        querySeedNodeList()
+        isModalVisibleSet(false)
       }
     })
   }

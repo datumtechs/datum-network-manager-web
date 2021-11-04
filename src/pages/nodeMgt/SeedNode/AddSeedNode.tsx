@@ -102,7 +102,7 @@ export const AddSeedNode: FC<any> = (props: any) => {
           <Input className="form-box-input" />
         </Form.Item> */}
         <Form.Item className="form-item">
-          <Button className="btn re-btn" htmlType="submit" style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}>
+          <Button className="btn re-btn" onClick={() => history.go(-1)} style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}>
             {t('common.return')}
           </Button>
           <Button type="primary" className="btn submit-btn" htmlType="submit">
