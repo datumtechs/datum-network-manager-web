@@ -60,8 +60,8 @@ const SeedNodeTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div className="status-box">
-            {record.connStatus === 0 ? <img src={successSvg} alt="" /> : <img src={failedSvg} alt="" />}
-            {record.connStatus === 0 ? (
+            {record.connStatus === 1 ? <img src={successSvg} alt="" /> : <img src={failedSvg} alt="" />}
+            {record.connStatus === 1 ? (
               <span className="success_color">{t('common.connectSuccess')}</span>
             ) : (
               <span className="failed_color">{t('common.connectFailed')}</span>

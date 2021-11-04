@@ -41,7 +41,7 @@ const EventStep: FC<any> = (props: any) => {
     [4, 3],
   ])
   const { status = 'running', createAt, startAt, endAt, duration } = props.data
-  console.log(status, 'status,status,status');
+  // console.log(status, 'status,status,status');
 
   const { Step } = Steps
   const { t } = useTranslation()
