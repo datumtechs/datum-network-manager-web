@@ -53,6 +53,13 @@ const SeedNodeTable: FC<any> = (props: any) => {
 
     },
     {
+      title: t('node.initialNode'),
+      dataIndex: 'initialNode',
+      key: 'initialNode',
+      width: 100,
+      render: (text, record, index) => (record.initFlag ? t('common.yes') : t('common.no')),
+    },
+    {
       title: t('common.status'),
       dataIndex: 'connStatus',
       key: 'connStatus',
@@ -79,11 +86,12 @@ const SeedNodeTable: FC<any> = (props: any) => {
         return (
           <>
             <Space size={10} className="operation-box">
-              {!record.initFlag ?
+              {record.initFlag ?
+                <span className="span-view">{t('common.delete')}</span>
+                :
                 <span className="pointer btn" onClick={() => deleteFn(record)}>
                   {t('common.delete')}
-                </span> :
-                (<span className="span-view">{t('common.delete')}</span>)
+                </span>
               }
             </Space>
           </>
