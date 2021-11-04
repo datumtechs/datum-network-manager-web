@@ -57,7 +57,7 @@ const MyTable = (props, ref) => {
   const role = obj => {
     return Object.keys(obj).map((v) => {
       if (!obj[v]) return ''
-      return <MyTaskStatusBar key={obj[v]} role={v} width={120} margin={1} />
+      return <MyTaskStatusBar key={obj[v]} role={v} width={150} margin={1} />
     })
   }
 
@@ -104,7 +104,7 @@ const MyTable = (props, ref) => {
       title: t('task.myCapacity'),
       dataIndex: 'role',
       align: 'center',
-      width: 100,
+      width: 120,
       render: (text, record) => {
         return role(record.dynamicFields)
       },
