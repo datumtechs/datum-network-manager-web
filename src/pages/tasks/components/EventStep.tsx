@@ -56,14 +56,13 @@ const EventStep: FC<any> = (props: any) => {
       <Step title={fmtTime(createAt)} icon={<StepIcon scolor="active" />} description={t('task.step.start')} />
       <Step
         title={fmtTime(startAt)}
-        // icon={<StepIcon scolor={stepMap.get(status)[status] > 0 ? 'active' : ''} />}
         icon={<StepIcon scolor="active" />}
         description={t('task.step.beginCompute')}
       />
       <Step
         title={fmtTime(endAt)}
         className={status === 3 ? 'step-error' : ''}
-        icon={<StepIcon scolor={(status === 3) || (status === 4)} />}
+        icon={<StepIcon scolor={status === 4 ? 'active' : ''} />}
         description={<LastStep status={status} startAt={startAt} endAt={endAt} />}
       />
     </Steps>

@@ -386,7 +386,8 @@
     "metaDataPublishTime": "元数据发布时间",
     "authResultAndTime": "授权结果与时间",
     "duration": "总用时",
-    "timeSpent": "已用时"
+    "timeSpent": "已用时",
+    "authorizationID": "授权 ID"
   },
   "tip": {
     "plzInputID": "请输入正确的机构识别名称",

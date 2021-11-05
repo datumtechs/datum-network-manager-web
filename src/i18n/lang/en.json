@@ -386,7 +386,8 @@
     "metaDataPublishTime": "Time of publication",
     "authResultAndTime": "Authorization result & time",
     "duration": "Duration",
-    "timeSpent": "Time spent"
+    "timeSpent": "Time spent",
+    "authorizationID": "Authorization  ID"
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",

@@ -86,6 +86,7 @@
 }
 
 .step-error{
+  color: red;
   .ant-steps-item-container{
     .step-icon{
       background: #f14a4a;
@@ -94,5 +95,4 @@
       }
     }
   }
-
 }

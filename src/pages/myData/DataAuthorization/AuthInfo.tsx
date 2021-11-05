@@ -124,8 +124,6 @@ export const AuthInfo: FC<any> = (props: any) => {
                   <p className="datail-box-content">1111111</p>
                 </Form.Item> */}
               </Col>
-            </Row>
-            <Row>
               <Col span={12}>
                 <Form.Item label={t('myData.authType')}>
                   <>
@@ -142,8 +140,6 @@ export const AuthInfo: FC<any> = (props: any) => {
                   }
                 </Form.Item>
               </Col>
-            </Row>
-            <Row>
               <Col span={12}>
                 <Form.Item label={t('myData.authStartTime')}>
                   <p className="datail-box-content">{dayjs(authInfo.createAt).format('YYYY-MM-DD HH:mm:ss')}</p>
@@ -160,6 +156,11 @@ export const AuthInfo: FC<any> = (props: any) => {
                     </div>
                   </Form.Item>
                   : ''}
+              </Col>
+              <Col span={12}>
+                <Form.Item label={t('myData.authorizationID')}>
+                  <p className="datail-box-content">{authInfo.authId}</p>
+                </Form.Item>
               </Col>
             </Row>
           </Form>
