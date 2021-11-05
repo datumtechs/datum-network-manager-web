@@ -59,7 +59,9 @@
     "rosettaMemory": "RosettaNet Memory",
     "rosettaCpu": "RosettaNet CPU",
     "rosettaBandwidth": "RosettaNet Bandwidth",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "bootAddress": "Boot address",
+    "nodeAddress": "Node address"
   },
   "menu": {
     "systemOverview": "System Overview",

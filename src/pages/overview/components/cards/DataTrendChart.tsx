@@ -83,19 +83,26 @@ const TrendChart: FC<any> = (props: any) => {
   }
   useEffect(() => {
     const chart = echarts.init(document.getElementById('totalData'))
+    const dataList: any[] = []
     if (curSwitch === 'data') {
       overviewApi.globalDataFileStatsTrendMonthly().then((res) => {
-        option.series[0].data = res.data.map(data => data.totalValue)
-        const maxdata = Math.max(...option.series[0].data)
-        option.yAxis[0].name = `${t('overview.totalData')}(${changeSizeObj(maxdata).unit || 'B'})`
+        option.series[0].data = res.data.map(data => {
+          dataList.push(data.totalValue)
+          return changeSizeObj(data.totalValue).size
+        })
+        // const maxdata = Math.max(...dataList)
+        option.yAxis[0].name = `${t('overview.totalData')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
         chart.setOption(option)
         chart.resize()
       })
     } else {
       overviewApi.globalPowerStatsTrendMonthly().then((res) => {
-        option.series[0].data = res.data.map(data => data.totalValue)
-        const maxdata = Math.max(...option.series[0].data)
-        option.yAxis[0].name = `${t('overview.totalMemory')}(${changeSizeObj(maxdata).unit || 'B'})`
+        option.series[0].data = res.data.map(data => {
+          dataList.push(data.totalValue)
+          return changeSizeObj(data.totalValue).size
+        })
+        // const maxdata = Math.max(...option.series[0].data)
+        option.yAxis[0].name = `${t('overview.totalMemory')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
         chart.setOption(option)
         chart.resize()
       })

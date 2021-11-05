@@ -59,7 +59,9 @@
     "rosettaMemory": "RosettaNet 总内存",
     "rosettaCpu": "RosettaNet 总CPU",
     "rosettaBandwidth": "RosettaNet 总带宽",
-    "viewAll": "查看全部"
+    "viewAll": "查看全部",
+    "bootAddress": "引导地址",
+    "nodeAddress": "节点地址"
   },
   "menu": {
     "systemOverview": "系统概况",

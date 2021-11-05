@@ -255,6 +255,9 @@ const MyDataTable: FC<any> = (props: any) => {
               <p className="btn pointer link pr10" onClick={() => withDrawFn(row)}>
                 {t('center.withdraw')}
               </p>
+              <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
+                {t('center.saveAsNewData')}
+              </p>
             </div>
           )
         }

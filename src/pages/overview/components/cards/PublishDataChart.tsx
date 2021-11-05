@@ -121,13 +121,17 @@ const PublishDataChart: FC<any> = (props: any) => {
 
   useEffect(() => {
     const chart = echarts.init(document.getElementById('publishData'))
+    const dataList: any[] = []
     if (curSwitch === 'data') {
       overviewApi.localDataFileStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
-          option.series[0].data = res.data.map(data => data.incrementValue)
-          option.series[1].data = res.data.map(data => data.totalValue)
-          const maxData = Math.max(...option.series[0].data)
-          option.yAxis[1].name = `${t('overview.totalData')}(${changeSizeObj(maxData).unit || 'B'})`
+          option.series[0].data = res.data.map(data => {
+            dataList.push(data.incrementValue)
+            return changeSizeObj(data.incrementValue).size
+          })
+          option.series[1].data = res.data.map(data => changeSizeObj(data.totalValue).size)
+          // const maxData = Math.max(...option.series[0].data)
+          option.yAxis[1].name = `${t('overview.totalData')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
           chart.setOption(option)
           chart.resize()
         }
@@ -135,10 +139,13 @@ const PublishDataChart: FC<any> = (props: any) => {
     } else {
       overviewApi.localPowerStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
-          option.series[0].data = res.data.map(data => data.incrementValue)
-          option.series[1].data = res.data.map(data => data.totalValue)
-          const maxData = Math.max(...option.series[1].data)
-          option.yAxis[1].name = `${t('overview.totalMemory')}(${changeSizeObj(maxData).unit || 'B'})`
+          option.series[0].data = res.data.map(data => changeSizeObj(data.incrementValue).size)
+          option.series[1].data = res.data.map(data => {
+            dataList.push(data.totalValue)
+            return changeSizeObj(data.totalValue).size
+          })
+          // const maxData = Math.max(...dataList)
+          option.yAxis[1].name = `${t('overview.totalMemory')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
           chart.setOption(option)
           chart.resize()
         }

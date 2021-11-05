@@ -212,6 +212,12 @@ const DispatchConfig: FC<any> = (props: any) => {
                 <Form.Item colon label={t('overview.connectNum')} className="form-item">
                   {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo.connNodeCount}</span>}
                 </Form.Item>
+                <Form.Item colon label={t('overview.bootAddress')} className="form-item">
+                  {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo.localBootstrapNode}</span>}
+                </Form.Item>
+                <Form.Item colon label={t('overview.nodeAddress')} className="form-item">
+                  {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo.localMultiAddr}</span>}
+                </Form.Item>
                 <Form.Item className="form-item">
                   <Button
                     type="primary"
@@ -268,82 +274,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                 </Form.Item>
               </>
             )}
-            {/* <Form.Item label={t('common.status')} name="username" className="form-item">
-              <Input className="form-box-input" placeholder={t('common.noModify')} />
-            </Form.Item> */}
-            {/* <Form.Item>
-              {hasService ? (
-                <>
-                  <Button
-                    type="primary"
-                    className="btn submit-btn"
-                    style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
-                    onClick={testServiceFn}
-                  >
-                    {t('node.reConnectService')}
-                  </Button>
-                  {showLoading ? (
-                    <Spin className="loading-icon" indicator={antIcon} />
-                  ) : showStatus ? (
-                    isConnect ? (
-                      <span className="success_color status">{t('node.connectSuccess')}</span>
-                    ) : (
-                      <span className="failed_color status">{t('node.connenctFailed')}</span>
-                    )
-                  ) : (
-                    ''
-                  )}
-                </>
-              ) : (
-                <>
-                  <Button
-                    type="primary"
-                    className="btn submit-btn"
-                    onClick={testServiceFn}
-                    style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
-                  >
-                    {t('node.connectService')}
-                  </Button>
-                  {showLoading ? (
-                    <Spin className="loading-icon" indicator={antIcon} />
-                  ) : showStatus ? (
-                    isConnect ? (
-                      <span className="success_color status">{t('node.connectSuccess')}</span>
-                    ) : (
-                      <span className="failed_color status">{t('node.connenctFailed')}</span>
-                    )
-                  ) : (
-                    ''
-                  )}
-                </>
-              )}
-            </Form.Item>
-            <Form.Item> */}
-            {/* {hasService ? (
-                <Button
-                  type="primary"
-                  className="btn submit-btn"
-                  onClick={missNetwork}
-                  style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
-                  htmlType="submit"
-                >
-                  {t('node.logoutNetwork')}
-                </Button>
-              ) : (
-                <>
-                  <Button
-                    type="primary"
-                    disabled={!isConnect}
-                    className="btn submit-btn"
-                    onClick={joinNetwork}
-                    style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}
-                    htmlType="submit"
-                  >
-                    {t('overview.submit')}
-                  </Button>
-                </>
-              )}
-            </Form.Item> */}
+
           </Form>
         </div>
       </div>
