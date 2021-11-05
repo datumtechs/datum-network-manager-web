@@ -125,8 +125,10 @@ const SeedNodeTable: FC<any> = (props: any) => {
     }).then((res) => {
       if (res.status === 0) {
         querySeedNodeList()
-        isModalVisibleSet(false)
+      } else {
+        message.error(t('common.nodeMgtDelError'))
       }
+      isModalVisibleSet(false)
     })
   }
 

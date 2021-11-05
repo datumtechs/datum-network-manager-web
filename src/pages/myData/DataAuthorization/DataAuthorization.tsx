@@ -22,16 +22,16 @@ export const DataAuthorization: FC<any> = props => {
 
   const history = useHistory()
 
-  const dataSource = [{
-    id: 1,
-    dataName: '222222222222222',
-    account: '33333333333333333',
-    authType: '1',
-    authStartTime: '111111111111111111',
-    authEndTime: '111111111111111111',
-    sponsor: '111111',
-    isAuthed: true
-  }]
+  // const dataSource = [{
+  //   id: 1,
+  //   dataName: '222222222222222',
+  //   account: '33333333333333333',
+  //   authType: '1',
+  //   authStartTime: '111111111111111111',
+  //   authEndTime: '111111111111111111',
+  //   sponsor: '111111',
+  //   isAuthed: true
+  // }]
   const pagination = {
     defaultPageSize: 10
   }
@@ -75,6 +75,7 @@ export const DataAuthorization: FC<any> = props => {
   },
   {
     title: t('myData.authType'),
+    ellipsis: true,
     render: (text, record, index) => {
       return <>
         <p>{record.authType === 1 ? t('myData.period') : ''}</p>
@@ -85,6 +86,7 @@ export const DataAuthorization: FC<any> = props => {
   {
     title: t('myData.authorizationID'),
     dataIndex: 'authId',
+    ellipsis: true,
     key: 'authId'
   },
   {

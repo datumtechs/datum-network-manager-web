@@ -61,7 +61,8 @@
     "rosettaBandwidth": "RosettaNet Bandwidth",
     "viewAll": "View all",
     "bootAddress": "Boot address",
-    "nodeAddress": "Node address"
+    "nodeAddress": "Node address",
+    "AuthorizationApplication": " has initiated an authorization application of "
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -137,7 +138,8 @@
     "agreed": "Agreed",
     "declined": "Declined",
     "and": "&",
-    "times": "times"
+    "times": "times",
+    "nodeMgtDelError": "Deletion failed"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",

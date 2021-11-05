@@ -61,7 +61,9 @@
     "rosettaBandwidth": "RosettaNet 总带宽",
     "viewAll": "查看全部",
     "bootAddress": "引导地址",
-    "nodeAddress": "节点地址"
+    "nodeAddress": "节点地址",
+    "AuthorizationApplication": "的授权申请",
+    "SeedApplication": "发起了"
   },
   "menu": {
     "systemOverview": "系统概况",
@@ -137,7 +139,8 @@
     "agreed": "已同意",
     "declined": "已拒绝",
     "and": "与",
-    "times": "次"
+    "times": "次",
+    "nodeMgtDelError": "删除失败"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",

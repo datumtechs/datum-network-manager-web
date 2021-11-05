@@ -74,6 +74,10 @@
     color: #1d2832;
     letter-spacing: 0;
   }
+  .address-info{
+    @extend .title;
+    word-break: break-word;
+  }
   .form-box-input {
     width: 457px;
   }
