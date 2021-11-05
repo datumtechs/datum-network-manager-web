@@ -97,7 +97,7 @@ const MyTable = (props, ref) => {
       key: 'status',
       width: 80,
       render: (text, record) => {
-        return <MyTaskStatusBar status={record.status} width={80} />
+        return <MyTaskStatusBar status={record.status} width={100} />
       },
     },
     {

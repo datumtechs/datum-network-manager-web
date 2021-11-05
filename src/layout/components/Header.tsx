@@ -81,10 +81,10 @@ const Header = (props: any) => {
           <Bread />
         </div>
         <Space className="operation-box" size={20}>
-          {showSearch ? <GlobalSearch handleOnBlur={handleOnBlur}></GlobalSearch> : ''}
-          <div className="pointer" onClick={() => showSearchSet(!showSearch)}>
+          {/* {showSearch ? <GlobalSearch handleOnBlur={handleOnBlur}></GlobalSearch> : ''} */}
+          {/* <div className="pointer" onClick={() => showSearchSet(!showSearch)}>
             <img src={searchSvg} alt="" />
-          </div>
+          </div> */}
           {/* 是否已经入网 TODO */}
           <div className="lang-btn pointer" onClick={changeLanguage}>
             {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
