@@ -5,7 +5,7 @@ import MyTag from '../../../../components/MyTag'
 
 const MyTaskStatusBar: FC<any> = (props: any) => {
   const { status, role, width, margin } = props
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [color, colorSet] = useState<string>('')
   const [bgColor, bgColorSet] = useState<string>('')
   const [content, contentSet] = useState<string>('')
@@ -61,7 +61,7 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
       contentSet(t('computeNodeMgt.powerSupplier'))
       borderSet('#FFDA06')
     }
-  }, [role])
+  }, [role, i18n.language])
 
   return <MyTag content={content} radius='2' color={color} bgColor={bgColor} width={width} border={border} margin={margin}></MyTag>
 

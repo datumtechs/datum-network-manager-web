@@ -41,12 +41,12 @@ const RecordCard: FC<any> = (props: any) => {
               </div>
               {i18n.language === 'zh' ?
                 <div className="auth-list-remark">
-                  {item.orgName}{t('overview.SeedApplication')}
+                  {item.applyUser}{t('overview.SeedApplication')}
                   {item.metaDataName}
                   {t('overview.AuthorizationApplication')}
                 </div> :
                 <div className="auth-list-remark">
-                  {item.orgName}
+                  {item.applyUser}
                   {t('overview.AuthorizationApplication')}
                   {item.metaDataName}
                 </div>

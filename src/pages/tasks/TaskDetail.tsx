@@ -10,6 +10,8 @@ import UseTimeChange from '../../hooks/useTimeChange'
 import './scss/index.scss'
 import { fileSizeChange, formatDuring } from '../../utils/utils'
 import useCapacity from '../../hooks/useCapacity'
+import MyTaskStatusBar from '../myData/DataMgt/components/MyTaskStatusBar'
+
 
 export const TaskDetail: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -51,9 +53,7 @@ export const TaskDetail: FC<any> = (props: any) => {
     endAt: '',
     id: 0,
     owner: {
-      carrierNodeId: '',
-      nodeIdentityId: '',
-      nodeName: '',
+      dynamicFields: {}
     },
     powerSupplier: [
       {
@@ -78,14 +78,41 @@ export const TaskDetail: FC<any> = (props: any) => {
     status: '',
     taskId: '',
     taskName: '',
+    ownerList: [],
+    receiversList: []
   })
   useEffect(() => {
     taskApi.querytaskInfo(taskId).then(res => {
       if (res.status === 0 && res.data) {
-        setBaseInfo(res.data)
+        const obj = { ...res.data }
+        obj.ownerList = [{
+          dynamicFields: {
+            orgName: res.data?.owner?.orgName,
+            carrierNodeId: res.data?.owner?.carrierNodeId
+          },
+          partyId: res.data?.ownerPartyId
+        }]
+        obj.receiversList = obj?.receivers.map(v => {
+          return {
+            ...v,
+            partyId: v?.consumerPartyId
+          }
+        })
+        obj.algoSupplierList = [{ ...obj.algoSupplier }]
+
+        setBaseInfo(obj)
       }
     })
   }, [])
+
+  const role = obj => {
+    return Object.keys(obj).map((v) => {
+      if (!obj[v]) return ''
+      return <MyTaskStatusBar key={obj[v]} role={v} width={150} margin={1} />
+    })
+  }
+
+
   return (
     <div className="layout-box">
       <div className="add-data-box">
@@ -141,29 +168,34 @@ export const TaskDetail: FC<any> = (props: any) => {
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 14 }}>
             <Form.Item label={t('task.myCapacity')}>
-              <div className="value-text">{useCapacity(baseInfo.role)}</div>
+              {role(baseInfo?.owner.dynamicFields)}
             </Form.Item>
           </Form>
         </div>
         <div className="sub-info-box">
+          {/* 任务发起方 */}
           <div className="title-label">{t('task.sponsor')}</div>
-          <ProviderTable type="sponsor" tableData={baseInfo.dataSupplier} />
+          <ProviderTable type="sponsor" tableData={baseInfo.ownerList} />
         </div>
         <div className="sub-info-box">
+          {/* 结果使用方 */}
           <div className="title-label">{t('task.receiver')}</div>
-          <ProviderTable type="receiver" tableData={baseInfo.dataSupplier} />
+          <ProviderTable type="receiver" tableData={baseInfo.receiversList} />
         </div>
         <div className="sub-info-box">
+          {/* 算力提供方 */}
           <div className="title-label">{t('task.powerProvider')}</div>
           <ComputingTable tableData={baseInfo.powerSupplier} />
         </div>
         <div className="sub-info-box">
+          {/* 数据提供方 */}
           <div className="title-label">{t('task.dataProvider')}</div>
           <ProviderTable type="dataSupplier" tableData={baseInfo.dataSupplier} />
         </div>
         <div className="sub-info-box">
+          {/* 算法提供方 */}
           <div className="title-label">{t('task.algorithmProvider')}</div>
-          <ProviderTable type="algorithmProvider" tableData={baseInfo.dataSupplier} />
+          <ProviderTable type="algorithmProvider" tableData={baseInfo.algoSupplierList} />
         </div>
       </div>
       <div className="btn-box">

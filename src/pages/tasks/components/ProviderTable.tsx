@@ -28,7 +28,7 @@ const ProviderTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div>
-            <span>{record?.dynamicFields?.nodeName || 'N/A'}</span> <span>({record.partyId})</span>
+            <span>{record?.dynamicFields?.orgName || 'N/A'}</span> <span>({record.partyId})</span>
           </div>
         )
       }
@@ -38,7 +38,7 @@ const ProviderTable: FC<any> = (props: any) => {
       ellipsis: true,
       dataIndex: 'nodeIdentityId',
       render: (text, record, index) => {
-        return <span>{record?.dynamicFields?.nodeId || 'N/A'}</span>
+        return <span>{record?.dynamicFields?.carrierNodeId || 'N/A'}</span>
       }
     }
   ]

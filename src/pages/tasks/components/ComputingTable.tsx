@@ -34,7 +34,7 @@ const ComputingTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div>
-            <span>{record?.dynamicFields?.nodeName || 'N/A'} ({record?.partyId})</span>
+            <span>{record?.dynamicFields?.orgName || 'N/A'} ({record?.partyId})</span>
             {/* <span>({record.partyId})</span> */}
           </div>
         )
@@ -45,7 +45,7 @@ const ComputingTable: FC<any> = (props: any) => {
       dataIndex: 'nodeIdentityId',
       ellipsis: true,
       render: (text, record, index) => {
-        return <span>{record?.dynamicFields?.nodeId || 'N/A'}</span>
+        return <span>{record?.dynamicFields?.carrierNodeId || 'N/A'}</span>
       }
     },
     {

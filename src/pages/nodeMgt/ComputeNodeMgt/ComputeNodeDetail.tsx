@@ -177,7 +177,7 @@ ${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
     option.series[0].data = data.reverse().map(v => {
       getDaysByNumber(v.snapshotTime)
       timeList.push(getDaysByNumber(v.snapshotTime))
-      let num = v.corePc
+      let num = v.corePct
       if (selectTab === '2') {
         num = v.memoryPct
       } else if (selectTab === '3') {

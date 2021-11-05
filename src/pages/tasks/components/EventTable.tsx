@@ -52,7 +52,7 @@ const EventTable: FC<any> = (props: any) => {
       title: t('task.eventMaker'),
       dataIndex: 'nodeName',
       key: 'nodeName',
-      render: (text, record) => record?.dynamicFields.orgName || 'N/A',
+      render: (text, record) => record?.dynamicFields.orgName ? `${record?.dynamicFields.orgName} (${record?.partyId})` : 'N/A',
     },
     {
       title: t('task.generationTime'),
