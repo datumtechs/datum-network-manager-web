@@ -157,16 +157,29 @@ const MyDataTable: FC<any> = (props: any) => {
     document.body.removeChild(link)
   }
 
+  const readFile = (steam) => {
+    const reader = new FileReader()
+    reader.onload = function (event) {
+      const mes = JSON.parse(reader.result as any)
+      console.log(mes.msg);
+      message.error(`${t('tip.operationFailed')}`)
+    }
+    reader.readAsText(steam)
+  }
+
   const downloadFn = (row: any) => {
     const { fileName } = row
     resourceApi.downloadMeta({ id: row.id }).then(res => {
-      if (res) {
+      const typeList = ['application/json']
+      // 以json返回 则非正常
+      if (typeList.includes(res.type)) {
+        readFile(res)
+      } else {
         download(res, fileName)
         message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
-      } else {
-        message.error(`${t('tip.operationFailed')}`)
       }
+
     })
   }
 
