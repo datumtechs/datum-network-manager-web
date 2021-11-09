@@ -1,9 +1,8 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { IRoute } from '../../router'
-import { BaseInfoContext } from '../index'
 
 const Nav = (props: any) => {
   const { state: { isReg } } = props
@@ -11,7 +10,6 @@ const Nav = (props: any) => {
   const history = useHistory()
   const { pathname } = useLocation()
   const [curPath, SetCurPath] = useState('')
-  const baseInfo = useContext(BaseInfoContext)
 
   useEffect(() => {
     SetCurPath(pathname === '/' ? '/overview' : pathname)
@@ -53,12 +51,9 @@ const Nav = (props: any) => {
                   className="nav-label"
                   onClick={() => showSubMenu(item)}
                 >
-                  {t(`${item.label}`)}{' '}
-                  {item.children && item.name === menu ? (
-                    <div className="triangle-down hasChild"></div>
-                  ) : (
-                    <div className="triangle-up hasChild"></div>
-                  )}
+                  {t(`${item.label}`)}
+                  <div className={`hasChild ${menu === item.name ? 'triangle-down rotate-down' : 'triangle-up rotate-up'}  `} >
+                  </div>
                 </div>
                 {menu === item.name ? (
                   <ul className="sub-nav-box slideIn">
@@ -95,7 +90,7 @@ const Nav = (props: any) => {
           ''
         ),
       )}
-    </div>
+    </div >
   )
 }
 
@@ -107,6 +102,6 @@ export default connect(
         type: 'SETMENU',
         data: menu,
       })
-    },
+    }
   }),
 )(Nav)
