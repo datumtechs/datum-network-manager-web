@@ -159,7 +159,7 @@ const MyDataTable: FC<any> = (props: any) => {
 
   const readFile = (steam) => {
     const reader = new FileReader()
-    reader.onload = function (event) {
+    reader.onload = (event) => {
       const mes = JSON.parse(reader.result as any)
       console.log(mes.msg);
       message.error(`${t('tip.operationFailed')}`)
