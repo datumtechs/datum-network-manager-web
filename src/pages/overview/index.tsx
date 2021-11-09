@@ -49,7 +49,7 @@ export const Overview: FC<any> = () => {
   }, [])
 
   return (
-    <>
+    <div className="main-center-overview">
       <div className="overview-title">{t('overview.totalOccupied')}</div>
       <div className="overview-box">
         <div className="overview-left">
@@ -71,6 +71,6 @@ export const Overview: FC<any> = () => {
           <RecordCard />
         </div>
       </div>
-    </>
+    </div>
   )
 }

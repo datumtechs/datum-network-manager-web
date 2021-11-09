@@ -117,6 +117,7 @@ const DispatchConfig: FC<any> = (props: any) => {
             name="basic"
             form={form}
             labelAlign="left"
+            wrapperCol={{ span: 9 }}
             labelCol={{ style: { width: i18n.language === 'en' ? 180 : 160, whiteSpace: 'pre-wrap' } }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
@@ -180,7 +181,7 @@ const DispatchConfig: FC<any> = (props: any) => {
             {hasService ? ( // 是否已经连接
               <>
                 <Form.Item colon label={t('common.status')} className="form-item">
-                  <div className="form-group">
+                  <div className="form-group" style={{ justifyContent: 'flex-start' }}>
                     {/* 重新连接调度服务 */}
                     {editStatus ? (
                       <Button loading={showTestLoading} onClick={testServiceFn}>
@@ -191,22 +192,22 @@ const DispatchConfig: FC<any> = (props: any) => {
                     )}
                     {editStatus ? (
                       showTestConnect ? (
-                        isConnect ? (
-                          <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
-                        ) : (
-                          <MyTag content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
-                        )
-                      ) : (
+                        isConnect ?
+                          <MyTag margin content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
+                          :
+                          <MyTag margin content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
+
+                      ) :
                         <MyTag
                           content={`${t('node.unconnected')}`}
                           bgColor="#C9C9C9"
                           color="#FFFFFF"
                           border="#999999"
                         />
-                      )
-                    ) : (
-                      <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
-                    )}
+
+                    ) :
+                      <MyTag margin content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
+                    }
                   </div>
                 </Form.Item>
                 <Form.Item colon label={t('overview.connectNum')} className="form-item">

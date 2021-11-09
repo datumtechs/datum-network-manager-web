@@ -3,6 +3,10 @@ $failed: #f167a8;
 $computing: #f29201;
 $pending: #657acd;
 
+.main-center-overview{
+  // min-height: 500px;
+  // overflow: auto;
+}
 .overview-title {
   font-family: AlibabaPuHuiTi-Medium;
   font-size: 16px;
@@ -14,7 +18,7 @@ $pending: #657acd;
 }
 .overview-box {
   width: 100%;
-  min-height: 500px;
+  min-height: 688px;
   display: flex;
   .overview-left {
     flex: 1;
@@ -183,7 +187,8 @@ $pending: #657acd;
     flex-direction: column;
     .overview-tasks {
       width: 19.1vw;
-      height: 53.4vh;
+      // height: 53.4vh;
+      height: 64.4%;
       padding: 2.6vh 1.5vw;
       overflow: hidden;
       ::-webkit-scrollbar{width:0;}

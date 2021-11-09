@@ -64,7 +64,7 @@ const MyTable = (props, ref) => {
   const columns: any = [
     {
       title: t('common.Num'),
-      width: 30,
+      width: 50,
       render: (text, record, index) => {
         return <>
           <span>

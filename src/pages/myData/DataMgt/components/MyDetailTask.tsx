@@ -132,7 +132,9 @@ export const MyDetailTask: FC<any> = (props: any) => {
     },
   ]
 
-  const OnPageChange = () => { }
+  const OnPageChange = (page: number) => {
+    curPageSet(page)
+  }
 
 
   const initTabel = () => {
@@ -145,6 +147,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
     }).then(res => {
       if (res.status === 0) {
         tableDataSet(res.data)
+        totalNumSet(res.total)
       }
     })
   }
