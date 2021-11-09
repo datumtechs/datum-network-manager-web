@@ -93,7 +93,7 @@ export const DataAuthorization: FC<any> = props => {
     title: t('myData.authValue'),
     render: (text, record, index) => {
       return <>
-        {record.authType === 1 ? <> <p>{dayjs(record.authStartTime).format('YYYY-MM-DD HH:mm:ss')} to</p><p>{dayjs(record.authEndTime).format('YYYY-MM-DD HH:mm:ss')}</p></> : ''}
+        {record.authType === 1 ? <> <p>{dayjs(record.authValueStartAt).format('YYYY-MM-DD HH:mm:ss')} to</p><p>{dayjs(record.authValueEndAt).format('YYYY-MM-DD HH:mm:ss')}</p></> : ''}
         {record.authType === 2 ? <span> {record.authValueAmount}&nbsp;{t('common.times')}</span> : ''}
       </>
     }
