@@ -155,7 +155,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
 
   useEffect(() => {
     initTabel()
-  }, [])
+  }, [curPage])
 
   return <div className="layout-box">
     <div className="add-data-box">
