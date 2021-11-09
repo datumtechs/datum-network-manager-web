@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
-import { Dropdown, Menu, Space, Input, Form } from 'antd'
+import { Dropdown, Menu, Space, Input, Form, message } from 'antd'
 import GlobalSearch from '../../components/GlobalSearch'
 import Bread from './Bread'
 import cnSvg from '../../assets/images/2.icon_cn.svg'
@@ -10,16 +10,19 @@ import enSvg from '../../assets/images/2.icon_en.svg'
 import menuSvg from '../../assets/images/1.3.svg'
 import searchSvg from '../../assets/images/1.1.svg'
 import { BaseInfoContext } from '../index'
-import { loginApi } from '../../api'
+import { loginApi, authApi } from '../../api'
 import MyModal from '../../components/MyModal'
 
 const Header = (props: any) => {
+  // console.log(props.state.org.orgInfo);
+  const { orgInfo } = props.state.org
   const { t, i18n } = useTranslation()
   const [isModalVisible, isModalVisibleSet] = useState(false)
   const [showSearch, showSearchSet] = useState(false)
   const baseInfo = useContext(BaseInfoContext)
   const { pathname } = useLocation()
   const history = useHistory()
+  const formRef = useRef<any>(null)
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
     localStorage.setItem('i18n', i18n.language)
@@ -46,8 +49,20 @@ const Header = (props: any) => {
     showSearchSet(false)
   }
   const handleOk = () => {
-    // TODO 更换名称
+    formRef.current.validateFields().then((values) => {
+      authApi.upAuthName({
+        identityName: values.name,
+        identityId: orgInfo.identityId
+      }).then(res => {
+        if (res.status === 0) {
+          isModalVisibleSet(false)
+        } else {
+          message.error(res.msg)
+        }
+      })
+    })
   }
+
   const handleCancel = () => {
     isModalVisibleSet(false)
   }
@@ -61,9 +76,10 @@ const Header = (props: any) => {
         {baseInfo && baseInfo.name ? (
           <>
             <Menu.Item key="name">{baseInfo?.name}</Menu.Item>{' '}
-            <Menu.Item key="edit" onClick={showChangeName}>
+            {orgInfo.status !== 1 ? <Menu.Item key="edit" onClick={showChangeName}>
+              {/* {orgInfo.status === 1 ? <Menu.Item key="edit" onClick={showChangeName}> */}
               {t('login.editOrgName')}
-            </Menu.Item>
+            </Menu.Item> : ''}
           </>
         ) : null}
 
@@ -97,9 +113,9 @@ const Header = (props: any) => {
         </Space>
       </div>
       <MyModal width={600} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <Form size="large" layout="vertical" name="renameOrg" labelAlign="left" initialValues={{ remember: true }}>
-          <Form.Item colon label={t('common.orgName')} name="name" className="form-item">
-            <Input />
+        <Form ref={formRef} size="large" layout="vertical" name="renameOrg" labelAlign="left" initialValues={{ remember: true }}>
+          <Form.Item colon label={t('common.orgName')} name="name" className="form-item" rules={[{ required: true, message: `${t('overview.setYourOrgName')}` }]}>
+            <Input placeholder={t('login.rename')} />
           </Form.Item>
         </Form>
       </MyModal>

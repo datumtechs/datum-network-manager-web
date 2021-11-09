@@ -107,7 +107,8 @@ const MyDataTable: FC<any> = (props: any) => {
       state: {
         type: 'edit',
         id: row.id,
-        metaDataId: row.metaDataId
+        metaDataId: row.metaDataId,
+        dataStatus: row.status || '0'
       },
     })
   }
@@ -159,9 +160,9 @@ const MyDataTable: FC<any> = (props: any) => {
 
   const readFile = (steam) => {
     const reader = new FileReader()
+    // eslint-disable-next-line
     reader.onload = function (event) {
       const mes = JSON.parse(reader.result as any)
-      console.log(mes.msg);
       message.error(`${t('tip.operationFailed')}`)
     }
     reader.readAsText(steam)

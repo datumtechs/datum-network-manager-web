@@ -40,6 +40,7 @@ const org = (state: ReduxState = initData, action: loginAction) => {
     case SET_ORG_INFO:
       return {
         orgInfo: {
+          ...action.data,
           carrierConnStatus: action.data.carrierConnStatus, // 连接状态 enabled：可用, disabled:不可用
           carrierConnTime: action.data.carrierConnTime, // 服务连接时间
           carrierIP: action.data.carrierIP, // 调度服务IP地址

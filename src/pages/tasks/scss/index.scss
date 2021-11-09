@@ -250,3 +250,14 @@
     }
   }
 }
+.task--table-status{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.task-table-actions{
+  div:nth-child(1){
+    margin-bottom: 5px;
+  }
+}

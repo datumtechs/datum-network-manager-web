@@ -46,12 +46,12 @@ $pending: #657acd;
           .title {
             font-family: AlibabaPuHuiTi-Medium;
             font-size: 16px;
-            color: #ffffff;
+            color: #344563;
             letter-spacing: 0;
           }
           .content {
             font-family: AlibabaPuHuiTi-Medium;
-            color: #ffffff;
+            color: #344563;
             letter-spacing: 0;
             line-height: 26px;
             .value {
@@ -68,7 +68,7 @@ $pending: #657acd;
           justify-content: flex-end;
           flex-direction: column;
           .ant-progress-text {
-            color: #ffffff !important;
+            color: #344563 !important;
           }
         }
       }
@@ -270,6 +270,7 @@ $pending: #657acd;
           height: 16.5vh;
         }
         overflow-y: scroll;
+        overflow-x: hidden;
         margin-top: 15px;
         margin-bottom: 5px;
         .auth-list-box {
@@ -295,6 +296,7 @@ $pending: #657acd;
             font-size: 12px;
             color: #5e6c84;
             letter-spacing: 0;
+            word-break: break-all;
           }
         }
       }

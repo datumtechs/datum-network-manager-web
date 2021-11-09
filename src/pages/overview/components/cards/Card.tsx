@@ -7,7 +7,7 @@ const Card: FC<any> = (props: any) => {
 
   const { t } = useTranslation()
   return (
-    <div className="overview-card item" style={{ backgroundColor: bgColor }}>
+    <div className="overview-card item" style={{ backgroundColor: '#fff' }}>
       <div className="overview-card-left">
         <div className="title">{t(`overview.${type}`)}</div>
         <div className="content">
@@ -22,8 +22,9 @@ const Card: FC<any> = (props: any) => {
           percent={Number(precent)}
           width={70}
           strokeWidth={10}
-          trailColor="rgba(255,255,255,0.2)"
-          strokeColor="#FFF"
+          trailColor={bgColor}
+          // trailColor="rgba(255,255,255,0.2)"
+          strokeColor={bgColor}
         />
       </div>
     </div>

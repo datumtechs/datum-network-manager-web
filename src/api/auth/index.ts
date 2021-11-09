@@ -39,6 +39,14 @@ const authApi = {
       params: data
     })
   },
+  // 修改组织名称 
+  upAuthName(data): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/user/updateOrgName`,
+      params: data
+    })
+  }
 }
 
 export default authApi;

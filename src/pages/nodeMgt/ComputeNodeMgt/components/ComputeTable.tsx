@@ -543,10 +543,10 @@ const DataTable: FC<any> = (props: any) => {
               <span className="title">{t('overview.bandwidth')}:</span>
               <span>{`${changeSizeFn(Number(curRow.bandwidth))}P/S`}</span>
             </p>
-            <p>
+            {/* <p>
               <span className="title">{t('common.remark')}:</span>
               <span>{curRow.remarks}</span>
-            </p>
+            </p> */}
           </div>
         ) : (
           ''
