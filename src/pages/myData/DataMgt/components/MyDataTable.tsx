@@ -160,8 +160,7 @@ const MyDataTable: FC<any> = (props: any) => {
 
   const readFile = (steam) => {
     const reader = new FileReader()
-    // eslint-disable-next-line
-    reader.onload = function (event) {
+    reader.onload = (event) => {
       const mes = JSON.parse(reader.result as any)
       message.error(`${t('tip.operationFailed')}`)
     }
