@@ -63,7 +63,7 @@ export const Tasks: FC<any> = () => {
       pageSize: 5,
       startTime: searchStartTime || 0,
       status,
-      capacity,
+      role: +capacity,
     }
   }
   // const { table, countData, paramSet } = useTaskTable(getParam())
@@ -93,7 +93,7 @@ export const Tasks: FC<any> = () => {
     })
   }
 
-  const setCapacity = (capa: string) => {
+  const setCapacity = (capa) => {
     capacitySet(capa)
   }
 

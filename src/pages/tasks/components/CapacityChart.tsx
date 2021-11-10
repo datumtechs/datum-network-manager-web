@@ -20,16 +20,16 @@ const CapacityChart: FC<any> = (props: any) => {
   const capaList = [
     { id: 1, label: t('task.sponsor'), color: '#63C7BB', value: capacityObj.ownerCount, par: capacityObj.ownerCount ? `${(capacityObj.ownerCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
     { id: 2, label: t('task.receiver'), color: '#F167A8', value: capacityObj.resultReceiverCount, par: capacityObj.resultReceiverCount ? `${(capacityObj.resultReceiverCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 3, label: t('task.powerProvider'), color: '#657ACD', value: capacityObj.powerProviderCount, par: capacityObj.powerProviderCount ? `${(capacityObj.powerProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 3, label: t('task.powerProvider'), color: '#F2DB01', value: capacityObj.powerProviderCount, par: capacityObj.powerProviderCount ? `${(capacityObj.powerProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
     { id: 4, label: t('task.dataProvider'), color: '#FFA958', value: capacityObj.dataProviderCount, par: capacityObj.dataProviderCount ? `${(capacityObj.dataProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 5, label: t('task.algorithmProvider'), color: '#F2DB01', value: capacityObj.algoProviderCount, par: capacityObj.algoProviderCount ? `${(capacityObj.algoProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 5, label: t('task.algorithmProvider'), color: '#657ACD', value: capacityObj.algoProviderCount, par: capacityObj.algoProviderCount ? `${(capacityObj.algoProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
   ]
 
   const handleClick = (prarms) => {
     if (prarms.componentType === 'title') {
-      return capacityFn('title')
+      return capacityFn('0')
     }
-    capacityFn(prarms.name)
+    capacityFn(prarms.data.type)
   }
 
   useEffect(() => {
@@ -87,11 +87,11 @@ const CapacityChart: FC<any> = (props: any) => {
             show: false,
           },
           data: [
-            { value: capacityObj.ownerCount, name: t('task.sponsor') },
-            { value: capacityObj.resultReceiverCount, name: t('task.receiver') },
-            { value: capacityObj.powerProviderCount, name: t('task.powerProvider') },
-            { value: capacityObj.dataProviderCount, name: t('task.dataProvider') },
-            { value: capacityObj.algoProviderCount, name: t('task.algorithmProvider') },
+            { value: capacityObj.ownerCount, name: t('task.sponsor'), type: '1' },// 任务发起方
+            { value: capacityObj.resultReceiverCount, name: t('task.receiver'), type: '4' },// 结果使用方
+            { value: capacityObj.algoProviderCount, name: t('task.algorithmProvider'), type: '5' },// 算法提供方
+            { value: capacityObj.dataProviderCount, name: t('task.dataProvider'), type: '3' },// 数据提供方
+            { value: capacityObj.powerProviderCount, name: t('task.powerProvider'), type: '2' }, // 算力提供方
           ],
         },
       ],
