@@ -31,12 +31,9 @@ const ComputingTable: FC<any> = (props: any) => {
       title: t('task.name'),
       dataIndex: 'nodeName',
       width: 300,
-      render: (text, record, index) => {
+      render: (text, record) => {
         return (
-          <div>
-            <span>{record?.dynamicFields?.orgName || 'N/A'} ({record?.partyId})</span>
-            {/* <span>({record.partyId})</span> */}
-          </div>
+          <span>{record?.dynamicFields?.orgName || 'N/A'} ({record?.partyId})</span>
         )
       }
     },
@@ -44,7 +41,7 @@ const ComputingTable: FC<any> = (props: any) => {
       title: t('task.identity'),
       dataIndex: 'nodeIdentityId',
       ellipsis: true,
-      render: (text, record, index) => {
+      render: (text, record) => {
         return <span>{record?.dynamicFields?.carrierNodeId || 'N/A'}</span>
       }
     },
@@ -52,44 +49,33 @@ const ComputingTable: FC<any> = (props: any) => {
       title: t('task.occupiedResources'),
       dataIndex: 'usedCore',
       ellipsis: true,
-      render: (text, record, index) => {
+      render: (text, record) => {
         return (
           <ul className="power-occupied-item">
             <li>
               <span>{t('overview.cpu')}:  {`${record.usedCore || 0} ${record.usedCore ? t('overview.core') : ''}`}</span>
-
-              {/* {isNaN(record.usedCore / record.totalCore)
-                ? '0.00'
-                : ((record.usedCore / record.totalCore) * 100).toFixed(2)}
-              % */}
             </li>
             <li>
               <span>{t('overview.memory')}: </span>
               {record.usedMemory ? fileSizeChange(record.usedMemory) : 0}
-              {/* {isNaN(record.usedMemory / record.totalMemory)
-                ? '0.00'
-                : ((record.usedMemory / record.totalMemory) * 100).toFixed(2)}
-              % */}
             </li>
             <li>
               <span>{t('overview.bandwidth')}: </span>
               {record.usedBandwidth ? `${fileSizeChange(record.usedBandwidth)}P/S` : 0}
-              {/* {isNaN(record.usedBandwidth / record.totalBandwidth)
-                ? '0.00'
-                : ((record.usedBandwidth / record.totalBandwidth) * 100).toFixed(2)}
-              % */}
             </li>
           </ul>
         )
       },
     },
   ]
+
   return (
     <div className="data-table-box">
       <Table
         dataSource={tableData}
         columns={columns}
         bordered
+        rowKey={_ => _.partyId || (new Date().getTime())}
         scroll={{ x: '100%' }}
         pagination={{
           defaultCurrent: 1,

@@ -245,13 +245,13 @@ const DataTable: FC<any> = (props: any) => {
   const columns = [
     {
       title: t('common.Num'),
+      dataIndex: 'id',
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
       width: 40,
     },
     {
       title: t('computeNodeMgt.nodeName'),
       dataIndex: 'nodeName',
-      key: 'nodeName',
       width: 80,
       ellipsis: true,
       render: (text, record, index) => {
@@ -262,7 +262,6 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.status'),
       dataIndex: 'status',
       width: 80,
-      key: 'status',
       render: (text, record, index) => {
         /**
          * 连接状态 connStatus 0 1
@@ -281,7 +280,6 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.ip'),
       dataIndex: 'ip',
       width: 110,
-      key: 'ip',
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
@@ -313,7 +311,6 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.port'),
       dataIndex: 'port',
       width: 100,
-      key: 'port',
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
@@ -345,7 +342,6 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.actions'),
       width: 100,
       dataIndex: 'actions',
-      key: 'actions',
       render: (text: any, row: any, index: any) => {
         return (
           <Space size={10} className="operation-box">
@@ -515,6 +511,7 @@ const DataTable: FC<any> = (props: any) => {
       <Table
         dataSource={tableData}
         columns={columns}
+        rowKey={_ => _.id}
         scroll={{ x: 990 }}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
       />

@@ -81,12 +81,14 @@ const ProviderTable: FC<any> = (props: any) => {
     }
   }, [type])
 
+  // console.log(props?.tableData);
 
   return (
     <div className="data-table-box">
       <Table
-        dataSource={props.tableData}
+        dataSource={props?.tableData}
         columns={columns}
+        rowKey={_ => _.partyId || (new Date().getTime())}
         scroll={{ x: '100%' }}
         pagination={{
           defaultCurrent: 1,

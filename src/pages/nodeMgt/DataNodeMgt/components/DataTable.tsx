@@ -104,13 +104,11 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('dataNodeMgt.nodeName'),
       dataIndex: 'nodeName',
-      key: 'nodeName',
       width: 200,
     },
     {
       title: t('common.status'),
       dataIndex: 'connStatus',
-      key: 'connStatus',
       width: 200,
       render: (text, record, index) => {
         return (
@@ -129,7 +127,6 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.ip'),
       dataIndex: 'ip',
       width: 300,
-      key: 'ip',
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
@@ -161,7 +158,6 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.port'),
       dataIndex: 'port',
       width: 300,
-      key: 'port',
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
@@ -193,7 +189,6 @@ const DataTable: FC<any> = (props: any) => {
       title: t('common.actions'),
       width: 150,
       dataIndex: 'actions',
-      key: 'actions',
       render: (text: any, record: any, index: any) => {
         return (
           <>
@@ -249,6 +244,7 @@ const DataTable: FC<any> = (props: any) => {
       <Table
         dataSource={tableData}
         columns={columns}
+        rowKey={_ => _.nodeId}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
       />
       {/* <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}> */}

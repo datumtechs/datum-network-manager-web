@@ -62,6 +62,8 @@ export const Tasks: FC<any> = () => {
       pageNumber,
       pageSize: 5,
       startTime: searchStartTime || 0,
+      status,
+      capacity,
     }
   }
   // const { table, countData, paramSet } = useTaskTable(getParam())
@@ -109,11 +111,12 @@ export const Tasks: FC<any> = () => {
     if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) {
       queryData()
     }
-  }, [searchStartTime, searchEndTime, pageNumber])
+  }, [searchStartTime, searchEndTime, pageNumber, capacity, status])
 
   useEffect(() => {
     queryTaskDetails()
   }, [])
+
 
   return (
     <div className="layout-box">

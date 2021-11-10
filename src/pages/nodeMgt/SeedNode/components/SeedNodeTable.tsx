@@ -48,21 +48,18 @@ const SeedNodeTable: FC<any> = (props: any) => {
     {
       title: t('node.nodeSeedNodeId'),
       dataIndex: 'seedNodeId',
-      key: 'seedNodeId',
       ellipsis: true,
 
     },
     {
       title: t('node.initialNode'),
       dataIndex: 'initialNode',
-      key: 'initialNode',
       width: 100,
       render: (text, record, index) => (record.initFlag ? t('common.yes') : t('common.no')),
     },
     {
       title: t('common.status'),
       dataIndex: 'connStatus',
-      key: 'connStatus',
       width: 150,
       render: (text, record, index) => {
         return (
@@ -79,8 +76,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
     },
     {
       title: t('common.actions'),
-      dataIndex: '',
-      key: 'action',
+      dataIndex: 'action',
       width: 120,
       render: (text, record, index) => {
         return (
@@ -143,6 +139,7 @@ const SeedNodeTable: FC<any> = (props: any) => {
       <Table
         dataSource={tableData}
         columns={columns}
+        rowKey={(_: any) => _.seedNodeId}
         pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
       />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

@@ -17,7 +17,14 @@ export const TaskDetail: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const history = useHistory()
 
-  const { state: { taskId = '', taskName = '' } } = props.location
+  const { state } = props.location
+  const { taskId, taskName } = state || { taskId: '', taskName: '' }
+  if (!taskId) {
+    history.push({
+      pathname: '/tasks',
+    })
+  }
+
   const linkReturn = () => {
     history.go(-1)
   }
@@ -82,6 +89,7 @@ export const TaskDetail: FC<any> = (props: any) => {
     receiversList: []
   })
   useEffect(() => {
+
     taskApi.querytaskInfo(taskId).then(res => {
       if (res.status === 0 && res.data) {
         const obj = { ...res.data }
@@ -108,7 +116,7 @@ export const TaskDetail: FC<any> = (props: any) => {
   const role = obj => {
     return Object.keys(obj).map((v) => {
       if (!obj[v]) return ''
-      return <MyTaskStatusBar key={obj[v]} role={v} width={150} margin={1} />
+      return <MyTaskStatusBar key={v} role={v} width={150} margin={1} />
     })
   }
 
@@ -175,12 +183,12 @@ export const TaskDetail: FC<any> = (props: any) => {
         <div className="sub-info-box">
           {/* 任务发起方 */}
           <div className="title-label">{t('task.sponsor')}</div>
-          <ProviderTable type="sponsor" tableData={baseInfo.ownerList} />
+          <ProviderTable key="ownerList" type="sponsor" tableData={baseInfo.ownerList} />
         </div>
         <div className="sub-info-box">
           {/* 结果使用方 */}
           <div className="title-label">{t('task.receiver')}</div>
-          <ProviderTable type="receiver" tableData={baseInfo.receiversList} />
+          <ProviderTable key="receiversList" type="receiver" tableData={baseInfo.receiversList} />
         </div>
         <div className="sub-info-box">
           {/* 算力提供方 */}
@@ -190,12 +198,12 @@ export const TaskDetail: FC<any> = (props: any) => {
         <div className="sub-info-box">
           {/* 数据提供方 */}
           <div className="title-label">{t('task.dataProvider')}</div>
-          <ProviderTable type="dataSupplier" tableData={baseInfo.dataSupplier} />
+          <ProviderTable key="dataSupplier" type="dataSupplier" tableData={baseInfo.dataSupplier} />
         </div>
         <div className="sub-info-box">
           {/* 算法提供方 */}
           <div className="title-label">{t('task.algorithmProvider')}</div>
-          <ProviderTable type="algorithmProvider" tableData={baseInfo.algoSupplierList} />
+          <ProviderTable key="algoSupplierList" type="algorithmProvider" tableData={baseInfo.algoSupplierList} />
         </div>
       </div>
       <div className="btn-box">

@@ -57,7 +57,7 @@ const MyTable = (props, ref) => {
   const role = obj => {
     return Object.keys(obj).map((v) => {
       if (!obj[v]) return ''
-      return <MyTaskStatusBar key={obj[v]} role={v} width={150} margin={1} />
+      return <MyTaskStatusBar key={v} role={v} width={150} margin={1} />
     })
   }
 
@@ -156,7 +156,7 @@ const MyTable = (props, ref) => {
       <Table
         dataSource={tableData}
         columns={columns}
-        rowKey={_ => (_.id + _.ownerIdentityId)}
+        rowKey={_ => (_.id + _.taskId)}
         bordered
         pagination={{ defaultCurrent: 1, defaultPageSize: 5, total, onChange: onPageChange }}
       />

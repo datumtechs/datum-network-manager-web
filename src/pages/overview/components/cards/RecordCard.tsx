@@ -40,7 +40,7 @@ const RecordCard: FC<any> = (props: any) => {
       <div className="auth-list">
         {dataList.map(item => {
           return (
-            <div className="auth-list-box" key={item.id}>
+            <div className="auth-list-box" key={item.applyTime}>
               <div className="auth-list-name">
                 <img src={emphasizeSvg} alt="" />
                 <div className="auth-list-date">{dayjs(item.applyTime).format('YYYY-MM-DD HH:mm:ss')}</div>

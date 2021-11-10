@@ -190,6 +190,7 @@ export const DataAuthorization: FC<any> = props => {
         // dataSource={dataSource}
         columns={columns}
         bordered
+        rowKey={_ => _.authId}
         pagination={{
           defaultCurrent: 1,
           current: curPage,

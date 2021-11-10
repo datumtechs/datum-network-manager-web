@@ -13,7 +13,7 @@ import useWinWidth from '../../../hooks/useWinWidth'
 
 
 const StatusChart: FC<any> = (props: any) => {
-  const { statusFn, statusObj } = props
+  const { statusFn, statusObj, onChange } = props
 
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
@@ -29,15 +29,10 @@ const StatusChart: FC<any> = (props: any) => {
 
   const handleClick = (prarms) => {
     if (prarms.componentType === 'title') {
-      return statusFn('title')
+      return statusFn(0)
     }
-    statusFn(prarms.name)
+    statusFn(prarms?.data?.type)
   }
-
-  useEffect(() => {
-    // statusListSet()
-  }, [])
-
 
   useEffect(() => {
     const chart = echarts.init(document.getElementById('statusChart'))
@@ -94,10 +89,10 @@ const StatusChart: FC<any> = (props: any) => {
             show: false,
           },
           data: [
-            { value: statusObj.successCount, name: t('task.success') },
-            { value: statusObj.failedCount, name: t('task.failed') },
-            { value: statusObj.pendingCount, name: t('task.pending') },
-            { value: statusObj.runningCount, name: t('task.computing') },
+            { value: statusObj.successCount, name: t('task.success'), type: '4' },
+            { value: statusObj.failedCount, name: t('task.failed'), type: '3' },
+            { value: statusObj.pendingCount, name: t('task.pending'), type: '1' },
+            { value: statusObj.runningCount, name: t('task.computing'), type: '2' },
           ],
         },
       ],
