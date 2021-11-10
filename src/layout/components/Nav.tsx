@@ -35,7 +35,19 @@ const Nav = (props: any) => {
     history.push(item.path)
   }
   const { t } = useTranslation()
-  const showSubMenu = item => {
+
+  const judgeAnimation = (evt) => {
+    const dom = evt.target.lastChild
+    const names = evt.target.lastChild.className
+    if (names.indexOf('triangle-up') !== -1) {
+      dom.style = "animation: down 0.2s linear"
+    } else {
+      dom.style = "animation: up 0.2s linear"
+    }
+  }
+
+  const showSubMenu = (item, evt) => {
+    judgeAnimation(evt)
     if (item.name !== menu) return props.setMenu(item.name)
     return props.setMenu('')
   }
@@ -49,10 +61,10 @@ const Nav = (props: any) => {
               <div className={`nav-label-box ${curPath.includes(item.path) ? 'activeMenu' : ''}`}>
                 <div
                   className="nav-label"
-                  onClick={() => showSubMenu(item)}
+                  onClick={(evt) => showSubMenu(item, evt)}
                 >
                   {t(`${item.label}`)}
-                  <div className={`hasChild ${menu === item.name ? 'triangle-down rotate-down' : 'triangle-up rotate-up'}  `} >
+                  <div className={`hasChild ${menu === item.name ? 'triangle-down' : 'triangle-up'}  `} >
                   </div>
                 </div>
                 {menu === item.name ? (
