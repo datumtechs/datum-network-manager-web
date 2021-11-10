@@ -3,10 +3,12 @@ $failed: #f167a8;
 $computing: #f29201;
 $pending: #657acd;
 
-.main-center-overview{
-  // min-height: 500px;
-  // overflow: auto;
+
+.ant-spin-nested-loading,.ant-spin-container,.main-center-overview{
+  width: 100%;
+  height: 100%;
 }
+
 .overview-title {
   font-family: AlibabaPuHuiTi-Medium;
   font-size: 16px;
@@ -18,15 +20,18 @@ $pending: #657acd;
 }
 .overview-box {
   width: 100%;
-  min-height: 688px;
+  height: 100%;
+  overflow-y: auto;
   display: flex;
   .overview-left {
     flex: 1;
     display: flex;
+     min-height: 688px;
     flex-direction: column;
     margin-right: 1.5vw;
     .overview-content-box {
       display: flex;
+      height: 18%;
       margin-bottom: 2.5vh;
       .overview-card:not(:last-child) {
         margin-right: 1.5vw;
@@ -34,7 +39,7 @@ $pending: #657acd;
       .overview-card {
         // width: 16.3vw;
         width: 32%;
-        height: 14.3vh;
+        height: 100%;
         display: flex;
         justify-content: space-between;
         padding: 1.8vh 1.2vw;
@@ -81,7 +86,7 @@ $pending: #657acd;
     .overview-publish-data {
       // width: 51.9vw;
       width: 100%;
-      height: 36.5vh;
+      height: 40%;
       margin-bottom: 2.7vh;
       .publish-data-box {
         padding: 1.8vh 1.5vw;
@@ -99,10 +104,10 @@ $pending: #657acd;
 
     .overview-data-box {
       display: flex;
+      height:30%;
       .overview-data-amount1 {
         // width: 34.1vw;
         width: 100%;
-        height: 26.8vh;
         padding: 1vh 1.5vw;
 
         .overview-data-title {
@@ -183,12 +188,13 @@ $pending: #657acd;
   }
   .overview-right {
     width: 19.1vw;
+    min-height: 688px;
     display: flex;
     flex-direction: column;
     .overview-tasks {
       width: 19.1vw;
       // height: 53.4vh;
-      height: 64.4%;
+      height: 60.88%;
       padding: 2.6vh 1.5vw;
       overflow: hidden;
       ::-webkit-scrollbar{width:0;}
@@ -260,14 +266,14 @@ $pending: #657acd;
     }
     .overview-authorization {
       width: 100%;
-      height: 26.8vh;
-      margin-top: 2.6vh;
+      height: 29.8%;
+      margin-top: 2.7vh;
       padding: 1.8vh 1.5vw;
       .auth-list {
         width: 100%;
-        height: 18.5vh;
+        height: 78%;
         @media screen and (max-width: 1366px) {
-          height: 16.5vh;
+          height: 68%;;
         }
         overflow-y: scroll;
         overflow-x: hidden;
