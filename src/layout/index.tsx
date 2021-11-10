@@ -59,6 +59,9 @@ const Layout = (props: any) => {
         history.push('/didApplication')
         return
       }
+      if (res.status === 0) {
+        props.setOrg(res.data)
+      }
       props.setIsReg(true)
     })
   }, [])
@@ -116,6 +119,12 @@ const mapDispatchToProps = (dispatch: any) => ({
   setIsReg: (data) => {
     dispatch({
       type: 'SET_ISREG',
+      data
+    })
+  },
+  setOrg: (data) => {
+    dispatch({
+      type: 'SET_ORG_INFO',
       data
     })
   },

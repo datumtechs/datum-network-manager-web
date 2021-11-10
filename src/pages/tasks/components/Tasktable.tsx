@@ -64,13 +64,13 @@ const MyTable = (props, ref) => {
   const columns: any = [
     {
       title: t('common.Num'),
-      width: 50,
+      width: 30,
       render: (text, record, index) => {
         return <>
           <span>
             {`${(pageNumber - 1) * pagination.defaultPageSize + (index + 1)}`}
           </span>
-          <span className='new-tips'></span>
+          {/* <span className='new-tips'></span> */}
         </>
       }
     },
@@ -97,7 +97,9 @@ const MyTable = (props, ref) => {
       key: 'status',
       width: 80,
       render: (text, record) => {
-        return <MyTaskStatusBar status={record.status} width={100} />
+        return <div className="task--table-status">
+          <MyTaskStatusBar status={record.status} width={100} />
+        </div>
       },
     },
     {
@@ -137,14 +139,14 @@ const MyTable = (props, ref) => {
       width: 100,
       render: (text, record) => {
         return (
-          <Space size={50}>
-            <p onClick={() => linkToDetail(record)} className="pointer link">
+          <div className="task-table-actions">
+            <div onClick={() => linkToDetail(record)} className="pointer link">
               {t('task.viewDetail')}
-            </p>
-            <p onClick={() => linkToEvent(record)} className="pointer link">
+            </div>
+            <div onClick={() => linkToEvent(record)} className="pointer link">
               {t('task.viewEvent')}
-            </p>
-          </Space>
+            </div>
+          </div>
         )
       },
     },

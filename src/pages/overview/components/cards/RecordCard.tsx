@@ -28,6 +28,12 @@ const RecordCard: FC<any> = (props: any) => {
     queryData()
   }, [])
 
+  const filterApplyUser = (name) => {
+    if (!name) return;
+    if (name.length < 13) return name;
+    return `${name.substring(0, 6)}...${name.substring(name.length - 6, name.length)}`
+  }
+
   return (
     <div className="overview-authorization item">
       <div className="data-name">{t('overview.dataAuthorizationApplication')}</div>
@@ -41,12 +47,14 @@ const RecordCard: FC<any> = (props: any) => {
               </div>
               {i18n.language === 'zh' ?
                 <div className="auth-list-remark">
-                  {item.applyUser}{t('overview.SeedApplication')}
+                  {filterApplyUser(item.applyUser)}
+                  {t('overview.SeedApplication')}
                   {item.metaDataName}
                   {t('overview.AuthorizationApplication')}
                 </div> :
                 <div className="auth-list-remark">
-                  {item.applyUser}
+                  {/* {item.applyUser} */}
+                  {filterApplyUser(item.applyUser)}
                   {t('overview.AuthorizationApplication')}
                   {item.metaDataName}
                 </div>

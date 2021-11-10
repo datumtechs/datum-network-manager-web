@@ -82,7 +82,7 @@ export const EditSelect: FC<any> = (props: any) => {
 
 export const DataDetail: FC<any> = (props: any) => {
   const { location } = props
-  const { type, id } = location.state
+  const { type, id, dataStatus } = location.state
   const [total, setTotal] = useState<number>()
   const [editText, editTextSet] = useState<boolean>(false)
   const [editSelect, editSelectSet] = useState<boolean>(false)
@@ -157,11 +157,11 @@ export const DataDetail: FC<any> = (props: any) => {
   }
 
   const goBackFn = () => {
-    // if (type === 'view') {
-    //   handleOk()
-    // } else {
-    isModalVisibleSet(true)
-    // }
+    if (dataStatus === '1') {
+      handleOk()
+    } else {
+      isModalVisibleSet(true)
+    }
   }
 
 
@@ -292,22 +292,20 @@ export const DataDetail: FC<any> = (props: any) => {
               </Col>
               <Col span={12}>
                 <Form.Item label={t('myData.industryOfData')}>
-                  {/* { */}
-                  {/* // type === 'view' ?
-                      // <div className="text-area datail-box-content">{industry}</div> : */}
-                  <EditSelect baseInfo={baseInfo} editSelect={editSelect}
-                    industry={industry} onSelectChange={onSelectChange}
-                    handleEditSelect={handleEditSelect} />
-                  {/* // } */}
+
+                  {dataStatus === '1' ?
+                    <div className="text-area datail-box-content">{industry}</div> :
+                    <EditSelect baseInfo={baseInfo} editSelect={editSelect}
+                      industry={industry} onSelectChange={onSelectChange}
+                      handleEditSelect={handleEditSelect} />
+                  }
                 </Form.Item>
               </Col>
             </Row>
             <Form.Item labelCol={{ span: 5 }} label={t('center.dataDesc')}>
-              {/* { */}
-              {/* // type === 'view' ? <div className="text-area"> {remarks}</div> */}
-              {/* //   : */}
-              <EditText baseInfo={baseInfo} editText={editText} remarks={remarks} handleTextSwitch={handleTextSwitch} handleEditText={handleEditText} />
-              {/* } */}
+              {dataStatus === '1' ? <div className="text-area"> {remarks}</div> :
+                <EditText baseInfo={baseInfo} editText={editText} remarks={remarks} handleTextSwitch={handleTextSwitch} handleEditText={handleEditText} />
+              }
             </Form.Item>
           </Form>
         </div>
@@ -337,12 +335,12 @@ export const DataDetail: FC<any> = (props: any) => {
             </Button>
             : ''
           }
-          {/* { */}
-          {/* type === 'view' ? '' : */}
-          <Button size="large" className="btn" type="primary" onClick={saveAndReturn}>
-            {t('common.submit')}
-          </Button>
-          {/* } */}
+          {
+            dataStatus === '1' ? '' :
+              <Button size="large" className="btn" type="primary" onClick={saveAndReturn}>
+                {t('common.submit')}
+              </Button>
+          }
         </Space>
       </div>
     </div>
