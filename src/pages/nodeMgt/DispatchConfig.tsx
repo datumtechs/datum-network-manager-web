@@ -117,7 +117,7 @@ const DispatchConfig: FC<any> = (props: any) => {
             name="basic"
             form={form}
             labelAlign="left"
-            wrapperCol={{ span: 9 }}
+            wrapperCol={{ span: 10 }}
             labelCol={{ style: { width: i18n.language === 'en' ? 180 : 160, whiteSpace: 'pre-wrap' } }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
@@ -203,6 +203,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                           bgColor="#C9C9C9"
                           color="#FFFFFF"
                           border="#999999"
+                          margin
                         />
 
                     ) :
@@ -210,7 +211,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                     }
                   </div>
                 </Form.Item>
-                <Form.Item colon label={t('overview.connectNum')} className="form-item">
+                <Form.Item colon={false} label={`${t('overview.connectNum')}：`} className="form-item">1
                   {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo.connNodeCount}</span>}
                 </Form.Item>
                 <Form.Item colon label={t('overview.bootAddress')} className="form-item">

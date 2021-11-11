@@ -124,15 +124,15 @@ export const TaskDetail: FC<any> = (props: any) => {
   return (
     <div className="layout-box">
       <div className="add-data-box">
-        <div className="task-progress-box">
+        <div className="task-progress-box tesk-details">
           <div className="task-progress-left-box">
             <div className="top-title-box">
               <p className="title">{t('task.taskName')}:&nbsp;&nbsp;</p>
               < p > {taskName}</p>
             </div>
-            <div className="top-title-box">
+            <div className="top-title-box ">
               <p className="title">ID:&nbsp;&nbsp;</p>
-              <p>{taskId}</p>
+              <p className="tesk-details-id">{taskId}</p>
             </div>
           </div>
           <div className="progress-box">

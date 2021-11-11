@@ -29,7 +29,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
   }
 
   const [data, setData] = useState<Item[]>([])
-  const { mode, tableData, total, setPage, curPage, originalData } = props
+  const { mode, tableData, total, setPage, curPage, originalData, disabled } = props
   // useEffect(() => {
   //   if (isFieldEditing && inputRef.current) {
   //     inputRef.current!.focus();
@@ -119,7 +119,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
         <>
           {
             // type === 'view' ? text :
-            <EditTableCell record={record} column="columnName" handleCellChange={handleCellChange} />
+            <EditTableCell disabled record={record} column="columnName" handleCellChange={handleCellChange} />
           }
         </>
       ),
@@ -143,7 +143,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
               // type === 'view' ? mapVisiable(record.visible) :
               <Space size={20}>
                 {record.visible ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
-                <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === true} />
+                {disabled ? '' : <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === true} />}
               </Space>
             }
           </>
@@ -163,6 +163,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
             onChange={e => handleSelectChange(e, record)}
             defaultValue="STRING"
             style={{ width: 100 }}
+            disabled
             placeholder="Select a type"
           >
             {DATATYPE.map(item => (
@@ -184,7 +185,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
         <>
           {
             // type === 'view' ? <span>{text}</span> :
-            <EditTableCell record={record} column="remarks" handleCellChange={handleCellChange} />
+            <EditTableCell disabled record={record} column="remarks" handleCellChange={handleCellChange} />
           }
         </>
       ),

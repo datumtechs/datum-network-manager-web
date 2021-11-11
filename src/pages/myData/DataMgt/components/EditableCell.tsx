@@ -5,7 +5,7 @@ import '../scss/index.scss'
 
 const EditTableCell: FC<any> = (props: any) => {
   const [isFieldEditing, setIsFieldEditing] = useState<boolean>(false)
-  const { record, column } = props
+  const { record, column, disabled } = props || { disabled: false }
   const inputRef = useRef<Input>(null)
   useEffect(() => {
     if (isFieldEditing) {
@@ -17,6 +17,7 @@ const EditTableCell: FC<any> = (props: any) => {
     props.handleCellChange(e, record, column)
   }
   const toggleEdit = () => {
+    if (disabled) return
     setIsFieldEditing(!isFieldEditing)
     // form.setFieldsValue({ [dataIndex]: record[dataIndex] });
   }

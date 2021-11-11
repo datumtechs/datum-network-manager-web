@@ -261,3 +261,20 @@
     margin-bottom: 5px;
   }
 }
+
+.tesk-details{
+  .task-progress-left-box{
+    width: 100%;
+    .top-title-box{
+      width: 100%;
+      p:nth-child(1){
+        flex:0 0 80px;
+      }
+      p:nth-child(2){
+        word-break: break-all;
+        line-height: 18px;
+      }
+    }
+  }
+  
+}

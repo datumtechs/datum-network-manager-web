@@ -292,9 +292,8 @@ export const DataDetail: FC<any> = (props: any) => {
               </Col>
               <Col span={12}>
                 <Form.Item label={t('myData.industryOfData')}>
-
                   {dataStatus === '1' ?
-                    <div className="text-area datail-box-content">{industry}</div> :
+                    <div className="text-area datail-box-content">{t(`myData.${INDUSTRYMAP.get(Number(industry))}`)}</div> :
                     <EditSelect baseInfo={baseInfo} editSelect={editSelect}
                       industry={industry} onSelectChange={onSelectChange}
                       handleEditSelect={handleEditSelect} />
@@ -303,7 +302,7 @@ export const DataDetail: FC<any> = (props: any) => {
               </Col>
             </Row>
             <Form.Item labelCol={{ span: 5 }} label={t('center.dataDesc')}>
-              {dataStatus === '1' ? <div className="text-area"> {remarks}</div> :
+              {dataStatus === '1' ? <div className="text-area datail-box-content"> {remarks}</div> :
                 <EditText baseInfo={baseInfo} editText={editText} remarks={remarks} handleTextSwitch={handleTextSwitch} handleEditText={handleEditText} />
               }
             </Form.Item>
@@ -320,6 +319,7 @@ export const DataDetail: FC<any> = (props: any) => {
           setPage={setPage}
           loading={upLoading}
           curPage={curPage}
+          disabled={dataStatus === '1'}// 已发布禁用
           row-key={re => re.columnIdx}
           mode="add"
         />

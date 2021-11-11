@@ -139,11 +139,11 @@ const MyTable = (props, ref) => {
       width: 100,
       render: (text, record) => {
         return (
-          <div className="task-table-actions">
-            <div onClick={() => linkToDetail(record)} className="pointer link">
+          <div className="operation-box task-table-actions">
+            <div onClick={() => linkToDetail(record)} className="btn pointer">
               {t('task.viewDetail')}
             </div>
-            <div onClick={() => linkToEvent(record)} className="pointer link">
+            <div onClick={() => linkToEvent(record)} className="btn pointer">
               {t('task.viewEvent')}
             </div>
           </div>
