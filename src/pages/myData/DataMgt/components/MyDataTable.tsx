@@ -108,7 +108,7 @@ const MyDataTable: FC<any> = (props: any) => {
         type: 'edit',
         id: row.id,
         metaDataId: row.metaDataId,
-        dataStatus: row.status || '0'
+        dataStatus: +row.status === 2 ? '1' : '0'
       },
     })
   }
@@ -195,8 +195,7 @@ const MyDataTable: FC<any> = (props: any) => {
     },
     {
       title: t('center.dataName'),
-      dataIndex: 'fileName',
-      key: 'fileName',
+      dataIndex: 'metaDataName',
       width: 180,
     },
     {
@@ -205,8 +204,8 @@ const MyDataTable: FC<any> = (props: any) => {
       key: 'status',
       width: 100,
       render: (text, record, index) => {
-        // 1已发布，0未发布
-        if (record.status === '1') {
+        // (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销
+        if (+record.status === 2) {
           return (
             <div className="status-box">
               <img src={successSvg} alt="" />
@@ -224,18 +223,19 @@ const MyDataTable: FC<any> = (props: any) => {
     },
     {
       title: t('myData.dataSize'),
-      dataIndex: 'size',
-      key: 'size',
+      dataIndex: 'dynamicFields',
       width: 100,
       render: (text, record, index) => {
-        return <>{changeSizeFn(text)}</>
+        return <>{changeSizeFn(text.size)}</>
       }
     },
     {
       title: t('myData.taskNum'),
-      dataIndex: 'attendTaskCount',
-      key: 'attendTaskCount',
+      dataIndex: 'dynamicFields',
       width: 100,
+      render: (text, record, index) => {
+        return <>{text.taskCount}</>
+      }
     },
     // {
     //   title: t('center.metaFiled'),

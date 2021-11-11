@@ -105,10 +105,11 @@ const MyTable = (props, ref) => {
     {
       title: t('task.myCapacity'),
       dataIndex: 'role',
-      align: 'center',
       width: 120,
       render: (text, record) => {
-        return role(record.dynamicFields)
+        return <div className="task-table-role" >
+          {role(record.dynamicFields)}
+        </div>
       },
     },
     {

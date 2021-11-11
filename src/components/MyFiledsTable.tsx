@@ -119,7 +119,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
         <>
           {
             // type === 'view' ? text :
-            <EditTableCell disabled record={record} column="columnName" handleCellChange={handleCellChange} />
+            <EditTableCell disabled={disabled} record={record} column="columnName" handleCellChange={handleCellChange} />
           }
         </>
       ),
@@ -163,7 +163,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
             onChange={e => handleSelectChange(e, record)}
             defaultValue="STRING"
             style={{ width: 100 }}
-            disabled
+            disabled={disabled}
             placeholder="Select a type"
           >
             {DATATYPE.map(item => (
@@ -185,7 +185,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
         <>
           {
             // type === 'view' ? <span>{text}</span> :
-            <EditTableCell disabled record={record} column="remarks" handleCellChange={handleCellChange} />
+            <EditTableCell disabled={disabled} record={record} column="remarks" handleCellChange={handleCellChange} />
           }
         </>
       ),

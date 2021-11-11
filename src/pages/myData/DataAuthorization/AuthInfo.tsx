@@ -105,7 +105,7 @@ export const AuthInfo: FC<any> = (props: any) => {
       </div>
       <div className="top-title-box">
         <p>{t('center.metaDataID')}:&nbsp;&nbsp;</p>
-        <p>{authInfo.metaDataId}</p>
+        <p className="datail-box-content">{authInfo.metaDataId}</p>
       </div>
       <div className="sub-info-box">
         <div className="sub-title-box">{t('myData.authInfo')}</div>
@@ -224,7 +224,7 @@ export const AuthInfo: FC<any> = (props: any) => {
             </Row>
             <Form.Item labelCol={{ span: 5 }}
               wrapperCol={{ span: 14 }} label={t('center.dataDesc')}>
-              <p> {baseInfo.remarks}</p>
+              <p className="datail-box-content"> {baseInfo.remarks}</p>
             </Form.Item>
           </Form>
         </div>

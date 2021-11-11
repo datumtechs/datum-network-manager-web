@@ -256,7 +256,12 @@
   justify-content: center;
   width: 100%;
 }
+.task-table-role{
+  @extend .task--table-status;
+  flex-direction: column;
+}
 .task-table-actions{
+  flex-direction: column;
   div:nth-child(1){
     margin-bottom: 5px;
   }
