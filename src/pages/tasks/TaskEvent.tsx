@@ -53,7 +53,7 @@ export const TaskEvent: FC<any> = (props: any) => {
             </div>
             <div className="top-title-box">
               <p className="title">ID:&nbsp;&nbsp;</p>
-              <p className="ellipsis taskId">{taskId}</p>
+              <p className="tesk-details-id datail-box-content">{taskId}</p>
             </div>
           </div>
           <div className="progress-box">

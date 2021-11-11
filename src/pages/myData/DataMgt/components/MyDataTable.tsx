@@ -256,7 +256,7 @@ const MyDataTable: FC<any> = (props: any) => {
       dataIndex: 'actions',
       key: 'actions',
       render: (text: any, row: any, index: any) => {
-        if (row.status === '1') {
+        if (+row.status === 2) {
           return (
             <div className="operation-box">
               <p className="btn pointer link pr10" onClick={() => viewFn(row)}>

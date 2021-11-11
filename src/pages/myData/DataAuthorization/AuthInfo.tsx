@@ -127,8 +127,8 @@ export const AuthInfo: FC<any> = (props: any) => {
               <Col span={12}>
                 <Form.Item label={t('myData.authType')}>
                   <>
-                    <p>{authInfo.authType === 1 ? t('myData.period') : ''}</p>
-                    <p>{authInfo.authType === 2 ? t('myData.count') : ''}</p>
+                    <p className="datail-box-content">{authInfo.authType === 1 ? t('myData.period') : ''}</p>
+                    <p className="datail-box-content">{authInfo.authType === 2 ? t('myData.count') : ''}</p>
                   </>
                 </Form.Item>
               </Col>

@@ -211,7 +211,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                     }
                   </div>
                 </Form.Item>
-                <Form.Item colon={false} label={`${t('overview.connectNum')}：`} className="form-item">1
+                <Form.Item colon={false} label={`${t('overview.connectNum')}：`} className="form-item">
                   {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo.connNodeCount}</span>}
                 </Form.Item>
                 <Form.Item colon label={t('overview.bootAddress')} className="form-item">

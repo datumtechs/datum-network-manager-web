@@ -66,7 +66,6 @@ export const AddSeedNode: FC<any> = (props: any) => {
         >
           <div className="form-group">
             <Input.TextArea
-              // onBlur={whenInputName}
               onChange={whenInputChange}
               placeholder={t('node.forSelfidentity')}
               className="form-box-input"
@@ -77,35 +76,11 @@ export const AddSeedNode: FC<any> = (props: any) => {
             }
           </div>
         </Form.Item>
-        {/* <Form.Item
-          label={t('node.NodePublicKey')}
-          name="NodePublicKey"
-          rules={[{ required: true, message: `${t('tip.plzInput')}${t('node.NodePublicKey')}` }]}
-          className="form-item"
-        >
-          <Input className="form-box-input" />
-        </Form.Item> */}
-        {/* <Form.Item
-          label={t('dataNodeMgt.internalIP')}
-          name="internalIP"
-          rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.internalIP')}` }]}
-          className="form-item"
-        >
-          <Input className="form-box-input" />
-        </Form.Item>
-        <Form.Item
-          label={t('dataNodeMgt.internalPort')}
-          name="internalPort"
-          rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.internalPort')}` }]}
-          className="form-item"
-        >
-          <Input className="form-box-input" />
-        </Form.Item> */}
         <Form.Item className="form-item">
           <Button className="btn re-btn" onClick={() => history.go(-1)} style={{ marginLeft: i18n.language === 'en' ? 180 : 120 }}>
             {t('common.return')}
           </Button>
-          <Button type="primary" className="btn submit-btn" htmlType="submit">
+          <Button type="primary" className="submit-btn btn  add-seend-btn" htmlType="submit">
             {t('node.submitAddtion')}
           </Button>
         </Form.Item>

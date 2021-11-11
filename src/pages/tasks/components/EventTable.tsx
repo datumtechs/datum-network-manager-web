@@ -46,24 +46,20 @@ const EventTable: FC<any> = (props: any) => {
     {
       title: t('task.eventType'),
       dataIndex: 'eventType',
-      key: 'eventType',
     },
     {
       title: t('task.eventMaker'),
       dataIndex: 'nodeName',
-      key: 'nodeName',
       render: (text, record) => record?.dynamicFields.orgName ? `${record?.dynamicFields.orgName} (${record?.partyId})` : 'N/A',
     },
     {
       title: t('task.generationTime'),
       dataIndex: 'eventAt',
-      key: 'eventAt',
       render: (text, record) => dayjs(record.eventAt).format('YYYY-MM-DD HH:mm:ss'),
     },
     {
       title: t('task.eventContent'),
       dataIndex: 'eventContent',
-      key: 'eventContent',
     },
   ]
   return (
@@ -71,6 +67,7 @@ const EventTable: FC<any> = (props: any) => {
       <Table
         dataSource={tableData}
         columns={columns}
+        rowKey={_ => _?.id}
         bordered
         pagination={{ defaultCurrent: 1, defaultPageSize: 10, onChange: onPageChange }}
       />
