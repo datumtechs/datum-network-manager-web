@@ -236,7 +236,7 @@ export const DataDetail: FC<any> = (props: any) => {
       <div className="top-title-box">
         <p>{t('center.metaDataID')}:&nbsp;&nbsp;</p>
         {/* <p>{baseInfo.id}</p> */}
-        <p>{baseInfo.metaDataId}</p>
+        <p className="datail-box-content">{baseInfo.metaDataId}</p>
       </div>
       <div className="sub-info-box">
         <div className="sub-title-box">{t('center.basicInfo')}</div>

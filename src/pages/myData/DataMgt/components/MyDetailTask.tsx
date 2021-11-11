@@ -165,7 +165,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
       </div>
       <div className="top-title-box">
         <p>{t('center.metaDataID')}:&nbsp;&nbsp;</p>
-        <p>{metadataId}</p>
+        <p className="datail-box-content">{metadataId}</p>
       </div>
     </div>
     <div className="data-table-box">
