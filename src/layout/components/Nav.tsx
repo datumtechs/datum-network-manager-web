@@ -10,6 +10,7 @@ const Nav = (props: any) => {
   const history = useHistory()
   const { pathname } = useLocation()
   const [curPath, SetCurPath] = useState('')
+  const [showMenu, showMenuSet] = useState(false)
 
   useEffect(() => {
     SetCurPath(pathname === '/' ? '/overview' : pathname)
@@ -37,13 +38,16 @@ const Nav = (props: any) => {
   const { t } = useTranslation()
 
   const judgeAnimation = (evt) => {
-    const dom = evt.target.lastChild
-    const names = evt.target.lastChild?.className
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    names && names.indexOf('triangle-up') !== -1 ? dom.style = "animation: down 0.2s linear" : dom.style = "animation: up 0.2s linear"
+    if (evt.target.lastChild) {
+      const dom = evt.target.lastChild
+      const names = evt.target.lastChild.className
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      names && names.indexOf('triangle-up') !== -1 ? dom.style = "animation: down 0.2s linear" : dom.style = "animation: up 0.2s linear"
+    }
   }
 
   const showSubMenu = (item, evt) => {
+    showMenuSet(!showMenu)
     judgeAnimation(evt)
     if (item.name !== menu) return props.setMenu(item.name)
     return props.setMenu('')
@@ -61,28 +65,24 @@ const Nav = (props: any) => {
                   onClick={(evt) => showSubMenu(item, evt)}
                 >
                   {t(`${item.label}`)}
-                  <div className={`hasChild ${menu === item.name ? 'triangle-down' : 'triangle-up'}  `} >
+                  <div className={`hasChild ${menu === item.name ? 'triangle-down' : 'triangle-up'}`}>
                   </div>
                 </div>
-                {menu === item.name ? (
-                  <ul className="sub-nav-box slideIn">
-                    {item.children.map(child =>
-                      child.meta.show ? (
-                        <li
-                          className={`sub-nav-label ${curPath.includes(child.path) ? 'activeSubMenu' : ''}`}
-                          key={child.name}
-                          onClick={e => linkTo(child, e)}
-                        >
-                          {t(`${child.label}`)}
-                        </li>
-                      ) : (
-                        ''
-                      ),
-                    )}
-                  </ul>
-                ) : (
-                  <ul className="slideOut"></ul>
-                )}
+                <ul className={`sub-nav-box ${menu === item.name ? 'active' : 'inActive'}`}>
+                  {item.children.map(child =>
+                    child.meta.show ? (
+                      <li
+                        className={`sub-nav-label ${curPath.includes(child.path) ? 'activeSubMenu' : ''}`}
+                        key={child.name}
+                        onClick={e => linkTo(child, e)}
+                      >
+                        {t(`${child.label}`)}
+                      </li>
+                    ) : (
+                      ''
+                    ),
+                  )}
+                </ul>
               </div>
             ) : (
               <div className="nav-label-box">
