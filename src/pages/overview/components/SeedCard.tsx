@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import '../scss/seed.scss'
-import iconImg from '../../../assets/images/overview/2.seed.svg'
+import iconImg from '@assets/images/overview/2.seed.svg'
 
 const SeedNode: FC<any> = (props: any) => {
   const { t } = useTranslation()

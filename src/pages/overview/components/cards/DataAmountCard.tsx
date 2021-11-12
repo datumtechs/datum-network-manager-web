@@ -1,9 +1,9 @@
 import { FC, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import upIcon from '../../../../assets/images/4.up.svg'
-import downIcon from '../../../../assets/images/4.down.svg'
-import { overviewApi } from '../../../../api'
+import upIcon from '@assets/images/4.up.svg'
+import downIcon from '@assets/images/4.down.svg'
+import { overviewApi } from '@api'
 
 const AmountCard: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()

@@ -1,11 +1,9 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
 import { Button, Form, Input, message } from 'antd'
+import { loginApi } from '@api/index'
+import { orgReg } from '@utils/reg'
 import './scss/did.scss'
-import { loginApi } from '../../api/index'
-import { orgReg } from '../../utils/reg'
-import { BaseInfoContext } from '../../layout/index'
 
 export const DidApplication: FC<any> = () => {
   const { t } = useTranslation()

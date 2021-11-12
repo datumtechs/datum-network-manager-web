@@ -1,8 +1,7 @@
 import React, { FC, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import Bread from '../../../layout/components/Bread'
-import SearchBar from '../../../layout/components/SearchBar'
+import SearchBar from '@/layout/components/SearchBar'
 import ComputeTable from './components/ComputeTable'
 import '../scss/index.scss'
 

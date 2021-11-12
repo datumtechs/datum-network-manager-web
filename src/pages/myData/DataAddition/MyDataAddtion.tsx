@@ -5,12 +5,12 @@ import { Tooltip, Space, Form, Input, Radio, Button, message, Select } from 'ant
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import MyFiledsTable from '@com/MyFiledsTable'
+import MyModal from '@com/MyModal'
+import MyTag from '@com/MyTag'
+import { resourceApi } from '@api/index'
+import { INDUSTRYLIST } from '@constant/constant'
 import MyDragger from '../DataMgt/components/MyDragger'
-import MyFiledsTable from '../../../components/MyFiledsTable'
-import { resourceApi } from '../../../api/index'
-import MyModal from '../../../components/MyModal'
-import MyTag from '../../../components/MyTag'
-import { INDUSTRYLIST } from '../../../constant/constant'
 
 export const MyDataAddtion: FC<any> = (props: any) => {
   const { t } = useTranslation()

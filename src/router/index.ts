@@ -1,66 +1,66 @@
 import React from 'react'
 
-const login = React.lazy(() => import('../pages/Login/index').then(_ => _))
-const layout = React.lazy(() => import('../layout/index').then(_ => _))
-const Overview = React.lazy(() => import('../pages/overview/index').then(_ => ({ default: _.Overview })))
-const NodeMgt = React.lazy(() => import('../pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))
-const MyData = React.lazy(() => import('../pages/myData/index').then(_ => ({ default: _.MyData })))
-const DataMgt = React.lazy(() => import('../pages/myData/DataMgt/DataMgt').then(_ => ({ default: _.DataMgt })))
+const login = React.lazy(() => import('@/pages/Login/index').then(_ => _))
+const layout = React.lazy(() => import('@/layout/index').then(_ => _))
+const Overview = React.lazy(() => import('@/pages/overview/index').then(_ => ({ default: _.Overview })))
+const NodeMgt = React.lazy(() => import('@/pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))
+const MyData = React.lazy(() => import('@/pages/myData/index').then(_ => ({ default: _.MyData })))
+const DataMgt = React.lazy(() => import('@/pages/myData/DataMgt/DataMgt').then(_ => ({ default: _.DataMgt })))
 
-// const MetaDataDetail = React.lazy(() => import('../pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
-const MyDetailTask = React.lazy(() => import('../pages/myData/DataMgt/components/MyDetailTask').then(_ => ({ default: _.MyDetailTask })))
+// const MetaDataDetail = React.lazy(() => import('@/pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
+const MyDetailTask = React.lazy(() => import('@/pages/myData/DataMgt/components/MyDetailTask').then(_ => ({ default: _.MyDetailTask })))
 
 const MyDataAddtion = React.lazy(() =>
-  import('../pages/myData/DataAddition/MyDataAddtion').then(_ => ({ default: _.MyDataAddtion })),
+  import('@/pages/myData/DataAddition/MyDataAddtion').then(_ => ({ default: _.MyDataAddtion })),
 )
 const NewDataAddtion = React.lazy(() =>
-  import('../pages/myData/DataMgt/components/NewDataAddtion').then(_ => ({ default: _.NewDataAddtion })),
+  import('@/pages/myData/DataMgt/components/NewDataAddtion').then(_ => ({ default: _.NewDataAddtion })),
 )
 const AuthInfo = React.lazy(() =>
-  import('../pages/myData/DataAuthorization/AuthInfo').then(_ => ({ default: _.AuthInfo })),
+  import('@/pages/myData/DataAuthorization/AuthInfo').then(_ => ({ default: _.AuthInfo })),
 )
 const MyDataDetail = React.lazy(() =>
-  import('../pages/myData/DataMgt/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })),
+  import('@/pages/myData/DataMgt/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })),
 )
 const DataDetail = React.lazy(() =>
-  import('../components/DataDetail').then(_ => ({ default: _.DataDetail })),
+  import('@/components/DataDetail').then(_ => ({ default: _.DataDetail })),
 )
 const DataAuthorization = React.lazy(() =>
-  import('../pages/myData/DataAuthorization/DataAuthorization').then(_ => ({ default: _.DataAuthorization })),
+  import('@/pages/myData/DataAuthorization/DataAuthorization').then(_ => ({ default: _.DataAuthorization })),
 )
 
-const DispatchConfig = React.lazy(() => import('../pages/nodeMgt/DispatchConfig').then(_ => _))
+const DispatchConfig = React.lazy(() => import('@/pages/nodeMgt/DispatchConfig').then(_ => _))
 const DataNodeMgt = React.lazy(() =>
-  import('../pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })),
+  import('@/pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })),
 )
 const EditNodeMgt = React.lazy(() =>
-  import('../pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(_ => ({ default: _.EditNodeMgt })),
+  import('@/pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(_ => ({ default: _.EditNodeMgt })),
 )
 const ComputeNodeMgt = React.lazy(() =>
-  import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })),
+  import('@/pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })),
 )
 const EditComputeNode = React.lazy(() =>
-  import('../pages/nodeMgt/ComputeNodeMgt/EditComputeNode').then(_ => ({ default: _.EditComputeNode })),
+  import('@/pages/nodeMgt/ComputeNodeMgt/EditComputeNode').then(_ => ({ default: _.EditComputeNode })),
 )
 const ComputeNodeDetail = React.lazy(() =>
-  import('../pages/nodeMgt/ComputeNodeMgt/ComputeNodeDetail').then(_ => ({ default: _.ComputeNodeDetail })),
+  import('@/pages/nodeMgt/ComputeNodeMgt/ComputeNodeDetail').then(_ => ({ default: _.ComputeNodeDetail })),
 )
-const Tasks = React.lazy(() => import('../pages/tasks/index').then(_ => ({ default: _.Tasks })))
-const TaskDetail = React.lazy(() => import('../pages/tasks/TaskDetail').then(_ => ({ default: _.TaskDetail })))
-const TaskEvent = React.lazy(() => import('../pages/tasks/TaskEvent').then(_ => ({ default: _.TaskEvent })))
+const Tasks = React.lazy(() => import('@/pages/tasks/index').then(_ => ({ default: _.Tasks })))
+const TaskDetail = React.lazy(() => import('@/pages/tasks/TaskDetail').then(_ => ({ default: _.TaskDetail })))
+const TaskEvent = React.lazy(() => import('@/pages/tasks/TaskEvent').then(_ => ({ default: _.TaskEvent })))
 const DidApplication = React.lazy(() =>
-  import('../pages/did/DidApplication').then(_ => ({ default: _.DidApplication })),
+  import('@/pages/did/DidApplication').then(_ => ({ default: _.DidApplication })),
 )
 
-const DataCenter = React.lazy(() => import('../pages/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
+const DataCenter = React.lazy(() => import('@/pages/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
 const ComputationCenter = React.lazy(() =>
-  import('../pages/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })),
+  import('@/pages/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })),
 )
 
-const SeedNodeMgt = React.lazy(() => import('../pages/nodeMgt/SeedNode/SeedNodeMgt').then(_ => ({ default: _.SeedNodeMgt })))
-const AddSeedNode = React.lazy(() => import('../pages/nodeMgt/SeedNode/AddSeedNode').then(_ => ({ default: _.AddSeedNode })))
+const SeedNodeMgt = React.lazy(() => import('@/pages/nodeMgt/SeedNode/SeedNodeMgt').then(_ => ({ default: _.SeedNodeMgt })))
+const AddSeedNode = React.lazy(() => import('@/pages/nodeMgt/SeedNode/AddSeedNode').then(_ => ({ default: _.AddSeedNode })))
 
-// const did = React.lazy(() => import('../pages/did/index').then(_ => ({ default: _.did }))) /dataCenter/metaDataDetail
+// const did = React.lazy(() => import('@/pages/did/index').then(_ => ({ default: _.did }))) /dataCenter/metaDataDetail
 
 export interface IRouteMeta {
   title: string

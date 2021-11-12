@@ -8,9 +8,9 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
-import useWinWidth from '../../../hooks/useWinWidth'
-import { resourceApi } from '../../../api'
-import { changeSizeObj } from '../../../utils/utils'
+import useWinWidth from '@hooks/useWinWidth'
+import { resourceApi } from '@api'
+import { changeSizeObj } from '@utils/utils'
 
 const DataChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()

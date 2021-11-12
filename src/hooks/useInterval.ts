@@ -16,6 +16,16 @@ const useInterval = (callback, delay) => {
       return () => clearInterval(id);
     }
   }, [delay]);
+
+  // 下面的可用
+  // useEffect(() => {
+  //   if (delay !== null) {
+  //     const time = setTimeout(() => {
+  //       callback()
+  //     }, delay)
+  //     return () => clearTimeout(time)
+  //   }
+  // });
 };
 
 

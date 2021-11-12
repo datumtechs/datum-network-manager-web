@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import SearchBar from '../../../layout/components/SearchBar'
+import SearchBar from '@/layout/components/SearchBar'
 import MyDataTable from './components/MyDataTable'
 
 export const DataMgt: FC<any> = () => {

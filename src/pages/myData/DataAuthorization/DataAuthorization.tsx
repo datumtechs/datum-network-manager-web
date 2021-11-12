@@ -3,8 +3,8 @@ import { Table, Space, message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
-import MyModal from '../../../components/MyModal'
-import { authApi } from '../../../api/index'
+import MyModal from '@com/MyModal'
+import { authApi } from '@api/index'
 
 export const DataAuthorization: FC<any> = props => {
   const [curType, curTypeSet] = useState<number>(1)

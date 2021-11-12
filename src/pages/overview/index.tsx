@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-// eslint-disable-next-line import/no-named-as-default
-import { overviewApi } from '../../api/index'
+import { overviewApi } from '@api/index'
+import { changeSizeObj } from '@utils/utils'
 import Card from './components/cards/Card'
 import PublishDataChart from './components/cards/PublishDataChart'
 import DataTrendChart from './components/cards/DataTrendChart'
@@ -9,7 +9,6 @@ import DataTrendChart from './components/cards/DataTrendChart'
 import TaskChart from './components/cards/TaskChart'
 import RecordCard from './components/cards/RecordCard'
 import './scss/index.scss'
-import { changeSizeObj } from '../../utils/utils'
 
 
 export const Overview: FC<any> = () => {

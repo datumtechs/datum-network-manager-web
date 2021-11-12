@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Row, Col, Form, Input, Space, Button, message } from 'antd'
 import dayjs from 'dayjs'
-import { authApi } from '../../../api/index'
+import { authApi } from '@api/index'
+import { changeSizeFn } from '@utils/utils'
+import { INDUSTRYMAP } from '@constant/constant'
+import MyModal from '@com/MyModal'
+import MyTag from '@com/MyTag'
 import AuthInfoTable from './AuthInfoTable'
-import MyModal from '../../../components/MyModal'
-import MyTag from '../../../components/MyTag'
-import { changeSizeFn } from '../../../utils/utils'
-import { INDUSTRYMAP } from '../../../constant/constant'
 
 export const AuthInfo: FC<any> = (props: any) => {
   const { location } = props

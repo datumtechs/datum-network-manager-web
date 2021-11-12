@@ -3,8 +3,8 @@ import { Table, Space, Tooltip } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
-import MyTaskStatusBar from '../../myData/DataMgt/components/MyTaskStatusBar'
-import { formatDuring } from '../../../utils/utils'
+import { formatDuring } from '@utils/utils'
+import MyTaskStatusBar from '@pages/myData/DataMgt/components/MyTaskStatusBar'
 
 const Status: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -128,7 +128,8 @@ const MyTable = (props, ref) => {
           {
             record.status === 1 || record.status === 2 ?
               <p>
-                {t('myData.timeSpent')}:&nbsp;{formatDuring(dayjs(Date.now()).valueOf() - dayjs(record.createAt).valueOf())}
+                {t('myData.timeSpent')}:&nbsp;00:00:00
+                {/* {formatDuring(dayjs(Date.now()).valueOf() - dayjs(record.createAt).valueOf())} */}
               </p> : ''
           }
         </>

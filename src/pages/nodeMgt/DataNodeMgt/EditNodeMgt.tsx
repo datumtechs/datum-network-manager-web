@@ -2,11 +2,11 @@ import React, { FC, useEffect, useState } from 'react'
 import { Form, Input, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import MyTag from '../../../components/MyTag'
+import MyTag from '@com/MyTag'
 import '../scss/index.scss'
-import { DataNode } from '../../../entity'
-import { dataNodeApi } from '../../../api/index'
-import MyModal from '../../../components/MyModal'
+import { DataNode } from '@/entity'
+import { dataNodeApi } from '@api/index'
+import MyModal from '@com/MyModal'
 
 export const EditNodeMgt: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()

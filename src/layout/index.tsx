@@ -44,7 +44,7 @@ const Layout = (props: any) => {
     recUpdateTime: '',
   })
   const { pathname } = useLocation()
-
+  const [sum, setSum] = useState<number>(0)
   const fetchData = async () => {
     const result = await loginApi.queryBaseInfo()
     setInfo(result?.data)

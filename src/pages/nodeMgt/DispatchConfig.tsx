@@ -4,11 +4,10 @@ import { Form, Input, Button, Spin, message } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import Bread from '../../layout/components/Bread'
 import './scss/index.scss'
-import { BaseInfoContext } from '../../layout/index'
-import { nodeApi } from '../../api/index'
-import MyTag from '../../components/MyTag'
+import { BaseInfoContext } from '@/layout/index'
+import { nodeApi } from '@api/index'
+import MyTag from '@com/MyTag'
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 

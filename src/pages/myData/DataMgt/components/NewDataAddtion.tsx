@@ -3,12 +3,11 @@ import { FC, useState, createRef, useEffect } from 'react'
 import { Descriptions, Space, Form, Input, Radio, Button, message, Select } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { MyRadioBtn } from './MyRadioBtn'
-import MyFiledsTable from '../../../../components/MyFiledsTable'
-import { resourceApi } from '../../../../api/index'
-import MyModal from '../../../../components/MyModal'
-import MyTag from '../../../../components/MyTag'
-import { INDUSTRYLIST } from '../../../../constant/constant'
+import MyFiledsTable from '@com/MyFiledsTable'
+import { resourceApi } from '@api/index'
+import MyModal from '@com/MyModal'
+import MyTag from '@com/MyTag'
+import { INDUSTRYLIST } from '@constant/constant'
 
 export const NewDataAddtion: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()

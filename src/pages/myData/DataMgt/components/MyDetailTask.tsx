@@ -2,8 +2,8 @@ import { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Table, Space } from 'antd'
 import { useHistory } from 'react-router-dom'
+import { resourceApi } from '@api/index'
 import MyTaskStatusBar from './MyTaskStatusBar'
-import { resourceApi } from '../../../../api/index'
 
 export const MyDetailTask: FC<any> = (props: any) => {
 

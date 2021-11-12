@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
-import i18n from '../i18n/config'
+import i18n from '@/i18n/config'
 import { requestLoading } from './loading'
 
 const service = axios.create({

@@ -7,10 +7,11 @@ import {
 import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
+import { taskApi } from '@api/index'
+
 // import { SearchOutlined } from '@ant-design/icons'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
-import { taskApi } from '../../api/index'
 import StatusChart from './components/StatusChart'
 import CapacityChart from './components/CapacityChart'
 
@@ -149,75 +150,3 @@ export const Tasks: FC<any> = () => {
     </div>
   )
 }
-
-  // const onSearch = text => {
-  //   searchTextSet(text)
-  // }
-  // const onStatusChange = text => {
-  //   searchStatusSet(text)
-  // }
-  // const capacityChanged = text => {
-  //   searchRoleSet(text)
-  // }
-
-// const dataScource = [
-  //   {
-  //     "createAt": 0,
-  //     "id": 0,
-  //     "reviewed": false,
-  //     "role": 0,
-  //     "status": "failed",
-  //     "taskId": "11111111111111111111111",
-  //     "taskName": "11111111111111111111111111"
-  //   },
-  //   {
-  //     "createAt": 0,
-  //     "id": 1,
-  //     "reviewed": false,
-  //     "role": 1,
-  //     "status": "pending",
-  //     "taskId": "222222222222222222",
-  //     "taskName": "222222222222222222222222"
-  //   },
-  //   {
-  //     "createAt": 0,
-  //     "id": 2,
-  //     "reviewed": true,
-  //     "role": 2,
-  //     "status": "success",
-  //     "taskId": "3333333333333333333333",
-  //     "taskName": "33333333333333333333333333"
-  //   },
-  //   {
-  //     "createAt": 0,
-  //     "id": 3,
-  //     "reviewed": false,
-  //     "role": 3,
-  //     "status": "computing",
-  //     "taskId": "4444444444444444444444",
-  //     "taskName": "444444444444444444444444444"
-  //   },
-  //   {
-  //     "createAt": 0,
-  //     "id": 4,
-  //     "reviewed": true,
-  //     "role": 4,
-  //     "status": "computing",
-  //     "taskId": "5555555555555",
-  //     "taskName": "55555555555555555555555555555"
-  //   }
-  // ]
-
-  // const statusList = [
-  //   { label: t('task.pending'), value: 'pending' },
-  //   { label: t('task.computing'), value: 'running' },
-  //   { label: t('task.failed'), value: 'failed' },
-  //   { label: t('task.success'), value: 'success' },
-  // ]
-
-  // const capacityList = [
-  //   { label: t('task.role.1'), value: 1 },
-  //   { label: t('task.role.2'), value: 2 },
-  //   { label: t('task.role.3'), value: 3 },
-  //   { label: t('task.role.4'), value: 4 },
-  // ]

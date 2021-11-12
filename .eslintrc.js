@@ -1,3 +1,5 @@
+const path = require('path')
+const paths = require('./config/paths')
 module.exports = {
   extends: ['airbnb', 'prettier', 'plugin:compat/recommended', 'plugin:react/recommended', 'plugin:import/typescript'],
   env: {
@@ -13,11 +15,7 @@ module.exports = {
     },
     polyfills: ['Promise', 'URL'],
     'import/resolver': {
-      alias: {
-        map: [
-          ['@', './src/'],
-        ],
-      }
+      typescript: {}
     }
   },
   parser: '@typescript-eslint/parser',
@@ -115,6 +113,12 @@ module.exports = {
     'no-undef': 0,
     'react/react-in-jsx-scope': 0,
     'import/prefer-default-export': 0,
+    // "import/no-unresolved": [
+    //   2,
+    //   {
+    //       "ignore": ["^@/"] // @ 是设置的路径别名
+    //   },
+    // ],
   },
   globals: {
     gtag: true,

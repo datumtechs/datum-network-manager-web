@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { Progress } from 'antd'
-import useWinWidth from '../../../hooks/useWinWidth'
+import useWinWidth from '@hooks/useWinWidth'
 
 
 

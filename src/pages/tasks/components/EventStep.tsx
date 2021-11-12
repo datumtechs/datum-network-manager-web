@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { Steps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
-import { formatDuring } from '../../../utils/utils'
+import { formatDuring } from '@utils/utils'
 
 const StepIcon: FC<any> = (props: any) => {
   return <div className={`step-icon ${props.scolor}`}></div>

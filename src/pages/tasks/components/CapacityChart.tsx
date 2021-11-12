@@ -7,8 +7,8 @@ import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import { Tooltip, Space } from 'antd'
+import useWinWidth from '@hooks/useWinWidth'
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import useWinWidth from '../../../hooks/useWinWidth'
 
 
 const CapacityChart: FC<any> = (props: any) => {

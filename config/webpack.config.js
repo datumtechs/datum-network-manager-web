@@ -145,7 +145,7 @@ module.exports = function (webpackEnv) {
         options: {
           sourceMap: true,
         },
-      }, )
+      })
     }
     // 此处添加: 自定义主题
     if (preProcessor && preProcessor === 'less-loader') {
@@ -163,7 +163,7 @@ module.exports = function (webpackEnv) {
             'primary-color': '#3C3588',
           },
         },
-      }, )
+      })
     }
     return loaders
   }
@@ -174,8 +174,8 @@ module.exports = function (webpackEnv) {
     bail: isEnvProduction,
     devtool: isEnvProduction ?
       shouldUseSourceMap ?
-      'source-map' :
-      false : isEnvDevelopment && 'cheap-module-source-map',
+        'source-map' :
+        false : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: isEnvDevelopment && !shouldUseReactRefresh ? [
@@ -322,6 +322,14 @@ module.exports = function (webpackEnv) {
       extensions: paths.moduleFileExtensions.map(ext => `.${ext}`).filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
         '@': paths.appSrc,
+        '@com': paths.appSrcCom,
+        '@api': paths.appSrcApi,
+        '@utils': paths.appSrcUtils,
+        '@il8n': paths.appSrcIl8n,
+        '@hooks': paths.appSrcHooks,
+        '@constant': paths.appSrcConstant,
+        '@assets': paths.appSrcAssets,
+        '@pages': paths.appSrcPages,
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
@@ -491,9 +499,9 @@ module.exports = function (webpackEnv) {
               test: sassRegex,
               exclude: sassModuleRegex,
               use: getStyleLoaders({
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
-                },
+                importLoaders: 3,
+                sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+              },
                 'sass-loader',
               ).concat({
                 loader: 'sass-resources-loader',
@@ -515,12 +523,12 @@ module.exports = function (webpackEnv) {
             {
               test: sassModuleRegex,
               use: getStyleLoaders({
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
-                  modules: {
-                    getLocalIdent: getCSSModuleLocalIdent,
-                  },
+                importLoaders: 3,
+                sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+                modules: {
+                  getLocalIdent: getCSSModuleLocalIdent,
                 },
+              },
                 'sass-loader',
               ),
             },
@@ -530,9 +538,9 @@ module.exports = function (webpackEnv) {
               test: lessRegex,
               exclude: lessModuleRegex,
               use: getStyleLoaders({
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
-                },
+                importLoaders: 3,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+              },
                 'less-loader',
               ),
               sideEffects: true,
@@ -540,12 +548,12 @@ module.exports = function (webpackEnv) {
             {
               test: lessModuleRegex,
               use: getStyleLoaders({
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
-                  modules: {
-                    getLocalIdent: getCSSModuleLocalIdent,
-                  },
+                importLoaders: 3,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+                modules: {
+                  getLocalIdent: getCSSModuleLocalIdent,
                 },
+              },
                 'less-loader',
               ),
             },
@@ -575,9 +583,9 @@ module.exports = function (webpackEnv) {
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign({}, {
-            inject: true,
-            template: paths.appHtml,
-          },
+          inject: true,
+          template: paths.appHtml,
+        },
           isEnvProduction ? {
             minify: {
               removeComments: true,
@@ -592,7 +600,7 @@ module.exports = function (webpackEnv) {
               minifyURLs: true,
             },
           } :
-          undefined,
+            undefined,
         ),
       ),
       // Inlines the webpack runtime script. This script is too small to warrant
@@ -646,6 +654,7 @@ module.exports = function (webpackEnv) {
         // both options are optional
         filename: 'static/css/[name].[contenthash:8].css',
         chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+        ignoreOrder: true //删除了css打包过程中因为出现的一些警告，
       }),
       // Generate an asset manifest file with the following content:
       // - "files" key: Mapping of all asset filenames to their corresponding
@@ -722,7 +731,7 @@ module.exports = function (webpackEnv) {
         formatter: require.resolve('react-dev-utils/eslintFormatter'),
         eslintPath: require.resolve('eslint'),
         failOnError: !(isEnvDevelopment && emitErrorsAsWarnings),
-        context: paths.appSrc,
+        context: '../src',
         cache: true,
         cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
         // ESLint class options
