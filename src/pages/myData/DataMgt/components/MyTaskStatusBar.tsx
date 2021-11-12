@@ -1,7 +1,7 @@
 
 import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import MyTag from '../../../../components/MyTag'
+import MyTag from '@com/MyTag'
 
 const MyTaskStatusBar: FC<any> = (props: any) => {
   const { status, role, width, margin } = props

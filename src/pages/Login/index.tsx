@@ -4,14 +4,15 @@ import { useState, useEffect } from 'react'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import MyWave from '../../components/MyWave'
-import imageBottom from '../../assets/images/1.bj3.png'
-import square1 from '../../assets/images/1.img1.png'
-import square2 from '../../assets/images/1.img2.png'
-import square3 from '../../assets/images/1.img3.png'
-import cnSvg from '../../assets/images/2.icon_cn.svg'
-import enSvg from '../../assets/images/2.icon_en.svg'
-import { loginApi } from '../../api/index'
+import MyWave from '@com/MyWave'
+import square1 from '@assets/images/1.img1.png'
+import square2 from '@assets/images/1.img2.png'
+import square3 from '@assets/images/1.img3.png'
+import cnSvg from '@assets/images/2.icon_cn.svg'
+import enSvg from '@assets/images/2.icon_en.svg'
+import { loginApi } from '@api/index'
+// import imageBottom from '../../assets/images/1.bj3.png'
+
 
 const Login = (props: any) => {
   const [form] = Form.useForm()

@@ -7,7 +7,6 @@ import zh from 'antd/lib/locale/zh_CN'
 import en from 'antd/lib/locale/en_GB'
 import layoutRoutes, { IRoute } from './router'
 import useWinWidth from './hooks/useWinWidth'
-import { loginApi } from './api/index'
 
 const App: FC<any> = () => {
   const initralFn = () => {

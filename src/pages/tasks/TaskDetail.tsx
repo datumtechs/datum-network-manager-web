@@ -2,14 +2,13 @@ import { FC, useEffect, useState } from 'react'
 import { Space, Button, Descriptions, Tooltip, Form, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+import { fileSizeChange, formatDuring } from '@utils/utils'
+import { taskApi } from '@api/index'
+
 import ProviderTable from './components/ProviderTable'
 import ComputingTable from './components/ComputingTable'
-import { taskApi } from '../../api/index'
 import EventStep from './components/EventStep'
-import UseTimeChange from '../../hooks/useTimeChange'
 import './scss/index.scss'
-import { fileSizeChange, formatDuring } from '../../utils/utils'
-import useCapacity from '../../hooks/useCapacity'
 import MyTaskStatusBar from '../myData/DataMgt/components/MyTaskStatusBar'
 
 

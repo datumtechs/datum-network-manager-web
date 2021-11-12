@@ -2,10 +2,10 @@ import React, { FC, useState, useEffect } from 'react'
 import { Space, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+import { taskApi } from '@api/index'
 import EventTable from './components/EventTable'
 import EventStep from './components/EventStep'
 import './scss/index.scss'
-import { taskApi } from '../../api/index'
 
 export const TaskEvent: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()

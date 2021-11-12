@@ -2,10 +2,10 @@ import { FC, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Table, Space, message, Input } from 'antd'
-import MyModal from '../../../../components/MyModal'
-import { dataNodeApi } from '../../../../api/index'
-import failedSvg from '../../../../assets/images/11.icon1.svg'
-import successSvg from '../../../../assets/images/9.icon1.svg'
+import MyModal from '@com/MyModal'
+import { dataNodeApi } from '@api/index'
+import failedSvg from '@assets/images/11.icon1.svg'
+import successSvg from '@assets/images/9.icon1.svg'
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)

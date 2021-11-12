@@ -3,7 +3,7 @@ import { Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
-import { taskApi } from '../../../api/index'
+import { taskApi } from '@api/index'
 
 const EventTable: FC<any> = (props: any) => {
   const history = useHistory()

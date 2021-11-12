@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import React, { FC, useEffect, useState, memo } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Descriptions, Input, Space, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import DetailTable from './DetailTable'
-import MyFiledsTable from '../../../../components/MyFiledsTable'
-import { resourceApi } from '../../../../api/index'
-
-import MyModal from '../../../../components/MyModal'
-import { fileSizeChange, thousandMark } from '../../../../utils/utils'
+import MyFiledsTable from '@com/MyFiledsTable'
+import { resourceApi } from '@api/index'
+import MyModal from '@com/MyModal'
 import '../scss/index.scss'
 
 const MyData: FC<any> = props => {

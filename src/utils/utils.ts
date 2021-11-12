@@ -1,5 +1,5 @@
 import { number } from "echarts/core";
-import i18n from '../i18n/config'
+import i18n from '@/i18n/config'
 
 
 export const changeSizeFn = (input: number): string => {

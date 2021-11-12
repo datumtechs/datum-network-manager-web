@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Table, Space } from 'antd'
-import MyModal from '../../../../components/MyModal'
+import MyModal from '@com/MyModal'
 
 const DetailTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -13,7 +13,7 @@ const DetailTable: FC<any> = (props: any) => {
   const pagination = {
     defaultPageSize: 10,
   }
-  const handleOk = () => {}
+  const handleOk = () => { }
   const handleCancel = () => {
     setIsModalVisible(false)
   }
@@ -21,7 +21,7 @@ const DetailTable: FC<any> = (props: any) => {
     setPage(page)
   }
 
-  const modifyFn = () => {}
+  const modifyFn = () => { }
   const columns = [
     {
       title: t('common.Num'),

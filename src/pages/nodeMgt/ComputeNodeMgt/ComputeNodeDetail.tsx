@@ -15,12 +15,11 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
 import { Button, Space, Progress } from 'antd'
-import Bread from '../../../layout/components/Bread'
+import useComputeNodeDetails from '@hooks/useComputeNodeDetails'
+import i18n from '@/i18n/config'
+import { computeNodeApi } from '@api/index'
+import { fileSizeChange, changeSizeObj } from '@utils/utils'
 import ComputeDetailTable from './components/ComputeDetailTable'
-import useComputeNodeDetails from '../../../hooks/useComputeNodeDetails'
-import i18n from '../../../i18n/config'
-import { computeNodeApi } from '../../../api/index'
-import { fileSizeChange, changeSizeObj } from '../../../utils/utils'
 
 echarts.use([TooltipComponent, TitleComponent, LineChart, GridComponent, CanvasRenderer, LegendComponent])
 export const ComputeNodeDetail: FC<any> = (props: any) => {

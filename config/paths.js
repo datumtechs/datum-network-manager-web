@@ -59,7 +59,6 @@ module.exports = {
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
   appJsConfig: resolveApp('jsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
@@ -68,6 +67,15 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   swSrc: resolveModule(resolveApp, 'src/service-worker'),
   publicUrlOrPath,
+  appSrc: resolveApp('src'),
+  appSrcPages: resolveApp('src/pages/'),
+  appSrcApi: resolveApp('src/api/'),
+  appSrcCom: resolveApp('src/components/'),
+  appSrcUtils: resolveApp('src/utils/'),
+  appSrcIl8n: resolveApp('src/il8n/'),
+  appSrcHooks: resolveApp('src/hooks/'),
+  appSrcConstant: resolveApp('src/constant/'),
+  appSrcAssets: resolveApp('src/assets/'),
 };
 
 

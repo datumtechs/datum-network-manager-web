@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ComputeCard from './ComputeCard'
+import { overviewApi } from '@api'
+import { changeSizeObj } from '@utils/utils'
 import '../scss/ConputeTable.scss'
-import { overviewApi } from '../../../api'
-import { changeSizeObj } from '../../../utils/utils'
+import ComputeCard from './ComputeCard'
 
 const CardLayout: FC<any> = (props: any) => {
 

@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { Table, Space, Tooltip } from 'antd'
-import { resourceApi } from '../../../api/index'
-import { changeSizeFn } from '../../../utils/utils'
+import { resourceApi } from '@api/index'
+import { changeSizeFn } from '@utils/utils'
 import '../scss/index.scss'
 
 const MetaTable: FC<any> = (props: any) => {

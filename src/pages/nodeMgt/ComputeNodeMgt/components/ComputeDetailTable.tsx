@@ -3,8 +3,8 @@ import { Table, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
-import useComputeNodeDetailTable from '../../../../hooks/useComputeNodeDetailTable'
-import { fileSizeChange, formatDuring } from '../../../../utils/utils'
+import useComputeNodeDetailTable from '@hooks/useComputeNodeDetailTable'
+import { fileSizeChange, formatDuring } from '@utils/utils'
 
 const ComputeDetailTable: FC<any> = (props: any) => {
   const pagination = {

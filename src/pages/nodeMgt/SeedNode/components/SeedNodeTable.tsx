@@ -2,10 +2,10 @@ import { FC, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Table, Space, message, Tooltip, Input, Button } from 'antd'
-import MyModal from '../../../../components/MyModal'
-import failedSvg from '../../../../assets/images/11.icon1.svg'
-import successSvg from '../../../../assets/images/9.icon1.svg'
-import { nodeApi } from '../../../../api/index'
+import MyModal from '@com/MyModal'
+import failedSvg from '@assets/images/11.icon1.svg'
+import successSvg from '@assets/images/9.icon1.svg'
+import { nodeApi } from '@api/index'
 
 const SeedNodeTable: FC<any> = (props: any) => {
   // attribute

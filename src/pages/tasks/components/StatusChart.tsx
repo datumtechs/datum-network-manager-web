@@ -8,7 +8,7 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import { Tooltip } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import useWinWidth from '../../../hooks/useWinWidth'
+import useWinWidth from '@hooks/useWinWidth'
 
 
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { IRoute } from '../../router'
+import { IRoute } from '@/router'
 
 export const MyData: FC<any> = ({ routes }) => (
   <Switch>

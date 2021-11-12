@@ -2,9 +2,9 @@ import { FC, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
-import emphasizeSvg from '../../../../assets/images/8.icon1.svg'
-import { overviewApi } from '../../../../api'
-import i18n from '../../../../i18n/config'
+import emphasizeSvg from '@assets/images/8.icon1.svg'
+import { overviewApi } from '@api'
+import i18n from '@/i18n/config'
 
 const RecordCard: FC<any> = (props: any) => {
   const { t } = useTranslation()
