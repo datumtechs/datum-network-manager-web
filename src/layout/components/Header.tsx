@@ -6,12 +6,12 @@ import { Dropdown, Menu, Space, Input, Form, message } from 'antd'
 import { loginApi, authApi } from '@api'
 import MyModal from '@com/MyModal'
 // import GlobalSearch from '@com/GlobalSearch'
-import Bread from './Bread'
-import cnSvg from '../../assets/images/2.icon_cn.svg'
-import enSvg from '../../assets/images/2.icon_en.svg'
-import menuSvg from '../../assets/images/1.3.svg'
-import searchSvg from '../../assets/images/1.1.svg'
+import cnSvg from '@assets/images/2.icon_cn.svg'
+import enSvg from '@assets/images/2.icon_en.svg'
+import menuSvg from '@assets/images/1.3.svg'
+import searchSvg from '@assets/images/1.1.svg'
 import { BaseInfoContext } from '../index'
+import Bread from './Bread'
 
 
 const Header = (props: any) => {

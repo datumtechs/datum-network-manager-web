@@ -1,8 +1,9 @@
+/* eslint-disable react/no-string-refs */
 import { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { IRoute } from '../../router'
+import { IRoute } from '@/router'
 
 const Nav = (props: any) => {
   const { state: { isReg } } = props
