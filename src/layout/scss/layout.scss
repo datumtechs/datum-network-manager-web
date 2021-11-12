@@ -36,6 +36,11 @@
         .nav-wrapper {
           display: flex;
           justify-content: center;
+          -moz-user-select: none; /*火狐*/
+          -webkit-user-select: none; /*webkit浏览器*/
+          -ms-user-select: none; /*IE10*/
+          -khtml-user-select: none; /*早期浏览器*/
+          user-select: none;
           .nav-label-box {
             display: flex;
             flex-direction: column;
@@ -63,6 +68,7 @@
               flex-direction: column;
               text-align: left;
               padding-bottom: 10px;
+              transition: all 0.3s ease;
               .sub-nav-label {
                 display: flex;
                 font-size: 14px;
@@ -82,10 +88,10 @@
               margin-left: 8px;
             }
             .slideIn {
-              animation: slideIn 0.2s;
+              animation: slideIn 0.3s;
             }
             .slideOut {
-              animation: slideOut 0.2s;
+              animation: slideOut 0.3s;
             }
           }
         }
@@ -93,6 +99,7 @@
           background: #ffffff;
           color: #1e255f !important;
           font-weight: bold;
+
           & .sub-nav-label:hover,
           .nav-label:hover {
             color: #ffa505 !important;

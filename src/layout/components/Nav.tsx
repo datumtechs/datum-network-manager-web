@@ -38,12 +38,9 @@ const Nav = (props: any) => {
 
   const judgeAnimation = (evt) => {
     const dom = evt.target.lastChild
-    const names = evt.target.lastChild.className
-    if (names.indexOf('triangle-up') !== -1) {
-      dom.style = "animation: down 0.2s linear"
-    } else {
-      dom.style = "animation: up 0.2s linear"
-    }
+    const names = evt.target.lastChild?.className
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    names && names.indexOf('triangle-up') !== -1 ? dom.style = "animation: down 0.2s linear" : dom.style = "animation: up 0.2s linear"
   }
 
   const showSubMenu = (item, evt) => {
