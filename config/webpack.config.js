@@ -654,6 +654,7 @@ module.exports = function (webpackEnv) {
         // both options are optional
         filename: 'static/css/[name].[contenthash:8].css',
         chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+        ignoreOrder: true //删除了css打包过程中因为出现的一些警告，
       }),
       // Generate an asset manifest file with the following content:
       // - "files" key: Mapping of all asset filenames to their corresponding

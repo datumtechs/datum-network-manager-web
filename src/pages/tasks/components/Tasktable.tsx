@@ -128,7 +128,8 @@ const MyTable = (props, ref) => {
           {
             record.status === 1 || record.status === 2 ?
               <p>
-                {t('myData.timeSpent')}:&nbsp;{formatDuring(dayjs(Date.now()).valueOf() - dayjs(record.createAt).valueOf())}
+                {t('myData.timeSpent')}:&nbsp;00:00:00
+                {/* {formatDuring(dayjs(Date.now()).valueOf() - dayjs(record.createAt).valueOf())} */}
               </p> : ''
           }
         </>
