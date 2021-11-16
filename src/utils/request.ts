@@ -1,16 +1,15 @@
 import axios from 'axios'
 import { message } from 'antd'
 import i18n from '@/i18n/config'
-import { requestLoading } from './loading'
+import { requestLoading, requestCancel } from './loading'
 
 const service = axios.create({
   baseURL: process.env.REACT_APP_BASE_API,
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 50000 // request timeout
 })
-// const queryList = new Set()
-// const noInclude = ['/api/v1/system/queryBaseInfo']
 
+const CancelToken = axios.CancelToken;
 message.config({
   maxCount: 3
 })
@@ -18,11 +17,15 @@ message.config({
 // request interceptor
 service.interceptors.request.use(
   (config: any) => {
+    config.cancelToken = new CancelToken(cancel => {
+      requestCancel.add(config.url, cancel)
+    })
     requestLoading.add(config.url)
     return config
   },
   error => {
     requestLoading.reset()
+    requestCancel.reset()
     return Promise.reject(error)
   }
 )
@@ -37,6 +40,7 @@ service.interceptors.response.use(
       location.href = `/login?type=redirect#${pathname}`
     }
     requestLoading.del(url)
+    requestCancel.del(url)
     // if (status === 1001) {
     //   // 身份标识
     //   // location.href = "/didApplication"
@@ -46,7 +50,12 @@ service.interceptors.response.use(
     return response.data;
   },
   error => {
+    if (error.message === '自主取消') {
+      return Promise.reject(error)
+    }
+
     requestLoading.reset()
+    requestCancel.reset()
     message.error(`${i18n.t('login.internalError')}`)
     return Promise.reject(error)
   }

@@ -177,10 +177,12 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       return message.error(`${t('tip.plzComplete')}`)
     }
 
-    if (draggerRef?.current?.input?.files?.length === 0) {
+    // if (draggerRef?.current?.input?.files?.length === 0) {
+    if (!uploadFile.size) {
       upLoadingSet(false)
       return message.error(`${t('myData.plzSelectone')}`)
     }
+
     if (showTypeError) {
       setShowTypeError(true)
       upLoadingSet(false)

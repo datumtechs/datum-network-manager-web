@@ -2,6 +2,7 @@ import appStore from "../store"
 import { LOADING } from "../store/actionType/index"
 
 const queryList = new Set()
+const queryAllList = new Map()
 
 export const noInclude = ['/api/v1/system/queryBaseInfo', '/api/v1/user/findLocalOrgInfo', '/api/v1/data/listLocalMetaDataByKeyword']
 export const requestLoading = {
@@ -24,6 +25,26 @@ export const requestLoading = {
     appStore.dispatch({ type: LOADING, data: false })
   },
   upLoading() {
-    console.log('kong');
+    console.log('empty');
+  }
+}
+export const requestCancel = {
+  add(str: string, cancel) {
+    if (this.has(str)) {
+      // console.log('重复');
+      cancel('自主取消')
+    } else {
+      // console.log(str);
+      queryAllList.set(str, cancel)
+    }
+  },
+  del(str) {
+    queryAllList.delete(str)
+  },
+  reset() {
+    queryAllList.clear()
+  },
+  has(str) {
+    return queryAllList.has(str)
   }
 }

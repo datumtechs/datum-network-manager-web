@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { taskApi } from '@api/index'
-
+import moment from 'moment';
 // import { SearchOutlined } from '@ant-design/icons'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
@@ -55,6 +55,7 @@ export const Tasks: FC<any> = () => {
     searchStartTimeSet(dayjs.utc(time).tz('Asia/Shanghai').valueOf())
   }
   const onEndChange = (time, timeStr) => {
+    // debugger
     searchEndTimeSet(dayjs.utc(time).tz('Asia/Shanghai').valueOf())
   }
   const getParam = () => {
@@ -136,8 +137,24 @@ export const Tasks: FC<any> = () => {
       </div>
       <div className="filter-box">
         <Space size={20}>
-          {t('task.timeSpan')} <DatePicker style={{ width: 200 }} size="large" onChange={onStartChange} />{' '}
-          {t('task.to')} <DatePicker style={{ width: 200 }} size="large" onChange={onEndChange} />
+          {t('task.timeSpan')} <DatePicker showNow={false} showToday={false}
+            showTime={{
+              hideDisabledOptions: true,
+              showHour: false,
+              showMinute: false,
+              showSecond: false,
+              defaultValue: moment('00:00:00', 'HH:mm:ss')
+            }}
+            style={{ width: 200 }} size="large" onChange={onStartChange} />{' '}
+          {t('task.to')} <DatePicker showNow={false} showToday={false}
+            showTime={{
+              hideDisabledOptions: true,
+              showHour: false,
+              showMinute: false,
+              showSecond: false,
+              defaultValue: moment('23:59:59', 'HH:mm:ss')
+            }}
+            style={{ width: 200 }} size="large" onChange={onEndChange} />
         </Space>
       </div>
       <div className="task-table-box">

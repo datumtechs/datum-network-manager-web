@@ -28,16 +28,16 @@ const DispatchConfig: FC<any> = (props: any) => {
   const onFinishFailed = () => { }
 
   useEffect(() => {
-    if (baseInfo.status === 1) {
+    if (baseInfo?.status === 1) {
       setHasService(true)
     } else {
       setHasService(false)
     }
     form.setFieldsValue({
-      carrierIp: baseInfo.carrierIp,
-      carrierPort: baseInfo.carrierPort,
+      carrierIp: baseInfo?.carrierIp,
+      carrierPort: baseInfo?.carrierPort,
     })
-  }, [baseInfo.status])
+  }, [baseInfo?.status])
 
   const testServiceFn = () => {
     showTestLoadingSet(true)
@@ -51,6 +51,7 @@ const DispatchConfig: FC<any> = (props: any) => {
         nodeApi.connectNode({ ip: carrierIp, port: carrierPort }).then(res => {
           showTestLoadingSet(false)
           showTestConnectSet(true)
+          editStatusSet(false)
           if (res.status === 0 && res.data.carrierConnStatus === 'enabled') {
             setIsConnect(true)
           } else {
@@ -123,10 +124,10 @@ const DispatchConfig: FC<any> = (props: any) => {
             onFinishFailed={onFinishFailed}
           >
             <Form.Item colon label={t('common.orgName')} name="name" className="form-item">
-              <p className="title">{baseInfo.name}</p>
+              <p className="title">{baseInfo?.name}</p>
             </Form.Item>
             <Form.Item colon label={t('common.orgIdentify')} name="identityId" className="form-item">
-              <p className="title">{baseInfo.identityId}</p>
+              <p className="title">{baseInfo?.identityId}</p>
             </Form.Item>
             <Form.Item colon label={t('common.internalIP')} className="form-item">
               <div className="form-group">
@@ -202,7 +203,6 @@ const DispatchConfig: FC<any> = (props: any) => {
                           bgColor="#C9C9C9"
                           color="#FFFFFF"
                           border="#999999"
-                          margin
                         />
 
                     ) :
@@ -211,13 +211,13 @@ const DispatchConfig: FC<any> = (props: any) => {
                   </div>
                 </Form.Item>
                 <Form.Item colon={false} label={`${t('overview.connectNum')}：`} className="form-item">
-                  {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo.connNodeCount}</span>}
+                  {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo?.connNodeCount}</span>}
                 </Form.Item>
                 <Form.Item colon label={t('overview.bootAddress')} className="form-item">
-                  {editStatus ? <span className="title">N/A</span> : <span className="address-info">{baseInfo.localBootstrapNode}</span>}
+                  {editStatus ? <span className="title">N/A</span> : <span className="address-info">{baseInfo?.localBootstrapNode}</span>}
                 </Form.Item>
                 <Form.Item colon label={t('overview.nodeAddress')} className="form-item">
-                  {editStatus ? <span className="title">N/A</span> : <span className="address-info">{baseInfo.localMultiAddr}</span>}
+                  {editStatus ? <span className="title">N/A</span> : <span className="address-info">{baseInfo?.localMultiAddr}</span>}
                 </Form.Item>
                 <Form.Item className="form-item">
                   <Button

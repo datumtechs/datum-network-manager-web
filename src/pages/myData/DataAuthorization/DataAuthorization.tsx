@@ -118,8 +118,9 @@ export const DataAuthorization: FC<any> = props => {
       </Space>
     }
   },]
-  const OnPageChange = () => { }
-
+  const OnPageChange = (page: number) => {
+    curPageSet(page)
+  }
   // TODO: change type 替换数据
 
   const initTable = () => {
@@ -168,6 +169,12 @@ export const DataAuthorization: FC<any> = props => {
     }
   }
 
+  const initTablePaeams = (type: number) => {
+    curPageSet(1);
+    tableDataSet([])
+    curTypeSet(type)
+  }
+
   useEffect(() => {
     initTable()
   }, [curType])
@@ -180,8 +187,8 @@ export const DataAuthorization: FC<any> = props => {
   return <div className="layout-box">
     <div className="author-tab">
       <Space size={100}>
-        <span className={`tab-title pointer ${curType === 1 ? 'active ' : ''}`} onClick={() => curTypeSet(1)}>{t('myData.unauthorized')}:&nbsp;{unFinishAuthCount}</span>
-        <span className={`tab-title pointer ${curType === 2 ? 'active ' : ''}`} onClick={() => curTypeSet(2)}>{t('myData.authorized')}:&nbsp;{finishAuthCount}</span>
+        <span className={`tab-title pointer ${curType === 1 ? 'active ' : ''}`} onClick={() => initTablePaeams(1)}>{t('myData.unauthorized')}:&nbsp;{unFinishAuthCount}</span>
+        <span className={`tab-title pointer ${curType === 2 ? 'active ' : ''}`} onClick={() => initTablePaeams(2)}>{t('myData.authorized')}:&nbsp;{finishAuthCount}</span>
       </Space>
     </div>
     <div className="data-table-box">
