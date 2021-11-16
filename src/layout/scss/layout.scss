@@ -67,8 +67,9 @@
               display: flex;
               flex-direction: column;
               text-align: left;
-              padding-bottom: 10px;
-              transition: all 0.3s ease;
+              transition: all 0.5s ease;
+              overflow: hidden;
+
               .sub-nav-label {
                 display: flex;
                 font-size: 14px;
@@ -83,15 +84,17 @@
                   color: #fff;
                 }
               }
+
+              &.active {
+                max-height: 300px;
+              }
+
+              &.inActive {
+                max-height: 0px;
+              }
             }
             .hasChild {
               margin-left: 8px;
-            }
-            .slideIn {
-              animation: slideIn 0.3s;
-            }
-            .slideOut {
-              animation: slideOut 0.3s;
             }
           }
         }
@@ -142,30 +145,6 @@
           font-size: 14px;
           color: #ffa505;
           letter-spacing: 0;
-        }
-        @keyframes slideIn {
-          0% {
-            height: 0;
-            opacity: 0;
-          }
-          50% {
-            opacity: 0.5;
-          }
-          100% {
-            height: 100%;
-            opacity: 1;
-          }
-        }
-
-        @keyframes slideOut {
-          0% {
-            height: 100%;
-            opacity: 1;
-          }
-          100% {
-            height: 0;
-            opacity: 0;
-          }
         }
       }
     }
