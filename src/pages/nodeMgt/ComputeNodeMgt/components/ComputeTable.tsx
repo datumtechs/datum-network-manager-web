@@ -14,108 +14,108 @@ import './scss/index.scss'
 // import { tableInterVal } from '../../../../constant/index'
 
 // 节点状态，-1: 未被调度服务连接上; 0: 连接上; 1: 算力启用<计算服务>; 2: 算力被占用(计算服务算力正在被任务占用)',
-const dataSource = [
-  {
-    key: '1',
-    bandwidth: 100,
-    connMessage: '',
-    connTime: '',
-    core: 10,
-    createTime: '',
-    externalIp: '192.168.18.34',
-    externalPort: 9090,
-    id: 0,
-    identityId: '11111111111111111',
-    internalIp: '192.168.18.34',
-    internalPort: 8080,
-    memory: 0,
-    powerNodeId: '1111111111133333333333333',
-    powerNodeName: '奥术大师多',
-    remarks: '222222222222',
-    startTime: '',
-    connStatus: '-1',
-    updateTime: '',
-    usedBandwidth: 0,
-    usedCore: 0,
-    usedMemory: 0,
-    isEdit: true,
-  },
-  {
-    key: '2',
-    bandwidth: 100,
-    connMessage: '',
-    connTime: '',
-    core: 10,
-    createTime: '',
-    externalIp: '192.168.18.34',
-    externalPort: 9090,
-    id: 1,
-    identityId: '11111111111111111',
-    internalIp: '192.168.18.34',
-    internalPort: 8080,
-    memory: 0,
-    powerNodeId: '1111111111133333333333333',
-    powerNodeName: '奥术大师多',
-    remarks: '222222222222',
-    startTime: '',
-    connStatus: '0',
-    updateTime: '',
-    usedBandwidth: 0,
-    usedCore: 0,
-    usedMemory: 0,
-    isEdit: false,
-  },
-  {
-    key: '2',
-    bandwidth: 100,
-    connMessage: '',
-    connTime: '',
-    core: 10,
-    createTime: '',
-    externalIp: '192.168.18.34',
-    externalPort: 9090,
-    id: 3,
-    identityId: '11111111111111111',
-    internalIp: '192.168.18.34',
-    internalPort: 8080,
-    memory: 0,
-    powerNodeId: '1111111111133333333333333',
-    powerNodeName: '奥术大师多',
-    remarks: '222222222222',
-    startTime: '',
-    connStatus: '1',
-    updateTime: '',
-    usedBandwidth: 0,
-    usedCore: 0,
-    usedMemory: 0,
-    isEdit: false,
-  },
-  {
-    key: '3',
-    bandwidth: 100,
-    connMessage: '',
-    connTime: '',
-    core: 10,
-    createTime: '',
-    externalIp: '192.168.18.34',
-    externalPort: 9090,
-    id: 4,
-    identityId: '11111111111111111',
-    internalIp: '192.168.18.34',
-    internalPort: 8080,
-    memory: 0,
-    powerNodeId: '1111111111133333333333333',
-    powerNodeName: '奥术大师多',
-    remarks: '222222222222',
-    startTime: '',
-    connStatus: '2',
-    updateTime: '',
-    usedBandwidth: 0,
-    usedCore: 0,
-    usedMemory: 0,
-    isEdit: false,
-  },
-]
+// const dataSource = [
+//   {
+//     key: '1',
+//     bandwidth: 100,
+//     connMessage: '',
+//     connTime: '',
+//     core: 10,
+//     createTime: '',
+//     externalIp: '192.168.18.34',
+//     externalPort: 9090,
+//     id: 0,
+//     identityId: '11111111111111111',
+//     internalIp: '192.168.18.34',
+//     internalPort: 8080,
+//     memory: 0,
+//     powerNodeId: '1111111111133333333333333',
+//     powerNodeName: '奥术大师多',
+//     remarks: '222222222222',
+//     startTime: '',
+//     connStatus: '-1',
+//     updateTime: '',
+//     usedBandwidth: 0,
+//     usedCore: 0,
+//     usedMemory: 0,
+//     isEdit: true,
+//   },
+//   {
+//     key: '2',
+//     bandwidth: 100,
+//     connMessage: '',
+//     connTime: '',
+//     core: 10,
+//     createTime: '',
+//     externalIp: '192.168.18.34',
+//     externalPort: 9090,
+//     id: 1,
+//     identityId: '11111111111111111',
+//     internalIp: '192.168.18.34',
+//     internalPort: 8080,
+//     memory: 0,
+//     powerNodeId: '1111111111133333333333333',
+//     powerNodeName: '奥术大师多',
+//     remarks: '222222222222',
+//     startTime: '',
+//     connStatus: '0',
+//     updateTime: '',
+//     usedBandwidth: 0,
+//     usedCore: 0,
+//     usedMemory: 0,
+//     isEdit: false,
+//   },
+//   {
+//     key: '2',
+//     bandwidth: 100,
+//     connMessage: '',
+//     connTime: '',
+//     core: 10,
+//     createTime: '',
+//     externalIp: '192.168.18.34',
+//     externalPort: 9090,
+//     id: 3,
+//     identityId: '11111111111111111',
+//     internalIp: '192.168.18.34',
+//     internalPort: 8080,
+//     memory: 0,
+//     powerNodeId: '1111111111133333333333333',
+//     powerNodeName: '奥术大师多',
+//     remarks: '222222222222',
+//     startTime: '',
+//     connStatus: '1',
+//     updateTime: '',
+//     usedBandwidth: 0,
+//     usedCore: 0,
+//     usedMemory: 0,
+//     isEdit: false,
+//   },
+//   {
+//     key: '3',
+//     bandwidth: 100,
+//     connMessage: '',
+//     connTime: '',
+//     core: 10,
+//     createTime: '',
+//     externalIp: '192.168.18.34',
+//     externalPort: 9090,
+//     id: 4,
+//     identityId: '11111111111111111',
+//     internalIp: '192.168.18.34',
+//     internalPort: 8080,
+//     memory: 0,
+//     powerNodeId: '1111111111133333333333333',
+//     powerNodeName: '奥术大师多',
+//     remarks: '222222222222',
+//     startTime: '',
+//     connStatus: '2',
+//     updateTime: '',
+//     usedBandwidth: 0,
+//     usedCore: 0,
+//     usedMemory: 0,
+//     isEdit: false,
+//   },
+// ]
 
 
 const DataTable: FC<any> = (props: any) => {
@@ -286,22 +286,22 @@ const DataTable: FC<any> = (props: any) => {
           <div className="seedNode-edit-box ">
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.internalIP')}&nbsp;:&nbsp;</p>
+                <p className="seed-name">{t('dataNodeMgt.internal')}&nbsp;:&nbsp;</p>
                 <Input value={tempTableData[index]?.internalIp} onChange={(e) => handleChange('internalIp', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div className="bottom8p">
-                {t('dataNodeMgt.internalIP')}&nbsp;:&nbsp;{record.internalIp}
+                {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalIp}
               </div>
             )}
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.externalIp')}&nbsp;:&nbsp;</p>
+                <p className="seed-name">{t('dataNodeMgt.external')}&nbsp;:&nbsp;</p>
                 <Input value={tempTableData[index]?.externalIp} onChange={(e) => handleChange('externalIp', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div>
-                {t('dataNodeMgt.externalIp')}&nbsp;:&nbsp;{record.externalIp}
+                {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalIp}
               </div>
             )}
           </div>
@@ -317,22 +317,22 @@ const DataTable: FC<any> = (props: any) => {
           <div className="seedNode-edit-box ">
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.internalPort')}&nbsp;:&nbsp;</p>
+                <p className="seed-name">{t('dataNodeMgt.internal')}&nbsp;:&nbsp;</p>
                 <Input value={tempTableData[index].internalPort} onChange={(e) => handleChange('internalPort', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div className="bottom8p">
-                {t('dataNodeMgt.internalPort')}&nbsp;:&nbsp;{record.internalPort}
+                {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalPort}
               </div>
             )}
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.externalPort')}&nbsp;:&nbsp;</p>
+                <p className="seed-name">{t('dataNodeMgt.external')}&nbsp;:&nbsp;</p>
                 <Input value={tempTableData[index].externalPort} onChange={(e) => handleChange('externalPort', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div>
-                {t('dataNodeMgt.externalPort')}&nbsp;:&nbsp;{record.externalPort}
+                {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalPort}
               </div>
             )}
           </div>

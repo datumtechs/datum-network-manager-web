@@ -15,7 +15,7 @@
     "loginRemarks": "The RosettaNet Console has satisfied the relevant requirements of laws and requirements."
   },
   "overview": {
-    "seedNode": "Seed Node",
+    "seedNode": "Boot node",
     "schedueService": "Scheduling Service",
     "open": "OPEN",
     "close": "CLOSED",
@@ -70,8 +70,8 @@
     "resourceCenter": "Resource Center",
     "computeTask": "Computing Tasks",
     "dispatchConfig": "Scheduling Service Configuration",
-    "dataNodeMgt": "Data Node Management",
-    "computeNodeMgt": "Computing Node Management",
+    "dataNodeMgt": "Storage Resource Management",
+    "computeNodeMgt": "Computing Resource Management",
     "addComputeNodeMgt": "Add Compute Node ",
     "myData": "My Data",
     "dataCenter": "Data Center",
@@ -83,13 +83,15 @@
     "dataMgt": "Data Management",
     "dataAddition": "Data Addition",
     "dataAuthorization": "Data Authorization",
-    "seedNodeMgt": "Seed Node Management",
-    "addSeedNode": "Seed Node Addition",
+    "seedNodeMgt": "Boot node Management",
+    "addSeedNode": "Boot node Addition",
     "dataDetailTask": "Tasks of The Data",
     "viewAuthInfo": "Authorization Application Details",
     "taskDetail": "Task Details",
     "taskEvents": "Task Events",
-    "metaDataDetail": "Metadata Detail"
+    "metaDataDetail": "Metadata Detail",
+    "userCenter": "User Center",
+    "userInfo": "Metis Identity"
   },
   "common": {
     "submit": "Submit",
@@ -143,7 +145,7 @@
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
-    "addNewDataNode": "Add a new data node",
+    "addNewDataNode": "Add a new Storage node",
     "confirmDelete": "Please ensure that you are deleting the data node",
     "connectSuccess": "Connection succeeded",
     "connenctFailed": "Connection failed",
@@ -155,13 +157,13 @@
     "internal": "Internal",
     "external": "External",
     "hasOccupied": "of the node has been occupied",
-    "addSeedNode": "Add a new seed node",
-    "seedNodeAndNodePK": "Seed node name & Node public key",
+    "addSeedNode": "Add a new Boot node",
+    "seedNodeAndNodePK": "Boot node name & Node public key",
     "npk": "NPK",
     "initialNode": "Initial Node",
     "internalNetworkAddress": "Internal network address",
-    "noRepeatSeedName": "Seed node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
-    "nodeSeedNodeId": "Seed node ID",
+    "noRepeatSeedName": "Boot node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
+    "nodeSeedNodeId": "Boot node ID",
     "NodePublicKey": "Node public key",
     "forSelfidentity": "For self-identification",
     "submitAddtion": "Submit",
@@ -181,12 +183,14 @@
     "eachTaskCost": "Occupied resources of each task at this node"
   },
   "dataNodeMgt": {
-    "nodeName": "Data node name",
-    "internalIP": "Internal IP",
-    "externalIp": "External IP",
+    "nodeName": "Storage node name",
+    "internalIP": "Internal Ip",
+    "externalIp": "External Ip",
     "internalPort": "Internal Port",
     "externalPort": "External Port",
-    "addNodeSuccess": "Add Node Success"
+    "addNodeSuccess": "Add Node Success",
+    "internal": "Internal",
+    "external": "External"
   },
   "computeNodeMgt": {
     "nodeName": "Compute node name",

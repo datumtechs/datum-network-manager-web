@@ -15,7 +15,7 @@
     "loginRemarks": "本平台已满足《互联网个人信息安全保护指南》、《数据安全管理办法》、《信息安全技术个人信息安全规范》等法律法规要求"
   },
   "overview": {
-    "seedNode": "种子节点",
+    "seedNode": "引导节点",
     "schedueService": "调度服务",
     "open": "开启",
     "close": "关闭",
@@ -71,8 +71,8 @@
     "resourceCenter": "资源中心",
     "computeTask": "计算任务",
     "dispatchConfig": "调度服务配置",
-    "dataNodeMgt": "数据节点管理",
-    "computeNodeMgt": "计算节点管理",
+    "dataNodeMgt": "存储资源管理",
+    "computeNodeMgt": "计算资源管理",
     "addComputeNodeMgt": "添加计算节点",
     "myData": "我的数据",
     "dataCenter": "全网数据",
@@ -84,13 +84,15 @@
     "dataMgt": "数据管理",
     "dataAddition": "数据添加",
     "dataAuthorization": "数据授权",
-    "seedNodeMgt": "种子节点管理",
-    "addSeedNode": "种子节点添加",
+    "seedNodeMgt": "引导节点管理",
+    "addSeedNode": "引导节点添加",
     "dataDetailTask": "此数据参与的任务",
     "viewAuthInfo": "授权申请查看",
     "taskDetail": "任务详情",
     "taskEvents": "任务日志",
-    "metaDataDetail": "元数据详情"
+    "metaDataDetail": "元数据详情",
+    "userCenter": "用户中心",
+    "userInfo": "用户信息"
   },
   "common": {
     "submit": "提交",
@@ -144,7 +146,7 @@
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
-    "addNewDataNode": "新增数据节点",
+    "addNewDataNode": "新增存储节点",
     "confirmDelete": "请确认是否要删除数据节点",
     "connectSuccess": "调度服务连接成功",
     "connenctFailed": "调度服务连接失败",
@@ -156,13 +158,13 @@
     "internal": "内部",
     "external": "外部",
     "hasOccupied": "占用此节点情况",
-    "addSeedNode": "添加种子节点",
-    "seedNodeAndNodePK": "种子节点名称与节点公钥",
+    "addSeedNode": "添加引导节点",
+    "seedNodeAndNodePK": "引导节点名称与节点公钥",
     "npk": "节点公钥",
     "initialNode": "初始节点",
     "internalNetworkAddress": "内部网络地址",
-    "noRepeatSeedName": "种子节点名称不可重复, 且本次设置之后无法修改；其他配置提交后可以在种子节点管理页面更改。",
-    "nodeSeedNodeId": "种子节点ID",
+    "noRepeatSeedName": "引导节点名称不可重复, 且本次设置之后无法修改；其他配置提交后可以在引导节点管理页面更改。",
+    "nodeSeedNodeId": "引导节点ID",
     "NodePublicKey": "节点公钥",
     "forSelfidentity": "用于自己识别",
     "submitAddtion": "添加",
@@ -173,7 +175,7 @@
     "externalIpPlaceholder": "数据节点的外部主机地址信息",
     "internalPortPlaceholder": "进行RPC通信的内部端口",
     "externalPortPlaceholder": "进行RPC通信的外部端口",
-    "addComputeNodeTips": "计算节点名称不可重复, 且本次设置之后无法修改, 其他配置提交后可以在计算节点管理页面更改。",
+    "addComputeNodeTips": "计算节点名称不可重复, 且本次设置之后无法修改, 其他配置提交后可以在计算资源管理页面更改。",
     "totalCpu": "总CPU",
     "totalMemory": "总内存",
     "totalBandwidth": "总带宽",
@@ -182,12 +184,14 @@
     "eachTaskCost": "各个任务占用此节点总算力的实况"
   },
   "dataNodeMgt": {
-    "nodeName": "数据节点名称",
-    "internalIP": "节点IP",
+    "nodeName": "存储节点名称",
+    "internalIP": "内部IP",
     "externalIp": "外部IP",
-    "internalPort": "节点端口",
+    "internalPort": "内部端口",
     "externalPort": "外部端口",
-    "addNodeSuccess": "添加节点成功"
+    "addNodeSuccess": "添加节点成功",
+    "internal": "内部",
+    "external": "外部"
   },
   "computeNodeMgt": {
     "nodeName": "计算节点名称",

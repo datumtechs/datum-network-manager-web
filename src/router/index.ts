@@ -121,6 +121,25 @@ const routes: Array<IRoute> = [
         meta: { exact: true, title: '', icon: '', show: false },
       },
       {
+        name: 'userCenter',
+        label: 'menu.userCenter',
+        breadcrumbName: 'menu.userCenter',
+        path: '/userCenter',
+        component: NodeMgt,
+        meta: { exact: false, title: '', icon: '', show: true },
+        isOpen: false,
+        children: [
+          {
+            name: 'userInfo',
+            label: 'menu.userInfo',
+            breadcrumbName: 'menu.userInfo',
+            path: '/userCenter/userInfo',
+            component: DispatchConfig,
+            meta: { exact: true, title: '/userCenter/userInfo', icon: '', show: true },
+          },
+        ]
+      },
+      {
         name: 'nodeMgt',
         label: 'menu.nodeMgt',
         breadcrumbName: 'menu.nodeMgt',
@@ -146,14 +165,6 @@ const routes: Array<IRoute> = [
             path: '/nodeMgt/SeedNodeMgt/addSeedNode',
             component: AddSeedNode,
             meta: { exact: true, title: '', icon: '', show: false },
-          },
-          {
-            name: 'dispatchConfig',
-            label: 'menu.dispatchConfig',
-            breadcrumbName: 'menu.dispatchConfig',
-            path: '/nodeMgt/dispatchConfig',
-            component: DispatchConfig,
-            meta: { exact: true, title: '/nodeMgt/dispatchConfig', icon: '', show: true },
           },
           {
             name: 'dataNodeMgt',

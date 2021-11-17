@@ -132,22 +132,22 @@ const DataTable: FC<any> = (props: any) => {
           <div className="seedNode-edit-box ">
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.internalIP')}&nbsp;:&nbsp;</p>
+                <p className="seed-name">{t('dataNodeMgt.internal')}&nbsp;:&nbsp;</p>
                 <Input value={tempTableData[index]?.internalIp} onChange={(e) => handleChange('internalIp', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div className="bottom8p">
-                {t('dataNodeMgt.internalIP')}&nbsp;:&nbsp;{record.internalIp}
+                {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalIp}
               </div>
             )}
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.externalIp')}&nbsp;:&nbsp;</p>
+                <p className="seed-name">{t('dataNodeMgt.external')}&nbsp;:&nbsp;</p>
                 <Input value={tempTableData[index]?.externalIp} onChange={(e) => handleChange('externalIp', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div>
-                {t('dataNodeMgt.externalIp')}&nbsp;:&nbsp;{record.externalIp}
+                {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalIp}
               </div>
             )}
           </div>
@@ -163,22 +163,22 @@ const DataTable: FC<any> = (props: any) => {
           <div className="seedNode-edit-box ">
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.internalPort')}&nbsp;:&nbsp;</p>
+                <p className="seed-name">{t('dataNodeMgt.internal')}&nbsp;:&nbsp;</p>
                 <Input value={tempTableData[index].internalPort} onChange={(e) => handleChange('internalPort', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div className="bottom8p">
-                {t('dataNodeMgt.internalPort')}&nbsp;:&nbsp;{record.internalPort}
+                {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalPort}
               </div>
             )}
             {record.isEdit ? (
               <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.externalPort')}&nbsp;:&nbsp;</p>
+                <p className="seed-name">{t('dataNodeMgt.external')}&nbsp;:&nbsp;</p>
                 <Input value={tempTableData[index].externalPort} onChange={(e) => handleChange('externalPort', index, e)} className="seedNode-edit-input" />
               </div>
             ) : (
               <div>
-                {t('dataNodeMgt.externalPort')}&nbsp;:&nbsp;{record.externalPort}
+                {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalPort}
               </div>
             )}
           </div>
