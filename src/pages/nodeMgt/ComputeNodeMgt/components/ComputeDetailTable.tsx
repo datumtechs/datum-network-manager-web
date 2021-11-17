@@ -83,7 +83,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.timeSpan')}:</Col>
-              <Col span={18}>{formatDuring(dayjs(record.endAt).valueOf() - dayjs(record.startAt).valueOf())}</Col>
+              <Col span={18}>{record.endAt !== '1970-01-01T00:00:00' ? formatDuring(dayjs(record.endAt).valueOf() - dayjs(record.startAt).valueOf()) : '00:00:00'}</Col>
             </Row>
           </>
         )
