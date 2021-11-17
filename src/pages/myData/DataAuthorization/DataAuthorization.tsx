@@ -119,6 +119,7 @@ export const DataAuthorization: FC<any> = props => {
     }
   },]
   const OnPageChange = (page: number) => {
+    tableDataSet([])
     curPageSet(page)
   }
   // TODO: change type 替换数据
@@ -126,7 +127,7 @@ export const DataAuthorization: FC<any> = props => {
   const initTable = () => {
     authApi.authDataList({
       "keyWord": undefined,
-      "pageNumber": 1,
+      "pageNumber": curPage,
       "pageSize": 10,
       "status": curType // 0：未定义， 1:待授权数据， 2:已授权数据(同意授权 + 拒绝授权)
     }).then(res => {
@@ -177,7 +178,7 @@ export const DataAuthorization: FC<any> = props => {
 
   useEffect(() => {
     initTable()
-  }, [curType])
+  }, [curType, curPage])
 
   useEffect(() => {
     queryAuthNum()

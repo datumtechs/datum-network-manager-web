@@ -21,6 +21,7 @@ const MyDataTable: FC<any> = (props: any) => {
   })
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [curPage, setCurPage] = useState(1)
+  const [loading, setLoading] = useState(false)
   const [totalNum, setTotalNum] = useState(0)
   const [tableData, setTableData] = useState([])
   const pagination = {
@@ -28,36 +29,19 @@ const MyDataTable: FC<any> = (props: any) => {
     defaultPageSize: 10,
   }
 
-  // const dataSource = [
-  //   {
-  //     id: 0,
-  //     fileName: '遏必隆',
-  //     status: '1',
-  //     dataSize: 222222,
-  //     lastUpdateTime: 111111111111111111,
-  //     taskNum: 12123,
-  //   },
-  //   {
-  //     id: 1,
-  //     fileName: '索额图',
-  //     status: '0',
-  //     dataSize: 2222222,
-  //     lastUpdateTime: 111111111111111111,
-  //     taskNum: 12123,
-  //   },
-  // ]
-
   const initTableData = () => {
     resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10 }).then(res => {
       if (res.status === 0) {
         setTotalNum(res.total)
         setTableData(res.data)
+        setLoading(false)
       }
     })
   }
 
   useEffect(() => {
     initTableData()
+    setLoading(true)
   }, [curPage, searchText])
 
   useEffect(() => {
@@ -184,6 +168,7 @@ const MyDataTable: FC<any> = (props: any) => {
   }
 
   const OnPageChange = (page: number) => {
+    setTableData([])
     setCurPage(page)
   }
 
@@ -303,6 +288,7 @@ const MyDataTable: FC<any> = (props: any) => {
         // dataSource={dataSource}
         columns={columns}
         bordered
+        loading={loading}
         rowKey={record => record.id}
         pagination={{
           defaultCurrent: 1,

@@ -32,7 +32,7 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
       contentSet(t('task.computing'))
       borderSet('#D08FEB')
     }
-  }, [status])
+  }, [status, i18n.language])
 
   useEffect(() => {
     if (role === 'taskSponsor' || role === 1) { // 发起方
