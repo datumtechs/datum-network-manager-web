@@ -1,15 +1,19 @@
 
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import MyTag from '@com/MyTag'
+import { ThemeContext } from '@com/ThemeContext'
 
 const MyTaskStatusBar: FC<any> = (props: any) => {
   const { status, role, width, margin } = props
   const { t, i18n } = useTranslation()
-  const [color, colorSet] = useState<string>('')
+  const [_color, colorSet] = useState<string>('')
   const [bgColor, bgColorSet] = useState<string>('')
   const [content, contentSet] = useState<string>('')
   const [border, borderSet] = useState<string>('')
+  const { color, roleColor } = useContext(ThemeContext);
+  console.log(color, roleColor);
+
   useEffect(() => {
     if (status === 4) {
       colorSet('#52C41A')
@@ -63,7 +67,7 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
     }
   }, [role, i18n.language])
 
-  return <MyTag content={content} radius='2' color={color} bgColor={bgColor} width={width} border={border} margin={margin}></MyTag>
+  return <MyTag content={content} radius='2' color={_color} bgColor={bgColor} width={width} border={border} margin={margin}></MyTag>
 
 }
 

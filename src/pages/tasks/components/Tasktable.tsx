@@ -6,21 +6,6 @@ import dayjs from 'dayjs'
 import { formatDuring } from '@utils/utils'
 import MyTaskStatusBar from '@pages/myData/DataMgt/components/MyTaskStatusBar'
 
-const Status: FC<any> = (props: any) => {
-  const { t } = useTranslation()
-
-  const color = {
-    pending: '#FFA505',
-    running: '#5D5C65',
-    failed: '#F5222D',
-    success: '#0BB27A',
-  }
-  return (
-    <span style={{ color: color[props.status] || 'inherit', fontSize: '15px', fontWeight: 'bold' }}>
-      {props.status ? `${t(`task.${props.status}`)}` : '/'}
-    </span>
-  )
-}
 
 const MyTable = (props, ref) => {
   const { tableData, total, pageNumber } = props
@@ -70,7 +55,6 @@ const MyTable = (props, ref) => {
           <span>
             {`${(pageNumber - 1) * pagination.defaultPageSize + (index + 1)}`}
           </span>
-          {/* <span className='new-tips'></span> */}
         </>
       }
     },

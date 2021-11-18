@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
@@ -9,22 +9,22 @@ import 'echarts/lib/component/grid'
 import { Tooltip } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import useWinWidth from '@hooks/useWinWidth'
-
+import { ThemeContext } from '@com/ThemeContext'
 
 
 const StatusChart: FC<any> = (props: any) => {
-  const { statusFn, statusObj, onChange } = props
+  const { statusFn, statusObj } = props
+  const { color } = useContext(ThemeContext);
 
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
   // const [statusList, statusListSet] = useState([])
 
   const statusList = [
-    { id: 1, label: t('task.success'), color: '#63C7BB', value: statusObj.successCount, par: statusObj.successCount ? `${(statusObj.successCount * 100 / statusObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 2, label: t('task.failed'), color: '#F167A8', value: statusObj.failedCount, par: statusObj.failedCount ? `${(statusObj.failedCount * 100 / statusObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 3, label: t('task.pending'), color: '#657ACD', value: statusObj.pendingCount, par: statusObj.pendingCount ? `${(statusObj.pendingCount * 100 / statusObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 4, label: t('task.computing'), color: '#FFA958', value: statusObj.runningCount, par: statusObj.runningCount ? `${(statusObj.runningCount * 100 / statusObj.totalCount).toFixed(2)}%` : '0.00%' },
-    // { id: 4, label: t('task.computing'), color: '#FFA958', value: statusObj.taskRunningCount, par: statusObj.taskPendingCount ? `${(statusObj.taskRunningCount * 100 / statusObj.totalTaskCount).toFixed(2)}%` : '0.00%' },
+    { id: 1, label: t('task.success'), color: color.success, value: statusObj.successCount, par: statusObj.successCount ? `${(statusObj.successCount * 100 / statusObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 2, label: t('task.failed'), color: color.failed, value: statusObj.failedCount, par: statusObj.failedCount ? `${(statusObj.failedCount * 100 / statusObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 3, label: t('task.pending'), color: color.pending, value: statusObj.pendingCount, par: statusObj.pendingCount ? `${(statusObj.pendingCount * 100 / statusObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 4, label: t('task.computing'), color: color.running, value: statusObj.runningCount, par: statusObj.runningCount ? `${(statusObj.runningCount * 100 / statusObj.totalCount).toFixed(2)}%` : '0.00%' },
   ]
 
   const handleClick = (prarms) => {
@@ -37,7 +37,7 @@ const StatusChart: FC<any> = (props: any) => {
   useEffect(() => {
     const chart = echarts.init(document.getElementById('statusChart'))
     const option = {
-      color: ['#63C7BB', '#F167A8', '#657ACD', '#F29201'],
+      color: [color.success, color.failed, color.pending, color.running,],
       grid: { left: '10%', top: '10%', right: '10%', bottom: '10%' },
       title: {
         triggerEvent: true,
