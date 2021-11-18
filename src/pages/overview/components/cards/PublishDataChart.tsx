@@ -17,9 +17,7 @@ const PublishDataChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
   const [curSwitch, curSwitchSet] = useState('data')
-  // const [MaxincrementValue, setMaxIncrementValue] = useState(0)
-  // const [MaxTotal, setMaxTotal] = useState(0)
-
+  const { bgColor } = props
   const getMonthsByNumber = (month: number) => {
     const newDays: string[] = []
     for (let i = 0; i < month; i++) {
@@ -32,89 +30,70 @@ const PublishDataChart: FC<any> = (props: any) => {
   const switchData = type => curSwitchSet(type)
 
   const option = {
-    grid: { left: 50, top: 40, right: 60, bottom: 20 },
+    grid: { left: 30, top: 10, right: 30, bottom: 20 },
     tooltip: {
       trigger: 'item',
     },
+    // legend: {
+    //   data: [t(`overview.cpu`), t(`overview.memory`), t(`overview.bandwidth`)]
+    // },
+    color: [bgColor.cpu, bgColor.memory, bgColor.bandwidth],
     xAxis: {
       type: 'category',
       data: getMonthsByNumber(12),
     },
-    yAxis: [
-      {
-        name: t('overview.growth'),
-        nameTextStyle: { align: 'right' },
-        axisLabel: {
-          fontSize: 12,
-          color: '#8E9EB9',
-          formatter: params => params,
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#F0F3F6',
-            width: 1,
-          },
-        },
-
-        type: 'value',
-        scale: true,
-      },
-      {
-        // name: curSwitch === 'data' ? `${t('overview.totalData')} (${changeSizeObj(MaxincrementValue).unit || 'B'})` : `${t('overview.totalMemory')} (${changeSizeObj(MaxTotal).unit || 'B'})`,
-        name: curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory'),
-        nameTextStyle: { align: 'center' },
-        axisLabel: {
-          fontSize: 12,
-          color: '#8E9EB9',
-          formatter: params => params,
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#F0F3F6',
-            width: 1,
-          },
-        },
-        type: 'value',
-        scale: true,
-      },
-    ],
+    yAxis: {
+      show: false
+    },
     series: [
       {
-        name: t('overview.growth'),
+        name: t(`overview.cpu`),
         type: 'bar',
-        yAxisIndex: 0,
-        barWidth: '30%',
-        itemStyle: {
-          color: '#3C3588',
-        },
-        data: [],
+        barGap: 0,
         label: {
-          formatter: params => {
-            console.log(params.name)
-            return t(params.name)
+          show: true,
+          fontSize: 12,
+          position: 'top',
+          offset: [0, -10],
+          formatter: (params) => {
+            if (!params.value) return ''
+            return `${params.value}${t('overview.core')}`
           },
         },
+        data: [320, 332, 301, 334, 390]
       },
       {
-        name: t('overview.totalData'),
-        type: 'line',
-        yAxisIndex: 1,
-        symbolSize: 7,
-        itemStyle: {
-          color: '#FFA505',
-        },
-        lineStyle: {
-          width: 4,
-          color: '#FFA505',
-        },
-        smooth: true,
-        data: [],
+        name: t(`overview.memory`),
+        type: 'bar',
         label: {
-          formatter: params => {
-            console.log(params)
-            return t(params.name)
+          show: true,
+          fontSize: 12,
+          position: 'top',
+          offset: [0, -10],
+          formatter: (params) => {
+            if (!params.value) return ''
+            return `${params.value}${changeSizeObj(params.value).unit}`
           },
         },
+        data: [220, 182, 191, 234, 290]
+      },
+      {
+        name: t(`overview.bandwidth`),
+        type: 'bar',
+        // emphasis: {
+        //   focus: 'none'
+        // },
+        label: {
+          show: true,
+          fontSize: 11,
+          position: 'top',
+          offset: [0, -10],
+          formatter: (params) => {
+            if (!params.value) return ''
+            return `${params.value}${changeSizeObj(params.value).unit}`
+          },
+        },
+        data: [150, 232, 201, 154, 190]
       },
     ],
   }
@@ -122,35 +101,14 @@ const PublishDataChart: FC<any> = (props: any) => {
   useEffect(() => {
     const chart = echarts.init(document.getElementById('publishData'))
     const dataList: any[] = []
-    if (curSwitch === 'data') {
-      overviewApi.localDataFileStatsTrendMonthly().then((res) => {
-        if (res.status === 0 && res.data) {
-          option.series[0].data = res.data.map(data => {
-            dataList.push(data.incrementValue)
-            return changeSizeObj(data.incrementValue).size
-          })
-          option.series[1].data = res.data.map(data => changeSizeObj(data.totalValue).size)
-          // const maxData = Math.max(...option.series[0].data)
-          option.yAxis[1].name = `${t('overview.totalData')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
-          chart.setOption(option)
-          chart.resize()
-        }
-      })
-    } else {
-      overviewApi.localPowerStatsTrendMonthly().then((res) => {
-        if (res.status === 0 && res.data) {
-          option.series[0].data = res.data.map(data => changeSizeObj(data.incrementValue).size)
-          option.series[1].data = res.data.map(data => {
-            dataList.push(data.totalValue)
-            return changeSizeObj(data.totalValue).size
-          })
-          // const maxData = Math.max(...dataList)
-          option.yAxis[1].name = `${t('overview.totalMemory')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
-          chart.setOption(option)
-          chart.resize()
-        }
-      })
-    }
+    overviewApi.localPowerStatsTrendMonthly().then((res) => {
+      if (res.status === 0 && res.data) {
+        option.series[0].data = res.data.map(data => changeSizeObj(data.incrementValue).size)
+        chart.setOption(option)
+        chart.resize()
+      }
+    })
+    // }
 
   }, [width, i18n.language, curSwitch])
 

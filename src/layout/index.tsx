@@ -29,41 +29,40 @@ export const BaseInfoContext = createContext<any>({
 
 // import { getPageTitle, systemRouteList } from '../router/utils';
 const Layout = (props: any) => {
-  const { state: { Loading } } = props
-  const history = useHistory()
-  const [isLoading, isLoadingSet] = useState<boolean>(false)
-  const [info, setInfo] = useState<BaseInfo>({
-    carrierConnStatus: '',
-    carrierConnTime: '',
-    carrierIp: '',
-    carrierNodeId: '',
-    carrierPort: '',
-    carrierStatus: '',
-    identityId: '',
-    name: '',
-    recUpdateTime: '',
-  })
-  const { pathname } = useLocation()
-  const [sum, setSum] = useState<number>(0)
-  const fetchData = async () => {
-    const result = await loginApi.queryBaseInfo()
-    setInfo(result?.data)
-  }
+  const { state: { Loading } } = props,
+    history = useHistory(),
+    { pathname } = useLocation(),
+    [info, setInfo] = useState<BaseInfo>({
+      carrierConnStatus: '',
+      carrierConnTime: '',
+      carrierIp: '',
+      carrierNodeId: '',
+      carrierPort: '',
+      carrierStatus: '',
+      identityId: '',
+      name: '',
+      recUpdateTime: '',
+    })
 
-  useEffect((): any => {
-    isLoadingSet(true)
-    loginApi.queryBaseInfo().then(res => {
-      isLoadingSet(false)
-      if (res.status === 1001) {
+  const fetchData = async (type?: boolean) => {
+    const result = await loginApi.queryBaseInfo()
+    console.log(result);
+    if (type) {
+      if (result.status === 1001) {
         props.setIsReg(false)
         history.push('/didApplication')
         return
       }
-      if (res.status === 0) {
-        props.setOrg(res.data)
+      if (result.status === 0) {
+        props.setOrg(result.data)
       }
       props.setIsReg(true)
-    })
+    }
+    setInfo(result?.data)
+  }
+
+  useEffect((): any => {
+    fetchData(true)
   }, [])
 
   useInterval(() => {
@@ -77,12 +76,6 @@ const Layout = (props: any) => {
         <div className="main-box">
           <Header className="header-container" />
           <div className={pathname === '/overview' ? 'wrapper-box' : 'main-wrapper-box '}>
-            {/* {isLoading ? (
-              <div className="layout__loading">
-                <Spin size="large" />
-              </div>
-            ) : ( */}
-            {/* <Spin spinning={Loading.Loading}> */}
             <Spin size="large" spinning={Loading.Loading} style={{ height: '90vh', maxHeight: '90vh' }}>
               <Suspense
                 fallback={
