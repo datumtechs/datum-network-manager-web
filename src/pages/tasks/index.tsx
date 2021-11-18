@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   // Input, Select,
@@ -9,25 +9,19 @@ import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { taskApi } from '@api/index'
 import moment from 'moment';
-// import { SearchOutlined } from '@ant-design/icons'
+import { ThemeContext, color, roleColor } from '@com/ThemeContext'
 import Tasktable from './components/Tasktable'
 import './scss/index.scss'
 import StatusChart from './components/StatusChart'
 import CapacityChart from './components/CapacityChart'
 
-// const { Search } = Input
-// const { Option } = Select
-
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
+
+
 export const Tasks: FC<any> = () => {
   const { t } = useTranslation()
-  // const [runningTaskCount, runningTaskCountSet] = useState<number>(0)
-  // const [totalTaskCount, totalTaskCountSet] = useState<number>(0)
-  // const [searchText, searchTextSet] = useState('')
-  // const [searchStatus, searchStatusSet] = useState('')
-  // const [searchRole, searchRoleSet] = useState(0)
   const [tableData, tableDataSet] = useState<[]>([])
   const [searchStartTime, searchStartTimeSet] = useState(0)
   const [searchEndTime, searchEndTimeSet] = useState(0)
@@ -121,49 +115,49 @@ export const Tasks: FC<any> = () => {
 
 
   return (
-    <div className="layout-box">
-      <div className="title-box">
-        <div className="title-label">
-          <div className="title">
-            {t('task.myTask')}:&nbsp;
-            {/* {statusObj.totalTaskCount} */}
-            {statusObj.totalCount}
+    <ThemeContext.Provider value={{ color, roleColor }}>
+      <div className="layout-box">
+        <div className="title-box">
+          <div className="title-label">
+            <div className="title">
+              {t('task.myTask')}:&nbsp;
+              {statusObj.totalCount}
+            </div>
           </div>
         </div>
+        <div className="task-charts-box">
+          <StatusChart statusObj={statusObj} statusFn={setStatus} />
+          <CapacityChart capacityObj={statusObj} capacityFn={setCapacity} />
+        </div>
+        <div className="filter-box">
+          <Space size={20}>
+            {t('task.timeSpan')} <DatePicker showNow={false} showToday={false}
+              showTime={{
+                hideDisabledOptions: true,
+                showHour: false,
+                showMinute: false,
+                showSecond: false,
+                defaultValue: moment('00:00:00', 'HH:mm:ss')
+              }}
+              style={{ width: 200 }} size="large" onChange={onStartChange} />{' '}
+            {t('task.to')} <DatePicker showNow={false} showToday={false}
+              showTime={{
+                hideDisabledOptions: true,
+                showHour: false,
+                showMinute: false,
+                showSecond: false,
+                defaultValue: moment('23:59:59', 'HH:mm:ss')
+              }}
+              style={{ width: 200 }} size="large" onChange={onEndChange} />
+          </Space>
+        </div>
+        <div className="task-table-box">
+          <Tasktable
+            tableData={tableData}
+            pageNumber={pageNumber}
+            total={total} pageChange={pageChange} />
+        </div>
       </div>
-      <div className="task-charts-box">
-        <StatusChart statusObj={statusObj} statusFn={setStatus} />
-        <CapacityChart capacityObj={statusObj} capacityFn={setCapacity} />
-      </div>
-      <div className="filter-box">
-        <Space size={20}>
-          {t('task.timeSpan')} <DatePicker showNow={false} showToday={false}
-            showTime={{
-              hideDisabledOptions: true,
-              showHour: false,
-              showMinute: false,
-              showSecond: false,
-              defaultValue: moment('00:00:00', 'HH:mm:ss')
-            }}
-            style={{ width: 200 }} size="large" onChange={onStartChange} />{' '}
-          {t('task.to')} <DatePicker showNow={false} showToday={false}
-            showTime={{
-              hideDisabledOptions: true,
-              showHour: false,
-              showMinute: false,
-              showSecond: false,
-              defaultValue: moment('23:59:59', 'HH:mm:ss')
-            }}
-            style={{ width: 200 }} size="large" onChange={onEndChange} />
-        </Space>
-      </div>
-      <div className="task-table-box">
-        <Tasktable
-          tableData={tableData}
-          // tableData={dataScource}
-          pageNumber={pageNumber}
-          total={total} pageChange={pageChange} />
-      </div>
-    </div>
+    </ThemeContext.Provider>
   )
 }

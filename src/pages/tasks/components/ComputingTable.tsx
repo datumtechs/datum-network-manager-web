@@ -42,7 +42,7 @@ const ComputingTable: FC<any> = (props: any) => {
       dataIndex: 'nodeIdentityId',
       ellipsis: true,
       render: (text, record) => {
-        return <span>{record?.dynamicFields?.carrierNodeId || 'N/A'}</span>
+        return <span>{record?.identityId || 'N/A'}</span>
       }
     },
     {

@@ -75,7 +75,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
           <>
             <Row>
               <Col span={6}>{t('computeNodeMgt.startTime')}:</Col>
-              <Col span={18}>{record.startAt}</Col>
+              <Col span={18}>{record.startAt && record.startAt.replace('T', ' ')}</Col>
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.sponsor')}:</Col>

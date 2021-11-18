@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
@@ -9,20 +9,21 @@ import 'echarts/lib/component/grid'
 import { Tooltip, Space } from 'antd'
 import useWinWidth from '@hooks/useWinWidth'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import { ThemeContext } from '@com/ThemeContext'
 
 
 const CapacityChart: FC<any> = (props: any) => {
   const { capacityFn, capacityObj } = props
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
-
+  const { roleColor } = useContext(ThemeContext);
 
   const capaList = [
-    { id: 1, label: t('task.sponsor'), color: '#63C7BB', value: capacityObj.ownerCount, par: capacityObj.ownerCount ? `${(capacityObj.ownerCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 2, label: t('task.receiver'), color: '#F167A8', value: capacityObj.resultReceiverCount, par: capacityObj.resultReceiverCount ? `${(capacityObj.resultReceiverCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 3, label: t('task.powerProvider'), color: '#F2DB01', value: capacityObj.powerProviderCount, par: capacityObj.powerProviderCount ? `${(capacityObj.powerProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 4, label: t('task.dataProvider'), color: '#FFA958', value: capacityObj.dataProviderCount, par: capacityObj.dataProviderCount ? `${(capacityObj.dataProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
-    { id: 5, label: t('task.algorithmProvider'), color: '#657ACD', value: capacityObj.algoProviderCount, par: capacityObj.algoProviderCount ? `${(capacityObj.algoProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 1, label: t('task.sponsor'), color: roleColor.sponsor, value: capacityObj.ownerCount, par: capacityObj.ownerCount ? `${(capacityObj.ownerCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 2, label: t('task.powerProvider'), color: roleColor.powerProvider, value: capacityObj.powerProviderCount, par: capacityObj.powerProviderCount ? `${(capacityObj.powerProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 3, label: t('task.dataProvider'), color: roleColor.dataProvider, value: capacityObj.dataProviderCount, par: capacityObj.dataProviderCount ? `${(capacityObj.dataProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 4, label: t('task.receiver'), color: roleColor.receiver, value: capacityObj.resultReceiverCount, par: capacityObj.resultReceiverCount ? `${(capacityObj.resultReceiverCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
+    { id: 5, label: t('task.algorithmProvider'), color: roleColor.algorithmProvider, value: capacityObj.algoProviderCount, par: capacityObj.algoProviderCount ? `${(capacityObj.algoProviderCount * 100 / capacityObj.totalCount).toFixed(2)}%` : '0.00%' },
   ]
 
   const handleClick = (prarms) => {
@@ -35,7 +36,8 @@ const CapacityChart: FC<any> = (props: any) => {
   useEffect(() => {
     const chart = echarts.init(document.getElementById('capacityChart'))
     const option = {
-      color: ['#63C7BB', '#F167A8', '#657ACD', '#FFA958', '#F2DB01'],
+      // color: ['#63C7BB', '#F167A8', '#657ACD', '#FFA958', '#F2DB01'],
+      color: [roleColor.sponsor, roleColor.powerProvider, roleColor.dataProvider, roleColor.receiver, roleColor.algorithmProvider],
       grid: { left: '10%', top: '10%', right: '10%', bottom: '10%' },
       title: {
         triggerEvent: true,
@@ -88,10 +90,10 @@ const CapacityChart: FC<any> = (props: any) => {
           },
           data: [
             { value: capacityObj.ownerCount, name: t('task.sponsor'), type: '1' },// 任务发起方
+            { value: capacityObj.powerProviderCount, name: t('task.powerProvider'), type: '2' }, // 算力提供方
+            { value: capacityObj.dataProviderCount, name: t('task.dataProvider'), type: '3' },// 数据提供方
             { value: capacityObj.resultReceiverCount, name: t('task.receiver'), type: '4' },// 结果使用方
             { value: capacityObj.algoProviderCount, name: t('task.algorithmProvider'), type: '5' },// 算法提供方
-            { value: capacityObj.dataProviderCount, name: t('task.dataProvider'), type: '3' },// 数据提供方
-            { value: capacityObj.powerProviderCount, name: t('task.powerProvider'), type: '2' }, // 算力提供方
           ],
         },
       ],
