@@ -95,14 +95,16 @@ export const TaskDetail: FC<any> = (props: any) => {
         obj.ownerList = [{
           dynamicFields: {
             orgName: res.data?.owner?.orgName,
-            carrierNodeId: res.data?.owner?.carrierNodeId
+            carrierNodeId: res.data?.owner?.carrierNodeId,
           },
+          identityId: res.data?.owner?.identityId,
           partyId: res.data?.ownerPartyId
         }]
         obj.receiversList = obj?.receivers.map(v => {
           return {
             ...v,
-            partyId: v?.consumerPartyId
+            partyId: v?.consumerPartyId,
+            identityId: v?.consumerIdentityId,
           }
         })
         obj.algoSupplierList = [{ ...obj.algoSupplier }]

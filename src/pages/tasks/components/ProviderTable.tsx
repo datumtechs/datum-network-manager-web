@@ -38,7 +38,7 @@ const ProviderTable: FC<any> = (props: any) => {
       ellipsis: true,
       dataIndex: 'nodeIdentityId',
       render: (text, record, index) => {
-        return <span>{record?.dynamicFields?.carrierNodeId || 'N/A'}</span>
+        return <span>{record?.identityId || 'N/A'}</span>
       }
     }
   ]
