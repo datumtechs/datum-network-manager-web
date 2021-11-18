@@ -2,7 +2,6 @@
 import { FC, useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import MyTag from '@com/MyTag'
-import { ThemeContext } from '@com/ThemeContext'
 
 const MyTaskStatusBar: FC<any> = (props: any) => {
   const { status, role, width, margin } = props
@@ -11,8 +10,6 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
   const [bgColor, bgColorSet] = useState<string>('')
   const [content, contentSet] = useState<string>('')
   const [border, borderSet] = useState<string>('')
-  const { color, roleColor } = useContext(ThemeContext);
-  console.log(color, roleColor);
 
   useEffect(() => {
     if (status === 4) {
@@ -31,10 +28,14 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
       contentSet(t('task.pending'))
       borderSet('#8FBDEB')
     } else if (status === 2) {
-      colorSet('#781AC4')
-      bgColorSet('#F3DAFD')
+      // colorSet('#781AC4')
+      // bgColorSet('#F3DAFD')
+      // contentSet(t('task.computing'))
+      // borderSet('#D08FEB')
+      colorSet('#FAAD14')
+      bgColorSet('#FDFCDA')
       contentSet(t('task.computing'))
-      borderSet('#D08FEB')
+      borderSet('#FFDA06')
     }
   }, [status, i18n.language])
 

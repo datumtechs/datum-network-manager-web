@@ -2,7 +2,7 @@ import React from 'react'
 
 export const color = {
   pending: '#657ACD',
-  running: '#d08feb',
+  running: '#F2DB01',
   failed: '#f53b72',
   success: '#3fbf0080',
 }

@@ -250,7 +250,7 @@ ${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
               </Button>
             </Space>
           </div>
-          <div className="time-group">
+          {/* <div className="time-group">
             <Space size={64}>
               {daysList.map(item => (
                 <span
@@ -262,7 +262,7 @@ ${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
                 </span>
               ))}
             </Space>
-          </div>
+          </div> */}
           <div id="lineChart"></div>
         </div>
         <div className="cpu-info">
