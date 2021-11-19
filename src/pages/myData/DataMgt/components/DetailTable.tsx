@@ -59,7 +59,7 @@ const DetailTable: FC<any> = (props: any) => {
         columns={columns}
         bordered
         rowKey={record => record.id}
-        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+        pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
       />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>{t('center.confirmWithdraw')}:333333333333333333333</p>
