@@ -50,6 +50,9 @@ const PublishDataChart: FC<any> = (props: any) => {
         name: t(`overview.cpu`),
         type: 'bar',
         barGap: 0,
+        itemStyle: {
+          borderRadius: [5, 5, 0, 0]
+        },
         label: {
           show: true,
           fontSize: 12,
@@ -65,6 +68,9 @@ const PublishDataChart: FC<any> = (props: any) => {
       {
         name: t(`overview.memory`),
         type: 'bar',
+        itemStyle: {
+          borderRadius: [5, 5, 0, 0]
+        },
         label: {
           show: true,
           fontSize: 12,
@@ -80,9 +86,9 @@ const PublishDataChart: FC<any> = (props: any) => {
       {
         name: t(`overview.bandwidth`),
         type: 'bar',
-        // emphasis: {
-        //   focus: 'none'
-        // },
+        itemStyle: {
+          borderRadius: [5, 5, 0, 0]
+        },
         label: {
           show: true,
           fontSize: 11,
