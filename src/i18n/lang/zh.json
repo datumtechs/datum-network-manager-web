@@ -14,6 +14,10 @@
     "loginSlogan": "隐私计算让数据像资产一样流动",
     "loginRemarks": "本平台已满足《互联网个人信息安全保护指南》、《数据安全管理办法》、《信息安全技术个人信息安全规范》等法律法规要求"
   },
+  "UserCenter": {
+    "Profile": "主页",
+    "MetisIdentity": "身份信息"
+  },
   "overview": {
     "seedNode": "引导节点",
     "schedueService": "调度服务",
@@ -92,7 +96,8 @@
     "taskEvents": "任务日志",
     "metaDataDetail": "元数据详情",
     "userCenter": "用户中心",
-    "userInfo": "用户信息"
+    "userInfo": "用户信息",
+    "Profile": "主页"
   },
   "common": {
     "submit": "提交",

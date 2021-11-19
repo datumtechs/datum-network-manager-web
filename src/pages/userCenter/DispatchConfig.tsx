@@ -4,7 +4,7 @@ import { Form, Input, Button, Spin, message } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import './scss/index.scss'
+import '@pages/nodeMgt/scss/index.scss'
 import { BaseInfoContext } from '@/layout/index'
 import { nodeApi } from '@api/index'
 import MyTag from '@com/MyTag'
@@ -129,7 +129,7 @@ const DispatchConfig: FC<any> = (props: any) => {
             <Form.Item colon label={t('common.orgIdentify')} name="identityId" className="form-item">
               <p className="title">{baseInfo?.identityId}</p>
             </Form.Item>
-            <Form.Item colon label={t('common.internalIP')} className="form-item">
+            {/* <Form.Item colon label={t('common.internalIP')} className="form-item">
               <div className="form-group">
                 <Form.Item
                   name="carrierIp"
@@ -174,7 +174,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                   ''
                 )}
               </div>
-            </Form.Item>
+            </Form.Item> */}
 
             {/* 以上为 ip port 以下为按钮操作 */}
 

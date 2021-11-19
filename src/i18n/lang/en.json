@@ -14,6 +14,10 @@
     "loginSlogan": "Privacy-preserving computing platform enables data to flow like assets.",
     "loginRemarks": "The RosettaNet Console has satisfied the relevant requirements of laws and requirements."
   },
+  "UserCenter": {
+    "Profile": "Profile",
+    "MetisIdentity": "Metis Identity"
+  },
   "overview": {
     "seedNode": "Boot node",
     "schedueService": "Scheduling Service",
@@ -91,7 +95,8 @@
     "taskEvents": "Task Events",
     "metaDataDetail": "Metadata Detail",
     "userCenter": "User Center",
-    "userInfo": "Metis Identity"
+    "userInfo": "Metis Identity",
+    "Profile": "Profile"
   },
   "common": {
     "submit": "Submit",

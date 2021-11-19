@@ -29,7 +29,8 @@ const DataAuthorization = React.lazy(() =>
   import('@/pages/myData/DataAuthorization/DataAuthorization').then(_ => ({ default: _.DataAuthorization })),
 )
 
-const DispatchConfig = React.lazy(() => import('@/pages/nodeMgt/DispatchConfig').then(_ => _))
+const DispatchConfig = React.lazy(() => import('@pages/userCenter/DispatchConfig').then(_ => _))
+const Profile = React.lazy(() => import('@pages/userCenter/Profile').then(_ => _))
 const DataNodeMgt = React.lazy(() =>
   import('@/pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })),
 )
@@ -92,12 +93,6 @@ const routes: Array<IRoute> = [
     component: login,
     meta: { exact: true, title: '', icon: '', show: false },
   },
-  // {
-  //   name: 'menu.dispatchConfig',
-  //   path: '/nodeMgt/dispatchConfig',
-  //   component: dispatchConfig,
-  //   meta: { exact: true, title: '', icon: '' },
-  // },
   {
     path: '/',
     component: layout,
@@ -126,16 +121,24 @@ const routes: Array<IRoute> = [
         breadcrumbName: 'menu.userCenter',
         path: '/userCenter',
         component: NodeMgt,
-        meta: { exact: false, title: '', icon: '', show: true },
+        meta: { exact: false, title: '', icon: '', show: false },
         isOpen: false,
         children: [
+          {
+            name: 'Profile',
+            label: 'menu.Profile',
+            breadcrumbName: 'menu.Profile',
+            path: '/userCenter/Profile',
+            component: Profile,
+            meta: { exact: true, title: '/userCenter/Profile', icon: '', show: false },
+          },
           {
             name: 'userInfo',
             label: 'menu.userInfo',
             breadcrumbName: 'menu.userInfo',
             path: '/userCenter/userInfo',
             component: DispatchConfig,
-            meta: { exact: true, title: '/userCenter/userInfo', icon: '', show: true },
+            meta: { exact: true, title: '/userCenter/userInfo', icon: '', show: false },
           },
         ]
       },
