@@ -16,7 +16,19 @@
   },
   "UserCenter": {
     "Profile": "Profile",
-    "MetisIdentity": "Metis Identity"
+    "MetisIdentity": "Metis Identity",
+    "ModalTips": "Please ensure that you are exiting the Metis？",
+    "ModalSubmit": "Cancel Identity",
+    "ModalCancel": "Cancel",
+    "ProfileOrganizationName": "Organization name",
+    "ProfileOrganizationIdentifier": "Organization identifier",
+    "ProfileOrganizationHead": "Organization head",
+    "ProfileOrganizationIntroduction": "Organization introduction",
+    "ProfileButtonEdit": "Edit",
+    "ProfileNamePlaceholder": "Please enter the organization name",
+    "ProfileIntroductionPlaceholder": "Please enter organization description",
+    "ProfileHeadPlaceholder": "Please enter the organization avatar address",
+    "OrganizationApplicationSucceeded": "Identifier application succeeded！"
   },
   "overview": {
     "seedNode": "Boot node",
@@ -109,7 +121,7 @@
     "internalPort": "Internal port",
     "noModify": "Can not be modified after submitting",
     "search": "Search",
-    "status": "Status",
+    "status": "Metis status",
     "ip": "IP",
     "port": "Port",
     "actions": "Actions",
@@ -173,7 +185,7 @@
     "forSelfidentity": "For self-identification",
     "submitAddtion": "Submit",
     "unconnected": "Unconnected",
-    "writeOffNetwork": "Write off the identify crednetial, exit the network",
+    "writeOffNetwork": "Cancel the Metis Identify",
     "addDataNodeTips": "Data node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
     "internalIpPlaceholder": "Internal host address of the data node",
     "externalIpPlaceholder": "External host address of the data node",

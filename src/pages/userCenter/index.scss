@@ -1,0 +1,20 @@
+.userForm{
+  .form-item {
+    .title {
+      font-family: AlibabaPuHuiTi-Medium;
+      font-size: 14px;
+      color: #1d2832;
+      letter-spacing: 0;
+    }
+    .ant-input{
+      font-family: AlibabaPuHuiTi-Medium;
+      font-size: 14px;
+      color: #1d2832;
+      letter-spacing: 0;
+    }
+    .ant-input[disabled]{
+      background: #fff;
+      border: none;
+    }
+  }
+}

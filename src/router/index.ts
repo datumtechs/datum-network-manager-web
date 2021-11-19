@@ -29,7 +29,7 @@ const DataAuthorization = React.lazy(() =>
   import('@/pages/myData/DataAuthorization/DataAuthorization').then(_ => ({ default: _.DataAuthorization })),
 )
 
-const DispatchConfig = React.lazy(() => import('@pages/userCenter/DispatchConfig').then(_ => _))
+const MetisIdentity = React.lazy(() => import('@pages/userCenter/MetisIdentity').then(_ => _))
 const Profile = React.lazy(() => import('@pages/userCenter/Profile').then(_ => _))
 const DataNodeMgt = React.lazy(() =>
   import('@/pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })),
@@ -53,10 +53,10 @@ const DidApplication = React.lazy(() =>
   import('@/pages/did/DidApplication').then(_ => ({ default: _.DidApplication })),
 )
 
-const DataCenter = React.lazy(() => import('@/pages/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
-const ComputationCenter = React.lazy(() =>
-  import('@/pages/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })),
-)
+// const DataCenter = React.lazy(() => import('@/pages/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
+// const ComputationCenter = React.lazy(() =>
+//   import('@/pages/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })),
+// )
 
 const SeedNodeMgt = React.lazy(() => import('@/pages/nodeMgt/SeedNode/SeedNodeMgt').then(_ => ({ default: _.SeedNodeMgt })))
 const AddSeedNode = React.lazy(() => import('@/pages/nodeMgt/SeedNode/AddSeedNode').then(_ => ({ default: _.AddSeedNode })))
@@ -137,7 +137,7 @@ const routes: Array<IRoute> = [
             label: 'menu.userInfo',
             breadcrumbName: 'menu.userInfo',
             path: '/userCenter/userInfo',
-            component: DispatchConfig,
+            component: MetisIdentity,
             meta: { exact: true, title: '/userCenter/userInfo', icon: '', show: false },
           },
         ]

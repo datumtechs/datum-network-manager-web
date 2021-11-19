@@ -1,12 +1,16 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Form, Input, message } from 'antd'
+import { Button, Form, Input, message, Steps } from 'antd'
 import { loginApi } from '@api/index'
 import { orgReg } from '@utils/reg'
 import './scss/did.scss'
 
 export const DidApplication: FC<any> = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation(),
+    { Step } = Steps,
+    [current, setCurrent] = useState(0),
+    [baseInfo, setBaseInfo] = useState({ name: 1 })
+  const { TextArea } = Input;
 
   const onFinish = ({ identityId = '' }) => {
     if (!orgReg.test(identityId)) {
@@ -25,24 +29,57 @@ export const DidApplication: FC<any> = () => {
 
 
   return (
-    <div className="did-box">
-      <div className="title">{t('common.plzApplyDid')}</div>
+    <div className="layout-box did-box">
+      <Steps current={current}>
+        {Array(3).fill('').map((_, i) => <Step key={i} onClick={_ => setCurrent(i)} />)}
+      </Steps>
       <div className="form-box">
-        <Form name="basic" layout="vertical" initialValues={{ remember: true }} onFinish={onFinish}>
-          <Form.Item
-            label={t('overview.setYourOrgName')}
-            name="identityId"
-            rules={[{ required: true, message: 'Please input your identityId!' }]}
-          >
-            <Input placeholder={t('overview.setOrgNameTips')} />
-          </Form.Item>
-          <Form.Item>
-            <div className="btn center">
-              <Button type="primary" className="submit-btn" htmlType="submit">
-                {t('common.submit')}
-              </Button>
-            </div>
-          </Form.Item>
+        <Form
+          layout={'horizontal'}
+          wrapperCol={{ span: 16 }}
+          labelCol={{ span: i18n.language === 'en' ? 5 : 4 }}
+          onFinish={onFinish}>
+          {current === 0 ?
+            <Form.Item
+              label={t('overview.setYourOrgName')}
+              name="identityId"
+              rules={[{ required: true, message: 'Please input your identityId!' }]}
+            >
+              <Input placeholder={t('overview.setOrgNameTips')} />
+            </Form.Item>
+            : ''
+          }
+          {current === 1 ? <>
+            <p className="title center">{t('UserCenter.OrganizationApplicationSucceeded')}</p>
+            <Form.Item
+              label={t('UserCenter.ProfileOrganizationName')}
+              name="identityId"
+            >
+              <p className="title">{baseInfo?.name || ''}</p>
+            </Form.Item>
+            <Form.Item
+              label={t('UserCenter.ProfileOrganizationIdentifier')}
+            >
+              <p className="title">{baseInfo?.name || ''}</p>
+            </Form.Item>
+            <Form.Item
+              label={t('UserCenter.ProfileOrganizationHead')}
+            >
+              <Input placeholder={t('UserCenter.ProfileHeadPlaceholder')} />
+            </Form.Item>
+            <Form.Item
+              label={t('UserCenter.ProfileOrganizationIntroduction')}
+            >
+              <TextArea placeholder={t('UserCenter.ProfileIntroductionPlaceholder')} />
+            </Form.Item>
+          </>
+            : ''
+          }
+          <div className="btn center">
+            <Button type="primary" className="submit-btn" htmlType="submit">
+              {t('common.submit')}
+            </Button>
+          </div>
         </Form>
       </div>
     </div>
