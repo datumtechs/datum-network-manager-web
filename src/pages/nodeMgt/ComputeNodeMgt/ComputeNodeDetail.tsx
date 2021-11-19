@@ -43,8 +43,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
 
   const getDaysByNumber = (days) => {
     // 此处换行不要删除 echars 会自动解析
-    return `${dayjs(days).subtract(0, 'day').format('MM-DD')}
-${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
+    return `${dayjs(days + '.000Z').subtract(0, 'day').format('MM-DD')}
+${dayjs(days + '.000Z').subtract(0, 'hour').format('HH:mm')}`;
   }
 
   const option: any = {
@@ -158,7 +158,7 @@ ${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
       })
       .then(res => {
         if (res.status === 0) {
-          filterData(res.data)
+          filterData([...res.data].reverse())
           initCharts()
         }
       })
