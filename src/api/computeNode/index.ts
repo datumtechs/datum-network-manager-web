@@ -120,6 +120,18 @@ const computeNodeApi = {
       data
     })
   },
+  // 查询计算节点当前负载情况
+  /**
+   * @param data :{ "powerNodeId": string }
+   * @returns 
+   */
+  queryCurrentLocalPower(data): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/powernode/getCurrentLocalPowerLoadByPowerNodeId`,
+      params: { ...data }
+    })
+  },
 
   // 修改计算节点
   updatePowerNode(data: ComputeNode): Promise<any> {

@@ -29,19 +29,13 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   >
   let myChart: any = null
 
-  // const [xAxis, xAxisSet] = useState([])
   const { location } = props
   const { id, name, identityId } = location.state
   const { t } = useTranslation()
   const [selectTab, SetSelectTab] = useState('1')
   const [curTitle, curTitleSet] = useState('')
-  const [cpuPar, cpuParSet] = useState<string | number>(0)
-  const [memoryPar, memoryParSet] = useState<string | number>(0)
-  const [bandwithPar, bandwidthParSet] = useState<string | number>(0)
   const [curPercent, curPercentSet] = useState<number>(0)
   const [infoTips, infoTipsSet] = useState<string>('')
-  const [timeType, timeTypeSet] = useState<number>(1)
-
 
   const daysList = [
     { id: 0, value: 1, label: t('common.pass24') }
@@ -123,52 +117,22 @@ ${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
     myChart?.setOption(option, true)
   }
 
-  useEffect(() => {
-    if (selectTab === '1') {
-      return curTitleSet(`${t(`overview.cpu`)}`)
-    }
-    if (selectTab === '2') {
-      return curTitleSet(`${t(`overview.memory`)}`)
-    }
-    if (selectTab === '3') {
-      return curTitleSet(`${t(`overview.bandwidth`)}`)
-    }
-  }, [selectTab, i18n.language])
-
 
   const { details } = useComputeNodeDetails(id)
 
-  useEffect(() => {
-    cpuParSet(isNaN(details?.usedCore / details?.core) ? '0' : ((details?.usedCore / details?.core) * 100).toFixed(2))
-    memoryParSet(
-      isNaN(details?.usedMemory / details?.memory) ? '0' : ((details?.usedMemory / details?.memory) * 100).toFixed(2),
-    )
-    bandwidthParSet(
-      isNaN(details?.usedBandwidth / details?.bandwidth)
-        ? '0'
-        : ((details?.usedBandwidth / details?.bandwidth) * 100).toFixed(2),
-    )
-    // console.log(111);
-  }, [details])
-
-
-  useEffect(() => {
-    if (selectTab === '1') {
-      curPercentSet(Number(cpuPar))
-    } else if (selectTab === '2') {
-      curPercentSet(Number(memoryPar))
-    } else if (selectTab === '3') {
-      curPercentSet(Number(bandwithPar))
-    }
-  }, [selectTab, cpuPar, memoryPar, bandwithPar])
-
-  useEffect(() => {
-    if (i18n.language === 'en') {
-      infoTipsSet(`${curTitle} ${t('node.hasOccupied')}`)
-    } else {
-      infoTipsSet(`此节点的${curTitle}占用情况`)
-    }
-  }, [i18n.language, curTitle])
+  const queryPowerDetails = () => {
+    computeNodeApi.queryCurrentLocalPower({ powerNodeId: id }).then(res => {
+      if (res.status === 0 && res.data) {
+        if (selectTab === '1') {
+          curPercentSet(Number(res.data?.corePct))
+        } else if (selectTab === '2') {
+          curPercentSet(Number(res.data?.memoryPct))
+        } else if (selectTab === '3') {
+          curPercentSet(Number(res.data?.bandwidthPct))
+        }
+      }
+    })
+  }
 
 
   const filterData = (data) => {
@@ -176,11 +140,11 @@ ${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
     option.series[0].data = data.reverse().map(v => {
       getDaysByNumber(v.snapshotTime)
       timeList.push(getDaysByNumber(v.snapshotTime))
-      let num = v.corePct
+      let num = v.usedCore
       if (selectTab === '2') {
-        num = v.memoryPct
+        num = v.usedMemory
       } else if (selectTab === '3') {
-        num = v.bandwidthPct
+        num = v.usedBandwidth
       }
       return num || 0
     })
@@ -204,7 +168,31 @@ ${dayjs(days).subtract(0, 'hour').format('hh:mm')}`;
   }
 
   useEffect(() => {
+    if (selectTab === '1') {
+      return curTitleSet(`${t(`overview.cpu`)}`)
+    }
+    if (selectTab === '2') {
+      return curTitleSet(`${t(`overview.memory`)}`)
+    }
+    if (selectTab === '3') {
+      return curTitleSet(`${t(`overview.bandwidth`)}`)
+    }
+  }, [selectTab, i18n.language])
+
+
+  useEffect(() => {
+    if (i18n.language === 'en') {
+      infoTipsSet(`${curTitle} ${t('node.hasOccupied')}`)
+    } else {
+      infoTipsSet(`此节点的${curTitle}占用情况`)
+    }
+  }, [i18n.language, curTitle])
+
+
+
+  useEffect(() => {
     queryData()
+    queryPowerDetails()
   }, [selectTab, i18n.language])
 
 
