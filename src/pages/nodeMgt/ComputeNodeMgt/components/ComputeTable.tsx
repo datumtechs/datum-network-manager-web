@@ -14,6 +14,7 @@ import './scss/index.scss'
 // import { tableInterVal } from '../../../../constant/index'
 
 // 节点状态，-1: 未被调度服务连接上; 0: 连接上; 1: 算力启用<计算服务>; 2: 算力被占用(计算服务算力正在被任务占用)',
+<<<<<<< HEAD
 // const dataSource = [
 //   {
 //     key: '1',
@@ -117,6 +118,8 @@ import './scss/index.scss'
 //   },
 // ]
 
+=======
+>>>>>>> dev-0.2.0
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
