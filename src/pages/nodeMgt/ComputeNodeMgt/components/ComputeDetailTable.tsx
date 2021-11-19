@@ -75,7 +75,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
           <>
             <Row>
               <Col span={6}>{t('computeNodeMgt.startTime')}:</Col>
-              <Col span={18}>{record.startAt && dayjs(record.startAt + '.000Z').format('YYYY-MM-DD HH:mm:ss')}</Col>
+              <Col span={18}>{record.startAt && dayjs(record.startAt).format('YYYY-MM-DD HH:mm:ss')}</Col>
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.sponsor')}:</Col>
