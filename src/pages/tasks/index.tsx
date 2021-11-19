@@ -26,6 +26,7 @@ export const Tasks: FC<any> = () => {
   const [searchStartTime, searchStartTimeSet] = useState(0)
   const [searchEndTime, searchEndTimeSet] = useState(0)
   const [pageNumber, pageNumberSet] = useState(1)
+  const [pageSize, setPageSize] = useState(5)
   const [total, totalSet] = useState(0)
   const [statusObj, statusObjSet] = useState({
     ownerCount: '',
@@ -56,7 +57,7 @@ export const Tasks: FC<any> = () => {
     return {
       endTime: searchEndTime || 0,
       pageNumber,
-      pageSize: 5,
+      pageSize: pageSize,
       startTime: searchStartTime || 0,
       status,
       role: +capacity,
@@ -99,15 +100,16 @@ export const Tasks: FC<any> = () => {
   }
 
 
-  const pageChange = page => {
+  const pageChange = (page, pageSize) => {
     pageNumberSet(page)
+    setPageSize(pageSize)
   }
 
   useEffect(() => {
     if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) {
       queryData()
     }
-  }, [searchStartTime, searchEndTime, pageNumber, capacity, status])
+  }, [searchStartTime, searchEndTime, pageNumber, capacity, status, pageSize])
 
   useEffect(() => {
     queryTaskDetails()
@@ -153,6 +155,7 @@ export const Tasks: FC<any> = () => {
         </div>
         <div className="task-table-box">
           <Tasktable
+            pageSize={pageSize}
             tableData={tableData}
             pageNumber={pageNumber}
             total={total} pageChange={pageChange} />

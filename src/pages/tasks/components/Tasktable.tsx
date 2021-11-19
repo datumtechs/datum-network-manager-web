@@ -8,12 +8,8 @@ import MyTaskStatusBar from '@pages/myData/DataMgt/components/MyTaskStatusBar'
 
 
 const MyTable = (props, ref) => {
-  const { tableData, total, pageNumber } = props
+  const { tableData, total, pageNumber, pageSize } = props
   const history = useHistory()
-  const pagination = {
-    current: 1,
-    defaultPageSize: 5,
-  }
   const { t } = useTranslation()
 
   const linkToDetail = obj => {
@@ -35,8 +31,10 @@ const MyTable = (props, ref) => {
     })
   }
 
-  const onPageChange = page => {
-    props.pageChange(page)
+  const onPageChange = (page, pageSize) => {
+    console.log(page, pageSize);
+
+    props.pageChange(page, pageSize)
   }
 
   const role = obj => {
@@ -53,7 +51,7 @@ const MyTable = (props, ref) => {
       render: (text, record, index) => {
         return <>
           <span>
-            {`${(pageNumber - 1) * pagination.defaultPageSize + (index + 1)}`}
+            {`${(pageNumber - 1) * pageSize + (index + 1)}`}
           </span>
         </>
       }
@@ -144,7 +142,14 @@ const MyTable = (props, ref) => {
         columns={columns}
         rowKey={_ => (_.id + _.taskId)}
         bordered
-        pagination={{ defaultCurrent: 1, defaultPageSize: 5, total, onChange: onPageChange }}
+        pagination={{
+          current: pageNumber, pageSize: pageSize,
+          total: total,
+          onChange: onPageChange,
+          onShowSizeChange: onPageChange,
+          showSizeChanger: true,
+          pageSizeOptions: ['5', '10', '20', '50', '100']
+        }}
       />
     </div>
   )
