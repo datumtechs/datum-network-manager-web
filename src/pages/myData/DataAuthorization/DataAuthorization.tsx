@@ -200,10 +200,10 @@ export const DataAuthorization: FC<any> = props => {
         bordered
         rowKey={_ => _.authId}
         pagination={{
-          defaultCurrent: 1,
           current: curPage,
           defaultPageSize: 10,
           total: totalNum,
+          showSizeChanger: false,
           onChange: OnPageChange,
         }}
       />

@@ -175,10 +175,10 @@ export const MyDetailTask: FC<any> = (props: any) => {
         columns={columns}
         bordered
         pagination={{
-          defaultCurrent: 1,
           current: curPage,
           defaultPageSize: 10,
           total: totalNum,
+          showSizeChanger: false,
           onChange: OnPageChange,
         }}
       />

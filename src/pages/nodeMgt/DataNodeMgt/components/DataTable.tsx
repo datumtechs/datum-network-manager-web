@@ -245,7 +245,7 @@ const DataTable: FC<any> = (props: any) => {
         dataSource={tableData}
         columns={columns}
         rowKey={_ => _.nodeId}
-        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+        pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
       />
       {/* <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}> */}
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

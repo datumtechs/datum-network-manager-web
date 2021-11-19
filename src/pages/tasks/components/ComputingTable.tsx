@@ -80,6 +80,7 @@ const ComputingTable: FC<any> = (props: any) => {
         pagination={{
           defaultCurrent: 1,
           defaultPageSize: 10,
+          showSizeChanger: false,
           onChange: onPageChange,
         }}
       />

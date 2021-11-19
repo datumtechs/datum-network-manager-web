@@ -294,6 +294,7 @@ const MyDataTable: FC<any> = (props: any) => {
           defaultCurrent: 1,
           current: curPage,
           defaultPageSize: 10,
+          showSizeChanger: false,
           total: totalNum,
           onChange: OnPageChange,
         }}

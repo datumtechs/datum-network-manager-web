@@ -140,7 +140,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
         dataSource={tableData}
         rowKey={re => `${re.identityId}_${re.id}`}
         columns={columns}
-        pagination={{ defaultCurrent: 1, total, onChange: onPageChange }}
+        pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
       />
     </div>
   )

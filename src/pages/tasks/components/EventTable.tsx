@@ -69,7 +69,7 @@ const EventTable: FC<any> = (props: any) => {
         columns={columns}
         rowKey={_ => _?.id}
         bordered
-        pagination={{ defaultCurrent: 1, defaultPageSize: 10, onChange: onPageChange }}
+        pagination={{ defaultCurrent: 1, defaultPageSize: 10, showSizeChanger: false, onChange: onPageChange }}
       />
     </div>
   )
