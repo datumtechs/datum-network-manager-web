@@ -1,4 +1,4 @@
-.main-container {
+ .main-container {
   display: flex;
   width: 100%;
   height: 100vh;
@@ -271,4 +271,47 @@
       align-items: center;
     }
   }
+}
+.personal-box{
+  width: 157px;
+  right: -25px;
+  .ant-dropdown-menu-item{
+    height: 32px;
+    &:hover{
+      background-color: #f1eeff;
+    }
+  }
+  .personal-info-name{
+      height: 57px;
+      border-bottom: 1px solid #e5dddd;
+      margin-bottom: 5px;
+       &:hover{
+      background-color: #fff;
+    }
+    .personal-info-head-portrait{
+      border-radius: 50%;
+      overflow: hidden;
+      flex:0 0 34px;
+      margin-right: 10px;
+    }
+    .ant-dropdown-menu-title-content{
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+  .personal-logout{
+    border-top: 1px solid #e5dddd;
+    height: 37px;
+    text-align: center;
+    margin-top: 5px;
+    color: red !important;
+     &:hover{
+      background-color: #fff;
+    }
+  }
+  
 }

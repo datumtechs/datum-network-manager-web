@@ -38,9 +38,9 @@ const RecordCard: FC<any> = (props: any) => {
     <div className="overview-authorization item">
       <div className="data-name">{t('overview.dataAuthorizationApplication')}</div>
       <div className="auth-list">
-        {dataList.map(item => {
+        {dataList.map((item, index) => {
           return (
-            <div className="auth-list-box" key={item.applyTime}>
+            <div className="auth-list-box" key={index}>
               <div className="auth-list-name">
                 <img src={emphasizeSvg} alt="" />
                 <div className="auth-list-date">{dayjs(item.applyTime).format('YYYY-MM-DD HH:mm:ss')}</div>

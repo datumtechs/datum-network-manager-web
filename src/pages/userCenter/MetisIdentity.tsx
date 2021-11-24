@@ -119,7 +119,7 @@ const MetisIdentity: FC<any> = (props: any) => {
               </>
             ) : (
               <>
-                <Form.Item className="form-item">
+                <Form.Item colon={false} className="form-item" label={" "}>
                   <MyTag margin content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
                 </Form.Item>
                 <Form.Item className="form-item">

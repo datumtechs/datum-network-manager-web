@@ -28,7 +28,32 @@
     "ProfileNamePlaceholder": "Please enter the organization name",
     "ProfileIntroductionPlaceholder": "Please enter organization description",
     "ProfileHeadPlaceholder": "Please enter the organization avatar address",
-    "OrganizationApplicationSucceeded": "Identifier application succeeded！"
+    "OrganizationApplicationSucceeded": "Identifier application succeeded！",
+    "ProcessStepOne": "Step One",
+    "ProcessStepTwo": "Step Two",
+    "ProcessStepThree": "Step Three"
+  },
+  "DidApplication": {
+    "SetYourOrgName": "Set your organization name",
+    "SetYourOrgNamePlaceholder": "For representing particpants in the Metis",
+    "SetYourOrgNameRules": "Naming rules：",
+    "SetYourOrgNameRulesItem1": "1. modifiable after setting;",
+    "SetYourOrgNameRulesItem2": "2. no limit to character type;",
+    "SetYourOrgNameRulesItem3": "3. 4 characters at least;",
+    "SetYourOrgNameRulesItem4": "4. 20 characters at most;",
+    "SetYourOrgNameButton": "Apply an identifier",
+    "SetYourHead": "Set your head",
+    "SetYourHeadIips": "Drag and drop the file here or upload",
+    "SetYourIntroduction": "Set your introduction",
+    "SetLater": "Set Later",
+    "SetYourStepThreeTitle": "Register your Metis Identity",
+    "MetisInternerStatu": "Metis status",
+    "MetisInternerStatuSuccess": "Connection succeeded",
+    "MetisInternerStatuError": "Connection failed",
+    "MetisInternerOperation": "After this initial setup，you can apply for registering or cancelling the Metis Identity from    the User Center",
+    "MetisInternerOperationError": "Please check your system configuration",
+    "MetisInternerOperationSubmit": "Register now",
+    "MetisInternerOperationLater": "Register later"
   },
   "overview": {
     "seedNode": "Boot node",

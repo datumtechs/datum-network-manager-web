@@ -46,7 +46,7 @@ const Layout = (props: any) => {
 
   const fetchData = async (type?: boolean) => {
     const result = await loginApi.queryBaseInfo()
-    console.log(result);
+    // console.log(result);
     if (type) {
       if (result.status === 1001) {
         props.setIsReg(false)

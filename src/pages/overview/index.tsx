@@ -42,7 +42,7 @@ export const Overview: FC<any> = () => {
         item.usedCore_rate = ((item.usedCore / item.totalCore) * 100).toFixed(2)
         item.usedMemory_rate = ((item.usedMemory / item.totalMemory) * 100).toFixed(2)
         item.usedBandwidth_rate = ((item.usedBandwidth / item.totalBandwidth) * 100).toFixed(2)
-        console.log(item);
+        // console.log(item);
         totalResourceSet(item)
       }
     })
