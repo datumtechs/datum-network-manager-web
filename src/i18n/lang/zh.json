@@ -162,6 +162,8 @@
     "initialNode": "初始节点",
     "internalNetworkAddress": "内部网络地址",
     "noRepeatSeedName": "种子节点名称不可重复, 且本次设置之后无法修改；其他配置提交后可以在种子节点管理页面更改。",
+    "nodeConfigurationTips": "输入IP与端口后，需要“成功连接调度服务”才可以申请网络准入；配置提交后可以在调度服务管理页面更改。",
+    "nodeConfigurationStatusTips": "您有正在进行中的任务，目前无法配置调度服务或退出网络。",
     "nodeSeedNodeId": "种子节点ID",
     "NodePublicKey": "节点公钥",
     "forSelfidentity": "用于自己识别",

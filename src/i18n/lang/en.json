@@ -161,6 +161,8 @@
     "initialNode": "Initial Node",
     "internalNetworkAddress": "Internal network address",
     "noRepeatSeedName": "Seed node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
+    "nodeConfigurationTips": "After filling the IP and port, the connection to the scheduling service must be succeed before applying for network access. The configurations can be altered after submitting.",
+    "nodeConfigurationStatusTips": "CANNOT configure the scheduling service or exit the network now, because there are tasks in progress.",
     "nodeSeedNodeId": "Seed node ID",
     "NodePublicKey": "Node public key",
     "forSelfidentity": "For self-identification",

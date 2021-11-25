@@ -92,6 +92,10 @@ const DispatchConfig: FC<any> = (props: any) => {
 
   const missNetwork = () => {
     // const { ip, port } = form.getFieldsValue()
+    if (baseInfo?.dynamicFields?.runningTask) {
+      message.error(`${t('node.nodeConfigurationStatusTips')}`)
+      return
+    }
     nodeApi.withDrawNetwork().then(res => {
       if (res.status === 0) {
         message.success(`${t('node.logoutSuccess')}`)
@@ -102,6 +106,10 @@ const DispatchConfig: FC<any> = (props: any) => {
   }
 
   const switchEditStatus = (boolean: boolean) => {
+    if (baseInfo?.dynamicFields?.runningTask) {
+      message.error(`${t('node.nodeConfigurationStatusTips')}`)
+      return
+    }
     editStatusSet(boolean)
     if (boolean === false) showTestConnectSet(false)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -110,7 +118,11 @@ const DispatchConfig: FC<any> = (props: any) => {
   return (
     <>
       <div className="layout-box">
-        <div className="tip-box">{t('node.noRepeatSeedName')}</div>
+        {/* TODO 判断缺失暂时使用 */}
+        {!baseInfo?.status ?
+          <div className="tip-box">{t('node.nodeConfigurationTips')}</div> : baseInfo?.dynamicFields?.runningTask ?
+            <div className="tip-box" style={{ height: 'auto' }}>{t('node.nodeConfigurationStatusTips')}</div> : ''
+        }
         <div className="form-box">
           <Form
             size="large"
