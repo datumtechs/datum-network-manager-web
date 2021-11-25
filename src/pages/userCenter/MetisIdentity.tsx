@@ -57,6 +57,10 @@ const MetisIdentity: FC<any> = (props: any) => {
   }
 
   const missNetwork = () => {
+    if (baseInfo?.dynamicFields?.runningTask) {
+      message.error(`${t('node.nodeConfigurationStatusTips')}`)
+      return
+    }
     setLoading(true)
     nodeApi.withDrawNetwork().then(res => {
       if (res.status === 0) {
@@ -73,7 +77,9 @@ const MetisIdentity: FC<any> = (props: any) => {
   return (
     <>
       <div className="layout-box">
-        <div className="tip-box">{t('node.noRepeatSeedName')}</div>
+        {baseInfo?.dynamicFields?.runningTask ?
+          <div className="tip-box" style={{ height: 'auto' }}>{t('node.nodeConfigurationStatusTips')}</div> : ''
+        }
         <div className="form-box">
           <Form
             size="large"
