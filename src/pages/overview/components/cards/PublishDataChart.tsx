@@ -30,20 +30,28 @@ const PublishDataChart: FC<any> = (props: any) => {
   const switchData = type => curSwitchSet(type)
 
   const option = {
-    grid: { left: 30, top: 10, right: 30, bottom: 20 },
+    grid: { left: 20, top: 20, right: 10, bottom: 20 },
     tooltip: {
       trigger: 'item',
     },
-    // legend: {
-    //   data: [t(`overview.cpu`), t(`overview.memory`), t(`overview.bandwidth`)]
-    // },
+    legend: {
+      left: '5%',
+      itemGap: 10,
+      icon: 'circle',
+      itemWidth: 8,
+      data: [t(`overview.cpu`), t(`overview.memory`), t(`overview.bandwidth`)],
+      textStyle: {
+        fontSize: 12,
+        lineHeight: 24,
+      }
+    },
     color: [bgColor.cpu, bgColor.memory, bgColor.bandwidth],
     xAxis: {
       type: 'category',
       data: getMonthsByNumber(12),
     },
     yAxis: {
-      show: false
+      show: true
     },
     series: [
       {
@@ -51,7 +59,8 @@ const PublishDataChart: FC<any> = (props: any) => {
         type: 'bar',
         barGap: 0,
         itemStyle: {
-          borderRadius: [5, 5, 0, 0]
+          borderRadius: [4, 4, 0, 0],
+          width: '8px'
         },
         label: {
           show: true,
@@ -69,7 +78,8 @@ const PublishDataChart: FC<any> = (props: any) => {
         name: t(`overview.memory`),
         type: 'bar',
         itemStyle: {
-          borderRadius: [5, 5, 0, 0]
+          borderRadius: [4, 4, 0, 0],
+          width: '8px'
         },
         label: {
           show: true,
@@ -87,7 +97,8 @@ const PublishDataChart: FC<any> = (props: any) => {
         name: t(`overview.bandwidth`),
         type: 'bar',
         itemStyle: {
-          borderRadius: [5, 5, 0, 0]
+          borderRadius: [4, 4, 0, 0],
+          width: '8px'
         },
         label: {
           show: true,

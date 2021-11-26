@@ -116,7 +116,7 @@ const MetisIdentity: FC<any> = (props: any) => {
                   <Button
                     type="primary"
                     style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
-                    icon={<LoadingOutlined />} loading={loading}
+                    loading={loading}
                     onClick={() => setModal2Visible(true)}
                   >
                     {t('node.writeOffNetwork')}
@@ -131,7 +131,7 @@ const MetisIdentity: FC<any> = (props: any) => {
                 <Form.Item className="form-item">
                   <Button
                     type="primary"
-                    icon={<LoadingOutlined />} loading={loading}
+                    loading={loading}
                     style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
                     onClick={joinNetwork}
                   >

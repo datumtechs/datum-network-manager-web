@@ -25,9 +25,9 @@ export const Overview: FC<any> = () => {
     usedBandwidth_rate: 0
   })
   const bgColor = {
-    cpu: '#657ACD',
-    memory: '#4F9CFF',
-    bandwidth: '#FF7688'
+    cpu: '#62A4E4',
+    memory: '#FF8080',
+    bandwidth: '#FFA958'
   }
   const queryTotalResourced = (): void => {
     overviewApi.queryUsedTotalResource().then(res => {
