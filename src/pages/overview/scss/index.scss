@@ -90,12 +90,12 @@ $pending: #657acd;
       height: 40%;
       margin-bottom: 2.7vh;
       .publish-data-box {
-        padding: 1.8vh 1.5vw;
+        padding: 14px 20px;
         .publish-data-title {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 1.2vh;
+          margin-bottom: 2px;
         }
         #publishData {
           height: 28vh;
@@ -351,5 +351,40 @@ $pending: #657acd;
       background-color: #fff;
       color: #3c3588;
     }
+  }
+}
+.public-chart-tip-icon{
+  display: inline-block;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #FFFFFF;
+}
+.public-chart-tip-wrap{
+  // width: 100px;
+  padding: 3px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: AlibabaPuHuiTi-Medium;
+  font-size: 12px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  font-weight: 500;
+  p{
+    margin: 0 10px 0 0;
+  }
+  position: relative;
+  &::after{
+    position: absolute;
+    content: ' ';
+    display: inline-block;
+    border-width: 4px;
+    bottom: -6px;
+    right: calc(50% - 2px);
+    border: solid #3C3588;
+    border-right-color:transparent;
+    border-left-color:transparent;
+    border-bottom-color:transparent;
   }
 }

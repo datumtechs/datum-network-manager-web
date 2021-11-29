@@ -15,8 +15,9 @@ import { changeSizeObj } from '@utils/utils'
 const TrendChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
-  const [curSwitch, curSwitchSet] = useState('data')
-  const [MaxTotal, setMaxTotal] = useState(0)
+  const [curSwitch, curSwitchSet] = useState('data'),
+    { bgColor } = props,
+    [maxTotal, setMaxTotal] = useState(0)
 
   const getMonthsByNumber = (month: number) => {
     const newDays: string[] = []
@@ -30,93 +31,144 @@ const TrendChart: FC<any> = (props: any) => {
     curSwitchSet(type)
     props.setDataSwitch(type)
   }
-  const option = {
-    grid: { left: 70, top: 30, right: 10, bottom: 20 },
-    tooltip: {
-      trigger: 'item',
+
+  const seriesCom = [
+    {
+      name: t(`overview.cpu`),
+      type: 'line',
+      symbolSize: 7,
+      smooth: true,
+      data: [],
     },
+    {
+      name: t(`overview.memory`),
+      type: 'line',
+      symbolSize: 7,
+      smooth: true,
+      data: [],
+    },
+    {
+      name: t(`overview.bandwidth`),
+      type: 'line',
+      symbolSize: 7,
+      smooth: true,
+      data: [],
+    },
+  ]
+
+
+
+  const option: any = {
+    grid: {
+      left: 0,
+      top: 40,
+      right: 0,
+      bottom: 20,
+    },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#3C3588',
+      padding: 0,
+      axisPointer: {
+        type: 'line',
+        label: {
+          formatter(params) {
+            return ' '
+          },
+
+        }
+      },
+      position: function () {
+        const params: any = Array.from(arguments) || {}
+        const obj = { top: 10 };
+        const num = params[0][0] - params[4]['contentSize'][0] / 2
+        obj['left'] = num < params[4]['contentSize'][0] / 2 ? 10 : num;
+        return obj;
+      },
+      formatter(params) {
+        if (!params.length) return '';
+        let dom = ''
+        params.forEach(v => {
+          if (+v?.value) {
+            dom += `<p><span class="public-chart-tip-icon" style="background:${v?.color};margin-right:5px"></span>
+            ${changeSizeObj(v?.value).size}${v?.value ? changeSizeObj(+v?.value).unit : ''}</p>`
+          }
+        })
+        if (!dom.length) dom = params[0].name
+        return `<div class="public-chart-tip-wrap">${dom}</div>`
+      }
+    },
+    legend: {
+      left: 0,
+      top: 0,
+      itemGap: 10,
+      icon: 'circle',
+      itemWidth: 8,
+      data: curSwitch === 'data' ? [t(`overview.cpu`)] : [t(`overview.cpu`), t(`overview.memory`), t(`overview.bandwidth`)],
+      textStyle: {
+        fontSize: 12
+      }
+    },
+    color: curSwitch === 'data' ? [bgColor.cpu] : [...Object.values(bgColor)],
     xAxis: {
       type: 'category',
       data: getMonthsByNumber(12),
     },
-    yAxis: [
-      {
-        name: (curSwitch === 'data' ? t('overview.totalData') : t('overview.totalMemory')) + (`(${changeSizeObj(MaxTotal).unit || 'B'})` || ""),
-        nameTextStyle: { align: 'center' },
-        axisLabel: {
-          fontSize: 12,
-          color: '#8E9EB9',
-          formatter: params => params,
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#F0F3F6',
-            width: 1,
-          },
-        },
-        type: 'value',
-        scale: true,
-      },
-    ],
-    series: [
-      {
-        name: t('overview.totalData'),
-        type: 'line',
-        symbolSize: 7,
-        itemStyle: {
-          color: '#FFA505',
-        },
+    yAxis: {
+      show: true,
+      splitLine: {
         lineStyle: {
-          width: 3,
-          color: '#FFA505',
-        },
-        smooth: true,
-        data: [],
-        label: {
-          formatter: params => {
-            console.log(params)
-            return t(params.name)
-          },
-        },
-      },
-    ],
+          type: 'dashed'
+        }
+      }
+    },
+    series: [],
   }
   useEffect(() => {
     const chart = echarts.init(document.getElementById('totalData'))
-    const dataList: any[] = []
+    const newOption = { ...option }
+    newOption.series = []
     if (curSwitch === 'data') {
       overviewApi.globalDataFileStatsTrendMonthly().then((res) => {
-        option.series[0].data = res.data.map(data => {
-          dataList.push(data.totalValue)
-          return changeSizeObj(data.totalValue).size
-        })
-        // const maxdata = Math.max(...dataList)
-        option.yAxis[0].name = `${t('overview.totalData')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
-        chart.setOption(option)
-        chart.resize()
+        if (res.status === 0 && res.data) {
+          newOption.series[0] = { ...seriesCom[0] }
+          newOption.series[0].data = res.data.map(_ => _.totalValue)
+          if (curSwitch !== 'data') {
+            newOption.series[1] = { ...seriesCom[1] }
+            newOption.series[1].data = res.data.map(_ => _.totalValue)
+            newOption.series[2] = { ...seriesCom[2] }
+            newOption.series[2].data = res.data.map(_ => _.totalValue)
+          }
+          console.log(newOption);
+
+          chart.setOption(newOption, {
+            replaceMerge: ['series']
+          })
+          chart.resize()
+        }
       })
     } else {
       overviewApi.globalPowerStatsTrendMonthly().then((res) => {
-        option.series[0].data = res.data.map(data => {
-          dataList.push(data.totalValue)
-          return changeSizeObj(data.totalValue).size
-        })
-        // const maxdata = Math.max(...option.series[0].data)
-        option.yAxis[0].name = `${t('overview.totalMemory')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
-        chart.setOption(option)
-        chart.resize()
+        if (res.status === 0 && res.data) {
+          newOption.series[0] = { ...seriesCom[0] }
+          newOption.series[0].data = res.data.map(_ => _.totalValue)
+          if (curSwitch !== 'data') {
+            newOption.series[1] = { ...seriesCom[1] }
+            newOption.series[1].data = res.data.map(_ => _.totalValue)
+            newOption.series[2] = { ...seriesCom[2] }
+            newOption.series[2].data = res.data.map(_ => _.totalValue)
+          }
+          chart.setOption(newOption, {
+            replaceMerge: ['series']
+          })
+          chart.resize()
+        }
       })
     }
-    // overviewApi.globalPowerStatsTrendMonthly(
-    // ).then(res => {
-    //   if (res.status === 0) {
-    //     option.series[0].data = res.data
-    //     chart.setOption(option)
-    //     chart.resize()
-    //   }
-    // })
 
   }, [width, i18n.language, curSwitch])
+
+
   return (
     <div className="overview-data-amount1 item">
       <div className="overview-data-title">

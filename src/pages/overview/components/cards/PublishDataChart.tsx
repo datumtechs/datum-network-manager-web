@@ -13,6 +13,7 @@ import { overviewApi } from '@api'
 import { changeSizeObj } from '@utils/utils'
 
 
+
 const PublishDataChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
@@ -29,104 +30,129 @@ const PublishDataChart: FC<any> = (props: any) => {
 
   const switchData = type => curSwitchSet(type)
 
-  const option = {
-    grid: { left: 20, top: 20, right: 10, bottom: 20 },
+  const seriesCom = [
+    {
+      name: t(`overview.cpu`),
+      type: 'bar',
+      legendHoverLink: true,
+      itemStyle: {
+        borderRadius: [4, 4, 0, 0],
+        width: curSwitch === 'data' ? '' : 8
+      },
+      data: []
+    },
+    {
+      name: t(`overview.memory`),
+      type: 'bar',
+      legendHoverLink: true,
+      itemStyle: {
+        borderRadius: [4, 4, 0, 0],
+        width: '8px'
+      },
+      data: []
+    },
+    {
+      name: t(`overview.bandwidth`),
+      type: 'bar',
+      legendHoverLink: true,
+      itemStyle: {
+        borderRadius: [4, 4, 0, 0],
+        width: '8px'
+      },
+      data: []
+    },
+  ]
+
+
+
+  const option: any = {
+    grid: {
+      left: 0,
+      top: 40,
+      right: 0,
+      bottom: 20,
+    },
     tooltip: {
-      trigger: 'item',
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+        label: {
+          formatter(params) {
+            return ' '
+          },
+
+        }
+      },
+      position: function () {
+        const params: any = Array.from(arguments) || {}
+        const obj = { top: 10 };
+        const num = params[0][0] - params[4]['contentSize'][0] / 2
+        obj['left'] = num < params[4]['contentSize'][0] / 2 ? 10 : num;
+        return obj;
+      },
+      backgroundColor: '#3C3588',
+      padding: 0,
+      formatter(params) {
+        if (!params.length) return '';
+        let dom = ''
+        params.forEach(v => {
+          if (+v?.value) {
+            dom += `<p><span class="public-chart-tip-icon" style="background:${v?.color};margin-right:5px"></span>
+            ${changeSizeObj(v?.value).size}${v?.value ? changeSizeObj(+v?.value).unit : ''}</p>`
+          }
+        })
+        if (!dom.length) dom = params[0].name
+        return `<div class="public-chart-tip-wrap">${dom}</div>`
+      },
     },
     legend: {
-      left: '5%',
+      left: 0,
+      top: 0,
       itemGap: 10,
       icon: 'circle',
       itemWidth: 8,
-      data: [t(`overview.cpu`), t(`overview.memory`), t(`overview.bandwidth`)],
+      data: curSwitch === 'data' ? [t(`overview.cpu`)] : [t(`overview.cpu`), t(`overview.memory`), t(`overview.bandwidth`)],
       textStyle: {
-        fontSize: 12,
-        lineHeight: 24,
+        fontSize: 12
       }
     },
-    color: [bgColor.cpu, bgColor.memory, bgColor.bandwidth],
+    color: curSwitch === 'data' ? [bgColor.cpu] : [...Object.values(bgColor)],
     xAxis: {
       type: 'category',
       data: getMonthsByNumber(12),
     },
     yAxis: {
-      show: true
+      show: true,
+      splitLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
     },
-    series: [
-      {
-        name: t(`overview.cpu`),
-        type: 'bar',
-        barGap: 0,
-        itemStyle: {
-          borderRadius: [4, 4, 0, 0],
-          width: '8px'
-        },
-        label: {
-          show: true,
-          fontSize: 12,
-          position: 'top',
-          offset: [0, -10],
-          formatter: (params) => {
-            if (!params.value) return ''
-            return `${params.value}${t('overview.core')}`
-          },
-        },
-        data: [320, 332, 301, 334, 390]
-      },
-      {
-        name: t(`overview.memory`),
-        type: 'bar',
-        itemStyle: {
-          borderRadius: [4, 4, 0, 0],
-          width: '8px'
-        },
-        label: {
-          show: true,
-          fontSize: 12,
-          position: 'top',
-          offset: [0, -10],
-          formatter: (params) => {
-            if (!params.value) return ''
-            return `${params.value}${changeSizeObj(params.value).unit}`
-          },
-        },
-        data: [220, 182, 191, 234, 290]
-      },
-      {
-        name: t(`overview.bandwidth`),
-        type: 'bar',
-        itemStyle: {
-          borderRadius: [4, 4, 0, 0],
-          width: '8px'
-        },
-        label: {
-          show: true,
-          fontSize: 11,
-          position: 'top',
-          offset: [0, -10],
-          formatter: (params) => {
-            if (!params.value) return ''
-            return `${params.value}${changeSizeObj(params.value).unit}`
-          },
-        },
-        data: [150, 232, 201, 154, 190]
-      },
-    ],
+    series: [],
   }
 
   useEffect(() => {
     const chart = echarts.init(document.getElementById('publishData'))
-    const dataList: any[] = []
     overviewApi.localPowerStatsTrendMonthly().then((res) => {
+      const newOption = { ...option }
+      newOption.series = []
       if (res.status === 0 && res.data) {
-        option.series[0].data = res.data.map(data => changeSizeObj(data.incrementValue).size)
-        chart.setOption(option)
+        newOption.series[0] = { ...seriesCom[0] }
+        newOption.series[0].data = res.data.map(_ => _.incrementValue)
+        if (curSwitch !== 'data') {
+          newOption.series[1] = { ...seriesCom[1] }
+          newOption.series[1].data = res.data.map(_ => _.incrementValue)
+          newOption.series[2] = { ...seriesCom[2] }
+          newOption.series[2].data = res.data.map(_ => _.incrementValue)
+        }
+
+        chart.setOption(newOption, {
+          replaceMerge: ['series']
+        })
         chart.resize()
       }
     })
-    // }
-
   }, [width, i18n.language, curSwitch])
 
 

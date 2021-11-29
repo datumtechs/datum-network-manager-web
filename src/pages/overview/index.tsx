@@ -78,7 +78,7 @@ export const Overview: FC<any> = () => {
             <PublishDataChart bgColor={bgColor} />
           </div>
           <div className="overview-data-box">
-            <DataTrendChart />
+            <DataTrendChart bgColor={bgColor} />
             {/* <DataAmountCard /> */}
           </div>
         </div>
