@@ -206,6 +206,7 @@
     "initialNode": "初始节点",
     "internalNetworkAddress": "内部网络地址",
     "noRepeatSeedName": "引导节点名称不可重复, 且本次设置之后无法修改；其他配置提交后可以在引导节点管理页面更改。",
+    "nodeConfigurationStatusTips": "正在参与计算任务，目前无法注销身份。",
     "nodeSeedNodeId": "引导节点ID",
     "NodePublicKey": "节点公钥",
     "forSelfidentity": "用于自己识别",

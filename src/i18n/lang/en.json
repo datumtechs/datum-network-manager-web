@@ -205,6 +205,7 @@
     "initialNode": "Initial Node",
     "internalNetworkAddress": "Internal network address",
     "noRepeatSeedName": "Boot node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
+    "nodeConfigurationStatusTips": "Cannot exit the Metis now because there are tasks in progress.",
     "nodeSeedNodeId": "Boot node ID",
     "NodePublicKey": "Node public key",
     "forSelfidentity": "For self-identification",
