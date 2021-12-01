@@ -185,40 +185,40 @@ const DataTable: FC<any> = (props: any) => {
         )
       },
     },
-    // {
-    //   title: t('common.actions'),
-    //   width: 150,
-    //   dataIndex: 'actions',
-    //   render: (text: any, record: any, index: any) => {
-    //     return (
-    //       <>
-    //         {record.isEdit ? (
-    //           <Space size={10} className="operation-box">
-    //             <span className="main_color pointer btn" onClick={() => saveFn(record, index)}>
-    //               {t('common.save')}
-    //             </span>
-    //             {/* <span className="main_color pointer btn" onClick={() => setEditStatus(record, false, index)}>
-    //               {t('common.cancel')}
-    //             </span> */}
-    //           </Space>
-    //         ) : (''
-    //           // <Space size={10} className="operation-box">
-    //           //   <span className="pointer main_color btn" onClick={() => setEditStatus(record, true, index)}>
-    //           //     {t('common.edit')}
-    //           //   </span>
-    //           //   {record.connStatus === 0 ? (
-    //           //     <span className="pointer main_color btn" onClick={() => deleteFn(record)}>
-    //           //       {t('common.delete')}
-    //           //     </span>
-    //           //   ) : (
-    //           //     ''
-    //           //   )}
-    //           // </Space>
-    //         )}
-    //       </>
-    //     )
-    //   },
-    // },
+    {
+      title: t('common.actions'),
+      width: 150,
+      dataIndex: 'actions',
+      render: (text: any, record: any, index: any) => {
+        return (
+          <>
+            {record.isEdit ? (
+              <Space size={10} className="operation-box">
+                <span className="main_color pointer btn" onClick={() => saveFn(record, index)}>
+                  {t('common.save')}
+                </span>
+                <span className="main_color pointer btn" onClick={() => setEditStatus(record, false, index)}>
+                  {t('common.cancel')}
+                </span>
+              </Space>
+            ) : (
+              <Space size={10} className="operation-box">
+                <span className="pointer main_color btn" onClick={() => setEditStatus(record, true, index)}>
+                  {t('common.edit')}
+                </span>
+                {record.connStatus === 0 ? (
+                  <span className="pointer main_color btn" onClick={() => deleteFn(record)}>
+                    {t('common.delete')}
+                  </span>
+                ) : (
+                  ''
+                )}
+              </Space>
+            )}
+          </>
+        )
+      },
+    },
   ]
   const handleOk = () => {
     dataNodeApi.deleteDatanode({ nodeId: curId }).then(res => {
