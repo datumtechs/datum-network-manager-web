@@ -149,7 +149,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                 >
                   <Input disabled={hasService && !editStatus} className="form-box-input" />
                 </Form.Item>
-                {hasService ? (
+                {/* {hasService ? (
                   editStatus ? (
                     <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(false)}>
                       {t('common.cancel')}
@@ -161,7 +161,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                   )
                 ) : (
                   ''
-                )}
+                )} */}
               </div>
             </Form.Item>
             <Form.Item colon label={t('common.internalPort')} name="carrierPort" className="form-item">
@@ -172,7 +172,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                 >
                   <Input disabled={hasService && !editStatus} className="form-box-input" />
                 </Form.Item>
-                {hasService ? (
+                {/* {hasService ? (
                   editStatus ? (
                     <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(false)}>
                       {t('common.cancel')}
@@ -184,7 +184,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                   )
                 ) : (
                   ''
-                )}
+                )} */}
               </div>
             </Form.Item>
 
@@ -231,7 +231,7 @@ const DispatchConfig: FC<any> = (props: any) => {
                 <Form.Item colon label={t('overview.nodeAddress')} className="form-item">
                   {editStatus ? <span className="title">N/A</span> : <span className="address-info">{baseInfo?.localMultiAddr}</span>}
                 </Form.Item>
-                <Form.Item className="form-item">
+                {/* <Form.Item className="form-item">
                   <Button
                     type="primary"
                     style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
@@ -239,21 +239,21 @@ const DispatchConfig: FC<any> = (props: any) => {
                   >
                     {t('node.writeOffNetwork')}
                   </Button>
-                </Form.Item>
+                </Form.Item> */}
               </>
             ) : (
               <>
                 <Form.Item className="form-item">
                   <div className="form-group">
-                    <Button
+                    {/* <Button
                       loading={showTestLoading}
                       style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
                       onClick={testServiceFn}
                     >
                       {t('node.connectService')}
-                    </Button>
+                    </Button> */}
 
-                    {showTestConnect ? (
+                    {/* {showTestConnect ? (
                       isConnect ? (
                         <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
                       ) : (
@@ -261,11 +261,11 @@ const DispatchConfig: FC<any> = (props: any) => {
                       )
                     ) : (
                       <MyTag content={`${t('node.unconnected')}`} bgColor="#C9C9C9" color="#FFFFFF" border="#999999" />
-                    )}
+                    )} */}
                   </div>
                 </Form.Item>
                 <Form.Item className="form-item">
-                  {showJoinLoading ? (
+                  {/* {showJoinLoading ? (
                     <Button
                       loading
                       disabled={!isConnect}
@@ -274,16 +274,16 @@ const DispatchConfig: FC<any> = (props: any) => {
                     >
                       {t('overview.inProgress')}
                     </Button>
-                  ) : (
-                    <Button
-                      type="primary"
-                      disabled={!isConnect}
-                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
-                      onClick={joinNetwork}
-                    >
-                      {t('overview.submit')}
-                    </Button>
-                  )}
+                  ) : ( */}
+                  {/* <Button
+                    type="primary"
+                    disabled={!isConnect}
+                    style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                    onClick={joinNetwork}
+                  >
+                    {t('overview.submit')}
+                  </Button> */}
+                  {/* )} */}
                 </Form.Item>
               </>
             )}

@@ -74,26 +74,26 @@ const SeedNodeTable: FC<any> = (props: any) => {
         )
       },
     },
-    {
-      title: t('common.actions'),
-      dataIndex: 'action',
-      width: 120,
-      render: (text, record, index) => {
-        return (
-          <>
-            <Space size={10} className="operation-box">
-              {record.initFlag ?
-                <span className="span-view">{t('common.delete')}</span>
-                :
-                <span className="pointer btn" onClick={() => deleteFn(record)}>
-                  {t('common.delete')}
-                </span>
-              }
-            </Space>
-          </>
-        )
-      },
-    },
+    // {
+    //   title: t('common.actions'),
+    //   dataIndex: 'action',
+    //   width: 120,
+    //   render: (text, record, index) => {
+    //     return (
+    //       <>
+    //         <Space size={10} className="operation-box">
+    //           {record.initFlag ?
+    //             <span className="span-view">{t('common.delete')}</span>
+    //             :
+    //             <span className="pointer btn" onClick={() => deleteFn(record)}>
+    //               {t('common.delete')}
+    //             </span>
+    //           }
+    //         </Space>
+    //       </>
+    //     )
+    //   },
+    // },
   ]
 
   // methods
