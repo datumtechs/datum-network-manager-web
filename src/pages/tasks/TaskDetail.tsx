@@ -177,7 +177,7 @@ export const TaskDetail: FC<any> = (props: any) => {
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 14 }}>
             <Form.Item label={t('task.myCapacity')}>
-              {role(baseInfo?.owner?.dynamicFields || {})}
+              {role(baseInfo?.dynamicFields || {})}
             </Form.Item>
           </Form>
         </div>
