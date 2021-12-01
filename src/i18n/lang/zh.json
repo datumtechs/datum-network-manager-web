@@ -266,7 +266,7 @@
       "timeSpent": "用时"
     },
     "tasks": "总任务数",
-    "startTimeAndTaskSpent": "起时间与任务用时",
+    "startTimeAndTaskSpent": "发起时间与任务用时",
     "initialAccount": "任务发起的账户",
     "algoNameAndId": "算法名称与ID",
     "dataNameAndId": "数据名称与元数据ID"
