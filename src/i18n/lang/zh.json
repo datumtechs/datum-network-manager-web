@@ -383,6 +383,7 @@
     "authType": "授权方式",
     "authValue": "授权值",
     "authStartTime": "授权发起时间",
+    "applicationTime": "授权结果与时间",
     "authorized": "已授权",
     "unauthorized": "未授权",
     "period": "时间",

@@ -6,6 +6,7 @@ import MyModal from '@com/MyModal'
 import failedSvg from '@assets/images/11.icon1.svg'
 import successSvg from '@assets/images/9.icon1.svg'
 import { nodeApi } from '@api/index'
+import { buttonDisabled } from '@/utils/utils'
 
 const SeedNodeTable: FC<any> = (props: any) => {
   // attribute
@@ -95,6 +96,10 @@ const SeedNodeTable: FC<any> = (props: any) => {
       },
     },
   ]
+
+  if (buttonDisabled()) {//
+    columns.pop()
+  }
 
   // methods
   const onPageChange = () => { }

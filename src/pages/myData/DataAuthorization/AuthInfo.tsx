@@ -149,10 +149,13 @@ export const AuthInfo: FC<any> = (props: any) => {
                 {isAuthed ?
                   <Form.Item label={t('myData.authResultAndTime')}>
                     <div className="datail-box-content">
-                      <Space size={10} style={{ display: 'inline-block' }}>
-                        <MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" />
+                      {authInfo.status ? <Space size={10} style={{ display: 'inline-block' }}>
+                        {authInfo.status === 1 ?
+                          < MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" /> :
+                          < MyTag content={t('common.declined')} bgColor="#f5222d" color="#f5222d" border="#f5222d" />
+                        }
                         <div>{dayjs(authInfo.authAt).format('YYYY-MM-DD HH:mm:ss')}</div>
-                      </Space>
+                      </Space> : ''}
                     </div>
                   </Form.Item>
                   : ''}

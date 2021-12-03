@@ -6,6 +6,7 @@ import MyModal from '@com/MyModal'
 import { dataNodeApi } from '@api/index'
 import failedSvg from '@assets/images/11.icon1.svg'
 import successSvg from '@assets/images/9.icon1.svg'
+import { buttonDisabled } from '@/utils/utils'
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
@@ -220,6 +221,11 @@ const DataTable: FC<any> = (props: any) => {
       },
     },
   ]
+  if (buttonDisabled()) {
+    columns.pop()
+  }
+
+
   const handleOk = () => {
     dataNodeApi.deleteDatanode({ nodeId: curId }).then(res => {
       if (res.status === 0) {

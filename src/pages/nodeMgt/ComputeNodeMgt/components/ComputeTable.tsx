@@ -7,7 +7,7 @@ import { computeNodeApi } from '@api/index'
 import { BaseInfoContext } from '@/layout/index'
 import UseStatus from '@hooks/useComputeStatus'
 import { Row } from '@/entity/index'
-import { changeSizeFn } from '@utils/utils'
+import { changeSizeFn, buttonDisabled } from '@utils/utils'
 import './scss/index.scss'
 
 // import useInterval from '../../../../hooks/useInterval'
@@ -257,15 +257,23 @@ const DataTable: FC<any> = (props: any) => {
                     <span className="btn main_color pointer" onClick={() => saveFn(row, index)}>
                       {t('common.save')}
                     </span>
-                    <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
-                      {t('common.cancel')}
-                    </span>
+                    {
+                      buttonDisabled() ? '' :
+                        <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
+                          {t('common.cancel')}
+                        </span>
+                    }
+
                   </Space>
                 ) : (
                   <Space size={10}>
-                    <span className="btn pointer main_color" onClick={() => setEditStatus(row, true, index)}>
-                      {t('common.edit')}
-                    </span>
+                    {
+                      buttonDisabled() ? '' :
+                        <span className="btn pointer main_color" onClick={() => setEditStatus(row, true, index)}>
+                          {t('common.edit')}
+                        </span>
+                    }
+
                     <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
                       {t('common.delete')}
                     </span>
@@ -282,18 +290,27 @@ const DataTable: FC<any> = (props: any) => {
                     <span className="btn main_color pointer" onClick={() => saveFn(row, index)}>
                       {t('common.save')}
                     </span>
-                    <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
-                      {t('common.cancel')}
-                    </span>
+                    {
+                      buttonDisabled() ? '' :
+                        <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
+                          {t('common.cancel')}
+                        </span>
+                    }
+
                   </Space>
                 ) : (
                   <Space size={10}>
-                    <span className="btn pointer main_color" onClick={() => setEditStatus(row, true, index)}>
-                      {t('common.edit')}
-                    </span>
-                    <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
-                      {t('common.delete')}
-                    </span>
+                    {
+                      buttonDisabled() ? '' :
+                        <>
+                          <span className="btn pointer main_color" onClick={() => setEditStatus(row, true, index)}>
+                            {t('common.edit')}
+                          </span>
+                          <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
+                            {t('common.delete')}
+                          </span>
+                        </>
+                    }
                     <span className="btn pointer main_color" onClick={() => operation(row, 'view')}>
                       {t('common.view')}
                     </span>

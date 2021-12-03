@@ -95,3 +95,9 @@ export const formatDuring = time => {
   return `${_isZero(hours)}:${_isZero(minutes)}:${_isZero(seconds)}`
 }
 
+
+export const buttonDisabled = () => {
+  const hostListExtends = ['192.168.10.146', '192.168.10.147', '192.168.10.148',]
+  const hostName = location.hostname
+  return hostListExtends.includes(hostName)
+}

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
 import MyModal from '@com/MyModal'
 import { authApi } from '@api/index'
+import MyTag from '@com/MyTag'
 
 export const DataAuthorization: FC<any> = props => {
   const [curType, curTypeSet] = useState<number>(1)
@@ -60,64 +61,86 @@ export const DataAuthorization: FC<any> = props => {
 
   const handleCancel = () => isModalVisibleSet(false)
 
-  const columns = [{
-    title: t('common.Num'),
-    render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-    width: 80,
-  }, {
-    title: t('myData.dataNameAndApplicantAccount'),
-    render: (text, record, index) => {
-      return <>
-        <p>{record.resourceName}</p>
-        <p>{record.applyUser}</p>
-      </>
-    }
-  },
-  {
-    title: t('myData.authType'),
-    ellipsis: true,
-    render: (text, record, index) => {
-      return <>
-        <p>{record.authType === 1 ? t('myData.period') : ''}</p>
-        <p>{record.authType === 2 ? t('myData.count') : ''}</p>
-      </>
-    }
-  },
-  {
-    title: t('myData.authorizationID'),
-    dataIndex: 'authId',
-    ellipsis: true,
-    key: 'authId'
-  },
-  {
-    title: t('myData.authValue'),
-    render: (text, record, index) => {
-      return <>
-        {record.authType === 1 ? <> <p>{dayjs(record.authValueStartAt).format('YYYY-MM-DD HH:mm:ss')} {t('task.to')}</p><p>{dayjs(record.authValueEndAt).format('YYYY-MM-DD HH:mm:ss')}</p></> : ''}
-        {record.authType === 2 ? <span> {record.authValueAmount}&nbsp;{t('common.times')}</span> : ''}
-      </>
-    }
-  },
-  {
-    title: t('myData.authStartTime'),
-    render: (text, record, index) => {
-      return <p>{dayjs(record.createAt).format('YYYY-MM-DD HH:mm:ss')}</p>
+  const columns = () => {
+    let list = curType === 1 ? [] : [
+      {
+        title: t('myData.applicationTime'),
+        width: 120,
+        render: (text, record, index) => {
+          return <p>
+            <p>
+              {record.status === 1 ?
+                < MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" /> :
+                < MyTag content={t('common.declined')} bgColor="#f94650" color="#fff" border="#f5222d" />
+              }
+            </p>
+            {dayjs(record.createAt).format('YYYY-MM-DD HH:mm:ss')}
+          </p>
 
-    }
-  },
-  {
-    title: t('common.actions'),
-    render: (text, record, index) => {
-      return <Space className="operation-box" size={10}>
-        <span onClick={() => view(record)} className="btn pointer">{t('common.view')}</span>
-        {curType === 1 ?
-          <> <span onClick={() => agree(record)} className="btn pointer success_color">{t('common.agree')}</span>
-            <span onClick={() => decline(record)} className="btn pointer failed_color">{t('common.decline')}</span></>
-          : ''}
+        }
+      },
+    ]
+    return [{
+      title: t('common.Num'),
+      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
+      width: 80,
+    }, {
+      title: t('myData.dataNameAndApplicantAccount'),
+      render: (text, record, index) => {
+        return <>
+          <p>{record.resourceName}</p>
+          <p>{record.applyUser}</p>
+        </>
+      }
+    },
+    {
+      title: t('myData.authType'),
+      ellipsis: true,
+      render: (text, record, index) => {
+        return <>
+          <p>{record.authType === 1 ? t('myData.period') : ''}</p>
+          <p>{record.authType === 2 ? t('myData.count') : ''}</p>
+        </>
+      }
+    },
+    {
+      title: t('myData.authorizationID'),
+      dataIndex: 'authId',
+      ellipsis: true,
+      key: 'authId'
+    },
+    {
+      title: t('myData.authValue'),
+      render: (text, record, index) => {
+        return <>
+          {record.authType === 1 ? <> <p>{dayjs(record.authValueStartAt).format('YYYY-MM-DD HH:mm:ss')} {t('task.to')}</p><p>{dayjs(record.authValueEndAt).format('YYYY-MM-DD HH:mm:ss')}</p></> : ''}
+          {record.authType === 2 ? <span> {record.authValueAmount}&nbsp;{t('common.times')}</span> : ''}
+        </>
+      }
+    },
+    {
+      title: t('myData.authStartTime'),
+      render: (text, record, index) => {
+        return <p>{dayjs(record.createAt).format('YYYY-MM-DD HH:mm:ss')}</p>
 
-      </Space>
-    }
-  },]
+      }
+    },
+    ...list,
+    {
+      title: t('common.actions'),
+      render: (text, record, index) => {
+        return <Space className="operation-box" size={10}>
+          <span onClick={() => view(record)} className="btn pointer">{t('common.view')}</span>
+          {curType === 1 ?
+            <> <span onClick={() => agree(record)} className="btn pointer success_color">{t('common.agree')}</span>
+              <span onClick={() => decline(record)} className="btn pointer failed_color">{t('common.decline')}</span></>
+            : ''}
+
+        </Space>
+      }
+    }]
+  }
+
   const OnPageChange = (page: number) => {
     tableDataSet([])
     curPageSet(page)
@@ -171,6 +194,9 @@ export const DataAuthorization: FC<any> = props => {
   }
 
   const initTablePaeams = (type: number) => {
+    if (type === curType) {
+      initTable()
+    }
     curPageSet(1);
     tableDataSet([])
     curTypeSet(type)
@@ -196,7 +222,7 @@ export const DataAuthorization: FC<any> = props => {
       <Table
         dataSource={tableData}
         // dataSource={dataSource}
-        columns={columns}
+        columns={columns()}
         bordered
         rowKey={_ => _.authId}
         pagination={{
