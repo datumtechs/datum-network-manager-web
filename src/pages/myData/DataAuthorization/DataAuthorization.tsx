@@ -65,7 +65,7 @@ export const DataAuthorization: FC<any> = props => {
     let list = curType === 1 ? [] : [
       {
         title: t('myData.applicationTime'),
-        width: 120,
+        width: 150,
         render: (text, record, index) => {
           return <p>
             <p>
