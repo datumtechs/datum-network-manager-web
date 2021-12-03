@@ -151,8 +151,8 @@ export const AuthInfo: FC<any> = (props: any) => {
                     <div className="datail-box-content">
                       {authInfo.status ? <Space size={10} style={{ display: 'inline-block' }}>
                         {authInfo.status === 1 ?
-                          < MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" /> :
-                          < MyTag content={t('common.declined')} bgColor="#f5222d" color="#f5222d" border="#f5222d" />
+                          <MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" /> :
+                          <MyTag content={t('common.declined')} bgColor="#F9DDDB" color="#F5222D" border="#FFA39E" />
                         }
                         <div>{dayjs(authInfo.authAt).format('YYYY-MM-DD HH:mm:ss')}</div>
                       </Space> : ''}
