@@ -71,7 +71,7 @@ export const DataAuthorization: FC<any> = props => {
             <p>
               {record.status === 1 ?
                 < MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" /> :
-                < MyTag content={t('common.declined')} bgColor="#f94650" color="#fff" border="#f5222d" />
+                < MyTag content={t('common.declined')} bgColor="#F9DDDB" color="#F5222D" border="#FFA39E" />
               }
             </p>
             {dayjs(record.createAt).format('YYYY-MM-DD HH:mm:ss')}
