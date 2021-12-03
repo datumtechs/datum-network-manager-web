@@ -8,6 +8,7 @@ import './scss/index.scss'
 import { BaseInfoContext } from '@/layout/index'
 import { nodeApi } from '@api/index'
 import MyTag from '@com/MyTag'
+import { buttonDisabled } from '@/utils/utils'
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
@@ -154,9 +155,10 @@ const DispatchConfig: FC<any> = (props: any) => {
                       {t('common.cancel')}
                     </div>
                   ) : (
-                    <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(true)}>
-                      {t('common.edit')}
-                    </div>
+                    buttonDisabled() ? '' :
+                      <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(true)}>
+                        {t('common.edit')}
+                      </div>
                   )
                 ) : (
                   ''
@@ -177,9 +179,10 @@ const DispatchConfig: FC<any> = (props: any) => {
                       {t('common.cancel')}
                     </div>
                   ) : (
-                    <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(true)}>
-                      {t('common.edit')}
-                    </div>
+                    buttonDisabled() ? '' :
+                      <div className="pointer form-group-btn black-btn" onClick={() => switchEditStatus(true)}>
+                        {t('common.edit')}
+                      </div>
                   )
                 ) : (
                   ''
@@ -230,18 +233,22 @@ const DispatchConfig: FC<any> = (props: any) => {
                 <Form.Item colon label={t('overview.nodeAddress')} className="form-item">
                   {editStatus ? <span className="title">N/A</span> : <span className="address-info">{baseInfo?.localMultiAddr}</span>}
                 </Form.Item>
-                <Form.Item className="form-item">
-                  <Button
-                    type="primary"
-                    style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
-                    onClick={missNetwork}
-                  >
-                    {t('node.writeOffNetwork')}
-                  </Button>
-                </Form.Item>
+                {
+                  buttonDisabled() ? '' :
+                    <Form.Item className="form-item">
+                      <Button
+                        type="primary"
+                        style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                        onClick={missNetwork}
+                      >
+                        {t('node.writeOffNetwork')}
+                      </Button>
+                    </Form.Item>
+                }
               </>
-            ) : (
-              <>
+            ) : (<>
+
+              {buttonDisabled() ? '' : <>
                 <Form.Item className="form-item">
                   <div className="form-group">
                     <Button
@@ -285,6 +292,9 @@ const DispatchConfig: FC<any> = (props: any) => {
                   )}
                 </Form.Item>
               </>
+              }
+            </>
+
             )}
 
           </Form>

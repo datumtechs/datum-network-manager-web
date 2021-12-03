@@ -427,6 +427,7 @@
     "authType": "Authorization method",
     "authValue": "Authorization value",
     "authStartTime": "Application time",
+    "applicationTime": "Application result and time",
     "authorized": "Authorized",
     "unauthorized": "Unauthorized",
     "period": "Period",
