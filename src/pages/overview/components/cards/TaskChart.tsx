@@ -1,5 +1,5 @@
 /* eslint-disable react/no-string-refs */
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import * as echarts from 'echarts/lib/echarts'
@@ -10,6 +10,7 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import useWinWidth from '@hooks/useWinWidth'
 import { overviewApi } from '@api'
+import { ThemeContext } from '@com/ThemeContext'
 
 const TaskChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -18,7 +19,7 @@ const TaskChart: FC<any> = (props: any) => {
   const [runningNum, runningNumSet] = useState<string | number>('')
   const [failedNum, failedNumSet] = useState<string | number>('')
   const [successNum, successNumSet] = useState<string | number>('')
-
+  // const { color } = useContext(ThemeContext);
   const statusMap = new Map<string, number>([])
 
   // 1:pending等在中、2:running计算中、3:failed失败、4:success成功
