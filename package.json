@@ -80,6 +80,7 @@
     "react-i18next": "^11.8.15",
     "react-redux": "^7.2.3",
     "react-refresh": "^0.8.3",
+    "react-router-cache-route": "^1.12.1",
     "react-router-dom": "^5.2.0",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",

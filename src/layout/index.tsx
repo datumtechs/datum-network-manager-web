@@ -13,6 +13,8 @@ import { BaseInfo } from '../entity/index'
 import { loginApi } from '../api/index'
 import useInterval from '../hooks/useInterval'
 import { tableInterVal } from '../constant/index'
+import CacheRoute, { CacheSwitch } from 'react-router-cache-route'
+import { KeepAliveInclude } from '@/router/utils'
 
 export const BaseInfoContext = createContext<any>({
   carrierConnStatus: '',
@@ -84,9 +86,22 @@ const Layout = (props: any) => {
                   </div>
                 }
               >
-                <Switch>
-                  {props.routes.map((route: IRoute) => (
-                    <Route
+                <CacheSwitch>
+                  {props.routes.map((route: IRoute) => {
+                    if (KeepAliveInclude.includes(route.path)) {
+                      return <CacheRoute
+                        path={route.path}
+                        key={route.path}
+                        cacheKey={route.path}
+                        exact={route.meta.exact}
+                        render={prop => (
+                          <Auth {...props} route={route}>
+                            <route.component {...prop} routes={route.children} />
+                          </Auth>
+                        )}
+                      />
+                    }
+                    return <Route
                       path={route.path}
                       key={route.path}
                       exact={route.meta.exact}
@@ -96,9 +111,9 @@ const Layout = (props: any) => {
                         </Auth>
                       )}
                     />
-                  ))}
+                  })}
                   <Redirect from="/*" exact to="/overview" push />
-                </Switch>
+                </CacheSwitch>
               </Suspense>
             </Spin>
             {/* )} */}
