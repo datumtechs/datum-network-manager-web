@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { IRoute } from '@/router'
-
+import { dropByCacheKey, getCachingKeys } from 'react-router-cache-route'
 const Nav = (props: any) => {
   const { state: { isReg } } = props
   const menu = props.state.menu.curMenu
@@ -17,8 +17,16 @@ const Nav = (props: any) => {
     SetCurPath(pathname === '/' ? '/overview' : pathname)
   }, [pathname])
 
+  const clearCache = () => {
+    const keepAliveList = getCachingKeys()
+    keepAliveList.forEach(v => {
+      dropByCacheKey(v)
+    })
+  }
+
   const linkTo = (item: IRoute, e: React.MouseEvent<any, MouseEvent>) => {
     e.stopPropagation()
+    clearCache()
     if (item.children) {
       props.setMenu(item.name)
       return
@@ -28,11 +36,7 @@ const Nav = (props: any) => {
       history.push('/didApplication')
       return
     }
-    // if (!baseInfo?.identityId) {
-    //   SetCurPath('/didApplication')
-    //   history.push('/didApplication')
-    //   return
-    // }
+
     SetCurPath(item.path)
     history.push(item.path)
   }
