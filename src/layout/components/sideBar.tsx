@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import Nav from './Nav'
-// import logoSvg from '../../assets/images/4.logo.png'
-import logoSvg from '../../assets/images/logo-white.svg'
+import logoSvg from '../../assets/images/4.logo.png'
+// import logoSvg from '../../assets/images/logo-white.svg'
 
 const SideBar = (props: any) => {
   const { t } = useTranslation()
