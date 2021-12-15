@@ -119,7 +119,6 @@ const DispatchConfig: FC<any> = (props: any) => {
   return (
     <>
       <div className="layout-box">
-        146CESHI
         {/* TODO 判断缺失暂时使用 */}
         {!baseInfo?.status ?
           <div className="tip-box">{t('node.nodeConfigurationTips')}</div> : baseInfo?.dynamicFields?.runningTask ?
@@ -249,54 +248,49 @@ const DispatchConfig: FC<any> = (props: any) => {
                 }
               </>
             ) : (<>
+              <Form.Item className="form-item">
+                <div className="form-group">
+                  <Button
+                    loading={showTestLoading}
+                    style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                    onClick={testServiceFn}
+                  >
+                    {t('node.connectService')}
+                  </Button>
 
-              {buttonDisabled() ? '' : <>
-                <Form.Item className="form-item">
-                  <div className="form-group">
-                    <Button
-                      loading={showTestLoading}
-                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
-                      onClick={testServiceFn}
-                    >
-                      {t('node.connectService')}
-                    </Button>
-
-                    {showTestConnect ? (
-                      isConnect ? (
-                        <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
-                      ) : (
-                        <MyTag content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
-                      )
+                  {showTestConnect ? (
+                    isConnect ? (
+                      <MyTag content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
                     ) : (
-                      <MyTag content={`${t('node.unconnected')}`} bgColor="#C9C9C9" color="#FFFFFF" border="#999999" />
-                    )}
-                  </div>
-                </Form.Item>
-                <Form.Item className="form-item">
-                  {showJoinLoading ? (
-                    <Button
-                      loading
-                      disabled={!isConnect}
-                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
-                      onClick={joinNetwork}
-                    >
-                      {t('overview.inProgress')}
-                    </Button>
+                      <MyTag content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
+                    )
                   ) : (
-                    <Button
-                      type="primary"
-                      disabled={!isConnect}
-                      style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
-                      onClick={joinNetwork}
-                    >
-                      {t('overview.submit')}
-                    </Button>
+                    <MyTag content={`${t('node.unconnected')}`} bgColor="#C9C9C9" color="#FFFFFF" border="#999999" />
                   )}
-                </Form.Item>
-              </>
-              }
+                </div>
+              </Form.Item>
+              <Form.Item className="form-item">
+                {showJoinLoading ? (
+                  <Button
+                    loading
+                    disabled={!isConnect}
+                    style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                    onClick={joinNetwork}
+                  >
+                    {t('overview.inProgress')}
+                  </Button>
+                ) : (
+                  <Button
+                    type="primary"
+                    disabled={!isConnect}
+                    style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
+                    onClick={joinNetwork}
+                  >
+                    {t('overview.submit')}
+                  </Button>
+                )}
+              </Form.Item>
             </>
-
             )}
 
           </Form>
