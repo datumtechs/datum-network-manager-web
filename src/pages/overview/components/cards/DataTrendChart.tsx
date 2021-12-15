@@ -86,14 +86,17 @@ const TrendChart: FC<any> = (props: any) => {
     const dataList: any[] = []
     if (curSwitch === 'data') {
       overviewApi.globalDataFileStatsTrendMonthly().then((res) => {
-        option.series[0].data = res.data.map(data => {
-          dataList.push(data.totalValue)
-          return changeSizeObj(data.totalValue).size
-        })
-        // const maxdata = Math.max(...dataList)
-        option.yAxis[0].name = `${t('overview.totalData')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
-        chart.setOption(option)
-        chart.resize()
+        if (res.data) {
+          option.series[0].data = res.data.map(data => {
+            dataList.push(data.totalValue)
+            return changeSizeObj(data.totalValue).size
+          })
+          // const maxdata = Math.max(...dataList)
+          option.yAxis[0].name = `${t('overview.totalData')}(${changeSizeObj(Math.max(...dataList)).unit || 'B'})`
+          chart.setOption(option)
+          chart.resize()
+        }
+
       })
     } else {
       overviewApi.globalPowerStatsTrendMonthly().then((res) => {
