@@ -63,8 +63,6 @@ const DispatchConfig: FC<any> = (props: any) => {
       .catch(err => {
         console.log(err)
       })
-
-    // 192.168.21.164:4444
   }
 
   const joinNetwork = () => {
