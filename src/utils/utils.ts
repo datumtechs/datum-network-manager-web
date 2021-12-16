@@ -97,7 +97,7 @@ export const formatDuring = time => {
 
 
 export const buttonDisabled = () => {
-  const hostListExtends = ['192.168.10.146', '192.168.10.147', '192.168.10.148',]
+  const hostListExtends = ['192.168.10.146', '192.168.10.147', '192.168.10.148']
   const hostName = location.hostname
   return hostListExtends.includes(hostName)
 }
