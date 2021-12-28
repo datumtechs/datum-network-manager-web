@@ -131,7 +131,8 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }, [curPage])
 
   useEffect(() => {
-    if (Object.keys(resultFileData).length > 0) {
+    // debugger
+    if (resultFileData && Object.keys(resultFileData).length > 0) {
       form.setFieldsValue({
         sourceName: resultFileData.resourceName,
         remarks: resultFileData.remarks,
@@ -193,6 +194,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     formData.append('file', uploadFile)
     formData.append('hasTitle', radioValue)
     resourceApi.uploadCsv({ data: formData, fn: _uploadProgress }).then(res => {
+      debugger
       upLoadingSet(false)
       if (res.status === 0) {
         const list = filterData(res.data?.localMetaDataColumnList)

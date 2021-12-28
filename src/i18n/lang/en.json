@@ -1,6 +1,6 @@
 {
   "login": {
-    "RosettaNet": "RosettaNet Console",
+    "RosettaNet": "Metis Console",
     "login": "Login",
     "plzinput": "please input your ",
     "account": "Account",
@@ -12,7 +12,7 @@
     "editOrgName": "Modify organization name",
     "rename": "Your new organization name",
     "loginSlogan": "Privacy-preserving computing platform enables data to flow like assets.",
-    "loginRemarks": "The RosettaNet Console has satisfied the relevant requirements of laws and requirements."
+    "loginRemarks": "The Metis Console has satisfied the relevant requirements of laws and requirements."
   },
   "UserCenter": {
     "Profile": "Profile",
@@ -88,18 +88,18 @@
     "powerRosettaNet": "My Total Computing Power Trend",
     "myData": "My Published Data",
     "myPower": "My Published Computing Power",
-    "dataAmountInRosetta": "Data amount in the RosettaNet",
-    "powerAmountInRosetta": "Computing Power in The RosettaNet",
+    "dataAmountInRosetta": "Data amount in the Metis",
+    "powerAmountInRosetta": "Computing Power in The Metis",
     "mom": "MoM ratio",
     "wow": "WoW ratio",
     "dataAuthorizationApplication": "Data Authorization Application",
     "setYourOrgName": "Set your organization name",
-    "setOrgNameTips": "For representing participants in the RosettaNet",
+    "setOrgNameTips": "For representing participants in the Metis",
     "inProgress": "In progress, just a second",
     "connectNum": "Number of connected external organizations",
-    "rosettaMemory": "RosettaNet Memory",
-    "rosettaCpu": "RosettaNet CPU",
-    "rosettaBandwidth": "RosettaNet Bandwidth",
+    "rosettaMemory": "Metis Memory",
+    "rosettaCpu": "Metis CPU",
+    "rosettaBandwidth": "Metis Bandwidth",
     "viewAll": "View all",
     "bootAddress": "Boot address",
     "nodeAddress": "Node address",
