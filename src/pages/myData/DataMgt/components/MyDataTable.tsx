@@ -152,14 +152,14 @@ const MyDataTable: FC<any> = (props: any) => {
   }
 
   const downloadFn = (row: any) => {
-    const { fileName } = row
+    const { metaDataName } = row
     resourceApi.downloadMeta({ id: row.id }).then(res => {
       const typeList = ['application/json']
       // 以json返回 则非正常
       if (typeList.includes(res.type)) {
         readFile(res)
       } else {
-        download(res, fileName)
+        download(res, metaDataName)
         message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
       }
