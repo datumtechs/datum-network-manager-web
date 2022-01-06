@@ -16,7 +16,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
 
   const goDetail = (record) => {
     history.push({
-      pathname: '/tasks/taskDetail',
+      pathname: '/myData/dataMgt/dataDetail/dataDetailTask/taskDetail',
       state: {
         taskId: record.taskId,
         taskName: record.taskName
@@ -25,7 +25,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
   }
   const goEvent = (record) => {
     history.push({
-      pathname: '/tasks/TaskEvent',
+      pathname: '/myData/dataMgt/dataDetail/dataDetailTask/TaskEvent',
       state: {
         taskId: record.taskId,
         taskName: record.taskName
@@ -33,43 +33,6 @@ export const MyDetailTask: FC<any> = (props: any) => {
     })
   }
 
-  const dataSource = [
-    {
-      id: '1',
-      taskName: '明珠',
-      status: 'pending',
-      role: 'owner',
-      duration: '1111'
-    },
-    {
-      id: '2',
-      taskName: '明珠',
-      status: 'failed',
-      role: 'dataSupplier',
-      duration: '1111'
-    },
-    {
-      id: '3',
-      taskName: '明珠',
-      status: 'succeeded',
-      role: 'algoSupplier',
-      duration: '1111'
-    },
-    {
-      id: '4',
-      taskName: '明珠',
-      status: 'computing',
-      role: 'receiver',
-      duration: '1111'
-    },
-    {
-      id: '5',
-      taskName: '明珠',
-      status: 'computing',
-      role: 'powerSupplier',
-      duration: '1111'
-    },
-  ]
   const pagination = {
     defaultPageSize: 10,
   }
@@ -77,25 +40,23 @@ export const MyDetailTask: FC<any> = (props: any) => {
   const role = obj => {
     return Object.keys(obj).map((v) => {
       if (!obj[v]) return ''
-      return <MyTaskStatusBar key={obj[v]} role={v} width={122} />
+      return <MyTaskStatusBar key={v} role={v} width={122} />
     })
   }
   const columns = [
     {
       title: t('common.Num'),
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-      width: 80,
+      width: 80
     },
     {
       title: t('task.taskName'),
       dataIndex: 'taskName',
-      key: 'taskName',
     },
     // 任务状态 pending: 等在中; running: 计算中; failed: 失败; success: 成功)
     {
       title: t('task.status'),
       dataIndex: 'status',
-      key: 'status',
       render: (text, record) => {
         return <MyTaskStatusBar status={record.status} width={82} />
 
@@ -105,7 +66,6 @@ export const MyDetailTask: FC<any> = (props: any) => {
     {
       title: t('task.myCapacity'),
       dataIndex: 'role',
-      key: 'role',
       render: (text, record) => {
         return role(record.dynamicFields)
       }
@@ -113,7 +73,6 @@ export const MyDetailTask: FC<any> = (props: any) => {
     {
       title: t('task.startTimeAndTaskSpent'),
       dataIndex: 'startAt',
-      key: 'startAt',
       render: (text, record) => {
         return <>
           <p>{record.startAt}</p>
@@ -123,6 +82,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
     },
     {
       title: t('common.actions'),
+      dataIndex: 'actions',
       render: (text, record, index) => {
         return <Space className="operation-box" size={10}>
           <span onClick={() => goDetail(record)} className="btn pointer">{t('task.viewDetail')}</span>
@@ -139,13 +99,14 @@ export const MyDetailTask: FC<any> = (props: any) => {
 
   const initTabel = () => {
     resourceApi.queryDataJoinTaskList({
-      keyword: '',
+      // keyword: '',
       // metadataId
       metaDataId: metadataId,
       pageNumber: curPage,
       pageSize: 10,
     }).then(res => {
       if (res.status === 0) {
+        console.log(tableData);
         tableDataSet(res.data)
         totalNumSet(res.total)
       }
@@ -174,6 +135,7 @@ export const MyDetailTask: FC<any> = (props: any) => {
         // dataSource={dataSource}
         columns={columns}
         bordered
+        rowKey={row => row.id}
         pagination={{
           current: curPage,
           defaultPageSize: 10,

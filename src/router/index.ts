@@ -1,67 +1,4 @@
-import React from 'react'
-
-const login = React.lazy(() => import('@/pages/Login/index').then(_ => _))
-const layout = React.lazy(() => import('@/layout/index').then(_ => _))
-const Overview = React.lazy(() => import('@/pages/overview/index').then(_ => ({ default: _.Overview })))
-const NodeMgt = React.lazy(() => import('@/pages/nodeMgt/index').then(_ => ({ default: _.NodeMgt })))
-const MyData = React.lazy(() => import('@/pages/myData/index').then(_ => ({ default: _.MyData })))
-const DataMgt = React.lazy(() => import('@/pages/myData/DataMgt/DataMgt').then(_ => ({ default: _.DataMgt })))
-
-// const MetaDataDetail = React.lazy(() => import('@/pages/resource/DataCenter/MetaDataDetail').then(_ => ({ default: _.MetaDataDetail })))
-const MyDetailTask = React.lazy(() => import('@/pages/myData/DataMgt/components/MyDetailTask').then(_ => ({ default: _.MyDetailTask })))
-
-const MyDataAddtion = React.lazy(() =>
-  import('@/pages/myData/DataAddition/MyDataAddtion').then(_ => ({ default: _.MyDataAddtion })),
-)
-const NewDataAddtion = React.lazy(() =>
-  import('@/pages/myData/DataMgt/components/NewDataAddtion').then(_ => ({ default: _.NewDataAddtion })),
-)
-const AuthInfo = React.lazy(() =>
-  import('@/pages/myData/DataAuthorization/AuthInfo').then(_ => ({ default: _.AuthInfo })),
-)
-const MyDataDetail = React.lazy(() =>
-  import('@/pages/myData/DataMgt/components/MyDataDetail').then(_ => ({ default: _.MyDataDetail })),
-)
-const DataDetail = React.lazy(() =>
-  import('@/components/DataDetail').then(_ => ({ default: _.DataDetail })),
-)
-const DataAuthorization = React.lazy(() =>
-  import('@/pages/myData/DataAuthorization/DataAuthorization').then(_ => ({ default: _.DataAuthorization })),
-)
-
-const MetisIdentity = React.lazy(() => import('@pages/userCenter/MetisIdentity').then(_ => _))
-const Profile = React.lazy(() => import('@pages/userCenter/Profile').then(_ => _))
-const DataNodeMgt = React.lazy(() =>
-  import('@/pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(_ => ({ default: _.DataNodeMgt })),
-)
-const EditNodeMgt = React.lazy(() =>
-  import('@/pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(_ => ({ default: _.EditNodeMgt })),
-)
-const ComputeNodeMgt = React.lazy(() =>
-  import('@/pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(_ => ({ default: _.ComputeNodeMgt })),
-)
-const EditComputeNode = React.lazy(() =>
-  import('@/pages/nodeMgt/ComputeNodeMgt/EditComputeNode').then(_ => ({ default: _.EditComputeNode })),
-)
-const ComputeNodeDetail = React.lazy(() =>
-  import('@/pages/nodeMgt/ComputeNodeMgt/ComputeNodeDetail').then(_ => ({ default: _.ComputeNodeDetail })),
-)
-const Tasks = React.lazy(() => import('@/pages/tasks/index').then(_ => ({ default: _.Tasks })))
-const TaskDetail = React.lazy(() => import('@/pages/tasks/TaskDetail').then(_ => ({ default: _.TaskDetail })))
-const TaskEvent = React.lazy(() => import('@/pages/tasks/TaskEvent').then(_ => ({ default: _.TaskEvent })))
-const DidApplication = React.lazy(() =>
-  import('@/pages/did/DidApplication').then(_ => ({ default: _.DidApplication })),
-)
-
-// const DataCenter = React.lazy(() => import('@/pages/DataCenter/DataCenter').then(_ => ({ default: _.DataCenter })))
-// const ComputationCenter = React.lazy(() =>
-//   import('@/pages/ComputationCenter/ComputationCenter').then(_ => ({ default: _.ComputationCenter })),
-// )
-
-const SeedNodeMgt = React.lazy(() => import('@/pages/nodeMgt/SeedNode/SeedNodeMgt').then(_ => ({ default: _.SeedNodeMgt })))
-const AddSeedNode = React.lazy(() => import('@/pages/nodeMgt/SeedNode/AddSeedNode').then(_ => ({ default: _.AddSeedNode })))
-
-// const did = React.lazy(() => import('@/pages/did/index').then(_ => ({ default: _.did }))) /dataCenter/metaDataDetail
+import { handLazy } from './routePath'
 
 export interface IRouteMeta {
   title: string
@@ -90,12 +27,12 @@ const routes: Array<IRoute> = [
     breadcrumbName: '',
     label: 'login',
     path: '/login',
-    component: login,
+    component: handLazy('login'),
     meta: { exact: true, title: '', icon: '', show: false },
   },
   {
     path: '/',
-    component: layout,
+    component: handLazy('layout'),
     meta: { exact: false, title: '', icon: '', show: false },
     breadcrumbName: '',
     children: [
@@ -104,7 +41,7 @@ const routes: Array<IRoute> = [
         label: 'menu.systemOverview',
         breadcrumbName: 'menu.systemOverview',
         path: '/overview',
-        component: Overview,
+        component: handLazy('Overview'),
         meta: { exact: true, title: '', icon: '', show: true },
       },
       {
@@ -112,7 +49,7 @@ const routes: Array<IRoute> = [
         label: 'menu.didApplication',
         breadcrumbName: 'menu.didApplication',
         path: '/didApplication',
-        component: DidApplication,
+        component: handLazy('DidApplication'),
         meta: { exact: true, title: '', icon: '', show: false },
       },
       {
@@ -120,7 +57,7 @@ const routes: Array<IRoute> = [
         label: 'menu.userCenter',
         breadcrumbName: 'menu.userCenter',
         path: '/userCenter',
-        component: NodeMgt,
+        component: handLazy('NodeMgt'),
         meta: { exact: false, title: '', icon: '', show: false },
         isOpen: false,
         children: [
@@ -129,7 +66,7 @@ const routes: Array<IRoute> = [
             label: 'menu.Profile',
             breadcrumbName: 'menu.Profile',
             path: '/userCenter/Profile',
-            component: Profile,
+            component: handLazy('Profile'),
             meta: { exact: true, title: '/userCenter/Profile', icon: '', show: false },
           },
           {
@@ -137,7 +74,7 @@ const routes: Array<IRoute> = [
             label: 'menu.userInfo',
             breadcrumbName: 'menu.userInfo',
             path: '/userCenter/userInfo',
-            component: MetisIdentity,
+            component: handLazy('MetisIdentity'),
             meta: { exact: true, title: '/userCenter/userInfo', icon: '', show: false },
           },
         ]
@@ -147,7 +84,7 @@ const routes: Array<IRoute> = [
         label: 'menu.nodeMgt',
         breadcrumbName: 'menu.nodeMgt',
         path: '/nodeMgt',
-        component: NodeMgt,
+        component: handLazy('NodeMgt'),
         meta: { exact: false, title: '', icon: '', show: true },
         isOpen: false,
         children: [
@@ -157,7 +94,7 @@ const routes: Array<IRoute> = [
             label: 'menu.seedNodeMgt',
             breadcrumbName: 'menu.seedNodeMgt',
             path: '/nodeMgt/SeedNodeMgt',
-            component: SeedNodeMgt,
+            component: handLazy('SeedNodeMgt'),
             meta: { exact: true, title: '/nodeMgt/SeedNodeMgt', icon: '', show: true },
           },
           {
@@ -166,15 +103,23 @@ const routes: Array<IRoute> = [
             label: 'menu.addSeedNode',
             breadcrumbName: 'menu.addSeedNode',
             path: '/nodeMgt/SeedNodeMgt/addSeedNode',
-            component: AddSeedNode,
+            component: handLazy('AddSeedNode'),
             meta: { exact: true, title: '', icon: '', show: false },
+          },
+          {
+            name: 'dispatchConfig',
+            label: 'menu.dispatchConfig',
+            breadcrumbName: 'menu.dispatchConfig',
+            path: '/nodeMgt/dispatchConfig',
+            component: handLazy('DispatchConfig'),
+            meta: { exact: true, title: '/nodeMgt/dispatchConfig', icon: '', show: false },
           },
           {
             name: 'dataNodeMgt',
             label: 'menu.dataNodeMgt',
             breadcrumbName: 'menu.dataNodeMgt',
             path: '/nodeMgt/dataNodeMgt',
-            component: DataNodeMgt,
+            component: handLazy('DataNodeMgt'),
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
@@ -182,7 +127,7 @@ const routes: Array<IRoute> = [
             label: 'menu.editDataNode',
             breadcrumbName: 'menu.editDataNode',
             path: '/nodeMgt/dataNodeMgt/editDataNode',
-            component: EditNodeMgt,
+            component: handLazy('EditNodeMgt'),
             meta: {
               exact: true,
               title: '',
@@ -195,7 +140,7 @@ const routes: Array<IRoute> = [
             label: 'menu.addDataNode',
             breadcrumbName: 'menu.addDataNode',
             path: '/nodeMgt/dataNodeMgt/addDataNode',
-            component: EditNodeMgt,
+            component: handLazy('EditNodeMgt'),
             meta: {
               exact: true,
               title: '',
@@ -208,7 +153,7 @@ const routes: Array<IRoute> = [
             label: 'menu.computeNodeMgt',
             breadcrumbName: 'menu.computeNodeMgt',
             path: '/nodeMgt/computeNodeMgt',
-            component: ComputeNodeMgt,
+            component: handLazy('ComputeNodeMgt'),
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
@@ -216,7 +161,7 @@ const routes: Array<IRoute> = [
             label: 'menu.editDataNode',
             breadcrumbName: 'menu.editDataNode',
             path: '/nodeMgt/computeNodeMgt/editComputeNode',
-            component: EditComputeNode,
+            component: handLazy('EditComputeNode'),
             meta: {
               exact: true,
               title: '',
@@ -229,7 +174,7 @@ const routes: Array<IRoute> = [
             label: 'menu.addDataNode',
             breadcrumbName: 'menu.addComputeNodeMgt',
             path: '/nodeMgt/computeNodeMgt/addComputeNode',
-            component: EditComputeNode,
+            component: handLazy('EditComputeNode'),
             meta: {
               exact: true,
               title: '',
@@ -242,7 +187,7 @@ const routes: Array<IRoute> = [
             label: 'menu.addDataNode',
             breadcrumbName: 'menu.computeNodeDetail',
             path: '/nodeMgt/computeNodeMgt/computeNodeDetail',
-            component: ComputeNodeDetail,
+            component: handLazy('ComputeNodeDetail'),
             meta: {
               exact: true,
               title: '',
@@ -257,7 +202,7 @@ const routes: Array<IRoute> = [
         label: 'menu.myData',
         breadcrumbName: 'menu.myData',
         path: '/myData',
-        component: MyData,
+        component: handLazy('MyData'),
         meta: { exact: false, title: '', icon: '', show: true },
         isOpen: false,
         children: [
@@ -274,7 +219,7 @@ const routes: Array<IRoute> = [
             label: 'menu.dataMgt',
             breadcrumbName: 'menu.dataMgt',
             path: '/myData/dataMgt',
-            component: DataMgt,
+            component: handLazy('DataMgt'),
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
@@ -282,7 +227,7 @@ const routes: Array<IRoute> = [
             label: 'myData.newDataAddtion',
             breadcrumbName: 'myData.newDataAddtion',
             path: '/myData/dataMgt/saveNewData',
-            component: NewDataAddtion,
+            component: handLazy('NewDataAddtion'),
             meta: { exact: true, title: '', icon: '', show: false },
           },
           {
@@ -290,7 +235,8 @@ const routes: Array<IRoute> = [
             label: 'center.dataDetail',
             breadcrumbName: 'center.dataDetail',
             path: '/myData/dataMgt/dataDetail',
-            component: DataDetail,
+            component: handLazy('DataDetail'),
+            // component: DataDetail,
             meta: { exact: true, title: '', icon: '', show: false },
           },
           {
@@ -298,15 +244,34 @@ const routes: Array<IRoute> = [
             label: 'menu.dataDetailTask',
             breadcrumbName: 'menu.dataDetailTask',
             path: '/myData/dataMgt/dataDetail/dataDetailTask',
-            component: MyDetailTask,
+            component: handLazy('MyDetailTask'),
             meta: { exact: true, title: '', icon: '', show: false },
           },
+
+          {
+            name: 'taskDetail',
+            label: 'menu.taskDetail',
+            breadcrumbName: 'menu.taskDetail',
+            path: '/myData/dataMgt/dataDetail/dataDetailTask/taskDetail',
+            component: handLazy('TaskDetail'),
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
+          {
+            name: 'TaskEvent',
+            label: 'menu.taskEvents',
+            breadcrumbName: 'menu.taskEvents',
+            path: '/myData/dataMgt/dataDetail/dataDetailTask/TaskEvent',
+            component: handLazy('TaskEvent'),
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
+
+
           {
             name: 'dataAddition',
             label: 'menu.dataAddition',
             breadcrumbName: 'menu.dataAddition',
             path: '/myData/dataAddition',
-            component: MyDataAddtion,
+            component: handLazy('MyDataAddtion'),
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
@@ -314,7 +279,7 @@ const routes: Array<IRoute> = [
             label: 'menu.dataAuthorization',
             breadcrumbName: 'menu.dataAuthorization',
             path: '/myData/dataAuthorization',
-            component: DataAuthorization,
+            component: handLazy('DataAuthorization'),
             meta: { exact: true, title: '', icon: '', show: true },
           },
           {
@@ -322,7 +287,7 @@ const routes: Array<IRoute> = [
             label: 'menu.viewAuthInfo',
             breadcrumbName: 'menu.viewAuthInfo',
             path: '/myData/dataAuthorization/authInfo',
-            component: AuthInfo,
+            component: handLazy('AuthInfo'),
             meta: { exact: true, title: '', icon: '', show: false },
           },
           {
@@ -330,7 +295,7 @@ const routes: Array<IRoute> = [
             label: 'center.infoModify',
             breadcrumbName: 'center.infoModify',
             path: '/myData/infoModify',
-            component: MyDataDetail,
+            component: handLazy('MyDataDetail'),
             meta: { exact: true, title: '', icon: '', show: false },
           },
         ],
@@ -340,7 +305,7 @@ const routes: Array<IRoute> = [
         label: 'menu.computeTask',
         breadcrumbName: 'menu.computeTask',
         path: '/tasks',
-        component: Tasks,
+        component: handLazy('Tasks'),
         meta: { exact: true, title: '', icon: '', show: true },
       },
       {
@@ -348,7 +313,7 @@ const routes: Array<IRoute> = [
         label: 'menu.taskDetail',
         breadcrumbName: 'menu.taskDetail',
         path: '/tasks/taskDetail',
-        component: TaskDetail,
+        component: handLazy('TaskDetail'),
         meta: { exact: true, title: '', icon: '', show: false },
       },
       {
@@ -356,7 +321,7 @@ const routes: Array<IRoute> = [
         label: 'menu.taskEvents',
         breadcrumbName: 'menu.taskEvents',
         path: '/tasks/TaskEvent',
-        component: TaskEvent,
+        component: handLazy('TaskEvent'),
         meta: { exact: true, title: '', icon: '', show: false },
       },
       // 全网数据暂时隐藏 2021 11 02 李发攀
@@ -373,7 +338,7 @@ const routes: Array<IRoute> = [
         label: 'menu.metaDataDetail',
         breadcrumbName: 'menu.metaDataDetail',
         path: '/dataCenter/metaDataDetail',
-        component: DataDetail,
+        component: handLazy('DataDetail'),
         meta: { exact: true, title: '', icon: '', show: false },
       },
       // 全网算力暂时隐藏 2021 11 02 李发攀
