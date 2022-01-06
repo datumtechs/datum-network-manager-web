@@ -1,11 +1,12 @@
 import React from 'react'
 
-function handDefault(item) {
+function handDefault(item, mode?) {
   if (item.default) {
     return item
   }
+
   return {
-    default: Object.values(item)[0]
+    default: typeof item == 'string' ? mode[item] : Object.values(item)[0]
   }
 }
 
@@ -26,7 +27,7 @@ export const routerParams = {
   MyDataDetail: import('@/pages/myData/DataMgt/components/MyDataDetail').then(handDefault),
 
 
-  DataDetail: import('@/components/DataDetail').then(handDefault),
+  DataDetail: import('@/components/DataDetail').then(handDefault.bind(this, 'DataDetail')),
   DataAuthorization: import('@/pages/myData/DataAuthorization/DataAuthorization').then(handDefault),
   DispatchConfig: import('@/pages/nodeMgt/DispatchConfig').then(handDefault),
   DataNodeMgt: import('@/pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(handDefault),
