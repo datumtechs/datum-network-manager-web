@@ -16,7 +16,7 @@ export const TaskEvent: FC<any> = (props: any) => {
   }
   const linkToDetail = () => {
     history.push({
-      pathname: '/tasks/taskDetail',
+      pathname: history.location.pathname.replace('TaskEvent', 'taskDetail'),
       state: {
         taskId,
         taskName
