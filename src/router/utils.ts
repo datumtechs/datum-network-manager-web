@@ -50,5 +50,14 @@ export function getBreadcrumbs(): IRoute[] {
   return findRoutesByPaths(getPagePathList(), businessRouteList)
 }
 
-
 export const KeepAliveInclude = ["/tasks"]
+
+// export function handDefault1(item) {
+//   if (item.default) {
+//     return item
+//   }
+//   return {
+//     default: Object.values(item)[0]
+//   }
+// }
+
