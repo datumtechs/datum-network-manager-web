@@ -41,12 +41,7 @@ service.interceptors.response.use(
     }
     requestLoading.del(url)
     requestCancel.del(url)
-    // if (status === 1001) {
-    //   // 身份标识
-    //   // location.href = "/didApplication"
-    //   // window.location.href = "/didApplication"
-    //   history.push('/didApplication')
-    // }
+
     return response.data;
   },
   error => {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FC, forwardRef, useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Input, Space, Button, Progress } from 'antd'
+import { Input, Space, Button, Progress, message } from 'antd'
 
 const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
   const { t } = useTranslation()
@@ -60,8 +60,16 @@ const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
     }
   }, [])
 
+  const filterSize = (size: number): number => {
+    if (!isNaN(size)) return 0
+    return Number((size / 1024 / 1024).toFixed(2))
+  }
 
   const onChange = e => {
+    if (props.maxSize && e.size > props.maxSize) {
+      message.info(t('myData.fileMaxSizeTips'))
+      return
+    }
     props.onChange(e)
   }
   const uploadFn = () => {

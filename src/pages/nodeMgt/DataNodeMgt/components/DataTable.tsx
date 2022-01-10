@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Table, Space, message, Input } from 'antd'
+import { Table, Space, message, Input, Modal, Form } from 'antd'
 import MyModal from '@com/MyModal'
 import { dataNodeApi } from '@api/index'
 import failedSvg from '@assets/images/11.icon1.svg'
@@ -10,15 +10,19 @@ import { buttonDisabled } from '@/utils/utils'
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
+  const [show, SetShow] = useState(false)
+  const [activeRow, setActiveRow] = useState({
+    nodeName: "", nodeId: ""
+  })
   const [curName, SetCurName] = useState('')
-  const history = useHistory()
+  // const history = useHistory()
   const [tableData, tableDataSet] = useState<Array<any>>([])
   const [tempTableData, tempTableDataSet] = useState<Array<any>>([])
   const [total, totalSet] = useState<number>(0)
   const [curPage, setCurPage] = useState<number>(1)
   const [curId, setCurId] = useState<string>('')
-
-  const { t } = useTranslation()
+  const [form] = Form.useForm();
+  const { t, i18n } = useTranslation()
 
   const onPageChange = num => {
     setCurPage(num)
@@ -57,13 +61,10 @@ const DataTable: FC<any> = (props: any) => {
     setCurId(row.nodeId)
     SetIsModalVisible(true)
   }
-  const saveFn = (record, index) => {
+  const saveFn = () => {
     dataNodeApi.updateDataNode({
-      "externalIp": tempTableData[index].externalIp,
-      "externalPort": tempTableData[index].externalPort,
-      "internalIp": tempTableData[index].internalIp,
-      "internalPort": tempTableData[index].internalPort,
-      "nodeId": record.nodeId,
+      "nodeName": activeRow?.nodeName,
+      "nodeId": activeRow.nodeId,
     }).then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)
@@ -72,30 +73,22 @@ const DataTable: FC<any> = (props: any) => {
     })
   }
 
-  const handleChange = (type, index, e) => {
-    tempTableDataSet(() => {
-      tempTableData[index][type] = e.target.value
-      return [...tempTableData]
+  const editName = (row) => {
+    setActiveRow(row)
+    SetShow(true)
+    console.log(form);
+
+    form!.setFieldsValue({
+      nodeName: row?.nodeName,
     })
   }
 
-  const setEditStatus = (record, bool, index) => {
-    tableData.forEach(item => {
-      if (item.id === record.id) {
-        item.isEdit = bool
-      }
-    })
-    tableDataSet([...tableData])
-    if (!bool) {
-      tempTableDataSet(() => {
-        tempTableData[index].internalIp = tableData[index].internalIp
-        tempTableData[index].internalPort = tableData[index].internalPort
-        tempTableData[index].externalIp = tableData[index].externalIp
-        tempTableData[index].externalPort = tableData[index].externalPort
-        return [...tempTableData]
-      })
-    }
+
+
+  const cancel = () => {
+    SetShow(false)
   }
+
   const columns = [
     {
       title: t('common.Num'),
@@ -131,26 +124,12 @@ const DataTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
-            {record.isEdit ? (
-              <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.internal')}&nbsp;:&nbsp;</p>
-                <Input value={tempTableData[index]?.internalIp} onChange={(e) => handleChange('internalIp', index, e)} className="seedNode-edit-input" />
-              </div>
-            ) : (
-              <div className="bottom8p">
-                {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalIp}
-              </div>
-            )}
-            {record.isEdit ? (
-              <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.external')}&nbsp;:&nbsp;</p>
-                <Input value={tempTableData[index]?.externalIp} onChange={(e) => handleChange('externalIp', index, e)} className="seedNode-edit-input" />
-              </div>
-            ) : (
-              <div>
-                {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalIp}
-              </div>
-            )}
+            <div className="bottom8p">
+              {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalIp}
+            </div>
+            <div>
+              {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalIp}
+            </div>
           </div>
         )
       },
@@ -162,26 +141,12 @@ const DataTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
-            {record.isEdit ? (
-              <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.internal')}&nbsp;:&nbsp;</p>
-                <Input value={tempTableData[index].internalPort} onChange={(e) => handleChange('internalPort', index, e)} className="seedNode-edit-input" />
-              </div>
-            ) : (
-              <div className="bottom8p">
-                {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalPort}
-              </div>
-            )}
-            {record.isEdit ? (
-              <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.external')}&nbsp;:&nbsp;</p>
-                <Input value={tempTableData[index].externalPort} onChange={(e) => handleChange('externalPort', index, e)} className="seedNode-edit-input" />
-              </div>
-            ) : (
-              <div>
-                {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalPort}
-              </div>
-            )}
+            <div className="bottom8p">
+              {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalPort}
+            </div>
+            <div>
+              {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalPort}
+            </div>
           </div>
         )
       },
@@ -193,29 +158,18 @@ const DataTable: FC<any> = (props: any) => {
       render: (text: any, record: any, index: any) => {
         return (
           <>
-            {record.isEdit ? (
-              <Space size={10} className="operation-box">
-                <span className="main_color pointer btn" onClick={() => saveFn(record, index)}>
-                  {t('common.save')}
+            <Space size={10} className="operation-box">
+              <span className="pointer main_color btn" onClick={() => editName(record)}>
+                {t('common.rename')}
+              </span>
+              {record.connStatus === 0 ? (
+                <span className="pointer main_color btn" onClick={() => deleteFn(record)}>
+                  {t('common.delete')}
                 </span>
-                <span className="main_color pointer btn" onClick={() => setEditStatus(record, false, index)}>
-                  {t('common.cancel')}
-                </span>
-              </Space>
-            ) : (
-              <Space size={10} className="operation-box">
-                <span className="pointer main_color btn" onClick={() => setEditStatus(record, true, index)}>
-                  {t('common.edit')}
-                </span>
-                {record.connStatus === 0 ? (
-                  <span className="pointer main_color btn" onClick={() => deleteFn(record)}>
-                    {t('common.delete')}
-                  </span>
-                ) : (
-                  ''
-                )}
-              </Space>
-            )}
+              ) : (
+                ''
+              )}
+            </Space>
           </>
         )
       },
@@ -241,9 +195,6 @@ const DataTable: FC<any> = (props: any) => {
     SetIsModalVisible(false)
   }
 
-  // useEffect(() => {
-  //   tableDataSet(dataSource)
-  // }, [])
 
   return (
     <div className="data-table-box">
@@ -253,12 +204,44 @@ const DataTable: FC<any> = (props: any) => {
         rowKey={_ => _.nodeId}
         pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
       />
-      {/* <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}> */}
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>
           {t('computeNodeMgt.confirmDelete')}:{curName}
         </p>
       </MyModal>
+      <Modal
+        visible={show}
+        zIndex={2}
+        onOk={saveFn}
+        destroyOnClose={true}
+        centered={true}
+        onCancel={cancel}
+        okText={t('node.submitAddtion')}
+        cancelText={t('common.cancel')}
+        title={t('node.addSeedNode')}>
+        <Form
+          name="basic"
+          size="large"
+          preserve={false}
+          initialValues={{ remember: true }}
+          labelAlign="left"
+          labelCol={{ style: { width: i18n.language === 'en' ? 180 : 120, whiteSpace: 'pre-wrap' } }}
+          form={form}
+        >
+          <Form.Item
+            label={t('dataNodeMgt.nodeName')}
+            name="nodeName"
+            rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.nodeName')}` }]}
+            className="form-item"
+          >
+            <Input
+              placeholder={t('dataNodeMgt.nodeName')}
+              className="form-box-input"
+            />
+          </Form.Item>
+        </Form>
+      </Modal >
+
     </div>
   )
 }

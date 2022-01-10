@@ -28,28 +28,30 @@ const Login = (props: any) => {
     redirectPath = hash.replace(/#/, '')
   }
 
-  // useEffect(() => {
-  //   if (redirectPath) {
-  //     message.error(`${t('login.plzLogin')}`)
-  //   }
-  // }, [redirectPath])
+
 
   const onFinish = (values: any) => {
     const {
       login: { account, password, veriCode = 2222 },
     } = values
     loginApi.loginFn({ userName: account, passwd: password, code: veriCode }).then(res => {
-      if (res.status === 0) {
-        if (redirectPath) {
-          return history.push(redirectPath)
-          // return history.go(-1)
-        }
-        history.push('/')
-      } else {
+      const { orgInfoCompletionLevel } = res.data || {}
+      if (res.status !== 0) {
         message.error(res.msg)
+        return
+      } else if (+orgInfoCompletionLevel <= 2) {
+        return history.push({
+          pathname: '/didApplication',
+          state: {
+            status: orgInfoCompletionLevel
+          },
+        })
+      } else if (redirectPath) {
+        return history.push(redirectPath)
+      } else {
+        history.push('/')
       }
     })
-    //
   }
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')

@@ -72,7 +72,7 @@ const Layout = (props: any) => {
   }, tableInterVal)
 
   return (
-    <BaseInfoContext.Provider value={info}>
+    <BaseInfoContext.Provider value={{ ...info, fetchData }}>
       <div className="main-container">
         <SideBar list={props.routes}></SideBar>
         <div className="main-box">

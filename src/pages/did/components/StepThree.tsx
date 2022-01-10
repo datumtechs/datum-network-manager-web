@@ -1,13 +1,28 @@
 import { FC, useState } from "react";
 import { useTranslation } from 'react-i18next'
 import {
-  Button, Form, Input
+  Button, Form, Input, message
 } from 'antd'
+import { nodeApi } from '@api/index'
 import { WarningFilled } from '@ant-design/icons'
 
 const StepThree: FC<any> = (props) => {
-  const { t, i18n } = useTranslation(),
-    [status, setStatus] = useState(false)
+  const { t, i18n } = useTranslation()
+
+  const connect = () => {
+    nodeApi.applyJoinNetwork().then(res => {
+      if (res.status === 0) {
+        message.success(`${t('tip.joinNetworkSuccess')}`)
+        noConnect()
+      } else {
+        message.error(`${t('tip.joinNetworkFailed')}`)
+      }
+    })
+  }
+  const noConnect = () => {
+    location.href = "/overview"
+  }
+
   return <>
     <p className="title center">
       {t('DidApplication.SetYourStepThreeTitle')}
@@ -16,11 +31,11 @@ const StepThree: FC<any> = (props) => {
       <p>
         <span className="status-lable">{t('DidApplication.MetisInternerStatu')}:</span>
 
-        {status ?
+        {!props?.baseInfo?.carrierStatus ?
           <span className="error">{t('DidApplication.MetisInternerStatuError')}</span> :
           <span className="success">{t('DidApplication.MetisInternerStatuSuccess')}</span>}
       </p>
-      {status ? <p className="operation-tips-error">
+      {!props?.baseInfo?.carrierStatus ? <p className="operation-tips-error">
         <WarningFilled />
 
         {t('DidApplication.MetisInternerOperationError')}
@@ -30,10 +45,10 @@ const StepThree: FC<any> = (props) => {
         </p>}
     </div>
     <div className="center">
-      <Button type="primary" className="but">
+      <Button type="primary" className="but" onClick={connect}>
         {t('DidApplication.MetisInternerOperationSubmit')}
       </Button>
-      <Button className="but" onClick={_ => console.log(1)}>
+      <Button className="but" onClick={noConnect}>
         {t('DidApplication.MetisInternerOperationLater')}
       </Button>
     </div>

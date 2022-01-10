@@ -46,7 +46,8 @@ const dataNodeApi = {
    * @param data :dataNode
    * @returns 
    */
-  updateDataNode(data: DataNode): Promise<any> {
+  // updateDataNode(data: DataNode): Promise<any> {
+  updateDataNode(data: any): Promise<any> {
     return axios({
       method: "POST",
       // url: `/api/v1/node/datanode/updateDataNode`,

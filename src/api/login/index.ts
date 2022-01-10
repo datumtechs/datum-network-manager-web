@@ -47,6 +47,17 @@ const loginApi = {
       url: `/api/v1/user/findLocalOrgInfo`,
     })
   },
+
+
+  // 更新组织信息
+  updateLocalOrg(params): Promise<any> {
+    return axios({
+      method: "POST",
+      // url: `/api/v1/system/queryBaseInfo`,
+      url: `/api/v1/user/updateLocalOrg`,
+      data: params
+    })
+  },
 }
 
 

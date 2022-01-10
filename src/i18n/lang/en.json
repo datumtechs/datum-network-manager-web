@@ -183,7 +183,8 @@
     "declined": "Declined",
     "and": "&",
     "times": "Times",
-    "nodeMgtDelError": "Deletion failed"
+    "nodeMgtDelError": "Deletion failed",
+    "rename": "Rename"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
@@ -439,7 +440,8 @@
     "authResultAndTime": "Authorization result & time",
     "duration": "Duration",
     "timeSpent": "Time spent",
-    "authorizationID": "Authorization  ID"
+    "authorizationID": "Authorization  ID",
+    "fileMaxSizeTips": "The maximum size of the current file is 4M, please reselect"
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",

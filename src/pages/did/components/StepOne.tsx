@@ -1,22 +1,32 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 import { useTranslation } from 'react-i18next'
 import {
-  Button, Form, Input
+  Button, Form, Input, message
 } from 'antd'
 import { Rule } from "rc-field-form/lib/interface";
-export const StepOne: FC<any> = () => {
+import { loginApi } from '@api/index'
+export const StepOne: FC<any> = (props) => {
 
   const { t, i18n } = useTranslation(),
     [rules, setRules] = useState([{
       min: 4, message: `${t('DidApplication.SetYourOrgNameRulesItem3')}`
     }, {
       max: 20, message: `${t('DidApplication.SetYourOrgNameRulesItem4')}`
-    }]),
-    self = this
+    }])
+  const inputRef = useRef<any>(null)
 
-  // useEffect(() => {
-  //   setRules(rules)
-  // }, [i18n.language])
+  const onFinish = () => {
+    const name = inputRef?.current?.input.value
+    loginApi.applyOrgIdentity({ orgName: inputRef?.current?.input.value.replace(/\s*/g, "") }).then(res => {
+      if (res.status === 0) {
+        props?.baseInfo?.fetchData()
+        message.success(`${t('tip.idSuccess')}`)
+        props.setCurrent(1)
+      } else {
+        message.error(res.msg)
+      }
+    })
+  }
 
 
   return <>
@@ -29,7 +39,7 @@ export const StepOne: FC<any> = () => {
       name="identityId"
       rules={((): Rule[] => rules)()}
     >
-      <Input minLength={4} maxLength={20} placeholder={t('DidApplication.SetYourOrgNamePlaceholder')} />
+      <Input minLength={4} ref={inputRef} maxLength={20} placeholder={t('DidApplication.SetYourOrgNamePlaceholder')} />
     </Form.Item>
     <Form.Item
       label={" "}
@@ -44,7 +54,7 @@ export const StepOne: FC<any> = () => {
       </div>
     </Form.Item>
     <div className="btn center">
-      <Button type="primary" className="submit-btn" htmlType="submit">
+      <Button type="primary" className="submit-btn" onClick={onFinish}>
         {t('DidApplication.SetYourOrgNameButton')}
       </Button>
     </div>

@@ -150,11 +150,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     if (evt.lengthComputable) {
       const percent = Math.round(evt.loaded * 100 / evt.total);
       uploadProgressSet(percent)
-      // document.getElementById('progress').innerHTML = percent.toFixed(2) + '%';//设置进度显示百分比
-      // document.getElementById('progress').style.width = percent.toFixed(2) + '%';//设置完成的进度条宽度
-    }
-    else {
-      // document.getElementById('progress').innerHTML = 'unable to compute';
     }
   }
 
@@ -204,7 +199,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         resultFileDataSet(res.data)
         message.success(`${t('myData.uploadSuccess')}`)
       } else {
-        // message.error(`${t('myData.uploadFailed')}`)
         message.error(res.msg)
       }
     }).catch(e => {
@@ -252,6 +246,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
             file={uploadFile}
             uploadProgress={uploadProgress}
             onSearch={selectFileFn}
+            maxSize={4}
             uploadFn={uploadFn}
             uploadByDrag={uploadByDrag}
             onChange={uploadFileOnChange}

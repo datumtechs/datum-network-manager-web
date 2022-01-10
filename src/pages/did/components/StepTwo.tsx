@@ -1,73 +1,52 @@
 import { FC, useState } from "react";
 import { useTranslation } from 'react-i18next'
 import {
-  Button, Form, Input, message,
-  Steps, Row, Col, Upload, Image
+  Button, Input, message,
+  Row, Col
 } from 'antd'
+import { loginApi } from '@api/index'
 import clean from '@assets/images/clean.icon.svg'
-import { PlusOutlined, MinusCircleFilled } from '@ant-design/icons'
 
 
 
 export const StepTwo: FC<any> = (props) => {
   const { t, i18n } = useTranslation(),
-    [baseInfo, setBaseInfo] = useState({ name: 1, orgIdentify: 1 }),
-    [file, setFile] = useState<any>(''),
-    [fileBase, setFileBase] = useState<any>(''),
+    [imgUrl, setImgUrl] = useState<any>(''),
     [TextAreaValue, setTextAreaValue] = useState('')
-  const { TextArea } = Input,
-    { Dragger } = Upload,
-    DraggerProps = {
-      name: 'file',
-      showUploadList: false,
-      accept: 'image/*',
-      beforeUpload: _ => false,
-      onChange(info) {
-        console.log(info.file);
+  const { TextArea } = Input
 
-        setFile(info.file)
-        try {
-          const reader = new FileReader();
-          reader.readAsDataURL(info.file);
-          reader.onload = function () {
-            setFileBase(reader.result)
-          };
-        } catch (e) {
-          console.log(e, "错误处理");
-        }
-      },
-      onDrop(e) {
-        console.log('Dropped files', e.dataTransfer.files);
+
+  const submit = () => {
+    loginApi.updateLocalOrg({ imageUrl: imgUrl.replace(/\s*/g, ""), profile: TextAreaValue.replace(/\s*/g, ""), name: name }).then(res => {
+      if (res.status == 0) {
+        props.setCurrent(2)
+      } else {
+        message.error(res.msg)
       }
-    },
-    delFile = () => {
-      setFile('')
-      setFileBase('')
-    }
+    })
+  }
+
 
   return <>
     <p className="title center set-your-org-name-title">{t('UserCenter.OrganizationApplicationSucceeded')}</p>
     <p className="identifier">
       <span className="lable" style={{ width: i18n.language === 'en' ? "170px" : "100px" }}>{t("common.orgName")}：</span>
-      <span className="content">{baseInfo.name}</span>
+      <span className="content">{props?.baseInfo?.name}</span>
     </p>
     <p className="identifier">
       <span className="lable" style={{ width: i18n.language === 'en' ? "170px" : "100px" }}>{t("common.orgIdentify")}：</span>
-      <span className="content">{baseInfo.orgIdentify}</span>
+      <span className="content">{props?.baseInfo?.identityId}</span>
     </p>
     <Row gutter={16} justify="space-between">
       <hr />
       <Col push={2} span={9}>
         <p className="identfier-info-lable">{t('DidApplication.SetYourHead')}：</p>
-        <Dragger
-          className="info-dragger"
-          disabled={!!file}
-          {...DraggerProps}
-        >
-          {!file ? <PlusOutlined /> : <Image src={fileBase} className="head-img" />}
-          {!file ? <p>{t("DidApplication.SetYourHeadIips")}</p> : <p className="head-img-lable">{file?.name || ''}</p>}
-        </Dragger>
-        {!!file ? <MinusCircleFilled onClick={delFile} className="del" /> : ''}
+        <TextArea autoSize={false} className="identfier-info-input"
+          value={imgUrl}
+          onChange={_ => setImgUrl(_.target.value)}
+          placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
+        </TextArea>
+        {TextAreaValue ? <img src={clean} onClick={() => setTextAreaValue('')} className="clean" /> : ''}
       </Col>
       <Col pull={2} span={9}>
         <p className="identfier-info-lable">{t('DidApplication.SetYourIntroduction')}：</p>
@@ -80,7 +59,7 @@ export const StepTwo: FC<any> = (props) => {
       </Col>
     </Row>
     <div className="center">
-      <Button type="primary" className="but">
+      <Button type="primary" className="but" onClick={submit}>
         {t('common.submit')}
       </Button>
       <Button className="but" onClick={_ => props.setCurrent(2)}>
