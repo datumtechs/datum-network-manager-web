@@ -134,11 +134,13 @@ const computeNodeApi = {
   },
 
   // 修改计算节点
-  updatePowerNode(data: ComputeNode): Promise<any> {
+  // updatePowerNode(data: ComputeNode): Promise<any> {
+  updatePowerNode(data: any): Promise<any> {
     return axios({
       method: "POST",
       // url: `/api/v1/node/powernode/updatePowerNode`,
-      url: `/api/v1/powernode/updatePowerNode`,
+      // url: `/api/v1/powernode/updatePowerNode`,
+      url: `/api/v1/powernode/updateNodeName`,
       data
     })
   },

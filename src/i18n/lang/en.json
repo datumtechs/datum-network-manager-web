@@ -184,7 +184,9 @@
     "and": "&",
     "times": "Times",
     "nodeMgtDelError": "Deletion failed",
-    "rename": "Rename"
+    "rename": "Rename",
+    "nodeNamingRules5": "Node name cannot be duplicate.",
+    "nodeNamingRulesTipe": "Node naming is not standardized"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",
@@ -224,7 +226,8 @@
     "totalBandwidth": "Total Bandwidth",
     "curTaskByNode": "Participated task in progress",
     "startInfoAndTaskTime": "Initiation information & Time spent",
-    "eachTaskCost": "Occupied resources of each task at this node"
+    "eachTaskCost": "Occupied resources of each task at this node",
+    "ModifyNodeName": "Modify node name"
   },
   "dataNodeMgt": {
     "nodeName": "Storage node name",

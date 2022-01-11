@@ -60,7 +60,7 @@ export const AddSeedNode: FC<any> = (props: any) => {
       okText={t('node.submitAddtion')}
       cancelText={t('common.return')}
       title={t('node.addSeedNode')}>
-      <div className="tip-box">{t('node.noRepeatSeedName')}</div>
+      <div className="tip-box" style={{ width: '100%' }}>{t('node.noRepeatSeedName')}</div>
       <Form
         name="basic"
         size="large"

@@ -31,10 +31,8 @@ export const requestLoading = {
 export const requestCancel = {
   add(str: string, cancel) {
     if (this.has(str)) {
-      // console.log('重复');
       cancel('自主取消')
     } else {
-      // console.log(str);
       queryAllList.set(str, cancel)
     }
   },

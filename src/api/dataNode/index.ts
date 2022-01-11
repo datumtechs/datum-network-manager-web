@@ -51,7 +51,8 @@ const dataNodeApi = {
     return axios({
       method: "POST",
       // url: `/api/v1/node/datanode/updateDataNode`,
-      url: `/api/v1/datanode/updateDataNode`,
+      // url: `/api/v1/datanode/updateDataNode`,
+      url: `/api/v1/datanode/updateNodeName`,
       data
     })
   },

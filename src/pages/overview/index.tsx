@@ -25,8 +25,8 @@ export const Overview: FC<any> = () => {
     usedBandwidth_rate: 0
   })
   const bgColor = {
-    cpu: '#62A4E4',
     memory: '#FF8080',
+    cpu: '#62A4E4',
     bandwidth: '#FFA958'
   }
   const queryTotalResourced = (): void => {

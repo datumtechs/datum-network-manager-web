@@ -34,14 +34,14 @@ const TrendChart: FC<any> = (props: any) => {
 
   const seriesCom = [
     {
-      name: t(`overview.cpu`),
+      name: t(`overview.memory`),
       type: 'line',
       symbolSize: 7,
       smooth: true,
       data: [],
     },
     {
-      name: t(`overview.memory`),
+      name: t(`overview.cpu`),
       type: 'line',
       symbolSize: 7,
       smooth: true,
@@ -104,12 +104,12 @@ const TrendChart: FC<any> = (props: any) => {
       itemGap: 10,
       icon: 'circle',
       itemWidth: 8,
-      data: curSwitch === 'data' ? [t(`overview.cpu`)] : [t(`overview.cpu`), t(`overview.memory`), t(`overview.bandwidth`)],
+      data: curSwitch === 'data' ? [t(`overview.memory`)] : [t(`overview.memory`), t(`overview.cpu`), , t(`overview.bandwidth`)],
       textStyle: {
         fontSize: 12
       }
     },
-    color: curSwitch === 'data' ? [bgColor.cpu] : [...Object.values(bgColor)],
+    color: curSwitch === 'data' ? [bgColor.memory] : [...Object.values(bgColor)],
     xAxis: {
       type: 'category',
       data: getMonthsByNumber(12),
@@ -128,43 +128,43 @@ const TrendChart: FC<any> = (props: any) => {
     const chart = echarts.init(document.getElementById('totalData'))
     const newOption = { ...option }
     newOption.series = []
-    if (curSwitch === 'data') {
-      overviewApi.globalDataFileStatsTrendMonthly().then((res) => {
-        if (res.status === 0 && res.data) {
-          newOption.series[0] = { ...seriesCom[0] }
-          newOption.series[0].data = res.data.map(_ => _.totalValue)
-          if (curSwitch !== 'data') {
-            newOption.series[1] = { ...seriesCom[1] }
-            newOption.series[1].data = res.data.map(_ => _.totalValue)
-            newOption.series[2] = { ...seriesCom[2] }
-            newOption.series[2].data = res.data.map(_ => _.totalValue)
-          }
-          console.log(newOption);
+    // if (curSwitch === 'data') {
+    overviewApi.localPowerStatsTrendMonthly().then((res) => {
+      if (res.status === 0 && res.data) {
+        newOption.series[0] = { ...seriesCom[0] }
+        newOption.series[0].data = res.data.map(_ => _.totalMemoryValue)
+        if (curSwitch !== 'data') {
+          newOption.series[1] = { ...seriesCom[1] }
+          newOption.series[1].data = res.data.map(_ => _.totalCoreValue)
+          newOption.series[2] = { ...seriesCom[2] }
+          newOption.series[2].data = res.data.map(_ => _.totalBandwidthValue)
+        }
+        console.log(newOption);
 
-          chart.setOption(newOption, {
-            replaceMerge: ['series']
-          })
-          chart.resize()
-        }
-      })
-    } else {
-      overviewApi.globalPowerStatsTrendMonthly().then((res) => {
-        if (res.status === 0 && res.data) {
-          newOption.series[0] = { ...seriesCom[0] }
-          newOption.series[0].data = res.data.map(_ => _.totalValue)
-          if (curSwitch !== 'data') {
-            newOption.series[1] = { ...seriesCom[1] }
-            newOption.series[1].data = res.data.map(_ => _.totalValue)
-            newOption.series[2] = { ...seriesCom[2] }
-            newOption.series[2].data = res.data.map(_ => _.totalValue)
-          }
-          chart.setOption(newOption, {
-            replaceMerge: ['series']
-          })
-          chart.resize()
-        }
-      })
-    }
+        chart.setOption(newOption, {
+          replaceMerge: ['series']
+        })
+        chart.resize()
+      }
+      // })
+      // } else {
+      //   overviewApi.globalPowerStatsTrendMonthly().then((res) => {
+      //     if (res.status === 0 && res.data) {
+      //       newOption.series[0] = { ...seriesCom[0] }
+      //       newOption.series[0].data = res.data.map(_ => _.totalValue)
+      //       if (curSwitch !== 'data') {
+      //         newOption.series[1] = { ...seriesCom[1] }
+      //         newOption.series[1].data = res.data.map(_ => _.totalValue)
+      //         newOption.series[2] = { ...seriesCom[2] }
+      //         newOption.series[2].data = res.data.map(_ => _.totalValue)
+      //       }
+      //       chart.setOption(newOption, {
+      //         replaceMerge: ['series']
+      //       })
+      //       chart.resize()
+      //     }
+      //   })
+    })
 
   }, [width, i18n.language, curSwitch])
 

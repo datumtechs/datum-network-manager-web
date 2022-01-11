@@ -238,19 +238,6 @@ ${dayjs(days + '.000Z').subtract(0, 'hour').format('HH:mm')}`;
               </Button>
             </Space>
           </div>
-          {/* <div className="time-group">
-            <Space size={64}>
-              {daysList.map(item => (
-                <span
-                  className={['pointer', timeType === item.value ? 'active' : ''].join(' ')}
-                  key={item.id}
-                  onClick={() => timeTypeSet(item.value)}
-                >
-                  {item.label}
-                </span>
-              ))}
-            </Space>
-          </div> */}
           <div id="lineChart"></div>
         </div>
         <div className="cpu-info">

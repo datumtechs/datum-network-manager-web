@@ -185,7 +185,9 @@
     "and": "与",
     "times": "次",
     "nodeMgtDelError": "删除失败",
-    "rename": "重命名"
+    "rename": "重命名",
+    "nodeNamingRules5": "节点名称不可重复。",
+    "nodeNamingRulesTipe": "节点命名不规范"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",
@@ -225,7 +227,8 @@
     "totalBandwidth": "总带宽",
     "curTaskByNode": "此节点正在参与的任务",
     "startInfoAndTaskTime": "发起信息与任务用时",
-    "eachTaskCost": "各个任务占用此节点总算力的实况"
+    "eachTaskCost": "各个任务占用此节点总算力的实况",
+    "ModifyNodeName": "修改节点名称"
   },
   "dataNodeMgt": {
     "nodeName": "存储节点名称",

@@ -44,11 +44,12 @@ const overviewApi = {
   },
 
   // 查询我发布的算力
-  localPowerStatsTrendMonthly(): Promise<any> {
+  localPowerStatsTrendMonthly(params?): Promise<any> {
     return axios({
       method: "POST",
       // url: `/api/v1/system/index/localPowerStatsTrendMonthly`,
       url: `/api/v1/overview/localPowerStatsTrendMonthly`,
+      params
     })
   },
 

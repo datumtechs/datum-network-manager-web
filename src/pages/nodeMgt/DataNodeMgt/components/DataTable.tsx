@@ -7,6 +7,7 @@ import { dataNodeApi } from '@api/index'
 import failedSvg from '@assets/images/11.icon1.svg'
 import successSvg from '@assets/images/9.icon1.svg'
 import { buttonDisabled } from '@/utils/utils'
+import MyTag from '@com/MyTag'
 
 const DataTable: FC<any> = (props: any) => {
   const [isModalVisible, SetIsModalVisible] = useState(false)
@@ -17,12 +18,14 @@ const DataTable: FC<any> = (props: any) => {
   const [curName, SetCurName] = useState('')
   // const history = useHistory()
   const [tableData, tableDataSet] = useState<Array<any>>([])
-  const [tempTableData, tempTableDataSet] = useState<Array<any>>([])
+  // const [tempTableData, tempTableDataSet] = useState<Array<any>>([])
   const [total, totalSet] = useState<number>(0)
   const [curPage, setCurPage] = useState<number>(1)
   const [curId, setCurId] = useState<string>('')
   const [form] = Form.useForm();
   const { t, i18n } = useTranslation()
+  // const [showNameStatus, showNameStatusSet] = useState<boolean>(false)
+  // const [nameStatus, nameStatusSet] = useState<boolean>(false)
 
   const onPageChange = num => {
     setCurPage(num)
@@ -47,7 +50,7 @@ const DataTable: FC<any> = (props: any) => {
       })
       // 一为真实数据 另为展示数据
       tableDataSet(newTableData)
-      tempTableDataSet(JSON.parse(JSON.stringify(newTableData)))
+      // tempTableDataSet(JSON.parse(JSON.stringify(newTableData)))
       totalSet(res.total)
     }
   }
@@ -62,14 +65,19 @@ const DataTable: FC<any> = (props: any) => {
     SetIsModalVisible(true)
   }
   const saveFn = () => {
-    dataNodeApi.updateDataNode({
-      "nodeName": activeRow?.nodeName,
-      "nodeId": activeRow.nodeId,
-    }).then(res => {
-      if (res.status === 0) {
-        message.success(`${t('tip.operationSucces')}`)
-        initData()
-      }
+    form?.validateFields().then(v => {
+      dataNodeApi.updateDataNode({
+        "nodeName": v?.nodeName,
+        "nodeId": activeRow.nodeId,
+      }).then(res => {
+        if (res.status === 0) {
+          message.success(`${t('tip.operationSucces')}`)
+          initData()
+          cancel()
+        }
+      })
+    }).catch(err => {
+      console.log(err);
     })
   }
 
@@ -99,6 +107,7 @@ const DataTable: FC<any> = (props: any) => {
       title: t('dataNodeMgt.nodeName'),
       dataIndex: 'nodeName',
       width: 200,
+      ellipsis: true
     },
     {
       title: t('common.status'),
@@ -195,6 +204,21 @@ const DataTable: FC<any> = (props: any) => {
     SetIsModalVisible(false)
   }
 
+  // const whenInputChange = (e) => {
+  //   const name = e.target.value
+  //   if (name) {
+  //     dataNodeApi.checkDataNodeName({ nodeName: name }).then(res => {
+  //       showNameStatusSet(true)
+  //       if (res.status === 0) {
+  //         return nameStatusSet(true)
+  //       }
+  //       return nameStatusSet(false)
+  //     })
+  //   } else {
+  //     showNameStatusSet(false)
+  //   }
+  // }
+
 
   return (
     <div className="data-table-box">
@@ -216,32 +240,61 @@ const DataTable: FC<any> = (props: any) => {
         destroyOnClose={true}
         centered={true}
         onCancel={cancel}
-        okText={t('node.submitAddtion')}
+        okText={t('common.submit')}
         cancelText={t('common.cancel')}
-        title={t('node.addSeedNode')}>
+        title={t('node.ModifyNodeName')}>
         <Form
           name="basic"
           size="large"
+          layout={"vertical"}
           preserve={false}
-          initialValues={{ remember: true }}
-          labelAlign="left"
-          labelCol={{ style: { width: i18n.language === 'en' ? 180 : 120, whiteSpace: 'pre-wrap' } }}
           form={form}
         >
-          <Form.Item
+          {/* <div className="form-group"> */}
+          <Form.Item name="nodeName"
             label={t('dataNodeMgt.nodeName')}
-            name="nodeName"
-            rules={[{ required: true, message: `${t('tip.plzInput')}${t('dataNodeMgt.nodeName')}` }]}
+            className="froup-item"
+            rules={[{
+              required: true,
+              min: 4,
+              max: 20,
+              message: t('common.nodeNamingRulesTipe'),
+
+            }]}>
+            <Input
+              className="form-box-input" placeholder={t('node.forSelfidentity')} />
+          </Form.Item>
+          {/* {
+              showNameStatus ? nameStatus ? <MyTag margin={true} content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" /> :
+                <MyTag margin={true} content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" /> : ''
+            } */}
+          {/* </div> */}
+          <Form.Item
+            colon={false}
+            style={{ marginTop: '10px' }}
             className="form-item"
           >
-            <Input
-              placeholder={t('dataNodeMgt.nodeName')}
-              className="form-box-input"
-            />
+            <p>{t('DidApplication.SetYourOrgNameRules')}</p>
+            <p>1.{t('DidApplication.SetYourOrgNameRulesItem1')}</p>
+            <p>2.{t('DidApplication.SetYourOrgNameRulesItem2')}</p>
+            <p>3.{t('DidApplication.SetYourOrgNameRulesItem3')}</p>
+            <p>4.{t('DidApplication.SetYourOrgNameRulesItem4')}</p>
+            <p>5.{t('common.nodeNamingRules5')}</p>
           </Form.Item>
         </Form>
       </Modal >
-
+      <style>
+        {`
+          .form-group{
+            align-items: flex-start;
+          }
+          .froup-item{flex:0 0 75%}
+          .my-tag-box{
+            margin-top: 58px !important;
+            margin-left: 10px !important;
+          }
+        `}
+      </style>
     </div>
   )
 }

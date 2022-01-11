@@ -96,12 +96,15 @@ const Profile: FC<any> = (props: any) => {
           name="imageUrlText"
           className="form-item">
           {/* <> */}
-          <TextArea autoSize={false} className="identfier-info-input"
-            disabled={disabled}
-            key={"ProfileOrganizationHead"}
-            onChange={_ => setTextImgValue(_.target.value)}
-            placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
-          </TextArea>
+          {
+            disabled ? <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.imageUrl}</p> :
+              <TextArea autoSize={false} className="identfier-info-input"
+                key={"ProfileOrganizationHead"}
+                onChange={_ => setTextImgValue(_.target.value)}
+                placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
+              </TextArea>
+          }
+
           {/* {imageUrlText ? <img src={clean} onClick={() => setTextImgValue('')} className="clean" /> : ''} */}
           {/* </> */}
         </Form.Item>
@@ -110,18 +113,18 @@ const Profile: FC<any> = (props: any) => {
           name="profileText"
           className="form-item">
           {/* <> */}
-          <TextArea autoSize={false} className="identfier-info-input"
-            disabled={disabled}
-            key={"ProfileOrganizationIntroduction"}
-            onChange={_ => setTextAreaValue(_.target.value)}
-            placeholder={t('UserCenter.ProfileIntroductionPlaceholder')} >
-          </TextArea>
-          {/* {profileText ? <img src={clean} onClick={() => setTextAreaValue('')} className="clean" /> : ''} */}
-          {/* </> */}
+          {disabled ? <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.imageUrl}</p> :
+            <TextArea autoSize={false} className="identfier-info-input"
+              disabled={disabled}
+              key={"ProfileOrganizationIntroduction"}
+              onChange={_ => setTextAreaValue(_.target.value)}
+              placeholder={t('UserCenter.ProfileIntroductionPlaceholder')} >
+            </TextArea>
+          }
         </Form.Item>
 
 
-        <Form.Item colon={false} className="form-item" label={" "}>
+        <Form.Item colon={false} className="form-item" label={" "} style={{ paddingLeft: '11px' }}>
           {disabled ?
             <Button className="global-btn" onClick={() => setDisabled(false)}>
               {t('UserCenter.ProfileButtonEdit')}

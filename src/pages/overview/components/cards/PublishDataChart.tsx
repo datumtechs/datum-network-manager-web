@@ -32,22 +32,22 @@ const PublishDataChart: FC<any> = (props: any) => {
 
   const seriesCom = [
     {
-      name: t(`overview.cpu`),
-      type: 'bar',
-      legendHoverLink: true,
-      itemStyle: {
-        borderRadius: [4, 4, 0, 0],
-        width: curSwitch === 'data' ? '' : 8
-      },
-      data: []
-    },
-    {
       name: t(`overview.memory`),
       type: 'bar',
       legendHoverLink: true,
       itemStyle: {
         borderRadius: [4, 4, 0, 0],
         width: '8px'
+      },
+      data: []
+    },
+    {
+      name: t(`overview.cpu`),
+      type: 'bar',
+      legendHoverLink: true,
+      itemStyle: {
+        borderRadius: [4, 4, 0, 0],
+        width: curSwitch === 'data' ? '' : 8
       },
       data: []
     },
@@ -111,12 +111,12 @@ const PublishDataChart: FC<any> = (props: any) => {
       itemGap: 10,
       icon: 'circle',
       itemWidth: 8,
-      data: curSwitch === 'data' ? [t(`overview.cpu`)] : [t(`overview.cpu`), t(`overview.memory`), t(`overview.bandwidth`)],
+      data: curSwitch === 'data' ? [t(`overview.memory`)] : [t(`overview.memory`), t(`overview.cpu`), , t(`overview.bandwidth`)],
       textStyle: {
         fontSize: 12
       }
     },
-    color: curSwitch === 'data' ? [bgColor.cpu] : [...Object.values(bgColor)],
+    color: curSwitch === 'data' ? [bgColor.memory] : [...Object.values(bgColor)],
     xAxis: {
       type: 'category',
       data: getMonthsByNumber(12),
@@ -134,17 +134,17 @@ const PublishDataChart: FC<any> = (props: any) => {
 
   useEffect(() => {
     const chart = echarts.init(document.getElementById('publishData'))
-    overviewApi.localPowerStatsTrendMonthly().then((res) => {
+    overviewApi.localPowerStatsTrendMonthly({ type: 1 }).then((res) => {
       const newOption = { ...option }
       newOption.series = []
       if (res.status === 0 && res.data) {
         newOption.series[0] = { ...seriesCom[0] }
-        newOption.series[0].data = res.data.map(_ => _.incrementValue)
+        newOption.series[0].data = res.data.map(_ => _.incrementMemoryValue)
         if (curSwitch !== 'data') {
           newOption.series[1] = { ...seriesCom[1] }
-          newOption.series[1].data = res.data.map(_ => _.incrementValue)
+          newOption.series[1].data = res.data.map(_ => _.incrementCoreValue)
           newOption.series[2] = { ...seriesCom[2] }
-          newOption.series[2].data = res.data.map(_ => _.incrementValue)
+          newOption.series[2].data = res.data.map(_ => _.incrementBandwidthValue)
         }
 
         chart.setOption(newOption, {

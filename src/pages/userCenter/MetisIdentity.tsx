@@ -33,28 +33,31 @@ const MetisIdentity: FC<any> = (props: any) => {
   }, [baseInfo?.status])
 
   const joinNetwork = () => {
-    form
-      .validateFields()
-      .then(values => {
-        console.log(values)
-        const { errorFields } = values
-        if (errorFields) return
-        const { carrierIp, carrierPort } = form.getFieldsValue()
-        setLoading(true)
-        nodeApi.applyJoinNetwork().then(res => {
-          if (res.status === 0) {
-            // TODO:  临时解决办法 使用5秒后拉取最新状态的方式解决延迟的问题
-            message.success(`${t('tip.joinNetworkSuccess')}`)
-          } else {
-            message.error(`${t('tip.joinNetworkFailed')}`)
-          }
-          setLoading(false)
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    // form
+    //   .validateFields()
+    //   .then(values => {
+    //     console.log(values)
+    //     const { errorFields } = values
+    //     if (errorFields) return
+    //     const { carrierIp, carrierPort } = form.getFieldsValue()
+    setLoading(true)
+    nodeApi.applyJoinNetwork().then(res => {
+      if (res.status === 0) {
+        // TODO:  临时解决办法 使用5秒后拉取最新状态的方式解决延迟的问题
+        message.success(`${t('tip.joinNetworkSuccess')}`)
+      } else {
+        message.error(`${t('tip.joinNetworkFailed')}`)
+      }
+      setLoading(false)
+      baseInfo.fetchData()
+    })
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
   }
+
+  console.log(baseInfo);
 
   const missNetwork = () => {
     if (baseInfo?.dynamicFields?.runningTask) {
@@ -69,6 +72,7 @@ const MetisIdentity: FC<any> = (props: any) => {
       } else {
         message.error(`${t('node.logoutFailed')}`)
       }
+      baseInfo.fetchData()
       setLoading(false)
       setModal2Visible(false)
     })
