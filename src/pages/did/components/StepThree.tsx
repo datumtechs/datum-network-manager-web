@@ -30,12 +30,11 @@ const StepThree: FC<any> = (props) => {
     <div className="metis-internet-status center">
       <p>
         <span className="status-lable">{t('DidApplication.MetisInternerStatu')}:</span>
-
-        {!props?.baseInfo?.carrierStatus ?
+        {props?.baseInfo?.carrierConnStatus == 'enabled' ?
           <span className="error">{t('DidApplication.MetisInternerStatuError')}</span> :
           <span className="success">{t('DidApplication.MetisInternerStatuSuccess')}</span>}
       </p>
-      {!props?.baseInfo?.carrierStatus ? <p className="operation-tips-error">
+      {props?.baseInfo?.carrierConnStatus == 'enabled' ? <p className="operation-tips-error">
         <WarningFilled />
 
         {t('DidApplication.MetisInternerOperationError')}

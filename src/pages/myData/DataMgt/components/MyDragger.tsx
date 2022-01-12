@@ -31,8 +31,14 @@ const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
     e.stopPropagation();
   }
   const handleDrop = (e) => {
+    // debugger
+    // console.log(e);
     e.preventDefault();
     e.stopPropagation();
+    if (props.maxSize && filterSize(e.dataTransfer?.files[0].size) > props.maxSize) {
+      message.info(t('myData.fileMaxSizeTips'))
+      return
+    }
     setDragging(false)
     props.uploadByDrag(e)
   }
@@ -52,21 +58,16 @@ const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
     draggerRef.current.addEventListener('drop', handleDrop);
     draggerRef.current.addEventListener('dragenter', handleDragEnter);
     draggerRef.current.addEventListener('dragleave', handleDragLeave);
-    return () => {
-      // draggerRef.current.removeEventListener('dragover', handleDragOver);
-      // draggerRef.current.removeEventListener('drop', handleDrop);
-      // draggerRef.current.removeEventListener('dragenter', handleDragEnter);
-      // draggerRef.current.removeEventListener('dragleave', handleDragLeave);
-    }
+    return () => { }
   }, [])
 
-  const filterSize = (size: number): number => {
-    if (!isNaN(size)) return 0
+  const filterSize = (size: number = 0): number => {
+    if (isNaN(size)) return 0
     return Number((size / 1024 / 1024).toFixed(2))
   }
 
   const onChange = e => {
-    if (props.maxSize && e.size > props.maxSize) {
+    if (props.maxSize && filterSize(e.target?.files[0].size) > props.maxSize) {
       message.info(t('myData.fileMaxSizeTips'))
       return
     }
