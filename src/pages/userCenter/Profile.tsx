@@ -14,9 +14,10 @@ const Profile: FC<any> = (props: any) => {
     baseInfo = useContext(BaseInfoContext),
     [disabled, setDisabled] = useState(true),
     [loading, setLoading] = useState(false),
-    [imageUrlText, setTextAreaValue] = useState(''),
-    [profileText, setTextImgValue] = useState(''),
-    [rules, setRules] = useState([{
+    [legalVerificationUrlMessage, setLegalVerificationUrl] = useState(t('common.legalVerificationUrl')),
+    // [imageUrlText, setTextAreaValue] = useState(''),
+    // [profileText, setTextImgValue] = useState(''),
+    [rules] = useState([{
       min: 4, message: `${t('DidApplication.SetYourOrgNameRulesItem3')}`
     }, {
       max: 20, message: `${t('DidApplication.SetYourOrgNameRulesItem4')}`
@@ -61,11 +62,21 @@ const Profile: FC<any> = (props: any) => {
         imageUrlText: baseInfo?.imageUrl,
         profileText: baseInfo?.profile,
       })
-      setTextAreaValue(baseInfo?.imageUrl)
-      setTextImgValue(baseInfo?.profile)
+      // setTextAreaValue(baseInfo?.imageUrl)
+      // setTextImgValue(baseInfo?.profile)
     }
 
   }, [baseInfo])
+  useEffect(() => {
+    // console.log(t('common.legalVerificationUrl'));
+    // console.log(i18n);
+    // lng: 'zh', ns: "common" 
+    console.log(i18n.getDataByLanguage('zh')?.translation?.common['legalVerificationUrl'])
+
+    setLegalVerificationUrl(t('common.legalVerificationUrl'))
+  }, [i18n.language])
+
+  // console.log(i18n);
 
   return (<div className="layout-box">
     <div className="form-box userForm">
@@ -94,13 +105,18 @@ const Profile: FC<any> = (props: any) => {
 
         <Form.Item colon label={t('UserCenter.ProfileOrganizationHead')}
           name="imageUrlText"
+          rules={((): Rule[] => [
+            {
+              type: 'url',
+              message: i18n.language == 'zh' ? i18n.getDataByLanguage('zh')?.translation?.common['legalVerificationUrl'] : i18n.getDataByLanguage('en')?.translation?.common['legalVerificationUrl']
+            }
+          ])()}
           className="form-item">
           {/* <> */}
           {
             disabled ? <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.imageUrl}</p> :
               <TextArea autoSize={false} className="identfier-info-input"
                 key={"ProfileOrganizationHead"}
-                onChange={_ => setTextImgValue(_.target.value)}
                 placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
               </TextArea>
           }
@@ -117,7 +133,6 @@ const Profile: FC<any> = (props: any) => {
             <TextArea autoSize={false} className="identfier-info-input"
               disabled={disabled}
               key={"ProfileOrganizationIntroduction"}
-              onChange={_ => setTextAreaValue(_.target.value)}
               placeholder={t('UserCenter.ProfileIntroductionPlaceholder')} >
             </TextArea>
           }

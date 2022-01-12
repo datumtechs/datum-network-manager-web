@@ -187,7 +187,8 @@
     "nodeMgtDelError": "删除失败",
     "rename": "重命名",
     "nodeNamingRules5": "节点名称不可重复。",
-    "nodeNamingRulesTipe": "节点命名不规范"
+    "nodeNamingRulesTipe": "节点命名不规范",
+    "legalVerificationUrl": "当前url不合法"
   },
   "node": {
     "addNewComputingNode": "新增计算节点",

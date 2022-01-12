@@ -5,6 +5,8 @@ const queryList = new Set()
 const queryAllList = new Map()
 
 export const noInclude = ['/api/v1/system/queryBaseInfo', '/api/v1/user/findLocalOrgInfo', '/api/v1/data/listLocalMetaDataByKeyword']
+export const noDuplicateRemovalInclude = ['/api/v1/overview/localPowerStatsTrendMonthly']
+
 export const requestLoading = {
   add(str: string) {
     if (!noInclude.includes(str)) {
@@ -30,6 +32,9 @@ export const requestLoading = {
 }
 export const requestCancel = {
   add(str: string, cancel) {
+    if (noDuplicateRemovalInclude.includes(str)) {
+      return
+    }
     if (this.has(str)) {
       cancel('自主取消')
     } else {

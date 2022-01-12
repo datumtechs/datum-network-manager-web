@@ -186,7 +186,8 @@
     "nodeMgtDelError": "Deletion failed",
     "rename": "Rename",
     "nodeNamingRules5": "Node name cannot be duplicate.",
-    "nodeNamingRulesTipe": "Node naming is not standardized"
+    "nodeNamingRulesTipe": "Node naming is not standardized",
+    "legalVerificationUrl": "The current URL is illegal"
   },
   "node": {
     "addNewComputingNode": "Add a new computing node",

@@ -61,7 +61,7 @@ const TrendChart: FC<any> = (props: any) => {
   const option: any = {
     grid: {
       left: 0,
-      top: 40,
+      top: curSwitch !== 'data' ? 40 : 10,
       right: 0,
       bottom: 20,
     },
@@ -104,6 +104,7 @@ const TrendChart: FC<any> = (props: any) => {
       itemGap: 10,
       icon: 'circle',
       itemWidth: 8,
+      show: curSwitch !== 'data',
       data: curSwitch === 'data' ? [t(`overview.memory`)] : [t(`overview.memory`), t(`overview.cpu`), , t(`overview.bandwidth`)],
       textStyle: {
         fontSize: 12
@@ -128,7 +129,6 @@ const TrendChart: FC<any> = (props: any) => {
     const chart = echarts.init(document.getElementById('totalData'))
     const newOption = { ...option }
     newOption.series = []
-    // if (curSwitch === 'data') {
     overviewApi.localPowerStatsTrendMonthly().then((res) => {
       if (res.status === 0 && res.data) {
         newOption.series[0] = { ...seriesCom[0] }
@@ -146,24 +146,6 @@ const TrendChart: FC<any> = (props: any) => {
         })
         chart.resize()
       }
-      // })
-      // } else {
-      //   overviewApi.globalPowerStatsTrendMonthly().then((res) => {
-      //     if (res.status === 0 && res.data) {
-      //       newOption.series[0] = { ...seriesCom[0] }
-      //       newOption.series[0].data = res.data.map(_ => _.totalValue)
-      //       if (curSwitch !== 'data') {
-      //         newOption.series[1] = { ...seriesCom[1] }
-      //         newOption.series[1].data = res.data.map(_ => _.totalValue)
-      //         newOption.series[2] = { ...seriesCom[2] }
-      //         newOption.series[2].data = res.data.map(_ => _.totalValue)
-      //       }
-      //       chart.setOption(newOption, {
-      //         replaceMerge: ['series']
-      //       })
-      //       chart.resize()
-      //     }
-      //   })
     })
 
   }, [width, i18n.language, curSwitch])

@@ -50,7 +50,8 @@ const Layout = (props: any) => {
     const result = await loginApi.queryBaseInfo()
     // console.log(result);
     if (type) {
-      if (result.status === 1001) {
+      // debugger
+      if (result.status === 1005) {
         props.setIsReg(false)
         history.push('/didApplication')
         return

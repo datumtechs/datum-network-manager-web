@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { IRoute } from '@/router'
 import { dropByCacheKey, getCachingKeys } from 'react-router-cache-route'
 const Nav = (props: any) => {
+
   const { state: { isReg } } = props
   const menu = props.state.menu.curMenu
   const history = useHistory()

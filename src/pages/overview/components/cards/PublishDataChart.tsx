@@ -68,7 +68,7 @@ const PublishDataChart: FC<any> = (props: any) => {
   const option: any = {
     grid: {
       left: 0,
-      top: 40,
+      top: curSwitch !== 'data' ? 40 : 10,
       right: 0,
       bottom: 20,
     },
@@ -111,6 +111,7 @@ const PublishDataChart: FC<any> = (props: any) => {
       itemGap: 10,
       icon: 'circle',
       itemWidth: 8,
+      show: curSwitch !== 'data',
       data: curSwitch === 'data' ? [t(`overview.memory`)] : [t(`overview.memory`), t(`overview.cpu`), , t(`overview.bandwidth`)],
       textStyle: {
         fontSize: 12

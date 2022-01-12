@@ -26,22 +26,21 @@ const DidApplication: FC<any> = (props) => {
   const { t } = useTranslation(),
     { Step } = Steps,
     [current, setCurrent] = useState(0)
-  const { status } = props?.location?.state || { status: 2 }
+  // debugger
+  const status = props?.location?.state?.status || 0
   const baseInfo = useContext(BaseInfoContext)
 
 
   useEffect(() => {
+    console.log(props);
+
     setCurrent(status)
-    // console.log(props);
     if (status < 1) {
-      props.setIsReg(false)
-      console.log(11);
+      props.setIsReg(true)
     } else {
       props.setIsReg(false)
-      console.log(22);
-
     }
-  }, [status])
+  }, [])
 
   // historyChange()
 
@@ -60,10 +59,10 @@ const DidApplication: FC<any> = (props) => {
           wrapperCol={{ span: 16 }}
           labelCol={{ span: 4 }}>
           {
-            current === 0 ?
+            current == 0 ?
               <StepOne baseInfo={baseInfo} setCurrent={setCurrent} />
               :
-              current === 1 ?
+              current == 1 ?
                 <StepTwo baseInfo={baseInfo} setCurrent={setCurrent} />
                 :
                 current > 1 ? <StepThree baseInfo={baseInfo} /> : ''
