@@ -1,26 +1,48 @@
-import { FC, useEffect, useState, useRef } from "react";
+import { FC, useState, useRef } from "react";
 import { useTranslation } from 'react-i18next'
 import {
   Button, Form, Input, message
 } from 'antd'
 import { Rule } from "rc-field-form/lib/interface";
 import { loginApi } from '@api/index'
-export const StepOne: FC<any> = (props) => {
+import { connect } from 'react-redux'
 
-  const { t, i18n } = useTranslation(),
-    [rules, setRules] = useState([{
-      min: 4, message: `${t('DidApplication.SetYourOrgNameRulesItem3')}`
-    }, {
-      max: 20, message: `${t('DidApplication.SetYourOrgNameRulesItem4')}`
-    }])
+const mapDispatchToProps = (dispatch: any) => ({
+  setIsReg: (data) => {
+    dispatch({
+      type: 'SET_ISREG',
+      data
+    })
+  }
+})
+
+
+
+
+
+
+
+
+
+
+const StepOne: FC<any> = (props) => {
+
+  const { t } = useTranslation(),
+    [valiStatus, setValidateStatus] = useState<any>("warning")
   const inputRef = useRef<any>(null)
 
   const onFinish = () => {
     const name = inputRef?.current?.input.value
-    loginApi.applyOrgIdentity({ orgName: inputRef?.current?.input.value.replace(/\s*/g, "") }).then(res => {
+    if (!name || name.length > 20 || name.length < 4) {
+      setValidateStatus("error")
+      return
+    }
+
+    loginApi.applyOrgIdentity({ orgName: name.replace(/\s*/g, "") }).then(res => {
       if (res.status === 0) {
         props?.baseInfo?.fetchData()
         message.success(`${t('tip.idSuccess')}`)
+        props.setIsReg(true)
         props.setCurrent(1)
       } else {
         message.error(res.msg)
@@ -37,7 +59,10 @@ export const StepOne: FC<any> = (props) => {
       label={" "}
       colon={false}
       name="identityId"
-      rules={((): Rule[] => rules)()}
+      // validateStatus={valiStatus}
+      hasFeedback={valiStatus == "error"}
+      help={valiStatus == "error" ? t('DidApplication.NameNoRuleTips') : ""}
+      validateStatus={valiStatus}
     >
       <Input minLength={4} ref={inputRef} maxLength={20} placeholder={t('DidApplication.SetYourOrgNamePlaceholder')} />
     </Form.Item>
@@ -60,3 +85,5 @@ export const StepOne: FC<any> = (props) => {
     </div>
   </>
 }
+
+export default connect((state: any) => ({ state }), mapDispatchToProps)(StepOne)

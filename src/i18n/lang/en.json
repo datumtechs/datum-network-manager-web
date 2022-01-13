@@ -53,7 +53,8 @@
     "MetisInternerOperation": "After this initial setup，you can apply for registering or cancelling the Metis Identity from    the User Center",
     "MetisInternerOperationError": "Please check your system configuration",
     "MetisInternerOperationSubmit": "Register now",
-    "MetisInternerOperationLater": "Register later"
+    "MetisInternerOperationLater": "Register later",
+    "NameNoRuleTips": "The identification name of the organization does not meet the requirements"
   },
   "overview": {
     "seedNode": "Boot node",

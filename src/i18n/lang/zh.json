@@ -53,7 +53,8 @@
     "MetisInternerOperation": "完成此初始化设置之后，可以在【用户中心】的【身份信息】中注册/注销身份。",
     "MetisInternerOperationError": "请检查系统配置",
     "MetisInternerOperationSubmit": "立即注册",
-    "MetisInternerOperationLater": "暂不注册"
+    "MetisInternerOperationLater": "暂不注册",
+    "NameNoRuleTips": "机构识别名称不符合规定"
   },
   "overview": {
     "seedNode": "引导节点",

@@ -6,8 +6,9 @@ import {
   Steps
 } from 'antd'
 import { BaseInfoContext } from '@/layout/index'
+import { useHistory } from 'react-router-dom'
 import './scss/did.scss'
-import { StepOne } from './components/StepOne'
+import StepOne from './components/StepOne'
 import { StepTwo } from './components/StepTwo'
 import StepThree from './components/StepThree'
 
@@ -28,13 +29,14 @@ const DidApplication: FC<any> = (props) => {
     [current, setCurrent] = useState(0)
   // debugger
   const status = props?.location?.state?.status || 0
+  const NetworkStatus = props?.location?.state?.NetworkStatus || 0
   const baseInfo = useContext(BaseInfoContext)
-
+  const history = useHistory()
 
   useEffect(() => {
     console.log(props);
 
-    setCurrent(status)
+    isLink(status)
     if (status < 1) {
       props.setIsReg(true)
     } else {
@@ -42,7 +44,13 @@ const DidApplication: FC<any> = (props) => {
     }
   }, [])
 
-  // historyChange()
+  const isLink = (num) => {
+    if (NetworkStatus) {
+      history.push('/userCenter/userInfo')
+      return
+    }
+    setCurrent(num)
+  }
 
 
   return (
@@ -60,10 +68,10 @@ const DidApplication: FC<any> = (props) => {
           labelCol={{ span: 4 }}>
           {
             current == 0 ?
-              <StepOne baseInfo={baseInfo} setCurrent={setCurrent} />
+              <StepOne baseInfo={baseInfo} setCurrent={isLink} />
               :
               current == 1 ?
-                <StepTwo baseInfo={baseInfo} setCurrent={setCurrent} />
+                <StepTwo baseInfo={baseInfo} setCurrent={isLink} />
                 :
                 current > 1 ? <StepThree baseInfo={baseInfo} /> : ''
           }

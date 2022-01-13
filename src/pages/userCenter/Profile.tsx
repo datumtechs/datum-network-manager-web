@@ -59,7 +59,7 @@ const Profile: FC<any> = (props: any) => {
     if (disabled) {
       formRef.current!.setFieldsValue({
         ProfileName: baseInfo?.name,
-        imageUrlText: baseInfo?.imageUrl,
+        imageUrlText: baseInfo?.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg',
         profileText: baseInfo?.profile,
       })
       // setTextAreaValue(baseInfo?.imageUrl)
@@ -114,7 +114,14 @@ const Profile: FC<any> = (props: any) => {
           className="form-item">
           {/* <> */}
           {
-            disabled ? <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.imageUrl}</p> :
+            disabled ? <Image src={baseInfo?.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'}
+              height={100}
+              width={300}
+              preview={{
+                src: baseInfo?.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'
+              }} fallback={baseInfo?.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'} />
+              // <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.imageUrl}</p>
+              :
               <TextArea autoSize={false} className="identfier-info-input"
                 key={"ProfileOrganizationHead"}
                 placeholder={t('UserCenter.ProfileHeadPlaceholder')} >

@@ -11,8 +11,8 @@ import clean from '@assets/images/clean.icon.svg'
 
 export const StepTwo: FC<any> = (props) => {
   const { t, i18n } = useTranslation(),
-    [imgUrl, setImgUrl] = useState<any>(''),
-    [TextAreaValue, setTextAreaValue] = useState('')
+    [imgUrl, setImgUrl] = useState<any>(props.baseInfo.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'),
+    [TextAreaValue, setTextAreaValue] = useState(props.baseInfo.profile)
   const { TextArea } = Input
 
 
@@ -46,7 +46,7 @@ export const StepTwo: FC<any> = (props) => {
           onChange={_ => setImgUrl(_.target.value)}
           placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
         </TextArea>
-        {TextAreaValue ? <img src={clean} onClick={() => setTextAreaValue('')} className="clean" /> : ''}
+        {imgUrl ? <img src={clean} onClick={() => setImgUrl('')} className="clean" /> : ''}
       </Col>
       <Col pull={2} span={9}>
         <p className="identfier-info-lable">{t('DidApplication.SetYourIntroduction')}：</p>

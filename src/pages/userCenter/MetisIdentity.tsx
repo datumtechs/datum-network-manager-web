@@ -33,17 +33,9 @@ const MetisIdentity: FC<any> = (props: any) => {
   }, [baseInfo?.status])
 
   const joinNetwork = () => {
-    // form
-    //   .validateFields()
-    //   .then(values => {
-    //     console.log(values)
-    //     const { errorFields } = values
-    //     if (errorFields) return
-    //     const { carrierIp, carrierPort } = form.getFieldsValue()
     setLoading(true)
     nodeApi.applyJoinNetwork().then(res => {
       if (res.status === 0) {
-        // TODO:  临时解决办法 使用5秒后拉取最新状态的方式解决延迟的问题
         message.success(`${t('tip.joinNetworkSuccess')}`)
       } else {
         message.error(`${t('tip.joinNetworkFailed')}`)
@@ -51,10 +43,6 @@ const MetisIdentity: FC<any> = (props: any) => {
       setLoading(false)
       baseInfo.fetchData()
     })
-    // })
-    // .catch(err => {
-    //   console.log(err)
-    // })
   }
 
   console.log(baseInfo);
@@ -129,9 +117,14 @@ const MetisIdentity: FC<any> = (props: any) => {
               </>
             ) : (
               <>
-                <Form.Item colon={false} className="form-item" label={" "}>
-                  <MyTag margin content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
-                </Form.Item>
+                {baseInfo?.carrierConnStatus == 'enabled' ?
+                  <Form.Item colon={false} label={" "} className="form-item">
+                    <MyTag margin content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
+                  </Form.Item> :
+                  <Form.Item colon={false} className="form-item" label={" "}>
+                    <MyTag margin content={`${t('node.connenctFailed')}`} bgColor="#FFA39E" color="#F45564" />
+                  </Form.Item>
+                }
                 <Form.Item className="form-item">
                   <Button
                     type="primary"

@@ -35,15 +35,18 @@ const Login = (props: any) => {
       login: { account, password, veriCode = 2222 },
     } = values
     loginApi.loginFn({ userName: account, passwd: password, code: veriCode }).then(res => {
-      const { orgInfoCompletionLevel } = res.data || {}
+      const { orgInfoCompletionLevel, connectNetworkStatus } = res.data || {}
       if (res.status !== 0) {
         message.error(res.msg)
         return
-      } else if (+orgInfoCompletionLevel <= 2) {
+        // } else if (+orgInfoCompletionLevel == 1 && +connectNetworkStatus) { 
+
+      } else if (+orgInfoCompletionLevel < 2 && !(+connectNetworkStatus)) {
         return history.push({
           pathname: '/didApplication',
           state: {
-            status: orgInfoCompletionLevel
+            status: orgInfoCompletionLevel,//组织信息完善情况0 带申请  1 待完善 2 完成
+            NetworkStatus: connectNetworkStatus //0 未入网  1已入网 99 已退网
           },
         })
       } else if (redirectPath) {

@@ -32,7 +32,9 @@ const Header = (props: any) => {
   }
 
   const linkTo = (route) => {
-    if (!props.isReg) {
+    console.log(props);
+
+    if (!props.state.isReg) {
       message.info(t(`common.plzApplyDid`))
       return
     }
