@@ -189,7 +189,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     formData.append('file', uploadFile)
     formData.append('hasTitle', radioValue)
     resourceApi.uploadCsv({ data: formData, fn: _uploadProgress }).then(res => {
-      debugger
+      // debugger
       upLoadingSet(false)
       if (res.status === 0) {
         const list = filterData(res.data?.localMetaDataColumnList)

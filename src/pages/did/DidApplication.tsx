@@ -27,19 +27,18 @@ const DidApplication: FC<any> = (props) => {
   const { t } = useTranslation(),
     { Step } = Steps,
     [current, setCurrent] = useState(0)
-  // debugger
   const status = props?.location?.state?.status || 0
   const NetworkStatus = props?.location?.state?.NetworkStatus || 0
   const baseInfo = useContext(BaseInfoContext)
   const history = useHistory()
 
   useEffect(() => {
-    console.log(props);
-
-    isLink(status)
-    if (status < 1) {
+    console.log(baseInfo);
+    if (!baseInfo.identityId && !status) {
       props.setIsReg(true)
+      isLink(0)
     } else {
+      isLink(1)
       props.setIsReg(false)
     }
   }, [])
@@ -57,7 +56,6 @@ const DidApplication: FC<any> = (props) => {
     <div className="layout-box did-box">
       <div className="didAppication-step">
         <Steps current={current} labelPlacement="vertical">
-          {/* {[t('UserCenter.ProcessStepOne'), t('UserCenter.ProcessStepTwo'), t('UserCenter.ProcessStepThree'),].map((_, i) => <Step key={i} title={_} onClick={_ => setCurrent(i)} />)} */}
           {[t('UserCenter.ProcessStepOne'), t('UserCenter.ProcessStepTwo'), t('UserCenter.ProcessStepThree'),].map((_, i) => <Step key={i} title={_} />)}
         </Steps>
       </div>

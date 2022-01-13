@@ -129,24 +129,34 @@ const TrendChart: FC<any> = (props: any) => {
     const chart = echarts.init(document.getElementById('totalData'))
     const newOption = { ...option }
     newOption.series = []
-    overviewApi.localPowerStatsTrendMonthly().then((res) => {
-      if (res.status === 0 && res.data) {
-        newOption.series[0] = { ...seriesCom[0] }
-        newOption.series[0].data = res.data.map(_ => _.totalMemoryValue)
-        if (curSwitch !== 'data') {
+    if (curSwitch !== 'data') {
+      overviewApi.localPowerStatsTrendMonthly().then((res) => {
+        if (res.status === 0 && res.data) {
+          newOption.series[0] = { ...seriesCom[0] }
+          newOption.series[0].data = res.data.map(_ => _.totalMemoryValue)
           newOption.series[1] = { ...seriesCom[1] }
           newOption.series[1].data = res.data.map(_ => _.totalCoreValue)
           newOption.series[2] = { ...seriesCom[2] }
           newOption.series[2].data = res.data.map(_ => _.totalBandwidthValue)
         }
-        console.log(newOption);
 
         chart.setOption(newOption, {
           replaceMerge: ['series']
         })
         chart.resize()
-      }
-    })
+      })
+    } else {
+      overviewApi.localDataFileStatsTrendMonthly().then((res) => {
+        if (res.status === 0 && res.data) {
+          newOption.series[0] = { ...seriesCom[0] }
+          newOption.series[0].data = res.data.map(_ => _.totalValue)
+        }
+        chart.setOption(newOption, {
+          replaceMerge: ['series']
+        })
+        chart.resize()
+      })
+    }
 
   }, [width, i18n.language, curSwitch])
 

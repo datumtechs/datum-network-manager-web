@@ -38,11 +38,8 @@ const Login = (props: any) => {
       const { orgInfoCompletionLevel, connectNetworkStatus } = res.data || {}
       if (res.status !== 0) {
         message.error(res.msg)
-        return
-        // } else if (+orgInfoCompletionLevel == 1 && +connectNetworkStatus) { 
-
-      } else if (+orgInfoCompletionLevel < 2 && !(+connectNetworkStatus)) {
-        return history.push({
+      } else if (!connectNetworkStatus) {
+        history.push({
           pathname: '/didApplication',
           state: {
             status: orgInfoCompletionLevel,//组织信息完善情况0 带申请  1 待完善 2 完成
@@ -50,7 +47,7 @@ const Login = (props: any) => {
           },
         })
       } else if (redirectPath) {
-        return history.push(redirectPath)
+        history.push(redirectPath)
       } else {
         history.push('/')
       }

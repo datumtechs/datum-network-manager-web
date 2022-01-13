@@ -103,7 +103,7 @@ const MyDataTable: FC<any> = (props: any) => {
       state: {
         type: 'save',
         id: row.id,
-        fileName: row.fileName,
+        fileName: row.metaDataName,
       },
     })
   }
@@ -111,7 +111,7 @@ const MyDataTable: FC<any> = (props: any) => {
     setPop({
       type: 'publish',
       id: row.id,
-      fileName: row.fileName,
+      fileName: row.metaDataName,
     })
   }
 
@@ -119,7 +119,7 @@ const MyDataTable: FC<any> = (props: any) => {
     setPop({
       type: 'delete',
       id: row.id,
-      fileName: row.fileName,
+      fileName: row.metaDataName,
     })
   }
 
@@ -127,7 +127,7 @@ const MyDataTable: FC<any> = (props: any) => {
     setPop({
       type: 'withdraw',
       id: row.id,
-      fileName: row.fileName,
+      fileName: row.metaDataName,
     })
   }
 

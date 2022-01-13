@@ -186,6 +186,7 @@
 .didAppication-step{
   background: #F8F8FF;
   height: 136px;
+  flex:  0 0 136px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -285,7 +286,7 @@
   }
 }
 .metis-internet-status{
-  margin: 13% 0 !important;
+  margin: 10% 0 !important;
   .status-lable{
     font-family: AlibabaPuHuiTi-Regular;
     font-size: 14px;

@@ -37,7 +37,7 @@ const overviewApi = {
   // 查询我发布的数据
   localDataFileStatsTrendMonthly(): Promise<any> {
     return axios({
-      method: "POST",
+      method: "GET",
       // url: `/api/v1/system/index/localDataFileStatsTrendMonthly`,
       url: `/api/v1/overview/localDataFileStatsTrendMonthly`,
     })

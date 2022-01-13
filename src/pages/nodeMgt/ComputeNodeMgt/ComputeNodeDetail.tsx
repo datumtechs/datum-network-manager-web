@@ -30,7 +30,7 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   let myChart: any = null
 
   const { location } = props
-  const { id, name, identityId } = location.state
+  const { id, name } = location.state
   const { t } = useTranslation()
   const [selectTab, SetSelectTab] = useState('1')
   const [curTitle, curTitleSet] = useState('')
@@ -250,7 +250,7 @@ ${dayjs(days + '.000Z').subtract(0, 'hour').format('HH:mm')}`;
         </div>
       </div>
       {/* {JSON.stringify(details?.core)} */}
-      <ComputeDetailTable id={id} identityId={identityId}
+      <ComputeDetailTable id={id}
         bandwidth={details?.bandwidth}
         memory={details?.memory}
         core={details?.core}

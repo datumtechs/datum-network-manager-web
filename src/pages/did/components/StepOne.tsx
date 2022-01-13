@@ -83,6 +83,11 @@ const StepOne: FC<any> = (props) => {
         {t('DidApplication.SetYourOrgNameButton')}
       </Button>
     </div>
+    <style>{`
+    .ant-form-item-children-icon{
+      display:none
+    }
+    `}</style>
   </>
 }
 

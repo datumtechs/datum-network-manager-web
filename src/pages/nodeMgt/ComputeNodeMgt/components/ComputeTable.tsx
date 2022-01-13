@@ -91,10 +91,10 @@ const DataTable: FC<any> = (props: any) => {
 
 
   const operation = (row, type) => {
-    SetCurName(row.powerNodeName)
+    SetCurName(row.nodeName)
     SetModalType(type)
     SetIsModalVisible(true)
-    curIdSet(row.powerNodeId)
+    curIdSet(row.nodeId)
     // curPowerIdSet(row.powerId)
     if (type === 'view') {
       setCurRow(row)
@@ -105,9 +105,9 @@ const DataTable: FC<any> = (props: any) => {
     history.push({
       pathname: '/nodeMgt/computeNodeMgt/computeNodeDetail',
       state: {
-        id: row.powerNodeId,
-        name: row.powerNodeName,
-        identityId: row.identityId
+        id: row.nodeId,
+        name: row.nodeName,
+        // identityId: row.identityId
       },
     })
   }
@@ -248,9 +248,9 @@ const DataTable: FC<any> = (props: any) => {
                       </span>
                   }
 
-                  <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
+                  {/* <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
                     {t('common.delete')}
-                  </span>
+                  </span> */}
                 </Space>
                 {/* )} */}
               </>
@@ -280,9 +280,9 @@ const DataTable: FC<any> = (props: any) => {
                         <span className="btn pointer main_color" onClick={() => renameNode(row)}>
                           {t('common.rename')}
                         </span>
-                        <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
+                        {/* <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
                           {t('common.delete')}
-                        </span>
+                        </span> */}
                       </>
                   }
                   <span className="btn pointer main_color" onClick={() => operation(row, 'view')}>
@@ -328,7 +328,7 @@ const DataTable: FC<any> = (props: any) => {
         }
       })
     } else if (modalType === 'enable') {
-      computeNodeApi.publishPower({ powerNodeId: curId, status }).then(res => {
+      computeNodeApi.publishPower({ powerNodeId: curId }).then(res => {
         if (res.status === 0) {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
@@ -338,7 +338,7 @@ const DataTable: FC<any> = (props: any) => {
         }
       })
     } else if (modalType === 'disable') {
-      computeNodeApi.revokePower({ powerNodeId: curId, status }).then(res => {
+      computeNodeApi.revokePower({ powerNodeId: curId }).then(res => {
         if (res.status === 0) {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)

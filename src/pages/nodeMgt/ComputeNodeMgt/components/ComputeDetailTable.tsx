@@ -12,8 +12,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     pageSize: 10,
   }
   const { id,
-    core, memory, bandwidth,
-    identityId } = props
+    core, memory, bandwidth } = props
   const { t } = useTranslation()
   const history = useHistory()
   const [total, totalSet] = useState<number>(0)
@@ -32,7 +31,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       },
     })
   }
-  const { table } = useComputeNodeDetailTable({ id, identityId, curPage, pageSize: pagination.pageSize })
+  const { table } = useComputeNodeDetailTable({ id, curPage, pageSize: pagination.pageSize })
 
   const onPageChange = (page: number) => {
     curPageSet(page)

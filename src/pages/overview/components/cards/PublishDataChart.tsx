@@ -135,25 +135,48 @@ const PublishDataChart: FC<any> = (props: any) => {
 
   useEffect(() => {
     const chart = echarts.init(document.getElementById('publishData'))
-    overviewApi.localPowerStatsTrendMonthly({ type: 1 }).then((res) => {
-      const newOption = { ...option }
-      newOption.series = []
-      if (res.status === 0 && res.data) {
-        newOption.series[0] = { ...seriesCom[0] }
-        newOption.series[0].data = res.data.map(_ => _.incrementMemoryValue)
-        if (curSwitch !== 'data') {
+    if (curSwitch !== 'data') {
+      overviewApi.localPowerStatsTrendMonthly({ type: 1 }).then((res) => {
+        const newOption = { ...option }
+        newOption.series = []
+        if (res.status === 0 && res.data) {
+          newOption.series[0] = { ...seriesCom[0] }
+          newOption.series[0].data = res.data.map(_ => _.incrementMemoryValue)
           newOption.series[1] = { ...seriesCom[1] }
           newOption.series[1].data = res.data.map(_ => _.incrementCoreValue)
           newOption.series[2] = { ...seriesCom[2] }
           newOption.series[2].data = res.data.map(_ => _.incrementBandwidthValue)
-        }
 
-        chart.setOption(newOption, {
-          replaceMerge: ['series']
-        })
-        chart.resize()
-      }
-    })
+          chart.setOption(newOption, {
+            replaceMerge: ['series']
+          })
+          chart.resize()
+        }
+      })
+    } else {
+
+      overviewApi.localDataFileStatsTrendMonthly().then((res) => {
+        const newOption = { ...option }
+        newOption.series = []
+        if (res.status === 0 && res.data) {
+          newOption.series[0] = { ...seriesCom[0] }
+          newOption.series[0].data = res.data.map(_ => _.incrementValue)
+          // if (curSwitch !== 'data') {
+          //   newOption.series[1] = { ...seriesCom[1] }
+          //   newOption.series[1].data = res.data.map(_ => _.incrementCoreValue)
+          //   newOption.series[2] = { ...seriesCom[2] }
+          //   newOption.series[2].data = res.data.map(_ => _.incrementBandwidthValue)
+          // }
+
+          chart.setOption(newOption, {
+            replaceMerge: ['series']
+          })
+          chart.resize()
+        }
+      })
+    }
+
+
   }, [width, i18n.language, curSwitch])
 
 
