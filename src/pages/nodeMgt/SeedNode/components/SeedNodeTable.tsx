@@ -1,5 +1,5 @@
-import { FC, useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { FC, useState, useEffect, useImperativeHandle, forwardRef } from 'react'
+// import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Table, Space, message, Tooltip, Input, Button } from 'antd'
 import MyModal from '@com/MyModal'
@@ -8,7 +8,7 @@ import successSvg from '@assets/images/9.icon1.svg'
 import { nodeApi } from '@api/index'
 import { buttonDisabled } from '@/utils/utils'
 
-const SeedNodeTable: FC<any> = (props: any) => {
+const SeedNodeTable: FC<any> = forwardRef((props: any, ref) => {
   // attribute
   const [tableData, tableDataSet] = useState<Array<object>>([])
 
@@ -24,21 +24,16 @@ const SeedNodeTable: FC<any> = (props: any) => {
     defaultPageSize: 10,
   }
 
-  const setEditStatus = (record, bool) => {
-    tableData.forEach((item: any) => {
-      if (item.id === record.id) {
-        item.isEdit = bool
-      }
-    })
-    tableDataSet(tableData)
-  }
-
-  const saveFn = () => { }
 
   const deleteFn = record => {
     curNameSet(record.seedNodeId)
     isModalVisibleSet(true)
   }
+
+  useImperativeHandle(ref, () => ({
+    // changeVal 就是暴露给父组件的方法
+    querySeedNodeList
+  }));
 
   const columns: Array<object> = [
     {
@@ -101,8 +96,9 @@ const SeedNodeTable: FC<any> = (props: any) => {
     columns.pop()
   }
 
-  // methods
-  const onPageChange = () => { }
+  const onPageChange = (page: number) => {
+    setCurPage(page)
+  }
 
   const handleCancel = () => isModalVisibleSet(false)
 
@@ -132,12 +128,12 @@ const SeedNodeTable: FC<any> = (props: any) => {
       isModalVisibleSet(false)
     })
   }
-
   useEffect(() => {
-    // tableDataSet(dataSource)
+    querySeedNodeList()
+  }, [curPage])
+  useEffect(() => {
     querySeedNodeList()
   }, [])
-
   // jsx
   return (
     <div className="data-table-box">
@@ -154,6 +150,6 @@ const SeedNodeTable: FC<any> = (props: any) => {
       </MyModal>
     </div>
   )
-}
+})
 
 export default SeedNodeTable

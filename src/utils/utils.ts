@@ -1,5 +1,5 @@
-import { number } from "echarts/core";
 import i18n from '@/i18n/config'
+import { message } from 'antd'
 
 
 export const changeSizeFn = (input: number): string => {
@@ -100,4 +100,60 @@ export const buttonDisabled = () => {
   const hostListExtends = ['192.168.10.146', '192.168.10.147', '192.168.10.148']
   const hostName = location.hostname
   return hostListExtends.includes(hostName)
+}
+
+
+export const StatusCodeProcessing = (code) => {
+  switch (code) {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 1001:
+    case 1002:
+    case 1003:
+    case 1004:
+    case 1005:
+    case 1006:
+    case 1007:
+    case 1008:
+    case 1009:
+    case 1010:
+    case 1011:
+    case 1012:
+    case 1013:
+    case 1014:
+    case 1015:
+    case 1016:
+    case 1017:
+    case 1018:
+    case 1019:
+    case 1020:
+    case 1021:
+    case 1022:
+    case 1023:
+    case 1024:
+    case 1025:
+    case 1026:
+    case 1027:
+    case 1028:
+    case 1029:
+    case 1030:
+    case 1031:
+    case 1032:
+    case 1033:
+    case 1034:
+    case 1035:
+    case 1036:
+    case 1037:
+      // console.log(i18n.t(`httpStatus.status${code}`));
+      const tipsText = i18n.t(`httpStatus.status${code}`)
+      console.log(tipsText);
+      message.error(tipsText);
+      break;
+    default:
+      // message.error(i18n.t('httpStatus.status1'));
+      console.log("不操作");
+      break;
+  }
 }

@@ -136,7 +136,7 @@ const Profile: FC<any> = (props: any) => {
           name="profileText"
           className="form-item">
           {/* <> */}
-          {disabled ? <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.imageUrl}</p> :
+          {disabled ? <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.profileText}</p> :
             <TextArea autoSize={false} className="identfier-info-input"
               disabled={disabled}
               key={"ProfileOrganizationIntroduction"}

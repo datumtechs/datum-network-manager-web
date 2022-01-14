@@ -46,7 +46,7 @@ const overviewApi = {
   // 查询我发布的算力
   localPowerStatsTrendMonthly(params?): Promise<any> {
     return axios({
-      method: "POST",
+      method: "GET",
       // url: `/api/v1/system/index/localPowerStatsTrendMonthly`,
       url: `/api/v1/overview/localPowerStatsTrendMonthly`,
       params

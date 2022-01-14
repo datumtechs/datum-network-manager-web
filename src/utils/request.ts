@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { message } from 'antd'
 import i18n from '@/i18n/config'
+import { StatusCodeProcessing } from './utils'
 import { requestLoading, requestCancel } from './loading'
 
 const service = axios.create({
@@ -38,10 +39,11 @@ service.interceptors.response.use(
     if (status === 1000) {
       const { pathname } = window.location
       location.href = `/login?type=redirect#${pathname}`
+    } else {
+      StatusCodeProcessing(status)
     }
     requestLoading.del(url)
     requestCancel.del(url)
-
     return response.data;
   },
   error => {

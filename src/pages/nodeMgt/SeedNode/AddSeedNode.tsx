@@ -12,22 +12,21 @@ export const AddSeedNode: FC<any> = (props: any) => {
   const [nameStatus, nameStatusSet] = useState<boolean>(false)
 
   const onFinish = (values) => {
-
-    if (values) {
-      nodeApi.addSeedNode({
-        seedNodeId: values.nodeSeedNodeId,
-      }).then(res => {
-        console.log(res);
-        if (res.status === 0) {
-          message.success(t('dataNodeMgt.addNodeSuccess'))
-          history.go(-1)
-        } else {
-          message.error(res.msg)
-        }
-      })
+    if (!form.getFieldValue('nodeSeedNodeId')) {
+      message.error(`${t('tip.plzInput')}${t('node.nodeSeedNodeId')}`)
+      return
     }
-
+    nodeApi.addSeedNode({
+      seedNodeId: form.getFieldValue('nodeSeedNodeId')
+    }).then(res => {
+      console.log(res);
+      if (res.status === 0) {
+        message.success(t('dataNodeMgt.addNodeSuccess'))
+        cancel()
+      }
+    })
   }
+
   const whenInputChange = (e) => {
     const name = e.target.value
     if (name) {
@@ -65,7 +64,6 @@ export const AddSeedNode: FC<any> = (props: any) => {
         name="basic"
         size="large"
         preserve={false}
-        initialValues={{ remember: true }}
         labelAlign="left"
         labelCol={{ style: { width: i18n.language === 'en' ? 180 : 120, whiteSpace: 'pre-wrap' } }}
         form={form}
@@ -77,6 +75,7 @@ export const AddSeedNode: FC<any> = (props: any) => {
           className="form-item"
         >
           <Input.TextArea
+            autoSize={true}
             onChange={whenInputChange}
             placeholder={t('node.forSelfidentity')}
             className="form-box-input"
