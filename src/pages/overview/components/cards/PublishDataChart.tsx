@@ -95,10 +95,11 @@ const PublishDataChart: FC<any> = (props: any) => {
       formatter(params) {
         if (!params.length) return '';
         let dom = ''
-        params.forEach(v => {
+        // debugger
+        params.forEach((v, index) => {
           if (+v?.value) {
             dom += `<p><span class="public-chart-tip-icon" style="background:${v?.color};margin-right:5px"></span>
-            ${changeSizeObj(v?.value).size}${v?.value ? changeSizeObj(+v?.value).unit : ''}</p>`
+            ${v?.value}${v?.value && index != 1 ? index == 2 ? changeSizeObj(+v.data.backupsData).unit + 'P/S' : changeSizeObj(+v.data.backupsData).unit : t('overview.core')}</p>`
           }
         })
         if (!dom.length) dom = params[0].name
@@ -141,11 +142,11 @@ const PublishDataChart: FC<any> = (props: any) => {
         newOption.series = []
         if (res.status === 0 && res.data) {
           newOption.series[0] = { ...seriesCom[0] }
-          newOption.series[0].data = res.data.map(_ => _.incrementMemoryValue)
+          newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.incrementMemoryValue).size, backupsData: _.incrementMemoryValue } })
           newOption.series[1] = { ...seriesCom[1] }
-          newOption.series[1].data = res.data.map(_ => _.incrementCoreValue)
+          newOption.series[1].data = res.data.map(_ => { return { value: +changeSizeObj(_.incrementCoreValue).size, backupsData: _.incrementCoreValue } })
           newOption.series[2] = { ...seriesCom[2] }
-          newOption.series[2].data = res.data.map(_ => _.incrementBandwidthValue)
+          newOption.series[2].data = res.data.map(_ => { return { value: +changeSizeObj(_.incrementBandwidthValue).size, backupsData: _.incrementBandwidthValue } })
 
           chart.setOption(newOption, {
             replaceMerge: ['series']
@@ -154,20 +155,13 @@ const PublishDataChart: FC<any> = (props: any) => {
         }
       })
     } else {
-
       overviewApi.localDataFileStatsTrendMonthly().then((res) => {
         const newOption = { ...option }
         newOption.series = []
         if (res.status === 0 && res.data) {
           newOption.series[0] = { ...seriesCom[0] }
           newOption.series[0].data = res.data.map(_ => _.incrementValue)
-          // if (curSwitch !== 'data') {
-          //   newOption.series[1] = { ...seriesCom[1] }
-          //   newOption.series[1].data = res.data.map(_ => _.incrementCoreValue)
-          //   newOption.series[2] = { ...seriesCom[2] }
-          //   newOption.series[2].data = res.data.map(_ => _.incrementBandwidthValue)
-          // }
-
+          newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.incrementValue).size, backupsData: _.incrementValue } })
           chart.setOption(newOption, {
             replaceMerge: ['series']
           })

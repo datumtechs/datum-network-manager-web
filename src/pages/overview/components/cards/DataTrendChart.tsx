@@ -88,10 +88,10 @@ const TrendChart: FC<any> = (props: any) => {
       formatter(params) {
         if (!params.length) return '';
         let dom = ''
-        params.forEach(v => {
+        params.forEach((v, index) => {
           if (+v?.value) {
             dom += `<p><span class="public-chart-tip-icon" style="background:${v?.color};margin-right:5px"></span>
-            ${changeSizeObj(v?.value).size}${v?.value ? changeSizeObj(+v?.value).unit : ''}</p>`
+            ${v?.value}${v?.value && index != 1 ? index == 2 ? changeSizeObj(+v.data.backupsData).unit + 'P/S' : changeSizeObj(+v.data.backupsData).unit : t('overview.core')}</p>`
           }
         })
         if (!dom.length) dom = params[0].name
@@ -133,11 +133,16 @@ const TrendChart: FC<any> = (props: any) => {
       overviewApi.localPowerStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
           newOption.series[0] = { ...seriesCom[0] }
-          newOption.series[0].data = res.data.map(_ => _.totalMemoryValue)
+          // newOption.series[0].data = res.data.map(_ => _.totalMemoryValue)
+          newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalMemoryValue).size, backupsData: _.totalMemoryValue } })
+
           newOption.series[1] = { ...seriesCom[1] }
-          newOption.series[1].data = res.data.map(_ => _.totalCoreValue)
+          // newOption.series[1].data = res.data.map(_ => _.totalCoreValue)
+          newOption.series[1].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalCoreValue).size, backupsData: _.totalCoreValue } })
+
           newOption.series[2] = { ...seriesCom[2] }
-          newOption.series[2].data = res.data.map(_ => _.totalBandwidthValue)
+          // newOption.series[2].data = res.data.map(_ => _.totalBandwidthValue)
+          newOption.series[2].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalBandwidthValue).size, backupsData: _.totalBandwidthValue } })
         }
 
         chart.setOption(newOption, {
@@ -149,7 +154,9 @@ const TrendChart: FC<any> = (props: any) => {
       overviewApi.localDataFileStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
           newOption.series[0] = { ...seriesCom[0] }
-          newOption.series[0].data = res.data.map(_ => _.totalValue)
+          // newOption.series[0].data = res.data.map(_ => _.totalValue)
+          newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalValue).size, backupsData: _.totalValue } })
+
         }
         chart.setOption(newOption, {
           replaceMerge: ['series']
