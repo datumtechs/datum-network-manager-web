@@ -113,7 +113,7 @@ export const StatusCodeProcessing = (code) => {
     case 1002:
     case 1003:
     case 1004:
-    case 1005:
+    // case 1005:
     case 1006:
     case 1007:
     case 1008:
@@ -146,13 +146,10 @@ export const StatusCodeProcessing = (code) => {
     case 1035:
     case 1036:
     case 1037:
-      // console.log(i18n.t(`httpStatus.status${code}`));
       const tipsText = i18n.t(`httpStatus.status${code}`)
-      console.log(tipsText);
       message.error(tipsText);
       break;
     default:
-      // message.error(i18n.t('httpStatus.status1'));
       console.log("不操作");
       break;
   }

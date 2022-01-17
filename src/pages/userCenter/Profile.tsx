@@ -5,8 +5,8 @@ import { BaseInfoContext } from '@/layout/index'
 import './index.scss'
 import { Rule } from 'antd/lib/form'
 import { loginApi } from '@api/index'
-
 const { TextArea } = Input
+const imgURl = 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'
 
 const Profile: FC<any> = (props: any) => {
   const [form] = Form.useForm(),
@@ -14,9 +14,6 @@ const Profile: FC<any> = (props: any) => {
     baseInfo = useContext(BaseInfoContext),
     [disabled, setDisabled] = useState(true),
     [loading, setLoading] = useState(false),
-    [legalVerificationUrlMessage, setLegalVerificationUrl] = useState(t('common.legalVerificationUrl')),
-    // [imageUrlText, setTextAreaValue] = useState(''),
-    // [profileText, setTextImgValue] = useState(''),
     [rules] = useState([{
       min: 4, message: `${t('DidApplication.SetYourOrgNameRulesItem3')}`
     }, {
@@ -30,18 +27,15 @@ const Profile: FC<any> = (props: any) => {
       .validateFields()
       .then(values => {
         setLoading(true)
-        console.log(values);
         loginApi.updateLocalOrg({
           imageUrl: values.imageUrlText.replace(/\s*/g, ""),
-          profile: values.profileText.replace(/\s*/g, ""),
+          profile: values.profileText.replace(/(^\s*)|(\s*$)/g, ""),
           name: values.ProfileName.replace(/\s*/g, "")
         }).then(res => {
           if (res.status == 0) {
             message.success(t('task.success'))
-            props?.baseInfo?.fetchData()
-          } else {
-            message.error(res.msg)
           }
+          baseInfo?.fetchData(true)
           cancelLoading()
         })
       }).catch(err => {
@@ -59,24 +53,13 @@ const Profile: FC<any> = (props: any) => {
     if (disabled) {
       formRef.current!.setFieldsValue({
         ProfileName: baseInfo?.name,
-        imageUrlText: baseInfo?.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg',
+        imageUrlText: baseInfo?.imageUrl || imgURl,
         profileText: baseInfo?.profile,
       })
-      // setTextAreaValue(baseInfo?.imageUrl)
-      // setTextImgValue(baseInfo?.profile)
     }
-
   }, [baseInfo])
-  useEffect(() => {
-    // console.log(t('common.legalVerificationUrl'));
-    // console.log(i18n);
-    // lng: 'zh', ns: "common" 
-    console.log(i18n.getDataByLanguage('zh')?.translation?.common['legalVerificationUrl'])
 
-    setLegalVerificationUrl(t('common.legalVerificationUrl'))
-  }, [i18n.language])
 
-  // console.log(i18n);
 
   return (<div className="layout-box">
     <div className="form-box userForm">
@@ -112,31 +95,31 @@ const Profile: FC<any> = (props: any) => {
             }
           ])()}
           className="form-item">
-          {/* <> */}
           {
-            disabled ? <Image src={baseInfo?.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'}
-              height={100}
-              width={300}
-              preview={{
-                src: baseInfo?.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'
-              }} fallback={baseInfo?.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'} />
-              // <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.imageUrl}</p>
+            disabled ?
+              <Image src={baseInfo?.imageUrl || imgURl}
+                height={100}
+                width={300}
+                preview={{
+                  src: baseInfo?.imageUrl || imgURl
+                }} fallback={baseInfo?.imageUrl || imgURl} />
               :
               <TextArea autoSize={false} className="identfier-info-input"
                 key={"ProfileOrganizationHead"}
                 placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
               </TextArea>
           }
-
-          {/* {imageUrlText ? <img src={clean} onClick={() => setTextImgValue('')} className="clean" /> : ''} */}
-          {/* </> */}
         </Form.Item>
 
-        <Form.Item colon label={t('UserCenter.ProfileOrganizationIntroduction')}
+        <Form.Item
+          colon
+          label={t('UserCenter.ProfileOrganizationIntroduction')}
           name="profileText"
           className="form-item">
-          {/* <> */}
-          {disabled ? <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.profileText}</p> :
+
+          {disabled ?
+            <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.profile}</p>
+            :
             <TextArea autoSize={false} className="identfier-info-input"
               disabled={disabled}
               key={"ProfileOrganizationIntroduction"}
