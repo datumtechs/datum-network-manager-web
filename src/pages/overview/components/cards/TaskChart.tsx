@@ -98,16 +98,16 @@ const TaskChart: FC<any> = (props: any) => {
     overviewApi.queryMyCalculateTaskStats().then(res => {
       if (res.status === 0 && res.data) {
         res.data.forEach(data => {
-          if (data.status === "1") {
+          if (+data.status == 1) {
             statusMap.set('pending', data.statusCount)
           }
-          if (data.status === "2") {
+          if (+data.status == 2) {
             statusMap.set('running', data.statusCount)
           }
-          if (data.status === "3") {
+          if (+data.status == 3) {
             statusMap.set('failed', data.statusCount)
           }
-          if (data.status === "4") {
+          if (+data.status == 4) {
             statusMap.set('success', data.statusCount)
           }
         })
