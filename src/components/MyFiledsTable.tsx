@@ -57,14 +57,6 @@ const MyFiledsTable: FC<any> = (props: any) => {
     }
     setData(rows)
   }
-  const handleSwitchChange = (e, record) => {
-    const rows = [...data]
-    const row = rows.find(item => item.columnIdx === record.columnIdx)
-    if (row) {
-      row.visible = e.target.value
-    }
-    setData(rows)
-  }
 
   const switchVisiable = (checked, record) => {
     const rows = [...data]
@@ -87,12 +79,6 @@ const MyFiledsTable: FC<any> = (props: any) => {
       row[column] = e.target.value
     }
     setData(rows)
-    // const tempAry = props.state.tableData.originalList
-    // tempAry.forEach(item => {
-    //   if (item.id === record.id) {
-    //     item[column] = e.target.value
-    //   }
-    // })
     props.updateData(data)
   }
   const onPageChange = (page: number) => {

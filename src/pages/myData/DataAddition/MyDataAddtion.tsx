@@ -51,7 +51,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }
 
   const checkResourceName = name => {
-    // console.log(name);
     showFilenameAvailableSet(false)
     if (!name) return;
     resourceApi.checkResourceName({ resourceName: name, metaDataId: resultFileData.metaDataId }).then(res => {
@@ -145,8 +144,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }
 
   const _uploadProgress = (evt) => {
-    console.log(evt, "evt===========>");
-
     if (evt.lengthComputable) {
       const percent = Math.round(evt.loaded * 100 / evt.total);
       uploadProgressSet(percent)

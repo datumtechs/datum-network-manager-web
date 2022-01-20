@@ -1,5 +1,4 @@
-/* eslint-disable no-nested-ternary */
-import React, { FC, useContext, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { Form, Button, Spin, message, Modal } from 'antd'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -13,7 +12,6 @@ const MetisIdentity: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
-  const [editStatus, editStatusSet] = useState<boolean>(false) // 是否编辑状态
   const [hasService, setHasService] = useState<boolean>(false) // 是否已经连接
   const [modal2Visible, setModal2Visible] = useState<boolean>(false), // 提示
     [loading, setLoading] = useState(false)
@@ -45,7 +43,6 @@ const MetisIdentity: FC<any> = (props: any) => {
     })
   }
 
-  console.log(baseInfo);
 
   const missNetwork = () => {
     if (baseInfo?.dynamicFields?.runningTask) {
@@ -96,13 +93,13 @@ const MetisIdentity: FC<any> = (props: any) => {
                   <MyTag margin content={`${t('node.connectSuccess')}`} bgColor="#B7EB8F" color="#45B854" />
                 </Form.Item>
                 <Form.Item colon={false} label={`${t('overview.connectNum')}：`} className="form-item">
-                  {editStatus ? <span className="title">N/A</span> : <span className="title">{baseInfo?.connNodeCount}</span>}
+                  <span className="title">{baseInfo?.connNodeCount}</span>
                 </Form.Item>
                 <Form.Item colon label={t('overview.bootAddress')} className="form-item">
-                  {editStatus ? <span className="title">N/A</span> : <span className="address-info">{baseInfo?.localBootstrapNode}</span>}
+                  <span className="address-info">{baseInfo?.localBootstrapNode}</span>
                 </Form.Item>
                 <Form.Item colon label={t('overview.nodeAddress')} className="form-item">
-                  {editStatus ? <span className="title">N/A</span> : <span className="address-info">{baseInfo?.localMultiAddr}</span>}
+                  <span className="address-info">{baseInfo?.localMultiAddr}</span>
                 </Form.Item>
                 <Form.Item className="form-item">
                   <Button

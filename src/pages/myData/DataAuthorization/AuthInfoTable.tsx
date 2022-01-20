@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next'
 
 const AuthInfoTable: FC<any> = (props: any) => {
   const { tableData, curPage, totalNum } = props
-  console.log('tableData', tableData);
-
   const { t } = useTranslation()
   const onPageChange = (page: number) => {
     props.setPage(page)

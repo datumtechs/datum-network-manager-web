@@ -60,14 +60,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     form
       .validateFields()
       .then(values => {
-        console.log(values);
-
         const queryObj = {
           addType: 2,
           industry,
           fileId: sourceFileID,
           localMetaDataColumnList: originalData,
-          // id: resultFileData.id,
           remarks: form.getFieldValue('remarks'),
           resourceName: form.getFieldValue('newDataName'), // 新资源名称
 
@@ -113,7 +110,6 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   useEffect(() => {
     // 初始化查询当前id 数据
     resourceApi.queryMetaDataDetail(id).then(res => {
-      console.log(res);
       const { data } = res
       if (res.status === 0) {
         industrySet(data.industry)

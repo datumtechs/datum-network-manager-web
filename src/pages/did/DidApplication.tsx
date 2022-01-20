@@ -33,7 +33,6 @@ const DidApplication: FC<any> = (props) => {
   const history = useHistory()
 
   useEffect(() => {
-    console.log(baseInfo);
     if (!baseInfo.identityId && !status) {
       props.setIsReg(true)
       isLink(0)

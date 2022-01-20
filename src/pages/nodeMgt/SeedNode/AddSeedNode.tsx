@@ -19,7 +19,6 @@ export const AddSeedNode: FC<any> = (props: any) => {
     nodeApi.addSeedNode({
       seedNodeId: form.getFieldValue('nodeSeedNodeId')
     }).then(res => {
-      console.log(res);
       if (res.status === 0) {
         message.success(t('dataNodeMgt.addNodeSuccess'))
         cancel()

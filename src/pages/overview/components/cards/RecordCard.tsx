@@ -14,7 +14,6 @@ const RecordCard: FC<any> = (props: any) => {
   const queryData = () => {
     overviewApi.queryWaitAuthDataList().then(res => {
       if (res.status === 0 && res.data) {
-        // console.log(res.data);
         dataListSet(res.data)
       }
     })

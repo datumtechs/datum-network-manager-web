@@ -71,6 +71,5 @@ walk(dir).then(() => {
     if (err) {
       throw err
     }
-    console.log(`=>>>> length: ${text.length} ok`)
   })
 })

@@ -17,7 +17,6 @@ const ComputeCard: FC<any> = (props: any) => {
     }
   }, [size.width])
 
-  console.log(size.width);
   const { label, bgColor, value, percent, unit } = props
   return <div className="center-compute-card" style={{ 'backgroundColor': bgColor }}>
     <div className="center-compute-card-left">

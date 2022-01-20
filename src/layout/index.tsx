@@ -48,9 +48,7 @@ const Layout = (props: any) => {
 
   const fetchData = async (type?: boolean) => {
     const result = await loginApi.queryBaseInfo()
-    // console.log(result);
     if (type) {
-      // debugger
       if (result.status === 1005) {
         props.setIsReg(false)
         history.push('/didApplication')

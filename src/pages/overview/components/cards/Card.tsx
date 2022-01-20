@@ -20,6 +20,12 @@ const Card: FC<any> = (props: any) => {
           className="progress"
           type="circle"
           percent={Number(precent)}
+          format={percent => {
+            if (percent == 100) {
+              return '100%'
+            }
+            return `${percent}%`
+          }}
           width={70}
           strokeWidth={10}
           trailColor={bgColor}

@@ -48,9 +48,7 @@ const DataTable: FC<any> = (props: any) => {
       res.data.forEach((item) => {
         newTableData.push(({ ...item, 'isEdit': false }))
       })
-      // 一为真实数据 另为展示数据
       tableDataSet(newTableData)
-      // tempTableDataSet(JSON.parse(JSON.stringify(newTableData)))
       totalSet(res.total)
     }
   }
@@ -84,8 +82,6 @@ const DataTable: FC<any> = (props: any) => {
   const editName = (row) => {
     setActiveRow(row)
     SetShow(true)
-    console.log(form);
-
     form!.setFieldsValue({
       nodeName: row?.nodeName,
     })

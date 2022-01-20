@@ -12,7 +12,6 @@ import Bread from './Bread'
 
 
 const Header = (props: any) => {
-  // console.log(props.state.org.orgInfo);
   const { orgInfo } = props.state.org
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
@@ -32,8 +31,6 @@ const Header = (props: any) => {
   }
 
   const linkTo = (route) => {
-    console.log(props);
-
     if (!props.state.isReg) {
       message.info(t(`common.plzApplyDid`))
       return

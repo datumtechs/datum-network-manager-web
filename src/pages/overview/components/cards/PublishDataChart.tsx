@@ -68,7 +68,7 @@ const PublishDataChart: FC<any> = (props: any) => {
   const option: any = {
     grid: {
       left: 0,
-      top: curSwitch !== 'data' ? 40 : 10,
+      top: curSwitch !== 'data' ? 30 : 10,
       right: 0,
       bottom: 20,
     },

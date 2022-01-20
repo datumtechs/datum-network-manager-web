@@ -45,7 +45,6 @@ const DispatchConfig: FC<any> = (props: any) => {
     form
       .validateFields()
       .then(values => {
-        console.log(values)
         const { errorFields } = values
         if (errorFields) return
         const { carrierIp, carrierPort } = form.getFieldsValue()
@@ -72,7 +71,6 @@ const DispatchConfig: FC<any> = (props: any) => {
     form
       .validateFields()
       .then(values => {
-        console.log(values)
         const { errorFields } = values
         if (errorFields) return
         const { carrierIp, carrierPort } = form.getFieldsValue()

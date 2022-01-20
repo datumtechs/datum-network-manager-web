@@ -59,34 +59,13 @@ const DataTable: FC<any> = (props: any) => {
     })
     if (res.status === 0) {
       const newTableData: any[] = []
-      // res.data.forEach((item) => {
-      //   newTableData.push(({ ...item, 'isEdit': false }))
-      // })
       tableDataSet(res.data)
-      // tempTableDataSet(JSON.parse(JSON.stringify(res.data)))
       totalSet(res.total)
     }
-    // tableDataSet([...dataSource])
   }
-  // const saveFn = (record, index) => {
-  //   computeNodeApi.updatePowerNode({
-  //     "externalIp": tempTableData[index].externalIp,
-  //     "externalPort": tempTableData[index].externalPort,
-  //     "internalIp": tempTableData[index].internalIp,
-  //     "internalPort": tempTableData[index].internalPort,
-  //     "remarks": '',
-  //     "powerNodeId": record.powerNodeId,
-  //   }).then(res => {
-  //     if (res.status === 0) {
-  //       message.success(`${t('tip.operationSucces')}`)
-  //       initTable()
-  //     } else {
-  //       message.error(`${t('tip.operationFailed')}`)
-  //     }
-  //   })
-  // }
+
   useEffect(() => {
-    initTable() // TODO
+    initTable()
   }, [props.searchText, curPage])
 
 
@@ -95,7 +74,6 @@ const DataTable: FC<any> = (props: any) => {
     SetModalType(type)
     SetIsModalVisible(true)
     curIdSet(row.nodeId)
-    // curPowerIdSet(row.powerId)
     if (type === 'view') {
       setCurRow(row)
     }

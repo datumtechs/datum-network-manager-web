@@ -15,7 +15,6 @@ const initData = {
 }
 
 const Loading = (state: ReduxState = initData, action: loginAction) => {
-  // console.log(action);
   switch (action.type) {
     case LOADING:
       return {

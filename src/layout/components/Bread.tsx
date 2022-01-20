@@ -22,7 +22,6 @@ const Bread: FC<any> = () => {
   }, [])
 
   const goBackFn = (index) => {
-    console.log(index)
     history.go(-index)
   }
 

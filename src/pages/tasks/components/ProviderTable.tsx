@@ -57,19 +57,7 @@ const ProviderTable: FC<any> = (props: any) => {
     },
   ]
 
-  const algoColumns = [ // 暂不需要
-    // {
-    //   title: t('task.algoNameAndId'),
-    //   dataIndex: 'algoDataName',
-    //   render: (text, record) => {
-    //     return (
-    //       <div>
-    //         {text}(ID:&nbsp;{record.id})
-    //       </div>
-    //     )
-    //   },
-    // }
-  ]
+  const algoColumns = []
 
   useEffect(() => {
     if (type === 'sponsor' || type === 'receiver') {
@@ -80,8 +68,6 @@ const ProviderTable: FC<any> = (props: any) => {
       columnsSet([...baseColumns, ...algoColumns])
     }
   }, [type])
-
-  // console.log(props?.tableData);
 
   return (
     <div className="data-table-box">

@@ -31,7 +31,6 @@ export const Overview: FC<any> = () => {
   }
   const queryTotalResourced = (): void => {
     overviewApi.queryUsedTotalResource().then(res => {
-      // console.log(res);
       if (res.status === 0 && res.data) {
         const item = {
           ...res.data,
@@ -42,7 +41,6 @@ export const Overview: FC<any> = () => {
         item.usedCore_rate = ((item.usedCore / item.totalCore) * 100).toFixed(2)
         item.usedMemory_rate = ((item.usedMemory / item.totalMemory) * 100).toFixed(2)
         item.usedBandwidth_rate = ((item.usedBandwidth / item.totalBandwidth) * 100).toFixed(2)
-        // console.log(item);
         totalResourceSet(item)
       }
     })
@@ -54,7 +52,6 @@ export const Overview: FC<any> = () => {
 
   return (
     <div className="main-center-overview">
-      {/* <div className="overview-title">{t('overview.totalOccupied')}</div> */}
       <div className="overview-box">
         <div className="overview-left">
           <div className="overview-content-box">

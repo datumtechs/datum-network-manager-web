@@ -10,7 +10,6 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import useWinWidth from '@hooks/useWinWidth'
 import { overviewApi } from '@api'
-import { ThemeContext } from '@com/ThemeContext'
 
 const TaskChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -19,12 +18,9 @@ const TaskChart: FC<any> = (props: any) => {
   const [runningNum, runningNumSet] = useState<string | number>('')
   const [failedNum, failedNumSet] = useState<string | number>('')
   const [successNum, successNumSet] = useState<string | number>('')
-  // const { color } = useContext(ThemeContext);
   const statusMap = new Map<string, number>([])
 
   // 1:pending等在中、2:running计算中、3:failed失败、4:success成功
-
-
   const getValue = (type) => {
     if (statusMap.get(type)) {
       return Number(statusMap.get(type))
@@ -111,13 +107,11 @@ const TaskChart: FC<any> = (props: any) => {
             statusMap.set('success', data.statusCount)
           }
         })
-        // console.log(statusMap);
-        // console.log(statusMap.get('pending'));
 
-        option.series[0].data[0].value = getValue('success') // statusMap.get('success') ? Number(statusMap.get('success')) : 0
-        option.series[0].data[1].value = getValue('pending') //  statusMap.get('pending') ? Number(statusMap.get('pending')) : 0
-        option.series[0].data[2].value = getValue('failed') //  statusMap.get('failed') ? Number(statusMap.get('failed')) : 0
-        option.series[0].data[3].value = getValue('running') // statusMap.get('running') ? Number(statusMap.get('running')) : 0
+        option.series[0].data[0].value = getValue('success')
+        option.series[0].data[1].value = getValue('pending')
+        option.series[0].data[2].value = getValue('failed')
+        option.series[0].data[3].value = getValue('running')
 
         successNumSet(getValue('success'))
         pendingNumSet(getValue('pending'))

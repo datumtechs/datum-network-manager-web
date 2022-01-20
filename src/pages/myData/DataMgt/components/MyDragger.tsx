@@ -21,8 +21,6 @@ const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
     }
   }, [uploadProgress])
 
-  console.log(uploadProgress);
-
   const triggerUpload = () => {
     inputRef.current.input.click()
   }

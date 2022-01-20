@@ -211,10 +211,8 @@ export const DataDetail: FC<any> = (props: any) => {
     const url = type == 'Global' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
     // resourceApi.queryDCMetaDataInfo(id).then(res => {
     resourceApi[url](id).then(res => {
-      console.log(res);
       const { data } = res
       if (res.status === 0) {
-        console.log(data);
         setBaseInfo(data)
         industrySet(data.industry)
         remarksSet(data.remarks)

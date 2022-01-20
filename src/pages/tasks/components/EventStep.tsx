@@ -13,7 +13,6 @@ const fmtTime = time => {
 const LastStep: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { status, endAt, startAt } = props
-  console.log(dayjs(endAt).valueOf(), dayjs(startAt).valueOf());
   return (
     <>
       <p>
@@ -41,8 +40,6 @@ const EventStep: FC<any> = (props: any) => {
     [4, 3],
   ])
   const { status = 'running', createAt, startAt, endAt, duration } = props.data
-  // console.log(status, 'status,status,status');
-
   const { Step } = Steps
   const { t } = useTranslation()
 

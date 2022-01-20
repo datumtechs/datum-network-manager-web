@@ -26,9 +26,7 @@ export const requestLoading = {
     queryList.clear()
     appStore.dispatch({ type: LOADING, data: false })
   },
-  upLoading() {
-    console.log('empty');
-  }
+  upLoading() { }
 }
 export const requestCancel = {
   add(str: string, cancel) {
