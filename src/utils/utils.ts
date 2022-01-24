@@ -45,6 +45,26 @@ export const changeSizeObj = (input: number): any => {
   return { size, unit };
 }
 
+export const BandwidthSizeObj = (input: number): any => {
+  if (!input) return { size: 0, unit: '' };
+  let size: string
+  let unit: string
+  if (input < 0.1 * 1024) {
+    size = `${input.toFixed(2)}`
+    unit = 'B'
+  } else if (input < 0.1 * 1024 * 1024) {
+    size = `${(input / 1024).toFixed(2)}`
+    unit = 'KB'
+    // } else if (input > 100 * 1024 * 1024) {
+    //   size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}`
+    //   unit = 'GB'
+  } else {
+    size = `${(input / (1024 * 1024)).toFixed(2)}`
+    unit = 'MB'
+  }
+  return { size, unit };
+}
+
 
 
 const isZeroEnd = (input) => {

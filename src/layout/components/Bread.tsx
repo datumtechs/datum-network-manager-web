@@ -33,7 +33,6 @@ const Bread: FC<any> = () => {
             return (
               <Breadcrumb.Item key={route.path}>
                 <span onClick={goBackFn.bind(this, len - index)}>{t(route.breadcrumbName)}</span>
-                {/* <Link to={route.path}>{t(route.breadcrumbName)}</Link> */}
               </Breadcrumb.Item>
             )
           return (

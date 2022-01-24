@@ -6,7 +6,6 @@ import ComputeTable from './components/ComputeTable'
 import '../scss/index.scss'
 
 export const ComputeNodeMgt: FC<any> = () => {
-  const { t } = useTranslation()
   const history = useHistory()
   const sonRef = useRef()
   const [searchText, searchTextSet] = useState('')

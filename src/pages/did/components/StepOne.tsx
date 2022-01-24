@@ -17,14 +17,6 @@ const mapDispatchToProps = (dispatch: any) => ({
 })
 
 
-
-
-
-
-
-
-
-
 const StepOne: FC<any> = (props) => {
 
   const { t } = useTranslation(),
@@ -32,6 +24,12 @@ const StepOne: FC<any> = (props) => {
   const inputRef = useRef<any>(null)
 
   const onFinish = () => {
+    // props?.baseInfo?.fetchData()
+    // message.success(`${t('tip.idSuccess')}`)
+    // props.setIsReg(true)
+    // props.setCurrent(1)
+    // props.InfoCompleteness(1, 0)
+    // return
     const name = inputRef?.current?.input.value
     if (!name || name.length > 20 || name.length < 4) {
       setValidateStatus("error")
@@ -44,8 +42,7 @@ const StepOne: FC<any> = (props) => {
         message.success(`${t('tip.idSuccess')}`)
         props.setIsReg(true)
         props.setCurrent(1)
-      } else {
-        message.error(res.msg)
+        props.InfoCompleteness(1, 0)
       }
     })
   }

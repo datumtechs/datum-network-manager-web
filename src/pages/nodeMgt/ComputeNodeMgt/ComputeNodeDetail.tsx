@@ -18,7 +18,7 @@ import { Button, Space, Progress } from 'antd'
 import useComputeNodeDetails from '@hooks/useComputeNodeDetails'
 import i18n from '@/i18n/config'
 import { computeNodeApi } from '@api/index'
-import { fileSizeChange, changeSizeObj } from '@utils/utils'
+import { fileSizeChange, changeSizeObj, BandwidthSizeObj } from '@utils/utils'
 import ComputeDetailTable from './components/ComputeDetailTable'
 
 echarts.use([TooltipComponent, TitleComponent, LineChart, GridComponent, CanvasRenderer, LegendComponent])
@@ -43,8 +43,8 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
 
   const getDaysByNumber = (days) => {
     // 此处换行不要删除 echars 会自动解析
-    return `${dayjs(days + '.000Z').subtract(0, 'day').format('MM-DD')}
-${dayjs(days + '.000Z').subtract(0, 'hour').format('HH:mm')}`;
+    return `${dayjs(days).subtract(0, 'day').format('MM-DD')}
+${dayjs(days).subtract(0, 'hour').format('HH:mm')}`;
   }
 
   const option: any = {
@@ -233,8 +233,8 @@ ${dayjs(days + '.000Z').subtract(0, 'hour').format('HH:mm')}`;
                 type={selectTab === '3' ? 'primary' : 'default'}
                 onClick={() => SetSelectTab('3')}
               >
-                {t('node.totalBandwidth')}:&nbsp;{changeSizeObj(details?.bandwidth).size}
-                {details?.bandwidth ? changeSizeObj(details?.bandwidth).unit : ''}
+                {t('node.totalBandwidth')}:&nbsp;{BandwidthSizeObj(details?.bandwidth).size}
+                {details?.bandwidth ? BandwidthSizeObj(details?.bandwidth).unit + "P/S" : ''}
               </Button>
             </Space>
           </div>

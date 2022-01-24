@@ -17,11 +17,13 @@ export const StepTwo: FC<any> = (props) => {
 
 
   const submit = () => {
+    // props.setCurrent(2)
+    // props.InfoCompleteness(2, 0)
+    // return
     loginApi.updateLocalOrg({ imageUrl: imgUrl && imgUrl.replace(/\s*/g, ""), profile: TextAreaValue && TextAreaValue.replace(/(^\s*)|(\s*$)/g, ""), name: props?.baseInfo?.name }).then(res => {
       if (res.status == 0) {
         props.setCurrent(2)
-      } else {
-        message.error(res.msg)
+        props.InfoCompleteness(2, 0)
       }
     })
   }

@@ -17,19 +17,6 @@ export const EditNodeMgt: FC<any> = (props: any) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const history = useHistory()
 
-  // 不存在编辑状态 只有新增
-  // useEffect(() => {
-  //   if (type === 'Edit') {
-  //     form.setFieldsValue({
-  //       internalIp: row.internalIp,
-  //       internalPort: row.internalPort,
-  //       externalIp: row.externalIp,
-  //       externalPort: row.externalPort,
-  //       nodeName: row.nodeName,
-  //     })
-  //   }
-  // }, [])
-
   const handleOk = () => {
     setIsModalVisible(false)
     history.push('/nodeMgt/dataNodeMgt')
@@ -53,24 +40,7 @@ export const EditNodeMgt: FC<any> = (props: any) => {
     }
   }
   const onFinish = (values: DataNode) => {
-    // if (type === 'Edit') {
-    //   dataNodeApi
-    //     .updateDataNode({
-    //       externalIp: values.externalIp,
-    //       externalPort: values.externalPort,
-    //       internalIp: values.internalIp,
-    //       internalPort: values.internalPort,
-    //       nodeId: row.nodeId,
-    //     })
-    //     .then(res => {
-    //       if (res.status === 0) {
-    //         history.push('/nodeMgt/dataNodeMgt')
-    //         message.success(`${t('tip.updateNodeSuccess')}`)
-    //       } else {
-    //         message.error(res.msg)
-    //       }
-    //     })
-    // }
+
     dataNodeApi
       .addDataNode({
         externalIp: values.externalIp,
@@ -83,8 +53,6 @@ export const EditNodeMgt: FC<any> = (props: any) => {
         if (res.status === 0) {
           history.push('/nodeMgt/dataNodeMgt')
           message.success(`${t('tip.addNodeSuccess')}`)
-        } else {
-          message.error(`${t('tip.addNodeFailed')}`)
         }
       })
   }

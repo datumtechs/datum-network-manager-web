@@ -22,9 +22,6 @@ const CenterTable: FC<any> = (props: any) => {
   }
   const [tableData, tableDataSet] = useState([])
 
-  // const dataSource = [
-  //   { id: 1, identityId: 11111111, status: '1', totalCore: 11111111, totalMemory: 2222222, totalBandwidth: 3333333 }
-  // ]
 
   const columns = [
     {
@@ -47,7 +44,6 @@ const CenterTable: FC<any> = (props: any) => {
       title: t('center.status'), // 算力状态
       dataIndex: 'status',
       render: text => {
-        // return <>{t(`center. ${text === '1' ? 'stsOccupied' : 'stsFree'}`)}</>
         return <>{text === '1' ? <MyTag width={82} content={t('center.stsOccupied')} bgColor='#F9DDDB' color='#F5222D' radius={2} border='#FFA39E' />
           : <MyTag width={82} content={t('center.stsFree')} bgColor='#EBFDDA' color='#52C41A' border='#B7EB8F' radius={2} />}</>
       },
@@ -130,7 +126,6 @@ const CenterTable: FC<any> = (props: any) => {
     <div className="table-box">
       <Table
         dataSource={tableData}
-        // dataSource={dataSource}
         pagination={{ total, onChange: onPageChange }}
         columns={columns}
         rowKey={_ => _.identityId}

@@ -13,7 +13,6 @@ export const MyData: FC<any> = ({ routes }) => (
       ></Route>
     ))}
     <Redirect from="/myData" exact to="/myData/dataMgt" push />
-    {/* <Route path="/nodeMgt/dispatchConfig" component={dispatchConfig}></Route> */}
   </Switch>
 )
 

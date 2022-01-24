@@ -1,9 +1,7 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Table } from 'antd'
-// import { useTranslation } from 'react-i18next'
 
 const MyTable: FC<any> = (props: any) => {
-  // const { t } = useTranslation()
   const pagination = {
     current: 1,
     defaultPageSize: 10,

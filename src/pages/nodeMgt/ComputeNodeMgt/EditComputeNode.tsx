@@ -16,28 +16,11 @@ export const EditComputeNode: FC<any> = (props: any) => {
   const [showNameStatus, showNameStatusSet] = useState<boolean>(false)
   const [nameStatus, nameStatusSet] = useState<boolean>(false)
 
-  // const tailLayout = {
-  //   wrapperCol: { offset: 4, span: 8 },
-  // }
   const { type, row } = location.state
   const leaveFn = () => {
     setIsModalVisible(true)
   }
 
-  // useEffect(() => {
-  //   if (type === 'Edit') {
-  //     form.setFieldsValue({
-  //       powerNodeName: row.powerNodeName,
-  //       powerNodeId: row.powerNodeId,
-  //       internalIp: row.internalIp,
-  //       internalPort: row.internalPort,
-  //       externalIp: row.externalIp,
-  //       externalPort: row.externalPort,
-  //       nodeName: row.nodeName,
-  //       remarks: row.remarks,
-  //     })
-  //   }
-  // }, [])
   const whenInputChange = (e) => {
     const name = e.target.value
     if (name) {
@@ -74,30 +57,10 @@ export const EditComputeNode: FC<any> = (props: any) => {
         if (res.status === 0) {
           history.push('/nodeMgt/computeNodeMgt')
           message.success(`${t('tip.addNodeSuccess')}`)
-        } else {
-          message.error(`${t('tip.addNodeFailed')}`)
         }
       })
 
-    // else if (type === 'Edit') {
-    //   computeNodeApi
-    //     .updatePowerNode({
-    //       externalIp: values.externalIp,
-    //       externalPort: values.externalPort,
-    //       internalIp: values.internalIp,
-    //       internalPort: values.internalPort,
-    //       powerNodeId: row.powerNodeId,
-    //       remarks: values.remarks,
-    //     })
-    //     .then(res => {
-    //       if (res.status === 0) {
-    //         history.push('/nodeMgt/computeNodeMgt')
-    //         message.success(`${t('tip.updateNodeSuccess')}`)
-    //       } else {
-    //         message.error(`${t('tip.updateNodeFailed')}`)
-    //       }
-    //     })
-    // }
+
   }
   const onFinishFailed = () => { }
   return (

@@ -17,15 +17,6 @@ const useInterval = (callback, delay) => {
     }
   }, [delay]);
 
-  // 下面的可用
-  // useEffect(() => {
-  //   if (delay !== null) {
-  //     const time = setTimeout(() => {
-  //       callback()
-  //     }, delay)
-  //     return () => clearTimeout(time)
-  //   }
-  // });
 };
 
 

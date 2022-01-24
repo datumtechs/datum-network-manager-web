@@ -28,10 +28,7 @@ const MyTaskStatusBar: FC<any> = (props: any) => {
       contentSet(t('task.pending'))
       borderSet('#8FBDEB')
     } else if (status === 2) {
-      // colorSet('#781AC4')
-      // bgColorSet('#F3DAFD')
-      // contentSet(t('task.computing'))
-      // borderSet('#D08FEB')
+
       colorSet('#FAAD14')
       bgColorSet('#FDFCDA')
       contentSet(t('task.computing'))

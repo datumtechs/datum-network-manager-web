@@ -9,8 +9,10 @@ const useComputeNodeDetailTable = (data: any): ComputeNode | any => {
   const [table, tableSet] = useState()
   useEffect(() => {
     (async () => {
+      // debugger
       const res = await computeNodeApi.queryPowerJoinTaskList({ powerNodeId: data.id, pageNumber: data.curPage, pageSize: data.pageSize })
       if (res.status === 0 && res.data) {
+        // debugger
         tableSet(res)
       }
     })();

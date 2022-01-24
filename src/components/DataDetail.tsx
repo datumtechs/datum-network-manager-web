@@ -175,15 +175,12 @@ export const DataDetail: FC<any> = (props: any) => {
       pathname: '/myData/dataMgt/dataDetail/dataDetailTask',
       state: {
         metadataName: baseInfo.resourceName,
-        // metadataId: baseInfo.id,
         metadataId: baseInfo.metaDataId,
       }
     })
   }
   const saveAndReturn = () => {
     resourceApi.updateMetaData({
-      // id: baseInfo.id,
-      // id: baseInfo.metaDataId || id,
       id: id || baseInfo.metaDataId,
       industry: baseInfo.industry,
       localMetaDataColumnList: originalData,
@@ -192,14 +189,11 @@ export const DataDetail: FC<any> = (props: any) => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)
         history.push('/myData/dataMgt')
-      } else {
-        message.error(`${t('tip.operationFailed')}`)
       }
     })
   }
 
   const onSelectChange = (value) => {
-    // setSelect
     setBaseInfo({
       ...baseInfo,
       industry: value
@@ -209,7 +203,6 @@ export const DataDetail: FC<any> = (props: any) => {
   useEffect(() => {
     // 根据id查询
     const url = type == 'Global' ? 'queryDCMetaDataInfo' : 'queryMetaDataDetail'
-    // resourceApi.queryDCMetaDataInfo(id).then(res => {
     resourceApi[url](id).then(res => {
       const { data } = res
       if (res.status === 0) {

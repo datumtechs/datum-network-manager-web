@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { overviewApi } from '@api/index'
-import { changeSizeObj } from '@utils/utils'
+import { changeSizeObj, BandwidthSizeObj } from '@utils/utils'
 import Card from './components/cards/Card'
 import PublishDataChart from './components/cards/PublishDataChart'
 import DataTrendChart from './components/cards/DataTrendChart'
@@ -68,8 +68,8 @@ export const Overview: FC<any> = () => {
             <Card type="bandwidth"
               bgColor={bgColor.bandwidth}
               precent={totalResource.usedBandwidth_rate}
-              value={changeSizeObj(totalResource?.totalBandwidth) ? changeSizeObj(totalResource?.totalBandwidth).size : 0}
-              unit={totalResource.totalBandwidth ? changeSizeObj(totalResource.totalBandwidth) ? `${changeSizeObj(totalResource.totalBandwidth).unit}P/S` : '' : ''} />
+              value={BandwidthSizeObj(totalResource?.totalBandwidth) ? BandwidthSizeObj(totalResource?.totalBandwidth).size : 0}
+              unit={totalResource.totalBandwidth ? BandwidthSizeObj(totalResource.totalBandwidth) ? `${BandwidthSizeObj(totalResource.totalBandwidth).unit}P/S` : '' : ''} />
           </div>
           <div className="overview-publish-data item">
             <PublishDataChart bgColor={bgColor} />

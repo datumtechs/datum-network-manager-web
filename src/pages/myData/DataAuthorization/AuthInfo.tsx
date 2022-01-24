@@ -69,8 +69,6 @@ export const AuthInfo: FC<any> = (props: any) => {
         isModalVisibleSet(false)
         message.success(t('tip.operationSucces'))
         history.push('/myData/dataAuthorization')
-      } else {
-        message.error(t('tip.operationFailed'))
       }
     })
   }
@@ -205,25 +203,6 @@ export const AuthInfo: FC<any> = (props: any) => {
                   <p className="datail-box-content">{t(`myData.${INDUSTRYMAP.get(baseInfo.industry)}`)}</p>
                 </Form.Item>
               </Col>
-              {/* <Col span={12}>
-                {isAuthed ?
-                  <Form.Item label={t('myData.authResultAndTime')}>
-                    <p className="datail-box-content">
-                      <Space size={10}>
-                        <span>{ }2021-02-22 12: 34: 56</span>
-                        <MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" />
-                      </Space>
-                    </p>
-                  </Form.Item>
-                  : <Form.Item label={t('myData.authResultAndTime')}>
-                    <p className="datail-box-content">
-                      <Space size={10}>
-                        <span>{ }2021-02-22 12: 34: 56</span>
-                        <MyTag content={t('common.declined')} bgColor="#F9DDDB" color="#F45564" border="#FFA39E" />
-                      </Space>
-                    </p>
-                  </Form.Item>}
-              </Col> */}
             </Row>
             <Form.Item labelCol={{ span: 5 }}
               wrapperCol={{ span: 14 }} label={t('center.dataDesc')}>

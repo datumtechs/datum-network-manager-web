@@ -79,8 +79,6 @@ const DispatchConfig: FC<any> = (props: any) => {
           if (res.status === 0) {
             // TODO:  临时解决办法 使用5秒后拉取最新状态的方式解决延迟的问题
             message.success(`${t('tip.joinNetworkSuccess')}`)
-          } else {
-            message.error(`${t('tip.joinNetworkFailed')}`)
           }
         })
       })
@@ -98,8 +96,6 @@ const DispatchConfig: FC<any> = (props: any) => {
     nodeApi.withDrawNetwork().then(res => {
       if (res.status === 0) {
         message.success(`${t('node.logoutSuccess')}`)
-      } else {
-        message.error(`${t('node.logoutFailed')}`)
       }
     })
   }
@@ -111,7 +107,6 @@ const DispatchConfig: FC<any> = (props: any) => {
     }
     editStatusSet(boolean)
     if (boolean === false) showTestConnectSet(false)
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   }
 
   return (

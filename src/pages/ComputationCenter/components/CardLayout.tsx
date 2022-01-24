@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { overviewApi } from '@api'
-import { changeSizeObj } from '@utils/utils'
+import { changeSizeObj, BandwidthSizeObj } from '@utils/utils'
 import '../scss/ConputeTable.scss'
 import ComputeCard from './ComputeCard'
 
@@ -52,8 +52,8 @@ const CardLayout: FC<any> = (props: any) => {
       bgColor: '#FF7688',
       type: 'bandwidth',
       label: t('overview.rosettaBandwidth'),
-      value: changeSizeObj(totalResource.totalBandwidth).size,
-      unit: changeSizeObj(totalResource.totalBandwidth).unit,
+      value: BandwidthSizeObj(totalResource.totalBandwidth).size,
+      unit: BandwidthSizeObj(totalResource.totalBandwidth).unit,
       percent: ((totalResource.usedBandwidth / totalResource.totalBandwidth) * 100).toFixed(2),
     }
   ]

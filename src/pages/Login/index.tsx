@@ -11,7 +11,19 @@ import square3 from '@assets/images/1.img3.png'
 import cnSvg from '@assets/images/2.icon_cn.svg'
 import enSvg from '@assets/images/2.icon_en.svg'
 import { loginApi } from '@api/index'
+import { connect } from 'react-redux'
+
 // import imageBottom from '../../assets/images/1.bj3.png'
+const mapDispatchToProps = (dispatch: any) => ({
+  InfoCompleteness: (data) => {
+    dispatch({
+      type: 'INFO_COMPLETENESS',
+      data
+    })
+  }
+})
+
+
 
 
 const Login = (props: any) => {
@@ -39,12 +51,13 @@ const Login = (props: any) => {
       if (res.status !== 0) {
         message.error(res.msg)
       } else if (!connectNetworkStatus) {
+        // } else if (connectNetworkStatus) {
+        props.InfoCompleteness({
+          orgInfoCompletionLevel,//, //组织信息完善情况0 带申请  1 待完善 2 完成
+          connectNetworkStatus,// //0 未入网  1已入网 99 已退网
+        })
         history.push({
           pathname: '/didApplication',
-          state: {
-            status: orgInfoCompletionLevel,//组织信息完善情况0 带申请  1 待完善 2 完成
-            NetworkStatus: connectNetworkStatus //0 未入网  1已入网 99 已退网
-          },
         })
       } else if (redirectPath) {
         history.push(redirectPath)
@@ -60,10 +73,8 @@ const Login = (props: any) => {
   const validateMessages = {
     required: "'${name}'",
   }
-  /* eslint-enable no-template-curly-in-string */
   return (
     <div className="login-box">
-      {/* <img src={imageBottom} alt="" className="login-bottom-img" /> */}
       <MyWave />
       <div className="login-form-box">
         <img src={square1} alt="" className="login-square-img1" />
@@ -75,7 +86,6 @@ const Login = (props: any) => {
         <div className="text-box">
           <p className="p1">{t('login.RosettaNet')}</p>
           <p className="p2">{t('login.loginSlogan')}</p>
-          {/* <p className="p2">Privacy-preserving computing flatform enables data to flow like assets.</p> */}
           <p className="p3">{t('login.loginRemarks')}</p>
         </div>
         <div className="form-box">
@@ -126,4 +136,4 @@ const Login = (props: any) => {
   )
 }
 
-export default Login
+export default connect((state: any) => ({ state }), mapDispatchToProps)(Login) 

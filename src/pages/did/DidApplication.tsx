@@ -1,22 +1,28 @@
 import { FC, useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import {
-  Form,
-  Steps
-} from 'antd'
 import { BaseInfoContext } from '@/layout/index'
 import { useHistory } from 'react-router-dom'
 import './scss/did.scss'
 import StepOne from './components/StepOne'
 import { StepTwo } from './components/StepTwo'
 import StepThree from './components/StepThree'
+import {
+  Form,
+  Steps
+} from 'antd'
 
 
 const mapDispatchToProps = (dispatch: any) => ({
   setIsReg: (data) => {
     dispatch({
       type: 'SET_ISREG',
+      data
+    })
+  },
+  InfoCompleteness: (data) => {
+    dispatch({
+      type: 'INFO_COMPLETENESS',
       data
     })
   }
@@ -26,19 +32,26 @@ const mapDispatchToProps = (dispatch: any) => ({
 const DidApplication: FC<any> = (props) => {
   const { t } = useTranslation(),
     { Step } = Steps,
-    [current, setCurrent] = useState(0)
-  const status = props?.location?.state?.status || 0
+    [current, setCurrent] = useState(props?.state?.InfoCompleteness?.orgInfoCompletionLevel)
+  const status = props?.state?.InfoCompleteness?.orgInfoCompletionLevel
   const NetworkStatus = props?.location?.state?.NetworkStatus || 0
   const baseInfo = useContext(BaseInfoContext)
   const history = useHistory()
+  console.log(props);
 
   useEffect(() => {
     if (!baseInfo.identityId && !status) {
       props.setIsReg(true)
       isLink(0)
-    } else {
+    } else if (status == 1) {
       isLink(1)
       props.setIsReg(false)
+    } else {
+      isLink(2)
+      props.setIsReg(false)
+    }
+    if (props?.state?.InfoCompleteness?.connectNetworkStatus) {
+      history.push('/')
     }
   }, [])
 
@@ -48,6 +61,13 @@ const DidApplication: FC<any> = (props) => {
       return
     }
     setCurrent(num)
+  }
+  const setInfoCompleteness = (orgInfoCompletionLevel,
+    connectNetworkStatus) => {
+    props.InfoCompleteness({
+      orgInfoCompletionLevel,
+      connectNetworkStatus
+    })
   }
 
 
@@ -65,12 +85,12 @@ const DidApplication: FC<any> = (props) => {
           labelCol={{ span: 4 }}>
           {
             current == 0 ?
-              <StepOne baseInfo={baseInfo} setCurrent={isLink} />
+              <StepOne baseInfo={baseInfo} setCurrent={isLink} InfoCompleteness={setInfoCompleteness} />
               :
               current == 1 ?
-                <StepTwo baseInfo={baseInfo} setCurrent={isLink} />
+                <StepTwo baseInfo={baseInfo} setCurrent={isLink} InfoCompleteness={setInfoCompleteness} />
                 :
-                current > 1 ? <StepThree baseInfo={baseInfo} /> : ''
+                current > 1 ? <StepThree baseInfo={baseInfo} InfoCompleteness={setInfoCompleteness} /> : ''
           }
         </Form>
       </div>

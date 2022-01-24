@@ -7,8 +7,8 @@ const { Option } = Select
 const GlobalSearch = (props: any) => {
   const [value, valueSet] = useState<''>()
   const { t } = useTranslation()
-  const handleSearch = () => {}
-  const handleChange = () => {}
+  const handleSearch = () => { }
+  const handleChange = () => { }
   const handleOnBlur = () => {
     props.handleOnBlur()
   }

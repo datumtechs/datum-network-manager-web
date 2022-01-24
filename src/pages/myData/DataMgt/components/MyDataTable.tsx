@@ -77,8 +77,6 @@ const MyDataTable: FC<any> = (props: any) => {
         message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
         initTableData()
-      } else {
-        message.error(`${t('tip.operationFailed')}`)
       }
     })
   }
@@ -160,7 +158,6 @@ const MyDataTable: FC<any> = (props: any) => {
         readFile(res)
       } else {
         download(res, metaDataName)
-        message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
       }
 
@@ -222,19 +219,7 @@ const MyDataTable: FC<any> = (props: any) => {
         return <>{text.taskCount}</>
       }
     },
-    // {
-    //   title: t('center.metaFiled'),
-    //   dataIndex: 'metaDataColumnList',
-    //   key: 'metaDataColumnList',
-    //   width: 400,
-    //   render: (text: any) => (
-    //     <Space size={10} wrap>
-    //       {text.map(item => (
-    //         <span key={item}>{item}</span>
-    //       ))}
-    //     </Space>
-    //   ),
-    // },
+
     {
       title: t('common.actions'),
       width: 220,

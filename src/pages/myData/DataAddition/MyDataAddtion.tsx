@@ -103,8 +103,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
           if (res.status === 0) {
             message.success(`${t('tip.addMetaDataSuccess')}`)
             history.push('/myData')
-          } else {
-            message.error(res.msg)
           }
         })
       })
@@ -195,8 +193,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         setTableData(getShowSource(list))
         resultFileDataSet(res.data)
         message.success(`${t('myData.uploadSuccess')}`)
-      } else {
-        message.error(res.msg)
       }
     }).catch(e => {
       console.log(e);

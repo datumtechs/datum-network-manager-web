@@ -73,8 +73,6 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           if (res.status === 0) {
             message.success(`${t('tip.addMetaDataSuccess')}`)
             history.push('/myData')
-          } else {
-            message.error(res.msg)
           }
         })
       })
@@ -94,14 +92,6 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     curPage && setTableData(getShowSource(originalData))
   }, [curPage])
 
-  // useEffect(() => {
-  //   if (Object.keys(resultFileData).length > 0) {
-  //     form.setFieldsValue({
-  //       sourceName: resultFileData.resourceName,
-  //       remarks: resultFileData.remarks,
-  //     })
-  //   }
-  // }, [resultFileData])
 
   const setPage = (page: number) => {
     setCurPage(page)

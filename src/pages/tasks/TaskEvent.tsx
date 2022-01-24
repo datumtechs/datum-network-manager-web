@@ -63,23 +63,7 @@ export const TaskEvent: FC<any> = (props: any) => {
           </div>
         </div>
       </div>
-      {/* <div className="progress-box">
-        <div className="progress">
-          <div className="left">
-            <p className="name">
-              <span>{t('task.taskName')}:&nbsp;</span>
-              <span>{baseInfo.taskName}</span>
-            </p>
-            <p className="id">
-              <span>ID:&nbsp;</span>
-              <span className="ellipsis taskId">{baseInfo.taskId}</span>
-            </p>
-          </div>
-          <div className="right">
-            <EventStep data={baseInfo} />
-          </div>
-        </div>
-      </div> */}
+
       <div className="event-table-box">
         <EventTable id={taskId} />
       </div>

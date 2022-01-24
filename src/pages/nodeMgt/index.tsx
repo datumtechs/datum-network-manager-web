@@ -14,7 +14,6 @@ export const NodeMgt: FC<any> = ({ routes }) => {
         ></Route>
       ))}
       <Redirect from="/nodeMgt" exact to="/nodeMgt/dispatchConfig" push />
-      {/* <Route path="/nodeMgt/dispatchConfig" component={dispatchConfig}></Route> */}
     </Switch>
   )
 }

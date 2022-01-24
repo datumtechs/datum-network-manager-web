@@ -35,8 +35,6 @@ const MetisIdentity: FC<any> = (props: any) => {
     nodeApi.applyJoinNetwork().then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.joinNetworkSuccess')}`)
-      } else {
-        message.error(`${t('tip.joinNetworkFailed')}`)
       }
       setLoading(false)
       baseInfo.fetchData()
@@ -54,8 +52,6 @@ const MetisIdentity: FC<any> = (props: any) => {
       if (res.status === 0) {
         message.success(`${t('node.logoutSuccess')}`)
         setLoading(false)
-      } else {
-        message.error(`${t('node.logoutFailed')}`)
       }
       baseInfo.fetchData()
       setLoading(false)

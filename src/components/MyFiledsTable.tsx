@@ -30,14 +30,6 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   const [data, setData] = useState<Item[]>([])
   const { mode, tableData, total, setPage, curPage, originalData, disabled } = props
-  // useEffect(() => {
-  //   if (isFieldEditing && inputRef.current) {
-  //     inputRef.current!.focus();
-  //   }
-  // }, [isFieldEditing]);
-  // const linkMeta = () => {
-  //   history.push('/resource/dataCenter/metaDataDetail')
-  // }
 
   const dataSource = [
     {
@@ -104,7 +96,6 @@ const MyFiledsTable: FC<any> = (props: any) => {
       render: (text, record, index) => (
         <>
           {
-            // type === 'view' ? text :
             <EditTableCell disabled={disabled} record={record} column="columnName" handleCellChange={handleCellChange} />
           }
         </>
@@ -115,18 +106,10 @@ const MyFiledsTable: FC<any> = (props: any) => {
       dataIndex: 'visible',
       key: 'visible',
       editable: 'true',
-      // onCell: (record: any) => ({
-      //   record,
-      //   editable: 'true',
-      //   dataIndex: 'visible',
-      //   title: t('myData.visible'),
-      //   onChange: e => handleCellChange(e, record),
-      // }),
       render: (text, record, index) => {
         return (
           <>
             {
-              // type === 'view' ? mapVisiable(record.visible) :
               <Space size={20}>
                 {record.visible ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
                 {disabled ? '' : <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === true} />}

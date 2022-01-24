@@ -69,9 +69,11 @@ export const DataAuthorization: FC<any> = props => {
         render: (text, record, index) => {
           return <p>
             <p>
-              {record.status === 1 ?
+              {record.status == 1 ?
                 < MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" /> :
-                < MyTag content={t('common.declined')} bgColor="#F9DDDB" color="#F5222D" border="#FFA39E" />
+                record.status == 2 ?
+                  < MyTag content={t('common.declined')} bgColor="#F9DDDB" color="#F5222D" border="#FFA39E" /> :
+                  < MyTag content={t('common.Invalid')} bgColor="#F9DDDB" color="#F5222D" border="#FFA39E" />
               }
             </p>
             {dayjs(record.authAt).format('YYYY-MM-DD HH:mm:ss')}
@@ -180,8 +182,6 @@ export const DataAuthorization: FC<any> = props => {
         queryAuthNum()
         isModalVisibleSet(false)
         message.success(t('tip.operationSucces'))
-      } else {
-        message.error(t('tip.operationFailed'))
       }
     })
   }

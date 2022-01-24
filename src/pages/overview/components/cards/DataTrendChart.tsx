@@ -10,7 +10,7 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import useWinWidth from '@hooks/useWinWidth'
 import { overviewApi } from '@api'
-import { changeSizeObj } from '@utils/utils'
+import { changeSizeObj, BandwidthSizeObj } from '@utils/utils'
 
 const TrendChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -91,7 +91,7 @@ const TrendChart: FC<any> = (props: any) => {
         params.forEach((v, index) => {
           if (+v?.value) {
             dom += `<p><span class="public-chart-tip-icon" style="background:${v?.color};margin-right:5px"></span>
-            ${v?.value}${v?.value && index != 1 ? index == 2 ? changeSizeObj(+v.data.backupsData).unit + 'P/S' : changeSizeObj(+v.data.backupsData).unit : t('overview.core')}</p>`
+            ${v?.value}${v?.value && index != 1 ? index == 2 ? BandwidthSizeObj(+v.data.backupsData).unit + 'P/S' : changeSizeObj(+v.data.backupsData).unit : t('overview.core')}</p>`
           }
         })
         if (!dom.length) dom = params[0].name
@@ -142,7 +142,7 @@ const TrendChart: FC<any> = (props: any) => {
 
           newOption.series[2] = { ...seriesCom[2] }
           // newOption.series[2].data = res.data.map(_ => _.totalBandwidthValue)
-          newOption.series[2].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalBandwidthValue).size, backupsData: _.totalBandwidthValue } })
+          newOption.series[2].data = res.data.map(_ => { return { value: +BandwidthSizeObj(_.totalBandwidthValue).size, backupsData: _.totalBandwidthValue } })
         }
 
         chart.setOption(newOption, {

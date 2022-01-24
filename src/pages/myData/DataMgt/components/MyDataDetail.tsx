@@ -102,11 +102,8 @@ const MyData: FC<any> = props => {
     }
     resourceApi.updateMetaData(dataObj).then(res => {
       if (res.status === 0) {
-        // history.push('/resource/myData')
         history.push('/myData')
         message.success(`${t('tip.updateSuccess')}`)
-      } else {
-        message.error(res.msg)
       }
     })
   }
@@ -132,78 +129,7 @@ const MyData: FC<any> = props => {
   return (
     <div className="layout-box">
       <div className="add-data-box limitLine">
-        {/* {type === 'view' ? (
-          (from !== 'dataCenter' && (
-            <Descriptions column={2} title={`${t('center.basicInfo')}`}>
-              <Descriptions.Item
-                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
-                label={t('myData.sourceName')}
-              >
-                {baseInfo.fileName}
-              </Descriptions.Item>
-              <Descriptions.Item
-                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
-                label={t('center.metaStatus')}
-              >
-                {getStatus(baseInfo.status)}
-              </Descriptions.Item>
-              <Descriptions.Item
-                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
-                label={t('myData.sourceFileID')}
-              >
-                {baseInfo.fileId}
-              </Descriptions.Item>
-              <Descriptions.Item
-                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
-                label={t('center.metaDataID')}
-              >
-                {baseInfo.metaDataId}
-              </Descriptions.Item>
-              <Descriptions.Item
-                labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }}
-                label={t('myData.sourceFilePath')}
-              >
-                {baseInfo.filePath}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.dataSize')}>
-                {fileSizeChange(Number(baseInfo.size))}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.rowNum')}>
-                {baseInfo.rows}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.colNum')}>
-                {baseInfo.columns}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px', whiteSpace: 'nowrap' }} label={t('center.dataDesc')}>
-                <TextArea value={baseInfo.remarks} disabled rows={4} />
-              </Descriptions.Item>
-            </Descriptions>
-          )) || (
-            <Descriptions column={2} title={`${t('center.basicInfo')}`}>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataName')}>
-                {baseInfo.resourceName}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataSize')}>
-                {fileSizeChange(Number(baseInfo.size))}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.metaDataID')}>
-                {baseInfo.metaDataId}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.rowNum')}>
-                {thousandMark(baseInfo.rows)}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataProvider')}>
-                {baseInfo.orgName}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.colNum')}>
-                {thousandMark(baseInfo.columns)}
-              </Descriptions.Item>
-              <Descriptions.Item labelStyle={{ padding: '0 20px' }} label={t('center.dataDesc')}>
-                <TextArea value={baseInfo.remarks} disabled rows={4} />
-              </Descriptions.Item>
-            </Descriptions>
-          )
-        ) : ( */}
+
         <Descriptions column={1} title={`${t('center.basicInfo')}`}>
           <Descriptions.Item span={4} labelStyle={{ padding: '0 20px' }} label={t('myData.sourceName')}>
             {baseInfo.fileName}
@@ -215,13 +141,10 @@ const MyData: FC<any> = props => {
             <TextArea onChange={onRemarksChange} value={remarks} rows={4} />
           </Descriptions.Item>
         </Descriptions>
-        {/* )} */}
       </div>
       <div className="info-box">
         <Descriptions column={2} title={`${t('center.fieldInfo')}`}></Descriptions>
-        {/* {type === 'view' ? (
-          <DetailTable tableData={tableData} total={total} setPage={setPage} curPage={curPage} />
-        ) : ( */}
+
         <MyFiledsTable
           originalData={originalData}
           tableData={tableData}
@@ -230,7 +153,6 @@ const MyData: FC<any> = props => {
           curPage={curPage}
           mode="edit"
         />
-        {/* )} */}
       </div>
       <div className="submit-box">
         <Space size={40} className="btn-group">

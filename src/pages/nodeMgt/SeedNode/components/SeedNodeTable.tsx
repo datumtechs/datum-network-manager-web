@@ -122,8 +122,6 @@ const SeedNodeTable: FC<any> = forwardRef((props: any, ref) => {
     }).then((res) => {
       if (res.status === 0) {
         querySeedNodeList()
-      } else {
-        message.error(t('common.nodeMgtDelError'))
       }
       isModalVisibleSet(false)
     })

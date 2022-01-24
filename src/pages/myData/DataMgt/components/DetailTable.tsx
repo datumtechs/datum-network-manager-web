@@ -21,7 +21,6 @@ const DetailTable: FC<any> = (props: any) => {
     setPage(page)
   }
 
-  const modifyFn = () => { }
   const columns = [
     {
       title: t('common.Num'),

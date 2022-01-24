@@ -191,30 +191,12 @@ const DataTable: FC<any> = (props: any) => {
         message.success(`${t('tip.deleteSuccess')}`)
         SetIsModalVisible(false)
         initData()
-      } else {
-        message.error(`${t('tip.deleteFailed')}`)
       }
     })
   }
   const handleCancel = () => {
     SetIsModalVisible(false)
   }
-
-  // const whenInputChange = (e) => {
-  //   const name = e.target.value
-  //   if (name) {
-  //     dataNodeApi.checkDataNodeName({ nodeName: name }).then(res => {
-  //       showNameStatusSet(true)
-  //       if (res.status === 0) {
-  //         return nameStatusSet(true)
-  //       }
-  //       return nameStatusSet(false)
-  //     })
-  //   } else {
-  //     showNameStatusSet(false)
-  //   }
-  // }
-
 
   return (
     <div className="data-table-box">

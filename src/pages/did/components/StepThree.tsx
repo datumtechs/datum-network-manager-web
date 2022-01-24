@@ -10,12 +10,15 @@ const StepThree: FC<any> = (props) => {
   const { t, i18n } = useTranslation()
 
   const connect = () => {
+    // message.success(`${t('tip.joinNetworkSuccess')}`)
+    // props.InfoCompleteness(2, 1)
+    // noConnect()
+    // return
     nodeApi.applyJoinNetwork().then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.joinNetworkSuccess')}`)
+        props.InfoCompleteness(2, 1)
         noConnect()
-      } else {
-        message.error(`${t('tip.joinNetworkFailed')}`)
       }
     })
   }

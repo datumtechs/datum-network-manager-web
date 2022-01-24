@@ -9,7 +9,6 @@ import UseStatus from '@hooks/useComputeStatus'
 import { Row } from '@/entity/index'
 import { changeSizeFn, buttonDisabled } from '@utils/utils'
 import './scss/index.scss'
-import MyTag from '@com/MyTag'
 
 // 节点状态，-1: 未被调度服务连接上; 0: 连接上; 1: 算力启用<计算服务>; 2: 算力被占用(计算服务算力正在被任务占用)',
 
@@ -22,12 +21,10 @@ const DataTable: FC<any> = (props: any) => {
     [total, totalSet] = useState<number>(0),
     history = useHistory(),
     [tableData, tableDataSet] = useState<Array<any>>([]),
-    // [tempTableData, tempTableDataSet] = useState<Array<any>>([]),
     [curPage, setCurPage] = useState<number>(1),
     baseInfo = useContext(BaseInfoContext),
     [curId, curIdSet] = useState<string>(''),
     { t } = useTranslation(),
-    // [curPowerId, curPowerIdSet] = useState<string>(''),
     [curRow, setCurRow] = useState<Row>({
       core: '',
       memory: '',
@@ -37,8 +34,6 @@ const DataTable: FC<any> = (props: any) => {
     [activeRow, setActiveRow] = useState({
       nodeName: "", nodeId: ""
     })
-  // [showNameStatus, showNameStatusSet] = useState<boolean>(false),
-  // [nameStatus, nameStatusSet] = useState<boolean>(false)
 
   const pagination = {
     current: 1,
@@ -140,26 +135,12 @@ const DataTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
-            {/* {record.isEdit ? (
-              <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.internal')}&nbsp;:&nbsp;</p>
-                <Input value={tempTableData[index]?.internalIp} onChange={(e) => handleChange('internalIp', index, e)} className="seedNode-edit-input" />
-              </div>
-            ) : ( */}
             <div className="bottom8p">
               {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalIp}
             </div>
-            {/* )} */}
-            {/* {record.isEdit ? (
-              <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.external')}&nbsp;:&nbsp;</p>
-                <Input value={tempTableData[index]?.externalIp} onChange={(e) => handleChange('externalIp', index, e)} className="seedNode-edit-input" />
-              </div>
-            ) : ( */}
             <div>
               {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalIp}
             </div>
-            {/* // )} */}
           </div>
         )
       },
@@ -171,26 +152,12 @@ const DataTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
-            {/* {record.isEdit ? (
-              <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.internal')}&nbsp;:&nbsp;</p>
-                <Input value={tempTableData[index].internalPort} onChange={(e) => handleChange('internalPort', index, e)} className="seedNode-edit-input" />
-              </div>
-            ) : ( */}
             <div className="bottom8p">
               {t('dataNodeMgt.internal')}&nbsp;:&nbsp;{record.internalPort}
             </div>
-            {/* // )} */}
-            {/* {record.isEdit ? (
-              <div className="seedNode-edit-cell">
-                <p className="seed-name">{t('dataNodeMgt.external')}&nbsp;:&nbsp;</p>
-                <Input value={tempTableData[index].externalPort} onChange={(e) => handleChange('externalPort', index, e)} className="seedNode-edit-input" />
-              </div>
-            ) : ( */}
             <div>
               {t('dataNodeMgt.external')}&nbsp;:&nbsp;{record.externalPort}
             </div>
-            {/* )} */}
           </div>
         )
       },
@@ -204,20 +171,6 @@ const DataTable: FC<any> = (props: any) => {
           <Space size={10} className="operation-box">
             {row.connStatus === 0 ? (
               <>
-                {/* {row.isEdit ? (
-                  <Space size={10}>
-                    <span className="btn main_color pointer" onClick={() => saveFn(row, index)}>
-                      {t('common.save')}
-                    </span>
-                    {
-                      buttonDisabled() ? '' :
-                        <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
-                          {t('common.cancel')}
-                        </span>
-                    }
-
-                  </Space>
-                ) : ( */}
                 <Space size={10}>
                   {
                     buttonDisabled() ? '' :
@@ -225,32 +178,13 @@ const DataTable: FC<any> = (props: any) => {
                         {t('common.rename')}
                       </span>
                   }
-
-                  {/* <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
-                    {t('common.delete')}
-                  </span> */}
                 </Space>
-                {/* )} */}
               </>
             ) : (
               <></>
             )}
             {row.connStatus === 1 && (row.powerStatus === 1 || row.powerStatus === 4) ? (
               <>
-                {/* {row.isEdit ? (
-                  <Space size={10}>
-                    <span className="btn main_color pointer" onClick={() => saveFn(row, index)}>
-                      {t('common.save')}
-                    </span>
-                    {
-                      buttonDisabled() ? '' :
-                        <span className="btn main_color pointer" onClick={() => setEditStatus(row, false, index)}>
-                          {t('common.cancel')}
-                        </span>
-                    }
-
-                  </Space>
-                ) : ( */}
                 <Space size={10}>
                   {
                     buttonDisabled() ? '' :
@@ -258,9 +192,6 @@ const DataTable: FC<any> = (props: any) => {
                         <span className="btn pointer main_color" onClick={() => renameNode(row)}>
                           {t('common.rename')}
                         </span>
-                        {/* <span className="btn pointer main_color" onClick={() => operation(row, 'delete')}>
-                          {t('common.delete')}
-                        </span> */}
                       </>
                   }
                   <span className="btn pointer main_color" onClick={() => operation(row, 'view')}>
@@ -301,8 +232,6 @@ const DataTable: FC<any> = (props: any) => {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
           initTable()
-        } else {
-          message.error(`${t('tip.operationFailed')}`)
         }
       })
     } else if (modalType === 'enable') {
@@ -311,8 +240,6 @@ const DataTable: FC<any> = (props: any) => {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
           initTable()
-        } else {
-          message.error(`${t('tip.operationFailed')}`)
         }
       })
     } else if (modalType === 'disable') {
@@ -321,8 +248,6 @@ const DataTable: FC<any> = (props: any) => {
           SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
           initTable()
-        } else {
-          message.error(`${t('tip.operationFailed')}`)
         }
       })
     } else if (modalType === 'view') {
@@ -333,20 +258,6 @@ const DataTable: FC<any> = (props: any) => {
     SetIsModalVisible(false)
   }
 
-  // const whenInputChange = (e) => {
-  //   const name = e.target.value
-  //   if (name) {
-  //     computeNodeApi.checkPowerNodeName({ powerNodeName: name }).then(res => {
-  //       showNameStatusSet(true)
-  //       if (res.status === 0) {
-  //         return nameStatusSet(true)
-  //       }
-  //       return nameStatusSet(false)
-  //     })
-  //   } else {
-  //     showNameStatusSet(false)
-  //   }
-  // }
   const saveFn = () => {
     form?.validateFields().then(v => {
       computeNodeApi.updatePowerNode({
@@ -373,7 +284,7 @@ const DataTable: FC<any> = (props: any) => {
       <Table
         dataSource={tableData}
         columns={columns}
-        rowKey={_ => _.id}
+        rowKey={_ => _.nodeId}
         scroll={{ x: 990 }}
         pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
       />

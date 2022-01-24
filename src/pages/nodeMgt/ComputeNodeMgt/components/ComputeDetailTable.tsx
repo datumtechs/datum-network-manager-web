@@ -18,9 +18,6 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   const [total, totalSet] = useState<number>(0)
   const [tableData, tableDataSet] = useState([])
   const [curPage, curPageSet] = useState<number>(1)
-  // const [totalCpu, totalCpuSet] = useState<number>(0)
-  // const [totalMemory, totalMemorySet] = useState<number>(0)
-  // const [totalBandwidth, totalBandwidthSet] = useState<number>(0)
 
   // TODO 跳转到task部分
   const linkToTask = obj => {
@@ -82,7 +79,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             </Row>
             <Row>
               <Col span={6}>{t('computeNodeMgt.timeSpan')}:</Col>
-              <Col span={18}>{record.endAt !== '1970-01-01T00:00:00' ? formatDuring(dayjs(record.endAt).valueOf() - dayjs(record.startAt).valueOf()) : '00:00:00'}</Col>
+              <Col span={18}>{record.endAt.indexOf('1970-01-01T00:00:00') > 0 ? formatDuring(dayjs(record.endAt).valueOf() - dayjs(record.startAt).valueOf()) : '00:00:00'}</Col>
             </Row>
           </>
         )
@@ -125,8 +122,6 @@ const ComputeDetailTable: FC<any> = (props: any) => {
         return (
           <div className="AliM pointer link" onClick={linkToDetail.bind(this, record)}>
             {t('task.viewDetail')}
-            {/* <p>{record.ownerIdentityId}</p>
-            <p>{dayjs(record.taskStartTime).format('YYYY-MM-DD HH:mm:ss')}</p> */}
           </div>
         )
       },

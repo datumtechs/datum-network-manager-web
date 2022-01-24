@@ -29,7 +29,6 @@ export const BaseInfoContext = createContext<any>({
   status: '',
 })
 
-// import { getPageTitle, systemRouteList } from '../router/utils';
 const Layout = (props: any) => {
   const { state: { Loading } } = props,
     history = useHistory(),
@@ -48,18 +47,20 @@ const Layout = (props: any) => {
 
   const fetchData = async (type?: boolean) => {
     const result = await loginApi.queryBaseInfo()
-    if (type) {
-      if (result.status === 1005) {
-        props.setIsReg(false)
-        history.push('/didApplication')
-        return
-      }
-      if (result.status === 0) {
-        props.setOrg(result.data)
-      }
-      props.setIsReg(true)
+    if (result.status === 1005) {
+      props.setIsReg(false)
+      history.push('/didApplication')
+      return
     }
+    if (result.status === 0) {
+      props.setOrg(result.data)
+    }
+    props.setIsReg(true)
     setInfo(result?.data)
+  }
+
+  const timeFetchData = () => {
+    fetchData()
   }
 
   useEffect((): any => {
@@ -67,7 +68,7 @@ const Layout = (props: any) => {
   }, [])
 
   useInterval(() => {
-    fetchData()
+    timeFetchData()
   }, tableInterVal)
 
   return (
