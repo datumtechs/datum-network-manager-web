@@ -37,7 +37,6 @@ const DidApplication: FC<any> = (props) => {
   const NetworkStatus = props?.location?.state?.NetworkStatus || 0
   const baseInfo = useContext(BaseInfoContext)
   const history = useHistory()
-  console.log(props);
 
   useEffect(() => {
     if (!baseInfo.identityId && !status) {

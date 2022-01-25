@@ -48,9 +48,7 @@ const Login = (props: any) => {
     } = values
     loginApi.loginFn({ userName: account, passwd: password, code: veriCode }).then(res => {
       const { orgInfoCompletionLevel, connectNetworkStatus } = res.data || {}
-      if (res.status !== 0) {
-        message.error(res.msg)
-      } else if (!connectNetworkStatus) {
+      if (!connectNetworkStatus) {
         // } else if (connectNetworkStatus) {
         props.InfoCompleteness({
           orgInfoCompletionLevel,//, //组织信息完善情况0 带申请  1 待完善 2 完成
