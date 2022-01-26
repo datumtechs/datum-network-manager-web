@@ -56,6 +56,36 @@ const TrendChart: FC<any> = (props: any) => {
     },
   ]
 
+  const _yAxis = [
+    {
+      type: 'value',
+      max: 10,
+      axisLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
+    },
+    {
+      type: 'value',
+      max: 10,
+      axisLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
+    },
+    {
+      type: 'value',
+      max: 10,
+      axisLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
+    },
+  ]
+
 
 
   const option: any = {
@@ -132,17 +162,48 @@ const TrendChart: FC<any> = (props: any) => {
     if (curSwitch !== 'data') {
       overviewApi.localPowerStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
+          const list1: any[] = [], list2: any[] = [], list3: any[] = []
+          // newOption.yAxis = _yAxis
+          // newOption.yAxis = _yAxis
+
+
           newOption.series[0] = { ...seriesCom[0] }
-          // newOption.series[0].data = res.data.map(_ => _.totalMemoryValue)
-          newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalMemoryValue).size, backupsData: _.totalMemoryValue } })
+          newOption.series[0].data = res.data.map(_ => {
+            const item = +changeSizeObj(_.totalMemoryValue).size
+            list1.push(item)
+            return {
+              value: item,
+              backupsData: _.totalMemoryValue
+            }
+          })
+          // newOption.yAxis[0].max = Math.max(...list1)
+
 
           newOption.series[1] = { ...seriesCom[1] }
-          // newOption.series[1].data = res.data.map(_ => _.totalCoreValue)
-          newOption.series[1].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalCoreValue).size, backupsData: _.totalCoreValue } })
+          newOption.series[1].data = res.data.map(_ => {
+            const item = +changeSizeObj(_.totalCoreValue).size
+            list2.push(item)
+            return {
+              value: item,
+              backupsData: _.totalCoreValue
+            }
+          })
+          // newOption.yAxis[1].max = Math.max(...list2)
+
+
 
           newOption.series[2] = { ...seriesCom[2] }
-          // newOption.series[2].data = res.data.map(_ => _.totalBandwidthValue)
-          newOption.series[2].data = res.data.map(_ => { return { value: +BandwidthSizeObj(_.totalBandwidthValue).size, backupsData: _.totalBandwidthValue } })
+          newOption.series[2].data = res.data.map(_ => {
+            const item = +BandwidthSizeObj(_.totalBandwidthValue).size
+            list3.push(item)
+            return {
+              value: item,
+              backupsData: _.totalBandwidthValue
+            }
+          })
+          // newOption.yAxis[2].max = Math.max(...list3)
+          console.log(newOption.yAxis);
+          // 
         }
 
         chart.setOption(newOption, {
@@ -153,6 +214,14 @@ const TrendChart: FC<any> = (props: any) => {
     } else {
       overviewApi.localDataFileStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
+          // newOption.yAxis = {
+          //   show: true,
+          //   splitLine: {
+          //     lineStyle: {
+          //       type: 'dashed'
+          //     }
+          //   }
+          // }
           newOption.series[0] = { ...seriesCom[0] }
           // newOption.series[0].data = res.data.map(_ => _.totalValue)
           newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalValue).size, backupsData: _.totalValue } })
