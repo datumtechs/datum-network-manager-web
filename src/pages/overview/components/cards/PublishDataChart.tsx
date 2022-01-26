@@ -63,7 +63,35 @@ const PublishDataChart: FC<any> = (props: any) => {
     },
   ]
 
-
+  const _yAxis = [
+    {
+      type: 'value',
+      max: 10,
+      axisLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
+    },
+    {
+      type: 'value',
+      max: 8,
+      axisLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
+    },
+    {
+      type: 'value',
+      max: 200,
+      axisLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
+    },
+  ]
 
   const option: any = {
     grid: {
@@ -123,14 +151,7 @@ const PublishDataChart: FC<any> = (props: any) => {
       type: 'category',
       data: getMonthsByNumber(12),
     },
-    yAxis: {
-      show: true,
-      splitLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-    },
+    yAxis: {},
     series: [],
   }
 
@@ -141,13 +162,40 @@ const PublishDataChart: FC<any> = (props: any) => {
         const newOption = { ...option }
         newOption.series = []
         if (res.status === 0 && res.data) {
+          const list1: any[] = [], list2: any[] = [], list3: any[] = []
+          newOption.yAxis = _yAxis
           newOption.series[0] = { ...seriesCom[0] }
-          newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.incrementMemoryValue).size, backupsData: _.incrementMemoryValue } })
-          newOption.series[1] = { ...seriesCom[1] }
-          newOption.series[1].data = res.data.map(_ => { return { value: +changeSizeObj(_.incrementCoreValue).size, backupsData: _.incrementCoreValue } })
-          newOption.series[2] = { ...seriesCom[2] }
-          newOption.series[2].data = res.data.map(_ => { return { value: +BandwidthSizeObj(_.incrementBandwidthValue).size, backupsData: _.incrementBandwidthValue } })
+          newOption.series[0].data = res.data.map(_ => {
+            const item = +changeSizeObj(_.incrementMemoryValue).size
+            list1.push(item)
+            return {
+              value: item,
+              backupsData: _.incrementMemoryValue
+            }
+          })
+          newOption.yAxis[0].max = Math.max(...list1)
 
+          newOption.series[1] = { ...seriesCom[1] }
+          newOption.series[1].data = res.data.map(_ => {
+            const item = +changeSizeObj(_.incrementCoreValue).size
+            list2.push(item)
+            return {
+              value: item,
+              backupsData: _.incrementCoreValue
+            }
+          })
+          newOption.yAxis[1].max = Math.max(...list2)
+
+          newOption.series[2] = { ...seriesCom[2] }
+          newOption.series[2].data = res.data.map(_ => {
+            const item = +BandwidthSizeObj(_.incrementBandwidthValue).size
+            list3.push(item)
+            return {
+              value: item,
+              backupsData: _.incrementBandwidthValue
+            }
+          })
+          newOption.yAxis[2].max = Math.max(...list3)
           chart.setOption(newOption, {
             replaceMerge: ['series']
           })
@@ -159,6 +207,14 @@ const PublishDataChart: FC<any> = (props: any) => {
         const newOption = { ...option }
         newOption.series = []
         if (res.status === 0 && res.data) {
+          newOption.yAxis = {
+            show: true,
+            splitLine: {
+              lineStyle: {
+                type: 'dashed'
+              }
+            }
+          }
           newOption.series[0] = { ...seriesCom[0] }
           newOption.series[0].data = res.data.map(_ => _.incrementValue)
           newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.incrementValue).size, backupsData: _.incrementValue } })

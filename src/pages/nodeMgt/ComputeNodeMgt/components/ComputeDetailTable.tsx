@@ -90,24 +90,25 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       dataIndex: 'eachNode',
       key: 'eachNode',
       render: (text, record, index) => {
+        const _data = record.dynamicFields
         return (
           <>
             <Row>
               <Col span={4}>CPU:</Col>
-              <Col span={8}>{record.costCore} {record.costCore ? t('overview.core') : ''}</Col>
-              <Col span={12}>{`( ${(record.costCore / core) ? (((record.costCore / core) || 0) * 100).toFixed(2) : 0
+              <Col span={8}>{_data.usedCore} {_data.usedCore ? t('overview.core') : ''}</Col>
+              <Col span={12}>{`( ${(_data.usedCore / core) ? (((_data.usedCore / core) || 0) * 100).toFixed(2) : 0
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.memory')}:</Col>
-              <Col span={8}>{fileSizeChange(record.costMemory)}</Col>
-              <Col span={12}>{`( ${record.costMemory / memory ? (((record.costMemory / memory) || 0) * 100).toFixed(2) : '0.00'
+              <Col span={8}>{fileSizeChange(_data.usedMemory)}</Col>
+              <Col span={12}>{`( ${_data.usedMemory / memory ? (((_data.usedMemory / memory) || 0) * 100).toFixed(2) : '0.00'
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
             <Row>
               <Col span={4}>{t('overview.bandwidth')}:</Col>
-              <Col span={8}>{fileSizeChange(record.costBandwidth)}P/S</Col>
-              <Col span={12}>{`( ${record.costBandwidth / bandwidth ? (((record.costBandwidth / bandwidth) || 0) * 100).toFixed(2) : '0.00'
+              <Col span={8}>{fileSizeChange(_data.usedBandwidth)}P/S</Col>
+              <Col span={12}>{`( ${_data.usedBandwidth / bandwidth ? (((_data.usedBandwidth / bandwidth) || 0) * 100).toFixed(2) : '0.00'
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>
           </>
