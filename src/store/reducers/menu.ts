@@ -10,13 +10,14 @@ interface menuAction {
 }
 
 const initData = {
-  curMenu: localStorage.curMenu || ''
+  // curMenu: localStorage.curMenu || ''
+  curMenu: ""
 }
 
 const setCurrentMenu = (state: ReduxState = initData, action: menuAction) => {
   switch (action.type) {
     case SETMENU:
-      localStorage.setItem('curMenu', action.data)
+      // localStorage.setItem('curMenu', action.data)
       return {
         curMenu: action.data
 

@@ -1,18 +1,17 @@
 {
   "login": {
     "RosettaNet": "隐私计算网络",
-    "login": "登 录",
-    "plzinput": "请输入您的 ",
-    "account": "账号",
-    "password": "密码",
-    "vericode": "验证码",
+    "extension": "扩展",
+    "install": "安装",
     "logout": "退出登录",
-    "plzLogin": "您还没有登录, 已为您跳转到登录页",
-    "internalError": "内部错误",
     "editOrgName": "修改组织名称",
     "rename": "请输入新的机构识别名称",
     "loginSlogan": "隐私计算让数据像资产一样流动",
     "loginRemarks": "本平台已满足《互联网个人信息安全保护指南》、《数据安全管理办法》、《信息安全技术个人信息安全规范》等法律法规要求"
+  },
+  "wallet": {
+    "tip1": "一键连接区块链应用",
+    "tip2": "账户隐私保留在本地"
   },
   "UserCenter": {
     "Profile": "主页",

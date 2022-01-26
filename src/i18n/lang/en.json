@@ -1,18 +1,17 @@
 {
   "login": {
     "RosettaNet": "Metis Console",
-    "login": "Login",
-    "plzinput": "please input your ",
-    "account": "Account",
-    "password": "Password",
-    "vericode": "Vericode",
+    "extension": "Extension",
+    "install": "install",
     "logout": "Log Out",
-    "plzLogin": "You haven't logged in yet, switched to the login page for you",
-    "internalError": "Internal Error",
     "editOrgName": "Modify organization name",
     "rename": "Your new organization name",
     "loginSlogan": "Privacy-preserving computing platform enables data to flow like assets.",
     "loginRemarks": "The Metis Console has satisfied the relevant requirements of laws and requirements."
+  },
+  "wallet": {
+    "tip1": "One-click blockchain application",
+    "tip2": "Privacy Preserved Locally"
   },
   "UserCenter": {
     "Profile": "Profile",

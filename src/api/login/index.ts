@@ -10,6 +10,14 @@ const loginApi = {
       data
     })
   },
+  queryNonce(data): Promise<any> {
+    return axios({
+      method: "POST",
+      // url: `/api/v1/system/user/login`,
+      url: `/api/v1/user/login`,
+      data
+    })
+  },
 
   // 申请身份标识
   applyOrgIdentity(data): Promise<any> {

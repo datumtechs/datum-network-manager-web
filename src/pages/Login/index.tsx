@@ -1,19 +1,22 @@
-/* eslint-disable no-empty */
-import { Form, Input, Button, message } from 'antd'
+import { Button } from 'antd'
 import { useState, useEffect } from 'react'
-import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import MyWave from '@com/MyWave'
+import { loginApi } from '@api/index'
+import { connect } from 'react-redux'
+import './index.scss'
+
 import square1 from '@assets/images/1.img1.png'
 import square2 from '@assets/images/1.img2.png'
 import square3 from '@assets/images/1.img3.png'
 import cnSvg from '@assets/images/2.icon_cn.svg'
 import enSvg from '@assets/images/2.icon_en.svg'
-import { loginApi } from '@api/index'
-import { connect } from 'react-redux'
+import samurai1 from '@assets/images/login/samurai-1.svg'
+import samurai2 from '@assets/images/login/samurai-2.svg'
+import metamask from '@assets/images/login/metamask-fox.svg'
 
-// import imageBottom from '../../assets/images/1.bj3.png'
+
 const mapDispatchToProps = (dispatch: any) => ({
   InfoCompleteness: (data) => {
     dispatch({
@@ -27,11 +30,10 @@ const mapDispatchToProps = (dispatch: any) => ({
 
 
 const Login = (props: any) => {
-  const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
-
-  const history = useHistory()
-  const { hash, search } = history.location
+  const history = useHistory(),
+    [isAgree, setIsAgree] = useState(false)
+  const { hash } = history.location
   const fromPathAry = hash.replace(/#/, '')?.split('/')
   let redirectPath
   if (fromPathAry.length > 2) {
@@ -42,37 +44,74 @@ const Login = (props: any) => {
 
 
 
-  const onFinish = (values: any) => {
-    const {
-      login: { account, password, veriCode = 2222 },
-    } = values
-    loginApi.loginFn({ userName: account, passwd: password, code: veriCode }).then(res => {
-      const { orgInfoCompletionLevel, connectNetworkStatus } = res.data || {}
-      if (res.status !== 0) {
-        return
-      } else if (!connectNetworkStatus) {
-        // } else if (connectNetworkStatus) {
-        props.InfoCompleteness({
-          orgInfoCompletionLevel,//, //组织信息完善情况0 带申请  1 待完善 2 完成
-          connectNetworkStatus,// //0 未入网  1已入网 99 已退网
-        })
-        history.push({
-          pathname: '/didApplication',
-        })
-      } else if (redirectPath) {
-        history.push(redirectPath)
-      } else {
-        history.push('/')
-      }
-    })
+  const headLoginParams = (data) => {
+    const { orgInfoCompletionLevel, connectNetworkStatus } = data.data || {}
+    if (data.status !== 0) {
+      return
+    } else if (!connectNetworkStatus) {
+      props.InfoCompleteness({
+        orgInfoCompletionLevel,//, //组织信息完善情况0 带申请  1 待完善 2 完成
+        connectNetworkStatus,// //0 未入网  1已入网 99 已退网
+      })
+      history.push({
+        pathname: '/didApplication',
+      })
+    } else if (redirectPath) {
+      history.push(redirectPath)
+    } else {
+      history.push('/')
+    }
   }
+
+
+  const loginFn = async () => {
+    const { wallet } = props.state.wallet || {}
+    try {
+      // 1 获取地址
+      const address = await wallet.connectWallet()
+
+      //2  获取 nonceId  //不知道这是啥
+      const data = await loginApi.queryNonce(address[0])
+      console.log(data.nonceId);
+
+      //3  获取签名  sign
+      const sign = await wallet.signForWallet('login', address[0], 'cec3c0e9e6d44c2f89f9db3fe1dcc4bf')//data.nonce)
+      if (!sign) return
+
+      //4 登录
+      headLoginParams(await loginApi.loginFn({
+        address: address[0],
+        sign: sign,
+        signMessage: wallet._getAbiForLogin(data.nonceId)
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const oldLogin = async () => {
+    headLoginParams(await loginApi.loginFn({
+      userName: 'admin',
+      passwd: 'admin',
+      code: 123
+    }))
+  }
+
+  const queryToken = () => {
+    //TODO
+    if (isAgree) {
+      // loginFn()
+      oldLogin()
+    }
+  }
+
+
+
+
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
   }
-  /* eslint-disable no-template-curly-in-string */
-  const validateMessages = {
-    required: "'${name}'",
-  }
+
   return (
     <div className="login-box">
       <MyWave />
@@ -92,44 +131,42 @@ const Login = (props: any) => {
           <div className="switch-lang pointer" onClick={changeLanguage}>
             {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
           </div>
-          <p className="title">{t('login.login')}</p>
-          <Form
-            form={form}
-            initialValues={{ remember: true }}
-            className="content-box"
-            onFinish={onFinish}
-            validateMessages={validateMessages}
-          >
-            <Form.Item
-              name={['login', 'account']}
-              rules={[{ required: true, message: t('login.plzinput') + t('login.account') }]}
-            >
-              <Input bordered={false} placeholder={t('login.account')} className="login-form-height" />
-            </Form.Item>
-            <Form.Item
-              name={['login', 'password']}
-              rules={[{ required: true, message: t('login.plzinput') + t('login.password') }]}
-            >
-              <Input.Password
-                visibilityToggle={false}
-                size="large"
-                bordered={false}
-                placeholder={t('login.password')}
-                className="login-form-height"
-              />
-            </Form.Item>
-            <Form.Item
-              name={['login', 'veriCode']}
-              rules={[{ required: true, message: t('login.plzinput') + t('login.vericode') }]}
-            >
-              <Input bordered={false} placeholder={t('login.vericode')} className="login-form-height" />
-            </Form.Item>
-            <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
-              <Button block type="primary" htmlType="submit" className="login-form-height">
-                {t('login.login')}
-              </Button>
-            </Form.Item>
-          </Form>
+          <div className="connector-title">Metamask {t('login.extension')}</div>
+          {props.state.wallet.wallet ?
+            <>
+              <div onClick={queryToken} className={isAgree ? "connector-block connector-btn-active" : "connector-block connector-btn"}>
+                <img src={metamask} alt="samurai" className="icon" />
+                <span className="text">Metamask</span>
+              </div>
+              <div className="connector-info">
+                <span className={isAgree ? 'active radio' : "radio"} onClick={() => setIsAgree(!isAgree)}></span>
+                {
+                  i18n.language === 'en' ?
+                    <span>
+                      <span> I have read and agreed to the </span>
+                      <i>Term of Use</i> and <i> Privacy Policy</i>
+                    </span> :
+                    <span>
+                      <span>阅读并同意</span>
+                      <i>用户协议</i>和<i>隐私声明</i>
+                    </span>
+                }
+
+              </div>
+            </>
+            :
+            <div className="samurai-box">
+              <div className="samurai-line">
+                <img src={samurai1} alt="" className="samurai-icon" />
+                <p>{t('wallet.tip1')}</p>
+              </div>
+              <div className="samurai-line">
+                <img src={samurai2} alt="" className="samurai-icon" />
+                <p>{t('wallet.tip2')}</p>
+              </div>
+              <Button type="primary" className="install-btn" onClick={() => window.open(`https://devdocs.platon.network/docs/${i18n.language !== 'en' ? 'zh-CN' : 'en'}/MetaMask`)}>{t('login.install')}</Button>
+            </div>
+          }
         </div>
       </div>
     </div>

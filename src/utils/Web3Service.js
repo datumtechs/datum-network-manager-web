@@ -1,51 +1,27 @@
-// import Web3 from 'web3'
 import Web3 from 'web3'
-import store from '@/store'
 
 class Web3Service {
-  web3 = null
-  store = null
-  eth = window.ethereum
   constructor() {
-    this.web3 = null
-    this.store = store
-    try {
-      this.initAlaya()
-    } catch (error) {
-      console.log('initialization error!')
-    }
+    this.eth = window.ethereum || undefined
+    this.web3 = new Web3(this.eth) || undefined
   }
 
-  initAlaya() {
-    const {
-      eth
-    } = this
-    if (typeof eth === 'undefined') {
-      console.log('no metamask you should check you chrome chrome-extension')
-      this.store.commit('app/SET_ISWALLET', false)
-    } else {
-      this.web3 = new Web3(eth)
-      eth.on('accountsChanged', account => {
-        console.log(account, eth.chainId)
-        this.store.dispatch('app/getLogout')
-      })
+  // // eth.on('accountsChanged', account => {
+  // //   props.updataWalletStatus({ WalletStatus: false })
+  // // })
+  // // // 切换网络
+  // // eth.on('chainChanged', () => {
+  // //   props.updataWalletStatus({ WalletStatus: false })
+  // // })
 
-      // 切换网络
-      eth.on('chainChanged', () => {
-        console.log('chain changed')
-        this.store.dispatch('app/getLogout')
-      })
-    }
-  }
-
-  _getAbiForLogin() {
-    const uuId = this.store.getters['app/nonceId']
+  //登录签名
+  _getAbiForLogin(nonceId) {
     return JSON.stringify({
       domain: {
         name: 'Moirae'
       },
       message: {
-        key: uuId,
+        key: nonceId,
         desc: 'Welcome to Moirae!'
       },
       primaryType: 'Login',
@@ -67,8 +43,8 @@ class Web3Service {
     })
   }
 
-  _getAbiForTx() {
-    const address = this.store.getters['app/address']
+  _getAbiForTx(address) {
+    // const address = this.store.getters['app/address']
     return JSON.stringify({
       domain: {
         name: 'Moirae'
@@ -90,39 +66,29 @@ class Web3Service {
     })
   }
 
-  // 连接钱包
-
+  // 连接钱包  获取  address
   async connectWallet() {
-    const {
-      eth
-    } = this
-    if (typeof eth === 'undefined') {
-      console.log('no metamask you should check you chrome chrome-extension')
-      this.store.commit('app/SET_ISWALLET', false)
-    } else {
-      try {
-        const data = await eth.request({
-          method: 'eth_requestAccounts'
-        })
-        this.store.dispatch('app/saveAddress', data)
-      } catch (error) {
-        console.log(error)
-      }
+    let address = ''
+    try {
+      address = await this.eth.request({
+        method: 'eth_requestAccounts'
+      })
+    } catch (error) {
+      console.log(error)
     }
+    return address
   }
 
-  signForWallet(type) {
-    const abi = type === 'login' ? this._getAbiForLogin() : this._getAbiForTx()
-    const from = this.store.getters['app/address']
-    // const callback = (err, res) => {
-    //   if (err) return console.log(err)
-    //   const { result } = res
-    //   this.store.commot('SET_SIGN', result)
-    // }
+  //获取签名
+  signForWallet(type, address, nonceId) {
+    const abi = type === 'login' ?
+      this._getAbiForLogin(nonceId) :
+      this._getAbiForTx(address)
+    const from = address//this.store.getters['app/address']
     const result = new Promise((resolve, reject) => {
-      this.web3.currentProvider.sendAsync({
+      this.web3.currentProviderc({
         method: 'eth_signTypedData_v4',
-        params: [from, abi],
+        params: [address, abi],
         from
       },
         (err, res) => {
@@ -130,7 +96,6 @@ class Web3Service {
           const {
             result
           } = res
-          this.store.commit('app/SET_SIGN', result)
           resolve(result)
         }
       )
@@ -138,13 +103,6 @@ class Web3Service {
     return result
   }
 
-  loginParams() {
-    return {
-      address: this.store.getters['app/address'],
-      sign: this.store.getters['app/sign'],
-      signMessage: this._getAbiForLogin()
-    }
-  }
 
   checkAddress() {
     const address = this.store.getters['app/address']
@@ -162,4 +120,4 @@ class Web3Service {
     }
   }
 }
-export default new Web3Service()
+export default Web3Service

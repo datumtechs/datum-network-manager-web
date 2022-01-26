@@ -7,8 +7,20 @@ import zh from 'antd/lib/locale/zh_CN'
 import en from 'antd/lib/locale/en_GB'
 import layoutRoutes, { IRoute } from './router'
 import useWinWidth from './hooks/useWinWidth'
+import Web3Service from "./utils/Web3Service"
+import { connect } from 'react-redux'
 
-const App: FC<any> = () => {
+const mapDispatchToProps = (dispatch: any) => ({
+  updataWallet: (data) => {
+    dispatch({
+      type: 'SET_WALLET',
+      data
+    })
+  }
+})
+
+
+const App: FC<any> = (props) => {
   const initralFn = () => {
     const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
     const htmlDom = document.getElementsByTagName('html')[0]
@@ -17,6 +29,25 @@ const App: FC<any> = () => {
   const winWidth = useWinWidth()
   const { i18n } = useTranslation()
   useEffect(() => initralFn(), [winWidth])
+  useEffect(() => {
+    const WEB3 = new Web3Service()
+    if (WEB3.eth) {
+      props.updataWallet(WEB3)
+      WEB3.eth.on('accountsChanged', account => {
+        console.log('change`', account);
+        // props.updataWallet(undefined)
+      })
+      // 切换网络  这个好像不调用
+      WEB3.eth.on('chainChanged', account => {
+        console.log('change1`', account);
+        // props.updataWallet(undefined)
+      })
+    } else {
+      props.updataWallet(undefined)
+    }
+  }, [])
+
+
 
   return (
     <ConfigProvider locale={i18n.language === 'zh' ? zh : en}>
@@ -37,4 +68,4 @@ const App: FC<any> = () => {
   )
 }
 
-export default App
+export default connect((state: any) => ({ state }), mapDispatchToProps)(App) 

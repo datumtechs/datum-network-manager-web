@@ -9,7 +9,7 @@ import storage from 'redux-persist/lib/storage'
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['page404']
+  blacklist: ['wallet']
 }
 
 const persistedReducer = persistReducer(persistConfig, combineReducers({ ...storeList }))

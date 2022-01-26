@@ -1,4 +1,3 @@
-import login from './login'
 import menu from './menu'
 import tableData from './tableData'
 import org from './org'
@@ -7,8 +6,8 @@ import baseInfo from './baseInfo'
 import dataSwitch from './dataSwitch'
 import Loading from './loading'
 import InfoCompleteness from './infoCompleteness'
+import wallet from './wallet'
 export const storeList = {
-  login,
   menu,
   tableData,
   org,
@@ -17,4 +16,5 @@ export const storeList = {
   dataSwitch,
   Loading,
   InfoCompleteness,
+  wallet
 }
