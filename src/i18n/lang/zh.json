@@ -134,7 +134,11 @@
     "metaDataDetail": "元数据详情",
     "userCenter": "用户中心",
     "userInfo": "网络身份",
-    "Profile": "主页"
+    "Profile": "主页",
+    "Voucher": "我的凭证",
+    "TemplateVouvher": "模型凭证",
+    "NoAttributeVoucher": "无属性数据凭证",
+    "VoucherDetails": "凭证查看"
   },
   "common": {
     "submit": "提交",
@@ -192,8 +196,6 @@
     "legalVerificationUrl": "当前url不合法"
   },
   "node": {
-    "addNewComputingNode": "新增计算节点",
-    "addNewDataNode": "新增存储节点",
     "confirmDelete": "请确认是否要删除数据节点",
     "connectSuccess": "调度服务连接成功",
     "connenctFailed": "调度服务连接失败",
@@ -206,14 +208,10 @@
     "external": "外部",
     "hasOccupied": "占用此节点情况",
     "addSeedNode": "添加引导节点",
-    "seedNodeAndNodePK": "引导节点名称与节点公钥",
-    "npk": "节点公钥",
     "initialNode": "初始节点",
-    "internalNetworkAddress": "内部网络地址",
     "noRepeatSeedName": "引导节点名称不可重复, 且本次设置之后无法修改；其他配置提交后可以在引导节点管理页面更改。",
     "nodeConfigurationStatusTips": "正在参与计算任务，目前无法注销身份。",
     "nodeSeedNodeId": "引导节点ID",
-    "NodePublicKey": "节点公钥",
     "forSelfidentity": "用于自己识别",
     "submitAddtion": "添加",
     "unconnected": "调度服务未连接",
@@ -240,7 +238,12 @@
     "externalPort": "外部端口",
     "addNodeSuccess": "添加节点成功",
     "internal": "内部",
-    "external": "外部"
+    "external": "外部",
+    "allData": "全部数据",
+    "publishedData": "已发布的数据",
+    "unpublishedData": "未发布的数据",
+    "dataVoucherAndSymbol": "数据凭证名称与符号",
+    "publishDataVoucher": "发布数据凭证"
   },
   "computeNodeMgt": {
     "nodeName": "计算节点名称",
@@ -450,24 +453,12 @@
     "fileMaxSizeTips": "当前文件最大4M，请重新选择"
   },
   "tip": {
-    "plzInputID": "请输入正确的机构识别名称",
     "idSuccess": "身份标识申请成功",
-    "idFailed": "身份标识申请失败",
     "intenalError": "内部错误",
     "leaveCofirm": "请确认是否要返回管理页面? 返回后, 已修改的信息不会被保存",
-    "disableSuccess": "停用成功",
-    "enableSuccess": "启用成功",
     "deleteSuccess": "删除成功",
-    "deleteFailed": "删除失败",
-    "enableFailed": "启用成功",
-    "disableFailed": "停用成功",
-    "updateNodeSuccess": "更新节点信息成功",
     "addNodeSuccess": "新增节点成功",
-    "updateNodeFailed": "更新节点信息失败",
     "addNodeFailed": "新增节点失败",
-    "plzSelectStatus": "请选择一种状态",
-    "plzSelectCapacity": "请选择角色",
-    "fileNameError": "文件名称不可用请修改",
     "unavailableFilename": "不可用文件名",
     "availableFilename": "可用文件名",
     "updateSuccess": "修改源文件成功",
@@ -487,6 +478,15 @@
     "isUnAuthData": "请确认是否要拒绝授权数据",
     "capacityChartTip": "点击图中的扇面,下方列表只显示此角色下的任务;点击图中心,下方列表显示全部角色下的任务。",
     "statusChartTip": "点击图中的扇面,下方列表只显示此状态下的任务;点击图中心,下方列表显示全部状态下的任务。"
+  },
+  "voucher": {
+    "PricedVoucher": "已定价的凭证",
+    "UnpricedVoucher": "未定价的凭证",
+    "VoucherName": "凭证名称",
+    "VoucherSymbol": "凭证符号",
+    "VoucherTotalRelease": "总发布量",
+    "VoucherNumberOfHolders": "持有者人数",
+    "VoucherSetPrice": "设置价格"
   },
   "httpStatus": {
     "status1": "系统内部错误",

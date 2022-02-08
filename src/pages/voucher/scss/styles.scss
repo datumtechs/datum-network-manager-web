@@ -1,0 +1,101 @@
+.voucher{
+  .voucher-tabs{
+    .ant-tabs-nav{
+      margin-bottom: 0;
+      &::before{
+        display: none;
+      }
+      .ant-tabs-nav-list .ant-tabs-tab{
+        border-bottom: none;
+        height: 48px;
+        min-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px 5px 0 0;
+        &:nth-child(1){
+          margin-left: 0 !important;
+        }
+      }
+      .ant-tabs-nav-list .ant-tabs-tab-active .ant-tabs-tab-btn{
+        font-family: PingFangSC-Medium;
+        // font-size: 12px;
+        color: #3954FF;
+        letter-spacing: 0;
+        text-align: center;
+        font-weight: 500;
+      }
+    }
+  }
+  .no-right-border{
+    border-right: none !important; 
+  }
+  .data-symbol{
+    color: #3C3588;
+    cursor: pointer;
+  }
+}
+.details-top-box{
+  box-shadow: 0px 0px 10px 0px rgba(10,16,81,0.08);
+  border-radius: 6px;
+  .ant-card-body{
+    padding: 20px;
+  }
+
+  .details-name-box{
+    font-family: PingFangSC-Medium;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    .address p{
+      letter-spacing: 0;
+      &:nth-child(1){
+        font-size: 16px;
+        color: #000000;
+        font-weight: 500;
+      }
+      &:nth-child(2){
+        margin-top: 12px;
+        font-size: 14px;
+        color: #1D2832;
+        font-weight: 400;
+      }
+    }
+    .ant-btn{
+      height: 36px;
+      padding: 9px 24px;
+      border: 1px solid #3C3588;
+      border-radius: 2px;
+      font-size: 12px;
+      color: #3C3588;
+      letter-spacing: 0;
+      text-align: center;
+      font-weight: 500;
+    }
+  }
+  .proce-box{
+    display: flex;
+    .proce-left{
+      flex: 0 0 320px;
+      p {
+        font-family: AlibabaPuHuiTi-Medium;
+        font-size: 16px;
+        color: #344563;
+        letter-spacing: -0.5px;
+        font-weight: 500;
+      }
+      div{
+        width: 100%;
+        height: 165px;
+        background: #F8F7FF;
+        border: 1px solid #EBEEF9;
+        border-radius: 8px;
+      }
+    }
+    .proce-right{
+      flex:1;
+    }
+  }
+
+}

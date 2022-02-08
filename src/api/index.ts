@@ -6,6 +6,7 @@ import dataNodeApi from "./dataNode";
 import computeNodeApi from "./computeNode";
 import taskApi from "./task";
 import authApi from "./auth"
+import voucher from "./voucher"
 
 export {
   resourceApi,
@@ -15,5 +16,6 @@ export {
   dataNodeApi,
   computeNodeApi,
   taskApi,
-  authApi
+  authApi,
+  voucher
 }

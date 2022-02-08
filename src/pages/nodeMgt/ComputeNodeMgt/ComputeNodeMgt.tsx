@@ -23,7 +23,6 @@ export const ComputeNodeMgt: FC<any> = () => {
   return (
     <div className="layout-box">
       <div className="data-table-box">
-        {/* <SearchBar text={t('node.addNewComputingNode')} onAdd={onAdd} onSearch={onSearch} /> */}
         <SearchBar onAdd={onAdd} onSearch={onSearch} />
         <ComputeTable searchText={searchText} sonRef={sonRef} />
       </div>

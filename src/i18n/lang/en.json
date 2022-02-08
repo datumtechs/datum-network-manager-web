@@ -133,7 +133,11 @@
     "metaDataDetail": "Metadata Detail",
     "userCenter": "User Center",
     "userInfo": "Metis Identity",
-    "Profile": "Profile"
+    "Profile": "Profile",
+    "Voucher": "My Credential",
+    "TemplateVouvher": "Template Credential",
+    "NoAttributeVoucher": "No Attribute Credential",
+    "VoucherDetails": "Credential Details"
   },
   "common": {
     "submit": "Submit",
@@ -191,8 +195,6 @@
     "legalVerificationUrl": "The current URL is illegal"
   },
   "node": {
-    "addNewComputingNode": "Add a new computing node",
-    "addNewDataNode": "Add a new Storage node",
     "confirmDelete": "Please ensure that you are deleting the data node",
     "connectSuccess": "Connection succeeded",
     "connenctFailed": "Connection failed",
@@ -205,14 +207,10 @@
     "external": "External",
     "hasOccupied": "of the node has been occupied",
     "addSeedNode": "Add a new Boot node",
-    "seedNodeAndNodePK": "Boot node name & Node public key",
-    "npk": "NPK",
     "initialNode": "Initial Node",
-    "internalNetworkAddress": "Internal network address",
     "noRepeatSeedName": "Boot node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
     "nodeConfigurationStatusTips": "Cannot exit the Metis now because there are tasks in progress.",
     "nodeSeedNodeId": "Boot node ID",
-    "NodePublicKey": "Node public key",
     "forSelfidentity": "For self-identification",
     "submitAddtion": "Submit",
     "unconnected": "Unconnected",
@@ -239,7 +237,12 @@
     "externalPort": "External Port",
     "addNodeSuccess": "Add Node Success",
     "internal": "Internal",
-    "external": "External"
+    "external": "External",
+    "allData": "All Data",
+    "publishedData": "Published Data",
+    "unpublishedData": "Unpublished Data",
+    "dataVoucherAndSymbol": "Use credentials & Symbols",
+    "publishDataVoucher": "Publish data voucher"
   },
   "computeNodeMgt": {
     "nodeName": "Compute node name",
@@ -449,24 +452,12 @@
     "fileMaxSizeTips": "The maximum size of the current file is 4M, please reselect"
   },
   "tip": {
-    "plzInputID": "Please enter the correct organization identification name",
     "idSuccess": "ID Application successful",
-    "idFailed": "ID application failed",
     "intenalError": "internal error",
     "leaveCofirm": "Please ensure that you are leaving this page.Once conformed, the changes will NOT be saved",
-    "disableSuccess": "Disabled successfully",
-    "enableSuccess": "Enabled successfully",
     "deleteSuccess": "Delete successfully",
-    "deleteFailed": "Delete failed",
-    "enableFailed": "Enabled successfully",
-    "disableFailed": "Disabled successfully",
-    "updateNodeSuccess": "Node information updated successfully",
     "addNodeSuccess": "Node added successfully",
-    "updateNodeFailed": "Node information updated failed",
     "addNodeFailed": "Node added failed",
-    "plzSelectStatus": "Please select a type of status",
-    "plzSelectCapacity": "Please select a type of capacity",
-    "fileNameError": "The file name is not available. Please modify it",
     "unavailableFilename": "unavailable name",
     "availableFilename": "available name",
     "updateSuccess": "Source file updated successfully",
@@ -486,6 +477,15 @@
     "isUnAuthData": "Please ensure that you are declining the data authorization application of:",
     "capacityChartTip": "The list displays tasks of the specific capacity by clicking the sector and displays tasks of all capacities  by clicking the center.",
     "statusChartTip": "The list displays tasks of the specific status by clicking the sector and displays tasks of all status by clicking the center."
+  },
+  "voucher": {
+    "PricedVoucher": "Priced Credential",
+    "UnpricedVoucher": "Unpriced Credential",
+    "VoucherName": "Credential Name",
+    "VoucherSymbol": "Credential Symbol",
+    "VoucherTotalRelease": "Total Release",
+    "VoucherNumberOfHolders": "Number Of Holders",
+    "VoucherSetPrice": "Set Price"
   },
   "httpStatus": {
     "status1": "system internal error",

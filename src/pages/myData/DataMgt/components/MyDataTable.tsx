@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { Table, Space, message } from 'antd'
+import { Table, Tabs, message } from 'antd'
 import { resourceApi } from '@api/index'
 import MyModal from '@com/MyModal'
 import useInterval from '@hooks/useInterval'
@@ -9,11 +9,13 @@ import { tableInterVal } from '@constant/index'
 import warnSvg from '@assets/images/10.icon1.svg'
 import successSvg from '@assets/images/9.icon1.svg'
 import { changeSizeFn } from '@utils/utils'
+import SearchBar from '@/layout/components/SearchBar'
 
 const MyDataTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
+  const { TabPane } = Tabs;
   const history = useHistory()
-  const { searchText } = props
+  const [searchText, setSearchText] = useState("")
   const [pop, setPop] = useState({
     type: '',
     id: '',
@@ -169,22 +171,30 @@ const MyDataTable: FC<any> = (props: any) => {
     setCurPage(page)
   }
 
+  const toRelease = (row) => {
+    console.log(row);
+
+  }
+
   const columns = [
     {
       title: t('common.Num'),
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-      width: 80,
+      width: 50,
     },
     {
       title: t('center.dataName'),
       dataIndex: 'metaDataName',
       width: 180,
+      ellipsis: true,
+      className: "no-right-border"
     },
     {
       title: t('center.metaStatus'),
       dataIndex: 'status',
       key: 'status',
       width: 100,
+      className: "no-right-border",
       render: (text, record, index) => {
         // (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销
         if (+record.status === 2) {
@@ -203,47 +213,41 @@ const MyDataTable: FC<any> = (props: any) => {
         )
       },
     },
+    // {
+    //   title: t('myData.dataSize'),
+    //   dataIndex: 'dynamicFields',
+    //   width: 100,
+    //   className: "no-right-border",
+    //   ellipsis: true,
+    //   render: (text, record, index) => {
+    //     return <>{changeSizeFn(text.size)}</>
+    //   }
+    // },
+    // {
+    //   title: t('myData.taskNum'),
+    //   dataIndex: 'dynamicFields',
+    //   width: 100,
+    //   className: "no-right-border",
+    //   render: (text, record, index) => {
+    //     return <>{text.taskCount}</>
+    //   }
+    // },
     {
-      title: t('myData.dataSize'),
-      dataIndex: 'dynamicFields',
-      width: 100,
+      title: t('dataNodeMgt.dataVoucherAndSymbol'),
+      dataIndex: 'Symbol',
+      ellipsis: true,
+      width: 220,
+      className: "no-right-border",
       render: (text, record, index) => {
-        return <>{changeSizeFn(text.size)}</>
+        return <span className='data-symbol' onClick={toRelease.bind(this, record)}>{text ? text : t('dataNodeMgt.publishDataVoucher')}</span>
       }
     },
-    {
-      title: t('myData.taskNum'),
-      dataIndex: 'dynamicFields',
-      width: 100,
-      render: (text, record, index) => {
-        return <>{text.taskCount}</>
-      }
-    },
-
     {
       title: t('common.actions'),
       width: 220,
       dataIndex: 'actions',
-      key: 'actions',
+      // key: 'actions',
       render: (text: any, row: any, index: any) => {
-        if (+row.status === 2) {
-          return (
-            <div className="operation-box">
-              <p className="btn pointer link pr10" onClick={() => viewFn(row)}>
-                {t('center.view')}
-              </p>
-              <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
-                {t('center.download')}
-              </p>
-              <p className="btn pointer link pr10" onClick={() => withDrawFn(row)}>
-                {t('center.withdraw')}
-              </p>
-              <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
-                {t('center.saveAsNewData')}
-              </p>
-            </div>
-          )
-        }
         return (
           <div className="operation-box">
             <p className="btn pointer link pr10" onClick={() => viewFn(row)}>
@@ -252,38 +256,69 @@ const MyDataTable: FC<any> = (props: any) => {
             <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
               {t('center.download')}
             </p>
-            <p className="btn pointer link pr10" onClick={() => publishFn(row)}>
-              {t('center.publish')}
-            </p>
+            {+row.status === 2 ?
+              <p className="btn pointer link pr10" onClick={() => withDrawFn(row)}>
+                {t('center.withdraw')}
+              </p> :
+              <p className="btn pointer link pr10" onClick={() => publishFn(row)}>
+                {t('center.publish')}
+              </p>
+            }
             <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
               {t('center.saveAsNewData')}
             </p>
-            <p className="btn pointer link pr10" onClick={() => deleteFn(row)}>
-              {t('center.delete')}
-            </p>
+            {+row.status === 2 ? '' :
+              <p className="btn pointer link pr10" onClick={() => deleteFn(row)}>
+                {t('center.delete')}
+              </p>
+            }
           </div>
         )
       },
     },
   ]
+
+  const callback = (key) => {
+    initTableData()
+  }
+
+  const tableDom = <Table
+    dataSource={[...tableData, ...tableData]}
+    // dataSource={dataSource}
+    columns={columns}
+    bordered
+    loading={loading}
+    rowKey={record => record.id}
+    pagination={{
+      defaultCurrent: 1,
+      current: curPage,
+      defaultPageSize: 10,
+      showSizeChanger: false,
+      total: totalNum,
+      onChange: OnPageChange,
+    }}
+  />
+  const operations = {
+    right: <SearchBar onSearch={setSearchText} />
+  }
+
   return (
     <div className="data-table-box">
-      <Table
-        dataSource={tableData}
-        // dataSource={dataSource}
-        columns={columns}
-        bordered
-        loading={loading}
-        rowKey={record => record.id}
-        pagination={{
-          defaultCurrent: 1,
-          current: curPage,
-          defaultPageSize: 10,
-          showSizeChanger: false,
-          total: totalNum,
-          onChange: OnPageChange,
-        }}
-      />
+      <Tabs onChange={callback}
+        tabBarGutter={8}
+        tabBarExtraContent={operations}
+        type="card"
+        className={"data-mgt-tabs"}>
+        <TabPane tab={t('dataNodeMgt.allData')} key="1">
+          {tableDom}
+        </TabPane>
+        <TabPane tab={t('dataNodeMgt.publishedData')} key="2">
+          {tableDom}
+        </TabPane>
+        <TabPane tab={t('dataNodeMgt.unpublishedData')} key="3">
+          {tableDom}
+        </TabPane>
+      </Tabs>
       <MyModal width={600} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} bordered>
         {pop.type === 'delete' ? (
           <p>

@@ -206,14 +206,6 @@ const routes: Array<IRoute> = [
         meta: { exact: false, title: '', icon: '', show: true },
         isOpen: false,
         children: [
-          // {
-          //   name: 'myData',
-          //   label: 'menu.myData',
-          //   breadcrumbName: 'menu.myData',
-          //   path: '/resource/myData',
-          //   component: MyData,
-          //   meta: { exact: true, title: '', icon: '', show: true },
-          // },
           {
             name: 'dataMgt',
             label: 'menu.dataMgt',
@@ -324,15 +316,6 @@ const routes: Array<IRoute> = [
         component: handLazy('TaskEvent'),
         meta: { exact: true, title: '', icon: '', show: false },
       },
-      // 全网数据暂时隐藏 2021 11 02 李发攀
-      // {
-      //   name: 'DataCenter',
-      //   label: 'menu.dataCenter',
-      //   breadcrumbName: 'menu.dataCenter',
-      //   path: '/dataCenter',
-      //   component: DataCenter,
-      //   meta: { exact: true, title: '', icon: '', show: true },
-      // },
       {
         name: 'MetaDataDetail',
         label: 'menu.metaDataDetail',
@@ -341,17 +324,45 @@ const routes: Array<IRoute> = [
         component: handLazy('DataDetail'),
         meta: { exact: true, title: '', icon: '', show: false },
       },
-      // 全网算力暂时隐藏 2021 11 02 李发攀
-      // {
-      //   name: 'ComputationCenter',
-      //   label: 'menu.computationCenter',
-      //   breadcrumbName: 'menu.computationCenter',
-      //   path: '/computationCenter',
-      //   component: ComputationCenter,
-      //   meta: { exact: true, title: '', icon: '', show: true },
-      // },
-    ],
-  },
+      {
+        name: 'Voucher',
+        label: 'menu.Voucher',
+        breadcrumbName: 'menu.Voucher',
+        path: '/voucher',
+        component: handLazy('Voucher'),
+        meta: { exact: false, title: '', icon: '', show: true },
+        isOpen: false,
+        children: [
+          {
+            name: 'TemplateVouvher',
+            label: 'menu.TemplateVouvher',
+            breadcrumbName: 'menu.TemplateVouvher',
+            path: '/voucher/Template',
+            component: handLazy('TemplateVouvher'),
+            meta: { exact: true, title: '', icon: '', show: true },
+          },
+          {
+            name: 'NoAttributeVoucher',
+            label: 'menu.NoAttributeVoucher',
+            breadcrumbName: 'menu.NoAttributeVoucher',
+            path: '/voucher/NoAttribute',
+            component: handLazy('NoAttributeVoucher'),
+            meta: { exact: true, title: '', icon: '', show: true },
+          },
+          ...[1, 2].map(_ => {
+            return {
+              name: 'VoucherDetails',
+              label: 'menu.VoucherDetails',
+              breadcrumbName: 'menu.VoucherDetails',
+              path: `/voucher/${_ == 1 ? 'NoAttribute' : 'Template'}/Detauls`,
+              component: handLazy('VoucherDetauls'),
+              meta: { exact: true, title: '', icon: '', show: false },
+            }
+          })
+        ],
+      },
+    ]
+  }
 ]
 
 export default routes
