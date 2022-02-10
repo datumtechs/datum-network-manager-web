@@ -159,4 +159,60 @@
     letter-spacing: -0.5px;
     font-weight: 500;
   }
+  .credential-total{
+    width: 100%;
+    height: 178px;
+    background: #F8F7FF;
+    border: 1px solid rgba(235,238,249,1);
+    border-radius: 8px;
+    display: flex;
+    padding: 12px;
+    .add-remove{
+      // width: 143px;
+      padding: 0 16px;
+      height: 30px;
+      border: 1px solid rgba(60,53,136,1);
+      border-radius: 2px;
+      font-family: PingFangSC-Medium;
+      font-size: 12px;
+      color: #3C3588;
+      letter-spacing: 0;
+      text-align: center;
+      font-weight: 500;
+      background: transparent;
+    }
+
+    .credential-data{
+      flex: 1;
+      font-family: AlibabaPuHuiTi-Medium;
+      display: flex;
+      padding-top: 8px;
+
+      .data-total{
+        h5{
+          font-size: 16px;
+          color: #344563;
+          letter-spacing: -0.5px;
+        }
+        p{
+          font-size: 30px;
+          color: #3C3588;
+          letter-spacing: -0.94px;
+          line-height: 42px;
+          sub{
+            font-size: 12px;
+            color: #3C3588;
+          }
+          margin-top: 6px;
+        }
+        &:nth-child(1){
+          padding-left: 18px;
+        }
+      }
+      .ant-divider{
+        margin: 0 10.9vw;
+      }
+    }
+    
+  }
 }

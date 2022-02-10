@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Card, Tabs, Radio } from 'antd'
+import { Button, Card, Tabs, Radio, Divider } from 'antd'
 import "../scss/styles.scss"
 const { TabPane } = Tabs;
 
@@ -71,8 +71,30 @@ const Details: FC<any> = (props: any) => {
       <h4>Credential exchange pool</h4>
       {tabs('credential', credentialCallback)}
       <div className='credential-total'>
-
+        <div className='credential-data'>
+          <div className='data-total'>
+            <h5>Total</h5>
+            <p>
+              1<sub>MTSTK-618</sub>
+            </p>
+            <p>
+              1<sub>LAT </sub>
+            </p>
+          </div>
+          <Divider style={{ height: '95%' }} type="vertical" />
+          <div className='data-total'>
+            <h5>My share：23%</h5>
+            <p>
+              1<sub>MTSTK-618</sub>
+            </p>
+            <p>
+              1<sub>LAT </sub>
+            </p>
+          </div>
+        </div>
+        <Button className='add-remove'>Add/Remove Share</Button>
       </div>
+      <Button>Return</Button>
     </Card>
   </div>
 }
