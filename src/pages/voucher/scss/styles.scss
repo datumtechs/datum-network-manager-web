@@ -48,6 +48,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 44px;
     .address p{
       letter-spacing: 0;
       &:nth-child(1){
@@ -84,6 +85,7 @@
         color: #344563;
         letter-spacing: -0.5px;
         font-weight: 500;
+        margin-bottom: 26px;
       }
       .price-card{
         width: 100%;
@@ -106,6 +108,8 @@
           color: #3C3588;
           letter-spacing: -0.75px;
           font-weight: 400;
+          position: relative;
+          top: 0px;
         }
         span{
           font-family: AlibabaPuHuiTi-Medium;
@@ -122,6 +126,7 @@
       flex:1;
       padding-left: 30px;
       .price-radio-btn{
+        margin-bottom: 3px;
         label{
           &:nth-child(1){
             margin-right: 30px;
@@ -146,11 +151,20 @@
   }
   .ant-tabs .ant-tabs-nav{
     &::before{display: none;}
+       .ant-tabs-tab{
+        padding-bottom: 2px;
+       } 
   }
 }
 .details-bottom-box{
+  margin-top: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(10,16,81,0.08);
+  border-radius: 6px;
   .ant-tabs .ant-tabs-nav{
     &::before{display: none;}
+    .ant-tabs-tab{
+      padding-bottom: 2px;
+     } 
   }
   h4 {
     font-family: AlibabaPuHuiTi-Medium;
@@ -160,6 +174,7 @@
     font-weight: 500;
   }
   .credential-total{
+    margin-top: 22px;
     width: 100%;
     height: 178px;
     background: #F8F7FF;
@@ -201,7 +216,9 @@
           line-height: 42px;
           sub{
             font-size: 12px;
+            position: relative;
             color: #3C3588;
+            top: 0px;
           }
           margin-top: 6px;
         }
@@ -213,6 +230,18 @@
         margin: 0 10.9vw;
       }
     }
-    
+  }
+  .brack-wrap{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 18px 0;
+    .ant-btn{
+      width: 112px;
+      height: 36px;
+      border: 1px solid rgba(60,53,136,1);
+      border-radius: 2px;
+    }
   }
 }

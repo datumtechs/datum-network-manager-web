@@ -3,30 +3,34 @@ import { useTranslation } from 'react-i18next'
 import { Button, Card, Tabs, Radio, Divider } from 'antd'
 import "../scss/styles.scss"
 const { TabPane } = Tabs;
+import Echsrs from './LineEchars';
+
 
 const Details: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const [trendSelect, setTrendSelect] = useState('1')
-
+  const [echarsData, setEcharsData] = useState()
   const priceCallback = () => { }
   const credentialCallback = () => { }
+
+
   const lineEchsrs = <div>123</div>
   const tabs = (key, callback) => {
     return <Tabs onChange={callback} key={key}>
-      <TabPane tab="Past 15D" key="1">
-        {lineEchsrs}
+      <TabPane destroyInactiveTabPane={true} tab="Past 15D" key="1">
+        <Echsrs data={echarsData} />
       </TabPane>
       <TabPane tab="Past 30D" key="2">
-        {lineEchsrs}
+        <Echsrs data={echarsData} />
       </TabPane>
       <TabPane tab="Past 6M" key="3">
-        {lineEchsrs}
+        <Echsrs data={echarsData} />
       </TabPane>
       <TabPane tab="Past 1Y" key="4">
-        {lineEchsrs}
+        <Echsrs data={echarsData} />
       </TabPane>
       <TabPane tab="Past All" key="5">
-        {lineEchsrs}
+        <Echsrs data={echarsData} />
       </TabPane>
     </Tabs>
   }
@@ -94,7 +98,9 @@ const Details: FC<any> = (props: any) => {
         </div>
         <Button className='add-remove'>Add/Remove Share</Button>
       </div>
-      <Button>Return</Button>
+      <div className='brack-wrap'>
+        <Button>Return</Button>
+      </div>
     </Card>
   </div>
 }
