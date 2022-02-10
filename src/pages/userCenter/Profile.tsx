@@ -23,18 +23,14 @@ const Profile: FC<any> = (props: any) => {
   const formRef = useRef<any>(null)
 
   const submit = () => {
-    // debugger
     formRef.current.validateFields()
       .then(values => {
-        // debugger
-        let name = values.ProfileName.replace(/\s*/g, "")
-        console.log(values);
+        let name = values.ProfileName?.replace(/\s*/g, "")
         if (!name) return false
-        // debugger
         setLoading(true)
         loginApi.updateLocalOrg({
-          imageUrl: values.imageUrlText.replace(/\s*/g, ""),
-          profile: values.profileText.replace(/(^\s*)|(\s*$)/g, ""),
+          imageUrl: values.imageUrlText?.replace(/\s*/g, ""),
+          profile: values.profileText?.replace(/(^\s*)|(\s*$)/g, ""),
           name: name
         }).then(res => {
           if (res.status == 0) {
@@ -45,7 +41,6 @@ const Profile: FC<any> = (props: any) => {
         })
       }).catch(err => {
         console.log(err);
-        // cancelLoading()
       })
   }
 
