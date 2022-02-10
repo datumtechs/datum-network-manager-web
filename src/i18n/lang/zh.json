@@ -449,7 +449,7 @@
     "duration": "总用时",
     "timeSpent": "已用时",
     "authorizationID": "授权 ID",
-    "fileMaxSizeTips": "当前文件最大4M，请重新选择"
+    "fileMaxSizeTips": "请重新选择,当前文件最大"
   },
   "tip": {
     "plzInputID": "请输入正确的机构识别名称",

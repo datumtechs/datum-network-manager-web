@@ -244,7 +244,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
             file={uploadFile}
             uploadProgress={uploadProgress}
             onSearch={selectFileFn}
-            maxSize={4}
+            maxSize={1}
             uploadFn={uploadFn}
             uploadByDrag={uploadByDrag}
             onChange={uploadFileOnChange}

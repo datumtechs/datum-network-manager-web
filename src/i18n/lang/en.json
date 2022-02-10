@@ -448,7 +448,7 @@
     "duration": "Duration",
     "timeSpent": "Time spent",
     "authorizationID": "Authorization  ID",
-    "fileMaxSizeTips": "The maximum size of the current file is 4M, please reselect"
+    "fileMaxSizeTips": "please reselect,The maximum size of the current file is"
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",

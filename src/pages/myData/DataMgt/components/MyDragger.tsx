@@ -34,7 +34,7 @@ const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
     e.preventDefault();
     e.stopPropagation();
     if (props.maxSize && filterSize(e.dataTransfer?.files[0].size) > props.maxSize) {
-      message.info(t('myData.fileMaxSizeTips'))
+      message.info(`${t('myData.fileMaxSizeTips')}${props.maxSize}M`)
       return
     }
     setDragging(false)
@@ -66,7 +66,7 @@ const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
 
   const onChange = e => {
     if (props.maxSize && filterSize(e.target?.files[0].size) > props.maxSize) {
-      message.info(t('myData.fileMaxSizeTips'))
+      message.info(`${t('myData.fileMaxSizeTips')}${props.maxSize}M`)
       return
     }
     props.onChange(e)
