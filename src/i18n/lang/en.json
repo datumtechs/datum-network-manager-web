@@ -31,7 +31,8 @@
     "OrganizationApplicationSucceeded": "Identifier application succeeded！",
     "ProcessStepOne": "Step One",
     "ProcessStepTwo": "Step Two",
-    "ProcessStepThree": "Step Three"
+    "ProcessStepThree": "Step Three",
+    "MetisInfoEdit": "Currently connected to the Metis, please exit the Metis and try again"
   },
   "DidApplication": {
     "SetYourOrgName": "Set your organization name",

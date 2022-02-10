@@ -31,7 +31,8 @@
     "OrganizationApplicationSucceeded": "机构身份标识申请成功！",
     "ProcessStepOne": "第一步",
     "ProcessStepTwo": "第二步",
-    "ProcessStepThree": "第三步"
+    "ProcessStepThree": "第三步",
+    "MetisInfoEdit": "当前已连接隐私网络，请注销隐私网络后在尝试"
   },
   "DidApplication": {
     "SetYourOrgName": "请设置机构识别名称",

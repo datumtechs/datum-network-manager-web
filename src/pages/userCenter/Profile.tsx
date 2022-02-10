@@ -36,7 +36,6 @@ const Profile: FC<any> = (props: any) => {
           if (res.status == 0) {
             message.success(t('task.success'))
           }
-          baseInfo?.fetchData(true)
           cancelLoading()
         })
       }).catch(err => {
@@ -47,6 +46,7 @@ const Profile: FC<any> = (props: any) => {
   const cancelLoading = () => {
     setDisabled(true)
     setLoading(false)
+    baseInfo?.fetchData(true)
   }
 
   useEffect(() => {
@@ -59,6 +59,13 @@ const Profile: FC<any> = (props: any) => {
     }
   }, [baseInfo])
 
+  const edit = () => {
+    if (baseInfo.status == 1) {
+      message.info(t('UserCenter.MetisInfoEdit'))
+      return
+    }
+    setDisabled(false)
+  }
 
 
   return (<div className="layout-box">
@@ -96,7 +103,7 @@ const Profile: FC<any> = (props: any) => {
           ])()}
           className="form-item">
           {
-            disabled ?
+            disabled || baseInfo.status == 1 ?
               <Image src={baseInfo?.imageUrl || imgURl}
                 height={100}
                 width={300}
@@ -119,14 +126,13 @@ const Profile: FC<any> = (props: any) => {
           name="profileText"
           className="form-item">
 
-          {disabled ?
+          {disabled || baseInfo.status == 1 ?
             <p className='title' style={{
               paddingLeft: '11px', width: '100%',
               wordBreak: 'break-all'
             }}>{baseInfo?.profile}</p>
             :
             <TextArea autoSize={false} className="identfier-info-input"
-              disabled={disabled}
               maxLength={200}
               showCount
               key={"ProfileOrganizationIntroduction"}
@@ -138,10 +144,10 @@ const Profile: FC<any> = (props: any) => {
 
         <Form.Item colon={false} className="form-item" label={" "} style={{ paddingLeft: '11px' }}>
           {disabled ?
-            <Button className="global-btn" onClick={() => setDisabled(false)}>
+            <Button className="global-btn" onClick={() => edit()}>
               {t('UserCenter.ProfileButtonEdit')}
             </Button> : <>
-              <Button className="global-btn" onClick={() => setDisabled(true)}>
+              <Button className="global-btn" onClick={() => (setDisabled(true), baseInfo?.fetchData(true))}>
                 {t('UserCenter.ModalCancel')}
               </Button>
               <Button type="primary" className="global-btn"
