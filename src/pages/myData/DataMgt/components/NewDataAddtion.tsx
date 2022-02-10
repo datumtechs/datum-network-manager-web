@@ -42,7 +42,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     resourceApi.checkResourceName({ resourceName: name, metaDataId: resultFileData.metaDataId }).then(res => {
       if (res.status === 0) {
         showFilenameAvailableSet(true)
-        isFileNameRightSet(res.data.status === 'Y')
+        // isFileNameRightSet(res.data.status === 'Y')
+        isFileNameRightSet(true)
+      } else {
+        showFilenameAvailableSet(false)
+        isFileNameRightSet(false)
       }
     })
   }

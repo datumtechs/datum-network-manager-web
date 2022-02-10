@@ -44,7 +44,9 @@ export const StepTwo: FC<any> = (props) => {
       <Col push={2} span={9}>
         <p className="identfier-info-lable">{t('DidApplication.SetYourHead')}：</p>
         <TextArea autoSize={false} className="identfier-info-input"
+          maxLength={200}
           value={imgUrl}
+          showCount
           onChange={_ => setImgUrl(_.target.value)}
           placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
         </TextArea>
@@ -54,6 +56,8 @@ export const StepTwo: FC<any> = (props) => {
         <p className="identfier-info-lable">{t('DidApplication.SetYourIntroduction')}：</p>
         <TextArea autoSize={false} className="identfier-info-input"
           value={TextAreaValue}
+          maxLength={200}
+          showCount
           onChange={_ => setTextAreaValue(_.target.value)}
           placeholder={t('UserCenter.ProfileIntroductionPlaceholder')} >
         </TextArea>

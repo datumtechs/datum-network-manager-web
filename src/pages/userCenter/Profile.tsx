@@ -15,7 +15,7 @@ const Profile: FC<any> = (props: any) => {
     [disabled, setDisabled] = useState(true),
     [loading, setLoading] = useState(false),
     [rules] = useState([{
-      min: 4, message: `${t('DidApplication.SetYourOrgNameRulesItem3')}`
+      required: true, min: 4, message: `${t('DidApplication.SetYourOrgNameRulesItem3')}`
     }, {
       max: 20, message: `${t('DidApplication.SetYourOrgNameRulesItem4')}`
     }])
@@ -23,14 +23,19 @@ const Profile: FC<any> = (props: any) => {
   const formRef = useRef<any>(null)
 
   const submit = () => {
-    formRef.current!
-      .validateFields()
+    // debugger
+    formRef.current.validateFields()
       .then(values => {
+        // debugger
+        let name = values.ProfileName.replace(/\s*/g, "")
+        console.log(values);
+        if (!name) return false
+        // debugger
         setLoading(true)
         loginApi.updateLocalOrg({
           imageUrl: values.imageUrlText.replace(/\s*/g, ""),
           profile: values.profileText.replace(/(^\s*)|(\s*$)/g, ""),
-          name: values.ProfileName.replace(/\s*/g, "")
+          name: name
         }).then(res => {
           if (res.status == 0) {
             message.success(t('task.success'))
@@ -40,7 +45,7 @@ const Profile: FC<any> = (props: any) => {
         })
       }).catch(err => {
         console.log(err);
-        cancelLoading()
+        // cancelLoading()
       })
   }
 
@@ -81,7 +86,7 @@ const Profile: FC<any> = (props: any) => {
           className="form-item"
           rules={((): Rule[] => rules)()}
         >
-          <Input disabled={disabled}
+          <Input disabled={disabled || baseInfo.status == 1}
             placeholder={t('UserCenter.ProfileNamePlaceholder')}
           />
         </Form.Item>
@@ -106,6 +111,8 @@ const Profile: FC<any> = (props: any) => {
               :
               <TextArea autoSize={false} className="identfier-info-input"
                 key={"ProfileOrganizationHead"}
+                maxLength={200}
+                showCount
                 placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
               </TextArea>
           }
@@ -118,10 +125,15 @@ const Profile: FC<any> = (props: any) => {
           className="form-item">
 
           {disabled ?
-            <p className='title' style={{ paddingLeft: '11px' }}>{baseInfo?.profile}</p>
+            <p className='title' style={{
+              paddingLeft: '11px', width: '100%',
+              wordBreak: 'break-all'
+            }}>{baseInfo?.profile}</p>
             :
             <TextArea autoSize={false} className="identfier-info-input"
               disabled={disabled}
+              maxLength={200}
+              showCount
               key={"ProfileOrganizationIntroduction"}
               placeholder={t('UserCenter.ProfileIntroductionPlaceholder')} >
             </TextArea>
