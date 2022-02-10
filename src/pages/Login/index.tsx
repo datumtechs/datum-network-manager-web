@@ -46,13 +46,15 @@ const Login = (props: any) => {
 
   const headLoginParams = (data) => {
     const { orgInfoCompletionLevel, connectNetworkStatus } = data.data || {}
-    if (data.status !== 0) {
-      return
-    } else if (!connectNetworkStatus) {
+    if (data.status == 0) {
       props.InfoCompleteness({
         orgInfoCompletionLevel,//, //组织信息完善情况0 带申请  1 待完善 2 完成
         connectNetworkStatus,// //0 未入网  1已入网 99 已退网
       })
+    }
+    if (data.status !== 0) {
+      return
+    } else if (!connectNetworkStatus) {
       history.push({
         pathname: '/didApplication',
       })
