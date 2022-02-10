@@ -150,7 +150,9 @@ export const AuthInfo: FC<any> = (props: any) => {
                       {authInfo.status ? <Space size={10} style={{ display: 'inline-block' }}>
                         {authInfo.status === 1 ?
                           <MyTag content={t('common.agreed')} bgColor="#EBFDDA" color="#45B854" border="#B7EB8F" /> :
-                          <MyTag content={t('common.declined')} bgColor="#F9DDDB" color="#F5222D" border="#FFA39E" />
+                          authInfo.status == 2 ?
+                            < MyTag content={t('common.declined')} bgColor="#F9DDDB" color="#F5222D" border="#FFA39E" /> :
+                            < MyTag content={t('common.Invalid')} bgColor="#F9DDDB" color="#F5222D" border="#FFA39E" />
                         }
                         <div>{dayjs(authInfo.authAt).format('YYYY-MM-DD HH:mm:ss')}</div>
                       </Space> : ''}
