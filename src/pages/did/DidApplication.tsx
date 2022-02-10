@@ -49,7 +49,7 @@ const DidApplication: FC<any> = (props) => {
       isLink(2)
       props.setIsReg(false)
     }
-    if (props?.state?.InfoCompleteness?.connectNetworkStatus) {
+    if (baseInfo.identityId) {
       history.push('/')
     }
   }, [])
