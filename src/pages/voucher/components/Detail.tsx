@@ -13,24 +13,22 @@ const Details: FC<any> = (props: any) => {
   const priceCallback = () => { }
   const credentialCallback = () => { }
 
-
-  const lineEchsrs = <div>123</div>
-  const tabs = (key, callback) => {
+  const tabs = (key, callback, height) => {
     return <Tabs onChange={callback} key={key}>
       <TabPane destroyInactiveTabPane={true} tab="Past 15D" key="1">
-        <Echsrs data={echarsData} />
+        <Echsrs data={echarsData} height={height} />
       </TabPane>
       <TabPane tab="Past 30D" key="2">
-        <Echsrs data={echarsData} />
+        <Echsrs data={echarsData} height={height} />
       </TabPane>
       <TabPane tab="Past 6M" key="3">
-        <Echsrs data={echarsData} />
+        <Echsrs data={echarsData} height={height} />
       </TabPane>
       <TabPane tab="Past 1Y" key="4">
-        <Echsrs data={echarsData} />
+        <Echsrs data={echarsData} height={height} />
       </TabPane>
       <TabPane tab="Past All" key="5">
-        <Echsrs data={echarsData} />
+        <Echsrs data={echarsData} height={height} />
       </TabPane>
     </Tabs>
   }
@@ -67,13 +65,13 @@ const Details: FC<any> = (props: any) => {
             <Radio.Button value="1">Price trend</Radio.Button>
             <Radio.Button value="2">Volume trend</Radio.Button>
           </Radio.Group>
-          {tabs('price', priceCallback)}
+          {tabs('price', priceCallback, '145px')}
         </div>
       </div>
     </Card>
     <Card className='details-bottom-box'>
       <h4>Credential exchange pool</h4>
-      {tabs('credential', credentialCallback)}
+      {tabs('credential', credentialCallback, '210px')}
       <div className='credential-total'>
         <div className='credential-data'>
           <div className='data-total'>

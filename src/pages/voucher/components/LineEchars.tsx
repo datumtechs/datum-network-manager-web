@@ -17,12 +17,31 @@ const Echsrs: FC<any> = (props: any) => {
   const option = {
     grid: {
       left: 0,
-      top: 0,
+      top: 10,
       right: 0,
       bottom: 20,
+      tooltip: {
+        show: true,
+        trigger: 'item'
+      }
     },
     toolbox: {
       show: true
+    },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#3C3588',
+      padding: 0,
+      position: function () {
+        const params: any = Array.from(arguments) || {}
+        const obj = { top: 0 };
+        const num = params[0][0] - params[4]['contentSize'][0] / 2
+        obj['left'] = num < params[4]['contentSize'][0] / 2 ? 10 : num;
+        return obj;
+      },
+      formatter(params) {
+        return `<div class="public-chart-tip-wrap">${params[0]?.value || 0}</div>`
+      }
     },
     yAxis: {
       type: 'value',
@@ -33,28 +52,41 @@ const Echsrs: FC<any> = (props: any) => {
       }
     },
     xAxis: {
-      data: date
+      type: 'category',
+      data: date,
+      axisPointer: {
+        show: true,
+        type: 'line',
+        lineStyle: {
+          type: "solid",
+          color: "rgba(1,5,138,0.06)"
+        },
+        triggerTooltip: true
+        // snap: true,
+      },
     },
-    series:
-    {
+    series: {
       type: 'line',
+      symbol: "emptyCircle",
+      symbolSize: .1,
       smooth: .4,//true,//是否平滑曲线显示 biilean number
       itemStyle: {
         color: 'rgba(60,53,136,1)',
       },
       lineStyle: {
+        width: 3,
         shadowColor: "rgba(60,53,136,.1)",
         shadowOffsetY: 10,
       },
       areaStyle: {
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
           {
-            offset: .6,
-            color: 'rgba(1,5,138,.2)'
+            offset: 1,
+            color: 'rgba(1,5,138,0)'
           },
           {
-            offset: 0.3,
-            color: 'rgba(60,53,136,.6)'
+            offset: 0,
+            color: 'rgba(1,5,138,.3)'
           }
         ]),
       },
@@ -68,7 +100,7 @@ const Echsrs: FC<any> = (props: any) => {
     // debugger
     chart.setOption(option)
   }, [])
-  return <div style={{ height: '165px', width: "100%" }} ref={charDom}></div>
+  return <div style={{ height: props.height, width: "100%" }} ref={charDom}></div>
 }
 
 export default Echsrs
