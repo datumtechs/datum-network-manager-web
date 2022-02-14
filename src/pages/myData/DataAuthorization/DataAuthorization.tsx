@@ -204,6 +204,7 @@ export const DataAuthorization: FC<any> = props => {
 
   useEffect(() => {
     initTable()
+    queryAuthNum()
   }, [curType, curPage])
 
   useEffect(() => {

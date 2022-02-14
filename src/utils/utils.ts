@@ -129,6 +129,7 @@ export const StatusCodeProcessing = (code) => {
     case 2:
     case 3:
     case 4:
+    case 500:
     case 1001:
     case 1002:
     case 1003:
