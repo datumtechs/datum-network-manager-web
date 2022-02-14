@@ -494,6 +494,7 @@
     "status2": "illegal argument",
     "status3": "connect gRPC server failed.",
     "status4": "call gRPC service error",
+    "status500": "system internal error",
     "status1001": "user identity not applied",
     "status1002": "carrier not configured.",
     "status1003": "cannot connect to carrier.",
