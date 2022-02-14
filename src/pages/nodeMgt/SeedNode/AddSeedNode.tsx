@@ -10,7 +10,6 @@ export const AddSeedNode: FC<any> = (props: any) => {
   const [form] = Form.useForm();
   const [showNameStatus, showNameStatusSet] = useState<boolean>(false)
   const [nameStatus, nameStatusSet] = useState<boolean>(false)
-
   const onFinish = (values) => {
     if (!form.getFieldValue('nodeSeedNodeId')) {
       message.error(`${t('tip.plzInput')}${t('node.nodeSeedNodeId')}`)
@@ -34,7 +33,7 @@ export const AddSeedNode: FC<any> = (props: any) => {
         if (res.status === 0) {
           return nameStatusSet(true)
         }
-        return nameStatusSet(false)
+        nameStatusSet(false)
       })
     } else {
       showNameStatusSet(false)
@@ -76,6 +75,7 @@ export const AddSeedNode: FC<any> = (props: any) => {
           <Input.TextArea
             autoSize={true}
             onChange={whenInputChange}
+            maxLength={256}
             placeholder={t('node.forSelfidentity')}
             className="form-box-input"
           />

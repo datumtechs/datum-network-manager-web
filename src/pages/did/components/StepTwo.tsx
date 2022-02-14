@@ -7,11 +7,16 @@ import {
 import { loginApi } from '@api/index'
 import clean from '@assets/images/clean.icon.svg'
 
-
+const imgUrlList = [
+  'http://39.103.230.158:10001/1.svg',
+  'http://39.103.230.158:10001/2.svg',
+  'http://39.103.230.158:10001/3.svg',
+]
+const imgURls = imgUrlList[2]//imgUrlList[parseInt(String(Math.random() * 3))]
 
 export const StepTwo: FC<any> = (props) => {
   const { t, i18n } = useTranslation(),
-    [imgUrl, setImgUrl] = useState<any>(props.baseInfo.imageUrl || 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'),
+    [imgUrl, setImgUrl] = useState<any>(props.baseInfo.imageUrl || imgURls),
     [TextAreaValue, setTextAreaValue] = useState(props.baseInfo.profile)
   const { TextArea } = Input
 

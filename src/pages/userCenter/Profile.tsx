@@ -6,7 +6,12 @@ import './index.scss'
 import { Rule } from 'antd/lib/form'
 import { loginApi } from '@api/index'
 const { TextArea } = Input
-const imgURl = 'https://pica.zhimg.com/v2-f2af5e9e6f2d26b4c31e070c6a38c380_1440w.jpg'
+const imgUrlList = [
+  'http://39.103.230.158:10001/1.svg',
+  'http://39.103.230.158:10001/2.svg',
+  'http://39.103.230.158:10001/3.svg',
+]
+const imgURl = imgUrlList[2]//imgUrlList[parseInt(String(Math.random() * 3))]
 
 const Profile: FC<any> = (props: any) => {
   const [form] = Form.useForm(),
@@ -107,6 +112,11 @@ const Profile: FC<any> = (props: any) => {
               <Image src={baseInfo?.imageUrl || imgURl}
                 height={100}
                 width={300}
+                onError={() => {
+                  formRef.current!.setFieldsValue({
+                    imageUrlText: imgURl,
+                  })
+                }}
                 preview={{
                   src: baseInfo?.imageUrl || imgURl
                 }} fallback={baseInfo?.imageUrl || imgURl} />
