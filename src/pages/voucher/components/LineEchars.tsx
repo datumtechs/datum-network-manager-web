@@ -1,8 +1,8 @@
 import { FC, useEffect, useState, useRef } from 'react'
 import * as echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/line'
+import { ToolboxComponent } from 'echarts/components';
 import "../scss/styles.scss"
-import { ArrowUpOutlined } from '@ant-design/icons'
 
 
 let date: any[] = ["1-1", '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11']
@@ -39,9 +39,11 @@ const Echsrs: FC<any> = (props: any) => {
         return obj;
       },
       formatter(params) {
+        const { dataIndex } = params[0] || 0
+        const preData = (dataIndex - 1) > -1 ? data[dataIndex - 1] : 0
         return `<div class="public-chart-tip-wrap">
         ${params[0]?.value || 0}
-        <div></div>
+        <div class="to-right-arrow ${preData > params[0]?.value ? 'down-arrow' : ''}"><i class="custom-iconfont">&#xeb0b</i></div>
         </div>`
       }
     },
@@ -99,6 +101,7 @@ const Echsrs: FC<any> = (props: any) => {
   useEffect(() => {
     // debugger
     const chart = echarts.init(charDom.current)
+    echarts.use([ToolboxComponent]);
     // debugger
     chart.setOption(option)
   }, [])

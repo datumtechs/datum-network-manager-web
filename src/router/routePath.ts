@@ -53,6 +53,7 @@ export const routerParams = {
   TemplateVouvher: import('@pages/voucher/Template').then(handDefault),
   NoAttributeVoucher: import('@pages/voucher/NoAttribute').then(handDefault),
   VoucherDetauls: import('@pages/voucher/components/Detail').then(handDefault),
+  PriceSet: import('@pages/voucher/components/PriceSet').then(handDefault),
 
 }
 

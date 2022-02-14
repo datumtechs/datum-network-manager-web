@@ -30,13 +30,21 @@ const VoucherTable: FC<any> = (props: any) => {
     history.push({
       pathname: `/voucher/${type ? 'NoAttribute' : 'Template'}/Detauls`,
       state: {
-        id: row.id,
-        metaDataId: row.metaDataId,
-        dataStatus: +row.status === 2 ? '1' : '0'
+        credentialID: row.credentialID,
+        dataStatus: +row.status === 2 ? '2' : '1'
       },
     })
   },
-    setPrice = (row) => { },
+    setPrice = (row) => {
+      const { type } = props
+      history.push({
+        pathname: `/voucher/${type ? 'NoAttribute' : 'Template'}/PriceSet`,
+        state: {
+          credentialID: row.credentialID,
+          dataStatus: +row.status === 2 ? '2' : '1'
+        },
+      })
+    },
     query = () => {
       voucherApi.queryUnpricedVoucher({}).then(res => {
         const { data, code } = res

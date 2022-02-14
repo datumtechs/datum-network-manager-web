@@ -138,7 +138,8 @@
     "Voucher": "My Credential",
     "TemplateVouvher": "Template Credential",
     "NoAttributeVoucher": "No Attribute Credential",
-    "VoucherDetails": "Credential Details"
+    "VoucherDetails": "Credential Details",
+    "PriceSet": "Price Seting"
   },
   "common": {
     "submit": "Submit",
@@ -486,7 +487,20 @@
     "VoucherSymbol": "Credential Symbol",
     "VoucherTotalRelease": "Total Release",
     "VoucherNumberOfHolders": "Number Of Holders",
-    "VoucherSetPrice": "Set Price"
+    "VoucherSetPrice": "Set Price",
+    "ContractAddress": "Contract Address",
+    "ViewBlockExplorer": "View on the block explorer",
+    "CurrentPrice": "Present price",
+    "PriceTrend": "Price trend",
+    "VolumeTrend": "Volume trend",
+    "DD": "D",
+    "MM": "M",
+    "YY": "Y",
+    "ALL": "ALL",
+    "CredentialPool": "Credential exchange pool",
+    "Total": "Total",
+    "MyShare": "My share",
+    "AddAndRemoveShare": "Add/Remove Share"
   },
   "httpStatus": {
     "status1": "system internal error",

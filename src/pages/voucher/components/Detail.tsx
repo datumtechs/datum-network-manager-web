@@ -14,20 +14,20 @@ const Details: FC<any> = (props: any) => {
   const credentialCallback = () => { }
 
   const tabs = (key, callback, height) => {
-    return <Tabs onChange={callback} key={key}>
-      <TabPane destroyInactiveTabPane={true} tab="Past 15D" key="1">
+    return <Tabs onChange={callback} key={key} destroyInactiveTabPane={true}>
+      <TabPane tab={15 + t('voucher.DD')} key="1">
         <Echsrs data={echarsData} height={height} />
       </TabPane>
-      <TabPane tab="Past 30D" key="2">
+      <TabPane tab={30 + t('voucher.DD')} key="2">
         <Echsrs data={echarsData} height={height} />
       </TabPane>
-      <TabPane tab="Past 6M" key="3">
+      <TabPane tab={6 + t('voucher.MM')} key="3">
         <Echsrs data={echarsData} height={height} />
       </TabPane>
-      <TabPane tab="Past 1Y" key="4">
+      <TabPane tab={1 + t('voucher.YY')} key="4">
         <Echsrs data={echarsData} height={height} />
       </TabPane>
-      <TabPane tab="Past All" key="5">
+      <TabPane tab={t('voucher.ALL')} key="5">
         <Echsrs data={echarsData} height={height} />
       </TabPane>
     </Tabs>
@@ -37,14 +37,14 @@ const Details: FC<any> = (props: any) => {
     <Card className='details-top-box'>
       <div className='details-name-box'>
         <div className='address'>
-          <p>Credential name：XXXX名称（XX符号）</p>
-          <p>Contract address：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+          <p>{t('voucher.VoucherName')}：XXXX名称（XX符号）</p>
+          <p>{t('voucher.ContractAddress')}：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
         </div>
-        <Button>View on the block explorer</Button>
+        <Button>{t('voucher.ViewBlockExplorer')}</Button>
       </div>
       <div className='proce-box'>
         <div className='proce-left'>
-          <h4>Present price</h4>
+          <h4>{t('voucher.CurrentPrice')}</h4>
           <div className='price-card'>
             <p>
               1<sub>MTSTK-618</sub>
@@ -62,20 +62,20 @@ const Details: FC<any> = (props: any) => {
           <Radio.Group
             className='price-radio-btn'
             value={trendSelect} onChange={e => setTrendSelect(e.target.value)} buttonStyle="solid">
-            <Radio.Button value="1">Price trend</Radio.Button>
-            <Radio.Button value="2">Volume trend</Radio.Button>
+            <Radio.Button value="1">{t('voucher.PriceTrend')}</Radio.Button>
+            <Radio.Button value="2">{t('voucher.VolumeTrend')}</Radio.Button>
           </Radio.Group>
           {tabs('price', priceCallback, '145px')}
         </div>
       </div>
     </Card>
     <Card className='details-bottom-box'>
-      <h4>Credential exchange pool</h4>
+      <h4>{t('voucher.CredentialPool')}</h4>
       {tabs('credential', credentialCallback, '210px')}
       <div className='credential-total'>
         <div className='credential-data'>
           <div className='data-total'>
-            <h5>Total</h5>
+            <h5>{t('voucher.Total')}</h5>
             <p>
               1<sub>MTSTK-618</sub>
             </p>
@@ -85,7 +85,7 @@ const Details: FC<any> = (props: any) => {
           </div>
           <Divider style={{ height: '95%' }} type="vertical" />
           <div className='data-total'>
-            <h5>My share：23%</h5>
+            <h5>{t('voucher.MyShare')}：23%</h5>
             <p>
               1<sub>MTSTK-618</sub>
             </p>
@@ -94,10 +94,10 @@ const Details: FC<any> = (props: any) => {
             </p>
           </div>
         </div>
-        <Button className='add-remove'>Add/Remove Share</Button>
+        <Button className='add-remove'>{t('voucher.AddAndRemoveShare')}</Button>
       </div>
       <div className='brack-wrap'>
-        <Button>Return</Button>
+        <Button>{t('common.return')}</Button>
       </div>
     </Card>
   </div>

@@ -358,7 +358,17 @@ const routes: Array<IRoute> = [
               component: handLazy('VoucherDetauls'),
               meta: { exact: true, title: '', icon: '', show: false },
             }
-          })
+          }),
+          ...[1, 2].map(_ => {
+            return {
+              name: 'PriceSet',
+              label: 'menu.PriceSet',
+              breadcrumbName: 'menu.PriceSet',
+              path: `/voucher/${_ == 1 ? 'NoAttribute' : 'Template'}/PriceSet`,
+              component: handLazy('PriceSet'),
+              meta: { exact: true, title: '', icon: '', show: false },
+            }
+          }),
         ],
       },
     ]

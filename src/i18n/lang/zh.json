@@ -139,7 +139,8 @@
     "Voucher": "我的凭证",
     "TemplateVouvher": "模型凭证",
     "NoAttributeVoucher": "无属性数据凭证",
-    "VoucherDetails": "凭证查看"
+    "VoucherDetails": "凭证查看",
+    "PriceSet": "价格设置"
   },
   "common": {
     "submit": "提交",
@@ -487,7 +488,20 @@
     "VoucherSymbol": "凭证符号",
     "VoucherTotalRelease": "总发布量",
     "VoucherNumberOfHolders": "持有者人数",
-    "VoucherSetPrice": "设置价格"
+    "VoucherSetPrice": "设置价格",
+    "ContractAddress": "合约地址",
+    "ViewBlockExplorer": "在区块链浏览器上查看",
+    "CurrentPrice": "当前价格",
+    "PriceTrend": "价格走势",
+    "VolumeTrend": "交易量走势",
+    "DD": "天",
+    "MM": "个月",
+    "YY": "年",
+    "ALL": "全部",
+    "CredentialPool": "凭证兑换池",
+    "Total": "总量",
+    "MyShare": "我的份额",
+    "AddAndRemoveShare": "添加/撤销份额"
   },
   "httpStatus": {
     "status1": "系统内部错误",

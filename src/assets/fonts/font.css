@@ -17,3 +17,10 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'custom-iconfont';
+  src: url('./icons/iconfont.woff2') format('woff2'),
+       url('./icons/iconfont.woff') format('woff'),
+       url('./icons/iconfont.ttf') format('truetype');
+}
