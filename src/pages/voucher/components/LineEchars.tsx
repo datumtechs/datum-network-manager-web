@@ -1,16 +1,15 @@
 import { FC, useEffect, useState, useRef } from 'react'
 import * as echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/line'
-// import { useTranslation } from 'react-i18next'
-// import { Button, Card, Tabs, Radio, Divider } from 'antd'
 import "../scss/styles.scss"
-// const { TabPane } = Tabs;
+import { ArrowUpOutlined } from '@ant-design/icons'
+
+
 let date: any[] = ["1-1", '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11']
 let data = [Math.random() * 50];
 for (let i = 1; i < 11; i++) {
   data.push(parseInt(`${Math.random() * 100}`));
 }
-
 
 const Echsrs: FC<any> = (props: any) => {
   const charDom = useRef<any>(null)
@@ -40,7 +39,10 @@ const Echsrs: FC<any> = (props: any) => {
         return obj;
       },
       formatter(params) {
-        return `<div class="public-chart-tip-wrap">${params[0]?.value || 0}</div>`
+        return `<div class="public-chart-tip-wrap">
+        ${params[0]?.value || 0}
+        <div></div>
+        </div>`
       }
     },
     yAxis: {
