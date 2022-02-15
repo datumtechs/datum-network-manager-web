@@ -45,14 +45,21 @@ const MyDataTable: FC<any> = (props: any) => {
   }, [curPage, searchText])
 
   useEffect(() => {
+    initTableData()
+  }, [])
+
+  useEffect(() => {
     if (pop.type !== '') {
       setIsModalVisible(true)
     }
   }, [pop])
 
-  useInterval(() => {
-    initTableData()
-  }, tableInterVal)
+  // useInterval(() => {
+  //   initTableData()
+  // }, tableInterVal)
+  // useInterval(() => {
+  //   initTableData()
+  // }, [])
 
   const handleOk = () => {
     let data = {}

@@ -245,10 +245,11 @@ const DataTable: FC<any> = (props: any) => {
     } else if (modalType === 'enable') {
       computeNodeApi.publishPower({ powerNodeId: curId }).then(res => {
         if (res.status === 0) {
-          SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
           initTable()
         }
+      }).finally(() => {
+        SetIsModalVisible(false)
       })
     } else if (modalType === 'disable') {
       computeNodeApi.revokePower({ powerNodeId: curId }).then(res => {
