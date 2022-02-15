@@ -12,22 +12,14 @@ const MyTemplate: FC<any> = (props: any) => {
   const { TabPane } = Tabs;
   const history = useHistory()
   const [searchText, setSearchText] = useState("")
-  const [pop, setPop] = useState({
-    type: '',
-    id: '',
-    fileName: '',
-  })
+
   const [curPage, setCurPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [totalNum, setTotalNum] = useState(0)
   const [tableData, setTableData] = useState([])
-  const pagination = {
-    current: 1,
-    defaultPageSize: 10,
-  }
 
   const initTableData = () => {
-    resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10 }).then(res => {
+    resourceApi.queryMydataByKeyword({ pageNumber: curPage, pageSize: 10 }).then(res => {
       if (res.status === 0) {
         setTotalNum(res.total)
         setTableData(res.data)
@@ -39,7 +31,7 @@ const MyTemplate: FC<any> = (props: any) => {
   useEffect(() => {
     initTableData()
     setLoading(true)
-  }, [curPage, searchText])
+  }, [curPage])
 
 
   const OnPageChange = (page: number) => {
@@ -55,18 +47,18 @@ const MyTemplate: FC<any> = (props: any) => {
   const columns = [
     {
       title: t('common.Num'),
-      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
+      render: (text, record, index) => `${(curPage - 1) * 10 + (index + 1)}`,
       width: 50,
     },
     {
-      title: t('center.dataName'),
+      title: t('MyModel.ModelName'),
       dataIndex: 'metaDataName',
       width: 180,
       ellipsis: true,
       className: "no-right-border"
     },
     {
-      title: t('center.metaStatus'),
+      title: t('MyModel.ISPublish'),
       dataIndex: 'status',
       key: 'status',
       width: 100,
@@ -90,11 +82,24 @@ const MyTemplate: FC<any> = (props: any) => {
       },
     },
     {
-      title: t('dataNodeMgt.dataVoucherAndSymbol'),
+      title: t('MyModel.CreationTime'),
+      dataIndex: 'metaDataName',
+      width: 180,
+      ellipsis: true,
+      className: "no-right-border"
+    },
+    {
+      title: t('MyModel.AssociatedTask'),
+      dataIndex: 'metaDataName',
+      width: 180,
+      ellipsis: true,
+      className: "no-right-border"
+    },
+    {
+      title: t('MyModel.CredentialsSymbols'),
       dataIndex: 'Symbol',
       ellipsis: true,
       width: 220,
-      className: "no-right-border",
       render: (text, record, index) => {
         return <span className='data-symbol' onClick={toRelease.bind(this, record)}>{text ? text : t('dataNodeMgt.publishDataVoucher')}</span>
       }
@@ -103,24 +108,27 @@ const MyTemplate: FC<any> = (props: any) => {
 
   const callback = (key) => {
     initTableData()
+    setCurPage(1)
   }
 
-  const tableDom = <Table
-    dataSource={[...tableData, ...tableData]}
-    // dataSource={dataSource}
-    columns={columns}
-    bordered
-    loading={loading}
-    rowKey={record => record.id}
-    pagination={{
-      defaultCurrent: 1,
-      current: curPage,
-      defaultPageSize: 10,
-      showSizeChanger: false,
-      total: totalNum,
-      onChange: OnPageChange,
-    }}
-  />
+  const tableDom = (key) => {
+    return <Table
+      dataSource={[...tableData, ...tableData]}
+      key={key}
+      columns={columns}
+      bordered
+      loading={loading}
+      rowKey={_ => _.id}
+      pagination={{
+        defaultCurrent: 1,
+        current: curPage,
+        defaultPageSize: 10,
+        showSizeChanger: false,
+        total: totalNum,
+        onChange: OnPageChange,
+      }}
+    />
+  }
 
   return (
     <div className="layout-box my-template">
@@ -129,13 +137,13 @@ const MyTemplate: FC<any> = (props: any) => {
         type="card"
         className={"my-template-tabs"}>
         <TabPane tab={t('dataNodeMgt.allData')} key="1">
-          {tableDom}
+          {tableDom(1)}
         </TabPane>
         <TabPane tab={t('dataNodeMgt.publishedData')} key="2">
-          {tableDom}
+          {tableDom(2)}
         </TabPane>
         <TabPane tab={t('dataNodeMgt.unpublishedData')} key="3">
-          {tableDom}
+          {tableDom(3)}
         </TabPane>
       </Tabs>
     </div>

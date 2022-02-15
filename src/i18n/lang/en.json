@@ -509,6 +509,16 @@
     "InitialPrice": "Expected first price",
     "InitialPriceTips": "The future price will fluctuate up and down according to the market quotations"
   },
+  "MyModel": {
+    "ModelTabsAll": "All Models",
+    "ModelTabsPublished": "Published Models",
+    "ModelTabsUnpublished": "Unpublished Models",
+    "ModelName": "Model Name/ID",
+    "ISPublish": "Status",
+    "CreationTime": "Creation Time",
+    "AssociatedTask": "Associated Task",
+    "CredentialsSymbols": "Use Credentials & Symbols"
+  },
   "httpStatus": {
     "status1": "system internal error",
     "status2": "illegal argument",

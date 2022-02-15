@@ -510,6 +510,16 @@
     "InitialPrice": "预期首发价格",
     "InitialPriceTips": "未来的价格会随着凭证在市场中的买卖情况上下波动"
   },
+  "MyModel": {
+    "ModelTabsAll": "全部模型",
+    "ModelTabsPublished": "已发布的模型",
+    "ModelTabsUnpublished": "未发布的模型",
+    "ModelName": "模型名称/ID",
+    "ISPublish": "是否发布",
+    "CreationTime": "生成时间",
+    "AssociatedTask": "生成任务ID",
+    "CredentialsSymbols": "模型凭证名称与符号"
+  },
   "httpStatus": {
     "status1": "系统内部错误",
     "status2": "非法参数",
