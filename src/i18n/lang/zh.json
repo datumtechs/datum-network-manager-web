@@ -140,7 +140,8 @@
     "TemplateVouvher": "模型凭证",
     "NoAttributeVoucher": "无属性数据凭证",
     "VoucherDetails": "凭证查看",
-    "PriceSet": "价格设置"
+    "PriceSet": "价格设置",
+    "MyTemplate": "我的模板"
   },
   "common": {
     "submit": "提交",
@@ -498,10 +499,16 @@
     "MM": "个月",
     "YY": "年",
     "ALL": "全部",
+    "Add": "添加",
     "CredentialPool": "凭证兑换池",
     "Total": "总量",
     "MyShare": "我的份额",
-    "AddAndRemoveShare": "添加/撤销份额"
+    "AddAndRemoveShare": "添加/撤销份额",
+    "Confirm": "上架数据市场",
+    "Circulation": "总发布量",
+    "PleaseSetPriced": "请设置凭证首发价格",
+    "InitialPrice": "预期首发价格",
+    "InitialPriceTips": "未来的价格会随着凭证在市场中的买卖情况上下波动"
   },
   "httpStatus": {
     "status1": "系统内部错误",

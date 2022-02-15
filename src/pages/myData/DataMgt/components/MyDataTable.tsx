@@ -213,25 +213,6 @@ const MyDataTable: FC<any> = (props: any) => {
         )
       },
     },
-    // {
-    //   title: t('myData.dataSize'),
-    //   dataIndex: 'dynamicFields',
-    //   width: 100,
-    //   className: "no-right-border",
-    //   ellipsis: true,
-    //   render: (text, record, index) => {
-    //     return <>{changeSizeFn(text.size)}</>
-    //   }
-    // },
-    // {
-    //   title: t('myData.taskNum'),
-    //   dataIndex: 'dynamicFields',
-    //   width: 100,
-    //   className: "no-right-border",
-    //   render: (text, record, index) => {
-    //     return <>{text.taskCount}</>
-    //   }
-    // },
     {
       title: t('dataNodeMgt.dataVoucherAndSymbol'),
       dataIndex: 'Symbol',

@@ -55,6 +55,8 @@ export const routerParams = {
   VoucherDetauls: import('@pages/voucher/components/Detail').then(handDefault),
   PriceSet: import('@pages/voucher/components/PriceSet').then(handDefault),
 
+  MyTemplate: import('@pages/MyTemplate').then(handDefault),
+
 }
 
 export function handLazy(item) {

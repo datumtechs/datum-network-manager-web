@@ -139,7 +139,8 @@
     "TemplateVouvher": "Template Credential",
     "NoAttributeVoucher": "No Attribute Credential",
     "VoucherDetails": "Credential Details",
-    "PriceSet": "Price Seting"
+    "PriceSet": "Price Seting",
+    "MyTemplate": "My Models"
   },
   "common": {
     "submit": "Submit",
@@ -497,10 +498,16 @@
     "MM": "M",
     "YY": "Y",
     "ALL": "ALL",
+    "Add": "Add",
     "CredentialPool": "Credential exchange pool",
     "Total": "Total",
     "MyShare": "My share",
-    "AddAndRemoveShare": "Add/Remove Share"
+    "AddAndRemoveShare": "Add/Remove Share",
+    "Confirm": "Launch to marketplace",
+    "Circulation": "Circulation",
+    "PleaseSetPriced": "Set the first price of the credential",
+    "InitialPrice": "Expected first price",
+    "InitialPriceTips": "The future price will fluctuate up and down according to the market quotations"
   },
   "httpStatus": {
     "status1": "system internal error",

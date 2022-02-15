@@ -1,15 +1,18 @@
 import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Card, Tabs, Radio, Divider } from 'antd'
+import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
 const { TabPane } = Tabs;
 import Echsrs from './LineEchars';
 
 
 const Details: FC<any> = (props: any) => {
-  const { t } = useTranslation()
-  const [trendSelect, setTrendSelect] = useState('1')
-  const [echarsData, setEcharsData] = useState()
+  const { t } = useTranslation(),
+    [trendSelect, setTrendSelect] = useState('1'),
+    [echarsData, setEcharsData] = useState(),
+    history = useHistory(),
+    address = '0xee7233dbb290d486f959bf047f7194a131500e54'
   const priceCallback = () => { }
   const credentialCallback = () => { }
 
@@ -33,6 +36,18 @@ const Details: FC<any> = (props: any) => {
     </Tabs>
   }
 
+  const setPrice = () => {
+    // debugger
+    const { type, credentialID } = props.location.state
+    history.push({
+      pathname: `/voucher/${!type ? 'NoAttribute' : 'Template'}/PriceSet`,
+      state: {
+        credentialID: credentialID,
+        dataStatus: type === 2 ? '2' : '1'
+      },
+    })
+  }
+
   return <div>
     <Card className='details-top-box'>
       <div className='details-name-box'>
@@ -40,7 +55,12 @@ const Details: FC<any> = (props: any) => {
           <p>{t('voucher.VoucherName')}：XXXX名称（XX符号）</p>
           <p>{t('voucher.ContractAddress')}：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
         </div>
-        <Button>{t('voucher.ViewBlockExplorer')}</Button>
+        <Button
+          onClick={() => {
+            window.open(`https://scan.platon.network/address-detail?address=${address}`)
+          }}>
+          {t('voucher.ViewBlockExplorer')}
+        </Button>
       </div>
       <div className='proce-box'>
         <div className='proce-left'>
@@ -94,10 +114,10 @@ const Details: FC<any> = (props: any) => {
             </p>
           </div>
         </div>
-        <Button className='add-remove'>{t('voucher.AddAndRemoveShare')}</Button>
+        <Button className='add-remove' onClick={setPrice}>{t('voucher.AddAndRemoveShare')}</Button>
       </div>
       <div className='brack-wrap'>
-        <Button>{t('common.return')}</Button>
+        <Button onClick={() => history.go(-1)}>{t('common.return')}</Button>
       </div>
     </Card>
   </div>

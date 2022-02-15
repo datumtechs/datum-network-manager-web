@@ -325,6 +325,14 @@ const routes: Array<IRoute> = [
         meta: { exact: true, title: '', icon: '', show: false },
       },
       {
+        name: 'MyTemplate',
+        label: 'menu.MyTemplate',
+        breadcrumbName: 'menu.MyTemplate',
+        path: '/MyTemplate',
+        component: handLazy('MyTemplate'),
+        meta: { exact: true, title: '', icon: '', show: true },
+      },
+      {
         name: 'Voucher',
         label: 'menu.Voucher',
         breadcrumbName: 'menu.Voucher',
