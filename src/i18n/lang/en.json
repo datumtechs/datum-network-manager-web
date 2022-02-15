@@ -164,6 +164,8 @@
     "powerdisable": "Power disabled",
     "powerenable": "Power enabled(free)",
     "powerOccupied": "Power occupied",
+    "InRelease": "In Release",
+    "Withdrawing": "Withdrawing",
     "connectSuccess": "Connection successful",
     "pass24": "Past 24 hours",
     "pass7": "Past 7 days",
@@ -448,7 +450,8 @@
     "duration": "Duration",
     "timeSpent": "Time spent",
     "authorizationID": "Authorization  ID",
-    "fileMaxSizeTips": "please reselect,The maximum size of the current file is"
+    "fileMaxSizeTips": "please reselect,The maximum size of the current file is",
+    "FieldVisibilityTips": "Set at least 1 visible field"
   },
   "tip": {
     "plzInputID": "Please enter the correct organization identification name",
@@ -531,6 +534,8 @@
     "status1034": "node name exists",
     "status1035": "node name illegal",
     "status1036": "local org connect network already",
-    "status1037": "local org not connect network"
+    "status1037": "local org not connect network",
+    "status1038": "cannot manipulate node in publishing and revoking,please try again later",
+    "status1039": "cannot manipulate data in publishing and revoking,please try again later"
   }
 }
