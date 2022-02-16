@@ -311,7 +311,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                 label={t('center.dataDesc')}
               >
                 <Form.Item name="remarks" noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
-                  <Input.TextArea maxLength={200} className="width457 limit-box" />
+                  <Input.TextArea maxLength={100} className="width457 limit-box" />
                 </Form.Item>
               </Form.Item>
             </Form>
