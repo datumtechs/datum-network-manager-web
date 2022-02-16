@@ -511,7 +511,17 @@
     "Circulation": "Circulation",
     "PleaseSetPriced": "Set the first price of the credential",
     "InitialPrice": "Expected first price",
-    "InitialPriceTips": "The future price will fluctuate up and down according to the market quotations"
+    "InitialPriceTips": "The future price will fluctuate up and down according to the market quotations",
+    "CredentialName": "Enter the credential name & symbol",
+    "Name": "Name",
+    "Symbol": "Symbol",
+    "CirculationTotal": "Enter the total circulation of the credential",
+    "DescriptionTitle": "Add the value proof description for your data（optional）",
+    "DescriptionValue": "Value proof description",
+    "RequiredName": "Please enter a name",
+    "RequiredSymbol": "Please enter a Symbol",
+    "RequiredCirculation": "Please enter a Total release",
+    "PublishCredential": "Publish Credential"
   },
   "MyModel": {
     "ModelTabsAll": "All Models",

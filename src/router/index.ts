@@ -290,16 +290,22 @@ const routes: Array<IRoute> = [
             component: handLazy('MyDataDetail'),
             meta: { exact: true, title: '', icon: '', show: false },
           },
-          ...[1, 2].map(_ => {
-            return {
-              name: 'CredentialInfo',
-              label: 'menu.CredentialInfo',
-              breadcrumbName: 'menu.CredentialInfo',
-              path: `/myData/dataMgt/${_ == 1 ? 'CredentialInfo' : 'CredentialInfo'}`,
-              component: handLazy('CredentialInfo'),
-              meta: { exact: true, title: '', icon: '', show: false },
-            }
-          })
+          {
+            name: 'CredentialInfo',
+            label: 'menu.CredentialInfo',
+            breadcrumbName: 'menu.CredentialInfo',
+            path: `/myData/dataMgt/CredentialInfo`,
+            component: handLazy('CredentialInfo'),
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
+          {
+            name: 'PriceSet',
+            label: 'menu.PriceSet',
+            breadcrumbName: 'menu.PriceSet',
+            path: `/myData/dataMgt/PriceSet`,
+            component: handLazy('PriceSet'),
+            meta: { exact: true, title: '', icon: '', show: false },
+          }
         ],
       },
       {
@@ -341,6 +347,22 @@ const routes: Array<IRoute> = [
         path: '/MyTemplate',
         component: handLazy('MyTemplate'),
         meta: { exact: true, title: '', icon: '', show: true },
+      },
+      {
+        name: 'CredentialInfo',
+        label: 'menu.CredentialInfo',
+        breadcrumbName: 'menu.CredentialInfo',
+        path: `/MyTemplate/CredentialInfo`,
+        component: handLazy('CredentialInfo'),
+        meta: { exact: true, title: '', icon: '', show: false },
+      },
+      {
+        name: 'PriceSet',
+        label: 'menu.PriceSet',
+        breadcrumbName: 'menu.PriceSet',
+        path: `/MyTemplate/PriceSet`,
+        component: handLazy('PriceSet'),
+        meta: { exact: true, title: '', icon: '', show: false },
       },
       {
         name: 'Voucher',
@@ -390,16 +412,7 @@ const routes: Array<IRoute> = [
         ],
 
       },
-      // ...[1, 2].map(_ => {
-      {
-        name: 'CredentialInfo',
-        label: 'menu.CredentialInfo',
-        breadcrumbName: 'menu.CredentialInfo',
-        path: `/MyTemplate/CredentialInfo`,
-        component: handLazy('CredentialInfo'),
-        meta: { exact: true, title: '', icon: '', show: false },
-      }
-      // }),
+
     ]
   }
 ]

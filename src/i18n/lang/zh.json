@@ -141,7 +141,7 @@
     "NoAttributeVoucher": "无属性数据凭证",
     "VoucherDetails": "凭证查看",
     "PriceSet": "价格设置",
-    "MyTemplate": "我的模板",
+    "MyTemplate": "我的模型",
     "CredentialInfo": "设置凭证信息"
   },
   "common": {
@@ -512,7 +512,17 @@
     "Circulation": "总发布量",
     "PleaseSetPriced": "请设置凭证首发价格",
     "InitialPrice": "预期首发价格",
-    "InitialPriceTips": "未来的价格会随着凭证在市场中的买卖情况上下波动"
+    "InitialPriceTips": "未来的价格会随着凭证在市场中的买卖情况上下波动",
+    "CredentialName": "请设置凭证的名称与符号",
+    "Name": "名称",
+    "Symbol": "符号",
+    "CirculationTotal": "请设置凭证的总发布量",
+    "DescriptionTitle": "请添加数据的价值证明描述（可选）",
+    "DescriptionValue": "价值证明描述",
+    "RequiredName": "请输入名称",
+    "RequiredSymbol": "请输入符号",
+    "RequiredCirculation": "请输入发布总量",
+    "PublishCredential": "发布凭证"
   },
   "MyModel": {
     "ModelTabsAll": "全部模型",
