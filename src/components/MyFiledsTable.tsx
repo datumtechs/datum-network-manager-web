@@ -2,7 +2,7 @@ import React, { FC, useMemo, useEffect, useState, useRef, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Table, Space, Select, Tabs, Switch, Input } from 'antd'
+import { Table, Space, Select, Tabs, Switch, Input, message } from 'antd'
 import EditTableCell from '../pages/myData/DataMgt/components/EditableCell'
 import { DATATYPE } from '../constant/constant'
 import './scss/dataDetail.scss'
@@ -52,17 +52,13 @@ const MyFiledsTable: FC<any> = (props: any) => {
 
   const switchVisiable = (checked, record) => {
     const rows = [...data]
-    const row = rows.find(item => item.columnIdx === record.columnIdx)
+    const row: any = rows.find(item => item.columnIdx === record.columnIdx)
     if (row) {
       row.visible = checked
     }
     setData(rows)
   }
 
-  const mapVisiable = (v) => {
-    if (v === 'Y') return <span>{t('myData.yes')}</span>
-    return <span>{t('myData.no')}</span>
-  }
 
   const handleCellChange = (e, record, column) => {
     const rows = [...data]
@@ -112,7 +108,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
             {
               <Space size={20}>
                 {record.visible ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
-                {disabled ? '' : <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" defaultChecked={record.visible === true} />}
+                {disabled ? '' : <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" checked={record.visible} />}
               </Space>
             }
           </>

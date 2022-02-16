@@ -108,13 +108,6 @@ const MyData: FC<any> = props => {
     })
   }
 
-  const getStatus = (status: string) => {
-    if (status === '1') {
-      return t('center.pulish')
-    }
-    return t('center.unPublish')
-  }
-
   const onRemarksChange = ({ target: { value } }) => {
     setRemarks(value)
   }
@@ -126,6 +119,8 @@ const MyData: FC<any> = props => {
   useEffect(() => {
     initData()
   }, [])
+
+
   return (
     <div className="layout-box">
       <div className="add-data-box limitLine">

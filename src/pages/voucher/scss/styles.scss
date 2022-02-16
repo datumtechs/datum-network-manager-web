@@ -415,3 +415,18 @@
     }
   }
 }
+
+.credential-info-seting{
+  .details-top-box{
+    border-radius: 6px;
+  }
+  .speed-progress{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 52px;
+    img{
+      height: 60px;
+    }
+  }
+}

@@ -41,7 +41,13 @@ const MyTemplate: FC<any> = (props: any) => {
 
   const toRelease = (row) => {
     console.log(row);
-
+    history.push({
+      pathname: '/MyTemplate/CredentialInfo',
+      state: {
+        id: row.taskId,
+        type: 'models'
+      }
+    })
   }
 
   const columns = [
@@ -101,7 +107,7 @@ const MyTemplate: FC<any> = (props: any) => {
       ellipsis: true,
       width: 220,
       render: (text, record, index) => {
-        return <span className='data-symbol' onClick={toRelease.bind(this, record)}>{text ? text : t('dataNodeMgt.publishDataVoucher')}</span>
+        return <span className='data-symbol' onClick={toRelease.bind(this, record)}>{t('dataNodeMgt.publishDataVoucher')}</span>
       }
     }
   ]

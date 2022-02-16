@@ -95,6 +95,12 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     form
       .validateFields()
       .then(re => {
+        const flag = originalData.some((v: any) => v.visible)
+        if (!flag) {
+          message.warning(`${t('myData.FieldVisibilityTips')}`)
+          return
+        }
+
         const queryObj = {
           addType: addType === 'add' ? 1 : 2,
           localMetaDataColumnList: originalData,
@@ -273,7 +279,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                   noStyle
                   rules={[{ required: true, message: `${t('tip.plzInputName')}` }]}
                 >
-                  <Input size="large" className="width457" onBlur={e => checkResourceName(e.target.value)} />
+                  <Input size="large" maxLength={64} className="width457" onBlur={e => checkResourceName(e.target.value)} />
                 </Form.Item>
 
                 <Space size={20} className="pl20">
@@ -305,7 +311,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                 label={t('center.dataDesc')}
               >
                 <Form.Item name="remarks" noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
-                  <Input.TextArea className="width457 limit-box" />
+                  <Input.TextArea maxLength={100} className="width457 limit-box" />
                 </Form.Item>
               </Form.Item>
             </Form>

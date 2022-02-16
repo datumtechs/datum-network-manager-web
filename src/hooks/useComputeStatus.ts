@@ -32,6 +32,14 @@ const useStatus = (connStatus: number | string, powerStatus: number | string) =>
         obj.content = t('common.powerdisable') // 算力未启用(网络已连接);
         obj.img = warnSvg
         break
+      case 5:
+        obj.content = t('common.InRelease') // 发布中(网络已连接);
+        obj.img = warnSvg
+        break
+      case 6:
+        obj.content = t('common.Withdrawing') // 撤回中(网络已连接);
+        obj.img = warnSvg
+        break
       default:
         break;
     }

@@ -216,6 +216,14 @@ const DataTable: FC<any> = (props: any) => {
               </>
             ) : ''
             }
+            {row.connStatus == 1 && (row.powerStatus === 6 || row.powerStatus === 5) ? (
+              <>
+                <span className="btn pointer" onClick={() => operation(row, 'view')}>
+                  {t('common.view')}
+                </span>
+              </>
+            ) : ''
+            }
             {row.connStatus === 1 && row.powerStatus === 3 ? <span className="btn pointer" onClick={() => viewInfo(row)}>
               {t('common.viewNodeInfo')}
             </span> : ''}
@@ -237,10 +245,11 @@ const DataTable: FC<any> = (props: any) => {
     } else if (modalType === 'enable') {
       computeNodeApi.publishPower({ powerNodeId: curId }).then(res => {
         if (res.status === 0) {
-          SetIsModalVisible(false)
           message.success(`${t('tip.operationSucces')}`)
           initTable()
         }
+      }).finally(() => {
+        SetIsModalVisible(false)
       })
     } else if (modalType === 'disable') {
       computeNodeApi.revokePower({ powerNodeId: curId }).then(res => {

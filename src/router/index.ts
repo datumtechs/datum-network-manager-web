@@ -290,6 +290,16 @@ const routes: Array<IRoute> = [
             component: handLazy('MyDataDetail'),
             meta: { exact: true, title: '', icon: '', show: false },
           },
+          ...[1, 2].map(_ => {
+            return {
+              name: 'CredentialInfo',
+              label: 'menu.CredentialInfo',
+              breadcrumbName: 'menu.CredentialInfo',
+              path: `/myData/dataMgt/${_ == 1 ? 'CredentialInfo' : 'CredentialInfo'}`,
+              component: handLazy('CredentialInfo'),
+              meta: { exact: true, title: '', icon: '', show: false },
+            }
+          })
         ],
       },
       {
@@ -378,7 +388,18 @@ const routes: Array<IRoute> = [
             }
           }),
         ],
+
       },
+      // ...[1, 2].map(_ => {
+      {
+        name: 'CredentialInfo',
+        label: 'menu.CredentialInfo',
+        breadcrumbName: 'menu.CredentialInfo',
+        path: `/MyTemplate/CredentialInfo`,
+        component: handLazy('CredentialInfo'),
+        meta: { exact: true, title: '', icon: '', show: false },
+      }
+      // }),
     ]
   }
 ]

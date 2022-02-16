@@ -28,7 +28,7 @@ export const EditText: FC<any> = (props: any) => {
 
   return <>{editText ?
     <div style={{ "display": "flex" }}>
-      <TextArea value={baseInfo.remarks} onChange={handleEditText} rows={4} />
+      <TextArea value={baseInfo.remarks} onChange={handleEditText} rows={4} maxLength={100} />
       <div className="pl40 pointer no-warp edit-btn" onClick={handleTextSwitch}>{t('common.cancel')}</div>
     </div>
     : <div style={{ "display": "flex" }}>
@@ -180,6 +180,11 @@ export const DataDetail: FC<any> = (props: any) => {
     })
   }
   const saveAndReturn = () => {
+    const flag = originalData.some((v: any) => v.visible)
+    if (!flag) {
+      message.warning(`${t('myData.FieldVisibilityTips')}`)
+      return
+    }
     resourceApi.updateMetaData({
       id: id || baseInfo.metaDataId,
       industry: baseInfo.industry,

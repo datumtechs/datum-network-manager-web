@@ -47,14 +47,21 @@ const MyDataTable: FC<any> = (props: any) => {
   }, [curPage, searchText])
 
   useEffect(() => {
+    initTableData()
+  }, [])
+
+  useEffect(() => {
     if (pop.type !== '') {
       setIsModalVisible(true)
     }
   }, [pop])
 
-  useInterval(() => {
-    initTableData()
-  }, tableInterVal)
+  // useInterval(() => {
+  //   initTableData()
+  // }, tableInterVal)
+  // useInterval(() => {
+  //   initTableData()
+  // }, [])
 
   const handleOk = () => {
     let data = {}
@@ -92,7 +99,7 @@ const MyDataTable: FC<any> = (props: any) => {
         type: 'edit',
         id: row.id,
         metaDataId: row.metaDataId,
-        dataStatus: +row.status === 2 ? '1' : '0'
+        dataStatus: +row.status === 2 || +row.status === 5 || +row.status === 6 ? '1' : '0'
       },
     })
   }
@@ -172,8 +179,13 @@ const MyDataTable: FC<any> = (props: any) => {
   }
 
   const toRelease = (row) => {
-    console.log(row);
-
+    history.push({
+      pathname: '/myData/dataMgt/CredentialInfo',
+      state: {
+        id: row.taskId,
+        type: 'data'
+      }
+    })
   }
 
   const columns = [
@@ -196,7 +208,7 @@ const MyDataTable: FC<any> = (props: any) => {
       width: 100,
       className: "no-right-border",
       render: (text, record, index) => {
-        // (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销
+        // (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销 4:删除 5-发布中，6-撤回中
         if (+record.status === 2) {
           return (
             <div className="status-box">
@@ -204,7 +216,22 @@ const MyDataTable: FC<any> = (props: any) => {
               <p>{t('center.pulish')}</p>
             </div>
           )
+        } else if (record.status == 5) {
+          return (
+            <div className="status-box">
+              <img src={warnSvg} alt="" />
+              <p>{t('common.InRelease')}</p>
+            </div>
+          )
+        } else if (record.status == 6) {
+          return (
+            <div className="status-box">
+              <img src={warnSvg} alt="" />
+              <p>{t('common.Withdrawing')}</p>
+            </div>
+          )
         }
+
         return (
           <div className="status-box">
             <img src={warnSvg} alt="" />
@@ -220,7 +247,7 @@ const MyDataTable: FC<any> = (props: any) => {
       width: 220,
       className: "no-right-border",
       render: (text, record, index) => {
-        return <span className='data-symbol' onClick={toRelease.bind(this, record)}>{text ? text : t('dataNodeMgt.publishDataVoucher')}</span>
+        return <span className='data-symbol' onClick={toRelease.bind(this, record)}>{t('dataNodeMgt.publishDataVoucher')}</span>
       }
     },
     {
@@ -229,32 +256,78 @@ const MyDataTable: FC<any> = (props: any) => {
       dataIndex: 'actions',
       // key: 'actions',
       render: (text: any, row: any, index: any) => {
+        let list = [
+          {
+            name: t('center.view'),
+            fn: viewFn.bind(this, row),
+            show: [0, 1, 2, 3, 5, 6]
+          },
+          {
+            name: t('center.download'),
+            fn: downloadFn.bind(this, row),
+            show: [0, 1, 2, 3, 5, 6]
+          },
+          {
+            name: t('center.withdraw'),
+            fn: withDrawFn.bind(this, row),
+            show: [2]
+          },
+          {
+            name: t('center.publish'),
+            fn: publishFn.bind(this, row),
+            show: [0, 1, 3]
+          },
+          {
+            name: t('center.saveAsNewData'),
+            fn: saveAsNewData.bind(this, row),
+            show: [0, 1, 2, 3, 5, 6]
+          },
+          {
+            name: t('center.delete'),
+            fn: deleteFn.bind(this, row),
+            show: [0, 1, 3,]
+          },
+        ]
+        // if (+row.status === 2) {
         return (
           <div className="operation-box">
-            <p className="btn pointer link pr10" onClick={() => viewFn(row)}>
-              {t('center.view')}
-            </p>
-            <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
-              {t('center.download')}
-            </p>
-            {+row.status === 2 ?
+            {list.map((_: any) => {
+              // debugger
+              return _.show.includes(row.status) ? <p className="btn pointer link pr10" onClick={_.fn}>
+                {_.name}
+              </p> : ''
+            })}
+            {/* <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
+                {t('center.download')}
+              </p>
               <p className="btn pointer link pr10" onClick={() => withDrawFn(row)}>
                 {t('center.withdraw')}
-              </p> :
-              <p className="btn pointer link pr10" onClick={() => publishFn(row)}>
-                {t('center.publish')}
               </p>
-            }
-            <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
-              {t('center.saveAsNewData')}
-            </p>
-            {+row.status === 2 ? '' :
-              <p className="btn pointer link pr10" onClick={() => deleteFn(row)}>
-                {t('center.delete')}
-              </p>
-            }
+              <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
+                {t('center.saveAsNewData')}
+              </p> */}
           </div>
         )
+        // }
+        // return (
+        //   <div className="operation-box">
+        //     <p className="btn pointer link pr10" onClick={() => viewFn(row)}>
+        //       {t('center.view')}
+        //     </p>
+        //     <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
+        //       {t('center.download')}
+        //     </p>
+        //     <p className="btn pointer link pr10" onClick={() => publishFn(row)}>
+        //       {t('center.publish')}
+        //     </p>
+        //     <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
+        //       {t('center.saveAsNewData')}
+        //     </p>
+        //     <p className="btn pointer link pr10" onClick={() => deleteFn(row)}>
+        //       {t('center.delete')}
+        //     </p>
+        //   </div>
+        // )
       },
     },
   ]

@@ -54,6 +54,7 @@ export const routerParams = {
   NoAttributeVoucher: import('@pages/voucher/NoAttribute').then(handDefault),
   VoucherDetauls: import('@pages/voucher/components/Detail').then(handDefault),
   PriceSet: import('@pages/voucher/components/PriceSet').then(handDefault),
+  CredentialInfo: import('@pages/voucher/components/CredentialInfo').then(handDefault),
 
   MyTemplate: import('@pages/MyTemplate').then(handDefault),
 
