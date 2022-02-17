@@ -9,7 +9,7 @@ const { TextArea } = Input
 const imgUrlList = [
   'http://39.103.230.158:10001/1.svg',
   'http://39.103.230.158:10001/2.svg',
-  'http://39.103.230.158:10001/3.svg',
+  'https://download.technocore.network/metis/image/3.svg',
 ]
 const imgURl = imgUrlList[2]//imgUrlList[parseInt(String(Math.random() * 3))]
 
