@@ -5,9 +5,9 @@ const path = require('path')
 const Fontmin = require('fontmin')
 
 const dir = './'
-const ext = 'js,vue' // svg
-const fontSrc = './src/assets/font/base/*.ttf'
-const fontDest = './src/assets/font'
+const ext = 'jsx,tsx,ts,js,json' // svg
+const fontSrc = './src/assets/fonts/*.ttf'
+const fontDest = './src/assets/fonts/newFonts'
 const excludeDir = ['node_modules', '.nuxt', '.git', '.svn', 'config']
 // const includeDir = [ 'src', 'i18n',]
 const chineseData = []
@@ -51,11 +51,9 @@ function walk(dir) {
   })
 }
 
-fs.stat()
-
 
 const fontmin = new Fontmin().src(fontSrc).dest(fontDest)
-
+console.log('fonmin', fontmin);
 walk(dir).then(() => {
   const baseChars = `1234567890-= !@#$%^&*()_+（）。、；·~ \`~qwertyuiop[]\\QWERTYUIOP{}|asdfghjkl;' ASDFGHJKL:"zxcvbnm,./ ZXCVBNM<>?`
   let text = baseChars + chineseData.join()
