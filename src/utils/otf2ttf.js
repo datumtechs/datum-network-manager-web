@@ -6,11 +6,11 @@ const Fontmin = require('fontmin')
 
 // const dir = './'
 // const ext = 'js' // svg
-const fontSrc = './public/font/*.otf'
-const fontDest = './public/font'
+const fontSrc = './src/assets/fonts/*.otf'
+const fontDest = './src/assets/fonts'
 const fontmin = new Fontmin().src(fontSrc).use(Fontmin.otf2ttf()).dest(fontDest)
 
-fontmin.run(function(err, files) {
+fontmin.run(function (err, files) {
   if (err) {
     throw err
   }

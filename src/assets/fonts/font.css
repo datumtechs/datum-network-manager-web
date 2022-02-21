@@ -1,19 +1,22 @@
 @font-face {
   font-family: 'AlibabaPuHuiTi-Regular';
-  src: url('./Alibaba-PuHuiTi-Regular.otf');
+  /* src: url('./Alibaba-PuHuiTi-Regular.otf'); */
+  src: url('./newFonts/Alibaba-PuHuiTi-Regular.ttf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'AlibabaPuHuiTi-Medium';
-  src: url('./Alibaba-PuHuiTi-Medium.otf');
+  /* src: url('./Alibaba-PuHuiTi-Medium.otf'); */
+  src: url('./newFonts/Alibaba-PuHuiTi-Medium.ttf');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'AlibabaPuHuiTi-Bold';
-  src: url('./Alibaba-PuHuiTi-Bold.otf');
+  /* src: url('./Alibaba-PuHuiTi-Bold.otf'); */
+  src: url('./newFonts/Alibaba-PuHuiTi-Bold.ttf');
   font-weight: normal;
   font-style: normal;
 }
