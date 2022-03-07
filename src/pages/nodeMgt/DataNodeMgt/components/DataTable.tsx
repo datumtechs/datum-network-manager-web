@@ -167,13 +167,13 @@ const DataTable: FC<any> = (props: any) => {
               <span className="pointer main_color btn" onClick={() => editName(record)}>
                 {t('common.rename')}
               </span>
-              {record.connStatus === 0 ? (
+              {/* {record.connStatus === 0 ? (
                 <span className="pointer main_color btn" onClick={() => deleteFn(record)}>
                   {t('common.delete')}
                 </span>
               ) : (
                 ''
-              )}
+              )} */}
             </Space>
           </>
         )
