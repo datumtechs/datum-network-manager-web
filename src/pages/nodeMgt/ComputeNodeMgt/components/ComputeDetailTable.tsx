@@ -61,6 +61,8 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       title: t('node.curTaskByNode'),
       dataIndex: 'taskName',
       key: 'taskName',
+      ellipsis: true,
+      width: 200,
     },
     {
       title: t('node.startInfoAndTaskTime'),
