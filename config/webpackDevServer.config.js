@@ -103,7 +103,7 @@ module.exports = function (proxy, allowedHost) {
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
     proxy: {
       '/metis-admin': {
-        target: 'http://192.168.10.146:9090',
+        target: 'http://192.168.112.150',
         // target: 'http://39.101.171.59:9090',
         changeOrigin: true,
         pathRewrite: {
