@@ -56,12 +56,14 @@
 
   .author-tab {
     margin: 0 0 20px 78px;
+
     .tab-title {
       font-family: AlibabaPuHuiTi-Medium;
       font-size: 14px;
       color: #3c3588;
       letter-spacing: 0;
       position: relative;
+
       &::after {
         content: "";
         position: absolute;
@@ -72,9 +74,11 @@
         bottom: -10px;
         transition: width 0.3s;
       }
+
       &:hover:after {
         width: 100%;
       }
+
       &.active:after {
         width: 100%;
       }
@@ -85,9 +89,11 @@
     .limit-box {
       // padding-left: 12px;
       width: 60%;
+
       @media screen and (max-width: 1366px) {
         width: 90%;
       }
+
       .edit-btn {
         font-family: AlibabaPuHuiTi-Medium;
         font-size: 14px;
@@ -95,11 +101,13 @@
         letter-spacing: 0;
       }
     }
+
     .title-box {
       font-size: 14px;
       color: #1d2832;
       letter-spacing: 0;
     }
+
     .label-box {
       padding: 20px;
 
@@ -119,12 +127,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
         &:hover {
           background-color: #f7f7fa;
         }
+
         &.dot-line {
           border: 1px dashed #d9e1ff;
         }
+
         .dragger-box-title {
           position: absolute;
           height: 32px;
@@ -139,6 +150,7 @@
 
     .sub-info-box {
       margin-bottom: 20px;
+
       .title-label {
         font-family: AlibabaPuHuiTi-Medium;
         font-size: 14px;
@@ -147,15 +159,18 @@
         padding-left: 78px;
         margin-bottom: 10px;
       }
+
       .sub-ori-name {
         display: flex;
         font-family: AlibabaPuHuiTi-Medium;
         font-size: 16px;
         color: #000000;
         letter-spacing: 0;
-        .ant-form-item-label > label {
+
+        .ant-form-item-label>label {
           font-size: 16px;
         }
+
         .ant-form-item-control-input-content {
           font-size: 16px;
         }
@@ -171,6 +186,7 @@
       .ant-form-item {
         margin-bottom: 20px;
       }
+
       .sub-new-name {
         font-size: 14px;
         color: #1d2832;
@@ -178,6 +194,7 @@
         display: flex;
         align-items: center;
       }
+
       .sub-title-box {
         background: #eef1ff;
         height: 36px;
@@ -190,23 +207,28 @@
         background-color: $mainColor !important;
         color: #fff !important;
       }
+
       .width457 {
         width: 457px;
       }
     }
+
     .task-progress-box {
       display: flex;
       margin-bottom: 20px;
+
       .task-progress-left-box {
         @media screen and (max-width: 1440px) {
           width: 251px;
         }
       }
     }
+
     .top-title-box {
       display: flex;
       margin-bottom: 20px;
       height: 20px;
+
       &:first-child {
         font-family: AlibabaPuHuiTi-Medium;
         font-size: 16px;
@@ -215,6 +237,7 @@
         margin-bottom: 12px;
         height: 22px;
       }
+
       .title {
         white-space: nowrap;
       }
@@ -223,10 +246,12 @@
 
   .data-table-box {
     width: 100%;
+
     .operation-box {
       display: flex;
       justify-content: flex-start;
       flex-wrap: wrap;
+
       .btn {
         font-family: AlibabaPuHuiTi-Medium;
         font-size: 14px;
@@ -235,10 +260,12 @@
         line-height: 16.8px;
       }
     }
+
     .status-box {
       display: flex;
       align-items: center;
-      & > img:first-child {
+
+      &>img:first-child {
         padding-right: 10px;
       }
     }
@@ -255,25 +282,30 @@
   width: 100%;
   height: calc(100vh - 110px);
   border-radius: 6px;
+
   .title-box {
     padding-left: 20px;
     line-height: 22px;
     letter-spacing: 0;
+
     .title-name {
       font-family: AlibabaPuHuiTi-Medium;
       font-size: 16px;
       color: #000000;
       margin-bottom: 12px;
     }
+
     .title-id {
       font-size: 14px;
       color: #1d2832;
       margin-bottom: 12px;
     }
   }
+
   .charts-box {
     display: flex;
     background-color: #fff;
+
     .cpu-info {
       width: 23%;
       height: 320px;
@@ -294,11 +326,13 @@
         margin-top: 0.3rem;
       }
     }
+
     .node-info {
       flex: 1;
       background: #fff;
       padding: 20px;
       position: relative;
+
       .title span {
         font-family: AlibabaPuHuiTi-Regular;
         font-size: 16px;
@@ -310,6 +344,7 @@
         width: 100%;
         height: 200px;
       }
+
       &:before {
         content: "";
         position: absolute;
@@ -322,6 +357,7 @@
       }
     }
   }
+
   .table-box {
     padding: 20px;
     margin-top: 20px;
@@ -344,9 +380,11 @@
 
 .btn-group {
   margin-top: 15px;
+
   .btn {
     width: 141px;
   }
+
   .node-info-btn {
     min-width: 143px;
   }
@@ -355,22 +393,26 @@
     background: $mainColor;
     color: #fff;
   }
+
   .green-btn {
     border: 1px solid #0bb27a;
     color: #0bb27a;
     padding: unset;
   }
+
   .red-btn {
     border: 1px solid #f32e25;
     color: #f32e25;
     padding: unset;
   }
 }
+
 .time-group {
   margin-top: 15px;
   font-size: 12px;
   color: #5d5c65;
   letter-spacing: 0;
+
   .active {
     font-family: AlibabaPuHuiTi-Medium;
     color: #3c3588;
@@ -414,11 +456,13 @@
     background-color: #ffa505;
   }
 }
+
 .prev-seagreen {
   &::before {
     background-color: #00bdb3;
   }
 }
+
 .prev-steelblue {
   &::before {
     background-color: #5eaafe;
@@ -445,6 +489,7 @@
 .form-group {
   display: flex;
   align-items: center;
+
   .form-group-btn {
     font-family: AlibabaPuHuiTi-Medium;
     font-size: 14px;
@@ -452,10 +497,12 @@
     letter-spacing: 0;
     padding-left: 20px;
   }
+
   .black-btn {
     color: #3c3588;
   }
-  & > .ant-form-item {
+
+  &>.ant-form-item {
     margin-bottom: 0 !important;
   }
 }
@@ -514,21 +561,25 @@
   @extend .view-link;
   text-align: left;
 }
-.span-view{
+
+.span-view {
   color: #dadbdb;
 }
-.global-loading{
+
+.global-loading {
   width: 100vw;
   height: 100vh;
   line-height: 90vh;
 }
-.global-btn{
+
+.global-btn {
   width: 140px;
 }
 
-.no-right-border{
-  border-right: none !important; 
+.no-right-border {
+  border-right: none !important;
 }
+
 .custom-iconfont {
   font-family: "custom-iconfont" !important;
   // font-size: 16px;

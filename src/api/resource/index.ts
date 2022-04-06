@@ -63,8 +63,8 @@ const resourceApi = {
   queryMydataByKeyword(data: any): Promise<any> {
     return axios({
       method: 'POST',
-      // url: `/api/v1/resource/mydata/metaDataListByKeyWord`,
       url: `/api/v1/data/listLocalMetaDataByKeyword`,
+      // url: `/api/v1/data/listLocalMetaDataByKeyword`,
       data,
     })
   },

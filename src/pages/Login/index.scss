@@ -8,6 +8,7 @@
   position: relative;
   overflow: hidden;
   z-index: 1000;
+
   .login-bottom-img {
     position: absolute;
     width: 100%;
@@ -21,6 +22,7 @@
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../assets/images/1.bj2.png") no-repeat;
     background-size: contain;
     border-radius: 6px 0 0 6px;
+
     .login-ball1,
     .login-ball2,
     .login-ball3 {
@@ -28,49 +30,59 @@
       border-radius: 50%;
       background-image: linear-gradient(145deg, #f37aed 0%, rgba(64, 86, 217, 0.18) 98%);
     }
+
     p.login-ball1 {
       width: 13px;
       height: 13px;
       bottom: -67px;
       right: -159px;
     }
+
     p.login-ball2 {
       width: 7px;
       height: 7px;
       bottom: -104px;
       right: -80px;
     }
+
     p.login-ball3 {
       width: 13px;
       height: 13px;
       left: -150px;
       bottom: 64px;
     }
+
     .login-square-img1,
     .login-square-img2,
     .login-square-img3 {
       position: absolute;
       z-index: 1;
     }
+
     .login-square-img1 {
       bottom: -60px;
       right: -22px;
     }
+
     .login-square-img2 {
       right: -129px;
       bottom: 10px;
     }
+
     .login-square-img3 {
       left: -122px;
       bottom: -104px;
     }
+
     .text-box {
       padding: 30px 40px;
+
       .p1 {
         font-family: AlibabaPuHuiTi-Bold;
         font-size: 24px;
         color: #ffffff;
       }
+
       .p2 {
         margin-top: 20px;
         font-size: 16px;
@@ -78,6 +90,7 @@
         line-height: 22px;
         width: 300px;
       }
+
       .p3 {
         width: 282px;
         position: absolute;
@@ -86,15 +99,16 @@
         color: #ffffff;
       }
     }
+
     .form-box {
       width: 477px;
-      height: 458px;
+      height: 390px;
       background: #ffffff;
       box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
       border-radius: 6px;
       position: absolute;
       right: 0;
-      top: -34px;
+      top: 0;
       padding: 70px 64px 70px 63px;
 
       .switch-lang {
@@ -102,7 +116,8 @@
         right: 20px;
         top: 20px;
       }
-      .connector-title{
+
+      .connector-title {
         text-align: center;
         color: #000;
         font-weight: 500;
@@ -110,31 +125,36 @@
         margin: 10px 0;
         margin-bottom: 80px;
       }
+
       .samurai-box {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        
+
         .samurai-line {
           display: flex;
           align-items: center;
           margin-bottom: 30px;
           gap: 10px;
+
           .samurai-icon {
             width: 20px;
             height: 20px;
             vertical-align: -3px;
           }
         }
+
         .samurai-line:nth-child(3) {
           margin-bottom: 30px;
         }
+
         .install-btn {
           width: 114px;
           margin-top: 20px;
         }
       }
+
       .connector-block {
         width: 100%;
         height: 84px;
@@ -149,6 +169,7 @@
         font-size: 18px;
         font-weight: 400;
         cursor: not-allowed;
+
         .icon {
           display: inline-block;
           margin-left: 20px;
@@ -156,19 +177,23 @@
           height: 40px;
           vertical-align: inherit;
         }
+
         .text {
           vertical-align: 14px;
           display: inline-block;
           margin-left: 20px;
         }
       }
+
       .connector-btn-active {
         cursor: pointer;
         border: 1px solid #5f4ffb;
       }
+
       .connector-info {
         margin-top: 40px;
         color: rgba(0, 0, 0, 0.6);
+
         .radio {
           display: inline-block;
           vertical-align: -1px;
@@ -178,10 +203,12 @@
           border: 1px solid rgba(0, 0, 0, 0.6);
           cursor: pointer;
         }
+
         .active {
           border: 1px solid #2377ff;
           position: relative;
         }
+
         .active:before {
           content: '';
           position: absolute;
@@ -191,6 +218,7 @@
           height: 80%;
           background: #2377ff;
         }
+
         i {
           font-style: normal;
           color: #2377ff;

@@ -24,12 +24,6 @@ const StepOne: FC<any> = (props) => {
   const inputRef = useRef<any>(null)
 
   const onFinish = () => {
-    // props?.baseInfo?.fetchData()
-    // message.success(`${t('tip.idSuccess')}`)
-    // props.setIsReg(true)
-    // props.setCurrent(1)
-    // props.InfoCompleteness(1, 0)
-    // return
     const name = inputRef?.current?.input.value
     if (!name || name.length > 20 || name.length < 4) {
       setValidateStatus("error")

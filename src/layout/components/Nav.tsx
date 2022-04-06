@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { IRoute } from '@/router'
 import { dropByCacheKey, getCachingKeys } from 'react-router-cache-route'
 const Nav = (props: any) => {
-
+  const { loginInfo } = props.state.loginInfo
   const { state: { isReg } } = props
   const menu = props.state.menu.curMenu
   const history = useHistory()
@@ -59,24 +59,30 @@ const Nav = (props: any) => {
     return props.setMenu('')
   }
 
+  const juris = (juris: string) => {
+    const list = loginInfo?.resourceList || []
+    return list.some(v => {
+      return juris && juris.includes(v.value)
+    });
+  }
+
   return (
     <div className="nav-box">
+      {/* 权限控制目前暂只控制页面显示，不控制具体路由 */}
       {props.list.map((item: IRoute) =>
-        item.meta.show ? (
+        item.meta.show && juris(item.path) ? (
           <div className="nav-wrapper pointer" key={item.name}>
-            {item.children ? (
+            {item.children ?
               <div className={`nav-label-box ${curPath.includes(item.path) ? 'activeMenu' : ''}`}>
-                <div
-                  className="nav-label"
-                  onClick={(evt) => showSubMenu(item, evt)}
-                >
+                <div className="nav-label"
+                  onClick={(evt) => showSubMenu(item, evt)}>
                   {t(`${item.label}`)}
                   <div className={`hasChild ${menu === item.name ? 'triangle-down' : 'triangle-up'}`}>
                   </div>
                 </div>
                 <ul className={`sub-nav-box ${menu === item.name ? 'active' : 'inActive'}`}>
                   {item.children.map(child =>
-                    child.meta.show ? (
+                    child.meta.show && juris(item.path) ?
                       <li
                         className={`sub-nav-label ${curPath.includes(child.path) ? 'activeSubMenu' : ''}`}
                         key={child.name}
@@ -84,13 +90,13 @@ const Nav = (props: any) => {
                       >
                         {t(`${child.label}`)}
                       </li>
-                    ) : (
+                      :
                       ''
-                    ),
+                    ,
                   )}
                 </ul>
               </div>
-            ) : (
+              :
               <div className="nav-label-box">
                 <div
                   className={`nav-label ${curPath.includes(item.path) ? 'activeMenu activeMenuBeforeTop' : ''}`}
@@ -99,7 +105,7 @@ const Nav = (props: any) => {
                   {t(`${item.label}`)}
                 </div>
               </div>
-            )}
+            }
           </div>
         ) : (
           ''

@@ -5,17 +5,14 @@ const loginApi = {
   loginFn(data): Promise<any> {
     return axios({
       method: "POST",
-      // url: `/api/v1/system/user/login`,
       url: `/api/v1/user/login`,
       data
     })
   },
-  queryNonce(data): Promise<any> {
+  queryNonce(): Promise<any> {
     return axios({
-      method: "POST",
-      // url: `/api/v1/system/user/login`,
-      url: `/api/v1/user/login`,
-      data
+      method: "GET",
+      url: `/api/v1/user/getLoginNonce`,
     })
   },
 
@@ -63,6 +60,15 @@ const loginApi = {
       method: "POST",
       // url: `/api/v1/system/queryBaseInfo`,
       url: `/api/v1/user/updateLocalOrg`,
+      data: params
+    })
+  },
+
+  // 更新管理员
+  updateAdmin(params): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/user/updateAdmin`,
       data: params
     })
   },

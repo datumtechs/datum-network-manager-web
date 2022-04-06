@@ -171,7 +171,6 @@ export const StatusCodeProcessing = (code) => {
       message.error(tipsText);
       break;
     default:
-      console.log("不操作");
       break;
   }
 }

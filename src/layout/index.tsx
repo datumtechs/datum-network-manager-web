@@ -70,7 +70,6 @@ const Layout = (props: any) => {
   useInterval(() => {
     timeFetchData()
   }, tableInterVal)
-
   return (
     <BaseInfoContext.Provider value={{ ...info, fetchData }}>
       <div className="main-container">

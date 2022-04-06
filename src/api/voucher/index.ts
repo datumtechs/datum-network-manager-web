@@ -5,7 +5,7 @@ export default {
   queryTemplateVoucher(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/task/listMyTask`,
+      url: `/api/v1/dataToken/page`,
       data
     })
   },
@@ -13,8 +13,36 @@ export default {
   queryUnpricedVoucher(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/task/listMyTask`,
+      url: `/api/v1/dataToken/page`,
       data
+    })
+  },
+
+  // 发布合约  工场合约构建
+  postTransaction(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/dataToken/publishe`,
+      data
+    })
+  },
+
+  getPublishConfig(data): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/dataToken/getPublishConfig`,
+      data
+    })
+  },
+
+
+
+
+  // 查询dex链接地址
+  queryDexWebUrl(): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/dataToken/getDexWebUrl`
     })
   },
 }

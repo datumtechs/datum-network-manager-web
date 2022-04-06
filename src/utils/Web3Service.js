@@ -18,11 +18,11 @@ class Web3Service {
   _getAbiForLogin(nonceId) {
     return JSON.stringify({
       domain: {
-        name: 'Moirae'
+        name: 'Metis'
       },
       message: {
         key: nonceId,
-        desc: 'Welcome to Moirae!'
+        desc: 'Welcome to Metis!'
       },
       primaryType: 'Login',
       types: {
@@ -47,7 +47,7 @@ class Web3Service {
     // const address = this.store.getters['app/address']
     return JSON.stringify({
       domain: {
-        name: 'Moirae'
+        name: 'Metis'
       },
       message: {
         address
@@ -81,12 +81,14 @@ class Web3Service {
 
   //获取签名
   signForWallet(type, address, nonceId) {
+    console.log(type, address, nonceId);
     const abi = type === 'login' ?
       this._getAbiForLogin(nonceId) :
       this._getAbiForTx(address)
+    console.log(abi)
     const from = address//this.store.getters['app/address']
     const result = new Promise((resolve, reject) => {
-      this.web3.currentProviderc({
+      this.web3.currentProvider.sendAsync({
         method: 'eth_signTypedData_v4',
         params: [address, abi],
         from

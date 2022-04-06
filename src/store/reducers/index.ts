@@ -5,8 +5,8 @@ import isReg from './isReg'
 import baseInfo from './baseInfo'
 import dataSwitch from './dataSwitch'
 import Loading from './loading'
-import InfoCompleteness from './infoCompleteness'
-import wallet from './wallet'
+import InfoCompleteness, { loginInfo } from './infoCompleteness'
+import wallet, { address, logOut } from './wallet'
 export const storeList = {
   menu,
   tableData,
@@ -16,5 +16,8 @@ export const storeList = {
   dataSwitch,
   Loading,
   InfoCompleteness,
-  wallet
+  wallet,
+  address,
+  logOut,
+  loginInfo
 }

@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from 'react'
+import { useContext, useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
@@ -12,12 +12,11 @@ import Bread from './Bread'
 
 
 const Header = (props: any) => {
-  const { orgInfo } = props.state.org
+  const { loginInfo } = props.state.loginInfo
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
   const { pathname } = useLocation()
   const history = useHistory()
-  const formRef = useRef<any>(null)
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
     localStorage.setItem('i18n', i18n.language)
@@ -25,9 +24,6 @@ const Header = (props: any) => {
 
   const switchLogin = () => {
     props.sendAction()
-    loginApi.logoutFn().then(res => {
-      if (res.status === 0) history.push('/login')
-    })
   }
 
   const linkTo = (route) => {
@@ -39,18 +35,32 @@ const Header = (props: any) => {
   }
 
 
-  const menu = () => {
-    return (
-      <Menu className="personal-box">
-        <Menu.Item key="name" className="personal-info-name"><img className="personal-info-head-portrait" src={menuSvg} />{baseInfo?.name}</Menu.Item>
-        <Menu.Item key="Profile" onClick={() => linkTo("/userCenter/Profile")}>{t('UserCenter.Profile')}</Menu.Item>
-        <Menu.Item key="MetisIdentity" onClick={() => linkTo("/userCenter/userInfo")}>{t('UserCenter.MetisIdentity')}</Menu.Item>
-        <Menu.Item key="logout" className="personal-logout" onClick={switchLogin}>
-          {t('login.logout')}
-        </Menu.Item>
-      </Menu>
-    )
+  const menu = (dom?) => <Menu className="personal-box">
+    <Menu.Item key="name" className="personal-info-name"><img className="personal-info-head-portrait" src={menuSvg} />{baseInfo?.name}</Menu.Item>
+    {dom}
+    <Menu.Item key="logout" className="personal-logout" onClick={switchLogin}>
+      {t('login.logout')}
+    </Menu.Item>
+  </Menu>
+  const [menus, setmenus] = useState(menu())
+  const juris = (juris: string) => {
+    const list = loginInfo?.resourceList || []
+    return list.some(v => {
+      return v.value == juris
+    });
   }
+  useEffect(() => {
+
+
+    setmenus(menu(
+      <>
+        {juris('userCenter/Profile') ? <Menu.Item key="Profile" onClick={() => linkTo("/userCenter/Profile")}>{t('UserCenter.Profile')}</Menu.Item> : ""}
+        {juris('userCenter/userInfo') ? <Menu.Item key="MetisIdentity" onClick={() => linkTo("/userCenter/userInfo")}>{t('UserCenter.MetisIdentity')}</Menu.Item> : ""}
+        {juris('userCenter/updateAdmin') ? <Menu.Item key="updateAdmin" onClick={() => linkTo("/userCenter/updateAdmin")}>{t('UserCenter.updateAdmin')}</Menu.Item> : ""}
+      </>
+    ))
+  }, [loginInfo])
+
 
   return (
     <>
@@ -63,7 +73,7 @@ const Header = (props: any) => {
             {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
           </div>
           <div className="pointer">
-            <Dropdown overlay={menu} placement="bottomRight" arrow>
+            <Dropdown overlay={menus} placement="bottomRight" arrow>
               <img src={menuSvg} alt="" />
             </Dropdown>
           </div>

@@ -48,6 +48,7 @@ export const routerParams = {
 
   MetisIdentity: import('@/pages/userCenter/MetisIdentity').then(handDefault),
   Profile: import('@/pages/userCenter/Profile').then(handDefault),
+  UpdateAdmin: import('@/pages/userCenter/UpdateAdmin').then(handDefault),
 
   Voucher: import('@/pages/voucher').then(handDefault),
   TemplateVouvher: import('@pages/voucher/Template').then(handDefault),

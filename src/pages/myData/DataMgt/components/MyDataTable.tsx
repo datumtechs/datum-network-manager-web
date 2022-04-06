@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom'
 import { Table, Tabs, message } from 'antd'
 import { resourceApi } from '@api/index'
 import MyModal from '@com/MyModal'
-import useInterval from '@hooks/useInterval'
-import { tableInterVal } from '@constant/index'
+// import useInterval from '@hooks/useInterval'
+// import { tableInterVal } from '@constant/index'
 import warnSvg from '@assets/images/10.icon1.svg'
 import successSvg from '@assets/images/9.icon1.svg'
-import { changeSizeFn } from '@utils/utils'
+// import { changeSizeFn } from '@utils/utils'
 import SearchBar from '@/layout/components/SearchBar'
 
 const MyDataTable: FC<any> = (props: any) => {
@@ -25,17 +25,19 @@ const MyDataTable: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [totalNum, setTotalNum] = useState(0)
-  const [tableData, setTableData] = useState([])
+  const [status, setStatus] = useState(0)
+  const [tableData, setTableData] = useState<{ string: any } | any>([])
   const pagination = {
     current: 1,
     defaultPageSize: 10,
   }
 
   const initTableData = () => {
-    resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10 }).then(res => {
+    resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10, status: status }).then(res => {
       if (res.status === 0) {
         setTotalNum(res.total)
-        setTableData(res.data)
+        // setTableData(res.data)
+        setTableData([{ 'dataName': '1', 'Symbol': '1' }])
         setLoading(false)
       }
     })
@@ -55,13 +57,6 @@ const MyDataTable: FC<any> = (props: any) => {
       setIsModalVisible(true)
     }
   }, [pop])
-
-  // useInterval(() => {
-  //   initTableData()
-  // }, tableInterVal)
-  // useInterval(() => {
-  //   initTableData()
-  // }, [])
 
   const handleOk = () => {
     let data = {}
@@ -188,11 +183,13 @@ const MyDataTable: FC<any> = (props: any) => {
     })
   }
 
-  const columns = [
+  const columns: any[] = [
     {
       title: t('common.Num'),
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
       width: 50,
+      className: "no-right-border",
+      align: 'center'
     },
     {
       title: t('center.dataName'),
@@ -208,36 +205,34 @@ const MyDataTable: FC<any> = (props: any) => {
       width: 100,
       className: "no-right-border",
       render: (text, record, index) => {
-        // (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销 4:删除 5-发布中，6-撤回中
-        if (+record.status === 2) {
-          return (
-            <div className="status-box">
+        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;5: 发布中; 6:撤回中;7:凭证发布失败;8:凭证发布中; 9:已发布凭证)
+        let dom = <div className="status-box">
+          <img src={warnSvg} alt="" />
+          <p>{t('center.unPublish')}</p>
+        </div>
+        switch (record.status) {
+          case 2:
+          case 9:
+            dom = <div className="status-box">
               <img src={successSvg} alt="" />
               <p>{t('center.pulish')}</p>
-            </div>
-          )
-        } else if (record.status == 5) {
-          return (
-            <div className="status-box">
+            </div>;
+            break;
+          case 5:
+          case 8:
+            dom = <div className="status-box">
               <img src={warnSvg} alt="" />
               <p>{t('common.InRelease')}</p>
-            </div>
-          )
-        } else if (record.status == 6) {
-          return (
+            </div>;
+            break;
+          case 6:
             <div className="status-box">
               <img src={warnSvg} alt="" />
               <p>{t('common.Withdrawing')}</p>
             </div>
-          )
+            break;
         }
-
-        return (
-          <div className="status-box">
-            <img src={warnSvg} alt="" />
-            <p>{t('center.unPublish')}</p>
-          </div>
-        )
+        return dom
       },
     },
     {
@@ -297,51 +292,23 @@ const MyDataTable: FC<any> = (props: any) => {
                 {_.name}
               </p> : ''
             })}
-            {/* <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
-                {t('center.download')}
-              </p>
-              <p className="btn pointer link pr10" onClick={() => withDrawFn(row)}>
-                {t('center.withdraw')}
-              </p>
-              <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
-                {t('center.saveAsNewData')}
-              </p> */}
           </div>
         )
-        // }
-        // return (
-        //   <div className="operation-box">
-        //     <p className="btn pointer link pr10" onClick={() => viewFn(row)}>
-        //       {t('center.view')}
-        //     </p>
-        //     <p className="btn pointer link pr10" onClick={() => downloadFn(row)}>
-        //       {t('center.download')}
-        //     </p>
-        //     <p className="btn pointer link pr10" onClick={() => publishFn(row)}>
-        //       {t('center.publish')}
-        //     </p>
-        //     <p className="btn pointer link pr10" onClick={() => saveAsNewData(row)}>
-        //       {t('center.saveAsNewData')}
-        //     </p>
-        //     <p className="btn pointer link pr10" onClick={() => deleteFn(row)}>
-        //       {t('center.delete')}
-        //     </p>
-        //   </div>
-        // )
       },
     },
   ]
 
   const callback = (key) => {
+    setStatus(+key)
+    setCurPage(1)
     initTableData()
   }
 
   const tableDom = <Table
     dataSource={[...tableData, ...tableData]}
-    // dataSource={dataSource}
     columns={columns}
-    bordered
     loading={loading}
+    bordered
     rowKey={record => record.id}
     pagination={{
       defaultCurrent: 1,
@@ -363,13 +330,13 @@ const MyDataTable: FC<any> = (props: any) => {
         tabBarExtraContent={operations}
         type="card"
         className={"data-mgt-tabs"}>
-        <TabPane tab={t('dataNodeMgt.allData')} key="1">
+        <TabPane tab={t('dataNodeMgt.allData')} key="0">
           {tableDom}
         </TabPane>
-        <TabPane tab={t('dataNodeMgt.publishedData')} key="2">
+        <TabPane tab={t('dataNodeMgt.publishedData')} key="1">
           {tableDom}
         </TabPane>
-        <TabPane tab={t('dataNodeMgt.unpublishedData')} key="3">
+        <TabPane tab={t('dataNodeMgt.unpublishedData')} key="2">
           {tableDom}
         </TabPane>
       </Tabs>

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { FC, Suspense, useEffect, useState } from 'react'
+import { FC, Suspense, useEffect, useState, useLayoutEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Spin, ConfigProvider } from 'antd'
 import { useTranslation } from 'react-i18next'
@@ -16,8 +16,14 @@ const mapDispatchToProps = (dispatch: any) => ({
       type: 'SET_WALLET',
       data
     })
-  }
+  },
+  loginOut: () => {
+    dispatch({
+      type: 'LOGOUT',
+    })
+  },
 })
+
 
 
 const App: FC<any> = (props) => {
@@ -29,24 +35,20 @@ const App: FC<any> = (props) => {
   const winWidth = useWinWidth()
   const { i18n } = useTranslation()
   useEffect(() => initralFn(), [winWidth])
-  useEffect(() => {
+  useLayoutEffect(() => {
     const WEB3 = new Web3Service()
     if (WEB3.eth) {
       props.updataWallet(WEB3)
       WEB3.eth.on('accountsChanged', account => {
-        console.log('change`', account);
-        // props.updataWallet(undefined)
+        props.loginOut()
       })
-      // 切换网络  这个好像不调用
       WEB3.eth.on('chainChanged', account => {
-        console.log('change1`', account);
-        // props.updataWallet(undefined)
+        props.loginOut()
       })
     } else {
       props.updataWallet(undefined)
     }
   }, [])
-
 
 
   return (

@@ -77,6 +77,14 @@ const routes: Array<IRoute> = [
             component: handLazy('MetisIdentity'),
             meta: { exact: true, title: '/userCenter/userInfo', icon: '', show: false },
           },
+          {
+            name: 'updateAdmin',
+            label: 'menu.updateAdmin',
+            breadcrumbName: 'menu.updateAdmin',
+            path: '/userCenter/updateAdmin',
+            component: handLazy('UpdateAdmin'),
+            meta: { exact: true, title: '/userCenter/updateAdmin', icon: '', show: false },
+          },
         ]
       },
       {
@@ -266,14 +274,14 @@ const routes: Array<IRoute> = [
             component: handLazy('MyDataAddtion'),
             meta: { exact: true, title: '', icon: '', show: true },
           },
-          {
-            name: 'dataAuthorization',
-            label: 'menu.dataAuthorization',
-            breadcrumbName: 'menu.dataAuthorization',
-            path: '/myData/dataAuthorization',
-            component: handLazy('DataAuthorization'),
-            meta: { exact: true, title: '', icon: '', show: true },
-          },
+          // {
+          //   name: 'dataAuthorization',
+          //   label: 'menu.dataAuthorization',
+          //   breadcrumbName: 'menu.dataAuthorization',
+          //   path: '/myData/dataAuthorization',
+          //   component: handLazy('DataAuthorization'),
+          //   meta: { exact: true, title: '', icon: '', show: true },
+          // },
           {
             name: 'authInfo',
             label: 'menu.viewAuthInfo',

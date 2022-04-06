@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
@@ -23,6 +23,18 @@ const mapDispatchToProps = (dispatch: any) => ({
       type: 'INFO_COMPLETENESS',
       data
     })
+  },
+  setAddress: (data) => {
+    dispatch({
+      type: 'SET_ADDRESS',
+      data
+    })
+  },
+  loginInfo: (data) => {
+    dispatch({
+      type: 'LOGININFO',
+      data
+    })
   }
 })
 
@@ -32,7 +44,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 const Login = (props: any) => {
   const { t, i18n } = useTranslation()
   const history = useHistory(),
-    [isAgree, setIsAgree] = useState(false)
+    [isAgree, setIsAgree] = useState(true)
   const { hash } = history.location
   const fromPathAry = hash.replace(/#/, '')?.split('/')
   let redirectPath
@@ -44,14 +56,21 @@ const Login = (props: any) => {
 
 
 
-  const headLoginParams = (data) => {
-    const { orgInfoCompletionLevel, connectNetworkStatus } = data.data || {}
+  const headLoginParams = (data, address) => {
+    const { isAdmin, orgInfoCompletionLevel, connectNetworkStatus } = data.data || {}
+    props.setAddress(address)
+    if (!+isAdmin && orgInfoCompletionLevel < 2) {//是否是管理员，0-否，1-是'
+      message.warning(`${t('login.loginTips')}`)
+      return
+    }
     if (data.status == 0) {
       props.InfoCompleteness({
         orgInfoCompletionLevel,//, //组织信息完善情况0 带申请  1 待完善 2 完成
         connectNetworkStatus,// //0 未入网  1已入网 99 已退网
       })
+      props.loginInfo(data.data)
     }
+
     if (data.status !== 0) {
       return
     } else if (!connectNetworkStatus) {
@@ -73,37 +92,26 @@ const Login = (props: any) => {
       const address = await wallet.connectWallet()
 
       //2  获取 nonceId  //不知道这是啥
-      const data = await loginApi.queryNonce(address[0])
-      console.log(data.nonceId);
+      const { data } = await loginApi.queryNonce()
 
       //3  获取签名  sign
-      const sign = await wallet.signForWallet('login', address[0], 'cec3c0e9e6d44c2f89f9db3fe1dcc4bf')//data.nonce)
+      const sign = await wallet.signForWallet('login', address[0], data.nonce)
       if (!sign) return
 
       //4 登录
       headLoginParams(await loginApi.loginFn({
         address: address[0],
         sign: sign,
-        signMessage: wallet._getAbiForLogin(data.nonceId)
-      }))
+        signMessage: wallet._getAbiForLogin(data.nonce)
+      }), address[0])
     } catch (error) {
       console.log(error)
     }
   }
 
-  const oldLogin = async () => {
-    headLoginParams(await loginApi.loginFn({
-      userName: 'admin',
-      passwd: 'admin',
-      code: 123
-    }))
-  }
-
   const queryToken = () => {
-    //TODO
     if (isAgree) {
-      // loginFn()
-      oldLogin()
+      loginFn()
     }
   }
 
@@ -134,13 +142,14 @@ const Login = (props: any) => {
             {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
           </div>
           <div className="connector-title">Metamask {t('login.extension')}</div>
+
           {props.state.wallet.wallet ?
             <>
               <div onClick={queryToken} className={isAgree ? "connector-block connector-btn-active" : "connector-block connector-btn"}>
                 <img src={metamask} alt="samurai" className="icon" />
                 <span className="text">Metamask</span>
               </div>
-              <div className="connector-info">
+              {/* <div className="connector-info">
                 <span className={isAgree ? 'active radio' : "radio"} onClick={() => setIsAgree(!isAgree)}></span>
                 {
                   i18n.language === 'en' ?
@@ -154,7 +163,7 @@ const Login = (props: any) => {
                     </span>
                 }
 
-              </div>
+              </div> */}
             </>
             :
             <div className="samurai-box">

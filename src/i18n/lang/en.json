@@ -7,7 +7,8 @@
     "editOrgName": "Modify organization name",
     "rename": "Your new organization name",
     "loginSlogan": "Privacy-preserving computing platform enables data to flow like assets.",
-    "loginRemarks": "The Metis Console has satisfied the relevant requirements of laws and requirements."
+    "loginRemarks": "The Metis Console has satisfied the relevant requirements of laws and requirements.",
+    "loginTips": "The Metis information is not perfect. Please contact the administrator to improve"
   },
   "wallet": {
     "tip1": "One-click blockchain application",
@@ -31,7 +32,12 @@
     "ProcessStepOne": "Step One",
     "ProcessStepTwo": "Step Two",
     "ProcessStepThree": "Step Three",
-    "MetisInfoEdit": "Currently connected to the Metis, please exit the Metis and try again"
+    "MetisInfoEdit": "Currently connected to the Metis, please exit the Metis and try again",
+    "updateAdmin": "Update Admin",
+    "address": "Current Admin",
+    "nodeAddress": "Node Address",
+    "nodeAddressIncorrect": "The node address is incorrect",
+    "replaceNodeAddress": "Please confirm Replace Node Address is"
   },
   "DidApplication": {
     "SetYourOrgName": "Set your organization name",
@@ -141,7 +147,8 @@
     "VoucherDetails": "Credential Details",
     "PriceSet": "Price Seting",
     "MyTemplate": "My Models",
-    "CredentialInfo": "Set Credential Info"
+    "CredentialInfo": "Set Credential Info",
+    "updateAdmin": "Update Admin"
   },
   "common": {
     "submit": "Submit",
