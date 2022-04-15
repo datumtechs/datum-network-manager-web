@@ -55,17 +55,15 @@ const UpdateAdmin: FC<any> = (props: any) => {
   }, [baseInfo])
 
   const edit = () => {
-    if (baseInfo.status == 1) {
-      message.info(t('UserCenter.MetisInfoEdit'))
-      return
-    }
+    // if (baseInfo.status == 1) {
+    //   message.info(t('UserCenter.MetisInfoEdit'))
+    //   return
+    // }
     setDisabled(false)
   }
   const switchLogin = () => {
     props.sendAction()
-    loginApi.logoutFn().then(res => {
-      if (res.status === 0) history.push('/login')
-    })
+    props.setLoginInfo({})
   }
 
   const submit = () => {
@@ -162,5 +160,11 @@ const mapDispatchToProps = (dispatch: any) => ({
       type: 'LOGOUT',
     })
   },
+  setLoginInfo: (data) => {
+    dispatch({
+      type: 'LOGININFO',
+      data
+    })
+  }
 })
 export default connect((state: any) => ({ state }), mapDispatchToProps)(UpdateAdmin) 

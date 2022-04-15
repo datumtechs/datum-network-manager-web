@@ -51,13 +51,15 @@ export const routerParams = {
   UpdateAdmin: import('@/pages/userCenter/UpdateAdmin').then(handDefault),
 
   Voucher: import('@/pages/voucher').then(handDefault),
-  TemplateVouvher: import('@pages/voucher/Template').then(handDefault),
+  //TemplateVouvher: import('@pages/voucher/Template').then(handDefault),
   NoAttributeVoucher: import('@pages/voucher/NoAttribute').then(handDefault),
-  VoucherDetauls: import('@pages/voucher/components/Detail').then(handDefault),
+  //VoucherDetauls: import('@pages/voucher/components/Detail').then(handDefault),
   PriceSet: import('@pages/voucher/components/PriceSet').then(handDefault),
   CredentialInfo: import('@pages/voucher/components/CredentialInfo').then(handDefault),
 
-  MyTemplate: import('@pages/MyTemplate').then(handDefault),
+  // MyTemplate: import('@pages/MyTemplate').then(handDefault),
+  DataVoucherPublishing: import('@pages/DataVoucherPublishing')
+
 
 }
 

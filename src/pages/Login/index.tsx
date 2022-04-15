@@ -48,11 +48,10 @@ const mapDispatchToProps = (dispatch: any) => ({
 
 
 const Login = (props: any) => {
-  const { t, i18n } = useTranslation()
-  const history = useHistory(),
-    [isAgree, setIsAgree] = useState(true)
-  const { hash } = history.location
-  const fromPathAry = hash.replace(/#/, '')?.split('/')
+  const { t, i18n } = useTranslation(),
+    history = useHistory(),
+    { hash } = history.location,
+    fromPathAry = hash.replace(/#/, '')?.split('/')
   let redirectPath
   if (fromPathAry.length > 2) {
     redirectPath = `/${fromPathAry[1]}/${fromPathAry[2]}`
@@ -62,65 +61,66 @@ const Login = (props: any) => {
 
 
 
-  const headLoginParams = (data, address) => {
+  const headLoginParams = (data) => {
+    const { status } = data
     const { isAdmin, orgInfoCompletionLevel, connectNetworkStatus } = data.data || {}
-    props.setAddress(address)
-    if (!+isAdmin && orgInfoCompletionLevel < 2) {//是否是管理员，0-否，1-是'
+    if (status !== 0) return
+    if (!+isAdmin && connectNetworkStatus < 1) {//是否是管理员，0-否，1-是'
       message.warning(`${t('login.loginTips')}`)
       return
     }
-    if (data.status == 0) {
-      props.InfoCompleteness({
-        orgInfoCompletionLevel,//, //组织信息完善情况0 带申请  1 待完善 2 完成
-        connectNetworkStatus,// //0 未入网  1已入网 99 已退网
-      })
-      props.loginInfo(data.data)
-    }
 
-    if (data.status !== 0) {
-      return
-    } else if (!connectNetworkStatus) {
-      history.push({
-        pathname: '/didApplication',
-      })
-    } else if (redirectPath) {
+    props.InfoCompleteness({
+      orgInfoCompletionLevel,//, //组织信息完善情况0 带申请  1 待完善 2 完成
+      connectNetworkStatus,// //0 未入网  1已入网 99 已退网
+    })
+    props.loginInfo(data.data)
+    console.log(props.state)
+    if (+connectNetworkStatus < 1) {
+      console.log(3)
+      history.push({ pathname: '/didApplication', })
+    } else if (redirectPath && redirectPath !== '/login') {
+      console.log(4, redirectPath)
       history.push(redirectPath)
     } else {
+      console.log(2)
       history.push('/')
     }
   }
 
 
   const loginFn = async () => {
-    const { wallet } = props.state.wallet || {}
-    const { walletConfig } = props.state
-    console.log(walletConfig)
+    const { wallet } = props.state.wallet || {},
+      { walletConfig } = props.state
     try {
       // 1 获取地址
       const address = await wallet.connectWallet(walletConfig)
-      // return
-      //2  获取 nonceId  //不知道这是啥
-      const { data } = await loginApi.queryNonce()
+      if (!address) {
+        return message.error(t('common.pleaseSwitchNetworks'))
+      }
+      console.log(1, address)
+      const { data } = await loginApi.queryNonce()//2  获取 nonceId 
 
-      //3  获取签名  sign
-      const sign = await wallet.signForWallet('login', address[0], data.nonce)
+      const sign = await wallet.signForWallet(//3  获取签名  sign
+        'login', address[0], data.nonce)
       if (!sign) return
 
-      //4 登录
-      headLoginParams(await loginApi.loginFn({
+      const loginInfo = await loginApi.loginFn({ //4 登录
         address: address[0],
         sign: sign,
         signMessage: wallet._getAbiForLogin(data.nonce)
-      }), address[0])
+      })
+
+      props.setAddress(address[0])
+      headLoginParams(loginInfo)
+
     } catch (error) {
       console.log(error)
     }
   }
 
   const queryToken = () => {
-    if (isAgree) {
-      loginFn()
-    }
+    loginFn()
   }
 
   // chainName: 'PlatON开发网',
@@ -137,10 +137,10 @@ const Login = (props: any) => {
         data && data.forEach(v => {
           switch (v.key) {
             case 'chain_name':
-              obj.chain_name = 'PlatON开发网'//v.value;
+              obj.chain_name = v.value;
               break;
             case 'chain_id':
-              obj.chain_id = 210309//v.value//210309//v.value;
+              obj.chain_id = +v.value//210309//v.value;
               break;
             case 'rpc_url':
               obj.rpc_url = v.value//'https://10.1.1.51:6789'//v.value;
@@ -194,25 +194,10 @@ const Login = (props: any) => {
 
           {props.state.wallet.wallet ?
             <>
-              <div onClick={queryToken} className={isAgree ? "connector-block connector-btn-active" : "connector-block connector-btn"}>
+              <div onClick={queryToken} className={"connector-block connector-btn-active"}>
                 <img src={metamask} alt="samurai" className="icon" />
                 <span className="text">Metamask</span>
               </div>
-              {/* <div className="connector-info">
-                <span className={isAgree ? 'active radio' : "radio"} onClick={() => setIsAgree(!isAgree)}></span>
-                {
-                  i18n.language === 'en' ?
-                    <span>
-                      <span> I have read and agreed to the </span>
-                      <i>Term of Use</i> and <i> Privacy Policy</i>
-                    </span> :
-                    <span>
-                      <span>阅读并同意</span>
-                      <i>用户协议</i>和<i>隐私声明</i>
-                    </span>
-                }
-
-              </div> */}
             </>
             :
             <div className="samurai-box">

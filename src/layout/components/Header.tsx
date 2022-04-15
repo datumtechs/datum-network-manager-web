@@ -24,6 +24,7 @@ const Header = (props: any) => {
 
   const switchLogin = () => {
     props.sendAction()
+    props.setLoginInfo({})
   }
 
   const linkTo = (route) => {
@@ -91,5 +92,11 @@ const mapDispatchToProps = (dispatch: any) => ({
       type: 'LOGOUT',
     })
   },
+  setLoginInfo: (data) => {
+    dispatch({
+      type: 'LOGININFO',
+      data
+    })
+  }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

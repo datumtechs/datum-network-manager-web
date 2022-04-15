@@ -4,7 +4,7 @@ import { Table, Tabs, Button } from 'antd'
 import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
 import { voucher as voucherApi } from '@api/index'
-
+import { Complement } from '@/utils/utils'
 
 const VoucherTable: FC<any> = (props: any) => {
   const { location } = props
@@ -96,18 +96,14 @@ const VoucherTable: FC<any> = (props: any) => {
       dataIndex: 'total',
       ellipsis: true,
       className: "no-right-border",
-
+      render: (text, record, index) => text && text.length > 18 ? text.replace(Complement, '') : ''
     },
-    (() => +activeKey == 0 ? {
+    {
       title: t('voucher.VoucherNumberOfHolders'),
       dataIndex: 'holder',
       ellipsis: true,
       className: "no-right-border",
-    } : {
-      className: "no-right-border",
-      width: 0,
-      ellipsis: true,
-    })(),
+    },
     {
       title: t('common.actions'),
       dataIndex: 'actions',
@@ -117,7 +113,7 @@ const VoucherTable: FC<any> = (props: any) => {
         return <>
           {activeKey == 1 ?
             <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button> :
-            row.status == 3 || row.status == 5 || true ?
+            row.status == 3 || row.status == 5 ?
               <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
               : ''
           }

@@ -9,6 +9,7 @@ import layoutRoutes, { IRoute } from './router'
 import useWinWidth from './hooks/useWinWidth'
 import Web3Service from "./utils/Web3Service"
 import { connect } from 'react-redux'
+import myStore from './store/index'
 
 const mapDispatchToProps = (dispatch: any) => ({
   updataWallet: (data) => {
@@ -22,28 +23,46 @@ const mapDispatchToProps = (dispatch: any) => ({
       type: 'LOGOUT',
     })
   },
+  setLoginInfo: (data) => {
+    dispatch({
+      type: 'LOGININFO',
+      data
+    })
+  }
 })
 
 
 
 const App: FC<any> = (props) => {
   const initralFn = () => {
-    const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
-    const htmlDom = document.getElementsByTagName('html')[0]
+    const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth,
+      htmlDom = document.getElementsByTagName('html')[0]
     htmlDom.style.fontSize = `${htmlWidth / 13.66}px`
-  }
-  const winWidth = useWinWidth()
-  const { i18n } = useTranslation()
+  },
+    winWidth = useWinWidth(),
+    { i18n } = useTranslation()
+
   useEffect(() => initralFn(), [winWidth])
-  useLayoutEffect(() => {
+  useEffect(() => {
     const WEB3 = new Web3Service()
     if (WEB3.eth) {
+
       props.updataWallet(WEB3)
       WEB3.eth.on('accountsChanged', account => {
-        props.loginOut()
+        console.log('账号变化',)
+        const info: any = myStore.getState().loginInfo
+        if (info?.loginInfo?.address) {
+          props.loginOut()
+          props.setLoginInfo()
+        }
       })
       WEB3.eth.on('chainChanged', account => {
-        props.loginOut()
+        console.log('网络变化', myStore.getState())
+        const info: any = myStore.getState().loginInfo
+        if (info?.loginInfo?.address) {
+          props.loginOut()
+          props.setLoginInfo()
+        }
       })
     } else {
       props.updataWallet(undefined)

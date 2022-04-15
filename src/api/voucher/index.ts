@@ -59,4 +59,24 @@ export default {
       url: `/api/v1/dataToken/getDexWebUrl`
     })
   },
+
+
+
+  // 查询未发凭证列表
+  queryMetaDataByKeyword(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/data/listUnBindLocalMetaDataByKeyword`,
+      data
+    })
+  },
+
+  // 查询状态根据id获取dataToken状态  无属性
+  queryDataTokenStatus(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/dataToken/getDataTokenStatus`,
+      data
+    })
+  },
 }

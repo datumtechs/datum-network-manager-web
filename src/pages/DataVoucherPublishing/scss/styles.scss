@@ -1,0 +1,86 @@
+.data-voucher-publishing-wrap {
+  padding: 50px 0;
+  height: 100%;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .data-voucher-publishing {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .data-publishing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .credentials {
+    padding: 33px 33px 62px 33px;
+    background: #EEF1FF;
+    border-radius: 8px;
+    max-width: 465px;
+    height: 465px;
+    flex: 0 0 50%;
+  }
+
+  .select-ccredential {
+    margin-bottom: 30px;
+  }
+
+  .on-attributed {
+    margin-right: 10px;
+  }
+
+  .attributed {
+    margin-left: 10px;
+  }
+
+  .credentials-title {
+    // width: 323px;
+    height: 33px;
+    font-family: AlibabaPuHuiTi-Bold;
+    font-size: 24px;
+    color: #1E255F;
+    letter-spacing: 0;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 70px;
+  }
+
+  .credentials-tips {
+    // width: 400px;
+    height: 154px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #1D2832;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 24px;
+    font-weight: 400;
+  }
+
+  .button {
+    width: 220px;
+    height: 36px;
+    background: #3C3588;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 auto;
+    margin-top: 51px;
+  }
+
+  .button-white {
+    @extend .button;
+    background-color: #fff;
+    color: #1E255F;
+    cursor: not-allowed;
+  }
+}

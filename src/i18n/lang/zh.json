@@ -149,7 +149,8 @@
     "PriceSet": "价格设置",
     "MyTemplate": "我的模型",
     "CredentialInfo": "设置凭证信息",
-    "updateAdmin": "更改管理员"
+    "updateAdmin": "更改管理员",
+    "publishDataVoucher": "发布数据凭证"
   },
   "common": {
     "submit": "提交",
@@ -208,7 +209,10 @@
     "nodeNamingRulesTipe": "节点命名不规范",
     "legalVerificationUrl": "当前url不合法",
     "pleaseEnterNumber": "请输入数字",
-    "dataAuthProgress": "数据授权中"
+    "dataAuthProgress": "数据授权中",
+    "pleaseSwitchNetworks": "请切换网络",
+    "select": "选择",
+    "comingSoon": "即将上线"
   },
   "node": {
     "confirmDelete": "请确认是否要删除数据节点",
@@ -541,7 +545,13 @@
     "RequiredSymbol": "请输入符号",
     "RequiredCirculation": "请输入发布总量",
     "PublishCredential": "发布凭证",
-    "hasExceeded": "当前发行量已超出最大发行量"
+    "hasExceeded": "当前发行量已超出最大发行量",
+    "selectTypeCredential": "选择凭证的类型",
+    "noAttributedTitle": "无属性数据凭证",
+    "attributedTitle": "属性数据凭证",
+    "noAttributedTips": "发布无属性数据凭证，每个凭证的价值完全一致，一次数据使用消耗一个凭证。上架数据市场前，需要为属性定价，之后凭证的价格会根据市场行情上下波动。",
+    "attributedTips": "发布属性数据凭证，每个凭证都是独一无二的，拥有不同的属性和与之相匹配的唯一编号。上架数据市场前，需要为每个凭证附加数据使用的次数或者时间期限和合适的价值。",
+    "selectCredential": "选择凭证"
   },
   "MyModel": {
     "ModelTabsAll": "全部模型",

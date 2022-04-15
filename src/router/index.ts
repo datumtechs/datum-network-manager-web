@@ -299,21 +299,29 @@ const routes: Array<IRoute> = [
             meta: { exact: true, title: '', icon: '', show: false },
           },
           {
-            name: 'CredentialInfo',
-            label: 'menu.CredentialInfo',
-            breadcrumbName: 'menu.CredentialInfo',
-            path: `/myData/dataMgt/CredentialInfo`,
-            component: handLazy('CredentialInfo'),
-            meta: { exact: true, title: '', icon: '', show: false },
-          },
-          {
             name: 'PriceSet',
             label: 'menu.PriceSet',
             breadcrumbName: 'menu.PriceSet',
-            path: `/myData/dataMgt/PriceSet`,
+            path: `/myData/dataVoucherPublishing/PriceSet`,
             component: handLazy('PriceSet'),
             meta: { exact: true, title: '', icon: '', show: false },
-          }
+          },
+          {
+            name: 'DataVoucherPublishing',
+            label: 'menu.publishDataVoucher',
+            breadcrumbName: 'menu.publishDataVoucher',
+            path: `/myData/dataVoucherPublishing`,
+            component: handLazy('DataVoucherPublishing'),
+            meta: { exact: true, title: '', icon: '', show: true },
+          },
+          {
+            name: 'CredentialInfo',
+            label: 'menu.CredentialInfo',
+            breadcrumbName: 'menu.CredentialInfo',
+            path: `/myData/dataVoucherPublishing/CredentialInfo`,
+            component: handLazy('CredentialInfo'),
+            meta: { exact: true, title: '', icon: '', show: false },
+          },
         ],
       },
       {
@@ -397,26 +405,26 @@ const routes: Array<IRoute> = [
             component: handLazy('NoAttributeVoucher'),
             meta: { exact: true, title: '', icon: '', show: true },
           },
-          ...[1, 2].map(_ => {
-            return {
-              name: 'VoucherDetails',
-              label: 'menu.VoucherDetails',
-              breadcrumbName: 'menu.VoucherDetails',
-              path: `/voucher/${_ == 1 ? 'NoAttribute' : 'Template'}/Detauls`,
-              component: handLazy('VoucherDetauls'),
-              meta: { exact: true, title: '', icon: '', show: false },
-            }
-          }),
-          ...[1, 2].map(_ => {
-            return {
-              name: 'PriceSet',
-              label: 'menu.PriceSet',
-              breadcrumbName: 'menu.PriceSet',
-              path: `/voucher/${_ == 1 ? 'NoAttribute' : 'Template'}/PriceSet`,
-              component: handLazy('PriceSet'),
-              meta: { exact: true, title: '', icon: '', show: false },
-            }
-          }),
+          // ...[1, 2].map(_ => {
+          //   return {
+          //     name: 'VoucherDetails',
+          //     label: 'menu.VoucherDetails',
+          //     breadcrumbName: 'menu.VoucherDetails',
+          //     path: `/voucher/${_ == 1 ? 'NoAttribute' : 'Template'}/Detauls`,
+          //     component: handLazy('VoucherDetauls'),
+          //     meta: { exact: true, title: '', icon: '', show: false },
+          //   }
+          // }),
+          // ...[1, 2].map(_ => {
+          //   return {
+          //     name: 'PriceSet',
+          //     label: 'menu.PriceSet',
+          //     breadcrumbName: 'menu.PriceSet',
+          //     path: `/voucher/${_ == 1 ? 'NoAttribute' : 'Template'}/PriceSet`,
+          //     component: handLazy('PriceSet'),
+          //     meta: { exact: true, title: '', icon: '', show: false },
+          //   }
+          // }),
         ],
 
       },

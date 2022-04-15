@@ -1,7 +1,7 @@
 import i18n from '@/i18n/config'
 import { message } from 'antd'
 
-
+export const Complement = '000000000000000000'
 export const changeSizeFn = (input: number): string => {
   if (!input) return '0B'
   let size = "";

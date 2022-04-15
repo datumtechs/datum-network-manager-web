@@ -148,7 +148,8 @@
     "PriceSet": "Price Seting",
     "MyTemplate": "My Models",
     "CredentialInfo": "Set Credential Info",
-    "updateAdmin": "Update Admin"
+    "updateAdmin": "Update Admin",
+    "publishDataVoucher": "Publish data voucher"
   },
   "common": {
     "submit": "Submit",
@@ -207,7 +208,10 @@
     "nodeNamingRulesTipe": "Node naming is not standardized",
     "legalVerificationUrl": "The current URL is illegal",
     "pleaseEnterNumber": "please enter a number",
-    "dataAuthProgress": "Data authorization in progress"
+    "dataAuthProgress": "Data authorization in progress",
+    "pleaseSwitchNetworks": "please Switch Networks",
+    "select": "Select",
+    "comingSoon": "Coming Soon"
   },
   "node": {
     "confirmDelete": "Please ensure that you are deleting the data node",
@@ -540,7 +544,13 @@
     "RequiredSymbol": "Please enter a Symbol",
     "RequiredCirculation": "Please enter a Total release",
     "PublishCredential": "Publish Credential",
-    "hasExceeded": "The current circulation has exceeded the maximum circulation"
+    "hasExceeded": "The current circulation has exceeded the maximum circulation",
+    "selectTypeCredential": "Select the type of the credential",
+    "noAttributedTitle": "Non-attributed Credentialst",
+    "attributedTitle": "Attributed Credentials",
+    "noAttributedTips": "Publish non-attributed credentials：The value of each credential is exactly the same. One credential is consumed for using the data once. Before launching in the data marketplace, the credential needs to be priced, and then the price will fluctuate up and down according to the market quotations.",
+    "attributedTips": "Publish attributed credentials: Each credential is unique having different attributes and unique numbers. Before launching in the data marketplace, the credential needs to be set a count or period of data use as its attribute and set a right price.",
+    "selectCredential": "Select credential"
   },
   "MyModel": {
     "ModelTabsAll": "All Models",

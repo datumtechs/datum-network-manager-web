@@ -11,14 +11,16 @@ import warning from '@assets/images/voucher/warning.svg'
 import ABIJson from '@/utils/DipoleRouter.json'//dex
 import ERC20 from '@/utils/ERC20.json'//恒涛提供
 import { voucher } from '@api'
+import { Complement } from '@/utils/utils'
 
 const PriceSeting: FC<any> = (props: any) => {
   const { t } = useTranslation(),
     history = useHistory(),
     [routerToken, setRouterToken] = useState(''),
-    [latValue, setLatValue] = useState('1'),
-    [mtsValue, setMstValue] = useState('1'),
+    [latValue, setLatValue] = useState(''),
+    [mtsValue, setMstValue] = useState(''),
     [spinning, setSpinning] = useState(false),
+    [submting, setSubmting] = useState(false),
     { walletConfig } = props.state,
     { location } = props,
     {
@@ -49,19 +51,14 @@ const PriceSeting: FC<any> = (props: any) => {
 
   //数据授权 授权
   const toAuthorization = async (web3, address) => {
-    try {
-      const contract = new web3.eth.Contract(      //构建 数据 合约 
-        ERC20,
-        dataAddress
-      );
-      await contract.methods.approve( //数据凭证授权
-        routerToken,//像合约数据凭证授权
-        '90000000000000000000'
-      ).send({ from: address })
-    } catch (e) {
-      console.log('合约授权失败', e)
-      setSpinning(false)
-    }
+    const contract = new web3.eth.Contract(      //构建 数据 合约 
+      ERC20,
+      dataAddress
+    );
+    await contract.methods.approve( //数据凭证授权
+      routerToken,//像合约数据凭证授权
+      latValue + Complement,
+    ).send({ from: address })
   }
 
 
@@ -73,10 +70,14 @@ const PriceSeting: FC<any> = (props: any) => {
       // 1 获取地址
       const flag = await wallet.eth.isConnected()//判断是否连接当前网络
       if (!flag) return
+
       const address = await wallet.connectWallet(walletConfig)
+      if (!address) {
+        return message.error(t('common.pleaseSwitchNetworks'))
+      }
       //数据授权
       setSpinning(true)
-      // debugger
+      setSubmting(true)
       await toAuthorization(web3, address[0])
 
       //构建合约
@@ -100,38 +101,33 @@ const PriceSeting: FC<any> = (props: any) => {
        *   uint deadline
        * ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
        */
-      const params = [
-
-      ]
-
       //发起交易
       const contract = await myContract.methods.addLiquidityETH(
         dataAddress,
-        '10000000000000000000',//mtsValue + '000000000000000000',// 兑换的值
-        '10000000000000000000',//mtsValue + '000000000000000000',
-        '1000000000000000000',//latValue + '000000000000000000',
+        mtsValue + Complement,// 兑换的值
+        mtsValue + Complement,
+        latValue + Complement,
         address[0],//主账号 mainAddress
         Date.now() + 1200000 //区块时间+20分钟
       )
-      // const encodeABI = await contract.encodeABI();
-      // const gas = await web3.eth.estimateGas({
-      //   to: address[0],
-      //   data: encodeABI
-      // })
-      //@ts-ignore
-      window.apple = myContract
+
+
+      const gas = await contract.estimateGas({
+        from: address[0],
+        value: latValue + Complement,
+      })
+      const gasPrice = await web3.eth.getGasPrice()
+
       await contract.send({
         from: address[0],
-        value: '1000000000000000000',//latValue + '000000000000000000',//let
-        gas: '3500000',
-        // nonce: 0,
+        value: latValue + Complement,//let
+        gas,
+        gasPrice,
       }).on('transactionHash', function (hash) {
         sendTransactionData(nonce, hash)
-      }).on('error', function (error) {
-        console.log(error)
       })
-
     } catch (e) {
+      setSubmting(false)
       setSpinning(false)
       console.log('发起交易失败', e)
     }
@@ -145,6 +141,7 @@ const PriceSeting: FC<any> = (props: any) => {
     }
     release()
   }
+
   const sendTransactionData = (nonce, hash) => {
     voucher.postdDataTokenUp({
       "dataTokenId": dataTokenId,
@@ -153,6 +150,7 @@ const PriceSeting: FC<any> = (props: any) => {
     }).then(res => {
       const { data, status } = res
       if (status === 0) {
+        setSubmting(false)
         history.push({
           pathname: '/voucher/NoAttribute',
           state: {
@@ -160,7 +158,7 @@ const PriceSeting: FC<any> = (props: any) => {
           },
         })
       }
-    })
+    }).catch(() => setSubmting(false))
   }
 
 
@@ -169,6 +167,7 @@ const PriceSeting: FC<any> = (props: any) => {
       const { data } = res
       if (data.routerToken) {
         setRouterToken(data.routerToken)
+        // setRouterToken('0x26D637E206Cc39942628421e7B0D6Fb41dB0bC06')
       }
     })
   }, [])
@@ -200,7 +199,7 @@ const PriceSeting: FC<any> = (props: any) => {
           </div>
           <div className='price-mtstk'>
             <p className='price-type-title'>{name}</p>
-            <p className='price-secondary-title'>{t('voucher.Circulation')}：{total}</p>
+            <p className='price-secondary-title'>{t('voucher.Circulation')}：{total && total.replace(Complement, '') || ''}</p>
             <div className='price-type-input'>
               <span>{t('voucher.Add')}</span>
               <Input value={mtsValue} onChange={v => setMstValue(String(v.target.value).replace(/\D/g, ''))} maxLength={18} />
@@ -216,7 +215,7 @@ const PriceSeting: FC<any> = (props: any) => {
         </div>
         <div className='exchange-button'>
           <Button className='but' onClick={() => history.go(-1)}>{t('common.return')}</Button>
-          <Button type="primary" className="but" onClick={submit}>{t('voucher.Confirm')}</Button>
+          <Button type="primary" className="but" loading={submting} onClick={submit}>{t('voucher.Confirm')}</Button>
         </div>
       </Card>
     </Spin>

@@ -177,12 +177,11 @@ const MyDataTable: FC<any> = (props: any) => {
 
   const toRelease = (row) => {
     history.push({
-      pathname: '/myData/dataMgt/CredentialInfo',
+      pathname: '/myData/dataVoucherPublishing',
       state: {
-        dataTokenId: row.dataTokenId || '',
         metaDataId: row.metaDataId,
         metaDataName: row.metaDataName,
-        dataId: row.id
+        dataId: row.id,
       }
     })
   }
@@ -256,7 +255,7 @@ const MyDataTable: FC<any> = (props: any) => {
     },
     {
       title: t('dataNodeMgt.dataVoucherAndSymbol'),
-      dataIndex: 'Symbol',
+      dataIndex: 'dynamicFields',
       ellipsis: true,
       className: "no-right-border",
       render: (text, record: any, index) => {
@@ -265,13 +264,13 @@ const MyDataTable: FC<any> = (props: any) => {
         ////10已绑定凭证
         return (record.status == 2 || record.status == 7) ?
           <span className='data-symbol' onClick={toRelease.bind(this, record)}>{t('dataNodeMgt.publishDataVoucher')}</span> :
-          record.status == 9 || record.status == 10 ? text : ''
+          record.status == 9 || record.status == 10 ? record?.dynamicFields?.dataTokenName + '(' + record?.dynamicFields?.dataTokenSymbol + '）' : '--'
 
       }
     },
     {
       title: t('common.actions'),
-      width: 220,
+      // width: 220,
       dataIndex: 'actions',
       // key: 'actions',
       render: (text: any, row: any, index: any) => {

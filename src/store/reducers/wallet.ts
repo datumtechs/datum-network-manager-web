@@ -1,5 +1,6 @@
 import { SET_WALLET, SET_ADDRESS, LOGOUT, SET_WALLETCONFIG } from '../actionType/index'
 import { loginApi } from '@api'
+// import myStore from '@/store/index'
 
 interface ReduxState {
   wallet: any,
@@ -66,11 +67,13 @@ export const walletConfig = (state: any = walletConfigData, action: action) => {
 
 
 
-export const logOut = (state: any = {}, action: action) => {
+export const logOut = async (state: any = {}, action: action) => {
   switch (action.type) {
     case LOGOUT:
+      console.log('logout')
       loginApi.logoutFn().then(res => {
-        if (res.status === 0) {
+        console.log(res)
+        if (res.status == 0) {
           const { pathname } = window.location
           location.href = `/login?type=redirect#${pathname}`
         }

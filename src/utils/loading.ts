@@ -4,7 +4,7 @@ import { LOADING } from "../store/actionType/index"
 const queryList = new Set()
 const queryAllList = new Map()
 
-export const noInclude = ['/api/v1/system/queryBaseInfo', '/api/v1/user/findLocalOrgInfo', '/api/v1/data/listLocalMetaDataByKeyword']
+export const noInclude = ['/api/v1/system/queryBaseInfo', '/api/v1/user/findLocalOrgInfo', '/api/v1/data/listLocalMetaDataByKeyword', '/api/v1/dataToken/getDataTokenStatus']
 export const noDuplicateRemovalInclude = ['/api/v1/overview/localPowerStatsTrendMonthly', '/api/v1/overview/localDataFileStatsTrendMonthly']
 
 export const requestLoading = {
