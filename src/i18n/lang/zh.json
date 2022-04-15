@@ -206,7 +206,9 @@
     "rename": "重命名",
     "nodeNamingRules5": "节点名称不可重复。",
     "nodeNamingRulesTipe": "节点命名不规范",
-    "legalVerificationUrl": "当前url不合法"
+    "legalVerificationUrl": "当前url不合法",
+    "pleaseEnterNumber": "请输入数字",
+    "dataAuthProgress": "数据授权中"
   },
   "node": {
     "confirmDelete": "请确认是否要删除数据节点",
@@ -378,7 +380,7 @@
     "remarks": "字段描述",
     "download": "下载",
     "withdraw": "撤回",
-    "publish": "发布",
+    "publish": "发布数据",
     "view": "查看",
     "delete": "删除",
     "modify": "修改",
@@ -395,7 +397,14 @@
     "pulish": "已发布",
     "unPublish": "未发布",
     "saveAsNewData": "另存为新数据",
-    "dataProviderAndIdentifier": "数据提供方名称与身份标识"
+    "dataProviderAndIdentifier": "数据提供方名称与身份标识",
+    "pulishData": "已发布数据",
+    "unPublishData": "未发布数据",
+    "InReleaseData": "数据发布中",
+    "WithdrawingData": "数据撤回中",
+    "voucherPublishingFailed": "凭证发布失败",
+    "voucherPublishing": "凭证发布中",
+    "issuedVoucher": "已发布凭证"
   },
   "myData": {
     "plzUploadFile": "请导入本地数据源文件",
@@ -464,7 +473,9 @@
     "timeSpent": "已用时",
     "authorizationID": "授权 ID",
     "fileMaxSizeTips": "请重新选择,当前文件最大",
-    "FieldVisibilityTips": "至少设置1个“可见”字段。"
+    "FieldVisibilityTips": "至少设置1个“可见”字段。",
+    "issuedVoucher": "已发凭证",
+    "noVoucherIssued": "未发凭证"
   },
   "tip": {
     "idSuccess": "身份标识申请成功",
@@ -529,7 +540,8 @@
     "RequiredName": "请输入名称",
     "RequiredSymbol": "请输入符号",
     "RequiredCirculation": "请输入发布总量",
-    "PublishCredential": "发布凭证"
+    "PublishCredential": "发布凭证",
+    "hasExceeded": "当前发行量已超出最大发行量"
   },
   "MyModel": {
     "ModelTabsAll": "全部模型",

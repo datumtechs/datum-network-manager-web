@@ -205,7 +205,9 @@
     "rename": "Rename",
     "nodeNamingRules5": "Node name cannot be duplicate.",
     "nodeNamingRulesTipe": "Node naming is not standardized",
-    "legalVerificationUrl": "The current URL is illegal"
+    "legalVerificationUrl": "The current URL is illegal",
+    "pleaseEnterNumber": "please enter a number",
+    "dataAuthProgress": "Data authorization in progress"
   },
   "node": {
     "confirmDelete": "Please ensure that you are deleting the data node",
@@ -377,7 +379,7 @@
     "remarks": "Remarks",
     "download": "Download",
     "withdraw": "Withdraw",
-    "publish": "Publish",
+    "publish": "Publish Data",
     "view": "View",
     "delete": "Delete",
     "modify": "modify",
@@ -391,10 +393,17 @@
     "confirmPublish": "Please ensure that you are publishing the source file",
     "confirmWithdraw": "Please ensure that you are withdrawing the source file",
     "uploadFile": "Upload a source file",
-    "pulish": "Pulished",
-    "unPublish": "UnPublish",
+    "pulish": "Pulished Data",
+    "unPublish": "UnPublish Data",
     "saveAsNewData": "Save as new data",
-    "dataProviderAndIdentifier": "Data provider name & Identifier"
+    "dataProviderAndIdentifier": "Data provider name & Identifier",
+    "pulishData": "Pulish Data",
+    "unPublishData": "Un Publish Data",
+    "InReleaseData": "In Release Data",
+    "WithdrawingData": "Withdrawing Data",
+    "voucherPublishingFailed": "Voucher Publishing Failed",
+    "voucherPublishing": "Voucher Publishing",
+    "issuedVoucher": "Issued Voucher"
   },
   "myData": {
     "plzUploadFile": "Please upload your local file",
@@ -463,7 +472,9 @@
     "timeSpent": "Time spent",
     "authorizationID": "Authorization  ID",
     "fileMaxSizeTips": "please reselect,The maximum size of the current file is",
-    "FieldVisibilityTips": "Set at least 1 visible field"
+    "FieldVisibilityTips": "Set at least 1 visible field",
+    "issuedVoucher": "Issued Voucher",
+    "noVoucherIssued": "No Voucher Issued"
   },
   "tip": {
     "idSuccess": "ID Application successful",
@@ -528,7 +539,8 @@
     "RequiredName": "Please enter a name",
     "RequiredSymbol": "Please enter a Symbol",
     "RequiredCirculation": "Please enter a Total release",
-    "PublishCredential": "Publish Credential"
+    "PublishCredential": "Publish Credential",
+    "hasExceeded": "The current circulation has exceeded the maximum circulation"
   },
   "MyModel": {
     "ModelTabsAll": "All Models",

@@ -18,20 +18,34 @@ export default {
     })
   },
 
-  // 发布合约  工场合约构建
+  //
   postTransaction(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/dataToken/publishe`,
+      url: `/api/v1/dataToken/publish`,
+      data
+    })
+  },
+  postdDataTokenUp(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/dataToken/up`,
       data
     })
   },
 
   getPublishConfig(data): Promise<any> {
     return axios({
-      method: "GET",
+      method: "POST",
       url: `/api/v1/dataToken/getPublishConfig`,
       data
+    })
+  },
+
+  getUpConfig(): Promise<any> {
+    return axios({
+      method: "GET",
+      url: `/api/v1/dataToken/getUpConfig`,
     })
   },
 

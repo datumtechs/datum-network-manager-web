@@ -23,9 +23,8 @@ const MyDataTable: FC<any> = (props: any) => {
   })
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [curPage, setCurPage] = useState(1)
-  const [loading, setLoading] = useState(false)
   const [totalNum, setTotalNum] = useState(0)
-  const [status, setStatus] = useState(0)
+  const [statusNum, setStatus] = useState(0)
   const [tableData, setTableData] = useState<{ string: any } | any>([])
   const pagination = {
     current: 1,
@@ -33,20 +32,18 @@ const MyDataTable: FC<any> = (props: any) => {
   }
 
   const initTableData = () => {
-    resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10, status: status }).then(res => {
+    console.log(statusNum)
+    resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10, status: statusNum }).then(res => {
       if (res.status === 0) {
         setTotalNum(res.total)
-        // setTableData(res.data)
-        setTableData([{ 'dataName': '1', 'Symbol': '1' }])
-        setLoading(false)
+        setTableData(res.data)
       }
     })
   }
 
   useEffect(() => {
     initTableData()
-    setLoading(true)
-  }, [curPage, searchText])
+  }, [curPage, searchText, statusNum])
 
   useEffect(() => {
     initTableData()
@@ -94,7 +91,12 @@ const MyDataTable: FC<any> = (props: any) => {
         type: 'edit',
         id: row.id,
         metaDataId: row.metaDataId,
-        dataStatus: +row.status === 2 || +row.status === 5 || +row.status === 6 ? '1' : '0'
+        dataStatus: +row.status === 2 ||
+          +row.status === 5 ||
+          +row.status === 6 ||
+          +row.status === 7 ||
+          +row.status === 8 ||
+          +row.status === 9 ? '1' : '0'
       },
     })
   }
@@ -177,8 +179,10 @@ const MyDataTable: FC<any> = (props: any) => {
     history.push({
       pathname: '/myData/dataMgt/CredentialInfo',
       state: {
-        id: row.taskId,
-        type: 'data'
+        dataTokenId: row.dataTokenId || '',
+        metaDataId: row.metaDataId,
+        metaDataName: row.metaDataName,
+        dataId: row.id
       }
     })
   }
@@ -187,14 +191,15 @@ const MyDataTable: FC<any> = (props: any) => {
     {
       title: t('common.Num'),
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-      width: 50,
+      width: 70,
       className: "no-right-border",
       align: 'center'
     },
     {
       title: t('center.dataName'),
       dataIndex: 'metaDataName',
-      width: 180,
+      // width: 180,
+      // align: 'center',
       ellipsis: true,
       className: "no-right-border"
     },
@@ -202,34 +207,48 @@ const MyDataTable: FC<any> = (props: any) => {
       title: t('center.metaStatus'),
       dataIndex: 'status',
       key: 'status',
-      width: 100,
+      // width: 130,
+      ellipsis: true,
       className: "no-right-border",
       render: (text, record, index) => {
-        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;5: 发布中; 6:撤回中;7:凭证发布失败;8:凭证发布中; 9:已发布凭证)
-        let dom = <div className="status-box">
-          <img src={warnSvg} alt="" />
-          <p>{t('center.unPublish')}</p>
-        </div>
+        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
+        //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
+        //10已绑定凭证
+        let dom: any = ''
+        const domFn = (type = 'center.unPublishData') => {
+          return <div className="status-box">
+            <img src={warnSvg} alt="" />
+            <p>{t(type)}</p>
+          </div>
+        }
         switch (record.status) {
           case 2:
-          case 9:
             dom = <div className="status-box">
               <img src={successSvg} alt="" />
               <p>{t('center.pulish')}</p>
             </div>;
             break;
           case 5:
-          case 8:
-            dom = <div className="status-box">
-              <img src={warnSvg} alt="" />
-              <p>{t('common.InRelease')}</p>
-            </div>;
+            dom = domFn('center.InReleaseData')
             break;
           case 6:
-            <div className="status-box">
-              <img src={warnSvg} alt="" />
-              <p>{t('common.Withdrawing')}</p>
-            </div>
+            dom = domFn('center.WithdrawingData')
+            break;
+          case 7:
+            dom = domFn('center.voucherPublishingFailed')
+            break;
+          case 8:
+            dom = domFn('center.voucherPublishing')
+            break;
+          case 9:
+          case 10:
+            dom = <div className="status-box">
+              <img src={successSvg} alt="" />
+              <p>{t('center.issuedVoucher')}</p>
+            </div>;
+            break;
+          default:
+            dom = domFn()
             break;
         }
         return dom
@@ -239,10 +258,15 @@ const MyDataTable: FC<any> = (props: any) => {
       title: t('dataNodeMgt.dataVoucherAndSymbol'),
       dataIndex: 'Symbol',
       ellipsis: true,
-      width: 220,
       className: "no-right-border",
-      render: (text, record, index) => {
-        return <span className='data-symbol' onClick={toRelease.bind(this, record)}>{t('dataNodeMgt.publishDataVoucher')}</span>
+      render: (text, record: any, index) => {
+        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
+        //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
+        ////10已绑定凭证
+        return (record.status == 2 || record.status == 7) ?
+          <span className='data-symbol' onClick={toRelease.bind(this, record)}>{t('dataNodeMgt.publishDataVoucher')}</span> :
+          record.status == 9 || record.status == 10 ? text : ''
+
       }
     },
     {
@@ -251,36 +275,39 @@ const MyDataTable: FC<any> = (props: any) => {
       dataIndex: 'actions',
       // key: 'actions',
       render: (text: any, row: any, index: any) => {
+        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
+        //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
+        //10已绑定凭证
         let list = [
           {
-            name: t('center.view'),
+            name: t('center.view'),//查看
             fn: viewFn.bind(this, row),
-            show: [0, 1, 2, 3, 5, 6]
+            show: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10]
           },
           {
-            name: t('center.download'),
+            name: t('center.download'),//下载
             fn: downloadFn.bind(this, row),
-            show: [0, 1, 2, 3, 5, 6]
+            show: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10]
           },
           {
-            name: t('center.withdraw'),
+            name: t('center.withdraw'),//撤回
             fn: withDrawFn.bind(this, row),
-            show: [2]
+            show: [2, 7]
           },
           {
-            name: t('center.publish'),
+            name: t('center.publish'),//发布
             fn: publishFn.bind(this, row),
             show: [0, 1, 3]
           },
           {
-            name: t('center.saveAsNewData'),
+            name: t('center.saveAsNewData'),//另存为
             fn: saveAsNewData.bind(this, row),
-            show: [0, 1, 2, 3, 5, 6]
+            show: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10]
           },
           {
-            name: t('center.delete'),
+            name: t('center.delete'),//删除
             fn: deleteFn.bind(this, row),
-            show: [0, 1, 3,]
+            show: [0, 1, 3]
           },
         ]
         // if (+row.status === 2) {
@@ -301,24 +328,26 @@ const MyDataTable: FC<any> = (props: any) => {
   const callback = (key) => {
     setStatus(+key)
     setCurPage(1)
-    initTableData()
   }
 
-  const tableDom = <Table
-    dataSource={[...tableData, ...tableData]}
-    columns={columns}
-    loading={loading}
-    bordered
-    rowKey={record => record.id}
-    pagination={{
-      defaultCurrent: 1,
-      current: curPage,
-      defaultPageSize: 10,
-      showSizeChanger: false,
-      total: totalNum,
-      onChange: OnPageChange,
-    }}
-  />
+
+
+  const tableDom = (key) => {
+    return <Table
+      dataSource={tableData}
+      columns={columns}
+      key={key}
+      rowKey={record => record.id}
+      pagination={{
+        defaultCurrent: 1,
+        current: curPage,
+        defaultPageSize: 10,
+        showSizeChanger: false,
+        total: totalNum,
+        onChange: OnPageChange,
+      }}
+    />
+  }
   const operations = {
     right: <SearchBar onSearch={setSearchText} />
   }
@@ -326,18 +355,18 @@ const MyDataTable: FC<any> = (props: any) => {
   return (
     <div className="data-table-box">
       <Tabs onChange={callback}
-        tabBarGutter={8}
-        tabBarExtraContent={operations}
-        type="card"
-        className={"data-mgt-tabs"}>
+        tabBarGutter={20}
+        tabBarExtraContent={operations}>
+        {/* type="card"
+        className={"data-mgt-tabs"}> */}
         <TabPane tab={t('dataNodeMgt.allData')} key="0">
-          {tableDom}
+          {tableDom('allData')}
         </TabPane>
-        <TabPane tab={t('dataNodeMgt.publishedData')} key="1">
-          {tableDom}
+        <TabPane tab={t('myData.issuedVoucher')} key="1">
+          {tableDom('publishedData')}
         </TabPane>
-        <TabPane tab={t('dataNodeMgt.unpublishedData')} key="2">
-          {tableDom}
+        <TabPane tab={t('myData.noVoucherIssued')} key="2">
+          {tableDom('unpublishedData')}
         </TabPane>
       </Tabs>
       <MyModal width={600} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} bordered>

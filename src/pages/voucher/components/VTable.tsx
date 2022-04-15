@@ -5,13 +5,14 @@ import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
 import { voucher as voucherApi } from '@api/index'
 
-const datas: any = [{
-  metaDataName: "1"
-}]
 
 const VoucherTable: FC<any> = (props: any) => {
+  const { location } = props
+  const type = location?.state?.attributeType || ''
+  // console.log(type)
+  // debugger
   const { t } = useTranslation(),
-    [activeKey, setActiveKey] = useState(0),
+    [activeKey, setActiveKey] = useState(type ? 0 : 1),
     [curPage, setCurPage] = useState(1),
     [totalNum, setTotalNum] = useState(0),
     [tableData, setTableData] = useState([]),
@@ -22,29 +23,31 @@ const VoucherTable: FC<any> = (props: any) => {
       defaultPageSize: 10,
     },
     { TabPane } = Tabs
+
   useEffect(() => {
     query()
     queryConfig()
+
   }, [])
+
+  useEffect(() => {
+    query()
+
+  }, [curPage, activeKey])
 
   const viewFn = (row) => {
     window.open(dexUrl)
-    // const { type } = props
-    // history.push({
-    //   pathname: `/voucher/${type ? 'NoAttribute' : 'Template'}/Detauls`,
-    //   state: {
-    //     credentialID: row.credentialID,
-    //     dataStatus: +row.status === 2 ? '2' : '1'
-    //   },
-    // })
   },
     setPrice = (row) => {
       const { type } = props
       history.push({
-        pathname: `/voucher/${type ? 'NoAttribute' : 'Template'}/PriceSet`,
+        // pathname: `/voucher/${type ? 'NoAttribute' : 'Template'}/PriceSet`,
+        pathname: `/voucher/NoAttribute/PriceSet`,
         state: {
-          credentialID: row.credentialID,
-          dataStatus: +row.status === 2 ? '2' : '1'
+          dataAddress: row.address,
+          name: row.name,
+          dataTokenId: row.id,
+          total: row.total
         },
       })
     },
@@ -54,12 +57,12 @@ const VoucherTable: FC<any> = (props: any) => {
         pageSize: 10,
         status: +activeKey
       }).then(res => {
-        const { data, code } = res
-        if (code == 1000) {
-
+        const { data, status } = res
+        if (status === 0) {
+          setTableData(data)
         }
       })
-      setTableData(datas)
+
     },
     queryConfig = () => {
       voucherApi.queryDexWebUrl().then(res => {
@@ -79,18 +82,19 @@ const VoucherTable: FC<any> = (props: any) => {
     {
       title: t('voucher.VoucherName'),
       dataIndex: 'name',
-      width: 180,
       ellipsis: true,
       className: "no-right-border"
     },
     {
       title: t('voucher.VoucherSymbol'),
       dataIndex: 'symbol',
+      ellipsis: true,
       className: "no-right-border",
     },
     {
       title: t('voucher.VoucherTotalRelease'),
       dataIndex: 'total',
+      ellipsis: true,
       className: "no-right-border",
 
     },
@@ -107,12 +111,15 @@ const VoucherTable: FC<any> = (props: any) => {
     {
       title: t('common.actions'),
       dataIndex: 'actions',
+      width: '100px',
       render: (text: any, row: any, index: any) => {
         // 定价状态：0-未定价，1-已定价
         return <>
-          {activeKey == 0 ?
-            <Button type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button> :
-            <Button type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
+          {activeKey == 1 ?
+            <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button> :
+            row.status == 3 || row.status == 5 || true ?
+              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
+              : ''
           }
         </>
       },
@@ -125,9 +132,8 @@ const VoucherTable: FC<any> = (props: any) => {
   }
 
   const tableDom = <Table
-    dataSource={[...tableData, ...tableData]}
+    dataSource={tableData}
     columns={columns}
-    bordered
     rowKey={(record: any) => record.id}
     pagination={{
       defaultCurrent: 1,
@@ -141,18 +147,18 @@ const VoucherTable: FC<any> = (props: any) => {
 
   const callback = (key) => {
     setActiveKey(key)
-    query()
+    setCurPage(1)
+    // query()
   }
 
   return <div className="voucher">
     <Tabs onChange={callback}
-      tabBarGutter={8}
-      type="card"
-      className={"voucher-tabs"}>
-      <TabPane tab={t('voucher.PricedVoucher')} key="0">
+      activeKey={String(activeKey)}
+      tabBarGutter={20}>
+      <TabPane tab={t('voucher.PricedVoucher')} key="1">
         {tableDom}
       </TabPane>
-      <TabPane tab={t('voucher.UnpricedVoucher')} key="1">
+      <TabPane tab={t('voucher.UnpricedVoucher')} key="0">
         {tableDom}
       </TabPane>
     </Tabs>

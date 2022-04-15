@@ -72,6 +72,13 @@ const loginApi = {
       data: params
     })
   },
+
+  queryConfig() {
+    return axios({
+      method: "GET",
+      url: `/api/v1/system/getMetaMaskConfig`,
+    })
+  }
 }
 
 

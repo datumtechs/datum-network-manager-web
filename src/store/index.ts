@@ -15,7 +15,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, combineReducers({ ...storeList }))
 const appStore = createStore(persistedReducer, composeWithDevTools(...[applyMiddleware(reduxThunk)]))
 // @ts-ignore
-let persistor = persistStore(appStore);
+const persistor = persistStore(appStore);
 
 export { persistor };
 export default appStore;

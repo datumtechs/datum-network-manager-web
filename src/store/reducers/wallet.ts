@@ -1,4 +1,4 @@
-import { SET_WALLET, SET_ADDRESS, LOGOUT } from '../actionType/index'
+import { SET_WALLET, SET_ADDRESS, LOGOUT, SET_WALLETCONFIG } from '../actionType/index'
 import { loginApi } from '@api'
 
 interface ReduxState {
@@ -29,6 +29,7 @@ const wallet = (state: ReduxState = initData, action: action) => {
 
 
 export default wallet
+
 export const address = (state: { address: string } = { address: '' }, action: action) => {
   switch (action.type) {
     case SET_ADDRESS:
@@ -39,13 +40,37 @@ export const address = (state: { address: string } = { address: '' }, action: ac
       return state
   }
 }
+
+const walletConfigData = {
+  chain_name: "",
+  chain_id: "",
+  rpc_url: "",
+  symbol: "",
+  block_explorer_url: ""
+}
+
+export const walletConfig = (state: any = walletConfigData, action: action) => {
+  switch (action.type) {
+    case SET_WALLETCONFIG:
+      return {
+        ...action.data
+      }
+    default:
+      return state
+  }
+}
+
+
+
+
+
+
+
 export const logOut = (state: any = {}, action: action) => {
   switch (action.type) {
     case LOGOUT:
       loginApi.logoutFn().then(res => {
-        console.log(12)
         if (res.status === 0) {
-          console.log(1)
           const { pathname } = window.location
           location.href = `/login?type=redirect#${pathname}`
         }

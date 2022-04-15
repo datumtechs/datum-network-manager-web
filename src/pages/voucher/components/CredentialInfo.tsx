@@ -12,75 +12,86 @@ const CredentialInfo: FC<any> = (props: any) => {
   const { t } = useTranslation(),
     history = useHistory(),
     form = useRef<any>(),
-    state = props.state,
-    routerToken = '0xef5bad1b4bc03df3b6d62fe914e145126a5ff80d'
-
-  const submit = async () => {
-    const params = { name: "", symbol: "", cap: 1000000000, initialSupply: "10000000000000000000000000000", metaDataHash: "0xcee2802044e7850f9dfe2ec275d785353e74717c660d21d6219bf8fb3bd8cecc" }
-    // form.current.validateFields().then(values => {
-    //   console.log(values);
-
-    // })
+    [dataTokenFactory, setDataTokenFactory] = useState('')
+  // [initialSupply, setInitialSupply] = useState('')
+  const { walletConfig } = props.state
+  const { location } = props
+  const { dataTokenId, metaDataId, metaDataName, dataId } = location.state
+  // debugger
+  const release = async (params) => {
     const { wallet } = props.state.wallet || {}
     try {
       const { web3 } = wallet
       // 1 获取地址
       const flag = await wallet.eth.isConnected()//判断是否连接当前网络
       if (!flag) return
-      const address = await wallet.connectWallet()
+      const address = await wallet.connectWallet(walletConfig)
       //构建合约
       const myContract = new web3.eth.Contract(
         ABIJson,
-        routerToken,
+        dataTokenFactory,
       );
-
-      //获取nonce
       const nonce = await web3.eth.getTransactionCount(address[0])
       //发起交易
       const contract = await myContract.methods.createToken(
         params.name,
         params.symbol,
-        params.cap,
-        params.initialSupply,
-        params.metaDataHash
+        params.initialSupply + '000000000000000000',
+        params.initialSupply + '000000000000000000',
+        metaDataId
       ).send({
         from: address[0]
       }).on('transactionHash', function (hash) {
-        console.log('d', hash)
-        sendTransactionData(params)
+        sendTransactionData(params, nonce, hash)
       })
 
-      console.log('contract', contract)
 
     } catch (e) {
       console.log('发起交易', e)
     }
   }
 
-  const sendTransactionData = (params) => {
+  const submit = async () => {
+    form.current.validateFields().then(values => {
+      release(values)
+    })
+
+  }
+
+
+
+  const sendTransactionData = (params, nonce, hash) => {
     voucher.postTransaction({
-      "desc": params.desc,
-      "hash": params.hash,
-      "metaDataId": params.metaDataId,
+      "desc": params.DescriptionValue,
+      "hash": hash,
+      "metaDataId": dataId,//metaDataId,
       "name": params.name,
       "symbol": params.symbol,
-      "total": params.total
+      "total": params.initialSupply + '000000000000000000',
+      "init": params.initialSupply + '000000000000000000',
+      nonce
+      // id: dataId
     }).then(res => {
-
-    }).catch(err => {
-
+      const { data, status } = res
+      if (status === 0) {
+        history.push({
+          pathname: '/voucher/NoAttribute',
+          state: {
+            attributeType: 'Unpriced',
+          },
+        })
+      }
     })
   }
 
   useEffect(() => {
-    if (!state.id) return
-    console.log(state.id)
     voucher.getPublishConfig({
-      "dataTokenId": state.id
+      "dataTokenId": dataTokenId || ''
     }).then(res => {
-
-    }).catch(err => {
-
+      const { data, code } = res
+      if (data.dataTokenFactory) {
+        setDataTokenFactory(data.dataTokenFactory)
+      }
     })
   }, [])
 
@@ -90,8 +101,8 @@ const CredentialInfo: FC<any> = (props: any) => {
     <Card className='details-top-box layout-box'>
       <div className='details-name-box'>
         <div className='address'>
-          <p>{t('voucher.VoucherName')}：XXXX名称（XX符号）</p>
-          <p>{t('voucher.ContractAddress')}：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+          <p>{t('center.dataName')}：{metaDataName}</p>
+          <p>{t('center.metaDataID')}：{metaDataId}</p>
         </div>
       </div>
       <div className='speed-progress'>
@@ -107,7 +118,7 @@ const CredentialInfo: FC<any> = (props: any) => {
         <p className='title'>{t('voucher.CredentialName')}</p>
         <Form.Item
           label={t('voucher.Name')}
-          name="voucherName"
+          name="name"
           labelAlign="left"
           rules={[{ required: true, message: `${t('voucher.RequiredName')}` }]}
         >
@@ -116,7 +127,7 @@ const CredentialInfo: FC<any> = (props: any) => {
         <Form.Item
           labelAlign="left"
           label={t('voucher.Symbol')}
-          name="Symbol"
+          name="symbol"
           rules={[{ required: true, message: `${t('voucher.RequiredSymbol')}` }]}
         >
           <Input maxLength={64} />
@@ -125,10 +136,15 @@ const CredentialInfo: FC<any> = (props: any) => {
         <Form.Item
           labelAlign="left"
           label={t('voucher.Circulation')}
-          name="Circulation"
-          rules={[{ required: true, message: `${t('voucher.RequiredCirculation')}` }]}
+          name="initialSupply"
+          rules={[
+            {
+              pattern: new RegExp(/^[1-9]\d*$/, "g"),
+              message: `${t('common.pleaseEnterNumber')}`
+            },
+            { required: true, message: `${t('voucher.RequiredCirculation')}` }]}
         >
-          <InputNumber decimalSeparator="0" min={1} max={999999999} />
+          <Input maxLength={10} />
         </Form.Item>
         <p className='title'>{t('voucher.DescriptionTitle')}</p>
         <Form.Item

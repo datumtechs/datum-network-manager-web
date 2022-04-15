@@ -30,6 +30,12 @@ const mapDispatchToProps = (dispatch: any) => ({
       data
     })
   },
+  setWalletConfig: (data) => {
+    dispatch({
+      type: 'SET_WALLETCONFIG',
+      data
+    })
+  },
   loginInfo: (data) => {
     dispatch({
       type: 'LOGININFO',
@@ -87,10 +93,12 @@ const Login = (props: any) => {
 
   const loginFn = async () => {
     const { wallet } = props.state.wallet || {}
+    const { walletConfig } = props.state
+    console.log(walletConfig)
     try {
       // 1 获取地址
-      const address = await wallet.connectWallet()
-
+      const address = await wallet.connectWallet(walletConfig)
+      // return
       //2  获取 nonceId  //不知道这是啥
       const { data } = await loginApi.queryNonce()
 
@@ -115,6 +123,47 @@ const Login = (props: any) => {
     }
   }
 
+  // chainName: 'PlatON开发网',
+  // chainId: 210309,
+  // rpcUrl: 'https://10.1.1.51:6789',
+  // symbol: 'LAT',
+  // blockExplorerUrl: 'https://uatscan.platon.network:1443/'
+
+  const queryConfig = () => {
+    loginApi.queryConfig().then((res: any) => {
+      const { data } = res
+      if (data.length) {
+        const obj: any = {}
+        data && data.forEach(v => {
+          switch (v.key) {
+            case 'chain_name':
+              obj.chain_name = 'PlatON开发网'//v.value;
+              break;
+            case 'chain_id':
+              obj.chain_id = 210309//v.value//210309//v.value;
+              break;
+            case 'rpc_url':
+              obj.rpc_url = v.value//'https://10.1.1.51:6789'//v.value;
+              break;
+            case 'symbol':
+              obj.symbol = v.value;
+              break;
+            case 'block_explorer_url':
+              obj.block_explorer_url = v.value//'https://uatscan.platon.network:1443/'//v.value;
+              break;
+            default:
+              break;
+          }
+        });
+
+        props.setWalletConfig({ ...obj })
+      }
+    })
+  }
+
+  useEffect(() => {
+    queryConfig()
+  }, [])
 
 
 

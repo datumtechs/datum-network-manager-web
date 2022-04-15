@@ -43,6 +43,14 @@ class Web3Service {
     })
   }
 
+  _queryChainID() {
+    return this.eth.request({
+      method: 'eth_chainId'
+    })
+  }
+
+
+
   _getAbiForTx(address) {
     // const address = this.store.getters['app/address']
     return JSON.stringify({
@@ -66,10 +74,45 @@ class Web3Service {
     })
   }
 
+  _getDecimalChainID(originId) {
+    return parseInt(originId, 10)
+  }
+
+  _addNetwork(obj) {
+    // console.log({
+    //   chainName: obj.chain_name,
+    //   chainId: '0x' + obj.chain_id.toString(16),
+    //   rpcUrls: [obj.rpc_url],
+    //   // nativeCurrency: obj.symbol,
+    //   blockExplorerUrls: [obj.block_explorer_url],
+    // }
+    // )
+    return this.eth.request({
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainName: obj.chain_name,
+          chainId: '0x' + obj.chain_id.toString(16),
+          rpcUrls: [obj.rpc_url],
+          nativeCurrency: {
+            symbol: obj.symbol,
+            decimals: 18
+          },
+          blockExplorerUrls: [obj.block_explorer_url],
+        },
+      ],
+    })
+  }
+
+
+
   // 连接钱包  获取  address
-  async connectWallet() {
+  async connectWallet(obj) {
     let address = ''
     try {
+      const chainId = await this._queryChainID()
+      if (this._getDecimalChainID(chainId) !== obj.chain_id) await this._addNetwork(obj)
+
       address = await this.eth.request({
         method: 'eth_requestAccounts'
       })
@@ -85,7 +128,7 @@ class Web3Service {
     const abi = type === 'login' ?
       this._getAbiForLogin(nonceId) :
       this._getAbiForTx(address)
-    console.log(abi)
+
     const from = address//this.store.getters['app/address']
     const result = new Promise((resolve, reject) => {
       this.web3.currentProvider.sendAsync({

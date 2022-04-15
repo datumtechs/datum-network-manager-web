@@ -6,7 +6,7 @@ import baseInfo from './baseInfo'
 import dataSwitch from './dataSwitch'
 import Loading from './loading'
 import InfoCompleteness, { loginInfo } from './infoCompleteness'
-import wallet, { address, logOut } from './wallet'
+import wallet, { address, logOut, walletConfig } from './wallet'
 export const storeList = {
   menu,
   tableData,
@@ -19,5 +19,6 @@ export const storeList = {
   wallet,
   address,
   logOut,
-  loginInfo
+  loginInfo,
+  walletConfig
 }
