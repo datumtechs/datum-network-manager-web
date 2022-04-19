@@ -61,9 +61,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     history.go(-1)
   }
   const submitFn = () => {
+    debugger
     form
       .validateFields()
       .then(values => {
+        debugger
         const queryObj = {
           addType: 2,
           industry,
@@ -73,8 +75,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           resourceName: form.getFieldValue('newDataName'), // 新资源名称
 
         }
+        console.log(1)
         resourceApi.addLocalMetaData(queryObj).then(res => {
+          console.log(3, res)
           if (res.status === 0) {
+            console.log(2)
             message.success(`${t('tip.addMetaDataSuccess')}`)
             history.push('/myData')
           }
@@ -82,7 +87,6 @@ export const NewDataAddtion: FC<any> = (props: any) => {
       })
       .catch(error => { })
   }
-  // TODO type
   const getShowSource = data => {
     if (!data) return
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
@@ -114,6 +118,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
         remarksSet(data.remarks)
         setOriginalData(data.localMetaDataColumnList)
         setTableData(getShowSource(data.localMetaDataColumnList))
+        setTotal(data.localMetaDataColumnList?.length)
       }
     })
   }, [])
@@ -200,7 +205,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             <Button size="large" className="btn" onClick={goBackFn}>
               {t('common.return')}
             </Button>
-            <Button size="large" className="btn" type="primary" htmlType="submit" onClick={submitFn}>
+            <Button size="large" className="btn" type="primary" onClick={submitFn}>
               {t('common.submit')}
             </Button>
           </Space>

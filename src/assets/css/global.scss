@@ -261,6 +261,10 @@
       }
     }
 
+    .ant-table.ant-table-bordered>.ant-table-container {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
     .status-box {
       display: flex;
       align-items: center;

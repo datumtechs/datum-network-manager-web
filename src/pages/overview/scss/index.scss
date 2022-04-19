@@ -8,6 +8,71 @@ $pending: #657acd;
 .main-center-overview {
   width: 100%;
   height: 100%;
+
+  .overview-content-box {
+    display: flex;
+    height: 18%;
+    margin-bottom: 2.5vh;
+
+    .overview-card:not(:last-child) {
+      margin-right: 1.5vw;
+    }
+
+    .overview-card {
+      // width: 16.3vw;
+      width: 32%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 1.8vh 1.2vw;
+      position: relative;
+
+      .overview-card-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .title {
+          font-family: AlibabaPuHuiTi-Medium;
+          font-size: 16px;
+          color: #344563;
+          letter-spacing: 0;
+        }
+
+        .content {
+          font-family: AlibabaPuHuiTi-Medium;
+          color: #344563;
+          letter-spacing: 0;
+          line-height: 26px;
+
+          .value {
+            font-size: 32px;
+          }
+
+          .unit {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .overview-card-right {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+
+        .ant-progress-text {
+          color: #344563 !important;
+        }
+      }
+    }
+
+    .overview-cpu,
+    .overview-memory {
+      margin-right: 1.5vw;
+    }
+  }
+
 }
 
 .overview-title {
@@ -19,84 +84,38 @@ $pending: #657acd;
   line-height: 2.9vh;
   margin: 0 0 1.3vh;
 }
+
 .overview-box {
   width: 100%;
   height: 100%;
   overflow-y: auto;
   display: flex;
+
   .overview-left {
     flex: 1;
     display: flex;
     min-height: 688px;
     flex-direction: column;
     margin-right: 1.5vw;
-    .overview-content-box {
-      display: flex;
-      height: 18%;
-      margin-bottom: 2.5vh;
-      .overview-card:not(:last-child) {
-        margin-right: 1.5vw;
-      }
-      .overview-card {
-        // width: 16.3vw;
-        width: 32%;
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 1.8vh 1.2vw;
-        position: relative;
-        .overview-card-left {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          .title {
-            font-family: AlibabaPuHuiTi-Medium;
-            font-size: 16px;
-            color: #344563;
-            letter-spacing: 0;
-          }
-          .content {
-            font-family: AlibabaPuHuiTi-Medium;
-            color: #344563;
-            letter-spacing: 0;
-            line-height: 26px;
-            .value {
-              font-size: 32px;
-            }
-            .unit {
-              font-size: 12px;
-            }
-          }
-        }
-        .overview-card-right {
-          position: relative;
-          display: flex;
-          justify-content: flex-end;
-          flex-direction: column;
-          .ant-progress-text {
-            color: #344563 !important;
-          }
-        }
-      }
-      .overview-cpu,
-      .overview-memory {
-        margin-right: 1.5vw;
-      }
-    }
+
+
 
     .overview-publish-data {
       // width: 51.9vw;
       width: 100%;
       height: 40%;
       margin-bottom: 2.7vh;
+
       .publish-data-box {
         padding: 14px 20px;
+
         .publish-data-title {
           display: flex;
           align-items: center;
           justify-content: space-between;
           margin-bottom: 2px;
         }
+
         #publishData {
           height: 28vh;
         }
@@ -106,6 +125,7 @@ $pending: #657acd;
     .overview-data-box {
       display: flex;
       height: 36%;
+
       .overview-data-amount1 {
         // width: 34.1vw;
         width: 100%;
@@ -116,23 +136,28 @@ $pending: #657acd;
           justify-content: space-between;
           align-items: center;
         }
+
         #totalData {
           margin-top: 20px;
           // height: 18vh;
           height: 80%;
         }
       }
+
       .overview-data-amount2 {
         width: 16.3vw;
         height: 26.8vh;
         padding: 1.8vh 1vw;
+
         .overview-data-amount2-content {
           display: flex;
           justify-content: center;
           margin: 5.1vh 0 4.3vh;
+
           @media screen and (max-width: 1366px) {
             margin: 4.1vh 0 3.3vh;
           }
+
           .value {
             font-family: AlibabaPuHuiTi-Medium;
             font-size: 32px;
@@ -140,6 +165,7 @@ $pending: #657acd;
             letter-spacing: 0;
             line-height: 38px;
           }
+
           .unit {
             font-family: AlibabaPuHuiTi-Medium;
             font-size: 14px;
@@ -149,14 +175,18 @@ $pending: #657acd;
             margin-left: 10px;
           }
         }
+
         .ratio-box {
           display: flex;
+
           & img {
             width: 18px;
           }
+
           .upRatio,
           .downRatio {
             flex: 1;
+
             .ratio-line {
               display: flex;
               justify-content: center;
@@ -164,10 +194,12 @@ $pending: #657acd;
               font-size: 15px;
               letter-spacing: 0;
               line-height: 16px;
+
               p {
                 padding-left: 0.5vw;
               }
             }
+
             .name {
               margin-top: 1vh;
               font-size: 12px;
@@ -178,9 +210,11 @@ $pending: #657acd;
               align-items: center;
             }
           }
+
           .upRatio {
             color: #45b854;
           }
+
           .downRatio {
             color: #f45564;
           }
@@ -188,57 +222,73 @@ $pending: #657acd;
       }
     }
   }
+
   .overview-right {
     width: 19.1vw;
     min-height: 688px;
     display: flex;
     flex-direction: column;
+
     .overview-tasks {
       width: 19.1vw;
       // height: 53.4vh;
-      height: 60.88%;
+      // height: 60.88%;
+      height: 78.66%;
       padding: 2.6vh 1.5vw;
       overflow: hidden;
+
       ::-webkit-scrollbar {
         width: 0;
       }
+
       .taskChart-box {
         margin-top: 20px;
+        margin-bottom: 50px;
+
         #taskChart {
           width: 15vw;
           height: 15vw;
           margin: 0 auto;
         }
       }
+
       .overview-tasks-detail {
         width: 100%;
         box-sizing: border-box;
         padding-bottom: 1.7vw;
+
         .detail-line {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin: 1.7vh 0;
+          margin: 4vh 0;
+
           .left {
             display: flex;
+
             .logo-success {
               background: $success;
             }
+
             .logo-failed {
               background: $failed;
             }
+
             .logo-pending {
               background: $pending;
             }
+
             .logo-computing {
               background: $computing;
             }
+
             .logo {
               width: 16px;
               height: 16px;
               border-radius: 50%;
               position: relative;
               margin-right: 0.8vw;
+
               &:before {
                 content: "";
                 width: 8px;
@@ -251,6 +301,7 @@ $pending: #657acd;
                 transform: translate(-50%, -50%);
               }
             }
+
             .type {
               font-size: 12px;
               color: #31394d;
@@ -268,31 +319,39 @@ $pending: #657acd;
         }
       }
     }
+
     .overview-authorization {
       width: 100%;
       height: 36%;
       margin-top: 2.7vh;
       padding: 1.8vh 1.5vw;
+
       .auth-list {
         width: 100%;
         height: 78%;
+
         @media screen and (max-width: 1366px) {
           height: 68%;
         }
+
         overflow-y: scroll;
         overflow-x: hidden;
         margin-top: 15px;
         margin-bottom: 5px;
+
         .auth-list-box {
           display: flex;
           flex-direction: column;
           margin-bottom: 10px;
+
           .auth-list-name {
             margin-bottom: 6px;
             display: flex;
+
             img {
               width: 14px;
             }
+
             .auth-list-date {
               font-family: AlibabaPuHuiTi-Medium;
               font-size: 12px;
@@ -301,6 +360,7 @@ $pending: #657acd;
               padding-left: 6px;
             }
           }
+
           .auth-list-remark {
             font-size: 12px;
             color: #5e6c84;
@@ -317,12 +377,14 @@ $pending: #657acd;
     box-shadow: 0 0 10px 0 rgba(10, 16, 81, 0.08);
     border-radius: 6px;
   }
+
   .data-name {
     font-family: AlibabaPuHuiTi-Medium;
     font-size: 16px;
     color: #344563;
     letter-spacing: -0.5px;
   }
+
   .data-switch {
     width: 10.8vw;
     height: 3.5vh;
@@ -334,6 +396,7 @@ $pending: #657acd;
     padding: 0.4vh;
     box-sizing: border-box;
     justify-content: space-between;
+
     // gap: 5px;
     .switchBtn {
       text-align: center;
@@ -348,20 +411,23 @@ $pending: #657acd;
       align-items: center;
       justify-content: center;
     }
+
     .active {
       background-color: #fff;
       color: #3c3588;
     }
   }
 }
-.public-chart-tip-icon{
+
+.public-chart-tip-icon {
   display: inline-block;
   border-radius: 50%;
   width: 8px;
   height: 8px;
   border: 1px solid #FFFFFF;
 }
-.public-chart-tip-wrap{
+
+.public-chart-tip-wrap {
   // width: 100px;
   padding: 3px 8px;
   display: flex;
@@ -372,11 +438,14 @@ $pending: #657acd;
   color: #FFFFFF;
   letter-spacing: 0;
   font-weight: 500;
-  p{
+
+  p {
     margin: 0 10px 0 0;
   }
+
   position: relative;
-  &::after{
+
+  &::after {
     position: absolute;
     content: ' ';
     display: inline-block;
@@ -384,8 +453,8 @@ $pending: #657acd;
     bottom: -6px;
     right: calc(50% - 2px);
     border: solid #3C3588;
-    border-right-color:transparent;
-    border-left-color:transparent;
-    border-bottom-color:transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
   }
 }

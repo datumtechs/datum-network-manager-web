@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Table, Space } from 'antd'
+import { Table, Space, Button } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { resourceApi } from '@api/index'
 import MyTaskStatusBar from './MyTaskStatusBar'
@@ -144,6 +144,9 @@ export const MyDetailTask: FC<any> = (props: any) => {
           onChange: OnPageChange,
         }}
       />
+    </div>
+    <div className="submit-box btn-group">
+      <Button size="large" className="btn" onClick={() => history.go(-1)}>{`${t('common.return')}`}</Button>
     </div>
   </div>
 }

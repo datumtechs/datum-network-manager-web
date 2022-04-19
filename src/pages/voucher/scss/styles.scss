@@ -400,7 +400,7 @@
   }
 
   .price-exchange {
-    margin: 20px;
+    margin: 20px auto;
     width: 910px;
     height: 213px;
     background: #F8F7FF;
@@ -490,10 +490,10 @@
   }
 
   .price-exchange-tips {
-    width: 100%;
+    width: 910px;
     display: flex;
     align-items: center;
-    margin: 21px 20px;
+    margin: 21px auto;
 
     img {
       margin: 0 22px 0 5px;
@@ -514,7 +514,7 @@
     // position: absolute;
     // bottom: 28px;
     margin: 20px 0px;
-    width: 90%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

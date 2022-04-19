@@ -211,7 +211,10 @@
     "dataAuthProgress": "Data authorization in progress",
     "pleaseSwitchNetworks": "please Switch Networks",
     "select": "Select",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "copyFailed": "Copy Failed",
+    "copySuccess": "Copy Success",
+    "inputValueminlength": "2 characters at least;"
   },
   "node": {
     "confirmDelete": "Please ensure that you are deleting the data node",
@@ -550,7 +553,8 @@
     "attributedTitle": "Attributed Credentials",
     "noAttributedTips": "Publish non-attributed credentials：The value of each credential is exactly the same. One credential is consumed for using the data once. Before launching in the data marketplace, the credential needs to be priced, and then the price will fluctuate up and down according to the market quotations.",
     "attributedTips": "Publish attributed credentials: Each credential is unique having different attributes and unique numbers. Before launching in the data marketplace, the credential needs to be set a count or period of data use as its attribute and set a right price.",
-    "selectCredential": "Select credential"
+    "selectCredential": "Select credential",
+    "OnlyLettersNumbersEntered": "Only letters and numbers can be entered"
   },
   "MyModel": {
     "ModelTabsAll": "All Models",

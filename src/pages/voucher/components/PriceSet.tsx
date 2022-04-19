@@ -25,7 +25,7 @@ const PriceSeting: FC<any> = (props: any) => {
     { location } = props,
     {
       dataAddress,
-      name, dataTokenId, total } = location.state
+      name, dataTokenId, total, symbol } = location.state
 
   // const dataAddress = '0x38e5d728ccfa4be0849c249200820f6f68c13b0c',
   // routerToken = '0xef5bad1b4bc03df3b6d62fe914e145126a5ff80d'
@@ -36,14 +36,15 @@ const PriceSeting: FC<any> = (props: any) => {
   }
 
   const rate = () => {
-    if (!!!mtsValue) return ''
+    if (!!!mtsValue || !!!latValue) return ''
+    // debugger
     let value: string | number = parseFloat(new Big(BigInt(mtsValue)).div(BigInt(latValue)))
     value = fomatFloat(value, 8)
     return value
   }
 
   const divFn = () => {
-    if (!!!mtsValue) return ''
+    if (!!!mtsValue || !!!latValue) return ''
     let value: string | number = parseFloat(new Big(BigInt(latValue)).div(BigInt(mtsValue)))
     value = fomatFloat(value, 8)
     return value
@@ -51,13 +52,24 @@ const PriceSeting: FC<any> = (props: any) => {
 
   //数据授权 授权
   const toAuthorization = async (web3, address) => {
+
+
     const contract = new web3.eth.Contract(      //构建 数据 合约 
       ERC20,
       dataAddress
     );
+
+
+    const amound = await contract.methods.allowance(
+      address,
+      routerToken
+    ).call()
+    // console.log(amound)
+    if (amound > 0) return
+
     await contract.methods.approve( //数据凭证授权
       routerToken,//像合约数据凭证授权
-      latValue + Complement,
+      total,
     ).send({ from: address })
   }
 
@@ -68,8 +80,8 @@ const PriceSeting: FC<any> = (props: any) => {
       const { web3 } = wallet
 
       // 1 获取地址
-      const flag = await wallet.eth.isConnected()//判断是否连接当前网络
-      if (!flag) return
+      // const flag = await wallet.eth.isConnected()//判断是否连接当前网络
+      // if (!flag) return
 
       const address = await wallet.connectWallet(walletConfig)
       if (!address) {
@@ -102,6 +114,7 @@ const PriceSeting: FC<any> = (props: any) => {
        * ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
        */
       //发起交易
+      console.log(mtsValue + Complement)
       const contract = await myContract.methods.addLiquidityETH(
         dataAddress,
         mtsValue + Complement,// 兑换的值
@@ -130,12 +143,15 @@ const PriceSeting: FC<any> = (props: any) => {
       setSubmting(false)
       setSpinning(false)
       console.log('发起交易失败', e)
+      message.warning(t('tip.operationFailed'))
     }
   }
 
 
   const submit = async () => {
-    if (BigInt(total) < BigInt(mtsValue)) {
+    const totalNum = total.replace(Complement, '')
+    console.log(totalNum)
+    if (BigInt(totalNum) < BigInt(mtsValue)) {
       message.warning(t('voucher.hasExceeded'))
       return
     }
@@ -151,14 +167,18 @@ const PriceSeting: FC<any> = (props: any) => {
       const { data, status } = res
       if (status === 0) {
         setSubmting(false)
-        history.push({
-          pathname: '/voucher/NoAttribute',
-          state: {
-            attributeType: 'Unpriced',
-          },
-        })
+        goNoAttribute()
       }
     }).catch(() => setSubmting(false))
+  }
+
+  const goNoAttribute = () => {
+    history.push({
+      pathname: '/voucher/NoAttribute',
+      state: {
+        attributeType: 'Unpriced',
+      },
+    })
   }
 
 
@@ -198,7 +218,7 @@ const PriceSeting: FC<any> = (props: any) => {
             <img src={exchange} alt="" />
           </div>
           <div className='price-mtstk'>
-            <p className='price-type-title'>{name}</p>
+            <p className='price-type-title'>{symbol}</p>
             <p className='price-secondary-title'>{t('voucher.Circulation')}：{total && total.replace(Complement, '') || ''}</p>
             <div className='price-type-input'>
               <span>{t('voucher.Add')}</span>
@@ -209,12 +229,12 @@ const PriceSeting: FC<any> = (props: any) => {
         <div className='price-exchange-tips'>
           <img src={warning} alt="" />
           <div>
-            <p>{t('voucher.InitialPrice')}：{mtsValue && mtsValue ? 1 : 0} {name} = {divFn() || 0} LAT ； {latValue && mtsValue ? 1 : 0} LAT = {rate() || 0} {name} </p>
+            <p>{t('voucher.InitialPrice')}：{mtsValue && mtsValue ? 1 : 0} {symbol} = {divFn() || 0} LAT ； {latValue && mtsValue ? 1 : 0} LAT = {rate() || 0} {symbol} </p>
             <p>{t('voucher.InitialPriceTips')}.</p>
           </div>
         </div>
         <div className='exchange-button'>
-          <Button className='but' onClick={() => history.go(-1)}>{t('common.return')}</Button>
+          <Button className='but' onClick={goNoAttribute}>{t('common.return')}</Button>
           <Button type="primary" className="but" loading={submting} onClick={submit}>{t('voucher.Confirm')}</Button>
         </div>
       </Card>

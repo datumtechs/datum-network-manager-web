@@ -1,4 +1,4 @@
- .main-container {
+.main-container {
   display: flex;
   width: 100%;
   height: 100vh;
@@ -13,34 +13,45 @@
     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.08);
     text-align: center;
     color: #ffffff;
+
     .logo {
       margin-top: 20px;
     }
+
     .logo-img {
       width: 110px;
     }
+
     .sys-name {
       margin-top: 8px;
       font-family: AlibabaPuHuiTi-Medium;
       font-size: 15px;
       line-height: 26px;
     }
+
     .menu-box {
       margin-top: 30px;
+
       .nav-box {
         font-family: AlibabaPuHuiTi-Regular;
         font-size: 16px;
         color: #a7afff;
         letter-spacing: 0;
         line-height: 50px;
+
         .nav-wrapper {
           display: flex;
           justify-content: center;
-          -moz-user-select: none; /*火狐*/
-          -webkit-user-select: none; /*webkit浏览器*/
-          -ms-user-select: none; /*IE10*/
-          -khtml-user-select: none; /*早期浏览器*/
+          -moz-user-select: none;
+          /*火狐*/
+          -webkit-user-select: none;
+          /*webkit浏览器*/
+          -ms-user-select: none;
+          /*IE10*/
+          -khtml-user-select: none;
+          /*早期浏览器*/
           user-select: none;
+
           .nav-label-box {
             display: flex;
             flex-direction: column;
@@ -49,6 +60,7 @@
             margin: 0 15px;
             border-radius: 10px;
             position: relative;
+
             .nav-label {
               position: relative;
               border-radius: 10px;
@@ -56,10 +68,12 @@
               align-items: center;
               padding-left: 18px;
               white-space: nowrap;
+
               &:hover {
                 color: #fff;
               }
             }
+
             // .hover-color:hover {
             //   color: #ffa505;
             // }
@@ -80,6 +94,7 @@
                 line-height: 20px;
                 height: 40px;
                 margin: 5px 0;
+
                 &:hover {
                   color: #fff;
                 }
@@ -93,11 +108,13 @@
                 max-height: 0px;
               }
             }
+
             .hasChild {
               margin-left: 8px;
             }
           }
         }
+
         .activeMenu {
           background: #ffffff;
           color: #1e255f !important;
@@ -107,18 +124,21 @@
           .nav-label:hover {
             color: #ffa505 !important;
           }
+
           & .triangle-down {
             position: absolute;
             right: 10px;
             // bottom: 3px;
             border-top: 8px solid #1e255f;
           }
+
           & .triangle-up {
             position: absolute;
             right: 10px;
-            bottom: 3px;
+            bottom: 20px;
             border-bottom: 8px solid #1e255f;
           }
+
           &:before {
             content: " ";
             display: inline-block;
@@ -135,11 +155,13 @@
             top: 8px;
           }
         }
+
         .activeMenuBeforeTop {
           &:before {
             top: 13.6%;
           }
         }
+
         .activeSubMenu {
           font-family: AlibabaPuHuiTi-Regular;
           font-size: 14px;
@@ -148,6 +170,7 @@
         }
       }
     }
+
     .triangle-up {
       width: 0;
       height: 0;
@@ -155,9 +178,11 @@
       border-right: 6px solid transparent;
       border-bottom: 8px solid #a7afff;
     }
+
     .rotate-up {
       animation: up 0.2s linear;
     }
+
     .rotate-down {
       animation: down 0.2s linear;
     }
@@ -166,14 +191,17 @@
       0% {
         transform: rotate(-180deg);
       }
+
       100% {
         transform: rotate(0deg);
       }
     }
+
     @keyframes down {
       0% {
         transform: rotate(180deg);
       }
+
       100% {
         transform: rotate(0deg);
       }
@@ -187,11 +215,13 @@
       border-top: 8px solid #a7afff;
     }
   }
+
   .main-box {
     flex: 1;
     width: 100%;
     display: flex;
     flex-direction: column;
+
     .header-box {
       width: 100%;
       height: 60px;
@@ -202,6 +232,7 @@
       padding: 0 83px;
       z-index: 1000;
     }
+
     .main-head-box {
       width: 100%;
       height: 60px;
@@ -210,27 +241,33 @@
       justify-content: space-between;
       align-items: center;
       padding: 0 9.3vw;
+
       @media screen and (max-width: 1920px) {
         padding: 0 8.3vw;
       }
+
       @media screen and (max-width: 1366px) {
         padding: 0 6.1vw;
       }
     }
+
     .bread-box {
       display: flex;
-      & > .ant-breadcrumb {
+
+      &>.ant-breadcrumb {
         font-family: AlibabaPuHuiTi-Regular;
         font-size: 17px;
         color: #3c3588;
         letter-spacing: 0;
       }
-      & > .ant-breadcrumb a {
+
+      &>.ant-breadcrumb a {
         font-size: 17px;
         color: #3c3588;
         font-family: AlibabaPuHuiTi-Regular;
       }
-      .ant-breadcrumb > span:last-child {
+
+      .ant-breadcrumb>span:last-child {
         font-family: AlibabaPuHuiTi-Medium;
         color: #3c3588;
       }
@@ -240,22 +277,27 @@
       display: flex;
       align-items: center;
       color: #ffffff;
+
       li {
         padding-left: 20px;
       }
     }
+
     .wrapper-box {
       width: 100%;
       height: 100%;
       overflow: hidden;
       padding: 20px 9.3vw;
+
       @media screen and (max-width: 1920px) {
         padding: 20px 8.3vw;
       }
+
       @media screen and (max-width: 1366px) {
         padding: 20px 6.1vw;
       }
     }
+
     .main-wrapper-box {
       width: 100%;
       padding: 20px 83px 50px;
@@ -263,6 +305,7 @@
       border-radius: 6px;
       overflow: scroll;
     }
+
     .layout__loading {
       width: 100%;
       height: calc(100vh - 120px);
@@ -272,29 +315,36 @@
     }
   }
 }
-.personal-box{
+
+.personal-box {
   width: 157px;
   right: -25px;
-  .ant-dropdown-menu-item{
+
+  .ant-dropdown-menu-item {
     height: 32px;
-    &:hover{
+
+    &:hover {
       background-color: #f1eeff;
     }
   }
-  .personal-info-name{
-      height: 57px;
-      border-bottom: 1px solid #e5dddd;
-      // margin-bottom: 5px;
-       &:hover{
+
+  .personal-info-name {
+    height: 57px;
+    border-bottom: 1px solid #e5dddd;
+
+    // margin-bottom: 5px;
+    &:hover {
       background-color: #fff;
     }
-    .personal-info-head-portrait{
+
+    .personal-info-head-portrait {
       border-radius: 50%;
       overflow: hidden;
-      flex:0 0 34px;
+      flex: 0 0 34px;
       margin-right: 10px;
     }
-    .ant-dropdown-menu-title-content{
+
+    .ant-dropdown-menu-title-content {
       display: flex;
       align-items: center;
       font-weight: 600;
@@ -303,15 +353,17 @@
       white-space: nowrap;
     }
   }
-  .personal-logout{
+
+  .personal-logout {
     border-top: 1px solid #e5dddd;
     height: 37px;
     text-align: center;
     // margin-top: 5px;personal-info-name
     color: red !important;
-     &:hover{
+
+    &:hover {
       background-color: #fff;
     }
   }
-  
+
 }

@@ -38,7 +38,7 @@ const UpdateAdmin: FC<any> = (props: any) => {
   const validate = () => {
     formRef.current.validateFields()
       .then(values => {
-        setReplaceAddress(values.nodeAddress)
+        setReplaceAddress(values.address)
         setModalVisible(true)
       }).catch(err => {
         console.log(err);
@@ -62,11 +62,13 @@ const UpdateAdmin: FC<any> = (props: any) => {
     setDisabled(false)
   }
   const switchLogin = () => {
-    props.sendAction()
+    props.sendAction(false)
     props.setLoginInfo({})
   }
 
   const submit = () => {
+    // switchLogin()
+    // return
     setLoading(true)
     loginApi.updateAdmin({ newAddress: replaceAddress }).then(res => {
       if (res.status == 0) {
@@ -105,24 +107,26 @@ const UpdateAdmin: FC<any> = (props: any) => {
             placeholder={t('UserCenter.ProfileNamePlaceholder')}
           />
         </Form.Item>
-        <Form.Item colon label={t('UserCenter.address')} name="address"
+        {/* <Form.Item colon label={t('UserCenter.address')} name="address"
           className="form-item"
         >
           <Input disabled={true}
             placeholder={t('UserCenter.address')}
           />
+        </Form.Item> */}
+        {/* {!disabled ? */}
+        <Form.Item colon label={t('UserCenter.address')}
+          className="form-item"
+          name="address"
+          rules={rules}
+        >
+          <Input
+            disabled={disabled}
+            maxLength={64}
+            placeholder={t('UserCenter.address')}
+          />
         </Form.Item>
-        {!disabled ?
-          <Form.Item colon label={t('UserCenter.nodeAddress')}
-            className="form-item"
-            name="nodeAddress"
-            rules={rules}
-          >
-            <Input
-              placeholder={t('UserCenter.nodeAddress')}
-            />
-          </Form.Item>
-          : ' '}
+        {/* : ' '} */}
 
         <Form.Item colon={false} className="form-item" label={" "} style={{ paddingLeft: '11px' }}>
           {disabled ?

@@ -72,9 +72,12 @@ export const logOut = async (state: any = {}, action: action) => {
     case LOGOUT:
       console.log('logout')
       loginApi.logoutFn().then(res => {
-        console.log(res)
         if (res.status == 0) {
           const { pathname } = window.location
+          if (!action.data) {
+            location.href = `/login`
+            return
+          }
           location.href = `/login?type=redirect#${pathname}`
         }
       })

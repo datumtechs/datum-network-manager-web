@@ -47,6 +47,7 @@ const Details: FC<any> = (props: any) => {
     optionList.forEach((_: any) => {
       console.log(_.id, value)
       if (_.id == value) {
+        localStorage.setItem('metaDataId', '')
         history.push({
           pathname: '/myData/dataVoucherPublishing/CredentialInfo',
           state: {
@@ -81,7 +82,7 @@ const Details: FC<any> = (props: any) => {
               }}
               fetchOptions={fetchUserList}
             />
-            <div className='button' onClick={submit}>{t('common.select')}</div>
+            <div className={`button`} onClick={submit}>{t('common.select')}</div>
           </div>
           <div className='attributed credentials'>
             <h3 className='credentials-title'>{t('voucher.attributedTitle')}</h3>

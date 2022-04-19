@@ -19,33 +19,18 @@ const CredentialInfo: FC<any> = (props: any) => {
     { walletConfig } = props.state,
     { location } = props,
     { dataTokenId, metaDataId, metaDataName, dataId } = location.state,
-    loading = useRef(false)
+    [loading, setLoading] = useState(false),
+    submiting = useRef(false)
 
   const initialState: any = useRef()
 
   const release = async (params) => {
     const { wallet } = props.state.wallet || {}
 
-
-    // history.push({
-    //   pathname: '/myData/dataVoucherPublishing/PriceSet',
-    //   state: {
-    //     dataAddress: 'xxxxxxx',
-    //     name: 'row.name',
-    //     dataTokenId: '111111',
-    //     total: '111111111111'
-    //   },
-    // })
-    // return
-
-
-    // setParams(params)
-
-
-
-
     try {
       const { web3 } = wallet
+      setLoading(true)
+      submiting.current = true
       // 1 获取地址
       const flag = await wallet.eth.isConnected()//判断是否连接当前网络
       if (!flag) return
@@ -59,7 +44,6 @@ const CredentialInfo: FC<any> = (props: any) => {
         dataTokenFactory,
       );
       const nonce = await web3.eth.getTransactionCount(address[0])
-      loading.current = true
 
       //发起交易
       await myContract.methods.createToken(
@@ -71,16 +55,14 @@ const CredentialInfo: FC<any> = (props: any) => {
       ).send({
         from: address[0]
       }).on('transactionHash', function (hash) {
-        // query()
         sendTransactionData(params, nonce, hash)
-      }).on('error', () => {
-        loading.current = false
       })
 
 
     } catch (e) {
-      console.log('发起交易', e)
-      loading.current = false
+      message.warning(t('tip.operationFailed'))
+      setLoading(false)
+      submiting.current = false
     }
   }
 
@@ -101,23 +83,23 @@ const CredentialInfo: FC<any> = (props: any) => {
       }
     })
 
-    initialState.current = setInterval
     return () => {
       requestCancel.del('/api/v1/dataToken/getDataTokenStatus')
-      loading.current = false
+      setLoading(false)
+      submiting.current = false
       if (initialState.timeOut) {
         clearTimeout(initialState.current)
       }
     }
   }, [])
 
-  const timeOut = () => {
-    if (!loading.current) return
+  const timeOut = (id) => {
+    if (!submiting) return
     if (initialState.current) {
       clearTimeout(initialState.current)
     }
     initialState.current = setTimeout(() => {
-      query()
+      query(id)
     }, 1000)
   }
 
@@ -134,36 +116,55 @@ const CredentialInfo: FC<any> = (props: any) => {
     }).then(res => {
       const { data, status } = res
       if (status === 0) {
-        query()
+        localStorage.setItem('metaDataId', data)
+        query(data)
       }
     })
   }
 
-  const query = () => {
-    if (!dataId) return
+  const query = (id) => {
+    // if (!id) {
+    //   history.push({
+    //     pathname: '/voucher/NoAttribute'
+    //   })
+    // }
+    if (!id) return
     voucher.queryDataTokenStatus({
-      "id": dataId || ''
+      "id": +id || null
     }).then(res => {
       const { data } = res
       if (data?.status == 3) {
-        loading.current = false
+        setLoading(false)
+        localStorage.setItem('metaDataId', '')
+        submiting.current = false
         history.push({
           pathname: '/myData/dataVoucherPublishing/PriceSet',
           state: {
             dataAddress: data.address,
             name: data.name,
             dataTokenId: data.id,
-            total: data.total
+            total: data.total,
+            symbol: data.symbol
           },
         })
       } else if (data?.status == 2) {
-        loading.current = false
+        setLoading(false)
+        submiting.current = false
         message.error(t('center.voucherPublishingFailed'))
       } else {
-        timeOut()
+        timeOut(id)
       }
     })
   }
+
+  useEffect(() => {
+    const data = localStorage.getItem('metaDataId')
+    if (data) {
+      submiting.current = true
+      setLoading(true)
+      query(data)
+    }
+  }, [])
 
 
 
@@ -190,7 +191,16 @@ const CredentialInfo: FC<any> = (props: any) => {
           label={t('voucher.Name')}
           name="name"
           labelAlign="left"
-          rules={[{ required: true, message: `${t('voucher.RequiredName')}` }]}
+          rules={[
+            {
+              required: true,
+              validator: (rule, value, callback): any => {
+                if (value.length < 2) return callback(t('common.inputValueminlength'))
+                return /^[A-Za-z0-9]+$/.test(value) ? callback() : callback(t('voucher.OnlyLettersNumbersEntered'));
+              },
+            },
+            // { required: true, message: `${t('voucher.RequiredName')}` }
+          ]}
         >
           <Input maxLength={64} />
         </Form.Item>
@@ -198,9 +208,18 @@ const CredentialInfo: FC<any> = (props: any) => {
           labelAlign="left"
           label={t('voucher.Symbol')}
           name="symbol"
-          rules={[{ required: true, message: `${t('voucher.RequiredSymbol')}` }]}
+          rules={[
+            {
+              required: true,
+              validator: (rule, value, callback): any => {
+                if (value.length < 2) return callback(t('common.inputValueminlength'))
+                return /^[A-Za-z0-9]+$/.test(value) ? callback() : callback(t('voucher.OnlyLettersNumbersEntered'));
+              },
+            },
+            // { required: true, message: `${t('voucher.RequiredSymbol')}` }
+          ]}
         >
-          <Input maxLength={64} />
+          <Input maxLength={64} minLength={2} />
         </Form.Item>
         <p className='title'>{t('voucher.CirculationTotal')}:</p>
         <Form.Item
@@ -214,7 +233,7 @@ const CredentialInfo: FC<any> = (props: any) => {
             },
             { required: true, message: `${t('voucher.RequiredCirculation')}` }]}
         >
-          <Input maxLength={10} />
+          <Input maxLength={18} minLength={2} />
         </Form.Item>
         <p className='title'>{t('voucher.DescriptionTitle')}</p>
         <Form.Item
@@ -229,7 +248,7 @@ const CredentialInfo: FC<any> = (props: any) => {
 
       <div className='exchange-button'>
         <Button className='but' onClick={() => history.go(-1)}>{t('common.return')}</Button>
-        <Button type="primary" className="but" loading={loading.current} onClick={submit}>{t('voucher.PublishCredential')}</Button>
+        <Button type="primary" className="but" loading={loading} onClick={submit}>{t('voucher.PublishCredential')}</Button>
       </div>
     </Card>
   </div>

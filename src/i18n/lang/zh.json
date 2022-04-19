@@ -212,7 +212,10 @@
     "dataAuthProgress": "数据授权中",
     "pleaseSwitchNetworks": "请切换网络",
     "select": "选择",
-    "comingSoon": "即将上线"
+    "comingSoon": "即将上线",
+    "copyFailed": "复制失败",
+    "copySuccess": "复制成功",
+    "inputValueminlength": "最少输入2个字符；"
   },
   "node": {
     "confirmDelete": "请确认是否要删除数据节点",
@@ -551,7 +554,8 @@
     "attributedTitle": "属性数据凭证",
     "noAttributedTips": "发布无属性数据凭证，每个凭证的价值完全一致，一次数据使用消耗一个凭证。上架数据市场前，需要为属性定价，之后凭证的价格会根据市场行情上下波动。",
     "attributedTips": "发布属性数据凭证，每个凭证都是独一无二的，拥有不同的属性和与之相匹配的唯一编号。上架数据市场前，需要为每个凭证附加数据使用的次数或者时间期限和合适的价值。",
-    "selectCredential": "选择凭证"
+    "selectCredential": "选择凭证",
+    "OnlyLettersNumbersEntered": "只能输入字母和数字"
   },
   "MyModel": {
     "ModelTabsAll": "全部模型",

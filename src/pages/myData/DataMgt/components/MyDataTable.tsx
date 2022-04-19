@@ -224,7 +224,7 @@ const MyDataTable: FC<any> = (props: any) => {
           case 2:
             dom = <div className="status-box">
               <img src={successSvg} alt="" />
-              <p>{t('center.pulish')}</p>
+              <p>{t('center.pulishData')}</p>
             </div>;
             break;
           case 5:
