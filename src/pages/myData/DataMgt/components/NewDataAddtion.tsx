@@ -61,11 +61,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     history.go(-1)
   }
   const submitFn = () => {
-    debugger
+    // debugger
     form
       .validateFields()
       .then(values => {
-        debugger
+        // debugger
         const queryObj = {
           addType: 2,
           industry,
@@ -75,11 +75,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           resourceName: form.getFieldValue('newDataName'), // 新资源名称
 
         }
-        console.log(1)
+        // console.log(1)
         resourceApi.addLocalMetaData(queryObj).then(res => {
-          console.log(3, res)
+          // console.log(3, res)
           if (res.status === 0) {
-            console.log(2)
+            // console.log(2)
             message.success(`${t('tip.addMetaDataSuccess')}`)
             history.push('/myData')
           }

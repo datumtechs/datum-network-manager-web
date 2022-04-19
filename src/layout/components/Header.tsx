@@ -13,6 +13,7 @@ import Bread from './Bread'
 
 const Header = (props: any) => {
   const { loginInfo } = props.state.loginInfo
+  const { orgInfo } = props.state.org || {}
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
   const { pathname } = useLocation()
@@ -21,6 +22,7 @@ const Header = (props: any) => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
     localStorage.setItem('i18n', i18n.language)
   }
+  // console.log(orgInfo)
 
   const switchLogin = () => {
     props.sendAction()
@@ -34,7 +36,6 @@ const Header = (props: any) => {
     }
     history.push(route)
   }
-
 
   const menu = (dom?) => <Menu className="personal-box">
     <Menu.Item key="name" className="personal-info-name"><img className="personal-info-head-portrait" src={menuSvg} />{baseInfo?.name}</Menu.Item>
@@ -75,7 +76,10 @@ const Header = (props: any) => {
           </div>
           <div className="pointer">
             <Dropdown overlay={menus} placement="bottomRight" arrow>
-              <img src={menuSvg} alt="" />
+              <div className='user-info'>
+                <img src={menuSvg} alt="" />
+                <span>{orgInfo?.name || ''}</span>
+              </div>
             </Dropdown>
           </div>
         </Space>

@@ -110,7 +110,8 @@
     "viewAll": "View all",
     "bootAddress": "Boot address",
     "nodeAddress": "Node address",
-    "AuthorizationApplication": " has initiated an authorization application of "
+    "AuthorizationApplication": " has initiated an authorization application of ",
+    "SeedApplication": "Seed Application"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -214,7 +215,8 @@
     "comingSoon": "Coming Soon",
     "copyFailed": "Copy Failed",
     "copySuccess": "Copy Success",
-    "inputValueminlength": "2 characters at least;"
+    "inputValueminlength": "2 characters at least;",
+    "currentWalletInsufficient": "Current wallet balance is insufficient"
   },
   "node": {
     "confirmDelete": "Please ensure that you are deleting the data node",
@@ -571,6 +573,8 @@
     "status2": "illegal argument",
     "status3": "connect gRPC server failed.",
     "status4": "call gRPC service error",
+    "status5": "method argument invalid!",
+    "status6": "SQL error!",
     "status500": "system internal error",
     "status1001": "user identity not applied",
     "status1002": "carrier not configured.",
@@ -610,6 +614,19 @@
     "status1036": "local org connect network already",
     "status1037": "local org not connect network",
     "status1038": "cannot manipulate node in publishing and revoking,please try again later",
-    "status1039": "cannot manipulate data in publishing and revoking,please try again later"
+    "status1039": "cannot manipulate data in publishing and revoking,please try again later",
+    "status1040": "Please get nonce again. Nonce has expired!",
+    "status1041": "Please get nonce again. Nonce is incorrect!",
+    "status1042": "User login signature error!",
+    "status1043": "Export csv file error!",
+    "status1044": "Read file content error!",
+    "status1045": "Metadata already exists token in publishing!",
+    "status1046": "Metadata already exists token!",
+    "status1047": "The system configuration is not allowed to be changed!",
+    "status1048": "Insert new user failed!",
+    "status1049": "The current user is not an administrator, the replacement failed!",
+    "status1050": "The new user already administrator, the replacement failed!",
+    "status1051": "Organization information cannot be modified because the organization has not been removed from the network!",
+    "status1052": "The current user does not have permission!"
   }
 }

@@ -75,7 +75,6 @@ const Login = (props: any) => {
       connectNetworkStatus,// //0 未入网  1已入网 99 已退网
     })
     props.loginInfo(data.data)
-    console.log(props.state)
     if (+connectNetworkStatus < 1) {
       console.log(3)
       history.push({ pathname: '/didApplication', })

@@ -77,9 +77,10 @@ const UpdateAdmin: FC<any> = (props: any) => {
       }
       setModalVisible(false)
       setLoading(false)
-    }).catch(err => {
-      setLoading(false)
     })
+      .catch(err => {
+        setLoading(false)
+      })
   }
 
 

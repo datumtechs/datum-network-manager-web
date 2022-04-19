@@ -314,7 +314,7 @@ const MyDataTable: FC<any> = (props: any) => {
           <div className="operation-box">
             {list.map((_: any) => {
               // debugger
-              return _.show.includes(row.status) ? <p className="btn pointer link pr10" onClick={_.fn}>
+              return _.show.includes(row.status) ? <p className="btn pointer link pr10" key={_.name} onClick={_.fn}>
                 {_.name}
               </p> : ''
             })}

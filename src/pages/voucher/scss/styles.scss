@@ -32,6 +32,8 @@
     }
   }
 
+
+
   .no-right-border {
     border-right: none !important;
   }
@@ -432,6 +434,10 @@
       letter-spacing: 0;
       text-align: center;
       font-weight: 700;
+      width: 300px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .price-lat {
@@ -624,5 +630,18 @@
   div>.ant-spin {
     max-height: 80vh;
     background-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+._tooltip {
+  .ant-tooltip-content {
+    .ant-tooltip-arrow {
+      display: none;
+    }
+
+    .ant-tooltip-inner {
+      color: #000000 !important;
+      border: 1px solid #000;
+    }
   }
 }

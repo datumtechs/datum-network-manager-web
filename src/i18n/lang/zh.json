@@ -215,7 +215,8 @@
     "comingSoon": "即将上线",
     "copyFailed": "复制失败",
     "copySuccess": "复制成功",
-    "inputValueminlength": "最少输入2个字符；"
+    "inputValueminlength": "最少输入2个字符；",
+    "currentWalletInsufficient": "当前钱包余额不足"
   },
   "node": {
     "confirmDelete": "请确认是否要删除数据节点",
@@ -572,6 +573,8 @@
     "status2": "非法参数",
     "status3": "连接 gRPC 服务器失败",
     "status4": "调用gRPC服务错误",
+    "status5": "方法参数无效！",
+    "status6": "SQL错误！",
     "status500": "系统内部错误",
     "status1001": "未注册用户身份",
     "status1002": "运营商未配置",
@@ -611,6 +614,19 @@
     "status1036": "本地组织已连接网络。",
     "status1037": "本地组织未连接网络。",
     "status1038": "无法在发布和取消中操作计算节点，请稍后再试",
-    "status1039": "无法在发布和取消中操作数据，请稍后再试"
+    "status1039": "无法在发布和取消中操作数据，请稍后再试",
+    "status1040": "请重新获取nonce。nonce已过期！",
+    "status1041": "请重新获取nonce。nonce不正确",
+    "status1042": "用户登录签名错误",
+    "status1043": "导出csv文件错误！",
+    "status1044": "读取文件内容错误！",
+    "status1045": "元数据已存在于发布中！",
+    "status1046": "元数据已存在！",
+    "status1047": "不允许更改系统配置！",
+    "status1048": "插入新用户失败！",
+    "status1049": "当前用户不是管理员，更换失败！",
+    "status1050": "新用户已经是管理员，更换失败！",
+    "status1051": "无法修改组织信息，因为该组织尚未从网络中删除！",
+    "status1052": "当前用户没有权限！"
   }
 }

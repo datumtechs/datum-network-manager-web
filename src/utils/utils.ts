@@ -129,6 +129,8 @@ export const StatusCodeProcessing = (code) => {
     case 2:
     case 3:
     case 4:
+    case 5:
+    case 6:
     case 500:
     case 1001:
     case 1002:
@@ -167,6 +169,20 @@ export const StatusCodeProcessing = (code) => {
     case 1035:
     case 1036:
     case 1037:
+    case 1038:
+    case 1039:
+    case 1040:
+    case 1041:
+    case 1042:
+    case 1043:
+    case 1044:
+    case 1045:
+    case 1046:
+    case 1047:
+    case 1048:
+    case 1049:
+    case 1050:
+    case 1051:
       const tipsText = i18n.t(`httpStatus.status${code}`)
       message.error(tipsText);
       break;

@@ -281,6 +281,21 @@
       li {
         padding-left: 20px;
       }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+
+        span {
+          display: inline-block;
+          color: #3c3588;
+          margin-left: 10px;
+          width: 80px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
     }
 
     .wrapper-box {

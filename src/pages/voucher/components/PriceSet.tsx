@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { Button, Card, Input, message, Spin } from 'antd'
+import { Button, Card, Input, message, Spin, Tooltip } from 'antd'
 import "../scss/styles.scss"
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -85,8 +85,15 @@ const PriceSeting: FC<any> = (props: any) => {
 
       const address = await wallet.connectWallet(walletConfig)
       if (!address) {
-        return message.error(t('common.pleaseSwitchNetworks'))
+        return message.warning(t('common.pleaseSwitchNetworks'))
       }
+
+      const balance = await web3.eth.getBalance(address[0])
+      if (BigInt(balance) < BigInt(latValue + Complement)) {
+        return message.warning(t('common.currentWalletInsufficient'))
+      }
+      // return
+
       //数据授权
       setSpinning(true)
       setSubmting(true)
@@ -150,11 +157,12 @@ const PriceSeting: FC<any> = (props: any) => {
 
   const submit = async () => {
     const totalNum = total.replace(Complement, '')
-    console.log(totalNum)
+    // console.log(totalNum)
     if (BigInt(totalNum) < BigInt(mtsValue)) {
       message.warning(t('voucher.hasExceeded'))
       return
     }
+
     release()
   }
 
@@ -218,7 +226,9 @@ const PriceSeting: FC<any> = (props: any) => {
             <img src={exchange} alt="" />
           </div>
           <div className='price-mtstk'>
-            <p className='price-type-title'>{symbol}</p>
+            <Tooltip placement="top" title={symbol}>
+              <p className='price-type-title'>{symbol}</p>
+            </Tooltip>
             <p className='price-secondary-title'>{t('voucher.Circulation')}：{total && total.replace(Complement, '') || ''}</p>
             <div className='price-type-input'>
               <span>{t('voucher.Add')}</span>
@@ -235,7 +245,10 @@ const PriceSeting: FC<any> = (props: any) => {
         </div>
         <div className='exchange-button'>
           <Button className='but' onClick={goNoAttribute}>{t('common.return')}</Button>
-          <Button type="primary" className="but" loading={submting} onClick={submit}>{t('voucher.Confirm')}</Button>
+          <Button type="primary" className="but"
+            disabled={!(latValue && mtsValue)}
+            loading={submting}
+            onClick={submit}>{t('voucher.Confirm')}</Button>
         </div>
       </Card>
     </Spin>

@@ -1,6 +1,6 @@
 import { FC, useState, useEffect, useRef, createRef } from "react";
 import { useTranslation } from 'react-i18next'
-import { Table, Tabs, Button, message } from 'antd'
+import { Table, Tabs, Button, message, Tooltip } from 'antd'
 import { CopyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
@@ -10,7 +10,7 @@ import { Complement } from '@/utils/utils'
 
 const VoucherTable: FC<any> = (props: any) => {
   const { location } = props
-  const type = location?.state?.attributeType || ''
+  // const type = location?.state?.attributeType || ''
   // debugger
   const { t } = useTranslation(),
     [activeKey, setActiveKey] = useState(0),
@@ -37,7 +37,7 @@ const VoucherTable: FC<any> = (props: any) => {
   }, [curPage, activeKey])
 
   const viewFn = (row) => {
-    window.open(dexUrl)
+    window.open(`${dexUrl}?outputCurrency=${row.address}`)
   },
     setPrice = (row) => {
       history.push({
@@ -84,37 +84,42 @@ const VoucherTable: FC<any> = (props: any) => {
       title: t('voucher.VoucherName'),
       dataIndex: 'name',
       ellipsis: true,
+      width: '20%',
       className: "no-right-border"
     },
     {
       title: t('voucher.VoucherSymbol'),
       dataIndex: 'symbol',
+      width: '15%',
       ellipsis: true,
     },
     {
       title: t('voucher.VoucherTotalRelease'),
       dataIndex: 'total',
       ellipsis: true,
+      width: '15%',
       render: (text, record, index) => text && text.length > 18 ? text.replace(Complement, '') : ''
     },
     {
       title: t('voucher.ContractAddress'),
       dataIndex: 'address',
       ellipsis: true,
-      width: 360,
+      // width: 360,
       render: (text, record, index) =>
         text
           ? <>
             <CopyOutlined style={{ marginRight: '10px' }} onClick={() => copy(index)} />
-            <input style={{ position: 'absolute', height: '10px', width: '10px', opacity: 0, zIndex: -1 }} value={text} ref={(e) => refDom.current[index] = e} />
-            {text}
+            <input readOnly style={{ position: 'absolute', height: '10px', width: '10px', opacity: 0, zIndex: -1 }} value={text} ref={(e) => refDom.current[index] = e} />
+            <Tooltip placement="bottom" title={text} color="#fff" overlayClassName={'_tooltip'}>
+              {text}
+            </Tooltip>
           </>
           : '--'
     },
     {
       title: t('common.actions'),
       dataIndex: 'actions',
-      width: '100px',
+      width: '120px',
       render: (text: any, row: any, index: any) => {
         // 定价状态：0-未定价，1-已定价
         return <>
@@ -151,19 +156,22 @@ const VoucherTable: FC<any> = (props: any) => {
     setCurPage(page)
   }
 
-  const tableDom = <Table
-    dataSource={tableData}
-    columns={columns}
-    rowKey={(record: any) => record.id}
-    pagination={{
-      defaultCurrent: 1,
-      current: curPage,
-      defaultPageSize: 10,
-      showSizeChanger: false,
-      total: totalNum,
-      onChange: OnPageChange,
-    }}
-  />
+  const tableDom = (key) => {
+    return <Table
+      dataSource={tableData}
+      columns={columns}
+      key={key}
+      rowKey={(record: any) => record.id}
+      pagination={{
+        defaultCurrent: 1,
+        current: curPage,
+        defaultPageSize: 10,
+        showSizeChanger: false,
+        total: totalNum,
+        onChange: OnPageChange,
+      }}
+    />
+  }
 
   const callback = (key) => {
     setActiveKey(key)
@@ -176,10 +184,10 @@ const VoucherTable: FC<any> = (props: any) => {
       activeKey={String(activeKey)}
       tabBarGutter={20}>
       <TabPane tab={t('voucher.UnpricedVoucher')} key="0">
-        {tableDom}
+        {tableDom('Unpriced')}
       </TabPane>
       <TabPane tab={t('voucher.PricedVoucher')} key="1">
-        {tableDom}
+        {tableDom('priced')}
       </TabPane>
     </Tabs>
   </div>
