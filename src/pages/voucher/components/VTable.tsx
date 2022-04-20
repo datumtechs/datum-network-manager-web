@@ -10,10 +10,11 @@ import { Complement } from '@/utils/utils'
 
 const VoucherTable: FC<any> = (props: any) => {
   const { location } = props
-  // const type = location?.state?.attributeType || ''
+  const type = location?.state?.attributeType || ''
   // debugger
+  // console.log(type)
   const { t } = useTranslation(),
-    [activeKey, setActiveKey] = useState(0),
+    [activeKey, setActiveKey] = useState(type ? 1 : 0),
     [curPage, setCurPage] = useState(1),
     [totalNum, setTotalNum] = useState(0),
     [tableData, setTableData] = useState([]),

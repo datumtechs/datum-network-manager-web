@@ -274,14 +274,7 @@ const routes: Array<IRoute> = [
             component: handLazy('MyDataAddtion'),
             meta: { exact: true, title: '', icon: '', show: true },
           },
-          // {
-          //   name: 'dataAuthorization',
-          //   label: 'menu.dataAuthorization',
-          //   breadcrumbName: 'menu.dataAuthorization',
-          //   path: '/myData/dataAuthorization',
-          //   component: handLazy('DataAuthorization'),
-          //   meta: { exact: true, title: '', icon: '', show: true },
-          // },
+
           {
             name: 'authInfo',
             label: 'menu.viewAuthInfo',
@@ -324,6 +317,34 @@ const routes: Array<IRoute> = [
           },
         ],
       },
+
+      {
+        name: 'MetaDataDetail',
+        label: 'menu.metaDataDetail',
+        breadcrumbName: 'menu.metaDataDetail',
+        path: '/dataCenter/metaDataDetail',
+        component: handLazy('DataDetail'),
+        meta: { exact: true, title: '', icon: '', show: false },
+      },
+      {
+        name: 'Voucher',
+        label: 'menu.Voucher',
+        breadcrumbName: 'menu.Voucher',
+        path: '/voucher',
+        component: handLazy('Voucher'),
+        meta: { exact: false, title: '', icon: '', show: true },
+        isOpen: false,
+        children: [
+          {
+            name: 'NoAttributeVoucher',
+            label: 'menu.NoAttributeVoucher',
+            breadcrumbName: 'menu.NoAttributeVoucher',
+            path: '/voucher/NoAttribute',
+            component: handLazy('NoAttributeVoucher'),
+            meta: { exact: true, title: '', icon: '', show: true },
+          },
+        ]
+      },
       {
         name: 'computeTask',
         label: 'menu.computeTask',
@@ -347,88 +368,7 @@ const routes: Array<IRoute> = [
         path: '/tasks/TaskEvent',
         component: handLazy('TaskEvent'),
         meta: { exact: true, title: '', icon: '', show: false },
-      },
-      {
-        name: 'MetaDataDetail',
-        label: 'menu.metaDataDetail',
-        breadcrumbName: 'menu.metaDataDetail',
-        path: '/dataCenter/metaDataDetail',
-        component: handLazy('DataDetail'),
-        meta: { exact: true, title: '', icon: '', show: false },
-      },
-      // {
-      //   name: 'MyTemplate',
-      //   label: 'menu.MyTemplate',
-      //   breadcrumbName: 'menu.MyTemplate',
-      //   path: '/MyTemplate',
-      //   component: handLazy('MyTemplate'),
-      //   meta: { exact: true, title: '', icon: '', show: true },
-      // },
-      // {
-      //   name: 'CredentialInfo',
-      //   label: 'menu.CredentialInfo',
-      //   breadcrumbName: 'menu.CredentialInfo',
-      //   path: `/MyTemplate/CredentialInfo`,
-      //   component: handLazy('CredentialInfo'),
-      //   meta: { exact: true, title: '', icon: '', show: false },
-      // },
-      // {
-      //   name: 'PriceSet',
-      //   label: 'menu.PriceSet',
-      //   breadcrumbName: 'menu.PriceSet',
-      //   path: `/MyTemplate/PriceSet`,
-      //   component: handLazy('PriceSet'),
-      //   meta: { exact: true, title: '', icon: '', show: false },
-      // },
-      {
-        name: 'Voucher',
-        label: 'menu.Voucher',
-        breadcrumbName: 'menu.Voucher',
-        path: '/voucher',
-        component: handLazy('Voucher'),
-        meta: { exact: false, title: '', icon: '', show: true },
-        isOpen: false,
-        children: [
-          // {
-          //   name: 'TemplateVouvher',
-          //   label: 'menu.TemplateVouvher',
-          //   breadcrumbName: 'menu.TemplateVouvher',
-          //   path: '/voucher/Template',
-          //   component: handLazy('TemplateVouvher'),
-          //   meta: { exact: true, title: '', icon: '', show: true },
-          // },
-          {
-            name: 'NoAttributeVoucher',
-            label: 'menu.NoAttributeVoucher',
-            breadcrumbName: 'menu.NoAttributeVoucher',
-            path: '/voucher/NoAttribute',
-            component: handLazy('NoAttributeVoucher'),
-            meta: { exact: true, title: '', icon: '', show: true },
-          },
-          // ...[1, 2].map(_ => {
-          //   return {
-          //     name: 'VoucherDetails',
-          //     label: 'menu.VoucherDetails',
-          //     breadcrumbName: 'menu.VoucherDetails',
-          //     path: `/voucher/${_ == 1 ? 'NoAttribute' : 'Template'}/Detauls`,
-          //     component: handLazy('VoucherDetauls'),
-          //     meta: { exact: true, title: '', icon: '', show: false },
-          //   }
-          // }),
-          // ...[1, 2].map(_ => {
-          //   return {
-          //     name: 'PriceSet',
-          //     label: 'menu.PriceSet',
-          //     breadcrumbName: 'menu.PriceSet',
-          //     path: `/voucher/${_ == 1 ? 'NoAttribute' : 'Template'}/PriceSet`,
-          //     component: handLazy('PriceSet'),
-          //     meta: { exact: true, title: '', icon: '', show: false },
-          //   }
-          // }),
-        ],
-
-      },
-
+      }
     ]
   }
 ]

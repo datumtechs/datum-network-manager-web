@@ -175,16 +175,17 @@ const PriceSeting: FC<any> = (props: any) => {
       const { data, status } = res
       if (status === 0) {
         setSubmting(false)
-        goNoAttribute()
+        goNoAttribute('type')
       }
     }).catch(() => setSubmting(false))
   }
 
-  const goNoAttribute = () => {
+  const goNoAttribute = (type?) => {
     history.push({
       pathname: '/voucher/NoAttribute',
       state: {
-        attributeType: 'Unpriced',
+        attributeType: type == 'type' ? 'Un' : '',
+        // attributeType: 'Unpriced'
       },
     })
   }
@@ -245,7 +246,7 @@ const PriceSeting: FC<any> = (props: any) => {
         </div>
         <div className='exchange-button'>
           <Button className='but' onClick={goNoAttribute}>{t('common.return')}</Button>
-          <Button type="primary" className="but"
+          <Button type="primary" className="but _submit"
             disabled={!(latValue && mtsValue)}
             loading={submting}
             onClick={submit}>{t('voucher.Confirm')}</Button>
