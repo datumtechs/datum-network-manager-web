@@ -16,9 +16,8 @@ const TrendChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { width } = useWinWidth()
   const [curSwitch, curSwitchSet] = useState('data'),
-    { bgColor } = props,
-    [maxTotal, setMaxTotal] = useState(0)
-
+    { bgColor } = props
+  const { loginInfo } = props?.state?.loginInfo
   const getMonthsByNumber = (month: number) => {
     const newDays: string[] = []
     for (let i = 0; i < month; i++) {
@@ -56,35 +55,35 @@ const TrendChart: FC<any> = (props: any) => {
     },
   ]
 
-  const _yAxis = [
-    {
-      type: 'value',
-      max: 10,
-      axisLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-    },
-    {
-      type: 'value',
-      max: 10,
-      axisLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-    },
-    {
-      type: 'value',
-      max: 10,
-      axisLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-    },
-  ]
+  // const _yAxis = [
+  //   {
+  //     type: 'value',
+  //     max: 10,
+  //     axisLine: {
+  //       lineStyle: {
+  //         type: 'dashed'
+  //       }
+  //     }
+  //   },
+  //   {
+  //     type: 'value',
+  //     max: 10,
+  //     axisLine: {
+  //       lineStyle: {
+  //         type: 'dashed'
+  //       }
+  //     }
+  //   },
+  //   {
+  //     type: 'value',
+  //     max: 10,
+  //     axisLine: {
+  //       lineStyle: {
+  //         type: 'dashed'
+  //       }
+  //     }
+  //   },
+  // ]
 
 
 
@@ -163,9 +162,6 @@ const TrendChart: FC<any> = (props: any) => {
       overviewApi.localPowerStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
           const list1: any[] = [], list2: any[] = [], list3: any[] = []
-          // newOption.yAxis = _yAxis
-          // newOption.yAxis = _yAxis
-
 
           newOption.series[0] = { ...seriesCom[0] }
           newOption.series[0].data = res.data.map(_ => {
@@ -176,8 +172,6 @@ const TrendChart: FC<any> = (props: any) => {
               backupsData: _.totalMemoryValue
             }
           })
-          // newOption.yAxis[0].max = Math.max(...list1)
-
 
           newOption.series[1] = { ...seriesCom[1] }
           newOption.series[1].data = res.data.map(_ => {
@@ -188,9 +182,6 @@ const TrendChart: FC<any> = (props: any) => {
               backupsData: _.totalCoreValue
             }
           })
-          // newOption.yAxis[1].max = Math.max(...list2)
-
-
 
           newOption.series[2] = { ...seriesCom[2] }
           newOption.series[2].data = res.data.map(_ => {
@@ -201,9 +192,6 @@ const TrendChart: FC<any> = (props: any) => {
               backupsData: _.totalBandwidthValue
             }
           })
-          // newOption.yAxis[2].max = Math.max(...list3)
-          console.log(newOption.yAxis);
-          // 
         }
 
         chart.setOption(newOption, {
@@ -214,18 +202,8 @@ const TrendChart: FC<any> = (props: any) => {
     } else {
       overviewApi.localDataFileStatsTrendMonthly().then((res) => {
         if (res.status === 0 && res.data) {
-          // newOption.yAxis = {
-          //   show: true,
-          //   splitLine: {
-          //     lineStyle: {
-          //       type: 'dashed'
-          //     }
-          //   }
-          // }
           newOption.series[0] = { ...seriesCom[0] }
-          // newOption.series[0].data = res.data.map(_ => _.totalValue)
           newOption.series[0].data = res.data.map(_ => { return { value: +changeSizeObj(_.totalValue).size, backupsData: _.totalValue } })
-
         }
         chart.setOption(newOption, {
           replaceMerge: ['series']
@@ -243,20 +221,25 @@ const TrendChart: FC<any> = (props: any) => {
         <div className="data-name">
           {curSwitch === 'data' ? t('overview.dataAmountRosettaNet') : t('overview.powerRosettaNet')}
         </div>
-        <div className="data-switch">
-          <div
-            className={`switchBtn pointer ${curSwitch === 'data' ? 'active' : ''}`}
-            onClick={() => switchData('data')}
-          >
-            {t('overview.dataAmount')}
-          </div>
-          <div
-            className={`switchBtn pointer ${curSwitch === 'power' ? 'active' : ''}`}
-            onClick={() => switchData('power')}
-          >
-            {t('overview.computingPower')}
-          </div>
-        </div>
+        {
+          loginInfo.isAdmin ?
+            <div className="data-switch">
+              <div
+                className={`switchBtn pointer ${curSwitch === 'data' ? 'active' : ''}`}
+                onClick={() => switchData('data')}
+              >
+                {t('overview.dataAmount')}
+              </div>
+              <div
+                className={`switchBtn pointer ${curSwitch === 'power' ? 'active' : ''}`}
+                onClick={() => switchData('power')}
+              >
+                {t('overview.computingPower')}
+              </div>
+            </div> :
+            <div className="data-switch" style={{ backgroundColor: '#fff' }}>
+            </div>
+        }
       </div>
       <div id="totalData"></div>
     </div>

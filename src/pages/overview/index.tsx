@@ -5,9 +5,7 @@ import { changeSizeObj, BandwidthSizeObj } from '@utils/utils'
 import Card from './components/cards/Card'
 import PublishDataChart from './components/cards/PublishDataChart'
 import DataTrendChart from './components/cards/DataTrendChart'
-// import DataAmountCard from './components/cards/DataAmountCard'
 import TaskChart from './components/cards/TaskChart'
-// import RecordCard from './components/cards/RecordCard'
 import './scss/index.scss'
 
 

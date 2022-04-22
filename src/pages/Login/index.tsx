@@ -2,19 +2,19 @@ import { Button, message } from 'antd'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import MyWave from '@com/MyWave'
+// import MyWave from '@com/MyWave'
 import { loginApi } from '@api/index'
 import { connect } from 'react-redux'
-import './index.scss'
-
-import square1 from '@assets/images/1.img1.png'
-import square2 from '@assets/images/1.img2.png'
-import square3 from '@assets/images/1.img3.png'
-import cnSvg from '@assets/images/2.icon_cn.svg'
-import enSvg from '@assets/images/2.icon_en.svg'
+import loginIcon from '@assets/images/login/loginIcon.png'
+import representativeType from '@assets/images/login/representative-type.png'
+import en from '@assets/images/login/en.png'
+import ch from '@assets/images/login/ch.png'
+import CHHover from '@assets/images/login/CHHover.png'
+import ENHover from '@assets/images/login/ENHover.png'
 import samurai1 from '@assets/images/login/samurai-1.svg'
 import samurai2 from '@assets/images/login/samurai-2.svg'
 import metamask from '@assets/images/login/metamask-fox.svg'
+import './index.scss'
 
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -51,7 +51,8 @@ const Login = (props: any) => {
   const { t, i18n } = useTranslation(),
     history = useHistory(),
     { hash } = history.location,
-    fromPathAry = hash.replace(/#/, '')?.split('/')
+    fromPathAry = hash.replace(/#/, '')?.split('/'),
+    [languageHover, setLanguageHover] = useState(false)
   let redirectPath
   if (fromPathAry.length > 2) {
     redirectPath = `/${fromPathAry[1]}/${fromPathAry[2]}`
@@ -122,12 +123,6 @@ const Login = (props: any) => {
     loginFn()
   }
 
-  // chainName: 'PlatON开发网',
-  // chainId: 210309,
-  // rpcUrl: 'https://10.1.1.51:6789',
-  // symbol: 'LAT',
-  // blockExplorerUrl: 'https://uatscan.platon.network:1443/'
-
   const queryConfig = () => {
     loginApi.queryConfig().then((res: any) => {
       const { data } = res
@@ -162,6 +157,15 @@ const Login = (props: any) => {
 
   useEffect(() => {
     queryConfig()
+    // const dom = new Dotline({
+    //   dom: 'canves',////画布id
+    //   cw: 800,////画布宽
+    //   ch: 500,////画布高
+    //   ds: 50,////点的个数
+    //   r: 6,////圆点半径
+    //   dis: 80,////触发连线的距离,
+    // })
+    // dom.start()
   }, [])
 
 
@@ -172,32 +176,45 @@ const Login = (props: any) => {
 
   return (
     <div className="login-box">
-      <MyWave />
-      <div className="login-form-box">
-        <img src={square1} alt="" className="login-square-img1" />
-        <img src={square2} alt="" className="login-square-img2" />
-        <img src={square3} alt="" className="login-square-img3" />
-        <p className="login-ball1" />
-        <p className="login-ball2" />
-        <p className="login-ball3" />
-        <div className="text-box">
-          <p className="p1">{t('login.RosettaNet')}</p>
-          <p className="p2">{t('login.loginSlogan')}</p>
-          <p className="p3">{t('login.loginRemarks')}</p>
+      {/* <MyWave /> */}
+      <div className="login-form-box" >
+        <img className='logo' src={loginIcon} alt="" />
+        <div className='metis-left'>
+          <div style={{
+            height: '125px',
+            // 'wordSpacing': i18n.language == 'en' ? '5px' : '',
+            // letterSpacing: i18n.language == 'en' ? '0' : '5px',
+          }}>
+            <div className='metis-name'>{t('login.RosettaNet')}</div>
+            <p>{t('login.loginSlogan')}</p>
+          </div>
+          <img className='representative-type' src={representativeType} alt="" />
         </div>
         <div className="form-box">
-          <div className="switch-lang pointer" onClick={changeLanguage}>
-            {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
+          <div className='form-top'>
+            <div className="connector-title">Metamask {t('login.extension')}</div>
+            <div className="switch-lang pointer" onClick={changeLanguage}>
+              <div onMouseMove={() => setLanguageHover(true)} onMouseLeave={() => setLanguageHover(false)}>
+                {languageHover ?
+                  i18n.language === 'en' ? <img src={ch} alt="" /> : <img src={en} alt="" />
+                  :
+                  i18n.language === 'en' ? <img src={CHHover} alt="" /> : <img src={ENHover} alt="" />
+                }
+              </div>
+            </div>
           </div>
-          <div className="connector-title">Metamask {t('login.extension')}</div>
+
 
           {props.state.wallet.wallet ?
-            <>
-              <div onClick={queryToken} className={"connector-block connector-btn-active"}>
+            <div className='plug-in-list'>
+              <div onClick={queryToken} className={"connector-block"}>
                 <img src={metamask} alt="samurai" className="icon" />
                 <span className="text">Metamask</span>
               </div>
-            </>
+              <div className='login-remarks'>
+                {t('login.loginRemarks')}
+              </div>
+            </div>
             :
             <div className="samurai-box">
               <div className="samurai-line">
@@ -211,6 +228,7 @@ const Login = (props: any) => {
               <Button type="primary" className="install-btn" onClick={() => window.open(`https://devdocs.platon.network/docs/${i18n.language !== 'en' ? 'zh-CN' : 'en'}/MetaMask`)}>{t('login.install')}</Button>
             </div>
           }
+
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ import 'echarts/lib/component/grid'
 import useWinWidth from '@hooks/useWinWidth'
 import { overviewApi } from '@api'
 import { changeSizeObj, BandwidthSizeObj } from '@utils/utils'
+import { connect } from 'react-redux'
 
 
 
@@ -19,6 +20,7 @@ const PublishDataChart: FC<any> = (props: any) => {
   const { width } = useWinWidth()
   const [curSwitch, curSwitchSet] = useState('data')
   const { bgColor } = props
+  const { loginInfo } = props?.state?.loginInfo
   const getMonthsByNumber = (month: number) => {
     const newDays: string[] = []
     for (let i = 0; i < month; i++) {
@@ -235,24 +237,30 @@ const PublishDataChart: FC<any> = (props: any) => {
     <div className="publish-data-box">
       <div className="publish-data-title">
         <div className="data-name">{curSwitch === 'data' ? t('overview.myData') : t('overview.myPower')}</div>
-        <div className="data-switch">
-          <div
-            className={`switchBtn pointer ${curSwitch === 'data' ? 'active' : ''}`}
-            onClick={() => switchData('data')}
-          >
-            {t('overview.dataAmount')}
-          </div>
-          <div
-            className={`switchBtn pointer ${curSwitch === 'power' ? 'active' : ''}`}
-            onClick={() => switchData('power')}
-          >
-            {t('overview.computingPower')}
-          </div>
-        </div>
+
+        {
+          loginInfo.isAdmin ?
+            <div className="data-switch">
+              <div
+                className={`switchBtn pointer ${curSwitch === 'data' ? 'active' : ''}`}
+                onClick={() => switchData('data')}
+              >
+                {t('overview.dataAmount')}
+              </div>
+              <div
+                className={`switchBtn pointer ${curSwitch === 'power' ? 'active' : ''}`}
+                onClick={() => switchData('power')}
+              >
+                {t('overview.computingPower')}
+              </div>
+            </div> :
+            <div className="data-switch" style={{ backgroundColor: '#fff' }}>
+            </div>
+        }
       </div>
       <div id="publishData"></div>
     </div>
   )
 }
 
-export default PublishDataChart
+export default connect((state: any) => ({ state }))(PublishDataChart) 

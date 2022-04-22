@@ -30,6 +30,7 @@ const MyDataTable: FC<any> = (props: any) => {
     current: 1,
     defaultPageSize: 10,
   }
+  const { i18n } = useTranslation()
 
   const initTableData = () => {
     console.log(statusNum)
@@ -270,7 +271,7 @@ const MyDataTable: FC<any> = (props: any) => {
     },
     {
       title: t('common.actions'),
-      // width: 220,
+      width: i18n.language === 'en' ? 400 : 'auto',
       dataIndex: 'actions',
       // key: 'actions',
       render: (text: any, row: any, index: any) => {

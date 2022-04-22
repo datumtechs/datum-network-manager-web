@@ -13,6 +13,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'AlibabaPuHuiTi-Bold';
   src: url('./Alibaba-PuHuiTi-Bold.otf');
@@ -24,6 +25,12 @@
 @font-face {
   font-family: 'custom-iconfont';
   src: url('./icons/iconfont.woff2') format('woff2'),
-       url('./icons/iconfont.woff') format('woff'),
-       url('./icons/iconfont.ttf') format('truetype');
+    url('./icons/iconfont.woff') format('woff'),
+    url('./icons/iconfont.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'MiSans';
+  src: url('./MISans/MiSans-Heavy.ttf'),
+    url('./MISans/MiSans-Regular.ttf'),
 }
