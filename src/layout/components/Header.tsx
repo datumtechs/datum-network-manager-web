@@ -14,6 +14,7 @@ import Bread from './Bread'
 const Header = (props: any) => {
   const { loginInfo } = props.state.loginInfo
   const { orgInfo } = props.state.org || {}
+  const { address } = props.state.address || {}
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
   const { pathname } = useLocation()
@@ -22,7 +23,7 @@ const Header = (props: any) => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
     localStorage.setItem('i18n', i18n.language)
   }
-  // console.log(orgInfo)
+  console.log(address)
 
   const switchLogin = () => {
     props.sendAction()
@@ -52,8 +53,6 @@ const Header = (props: any) => {
     });
   }
   useEffect(() => {
-
-
     setmenus(menu(
       <>
         {juris('userCenter/Profile') ? <Menu.Item key="Profile" onClick={() => linkTo("/userCenter/Profile")}>{t('UserCenter.Profile')}</Menu.Item> : ""}
@@ -63,6 +62,11 @@ const Header = (props: any) => {
     ))
   }, [loginInfo])
 
+  const useAddressDisplay = (address: string) => {
+    if (!address) return ''
+    if (!address.startsWith('0x')) return address
+    return address.substring(0, 4) + '...' + address.substring(address.length - 4)
+  }
 
   return (
     <>
@@ -78,7 +82,7 @@ const Header = (props: any) => {
             <Dropdown overlay={menus} placement="bottomRight" arrow>
               <div className='user-info'>
                 <img src={menuSvg} alt="" />
-                <span>{orgInfo?.name || ''}</span>
+                <span>{useAddressDisplay(address) || ''}</span>
               </div>
             </Dropdown>
           </div>

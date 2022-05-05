@@ -239,7 +239,7 @@ const PublishDataChart: FC<any> = (props: any) => {
         <div className="data-name">{curSwitch === 'data' ? t('overview.myData') : t('overview.myPower')}</div>
 
         {
-          loginInfo.isAdmin ?
+          loginInfo?.isAdmin ?
             <div className="data-switch">
               <div
                 className={`switchBtn pointer ${curSwitch === 'data' ? 'active' : ''}`}

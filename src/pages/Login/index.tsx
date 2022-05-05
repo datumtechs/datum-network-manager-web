@@ -77,13 +77,10 @@ const Login = (props: any) => {
     })
     props.loginInfo(data.data)
     if (+connectNetworkStatus < 1) {
-      console.log(3)
       history.push({ pathname: '/didApplication', })
     } else if (redirectPath && redirectPath !== '/login') {
-      console.log(4, redirectPath)
       history.push(redirectPath)
     } else {
-      console.log(2)
       history.push('/')
     }
   }
@@ -98,7 +95,7 @@ const Login = (props: any) => {
       if (!address) {
         return message.error(t('common.pleaseSwitchNetworks'))
       }
-      console.log(1, address)
+      // console.log(1, address)
       const { data } = await loginApi.queryNonce()//2  获取 nonceId 
 
       const sign = await wallet.signForWallet(//3  获取签名  sign

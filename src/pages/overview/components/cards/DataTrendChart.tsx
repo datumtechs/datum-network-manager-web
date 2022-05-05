@@ -222,7 +222,7 @@ const TrendChart: FC<any> = (props: any) => {
           {curSwitch === 'data' ? t('overview.dataAmountRosettaNet') : t('overview.powerRosettaNet')}
         </div>
         {
-          loginInfo.isAdmin ?
+          loginInfo?.isAdmin ?
             <div className="data-switch">
               <div
                 className={`switchBtn pointer ${curSwitch === 'data' ? 'active' : ''}`}
