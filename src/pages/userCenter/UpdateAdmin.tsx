@@ -108,6 +108,11 @@ const UpdateAdmin: FC<any> = (props: any) => {
             placeholder={t('UserCenter.ProfileNamePlaceholder')}
           />
         </Form.Item>
+
+        <Form.Item colon label={t('UserCenter.builtWalletAddress')}
+          className="form-item">
+          <p className="title" style={{ paddingLeft: '11px' }}>{baseInfo?.carrierWallet}</p>
+        </Form.Item>
         {/* <Form.Item colon label={t('UserCenter.address')} name="address"
           className="form-item"
         >

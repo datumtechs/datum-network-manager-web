@@ -98,6 +98,11 @@ const Profile: FC<any> = (props: any) => {
           />
         </Form.Item>
 
+        <Form.Item colon label={t('UserCenter.builtWalletAddress')}
+          className="form-item">
+          <p className="title" style={{ paddingLeft: '11px' }}>{baseInfo?.carrierWallet}</p>
+        </Form.Item>
+
         <Form.Item colon label={t('UserCenter.ProfileOrganizationHead')}
           name="imageUrlText"
           rules={((): Rule[] => [

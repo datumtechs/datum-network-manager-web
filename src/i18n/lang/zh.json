@@ -37,7 +37,8 @@
     "address": "当前管理员",
     "nodeAddress": "节点地址",
     "nodeAddressIncorrect": "节点地址不正确",
-    "replaceNodeAddress": "请确认是否要将当前组织管理员替换为"
+    "replaceNodeAddress": "请确认是否要将当前组织管理员替换为",
+    "builtWalletAddress": "内置钱包地址"
   },
   "DidApplication": {
     "SetYourOrgName": "请设置机构识别名称",

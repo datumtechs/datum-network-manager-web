@@ -37,7 +37,8 @@
     "address": "Current Admin",
     "nodeAddress": "Node Address",
     "nodeAddressIncorrect": "The node address is incorrect",
-    "replaceNodeAddress": "Please confirm Replace Node Address is"
+    "replaceNodeAddress": "Please confirm Replace Node Address is",
+    "builtWalletAddress": "BuiltInWalletAddress"
   },
   "DidApplication": {
     "SetYourOrgName": "Set your organization name",
