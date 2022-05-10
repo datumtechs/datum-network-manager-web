@@ -1,12 +1,13 @@
 import { FC, useContext, useEffect, useRef, useState } from 'react'
-import { Form, Button, Input, message, Modal } from 'antd'
+import { Form, Button, Input, message, Modal, Tooltip } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import { BaseInfoContext } from '@/layout/index'
 import './index.scss'
 import { Rule } from 'antd/lib/form'
 import { loginApi } from '@api/index'
+import { filterAmount } from '@/utils/utils'
 
 const UpdateAdmin: FC<any> = (props: any) => {
   const [form] = Form.useForm(),
@@ -18,7 +19,7 @@ const UpdateAdmin: FC<any> = (props: any) => {
     [address, setAddress] = useState(props.state.address?.address || ''),
     [replaceAddress, setReplaceAddress] = useState(''),
     [isModalVisible, setModalVisible] = useState(false),
-    history = useHistory(),
+    [balance, setBalance] = useState('0'),
     formRef = useRef<any>(null),
     rules: Rule[] = ([{
       required: true, message: `${t('UserCenter.nodeAddressIncorrect')}`,
@@ -52,13 +53,13 @@ const UpdateAdmin: FC<any> = (props: any) => {
         address: address,
       })
     }
+    const { wallet: { web3 } } = props.state.wallet || {}
+    if (baseInfo.carrierWallet) web3.eth.getBalance(baseInfo.carrierWallet).then(amount => {
+      setBalance(filterAmount(String(amount)))
+    }).catch(console.log)
   }, [baseInfo])
 
   const edit = () => {
-    // if (baseInfo.status == 1) {
-    //   message.info(t('UserCenter.MetisInfoEdit'))
-    //   return
-    // }
     setDisabled(false)
   }
   const switchLogin = () => {
@@ -67,8 +68,6 @@ const UpdateAdmin: FC<any> = (props: any) => {
   }
 
   const submit = () => {
-    // switchLogin()
-    // return
     setLoading(true)
     loginApi.updateAdmin({ newAddress: replaceAddress }).then(res => {
       if (res.status == 0) {
@@ -111,7 +110,16 @@ const UpdateAdmin: FC<any> = (props: any) => {
 
         <Form.Item colon label={t('UserCenter.builtWalletAddress')}
           className="form-item">
-          <p className="title" style={{ paddingLeft: '11px' }}>{baseInfo?.carrierWallet}</p>
+          <div className='wallet-address-box'>
+            <p className="title" style={{ paddingLeft: '11px' }}>{baseInfo?.carrierWallet}</p>
+            <Tooltip placement="right" title={t('UserCenter.builtWalletTips')}>
+              <QuestionCircleOutlined style={{ fontSize: '20px', 'color': '#3C3588' }} />
+            </Tooltip>
+          </div>
+        </Form.Item>
+        <Form.Item colon label={t('UserCenter.builtWalletBalance')}
+          className="form-item">
+          <p className="title" style={{ paddingLeft: '11px' }}>{balance}     LAT</p>
         </Form.Item>
         {/* <Form.Item colon label={t('UserCenter.address')} name="address"
           className="form-item"

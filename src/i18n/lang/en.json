@@ -38,7 +38,9 @@
     "nodeAddress": "Node Address",
     "nodeAddressIncorrect": "The node address is incorrect",
     "replaceNodeAddress": "Please confirm Replace Node Address is",
-    "builtWalletAddress": "BuiltInWalletAddress"
+    "builtWalletAddress": "BuiltInWallet Address",
+    "builtWalletBalance": "BuiltInWallet Balance",
+    "builtWalletTips": "A non modifiable built-in wallet will be automatically generated during node initialization    The wallet is used for advance payment of the service charge of the task, and the service charge will be settled after the task is completed In order to ensure the normal operation of the task, please ensure that the balance in your wallet is sufficient"
   },
   "DidApplication": {
     "SetYourOrgName": "Set your organization name",

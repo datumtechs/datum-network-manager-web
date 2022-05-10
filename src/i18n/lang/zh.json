@@ -38,7 +38,9 @@
     "nodeAddress": "节点地址",
     "nodeAddressIncorrect": "节点地址不正确",
     "replaceNodeAddress": "请确认是否要将当前组织管理员替换为",
-    "builtWalletAddress": "内置钱包地址"
+    "builtWalletAddress": "内置钱包地址",
+    "builtWalletBalance": "内置钱包余额",
+    "builtWalletTips": "节点初始化时会自动生成不可修改的内置钱包.  该钱包用于任务手续费的垫付,在任务结束后会进行手续费清算.  为任务正常运行, 请确保钱包内余额充足."
   },
   "DidApplication": {
     "SetYourOrgName": "请设置机构识别名称",

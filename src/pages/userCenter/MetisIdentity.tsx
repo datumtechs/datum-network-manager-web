@@ -83,10 +83,10 @@ const MetisIdentity: FC<any> = (props: any) => {
             <Form.Item colon label={t('common.orgIdentify')} name="identityId" className="form-item">
               <p className="title">{baseInfo?.identityId}</p>
             </Form.Item>
-            <Form.Item colon label={t('UserCenter.builtWalletAddress')}
+            {/* <Form.Item colon label={t('UserCenter.builtWalletAddress')}
               className="form-item">
               <p className="title" style={{ paddingLeft: '11px' }}>{baseInfo?.carrierWallet}</p>
-            </Form.Item>
+            </Form.Item> */}
             {hasService ? ( // 是否已经连接
               <>
                 <Form.Item colon label={t('common.status')} className="form-item">

@@ -5,7 +5,7 @@ import { CopyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
 import { voucher as voucherApi } from '@api/index'
-import { Complement } from '@/utils/utils'
+import { filterAmount } from '@/utils/utils'
 
 
 const VoucherTable: FC<any> = (props: any) => {
@@ -99,7 +99,7 @@ const VoucherTable: FC<any> = (props: any) => {
       dataIndex: 'total',
       ellipsis: true,
       width: '15%',
-      render: (text, record, index) => text && text.length > 18 ? text.replace(Complement, '') : ''
+      render: (text, record, index) => filterAmount(text)
     },
     {
       title: t('voucher.ContractAddress'),

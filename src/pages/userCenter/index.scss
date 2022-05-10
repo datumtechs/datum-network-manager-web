@@ -1,4 +1,4 @@
-.userForm{
+.userForm {
   .form-item {
     .title {
       font-family: AlibabaPuHuiTi-Medium;
@@ -6,28 +6,32 @@
       color: #1d2832;
       letter-spacing: 0;
     }
-    .ant-input{
+
+    .ant-input {
       font-family: AlibabaPuHuiTi-Medium;
       font-size: 14px;
       color: #1d2832;
       letter-spacing: 0;
     }
-    .ant-input[disabled]{
+
+    .ant-input[disabled] {
       background: #fff;
       border: none;
     }
 
-    .info-dragger{
+    .info-dragger {
       background: #FAF9FF;
       border: 1px dashed #DBDCE7;
       border-radius: 2px;
       height: 140px;
+
       .anticon {
         font-size: 20px;
         color: #3C3588;
         margin-bottom: 4px;
       }
-      p{
+
+      p {
         font-family: PingFangSC-Medium;
         font-size: 12px;
         color: #3C3588;
@@ -36,13 +40,14 @@
         line-height: 20px;
         font-weight: 500;
       }
-      .head-img-lable{
+
+      .head-img-lable {
         position: absolute;
         bottom: -3px;
         left: 0;
         width: 100%;
         height: 34px;
-        background: rgba(0,0,0,.6);
+        background: rgba(0, 0, 0, .6);
         border-radius: 0px 0px 2px 2px;
         display: flex;
         align-items: center;
@@ -55,26 +60,32 @@
         line-height: 20px;
         font-weight: 500;
       }
-      .ant-upload{
-         padding: 0;
+
+      .ant-upload {
+        padding: 0;
       }
     }
-    .identfier-info-input{
+
+    .identfier-info-input {
       height: 140px !important;
-      textarea{
-      height: 100%;
+
+      textarea {
+        height: 100%;
       }
     }
-    .head-img{
+
+    .head-img {
       width: 100%;
       height: 100%;
       border: none;
     }
-    .ant-image{
+
+    .ant-image {
       height: 140px;
       width: 100%;
     }
-    .del{
+
+    .del {
       position: absolute;
       right: -10px;
       background-color: #fff;
@@ -82,18 +93,22 @@
       top: -10px;
       font-size: 24px;
       color: #F24B4B !important;
-      &:hover{
+
+      &:hover {
         cursor: pointer;
       }
     }
-    .clean{
+
+    .clean {
       position: absolute;
       bottom: 8.5px;
       right: 16px;
     }
-    .center{
+
+    .center {
       margin-top: 50px;
-      .but{
+
+      .but {
         margin: 0 10px;
         width: 150px;
         height: 40px;
@@ -105,12 +120,22 @@
         letter-spacing: 0;
         text-align: center;
         font-weight: 500;
-        &:nth-child(2){
+
+        &:nth-child(2) {
           border: 1px solid #3C3588;
           color: #3C3588;
           background: #fff;
         }
       }
+    }
+  }
+
+  .wallet-address-box {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-right: 20px;
     }
   }
 }

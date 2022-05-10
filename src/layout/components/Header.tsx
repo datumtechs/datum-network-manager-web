@@ -23,7 +23,6 @@ const Header = (props: any) => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
     localStorage.setItem('i18n', i18n.language)
   }
-  console.log(address)
 
   const switchLogin = () => {
     props.sendAction()
