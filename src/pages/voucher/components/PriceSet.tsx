@@ -8,22 +8,22 @@ import Big from 'big.js'
 import stepTwo from '@assets/images/voucher/step_two.svg'
 import exchange from '@assets/images/voucher/exchange.svg'
 import warning from '@assets/images/voucher/warning.svg'
-import ABIJson from '@/utils/DipoleRouter.json'//dex
-import ERC20 from '@/utils/ERC20.json'//恒涛提供
 import { voucher } from '@api'
+import ABIJson from '@/utils/DipoleRouter.json'// dex
+import ERC20 from '@/utils/ERC20.json'// 恒涛提供
 import { Complement } from '@/utils/utils'
 
 const PriceSeting: FC<any> = (props: any) => {
-  const { t } = useTranslation(),
-    history = useHistory(),
-    [routerToken, setRouterToken] = useState(''),
-    [latValue, setLatValue] = useState(''),
-    [mtsValue, setMstValue] = useState(''),
+  const { t } = useTranslation();
+    const history = useHistory();
+    const [routerToken, setRouterToken] = useState('');
+    const [latValue, setLatValue] = useState('');
+    const [mtsValue, setMstValue] = useState('');
     // [spinning, setSpinning] = useState(false),
-    [submting, setSubmting] = useState(false),
-    { walletConfig } = props.state,
-    { location } = props,
-    {
+    const [submting, setSubmting] = useState(false);
+    const { walletConfig } = props.state;
+    const { location } = props;
+    const {
       dataAddress, name,
       dataTokenId, total,
       symbol
@@ -38,7 +38,7 @@ const PriceSeting: FC<any> = (props: any) => {
   }
 
   const toAuthorization = async (web3, address) => {
-    const contract = new web3.eth.Contract(      //构建 数据 合约 
+    const contract = new web3.eth.Contract(      // 构建 数据 合约 
       ERC20,
       dataAddress
     );
@@ -49,7 +49,7 @@ const PriceSeting: FC<any> = (props: any) => {
     console.log(amound)
     if (amound > 0) return
 
-    await contract.methods.approve( //数据凭证授权
+    await contract.methods.approve( // 数据凭证授权
       routerToken,
       total
     ).send({ from: address })
@@ -72,21 +72,21 @@ const PriceSeting: FC<any> = (props: any) => {
         return message.warning(t('common.currentWalletInsufficient'))
       }
 
-      //数据授权
+      //  数据授权
       // setSpinning(true)
       setSubmting(true)
       await toAuthorization(web3, address[0])
-      //构建合约
+      //  构建合约
       const myContract = new web3.eth.Contract(
         ABIJson,
         routerToken,
       );
 
-      //获取nonce
+      //  获取nonce
       const nonce = await web3.eth.getTransactionCount(address[0])
 
       // setSpinning(false)
-      //ERC20 合约的方法签名
+      //  ERC20 合约的方法签名
       /**
        * function addLiquidityETH(
        *   address token,
@@ -97,15 +97,15 @@ const PriceSeting: FC<any> = (props: any) => {
        *   uint deadline
        * ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
        */
-      //发起交易
+      // 发起交易
 
       const contract = await myContract.methods.addLiquidityETH(
         dataAddress,
         mtsValue + Complement,// 兑换的值
         mtsValue + Complement,
         latValue + Complement,
-        address[0],//主账号 mainAddress
-        Date.now() + 1200000 //区块时间+20分钟
+        address[0],// 主账号 mainAddress
+        Date.now() + 1200000 // 区块时间+20分钟
       )
 
       const gas = await contract.estimateGas({
@@ -115,10 +115,11 @@ const PriceSeting: FC<any> = (props: any) => {
       const gasPrice = await web3.eth.getGasPrice()
       await contract.send({
         from: address[0],
-        value: latValue + Complement,//let
+        value: latValue + Complement,// let
         gas,
         gasPrice,
-      }).on('transactionHash', function (hash) {
+      }).on('transactionHash', (hash) => {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         sendTransactionData(nonce, hash)
       })
     } catch (e) {
@@ -149,6 +150,7 @@ const PriceSeting: FC<any> = (props: any) => {
       const { data, status } = res
       if (status === 0) {
         setSubmting(false)
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         goNoAttribute('type')
       }
     }).catch(() => setSubmting(false))
