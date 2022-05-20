@@ -25,8 +25,8 @@
     justify-content: space-between;
 
     .logo {
-      width: 52px;
-      height: 52px;
+      width: 104px;
+      height: 104px;
       top: 44px;
       left: 50px;
       position: absolute;
@@ -165,7 +165,9 @@
       font-weight: 800;
       color: #FFFFFF;
       line-height: 27px;
+      position: relative;
       cursor: pointer;
+      overflow: hidden;
 
       &:hover {
         background: rgba(217, 215, 241, 0.21);
@@ -189,4 +191,11 @@
       text-align: center;
     }
   }
+}
+
+.g-ripple {
+  position: absolute;	/* 通过top和left修改位置 */
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  
 }
