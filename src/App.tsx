@@ -33,14 +33,14 @@ const mapDispatchToProps = (dispatch: any) => ({
 
 
 
-const App: FC<any> = (props) => {
+const App: FC<any> = (props:any) => {
   const initralFn = () => {
-    const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth,
-      htmlDom = document.getElementsByTagName('html')[0]
+    const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+    const htmlDom = document.getElementsByTagName('html')[0]
     htmlDom.style.fontSize = `${htmlWidth / 13.66}px`
-  },
-    winWidth = useWinWidth(),
-    { i18n } = useTranslation()
+  };
+    const winWidth = useWinWidth();
+    const { i18n } = useTranslation()
 
   useEffect(() => initralFn(), [winWidth])
   useEffect(() => {
@@ -56,6 +56,7 @@ const App: FC<any> = (props) => {
           props.setLoginInfo()
         }
       })
+    
       WEB3.eth.on('chainChanged', account => {
         console.log('网络变化', myStore.getState())
         const info: any = myStore.getState().loginInfo

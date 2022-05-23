@@ -1,5 +1,7 @@
-import i18n from '@/i18n/config'
 import { message } from 'antd'
+import i18n from '@/i18n/config'
+
+const EXCEPTION_MAP: string[] = ["4001", "4100", "4200", "4900", "4901", "-32700", "-32600", "-32601", "-32602", "32603"]
 
 export const Complement = '000000000000000000'
 export const filterAmount = (str: string): string => {
@@ -125,9 +127,20 @@ export const formatDuring = time => {
 
 export const buttonDisabled = () => {
   const hostListExtends = ['192.168.10.146', '192.168.10.147', '192.168.10.148']
+  // eslint-disable-next-line compat/compat
   const hostName = location.hostname
   return hostListExtends.includes(hostName)
 }
+
+export const filterWeb3Code = (code: any): string => {
+  let text = code
+  if (!code) return 'unknown'
+  if (!EXCEPTION_MAP.includes(code.toString())) {
+    text = 'unknown'
+  }
+  return text
+}
+
 
 
 export const StatusCodeProcessing = (code) => {
@@ -144,6 +157,7 @@ export const StatusCodeProcessing = (code) => {
     case 1003:
     case 1004:
     // case 1005:
+    // eslint-disable-next-line no-fallthrough
     case 1006:
     case 1007:
     case 1008:
@@ -190,6 +204,7 @@ export const StatusCodeProcessing = (code) => {
     case 1049:
     case 1050:
     case 1051:
+      // eslint-disable-next-line no-case-declarations
       const tipsText = i18n.t(`httpStatus.status${code}`)
       message.error(tipsText);
       break;

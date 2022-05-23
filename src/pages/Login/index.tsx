@@ -5,8 +5,9 @@ import { useHistory } from 'react-router-dom'
 // import MyWave from '@com/MyWave'
 import { loginApi } from '@api/index'
 import { connect } from 'react-redux'
-import loginIcon from '@assets/images/login/loginIcon.png'
+// import loginIcon from '@assets/images/login/loginIcon.png'
 import { useSpring, animated } from 'react-spring';
+import {filterWeb3Code} from '@utils/utils'
 
 import representativeType from '@assets/images/login/representative-type.png'
 import en from '@assets/images/login/en.png'
@@ -131,8 +132,9 @@ const Login = (props: any) => {
       headLoginParams(loginInfo)
       isClick.current = true
       isInit.current = true
-    } catch (error) {
+    } catch (error:any) {
       console.log(error)
+      message.error(t(`exception.${filterWeb3Code(error.code)}`))
       isInit.current = true
       isClick.current = true
     }
