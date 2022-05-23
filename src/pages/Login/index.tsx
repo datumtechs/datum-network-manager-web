@@ -245,9 +245,9 @@ const Login = (props: any) => {
                     <img src={metamask} alt="samurai" className="icon" />
                     <span className="text">Metamask</span>
               </div>
-              <div className='login-remarks'>
+              {/* <div className='login-remarks'>
                 {t('login.loginRemarks')}
-              </div>
+              </div> */}
             </div>
             :
             <div className="samurai-box">
