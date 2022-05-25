@@ -19,11 +19,11 @@ class Web3Service {
   _getAbiForLogin(nonceId) {
     return JSON.stringify({
       domain: {
-        name: 'Metis'
+        name: 'Datum'
       },
       message: {
         key: nonceId,
-        desc: 'Welcome to Metis!'
+        desc: 'Welcome to Datum!'
       },
       primaryType: 'Login',
       types: {
@@ -56,7 +56,7 @@ class Web3Service {
   _getAbiForTx(address) {
     return JSON.stringify({
       domain: {
-        name: 'Metis'
+        name: 'Datum'
       },
       message: {
         address
@@ -112,13 +112,13 @@ class Web3Service {
     // eslint-disable-next-line radix
     if (parseInt(newChainId) !== obj.chain_id) return false
 
-    try {
-      address = await this.eth.request({
-        method: 'eth_requestAccounts'
-      })
-    } catch (error) {
-      console.log(error)
-    }
+  
+
+    address = await this.eth.request({
+      method: 'eth_requestAccounts'
+    })
+    // const newAddress =  await this.web3.eth.currentProvider // .add(address[0])
+    // console.log(newAddress)
     return address
   }
 

@@ -7,12 +7,18 @@ import { formatDuring } from '@utils/utils'
 const StepIcon: FC<any> = (props: any) => {
   return <div className={`step-icon ${props.scolor}`}></div>
 }
-const fmtTime = time => {
+const fmtTime = (time: any, startAt?: any) => {
+  if(startAt && startAt.indexOf('1970') > -1) return '00:00:00'
+  if(time.indexOf('1970') > -1) return '00:00:00'
   return time ? dayjs(time).format('HH:mm:ss') : ''
 }
 const LastStep: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { status, endAt, startAt } = props
+  let newStartAt = ''
+  let newEndAt = ''
+  if (endAt.indexOf('1970') > -1) newEndAt = '00:00:00'
+  if (startAt.indexOf('1970') > -1) newStartAt = '00:00:00'
   return (
     <>
       <p>
@@ -21,7 +27,7 @@ const LastStep: FC<any> = (props: any) => {
       </p>
       {status === 4 ? (
         <p>
-          {t('task.step.timeSpent')}: &nbsp;{formatDuring(dayjs(endAt).valueOf() - dayjs(startAt).valueOf())}
+          {t('task.step.timeSpent')}: &nbsp;{newEndAt|| newStartAt ? '': formatDuring(dayjs(endAt).valueOf() - dayjs(startAt).valueOf())}
         </p>
       ) : (
         ''
@@ -52,12 +58,12 @@ const EventStep: FC<any> = (props: any) => {
     >
       <Step title={fmtTime(createAt)} icon={<StepIcon scolor="active" />} description={t('task.step.start')} />
       <Step
-        title={fmtTime(startAt)}
-        icon={<StepIcon scolor="active" />}
+        title={status > 1 ? fmtTime(startAt) : ''}
+        icon={<StepIcon scolor={status > 1 ? 'active' : ''} />}
         description={t('task.step.beginCompute')}
       />
       <Step
-        title={fmtTime(endAt)}
+        title={status > 2? fmtTime(endAt,startAt) : ''}
         className={status === 3 ? 'step-error' : ''}
         icon={<StepIcon scolor={status === 4 ? 'active' : ''} />}
         description={<LastStep status={status} startAt={startAt} endAt={endAt} />}

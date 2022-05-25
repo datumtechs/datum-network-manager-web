@@ -1,7 +1,7 @@
+import debounce from 'lodash/debounce';
 import { Select, Spin } from 'antd';
 import { useState, useRef, useMemo, FC, useEffect } from 'react'
 import { SelectProps } from 'antd/es/select';
-import debounce from 'lodash/debounce';
 
 export const DebounceSelect: FC<any> = (props: any) => {
   const [fetching, setFetching] = useState(false);

@@ -2,9 +2,9 @@ import { FC, useEffect, useLayoutEffect, useState } from 'react'
 import { Select } from 'antd';
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+import { voucher } from '@api'
 import "./scss/styles.scss"
 import { DebounceSelect } from './components/DebounceSelect'
-import { voucher } from '@api'
 
 interface UserValue {
   label: string;
@@ -12,12 +12,12 @@ interface UserValue {
 }
 
 const Details: FC<any> = (props: any) => {
-  const { t } = useTranslation(),
-    history = useHistory(),
-    { location } = props,
-    { dataId } = location?.state || {},
-    [value, setValue] = useState(dataId || null),
-    [optionList, setOptionList] = useState([])
+  const { t } = useTranslation();
+    const history = useHistory();
+    const { location } = props;
+    const { dataId } = location?.state || {};
+    const [value, setValue] = useState(dataId || null);
+    const [optionList, setOptionList] = useState([])
 
 
   const fetchUserList = async (keyword: string): Promise<UserValue[]> => {
@@ -82,7 +82,7 @@ const Details: FC<any> = (props: any) => {
               }}
               fetchOptions={fetchUserList}
             />
-            <div className={`button`} onClick={submit}>{t('common.select')}</div>
+            <div className="button" onClick={submit}>{t('common.select')}</div>
           </div>
           <div className='attributed credentials'>
             <h3 className='credentials-title'>{t('voucher.attributedTitle')}</h3>

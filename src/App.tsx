@@ -40,36 +40,33 @@ const App: FC<any> = (props:any) => {
     htmlDom.style.fontSize = `${htmlWidth / 13.66}px`
   };
     const winWidth = useWinWidth();
-    const { i18n } = useTranslation()
+  const { i18n } = useTranslation()
+  const walletChange = () => {
+    const info: any = myStore.getState().loginInfo
+    if (info?.loginInfo?.address) {
+      props.loginOut()
+      props.setLoginInfo()
+    }
+  }
 
   useEffect(() => initralFn(), [winWidth])
   useEffect(() => {
     const WEB3 = new Web3Service()
     if (WEB3.eth) {
-
       props.updataWallet(WEB3)
       WEB3.eth.on('accountsChanged', account => {
-        console.log('账号变化',)
-        const info: any = myStore.getState().loginInfo
-        if (info?.loginInfo?.address) {
-          props.loginOut()
-          props.setLoginInfo()
-        }
+         walletChange()
       })
     
       WEB3.eth.on('chainChanged', account => {
-        console.log('网络变化', myStore.getState())
-        const info: any = myStore.getState().loginInfo
-        if (info?.loginInfo?.address) {
-          props.loginOut()
-          props.setLoginInfo()
-        }
+         walletChange()
       })
     } else {
       props.updataWallet(undefined)
     }
   }, [])
 
+  
 
   return (
     <ConfigProvider locale={i18n.language === 'zh' ? zh : en}>

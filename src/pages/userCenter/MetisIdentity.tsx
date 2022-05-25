@@ -3,18 +3,18 @@ import { Form, Button, Spin, message, Modal } from 'antd'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import '@pages/nodeMgt/scss/index.scss'
-import { BaseInfoContext } from '@/layout/index'
 import { nodeApi } from '@api/index'
 import MyTag from '@com/MyTag'
 import { ExclamationCircleOutlined, LoadingOutlined } from '@ant-design/icons'
+import { BaseInfoContext } from '@/layout/index'
 
 const MetisIdentity: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
   const [hasService, setHasService] = useState<boolean>(false) // 是否已经连接
-  const [modal2Visible, setModal2Visible] = useState<boolean>(false), // 提示
-    [loading, setLoading] = useState(false)
+  const [modal2Visible, setModal2Visible] = useState<boolean>(false); // 提示
+    const [loading, setLoading] = useState(false)
   const onFinish = () => { }
   const onFinishFailed = () => { }
 

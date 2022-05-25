@@ -11,7 +11,7 @@ import warning from '@assets/images/voucher/warning.svg'
 import { voucher } from '@api'
 import ABIJson from '@/utils/DipoleRouter.json'// dex
 import ERC20 from '@/utils/ERC20.json'// 恒涛提供
-import { Complement } from '@/utils/utils'
+import { Complement,filterWeb3Code } from '@/utils/utils'
 
 const PriceSeting: FC<any> = (props: any) => {
   const { t } = useTranslation();
@@ -60,9 +60,13 @@ const PriceSeting: FC<any> = (props: any) => {
     const { wallet } = props.state.wallet || {}
     try {
       const { web3 } = wallet
-
+       
+      const flag = await wallet.eth.isConnected()// 判断是否连接当前网络
+      if (!flag) return
       // 1 获取地址
+      
       const address = await wallet.connectWallet(walletConfig)
+      // debugger
       if (!address) {
         return message.warning(t('common.pleaseSwitchNetworks'))
       }
@@ -122,11 +126,12 @@ const PriceSeting: FC<any> = (props: any) => {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         sendTransactionData(nonce, hash)
       })
-    } catch (e) {
+    } catch (e:any) {
       setSubmting(false)
       // setSpinning(false)
+      message.error(t(`exception.${filterWeb3Code(e.code)}`))
       console.log('发起交易失败', e)
-      message.warning(t('tip.operationFailed'))
+      // message.warning(t('tip.operationFailed'))
     }
   }
 

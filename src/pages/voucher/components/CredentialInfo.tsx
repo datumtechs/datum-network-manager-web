@@ -4,23 +4,23 @@ import { Button, Card, Form, Input, InputNumber, message, Row } from 'antd'
 import "../scss/styles.scss"
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { voucher } from '@api'
 import stepone from '@assets/images/voucher/step_one.svg'
 import ABIJson from '@/utils/DataTokenFactory.json'
-import { Complement } from '@/utils/utils'
-import { voucher } from '@api'
+import { Complement ,filterWeb3Code} from '@/utils/utils'
 import { requestCancel } from '@/utils/loading'
 
 const CredentialInfo: FC<any> = (props: any) => {
-  const { t } = useTranslation(),
-    history = useHistory(),
-    form = useRef<any>(),
-    [dataTokenFactory, setDataTokenFactory] = useState(''),
+  const { t } = useTranslation();
+    const history = useHistory();
+    const form = useRef<any>();
+    const [dataTokenFactory, setDataTokenFactory] = useState('');
     // [paramsData, setParams] = useState<any>({}),
-    { walletConfig } = props.state,
-    { location } = props,
-    { dataTokenId, metaDataId, metaDataName, dataId } = location.state,
-    [loading, setLoading] = useState(false),
-    submiting = useRef(false)
+    const { walletConfig } = props.state;
+    const { location } = props;
+    const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
+    const [loading, setLoading] = useState(false);
+    const submiting = useRef(false)
 
   const initialState: any = useRef()
 
@@ -32,20 +32,20 @@ const CredentialInfo: FC<any> = (props: any) => {
       setLoading(true)
       submiting.current = true
       // 1 获取地址
-      const flag = await wallet.eth.isConnected()//判断是否连接当前网络
+      const flag = await wallet.eth.isConnected()// 判断是否连接当前网络
       if (!flag) return
       const address = await wallet.connectWallet(walletConfig)
       if (!address) {
         return message.error(t('common.pleaseSwitchNetworks'))
       }
-      //构建合约
+      // 构建合约
       const myContract = new web3.eth.Contract(
         ABIJson,
         dataTokenFactory,
       );
       const nonce = await web3.eth.getTransactionCount(address[0])
 
-      //发起交易
+      // 发起交易
       await myContract.methods.createToken(
         params.name,
         params.symbol,
@@ -54,14 +54,16 @@ const CredentialInfo: FC<any> = (props: any) => {
         metaDataId
       ).send({
         from: address[0]
-      }).on('transactionHash', function (hash) {
+      }).on('transactionHash',  (hash)=> {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         sendTransactionData(params, nonce, hash)
       })
 
 
-    } catch (e) {
-      message.warning(t('tip.operationFailed'))
+    } catch (e:any) {
+      // message.warning(t('tip.operationFailed'))
       setLoading(false)
+      message.error(t(`exception.${filterWeb3Code(e.code)}`))
       submiting.current = false
     }
   }
@@ -107,7 +109,7 @@ const CredentialInfo: FC<any> = (props: any) => {
     voucher.postTransaction({
       "desc": params.DescriptionValue,
       "hash": hash,
-      "metaDataId": dataId,//metaDataId,
+      "metaDataId": dataId,// metaDataId,
       "name": params.name,
       "symbol": params.symbol,
       "total": params.initialSupply + Complement,

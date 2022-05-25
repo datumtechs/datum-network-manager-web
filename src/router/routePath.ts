@@ -44,16 +44,14 @@ export const routerParams = {
   DidApplication: import('@/pages/did/DidApplication').then(handDefault),
   SeedNodeMgt: import('@/pages/nodeMgt/SeedNode/SeedNodeMgt').then(handDefault),
   AddSeedNode: import('@/pages/nodeMgt/SeedNode/AddSeedNode').then(handDefault),
-  DataDetail: import('@/components/DataDetail').then(handDefault.bind(this, 'DataDetail')),//处理文件到处多个节点问题
+  DataDetail: import('@/components/DataDetail').then(handDefault.bind(this, 'DataDetail')),// 处理文件到处多个节点问题
 
   MetisIdentity: import('@/pages/userCenter/MetisIdentity').then(handDefault),
   Profile: import('@/pages/userCenter/Profile').then(handDefault),
   UpdateAdmin: import('@/pages/userCenter/UpdateAdmin').then(handDefault),
 
   Voucher: import('@/pages/voucher').then(handDefault),
-  //TemplateVouvher: import('@pages/voucher/Template').then(handDefault),
   NoAttributeVoucher: import('@pages/voucher/NoAttribute').then(handDefault),
-  //VoucherDetauls: import('@pages/voucher/components/Detail').then(handDefault),
   PriceSet: import('@pages/voucher/components/PriceSet').then(handDefault),
   CredentialInfo: import('@pages/voucher/components/CredentialInfo').then(handDefault),
 

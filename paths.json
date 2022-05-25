@@ -2,33 +2,15 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@*": [
-        "src/*"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@api/*": [
-        "src/api/*"
-      ],
-      "@com/*": [
-        "src/components/*"
-      ],
-      "@util/*": [
-        "src/utils/*"
-      ],
-      "@il8n/*": [
-        "src/il8n/*"
-      ],
-      "@hooks/*": [
-        "src/hooks/*"
-      ],
-      "@constant/*": [
-        "src/constant/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ]
+      "@*": ["src/*"],
+      "@pages/*": ["src/pages/*"],
+      "@api/*": ["src/api/*"],
+      "@com/*": ["src/components/*"],
+      "@util/*": ["src/utils/*"],
+      "@il8n/*": ["src/il8n/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@constant/*": ["src/constant/*"],
+      "@assets/*": ["src/assets/*"]
     }
   }
 }
