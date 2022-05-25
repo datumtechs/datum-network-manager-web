@@ -4,7 +4,7 @@
     "removeComments": true,
     "lib": [
       "dom",
-      "dom.iterable",
+      "dom.iterable", 
       "esnext"
     ],
     "allowJs": true,
