@@ -92,6 +92,7 @@ module.exports = function (proxy, allowedHost) {
     },
     https: getHttpsConfig(),
     host,
+    port: 8080,// 启动端口
     overlay: false,
     historyApiFallback: {
       // Paths with dots should still use the history fallback.
