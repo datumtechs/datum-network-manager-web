@@ -3,6 +3,7 @@ import { Form, Button, Input, message, Modal, Tooltip } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
+// eslint-disable-next-line import/order
 import { BaseInfoContext } from '@/layout/index'
 import './index.scss'
 import { Rule } from 'antd/lib/form'
@@ -10,18 +11,18 @@ import { loginApi } from '@api/index'
 import { filterAmount } from '@/utils/utils'
 
 const UpdateAdmin: FC<any> = (props: any) => {
-  const [form] = Form.useForm(),
-    { t, i18n } = useTranslation(),
-    baseInfo = useContext(BaseInfoContext),
-    [disabled, setDisabled] = useState(true),
-    [loading, setLoading] = useState(false),
-    [wallet, setWallet] = useState<any>(props.state.wallet?.wallet),
-    [address, setAddress] = useState(props.state.address?.address || ''),
-    [replaceAddress, setReplaceAddress] = useState(''),
-    [isModalVisible, setModalVisible] = useState(false),
-    [balance, setBalance] = useState('0'),
-    formRef = useRef<any>(null),
-    rules: Rule[] = ([{
+  const [form] = Form.useForm();
+    const { t, i18n } = useTranslation();
+    const baseInfo = useContext(BaseInfoContext);
+    const [disabled, setDisabled] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [wallet, setWallet] = useState<any>(props.state.wallet?.wallet);
+    const [address, setAddress] = useState(props.state.address?.address || '');
+    const [replaceAddress, setReplaceAddress] = useState('');
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [balance, setBalance] = useState('0');
+    const formRef = useRef<any>(null);
+    const rules: Rule[] = ([{
       required: true, message: `${t('UserCenter.nodeAddressIncorrect')}`,
       validateTrigger: 'blur',
     }, {
@@ -29,9 +30,10 @@ const UpdateAdmin: FC<any> = (props: any) => {
       validator: (_, value) => {
         if (wallet.web3.utils.isAddress(value)) {
           return Promise.resolve()
-        } else {
-          return Promise.reject(`${t('UserCenter.nodeAddressIncorrect')}`)//nodeAddressIncorrect
-        }
+        } 
+          // eslint-disable-next-line prefer-promise-reject-errors
+          return Promise.reject(`${t('UserCenter.nodeAddressIncorrect')}`)// nodeAddressIncorrect
+        
       }
     }])
 
@@ -50,11 +52,13 @@ const UpdateAdmin: FC<any> = (props: any) => {
     if (disabled) {
       formRef.current!.setFieldsValue({
         ProfileName: baseInfo?.name,
-        address: address,
+        address,
       })
     }
     const { wallet: { web3 } } = props.state.wallet || {}
     if (baseInfo.carrierWallet) web3.eth.getBalance(baseInfo.carrierWallet).then(amount => {
+      console.log(amount)
+      // debugger
       setBalance(filterAmount(String(amount)))
     }).catch(console.log)
   }, [baseInfo])

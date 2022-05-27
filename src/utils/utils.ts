@@ -1,4 +1,5 @@
 import { message } from 'antd'
+import Big from 'big.js'
 import i18n from '@/i18n/config'
 
 const EXCEPTION_MAP: string[] = ["4001", "4100", "4200", "4900", "4901", "-32700", "-32600", "-32601", "-32602", "32603"]
@@ -6,7 +7,7 @@ const EXCEPTION_MAP: string[] = ["4001", "4100", "4200", "4900", "4901", "-32700
 export const Complement = '000000000000000000'
 export const filterAmount = (str: string): string => {
   if (!str) return ''
-  if (str.length > 18) return str.replace(Complement, '');
+  if (str.length > 18) return `${new Big(str).div(new Big(10).pow(18))}`
   return str
 }
 

@@ -92,7 +92,7 @@ module.exports = function (proxy, allowedHost) {
     },
     https: getHttpsConfig(),
     host,
-    port: 8080,// 启动端口
+    port: 8088,// 启动端口
     overlay: false,
     historyApiFallback: {
       // Paths with dots should still use the history fallback.
@@ -104,8 +104,8 @@ module.exports = function (proxy, allowedHost) {
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
     proxy: {
       '/metis-admin': {
-        target: 'http://192.168.10.147:9090',
-        // target: 'http://192.168.9.152:9090',
+        // target: 'http://192.168.10.147:9090',
+        target: 'http://192.168.10.152:9090',
         // target: 'http://192.168.21.40:9090',
         changeOrigin: true,
         pathRewrite: {
