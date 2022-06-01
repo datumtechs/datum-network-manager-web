@@ -26,28 +26,28 @@ const StepThree: FC<any> = (props) => {
     <p className="title center">
       {t('DidApplication.SetYourStepThreeTitle')}
     </p>
-    <div className="metis-internet-status center">
+    <div className="Datum-internet-status center">
       <p>
-        <span className="status-lable">{t('DidApplication.MetisInternerStatu')}:</span>
+        <span className="status-lable">{t('DidApplication.DatumInternerStatu')}:</span>
         {props?.baseInfo?.carrierConnStatus !== 'enabled' ?
-          <span className="error">{t('DidApplication.MetisInternerStatuError')}</span> :
-          <span className="success">{t('DidApplication.MetisInternerStatuSuccess')}</span>}
+          <span className="error">{t('DidApplication.DatumInternerStatuError')}</span> :
+          <span className="success">{t('DidApplication.DatumInternerStatuSuccess')}</span>}
       </p>
       {props?.baseInfo?.carrierConnStatus !== 'enabled' ? <p className="operation-tips-error">
         <WarningFilled />
 
-        {t('DidApplication.MetisInternerOperationError')}
+        {t('DidApplication.DatumInternerOperationError')}
       </p> :
         <p className="operation-tips-success">
-          {t('DidApplication.MetisInternerOperation')}
+          {t('DidApplication.DatumInternerOperation')}
         </p>}
     </div>
     <div className="center">
       <Button type="primary" className="but" onClick={connect}>
-        {t('DidApplication.MetisInternerOperationSubmit')}
+        {t('DidApplication.DatumInternerOperationSubmit')}
       </Button>
       <Button className="but" onClick={noConnect}>
-        {t('DidApplication.MetisInternerOperationLater')}
+        {t('DidApplication.DatumInternerOperationLater')}
       </Button>
     </div>
   </>

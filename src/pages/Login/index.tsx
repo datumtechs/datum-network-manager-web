@@ -19,7 +19,8 @@ import samurai2 from '@assets/images/login/samurai-2.svg'
 import metamask from '@assets/images/login/metamask-fox.svg'
 
 import './index.scss'
-import logoSvg from '../../assets/images/logo1.svg'
+// import logoSvg from '../../assets/images/logo1.svg'
+import logoSvg from '../../assets/images/logo.png'
 
 const mapDispatchToProps = (dispatch: any) => ({
   InfoCompleteness: (data) => {

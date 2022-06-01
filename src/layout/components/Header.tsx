@@ -55,7 +55,7 @@ const Header = (props: any) => {
     setmenus(menu(
       <>
         {juris('userCenter/Profile') ? <Menu.Item key="Profile" onClick={() => linkTo("/userCenter/Profile")}>{t('UserCenter.Profile')}</Menu.Item> : ""}
-        {juris('userCenter/userInfo') ? <Menu.Item key="MetisIdentity" onClick={() => linkTo("/userCenter/userInfo")}>{t('UserCenter.MetisIdentity')}</Menu.Item> : ""}
+        {juris('userCenter/userInfo') ? <Menu.Item key="DatumIdentity" onClick={() => linkTo("/userCenter/userInfo")}>{t('UserCenter.DatumIdentity')}</Menu.Item> : ""}
         {juris('userCenter/updateAdmin') ? <Menu.Item key="updateAdmin" onClick={() => linkTo("/userCenter/updateAdmin")}>{t('UserCenter.updateAdmin')}</Menu.Item> : ""}
       </>
     ))

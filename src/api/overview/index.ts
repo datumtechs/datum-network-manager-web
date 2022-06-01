@@ -16,7 +16,7 @@ const overviewApi = {
   //   })
   // },
 
-  // 查询总计算资源占用情况 /metis-admin/api/v1/system/index/queryUsedTotalResource
+  // 查询总计算资源占用情况 /datum-admin/api/v1/system/index/queryUsedTotalResource
   // 查询本地计算资源占用情况
   queryUsedTotalResource(): Promise<any> {
     return axios({
