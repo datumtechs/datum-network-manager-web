@@ -46,7 +46,7 @@ export const routerParams = {
   AddSeedNode: import('@/pages/nodeMgt/SeedNode/AddSeedNode').then(handDefault),
   DataDetail: import('@/components/DataDetail').then(handDefault.bind(this, 'DataDetail')),// 处理文件到处多个节点问题
 
-  MetisIdentity: import('@/pages/userCenter/MetisIdentity').then(handDefault),
+  DatumIdentity: import('@/pages/userCenter/DatumIdentity').then(handDefault),
   Profile: import('@/pages/userCenter/Profile').then(handDefault),
   UpdateAdmin: import('@/pages/userCenter/UpdateAdmin').then(handDefault),
 

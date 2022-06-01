@@ -8,7 +8,7 @@ import MyTag from '@com/MyTag'
 import { ExclamationCircleOutlined, LoadingOutlined } from '@ant-design/icons'
 import { BaseInfoContext } from '@/layout/index'
 
-const MetisIdentity: FC<any> = (props: any) => {
+const DatumIdentity: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
   const baseInfo = useContext(BaseInfoContext)
@@ -161,4 +161,4 @@ export default connect(
       })
     },
   }),
-)(MetisIdentity)
+)(DatumIdentity)

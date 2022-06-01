@@ -74,7 +74,7 @@ const routes: Array<IRoute> = [
             label: 'menu.userInfo',
             breadcrumbName: 'menu.userInfo',
             path: '/userCenter/userInfo',
-            component: handLazy('MetisIdentity'),
+            component: handLazy('DatumIdentity'),
             meta: { exact: true, title: '/userCenter/userInfo', icon: '', show: false },
           },
           {

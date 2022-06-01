@@ -211,13 +211,13 @@ const Login = (props: any) => {
       <div className="login-form-box" >
         {/* <img className='logo' src={loginIcon} alt="" /> */}
         <img className='logo' src={logoSvg} alt="" />
-        <div className='metis-left'>
+        <div className='datum-left'>
           <div style={{
             height: '125px',
             // 'wordSpacing': i18n.language == 'en' ? '5px' : '',
             // letterSpacing: i18n.language == 'en' ? '0' : '5px',
           }}>
-            <div className='metis-name'>{t('login.RosettaNet')}</div>
+            <div className='datum-name'>{t('login.RosettaNet')}</div>
             <p>{t('login.loginSlogan')}</p>
           </div>
           <img className='representative-type' src={representativeType} alt="" />
