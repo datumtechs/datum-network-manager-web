@@ -8,7 +8,8 @@
     "rename": "Your new organization name",
     "loginSlogan": "Privacy-preserving computing platform enables data to flow like assets.",
     "loginTips": "The Datum information is not perfect. Please contact the administrator to improve",
-    "loginRemarks": "The Datum Console has satisfied the relevant requirements of laws and requirements."
+    "loginRemarks": "The Datum Console has satisfied the relevant requirements of laws and requirements.",
+    "internalError": "Internal Error"
   },
   "wallet": {
     "tip1": "One-click blockchain application",
