@@ -7,6 +7,7 @@ import dataSwitch from './dataSwitch'
 import Loading from './loading'
 import InfoCompleteness, { loginInfo } from './infoCompleteness'
 import wallet, { address, logOut, walletConfig } from './wallet'
+
 export const storeList = {
   menu,
   tableData,

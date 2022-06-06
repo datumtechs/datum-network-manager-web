@@ -7,12 +7,7 @@ import {
 import { loginApi } from '@api/index'
 import clean from '@assets/images/clean.icon.svg'
 
-const imgUrlList = [
-  'http://39.103.230.158:10001/1.svg',
-  'http://39.103.230.158:10001/2.svg',
-  'https://download.technocore.network/metis/image/3.svg',
-]
-const imgURls = imgUrlList[2]//imgUrlList[parseInt(String(Math.random() * 3))]
+const imgURls = 'http://testdownload.datumtechs.com/datum/image/3.svg'
 
 export const StepTwo: FC<any> = (props) => {
   const { t, i18n } = useTranslation(),
