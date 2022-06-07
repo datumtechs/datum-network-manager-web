@@ -237,14 +237,14 @@ const CredentialInfo: FC<any> = (props: any) => {
         >
           <Input maxLength={18} minLength={2} />
         </Form.Item>
-        <p className='title'>{t('voucher.DescriptionTitle')}</p>
+        {/* <p className='title'>{t('voucher.DescriptionTitle')}</p>
         <Form.Item
           labelAlign="left"
           label={t('voucher.DescriptionValue')}
           name="DescriptionValue"
         >
           <Input.TextArea maxLength={200} rows={4} showCount />
-        </Form.Item>
+        </Form.Item> */}
       </Form>
 
 
