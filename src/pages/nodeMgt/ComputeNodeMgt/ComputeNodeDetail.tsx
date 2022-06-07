@@ -18,7 +18,7 @@ import { Button, Space, Progress } from 'antd'
 import useComputeNodeDetails from '@hooks/useComputeNodeDetails'
 import i18n from '@/i18n/config'
 import { computeNodeApi } from '@api/index'
-import { fileSizeChange, changeSizeObj, BandwidthSizeObj } from '@utils/utils'
+import { fileSizeChange, changeSizeObj, BandwidthSizeObj,newChangeSizeFn } from '@utils/utils'
 import ComputeDetailTable from './components/ComputeDetailTable'
 
 echarts.use([TooltipComponent, TitleComponent, LineChart, GridComponent, CanvasRenderer, LegendComponent])
@@ -63,7 +63,7 @@ ${dayjs(days).subtract(0, 'hour').format('HH:mm')}`;
           v = `${fileSizeChange(params[0].data)}`
         }
         if (selectTab === '3') {
-          v = `${fileSizeChange(params[0].data)}P/S`
+          v = `${newChangeSizeFn(params[0].data)}ps`
         }
         const str = `<div>
         <p>${params[0].axisValue}</p</>
@@ -87,7 +87,7 @@ ${dayjs(days).subtract(0, 'hour').format('HH:mm')}`;
             return `${fileSizeChange(value)}`
           }
           if (selectTab === '3') {
-            return `${fileSizeChange(value)}P/S`
+            return `${newChangeSizeFn(value)}ps`
           }
         },
       },
@@ -234,7 +234,7 @@ ${dayjs(days).subtract(0, 'hour').format('HH:mm')}`;
                 onClick={() => SetSelectTab('3')}
               >
                 {t('node.totalBandwidth')}:&nbsp;{BandwidthSizeObj(details?.bandwidth).size}
-                {details?.bandwidth ? BandwidthSizeObj(details?.bandwidth).unit + "P/S" : ''}
+                {details?.bandwidth ? BandwidthSizeObj(details?.bandwidth).unit + "ps" : ''}
               </Button>
             </Space>
           </div>

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
 import useComputeNodeDetailTable from '@hooks/useComputeNodeDetailTable'
-import { fileSizeChange, formatDuring } from '@utils/utils'
+import { fileSizeChange, formatDuring,newChangeSizeFn } from '@utils/utils'
 
 const ComputeDetailTable: FC<any> = (props: any) => {
   const pagination = {
@@ -107,7 +107,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
             </Row>
             <Row>
               <Col span={4}>{t('overview.bandwidth')}:</Col>
-              <Col span={8}>{fileSizeChange(_data.usedBandwidth)}P/S</Col>
+              <Col span={8}>{newChangeSizeFn(_data.usedBandwidth)}ps</Col>
               <Col span={12}>{`( ${_data.usedBandwidth / bandwidth ? (((_data.usedBandwidth / bandwidth) || 0) * 100).toFixed(2) : '0.00'
                 } % ${t('overview.occupied')} )`}</Col>
             </Row>

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import '../scss/OverviewTable.scss'
 import memoryImg from '../../../assets/images/overview/2.icon_Memory.svg'
 import BandwidthImg from '../../../assets/images/overview/2.icon_Bandwidth.svg'
-import { fileSizeChange } from '../../../utils/utils'
+import { fileSizeChange,newChangeSizeFn } from '../../../utils/utils'
 
 const OverviewTable: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -116,8 +116,8 @@ const OverviewTable: FC<any> = (props: any) => {
                     <p className="table-content">
                       {isNaN(item.usedBandwidth / item.totalBandwidth)
                         ? '0B'
-                        : fileSizeChange(Number(item.usedBandwidth))}
-                      P/S
+                        : newChangeSizeFn(Number(item.usedBandwidth))}
+                      ps
                     </p>
                   </div>
                 </div>

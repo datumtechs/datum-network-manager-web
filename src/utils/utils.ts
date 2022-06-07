@@ -34,6 +34,30 @@ export const changeSizeFn = (input: number): string => {
   return size;
 }
 
+
+export const newChangeSizeFn = (input: number): string => {
+  if (!input) return '0B'
+  let size = "";
+  if (input < 0.1 * 1024) {                            // 小于0.1KB，则转化成B
+    size = `${input.toFixed(2)}B`
+  } else if (input < 0.1 * 1024 * 1024) {            // 小于0.1MB，则转化成KB
+    size = `${(input / 1024).toFixed(2)}Kb`
+  } else if (input < 0.1 * 1024 * 1024 * 1024) {        // 小于0.1GB，则转化成MB
+    size = `${(input / (1024 * 1024)).toFixed(2)}Mb`
+  } else {                                            // 其他转化成GB
+    size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}Gb`
+  }
+
+  const sizeStr = `${size}`;                        // 转成字符串
+  const index = sizeStr.indexOf(".");                    // 获取小数点处的索引
+  const dou = sizeStr.substr(index + 1, 2)            // 获取小数点后两位的值
+  if (dou === "00") {                                // 判断后两位是否为00，如果是则删除00                
+    return sizeStr.substring(0, index) + sizeStr.substr(index + 3, 2)
+  }
+  return size;
+}
+
+
 export const changeSizeObj = (input: number): any => {
   if (!input) return { size: 0, unit: '' };
   let size: string
@@ -64,13 +88,13 @@ export const BandwidthSizeObj = (input: number): any => {
     unit = 'B'
   } else if (input < 0.1 * 1024 * 1024) {
     size = `${(input / 1024).toFixed(2)}`
-    unit = 'KB'
+    unit = 'Kb'
     // } else if (input > 100 * 1024 * 1024) {
     //   size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}`
     //   unit = 'GB'
   } else {
     size = `${(input / (1024 * 1024)).toFixed(2)}`
-    unit = 'MB'
+    unit = 'Mb'
   }
   return { size, unit };
 }

@@ -65,7 +65,7 @@ export const Overview: FC<any> = () => {
           bgColor={bgColor.bandwidth}
           precent={totalResource.usedBandwidth_rate}
           value={BandwidthSizeObj(totalResource?.totalBandwidth) ? BandwidthSizeObj(totalResource?.totalBandwidth).size : 0}
-          unit={totalResource.totalBandwidth ? BandwidthSizeObj(totalResource.totalBandwidth) ? `${BandwidthSizeObj(totalResource.totalBandwidth).unit}P/S` : '' : ''} />
+          unit={totalResource.totalBandwidth ? BandwidthSizeObj(totalResource.totalBandwidth) ? `${BandwidthSizeObj(totalResource.totalBandwidth).unit}ps` : '' : ''} />
       </div>
       <div className="overview-box">
         <div className="overview-left">

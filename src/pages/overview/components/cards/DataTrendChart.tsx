@@ -120,7 +120,7 @@ const TrendChart: FC<any> = (props: any) => {
         params.forEach((v, index) => {
           if (+v?.value) {
             dom += `<p><span class="public-chart-tip-icon" style="background:${v?.color};margin-right:5px"></span>
-            ${v?.value}${v?.value && index != 1 ? index == 2 ? BandwidthSizeObj(+v.data.backupsData).unit + 'P/S' : changeSizeObj(+v.data.backupsData).unit : t('overview.core')}</p>`
+            ${v?.value}${v?.value && index != 1 ? index == 2 ? BandwidthSizeObj(+v.data.backupsData).unit + 'ps' : changeSizeObj(+v.data.backupsData).unit : t('overview.core')}</p>`
           }
         })
         if (!dom.length) dom = params[0].name

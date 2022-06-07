@@ -36,14 +36,21 @@ const Header = (props: any) => {
     }
     history.push(route)
   }
+  const useAddressDisplay = (address: string) => {
+    if (!address) return ''
+    if (!address.startsWith('0x')) return address
+    return address.substring(0, 4) + '...' + address.substring(address.length - 4)
+  }
 
   const menu = (dom?) => <Menu className="personal-box">
-    <Menu.Item key="name" className="personal-info-name"><img className="personal-info-head-portrait" src={menuSvg} />{baseInfo?.name}</Menu.Item>
+    <Menu.Item key="name" className="personal-info-name"><img className="personal-info-head-portrait" src={menuSvg} />{useAddressDisplay(address)}</Menu.Item>
     {dom}
     <Menu.Item key="logout" className="personal-logout" onClick={switchLogin}>
       {t('login.logout')}
     </Menu.Item>
   </Menu>
+
+
   const [menus, setmenus] = useState(menu())
   const juris = (juris: string) => {
     const list = loginInfo?.resourceList || []
@@ -61,11 +68,6 @@ const Header = (props: any) => {
     ))
   }, [loginInfo])
 
-  const useAddressDisplay = (address: string) => {
-    if (!address) return ''
-    if (!address.startsWith('0x')) return address
-    return address.substring(0, 4) + '...' + address.substring(address.length - 4)
-  }
 
   return (
     <>

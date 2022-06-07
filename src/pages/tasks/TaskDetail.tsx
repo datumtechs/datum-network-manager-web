@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import { Space, Button, Descriptions, Tooltip, Form, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { fileSizeChange, formatDuring } from '@utils/utils'
+import { fileSizeChange, formatDuring ,newChangeSizeFn} from '@utils/utils'
 import { taskApi } from '@api/index'
 
 import ProviderTable from './components/ProviderTable'
@@ -166,7 +166,7 @@ export const TaskDetail: FC<any> = (props: any) => {
               </p>
               <p className="value-text">
                 <span>{t('overview.bandwidth')}&nbsp;: &nbsp; </span>
-                <span >{fileSizeChange(baseInfo.costBandwidth)}P/S</span>
+                <span >{fileSizeChange(baseInfo.costBandwidth)}ps</span>
               </p>
             </Form.Item>
           </Form>

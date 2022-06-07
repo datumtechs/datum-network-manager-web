@@ -7,7 +7,7 @@ import { computeNodeApi } from '@api/index'
 import { BaseInfoContext } from '@/layout/index'
 import UseStatus from '@hooks/useComputeStatus'
 import { Row } from '@/entity/index'
-import { changeSizeFn, buttonDisabled } from '@utils/utils'
+import { changeSizeFn, buttonDisabled,newChangeSizeFn } from '@utils/utils'
 import './scss/index.scss'
 
 // 节点状态，-1: 未被调度服务连接上; 0: 连接上; 1: 算力启用<计算服务>; 2: 算力被占用(计算服务算力正在被任务占用)',
@@ -319,7 +319,7 @@ const DataTable: FC<any> = (props: any) => {
             </p>
             <p>
               <span className="title">{t('overview.bandwidth')}:</span>
-              <span>{`${changeSizeFn(Number(curRow.bandwidth))}P/S`}</span>
+              <span>{`${newChangeSizeFn(Number(curRow.bandwidth))}ps`}</span>
             </p>
           </div>
         ) : (

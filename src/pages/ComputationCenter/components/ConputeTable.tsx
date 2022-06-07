@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Table } from 'antd'
 import { resourceApi } from '@api/index'
-import { changeSizeFn } from '@utils/utils'
+import { changeSizeFn,newChangeSizeFn } from '@utils/utils'
 import MyTag from '@com/MyTag'
 import '../scss/ConputeTable.scss'
 
@@ -96,7 +96,7 @@ const CenterTable: FC<any> = (props: any) => {
           <div className="power-col">
             <div className="prev-steelblue">
               <span className="name">{changeSizeFn(text).replace(/[A-Za-z]*$/, '')}</span>
-              {text ? `${changeSizeFn(text).replace(/^[^A-Za-z]*/, '')} P/S` : ''}
+              {text ? `${newChangeSizeFn(text).replace(/^[^A-Za-z]*/, '')} ps` : ''}
             </div>
             {
               record.status === '0' ? '' :
