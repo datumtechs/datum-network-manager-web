@@ -248,7 +248,7 @@ const CredentialInfo: FC<any> = (props: any) => {
       </Form>
 
 
-      <div className='exchange-button'>
+      <div className='exchange-button' style={{marginTop: '30px'}}>
         <Button className='but' onClick={() => history.go(-1)}>{t('common.return')}</Button>
         <Button type="primary" className="but" loading={loading} onClick={submit}>{t('voucher.PublishCredential')}</Button>
       </div>
