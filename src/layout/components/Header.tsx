@@ -66,7 +66,9 @@ const Header = (props: any) => {
         {juris('userCenter/updateAdmin') ? <Menu.Item key="updateAdmin" onClick={() => linkTo("/userCenter/updateAdmin")}>{t('UserCenter.updateAdmin')}</Menu.Item> : ""}
       </>
     ))
-  }, [loginInfo])
+    console.log('语言辩护');
+    
+  }, [loginInfo,i18n.language])
 
 
   return (
@@ -80,7 +82,7 @@ const Header = (props: any) => {
             {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
           </div>
           <div className="pointer">
-            <Dropdown overlay={menus} placement="bottomRight" arrow>
+            <Dropdown overlay={ menus} placement="bottomRight" arrow>
               <div className='user-info'>
                 <img src={menuSvg} alt="" />
                 <span>{useAddressDisplay(address) || ''}</span>

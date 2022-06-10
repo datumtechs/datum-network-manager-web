@@ -10,6 +10,7 @@
   "prettier.printWidth": 120,
   "prettier.tabWidth": 2,
   "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }
