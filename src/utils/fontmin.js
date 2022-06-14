@@ -1,21 +1,15 @@
 const fs = require('fs')
 const path = require('path')
-
-// 不直接在写死在package了，不然每次发布都要安装。 全局安装 npm install -g fontmin && npm link fontmini
 const Fontmin = require('fontmin')
 
+const fontSrc = './src/assets/fonts/dol/*.ttf'
+const fontDest = './src/assets/fonts/ALBNewFonts'
 const dir = './'
-const ext = 'jsx,tsx,ts,js,json' // svg
-const fontSrc = './src/assets/fonts/*.ttf'
-const fontDest = './src/assets/fonts/newFonts'
+const ext = 'ts,js,tsx,jsx,json'
 const excludeDir = ['node_modules', '.nuxt', '.git', '.svn', 'config']
-// const includeDir = [ 'src', 'i18n',]
 const chineseData = []
 const fileExtReg = new RegExp(`\\.(${ext.replace(/,/g, '|')})$`, 'i')
 
-
-
-// const fontmin = new Fontmin().src(fontSrc).use(Fontmin.otf2ttf()).dest(fontDest) // otf2ttf
 
 function walk(dir) {
   return new Promise((resolve, reject) => {
@@ -51,9 +45,8 @@ function walk(dir) {
   })
 }
 
-
 const fontmin = new Fontmin().src(fontSrc).dest(fontDest)
-console.log('fonmin', fontmin);
+
 walk(dir).then(() => {
   const baseChars = `1234567890-= !@#$%^&*()_+（）。、；·~ \`~qwertyuiop[]\\QWERTYUIOP{}|asdfghjkl;' ASDFGHJKL:"zxcvbnm,./ ZXCVBNM<>?`
   let text = baseChars + chineseData.join()
