@@ -7,8 +7,8 @@ const EXCEPTION_MAP: string[] = ["4001", "4100", "4200", "4900", "4901", "-32700
 export const Complement = '000000000000000000'
 export const filterAmount = (str: string): string => {
   if (!str) return ''
-  if (str.length > 18) return `${new Big(str).div(new Big(10).pow(18)).toFixed(8)}`
-  return str
+  return `${new Big(str).div(new Big(10).pow(18)).toFixed(8)}`
+  // return str
 }
 
 
