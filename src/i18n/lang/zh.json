@@ -481,7 +481,8 @@
     "fileMaxSizeTips": "请重新选择,当前文件最大",
     "FieldVisibilityTips": "至少设置1个“可见”字段。",
     "issuedVoucher": "已发凭证",
-    "noVoucherIssued": "未发凭证"
+    "noVoucherIssued": "未发凭证",
+    "sourceFileFields": "源文件字段必填"
   },
   "tip": {
     "idSuccess": "身份标识申请成功",

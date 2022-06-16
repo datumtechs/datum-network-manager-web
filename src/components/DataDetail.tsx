@@ -115,7 +115,7 @@ export const DataDetail: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState<number>(1)
   const [upLoading, upLoadingSet] = useState<boolean>(false)
   const [form] = Form.useForm()
-  const { t } = useTranslation()
+  const { t ,i18n} = useTranslation()
   const history = useHistory()
   const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
   const pagenation = {
@@ -185,6 +185,20 @@ export const DataDetail: FC<any> = (props: any) => {
       message.warning(`${t('myData.FieldVisibilityTips')}`)
       return
     }
+
+    let index = -1
+    originalData.some((v: any,i) => {
+      if(!v.columnName) {
+        index = i
+        return true
+      }
+    })
+    if (index > -1) {
+      index+=1
+      message.warning( `${i18n.language === 'zh' ? `第${index}行` : `${index} column `}${t('myData.sourceFileFields')}`)
+      return
+    }
+
     resourceApi.updateMetaData({
       id: id || baseInfo.metaDataId,
       industry: baseInfo.industry,
@@ -211,6 +225,7 @@ export const DataDetail: FC<any> = (props: any) => {
     resourceApi[url](id).then(res => {
       const { data } = res
       if (res.status === 0) {
+        setCurPage(1)
         setBaseInfo(data)
         industrySet(data.industry)
         remarksSet(data.remarks)

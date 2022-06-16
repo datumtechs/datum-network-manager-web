@@ -13,7 +13,7 @@ import { INDUSTRYLIST } from '@constant/constant'
 import MyDragger from '../DataMgt/components/MyDragger'
 
 export const MyDataAddtion: FC<any> = (props: any) => {
-  const { t } = useTranslation()
+  const { t,i18n } = useTranslation()
   const { state } = props.location
   const { Option } = Select
   const [formDisable, setFormDiasble] = useState(false)
@@ -95,11 +95,24 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     form
       .validateFields()
       .then(re => {
-        const flag = originalData.some((v: any) => v.visible)
+        let flag = originalData.some((v: any) => v.visible)
         if (!flag) {
           message.warning(`${t('myData.FieldVisibilityTips')}`)
           return
         }
+        let index = -1
+        originalData.some((v: any,i) => {
+          if(!v.columnName) {
+            index = i
+            return true
+          }
+        })
+        if (index > -1) {
+          index+=1
+          message.warning( `${i18n.language === 'zh' ? `第${index}行` : `${index} column `}${t('myData.sourceFileFields')}`)
+          return
+        }
+
 
         const queryObj = {
           addType: addType === 'add' ? 1 : 2,
@@ -165,6 +178,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     }
     return list.map(v => {
       v.visible = true
+      v.columnType = v.columnType || 'string'
       return { ...v }
     })
   }
@@ -197,12 +211,14 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     resourceApi.uploadCsv({ data: formData, fn: _uploadProgress }).then(res => {
       // debugger
       upLoadingSet(false)
+      setCurPage(1)
       if (res.status === 0) {
         const list = filterData(res.data?.localMetaDataColumnList)
         setOriginalData(list)
         setTotal(list.length)
         setTableData(getShowSource(list))
         resultFileDataSet(res.data)
+        // debugger
         message.success(`${t('myData.uploadSuccess')}`)
       }
     }).catch(e => {

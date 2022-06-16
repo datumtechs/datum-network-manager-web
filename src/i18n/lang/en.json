@@ -481,7 +481,8 @@
     "fileMaxSizeTips": "please reselect,The maximum size of the current file is",
     "FieldVisibilityTips": "Set at least 1 visible field",
     "issuedVoucher": "Issued Voucher",
-    "noVoucherIssued": "No Voucher Issued"
+    "noVoucherIssued": "No Voucher Issued",
+    "sourceFileFields": "Source file field is required Name"
   },
   "tip": {
     "idSuccess": "ID Application successful",

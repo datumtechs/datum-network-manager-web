@@ -164,7 +164,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
         rowKey={record => record.columnIdx}
         dataSource={tableData}
         columns={columns}
-        pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
+        pagination={{ current: curPage, showSizeChanger: false, total, onChange: onPageChange }}
         bordered
       />
     </div>
