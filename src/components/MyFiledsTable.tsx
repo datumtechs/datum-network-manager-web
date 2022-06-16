@@ -31,15 +31,15 @@ const MyFiledsTable: FC<any> = (props: any) => {
   const [data, setData] = useState<Item[]>([])
   const { mode, tableData, total, setPage, curPage, originalData, disabled } = props
 
-  const dataSource = [
-    {
-      id: 0,
-      columnName: '郑克爽',
-      visible: true,
-      dataType: 'STRING',
-      remarks: '优势在我, 优势在我',
-    },
-  ]
+  // const dataSource = [
+  //   {
+  //     id: 0,
+  //     columnName: '郑克爽',
+  //     visible: true,
+  //     dataType: 'STRING',
+  //     remarks: '优势在我, 优势在我',
+  //   },
+  // ]
 
   const handleSelectChange = (e, record) => {
     const rows = [...data]
@@ -76,6 +76,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
     if (tableData && tableData.length > 0) {
       setData(() => [...tableData])
     }
+    // onPageChange(1)
   }, [tableData])
 
   const columns = [
@@ -126,13 +127,13 @@ const MyFiledsTable: FC<any> = (props: any) => {
           // type === 'view' ? <span>{record.dataType}</span> :
           <Select
             onChange={e => handleSelectChange(e, record)}
-            defaultValue="STRING"
+            defaultValue={text?.toUpperCase() || text}
             style={{ width: 100 }}
             disabled={disabled}
             placeholder="Select a type"
           >
             {DATATYPE.map(item => (
-              <Option value={item.label} key={item.id}>
+              <Option value={item.label} key={item.label}>
                 {item.label}
               </Option>
             ))}
@@ -164,7 +165,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
         rowKey={record => record.columnIdx}
         dataSource={tableData}
         columns={columns}
-        pagination={{ current: curPage, showSizeChanger: false, total, onChange: onPageChange }}
+        pagination={{current:curPage, showSizeChanger: false, total, onChange: onPageChange }}
         bordered
       />
     </div>

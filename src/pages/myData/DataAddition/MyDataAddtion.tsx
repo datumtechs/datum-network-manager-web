@@ -178,7 +178,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     }
     return list.map(v => {
       v.visible = true
-      v.columnType = v.columnType || 'string'
+      v.columnType = v.columnType || 'STRING'
       return { ...v }
     })
   }

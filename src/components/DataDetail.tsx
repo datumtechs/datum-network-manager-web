@@ -225,7 +225,7 @@ export const DataDetail: FC<any> = (props: any) => {
     resourceApi[url](id).then(res => {
       const { data } = res
       if (res.status === 0) {
-        setCurPage(1)
+        setCurPage(curPage)
         setBaseInfo(data)
         industrySet(data.industry)
         remarksSet(data.remarks)
