@@ -109,8 +109,8 @@ const VoucherTable: FC<any> = (props: any) => {
       render: (text, record, index) =>
         text
           ? <>
-            <CopyOutlined style={{ marginRight: '10px' }} onClick={() => copy(index)} />
-            <input readOnly style={{ position: 'absolute', height: '10px', width: '10px', opacity: 0, zIndex: -1 }} value={text} ref={(e) => refDom.current[index] = e} />
+            <CopyOutlined style={{ marginRight: '10px' }} onClick={() => copy(text)} />
+            {/* <input readOnly style={{ position: 'absolute', height: '10px', width: '10px', opacity: 0.01, zIndex: -1 }} value={text} ref={(e) => refDom.current[index] = e} /> */}
             <Tooltip placement="bottom" title={text} color="#fff" overlayClassName={'_tooltip'}>
               {text}
             </Tooltip>
@@ -135,21 +135,35 @@ const VoucherTable: FC<any> = (props: any) => {
     },
   ]
 
-  const copy = (index) => {
+  const copy = (text) => {
     // 有兼容性 暂时先这样
-    try {
-      const addressDom = refDom.current[index]
-      console.log(addressDom.select)
-      addressDom.select()
-      const res = document.execCommand('copy')
-      if (res) {
-        message.success(t('common.copySuccess'))
-        return
+    try{
+      const input:any = document.createElement('input');
+      document.body.appendChild(input);
+      input.setAttribute('value', text);
+      input.value = text
+      input.select();
+      if (document.execCommand('copy')) {
+          document.execCommand('copy');
       }
-      message.error(t('common.copyFailed'))
-    } catch {
+      document.body.removeChild(input)
+      message.success(t('common.copySuccess'))
+    }catch(e){
       message.error(t('common.copyFailed'))
     }
+    // try {
+    //   const addressDom = refDom.current[index]
+    //   console.log(addressDom.select)
+    //   addressDom.select()
+    //   const res = document.execCommand('copy')
+    //   if (res) {
+    //     message.success(t('common.copySuccess'))
+    //     return
+    //   }
+    //   message.error(t('common.copyFailed'))
+    // } catch {
+    //   message.error(t('common.copyFailed'))
+    // }
   }
 
   const OnPageChange = (page: number) => {
