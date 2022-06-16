@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
@@ -105,7 +105,7 @@ module.exports = function (proxy, allowedHost) {
     proxy: {
       '/datum-admin': {
         // target: 'http://8.219.63.100',
-        target: 'http://192.168.9.154:9090',
+        target: 'http://192.168.10.152:8500',
         changeOrigin: true,
         pathRewrite: {
           '^/datum-admin': '/datum-admin',

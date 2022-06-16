@@ -92,9 +92,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
       editable: 'true',
       render: (text, record, index) => (
         <>
-          {
-            <EditTableCell disabled={disabled} record={record} column="columnName" handleCellChange={handleCellChange} />
-          }
+          <EditTableCell disabled record={record} column="columnName" handleCellChange={handleCellChange} />
         </>
       ),
     },
@@ -106,12 +104,10 @@ const MyFiledsTable: FC<any> = (props: any) => {
       render: (text, record, index) => {
         return (
           <>
-            {
-              <Space size={20}>
-                {record.visible ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
-                {disabled ? '' : <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" checked={record.visible} />}
-              </Space>
-            }
+            <Space size={20}>
+              {record.visible ? <span>{t('myData.yes')}</span> : <span>{t('myData.no')}</span>}
+              {disabled ? '' : <Switch onChange={(checked) => switchVisiable(checked, record)} size="small" checked={record.visible} />}
+            </Space>
           </>
 
         )
@@ -165,7 +161,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
         rowKey={record => record.columnIdx}
         dataSource={tableData}
         columns={columns}
-        pagination={{current:curPage, showSizeChanger: false, total, onChange: onPageChange }}
+        pagination={{ current: curPage, showSizeChanger: false, total, onChange: onPageChange }}
         bordered
       />
     </div>

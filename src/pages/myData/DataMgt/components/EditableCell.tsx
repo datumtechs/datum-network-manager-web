@@ -27,7 +27,7 @@ const EditTableCell: FC<any> = (props: any) => {
       {isFieldEditing ? (
         <Input onChange={e => handleCellChange(e)} maxLength={32} onBlur={toggleEdit} ref={inputRef} value={record[column]} />
       ) : (
-        <div className="editable-cell-value-wrap" onClick={toggleEdit}>
+        <div className={disabled ? '' : "editable-cell-value-wrap"} onClick={toggleEdit}>
           {record[column]}
         </div>
       )}

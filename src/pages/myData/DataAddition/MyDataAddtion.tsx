@@ -13,7 +13,7 @@ import { INDUSTRYLIST } from '@constant/constant'
 import MyDragger from '../DataMgt/components/MyDragger'
 
 export const MyDataAddtion: FC<any> = (props: any) => {
-  const { t,i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { state } = props.location
   const { Option } = Select
   const [formDisable, setFormDiasble] = useState(false)
@@ -21,7 +21,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const [uploadFile, setUploadFile] = useState<any>({})
   const [showTypeError, setShowTypeError] = useState<boolean>(false)
   const [showIncludeError, setShowIncludeError] = useState<boolean>(false)
-  const [radioValue, setRadioValue] = useState('')
+  const [radioValue, setRadioValue] = useState('true')
   const [total, setTotal] = useState<number>()
   const [originalData, setOriginalData] = useState([])
   const [tableData, setTableData] = useState<[]>()
@@ -77,11 +77,11 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     history.go(-1)
   }
   const submitFn = () => {
-    if (!radioValue) {
-      setShowIncludeError(true)
-      upLoadingSet(false)
-      return message.error(`${t('tip.plzComplete')}`)
-    }
+    // if (!radioValue) {
+    //   setShowIncludeError(true)
+    //   upLoadingSet(false)
+    //   return message.error(`${t('tip.plzComplete')}`)
+    // }
     if (draggerRef?.current?.input?.files?.length === 0) {
       upLoadingSet(false)
       return message.error(`${t('myData.plzSelectone')}`)
@@ -95,21 +95,21 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     form
       .validateFields()
       .then(re => {
-        let flag = originalData.some((v: any) => v.visible)
+        const flag = originalData.some((v: any) => v.visible)
         if (!flag) {
           message.warning(`${t('myData.FieldVisibilityTips')}`)
           return
         }
         let index = -1
-        originalData.some((v: any,i) => {
-          if(!v.columnName) {
+        originalData.some((v: any, i) => {
+          if (!v.columnName) {
             index = i
             return true
           }
         })
         if (index > -1) {
-          index+=1
-          message.warning( `${i18n.language === 'zh' ? `第${index}行` : `${index} column `}${t('myData.sourceFileFields')}`)
+          index += 1
+          message.warning(`${i18n.language === 'zh' ? `第${index}行` : `${index} column `}${t('myData.sourceFileFields')}`)
           return
         }
 
@@ -187,11 +187,11 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const uploadFn = () => {
     upLoadingSet(true)
     // 判断文件是否为空 判断是否选择了包含字段
-    if (!radioValue) {
-      setShowIncludeError(true)
-      upLoadingSet(false)
-      return message.error(`${t('tip.plzComplete')}`)
-    }
+    // if (!radioValue) {
+    //   setShowIncludeError(true)
+    //   upLoadingSet(false)
+    //   return message.error(`${t('tip.plzComplete')}`)
+    // }
 
     // if (draggerRef?.current?.input?.files?.length === 0) {
     if (!uploadFile.size) {
@@ -249,7 +249,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     <div className="layout-box">
       <div className="add-data-box">
         <div className="title-box bold-ident">{t('myData.plzUploadFile')}</div>
-        <div className="label-box">
+        {/* <div className="label-box">
           <Radio.Group onChange={changeFileIncludeStatusFn} value={radioValue}>
             <Radio value="true" disabled={formDisable}>
               {t('myData.including')}
@@ -259,7 +259,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
             </Radio>
           </Radio.Group>
           {showIncludeError ? <p className="note-box">{t('myData.plzAnnounceIncludesFields')}</p> : ''}
-        </div>
+        </div> */}
         <div className="label-box limit-box">
           <MyDragger
             ref={draggerRef}
