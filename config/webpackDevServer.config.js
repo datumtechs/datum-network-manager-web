@@ -105,7 +105,7 @@ module.exports = function (proxy, allowedHost) {
     proxy: {
       '/datum-admin': {
         // target: 'http://8.219.63.100',
-        target: 'http://192.168.10.152:8500',
+        target: 'http://8.219.63.100',
         changeOrigin: true,
         pathRewrite: {
           '^/datum-admin': '/datum-admin',

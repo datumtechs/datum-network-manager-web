@@ -67,10 +67,11 @@ const PriceSeting: FC<any> = (props: any) => {
       
       const address = await wallet.connectWallet(walletConfig)
       // debugger
-      if (!address) {
+      if (!address.length) {
         return message.warning(t('common.pleaseSwitchNetworks'))
       }
-
+      console.log('123123123',address&& address[0]);
+      
       const balance = await web3.eth.getBalance(address[0])
       if (BigInt(balance) < BigInt(latValue + Complement)) {
         return message.warning(t('common.currentWalletInsufficient'))

@@ -11,6 +11,12 @@ export const filterAmount = (str: string): string => {
   // return str
 }
 
+export const filterIntegerAmount = (str: string): string => {
+  if (!str) return ''
+  return `${new Big(str).div(new Big(10).pow(18)).toFixed(0)}`
+  // return str
+}
+
 
 export const changeSizeFn = (input: number): string => {
   if (!input) return '0B'
