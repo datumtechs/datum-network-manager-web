@@ -67,7 +67,7 @@ const PriceSeting: FC<any> = (props: any) => {
       
       const address = await wallet.connectWallet(walletConfig)
       // debugger
-      if (!address.length) {
+      if (!address) {
         return message.warning(t('common.pleaseSwitchNetworks'))
       }
       console.log('123123123',address&& address[0]);
