@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { voucher } from '@api'
 import stepone from '@assets/images/voucher/step_one.svg'
 import ABIJson from '@/utils/DataTokenFactory.json'
-import { Complement ,filterWeb3Code} from '@/utils/utils'
+import { Complement ,filterWeb3Code,filterIntegerAmount} from '@/utils/utils'
 import { requestCancel } from '@/utils/loading'
 
 const CredentialInfo: FC<any> = (props: any) => {
@@ -16,18 +16,15 @@ const CredentialInfo: FC<any> = (props: any) => {
     const history = useHistory();
     const form = useRef<any>();
     const [dataTokenFactory, setDataTokenFactory] = useState('');
-    // [paramsData, setParams] = useState<any>({}),
     const { walletConfig } = props.state;
     const { location } = props;
     const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
     const [loading, setLoading] = useState(false);
-    // const [receipt, setReceipt] = useState(false);
     const submiting = useRef(false)
-    const receipt = useRef(false)
-    const [datas,setDatas] = useState<any>({})
+    // const receipt = useRef(false)
+    // const [datas,setDatas] = useState<any>({})
 
   const initialState: any = useRef()
-  console.log(history);
 
   const release = async (params) => {
     const { wallet } = props.state.wallet || {}
@@ -62,26 +59,10 @@ const CredentialInfo: FC<any> = (props: any) => {
       }).on('transactionHash',  (hash)=> {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         sendTransactionData(params, nonce, hash)
-      }).on('receipt',()=>{
-        if(receipt.current && history.location.pathname == 'myData/dataVoucherPublishing/CredentialInfo'){ //
-          history.push({
-            pathname: '/myData/dataVoucherPublishing/PriceSet',
-            state: {
-              dataAddress: datas.address,
-              name: datas.name,
-              dataTokenId: datas.id,
-              total: datas.total,
-              symbol: datas.symbol
-            },
-          })
-          return
-        }
-        receipt.current = true
       })
 
 
     } catch (e:any) {
-      // message.warning(t('tip.operationFailed'))
       setLoading(false)
       message.error(t(`exception.${filterWeb3Code(e.code)}`))
       submiting.current = false
@@ -144,20 +125,31 @@ const CredentialInfo: FC<any> = (props: any) => {
     })
   }
 
-  const query = (id) => {
+  const  query = async (id) => {
     if (!id) return
     const { wallet } = props.state.wallet || {}
     const { web3 } = wallet
+
     voucher.queryDataTokenStatus({
       "id": +id || null
-    }).then(res => {
+    }).then(async (res) => {
       const { data } = res
-      if (data?.status == 3) {
-        
-        if(receipt.current){
+      
+      form.current.setFieldsValue({
+        name: data.name,
+        symbol: data.symbol,
+        initialSupply: filterIntegerAmount(data.total) //data.total
+      })
+      if (data?.status == 3) {  
+        web3.eth.getTransactionCount(data.address).then(res=>{
+          console.log(res);
+          if(!res){
+            timeOut(id)
+            return
+          }
           setLoading(false)
           localStorage.setItem('metaDataId', '')
-          setDatas(data)
+          // setDatas(data)
           submiting.current = false
           history.push({
             pathname: '/myData/dataVoucherPublishing/PriceSet',
@@ -169,9 +161,7 @@ const CredentialInfo: FC<any> = (props: any) => {
               symbol: data.symbol
             },
           })
-        }else{
-          timeOut(id)
-        }
+        })
       } else if (data?.status == 2) {
         setLoading(false)
         submiting.current = false
@@ -179,14 +169,17 @@ const CredentialInfo: FC<any> = (props: any) => {
       } else {
         timeOut(id)
       }
+    }).catch(e=>{
+      setLoading(false)
+      submiting.current = false
     })
   }
 
   useEffect(() => {
-    const data = localStorage.getItem('metaDataId')
+    const data = localStorage.getItem('metaDataId') 
     if (data) {
       submiting.current = true
-      receipt.current = true
+      // receipt.current = true
       setLoading(true)
       query(data)
     }

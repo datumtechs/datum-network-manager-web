@@ -42,15 +42,22 @@ const PriceSeting: FC<any> = (props: any) => {
       ERC20,
       dataAddress
     );
-    console.log('contract',contract);
+    // console.log('contract',contract);
     
     const amound = await contract.methods.allowance(
       address,
       routerToken
     ).call()
-    console.log(amound)
-    if (amound > 0) return
+  
+    if (amound > 0){
+      throw new Error("已上架");
+      
 
+
+
+      return 
+    }
+    
     await contract.methods.approve( // 数据凭证授权
       routerToken,
       total
@@ -72,10 +79,10 @@ const PriceSeting: FC<any> = (props: any) => {
       if (!address) {
         return message.warning(t('common.pleaseSwitchNetworks'))
       }
-      console.log('123123123',address&& address[0]);
+      // console.log('123123123',address&& address[0]);
       
       const balance = await web3.eth.getBalance(address[0])
-      console.log(balance);
+      // console.log(balance);
       
       if (BigInt(balance) < BigInt(latValue + Complement)) {
         return message.warning(t('common.currentWalletInsufficient'))
@@ -128,15 +135,24 @@ const PriceSeting: FC<any> = (props: any) => {
         gas,
         gasPrice,
       }).on('transactionHash', (hash) => {
+      return
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         sendTransactionData(nonce, hash)
       })
     } catch (e:any) {
       setSubmting(false)
-      // setSpinning(false)
+      console.log(String(e));
+      if(String(e).indexOf('已上架') >-1){
+        history.push({
+          pathname: '/voucher/NoAttribute',
+          state: {
+            attributeType:  'Un'
+          },
+        })
+        return
+      }
       message.error(t(`exception.${filterWeb3Code(e.code)}`))
       console.log('发起交易失败', e)
-      // message.warning(t('tip.operationFailed'))
     }
   }
 
