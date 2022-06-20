@@ -79,4 +79,16 @@ export default {
       data
     })
   },
+
+
+
+  // 修改凭证状态 无属性
+  updateDataTokenStatus(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/dataToken/updateStatus`,
+      data
+    })
+  },
+
 }
