@@ -42,6 +42,8 @@ const PriceSeting: FC<any> = (props: any) => {
       ERC20,
       dataAddress
     );
+    console.log('contract',contract);
+    
     const amound = await contract.methods.allowance(
       address,
       routerToken
@@ -73,6 +75,8 @@ const PriceSeting: FC<any> = (props: any) => {
       console.log('123123123',address&& address[0]);
       
       const balance = await web3.eth.getBalance(address[0])
+      console.log(balance);
+      
       if (BigInt(balance) < BigInt(latValue + Complement)) {
         return message.warning(t('common.currentWalletInsufficient'))
       }

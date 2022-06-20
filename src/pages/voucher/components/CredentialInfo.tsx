@@ -11,6 +11,7 @@ import { Complement ,filterWeb3Code} from '@/utils/utils'
 import { requestCancel } from '@/utils/loading'
 
 const CredentialInfo: FC<any> = (props: any) => {
+  
   const { t } = useTranslation();
     const history = useHistory();
     const form = useRef<any>();
@@ -20,9 +21,13 @@ const CredentialInfo: FC<any> = (props: any) => {
     const { location } = props;
     const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
     const [loading, setLoading] = useState(false);
+    // const [receipt, setReceipt] = useState(false);
     const submiting = useRef(false)
+    const receipt = useRef(false)
+    const [datas,setDatas] = useState<any>({})
 
   const initialState: any = useRef()
+  console.log(history);
 
   const release = async (params) => {
     const { wallet } = props.state.wallet || {}
@@ -57,6 +62,21 @@ const CredentialInfo: FC<any> = (props: any) => {
       }).on('transactionHash',  (hash)=> {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         sendTransactionData(params, nonce, hash)
+      }).on('receipt',()=>{
+        if(receipt.current && history.location.pathname == 'myData/dataVoucherPublishing/CredentialInfo'){ //
+          history.push({
+            pathname: '/myData/dataVoucherPublishing/PriceSet',
+            state: {
+              dataAddress: datas.address,
+              name: datas.name,
+              dataTokenId: datas.id,
+              total: datas.total,
+              symbol: datas.symbol
+            },
+          })
+          return
+        }
+        receipt.current = true
       })
 
 
@@ -125,30 +145,33 @@ const CredentialInfo: FC<any> = (props: any) => {
   }
 
   const query = (id) => {
-    // if (!id) {
-    //   history.push({
-    //     pathname: '/voucher/NoAttribute'
-    //   })
-    // }
     if (!id) return
+    const { wallet } = props.state.wallet || {}
+    const { web3 } = wallet
     voucher.queryDataTokenStatus({
       "id": +id || null
     }).then(res => {
       const { data } = res
       if (data?.status == 3) {
-        setLoading(false)
-        localStorage.setItem('metaDataId', '')
-        submiting.current = false
-        history.push({
-          pathname: '/myData/dataVoucherPublishing/PriceSet',
-          state: {
-            dataAddress: data.address,
-            name: data.name,
-            dataTokenId: data.id,
-            total: data.total,
-            symbol: data.symbol
-          },
-        })
+        
+        if(receipt.current){
+          setLoading(false)
+          localStorage.setItem('metaDataId', '')
+          setDatas(data)
+          submiting.current = false
+          history.push({
+            pathname: '/myData/dataVoucherPublishing/PriceSet',
+            state: {
+              dataAddress: data.address,
+              name: data.name,
+              dataTokenId: data.id,
+              total: data.total,
+              symbol: data.symbol
+            },
+          })
+        }else{
+          timeOut(id)
+        }
       } else if (data?.status == 2) {
         setLoading(false)
         submiting.current = false
@@ -163,6 +186,7 @@ const CredentialInfo: FC<any> = (props: any) => {
     const data = localStorage.getItem('metaDataId')
     if (data) {
       submiting.current = true
+      receipt.current = true
       setLoading(true)
       query(data)
     }
