@@ -107,7 +107,9 @@ const PriceSeting: FC<any> = (props: any) => {
       const pair =  await FactoryContract.methods.getPair(WETH,dataAddress).call()
       // const pair2 =  await FactoryContract.methods.getPair(routerToken,dataAddress).call()
       if(pair !== '0x0000000000000000000000000000000000000000'){//没有币兑地址  第一次
-        const {data, status} = await voucher.updateDataTokenStatus({dataTokenId:dataAddress,status:3})
+        const {data, status} = await voucher.updateDataTokenStatus({dataTokenId:dataTokenId,status:6})
+        console.log(status);
+        
         if(status == 0){
           history.push({
             pathname: '/voucher/NoAttribute',
