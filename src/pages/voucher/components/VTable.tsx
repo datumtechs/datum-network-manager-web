@@ -6,7 +6,10 @@ import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
 import { voucher as voucherApi } from '@api/index'
 import { filterIntegerAmount } from '@/utils/utils'
-
+import ABIJson from '@/utils/DipoleRouter.json'// dex
+import ERC20 from '@/utils/ERC20.json'// 恒涛提供
+import { connect } from 'react-redux'
+import FactoryJson from '@/utils/DipoleFactory.json'// 工厂合约
 
 const VoucherTable: FC<any> = (props: any) => {
   const { location } = props
@@ -20,16 +23,23 @@ const VoucherTable: FC<any> = (props: any) => {
     [tableData, setTableData] = useState([]),
     [dexUrl, setDexUrl] = useState(''),
     history = useHistory(),
+    { walletConfig } = props.state,
     pagination = {
       current: 1,
       defaultPageSize: 10,
     },
-    { TabPane } = Tabs,
-    refDom = useRef<any>([])
-
+    { TabPane } = Tabs
+  // refDom = useRef<any>([])
+  const [routerToken, setRouterToken] = useState('');
   useEffect(() => {
     query()
     queryConfig()
+    voucherApi.getUpConfig().then(res => {
+      const { data } = res
+      if (data.routerToken) {
+        setRouterToken(data.routerToken)
+      }
+    })
   }, [])
 
   useEffect(() => {
@@ -37,10 +47,70 @@ const VoucherTable: FC<any> = (props: any) => {
 
   }, [curPage, activeKey])
 
+  const toAuthorization = async (web3, DataAddress) => {
+    try {
+      const { wallet } = props.state.wallet || {}
+      const contract = new web3.eth.Contract(      // 构建 数据 合约 
+        ERC20,
+        DataAddress
+      );
+      console.log('contract', walletConfig);
+      const address = await wallet.connectWallet(walletConfig)
+      console.log('address', address);
+      const amound = await contract.methods.allowance(
+        address[0],
+        routerToken
+      ).call()
+      console.log('amound', amound);
+      return Promise.resolve(amound)
+    } catch (e) {
+      message.warning(t('voucher.CredentialNotDeployed'))
+      return Promise.resolve('error')
+    }
+  }
+
+
   const viewFn = (row) => {
     window.open(`${dexUrl}?outputCurrency=${row.address}`)
   },
-    setPrice = (row) => {
+    setPrice = async (row) => {
+      const { wallet } = props.state.wallet || {}
+      try {
+        const { web3 } = wallet
+        const amound = await toAuthorization(web3, row.address)
+        if (amound == 'error') return
+        //  构建路由合约
+        const myContract = new web3.eth.Contract(
+          ABIJson,
+          routerToken,
+        );
+
+        //查询工厂合约地址
+        const factory = await myContract.methods.factory().call()
+
+        //构建工厂合约
+        const FactoryContract = new web3.eth.Contract(
+          FactoryJson,
+          factory,
+        );
+
+        //请i去weth 合约
+        const WETH = await myContract.methods.WETH().call()
+
+        const pair = await FactoryContract.methods.getPair(WETH, row.address).call()
+        if (pair !== '0x0000000000000000000000000000000000000000') {//没有币兑地址  第一次
+          const { data, status } = await voucherApi.updateDataTokenStatus({ dataTokenId: row.id, status: 6 })
+          if (status == 0) {
+            message.warning(t('voucher.CredentialPublished'))
+            query()
+          }
+          return
+        }
+      } catch (e) {
+        console.log(e);
+        return
+      }
+
       history.push({
         pathname: '/myData/dataVoucherPublishing/PriceSet',
         state: {
@@ -137,33 +207,20 @@ const VoucherTable: FC<any> = (props: any) => {
 
   const copy = (text) => {
     // 有兼容性 暂时先这样
-    try{
-      const input:any = document.createElement('input');
+    try {
+      const input: any = document.createElement('input');
       document.body.appendChild(input);
       input.setAttribute('value', text);
       input.value = text
       input.select();
       if (document.execCommand('copy')) {
-          document.execCommand('copy');
+        document.execCommand('copy');
       }
       document.body.removeChild(input)
       message.success(t('common.copySuccess'))
-    }catch(e){
+    } catch (e) {
       message.error(t('common.copyFailed'))
     }
-    // try {
-    //   const addressDom = refDom.current[index]
-    //   console.log(addressDom.select)
-    //   addressDom.select()
-    //   const res = document.execCommand('copy')
-    //   if (res) {
-    //     message.success(t('common.copySuccess'))
-    //     return
-    //   }
-    //   message.error(t('common.copyFailed'))
-    // } catch {
-    //   message.error(t('common.copyFailed'))
-    // }
   }
 
   const OnPageChange = (page: number) => {
@@ -208,4 +265,4 @@ const VoucherTable: FC<any> = (props: any) => {
   </div>
 }
 
-export default VoucherTable
+export default connect((state: any) => ({ state }))(VoucherTable)

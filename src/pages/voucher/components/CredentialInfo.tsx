@@ -7,22 +7,22 @@ import { connect } from 'react-redux'
 import { voucher } from '@api'
 import stepone from '@assets/images/voucher/step_one.svg'
 import ABIJson from '@/utils/DataTokenFactory.json'
-import { Complement ,filterWeb3Code,filterIntegerAmount} from '@/utils/utils'
+import { Complement, filterWeb3Code, filterIntegerAmount } from '@/utils/utils'
 import { requestCancel } from '@/utils/loading'
 
 const CredentialInfo: FC<any> = (props: any) => {
-  
+
   const { t } = useTranslation();
-    const history = useHistory();
-    const form = useRef<any>();
-    const [dataTokenFactory, setDataTokenFactory] = useState('');
-    const { walletConfig } = props.state;
-    const { location } = props;
-    const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
-    const [loading, setLoading] = useState(false);
-    const submiting = useRef(false)
-    // const receipt = useRef(false)
-    // const [datas,setDatas] = useState<any>({})
+  const history = useHistory();
+  const form = useRef<any>();
+  const [dataTokenFactory, setDataTokenFactory] = useState('');
+  const { walletConfig } = props.state;
+  const { location } = props;
+  const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
+  const [loading, setLoading] = useState(false);
+  const submiting = useRef(false)
+  // const receipt = useRef(false)
+  // const [datas,setDatas] = useState<any>({})
 
   const initialState: any = useRef()
 
@@ -56,13 +56,13 @@ const CredentialInfo: FC<any> = (props: any) => {
         metaDataId
       ).send({
         from: address[0]
-      }).on('transactionHash',  (hash)=> {
+      }).on('transactionHash', (hash) => {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         sendTransactionData(params, nonce, hash)
       })
 
 
-    } catch (e:any) {
+    } catch (e: any) {
       setLoading(false)
       message.error(t(`exception.${filterWeb3Code(e.code)}`))
       submiting.current = false
@@ -125,7 +125,7 @@ const CredentialInfo: FC<any> = (props: any) => {
     })
   }
 
-  const  query = async (id) => {
+  const query = async (id) => {
     if (!id) return
     const { wallet } = props.state.wallet || {}
     const { web3 } = wallet
@@ -134,34 +134,34 @@ const CredentialInfo: FC<any> = (props: any) => {
       "id": +id || null
     }).then(async (res) => {
       const { data } = res
-      
+
       form.current.setFieldsValue({
         name: data.name,
         symbol: data.symbol,
         initialSupply: filterIntegerAmount(data.total) //data.total
       })
-      if (data?.status == 3) {  
-        web3.eth.getTransactionCount(data.address).then(res=>{
-          console.log(res);
-          if(!res){
-            timeOut(id)
-            return
-          }
-          setLoading(false)
-          localStorage.setItem('metaDataId', '')
-          // setDatas(data)
-          submiting.current = false
-          history.push({
-            pathname: '/myData/dataVoucherPublishing/PriceSet',
-            state: {
-              dataAddress: data.address,
-              name: data.name,
-              dataTokenId: data.id,
-              total: data.total,
-              symbol: data.symbol
-            },
-          })
+      if (data?.status == 3) {
+        // web3.eth.getTransactionCount(data.address).then(res => {
+        //   console.log(res);
+        //   if (!res) {
+        //     timeOut(id)
+        //     return
+        //   }
+        setLoading(false)
+        localStorage.setItem('metaDataId', '')
+        // setDatas(data)
+        submiting.current = false
+        history.push({
+          pathname: '/myData/dataVoucherPublishing/PriceSet',
+          state: {
+            dataAddress: data.address,
+            name: data.name,
+            dataTokenId: data.id,
+            total: data.total,
+            symbol: data.symbol
+          },
         })
+        // })
       } else if (data?.status == 2) {
         setLoading(false)
         submiting.current = false
@@ -169,14 +169,14 @@ const CredentialInfo: FC<any> = (props: any) => {
       } else {
         timeOut(id)
       }
-    }).catch(e=>{
+    }).catch(e => {
       setLoading(false)
       submiting.current = false
     })
   }
 
   useEffect(() => {
-    const data = localStorage.getItem('metaDataId') 
+    const data = localStorage.getItem('metaDataId')
     if (data) {
       submiting.current = true
       // receipt.current = true
@@ -265,7 +265,7 @@ const CredentialInfo: FC<any> = (props: any) => {
       </Form>
 
 
-      <div className='exchange-button' style={{marginTop: '30px'}}>
+      <div className='exchange-button' style={{ marginTop: '30px' }}>
         <Button className='but' onClick={() => history.go(-1)}>{t('common.return')}</Button>
         <Button type="primary" className="but" loading={loading} onClick={submit}>{t('voucher.PublishCredential')}</Button>
       </div>
@@ -273,4 +273,4 @@ const CredentialInfo: FC<any> = (props: any) => {
   </div>
 }
 
-export default connect((state: any) => ({ state }))(CredentialInfo)  
+export default connect((state: any) => ({ state }))(CredentialInfo)

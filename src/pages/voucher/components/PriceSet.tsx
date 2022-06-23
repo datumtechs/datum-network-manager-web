@@ -13,23 +13,23 @@ import ABIJson from '@/utils/DipoleRouter.json'// dex
 import ERC20 from '@/utils/ERC20.json'// 恒涛提供
 import PairJson from '@/utils/DipolePair.json'// 币兑合约
 import FactoryJson from '@/utils/DipoleFactory.json'// 工厂合约
-import { Complement,filterWeb3Code } from '@/utils/utils'
+import { Complement, filterWeb3Code } from '@/utils/utils'
 
 const PriceSeting: FC<any> = (props: any) => {
   const { t } = useTranslation();
-    const history = useHistory();
-    const [routerToken, setRouterToken] = useState('');
-    const [latValue, setLatValue] = useState('');
-    const [mtsValue, setMstValue] = useState('');
-    // [spinning, setSpinning] = useState(false),
-    const [submting, setSubmting] = useState(false);
-    const { walletConfig } = props.state;
-    const { location } = props;
-    const {
-      dataAddress, name,
-      dataTokenId, total,
-      symbol
-    } = location.state
+  const history = useHistory();
+  const [routerToken, setRouterToken] = useState('');
+  const [latValue, setLatValue] = useState('');
+  const [mtsValue, setMstValue] = useState('');
+  // [spinning, setSpinning] = useState(false),
+  const [submting, setSubmting] = useState(false);
+  const { walletConfig } = props.state;
+  const { location } = props;
+  const {
+    dataAddress, name,
+    dataTokenId, total,
+    symbol
+  } = location.state
 
 
   const divFn = (type?) => {
@@ -44,18 +44,18 @@ const PriceSeting: FC<any> = (props: any) => {
       ERC20,
       dataAddress
     );
-    // console.log('contract',contract);
-    
+    console.log('contract', contract);
+
     const amound = await contract.methods.allowance(
       address,
       routerToken
     ).call()
-     console.log('amound',amound);
-     
-    if (amound > 0){
+    console.log('amound', amound);
+
+    if (amound > 0) {
       return
     }
-    
+
     await contract.methods.approve( // 数据凭证授权
       routerToken,
       total
@@ -67,7 +67,7 @@ const PriceSeting: FC<any> = (props: any) => {
     const { wallet } = props.state.wallet || {}
     try {
       const { web3 } = wallet
-       
+
       const flag = await wallet.eth.isConnected()// 判断是否连接当前网络
       if (!flag) return
       // 1 获取地址
@@ -75,8 +75,8 @@ const PriceSeting: FC<any> = (props: any) => {
       if (!address) {
         return message.warning(t('common.pleaseSwitchNetworks'))
       }
-      
-     //获取当前余额
+
+      //获取当前余额
       const balance = await web3.eth.getBalance(address[0])
       if (BigInt(balance) < BigInt(latValue + Complement)) {
         return message.warning(t('common.currentWalletInsufficient'))
@@ -85,6 +85,7 @@ const PriceSeting: FC<any> = (props: any) => {
       //  数据授权
       setSubmting(true)
       await toAuthorization(web3, address[0])
+      console.log('toAuthorization');
 
       //  构建路由合约
       const myContract = new web3.eth.Contract(
@@ -92,34 +93,34 @@ const PriceSeting: FC<any> = (props: any) => {
         routerToken,
       );
 
-      //查询工厂合约地址
-      const factory = await myContract.methods.factory().call()
-      
-      //构建工厂合约
-      const FactoryContract = new web3.eth.Contract(
-        FactoryJson,
-        factory,
-      );
+      // //查询工厂合约地址
+      // const factory = await myContract.methods.factory().call()
 
-      //请i去weth 合约
-      const WETH = await myContract.methods.WETH().call()
-      
-      const pair =  await FactoryContract.methods.getPair(WETH,dataAddress).call()
-      // const pair2 =  await FactoryContract.methods.getPair(routerToken,dataAddress).call()
-      if(pair !== '0x0000000000000000000000000000000000000000'){//没有币兑地址  第一次
-        const {data, status} = await voucher.updateDataTokenStatus({dataTokenId:dataTokenId,status:6})
-        console.log(status);
-        
-        if(status == 0){
-          history.push({
-            pathname: '/voucher/NoAttribute',
-            state: {
-              attributeType:  'Un'
-            },
-          })
-        }
-        return
-      }
+      // //构建工厂合约
+      // const FactoryContract = new web3.eth.Contract(
+      //   FactoryJson,
+      //   factory,
+      // );
+
+      // //请i去weth 合约
+      // const WETH = await myContract.methods.WETH().call()
+
+      // const pair =  await FactoryContract.methods.getPair(WETH,dataAddress).call()
+      // // const pair2 =  await FactoryContract.methods.getPair(routerToken,dataAddress).call()
+      // if(pair !== '0x0000000000000000000000000000000000000000'){//没有币兑地址  第一次
+      //   const {data, status} = await voucher.updateDataTokenStatus({dataTokenId:dataTokenId,status:6})
+      //   console.log(status);
+
+      //   if(status == 0){
+      //     history.push({
+      //       pathname: '/voucher/NoAttribute',
+      //       state: {
+      //         attributeType:  'Un'
+      //       },
+      //     })
+      //   }
+      //   return
+      // }
       // console.log('没有',pair);
       // return
       //币兑合约
@@ -133,7 +134,7 @@ const PriceSeting: FC<any> = (props: any) => {
 
       //  获取nonce
       const nonce = await web3.eth.getTransactionCount(address[0])
-      
+
       // setSpinning(false)
       //  ERC20 合约的方法签名
       /**
@@ -172,7 +173,7 @@ const PriceSeting: FC<any> = (props: any) => {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         sendTransactionData(nonce, hash)
       })
-    } catch (e:any) {
+    } catch (e: any) {
       setSubmting(false)
       message.error(t(`exception.${filterWeb3Code(e.code)}`))
       console.log('发起交易失败', e)

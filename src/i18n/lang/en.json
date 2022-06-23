@@ -154,7 +154,7 @@
     "MyTemplate": "My Models",
     "CredentialInfo": "Set Credential Info",
     "updateAdmin": "Update Admin",
-    "publishDataVoucher": "Publish data voucher"
+    "publishDataVoucher": "Publish data Credential"
   },
   "common": {
     "submit": "Submit",
@@ -270,7 +270,7 @@
     "publishedData": "Published Data",
     "unpublishedData": "Unpublished Data",
     "dataVoucherAndSymbol": "Use credentials & Symbols",
-    "publishDataVoucher": "Publish data voucher"
+    "publishDataVoucher": "Publish data Credential"
   },
   "computeNodeMgt": {
     "nodeName": "Compute node name",
@@ -331,7 +331,13 @@
     "computing": "Computing",
     "failed": "Failed",
     "success": "Succeeded",
-    "role": ["undefined", "Sponsor", "Data provider", "Algorithm provider", "Result provider"],
+    "role": [
+      "undefined",
+      "Sponsor",
+      "Data provider",
+      "Algorithm provider",
+      "Result provider"
+    ],
     "step": {
       "start": "Task started",
       "beginCompute": "computation started",
@@ -408,9 +414,9 @@
     "unPublishData": "Un Publish Data",
     "InReleaseData": "In Release Data",
     "WithdrawingData": "Withdrawing Data",
-    "voucherPublishingFailed": "Voucher Publishing Failed",
-    "voucherPublishing": "Voucher Publishing",
-    "issuedVoucher": "Issued Voucher"
+    "voucherPublishingFailed": "Credential Publishing Failed",
+    "voucherPublishing": "Credential Publishing",
+    "issuedVoucher": "Issued Credential"
   },
   "myData": {
     "plzUploadFile": "Please upload your local file",
@@ -480,8 +486,8 @@
     "authorizationID": "Authorization  ID",
     "fileMaxSizeTips": "please reselect,The maximum size of the current file is",
     "FieldVisibilityTips": "Set at least 1 visible field",
-    "issuedVoucher": "Issued Voucher",
-    "noVoucherIssued": "No Voucher Issued",
+    "issuedVoucher": "Issued Credential",
+    "noVoucherIssued": "No Credential Issued",
     "sourceFileFields": "Source file field is required Name"
   },
   "tip": {
@@ -550,12 +556,14 @@
     "PublishCredential": "Publish Credential",
     "hasExceeded": "The current circulation has exceeded the maximum circulation",
     "selectTypeCredential": "Select the type of the credential",
-    "noAttributedTitle": "Non-attributed Credentialst",
-    "attributedTitle": "Attributed Credentials",
-    "noAttributedTips": "Publish non-attributed credentials：The value of each credential is exactly the same. One credential is consumed for using the data once. Before launching in the data marketplace, the credential needs to be priced, and then the price will fluctuate up and down according to the market quotations.",
-    "attributedTips": "Publish attributed credentials: Each credential is unique having different attributes and unique numbers. Before launching in the data marketplace, the credential needs to be set a count or period of data use as its attribute and set a right price.",
+    "noAttributedTitle": "No-attribute Credentialst",
+    "attributedTitle": "Attribute Credentials",
+    "noAttributedTips": "Publish no-attribute credentials：The value of each credential is exactly the same. One credential is consumed for using the data once. Before launching in the data marketplace, the credential needs to be priced, and then the price will fluctuate up and down according to the market quotations.",
+    "attributedTips": "Publish attribute credentials: Each credential is unique having different attributes and unique numbers. Before launching in the data marketplace, the credential needs to be set a count or period of data use as its attribute and set a right price.",
     "selectCredential": "Select credential",
-    "OnlyLettersNumbersEntered": "Only letters and numbers can be entered"
+    "OnlyLettersNumbersEntered": "Only letters and numbers can be entered",
+    "CredentialPublished": "The price has been set for the current Credential, and there is no need to submit it repeatedly",
+    "CredentialNotDeployed": "Current Credential has not been deployed yet"
   },
   "exception": {
     "error": "Exception",
