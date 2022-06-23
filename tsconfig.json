@@ -4,11 +4,11 @@
     "removeComments": true,
     "lib": [
       "dom",
-      "dom.iterable", 
+      "dom.iterable",
       "esnext"
     ],
     "allowJs": true,
-    "skipLibCheck": true, 
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,

@@ -1,5 +1,5 @@
 import { Button, message } from 'antd'
-import { useState, useEffect,useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 // import MyWave from '@com/MyWave'
@@ -7,7 +7,7 @@ import { loginApi } from '@api/index'
 import { connect } from 'react-redux'
 // import loginIcon from '@assets/images/login/loginIcon.png'
 import { useSpring, animated } from 'react-spring';
-import {filterWeb3Code} from '@utils/utils'
+import { filterWeb3Code } from '@utils/utils'
 
 import representativeType from '@assets/images/login/representative-type.png'
 import en from '@assets/images/login/en.png'
@@ -58,9 +58,9 @@ const Login = (props: any) => {
   const { hash } = history.location;
   const fromPathAry = hash.replace(/#/, '')?.split('/');
   const [languageHover, setLanguageHover] = useState(false)
-  const isClick:any = useRef(true)
-  const isInit:any = useRef(true);
-  const rippleEl:any = useRef(null);
+  const isClick: any = useRef(true)
+  const isInit: any = useRef(true);
+  const rippleEl: any = useRef(null);
   const [animatedData, setAnimatedData] = useState({ top: 0, left: 0, width: 0, height: 0 });
   let redirectPath
   if (fromPathAry.length > 2) {
@@ -68,7 +68,7 @@ const Login = (props: any) => {
   } else {
     redirectPath = hash.replace(/#/, '')
   }
-  const rippleAnim:any = useSpring({
+  const rippleAnim: any = useSpring({
     from: {
       ...animatedData,
       transform: 'scale(0)',
@@ -83,9 +83,14 @@ const Login = (props: any) => {
 
 
 
-  const headLoginParams = (data:any) => {
+  const headLoginParams = (data: any) => {
     const { status } = data
-    const { isAdmin, orgInfoCompletionLevel, connectNetworkStatus } = data.data || {}
+    const { isAdmin,
+      orgInfoCompletionLevel,
+      connectNetworkStatus
+    } = data.data || {}
+    // const orgInfoCompletionLevel = 1,
+    //   connectNetworkStatus = 0
     if (status !== 0) return
     if (!+isAdmin && connectNetworkStatus < 1) {// 是否是管理员，0-否，1-是'
       message.warning(`${t('login.loginTips')}`)
@@ -109,7 +114,7 @@ const Login = (props: any) => {
 
   const loginFn = async () => {
     const { wallet } = props.state.wallet || {};
-      const { walletConfig } = props.state
+    const { walletConfig } = props.state
     try {
       // 1 获取地址
       const address = await wallet.connectWallet(walletConfig)
@@ -126,14 +131,14 @@ const Login = (props: any) => {
         sign,
         signMessage: wallet._getAbiForLogin(data.nonce)
       })
-       
+
       console.log(isClick)
 
       props.setAddress(address[0])
       headLoginParams(loginInfo)
       isClick.current = true
       isInit.current = true
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error)
       message.error(t(`exception.${filterWeb3Code(error.code)}`))
       isInit.current = true
@@ -143,7 +148,7 @@ const Login = (props: any) => {
 
   const queryToken = (e: any) => {
     if (!isClick.current) return
-    const event:any = e
+    const event: any = e
     console.log(isClick)
     isInit.current = false
     isClick.current = false
@@ -167,7 +172,7 @@ const Login = (props: any) => {
       if (data.length) {
         const obj: any = {}
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        data && data.forEach((v:any) => {
+        data && data.forEach((v: any) => {
           switch (v.key) {
             case 'chain_name':
               obj.chain_name = v.value;
@@ -240,13 +245,13 @@ const Login = (props: any) => {
           {props.state.wallet.wallet ?
             <div className='plug-in-list'>
               <div onClick={queryToken} className="connector-block">
-                  <animated.span
-                    className="g-ripple"
-                    style={rippleAnim}
-                    ref={rippleEl}
-                  ></animated.span>
-                    <img src={metamask} alt="samurai" className="icon" />
-                    <span className="text">Metamask</span>
+                <animated.span
+                  className="g-ripple"
+                  style={rippleAnim}
+                  ref={rippleEl}
+                ></animated.span>
+                <img src={metamask} alt="samurai" className="icon" />
+                <span className="text">Metamask</span>
               </div>
               {/* <div className='login-remarks'>
                 {t('login.loginRemarks')}
@@ -272,4 +277,4 @@ const Login = (props: any) => {
   )
 }
 
-export default connect((state: any) => ({ state }), mapDispatchToProps)(Login) 
+export default connect((state: any) => ({ state }), mapDispatchToProps)(Login)
