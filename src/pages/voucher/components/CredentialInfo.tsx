@@ -141,27 +141,27 @@ const CredentialInfo: FC<any> = (props: any) => {
         initialSupply: filterIntegerAmount(data.total) //data.total
       })
       if (data?.status == 3) {
-        // web3.eth.getTransactionCount(data.address).then(res => {
-        //   console.log(res);
-        //   if (!res) {
-        //     timeOut(id)
-        //     return
-        //   }
-        setLoading(false)
-        localStorage.setItem('metaDataId', '')
-        // setDatas(data)
-        submiting.current = false
-        history.push({
-          pathname: '/myData/dataVoucherPublishing/PriceSet',
-          state: {
-            dataAddress: data.address,
-            name: data.name,
-            dataTokenId: data.id,
-            total: data.total,
-            symbol: data.symbol
-          },
+        web3.eth.getTransactionCount(data.address).then(res => {
+          console.log(res);
+          if (!res) {
+            timeOut(id)
+            return
+          }
+          setLoading(false)
+          localStorage.setItem('metaDataId', '')
+          // setDatas(data)
+          submiting.current = false
+          history.push({
+            pathname: '/myData/dataVoucherPublishing/PriceSet',
+            state: {
+              dataAddress: data.address,
+              name: data.name,
+              dataTokenId: data.id,
+              total: data.total,
+              symbol: data.symbol
+            },
+          })
         })
-        // })
       } else if (data?.status == 2) {
         setLoading(false)
         submiting.current = false

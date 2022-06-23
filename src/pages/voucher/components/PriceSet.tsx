@@ -94,33 +94,33 @@ const PriceSeting: FC<any> = (props: any) => {
       );
 
       // //查询工厂合约地址
-      // const factory = await myContract.methods.factory().call()
+      const factory = await myContract.methods.factory().call()
 
-      // //构建工厂合约
-      // const FactoryContract = new web3.eth.Contract(
-      //   FactoryJson,
-      //   factory,
-      // );
+      //构建工厂合约
+      const FactoryContract = new web3.eth.Contract(
+        FactoryJson,
+        factory,
+      );
 
-      // //请i去weth 合约
-      // const WETH = await myContract.methods.WETH().call()
+      //请i去weth 合约
+      const WETH = await myContract.methods.WETH().call()
 
-      // const pair =  await FactoryContract.methods.getPair(WETH,dataAddress).call()
-      // // const pair2 =  await FactoryContract.methods.getPair(routerToken,dataAddress).call()
-      // if(pair !== '0x0000000000000000000000000000000000000000'){//没有币兑地址  第一次
-      //   const {data, status} = await voucher.updateDataTokenStatus({dataTokenId:dataTokenId,status:6})
-      //   console.log(status);
+      const pair = await FactoryContract.methods.getPair(WETH, dataAddress).call()
+      // const pair2 =  await FactoryContract.methods.getPair(routerToken,dataAddress).call()
+      if (pair !== '0x0000000000000000000000000000000000000000') {//没有币兑地址  第一次
+        const { data, status } = await voucher.updateDataTokenStatus({ dataTokenId: dataTokenId, status: 6 })
+        console.log(status);
 
-      //   if(status == 0){
-      //     history.push({
-      //       pathname: '/voucher/NoAttribute',
-      //       state: {
-      //         attributeType:  'Un'
-      //       },
-      //     })
-      //   }
-      //   return
-      // }
+        if (status == 0) {
+          history.push({
+            pathname: '/voucher/NoAttribute',
+            state: {
+              attributeType: 'Un'
+            },
+          })
+        }
+        return
+      }
       // console.log('没有',pair);
       // return
       //币兑合约
