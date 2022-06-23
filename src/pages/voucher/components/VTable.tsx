@@ -62,6 +62,7 @@ const VoucherTable: FC<any> = (props: any) => {
         routerToken
       ).call()
       console.log('amound', amound);
+      // throw new Error()
       return Promise.resolve(amound)
     } catch (e) {
       message.warning(t('voucher.CredentialNotDeployed'))

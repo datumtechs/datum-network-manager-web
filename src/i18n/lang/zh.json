@@ -563,7 +563,7 @@
     "selectCredential": "选择凭证",
     "OnlyLettersNumbersEntered": "只能输入字母和数字",
     "CredentialPublished": "当前凭证已设置价格, 无需重复提交",
-    "CredentialNotDeployed ": "当前凭证还未完成部署"
+    "CredentialNotDeployed": "当前凭证还未完成部署"
   },
   "MyModel": {
     "ModelTabsAll": "全部模型",
