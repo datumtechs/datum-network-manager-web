@@ -112,6 +112,7 @@ const PriceSeting: FC<any> = (props: any) => {
         console.log(status);
 
         if (status == 0) {
+          message.warning(t('voucher.CredentialPublished'))
           history.push({
             pathname: '/voucher/NoAttribute',
             state: {
