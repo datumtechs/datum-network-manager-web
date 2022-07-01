@@ -5,30 +5,30 @@ import i18n from '@/i18n/config'
 const EXCEPTION_MAP: string[] = ["4001", "4100", "4200", "4900", "4901", "-32700", "-32600", "-32601", "-32602", "32603"]
 
 export const Complement = '000000000000000000'
+export const imgURls = 'http://testdownload.datumtechs.com/datum/image/3.svg'
+
 export const filterAmount = (str: string): string => {
   if (!str) return ''
   return `${new Big(str).div(new Big(10).pow(18)).toFixed(8)}`
-  // return str
 }
 
 export const filterIntegerAmount = (str: string): string => {
   if (!str) return ''
   return `${new Big(str).div(new Big(10).pow(18)).toFixed(0)}`
-  // return str
 }
 
 
-export const changeSizeFn = (input: number): string => {
-  if (!input) return '0B'
+const sizeChange = (input:number,Company:string)=>{
+  if (!input) return `0B`
   let size = "";
   if (input < 0.1 * 1024) {                            // 小于0.1KB，则转化成B
-    size = `${input.toFixed(2)}B`
+    size = `${input.toFixed(2)}${Company}`
   } else if (input < 0.1 * 1024 * 1024) {            // 小于0.1MB，则转化成KB
-    size = `${(input / 1024).toFixed(2)}KB`
+    size = `${(input / 1024).toFixed(2)}K${Company}`
   } else if (input < 0.1 * 1024 * 1024 * 1024) {        // 小于0.1GB，则转化成MB
-    size = `${(input / (1024 * 1024)).toFixed(2)}MB`
+    size = `${(input / (1024 * 1024)).toFixed(2)}M${Company}`
   } else {                                            // 其他转化成GB
-    size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}GB`
+    size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}G${Company}`
   }
 
   const sizeStr = `${size}`;                        // 转成字符串
@@ -38,29 +38,15 @@ export const changeSizeFn = (input: number): string => {
     return sizeStr.substring(0, index) + sizeStr.substr(index + 3, 2)
   }
   return size;
+}
+
+export const changeSizeFn = (input: number): string => {
+   return sizeChange(input,"B")
 }
 
 
 export const newChangeSizeFn = (input: number): string => {
-  if (!input) return '0B'
-  let size = "";
-  if (input < 0.1 * 1024) {                            // 小于0.1KB，则转化成B
-    size = `${input.toFixed(2)}B`
-  } else if (input < 0.1 * 1024 * 1024) {            // 小于0.1MB，则转化成KB
-    size = `${(input / 1024).toFixed(2)}Kb`
-  } else if (input < 0.1 * 1024 * 1024 * 1024) {        // 小于0.1GB，则转化成MB
-    size = `${(input / (1024 * 1024)).toFixed(2)}Mb`
-  } else {                                            // 其他转化成GB
-    size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}Gb`
-  }
-
-  const sizeStr = `${size}`;                        // 转成字符串
-  const index = sizeStr.indexOf(".");                    // 获取小数点处的索引
-  const dou = sizeStr.substr(index + 1, 2)            // 获取小数点后两位的值
-  if (dou === "00") {                                // 判断后两位是否为00，如果是则删除00                
-    return sizeStr.substring(0, index) + sizeStr.substr(index + 3, 2)
-  }
-  return size;
+  return sizeChange(input,"b")
 }
 
 
@@ -95,9 +81,6 @@ export const BandwidthSizeObj = (input: number): any => {
   } else if (input < 0.1 * 1024 * 1024) {
     size = `${(input / 1024).toFixed(2)}`
     unit = 'Kb'
-    // } else if (input > 100 * 1024 * 1024) {
-    //   size = `${(input / (1024 * 1024 * 1024)).toFixed(2)}`
-    //   unit = 'GB'
   } else {
     size = `${(input / (1024 * 1024)).toFixed(2)}`
     unit = 'Mb'
@@ -105,17 +88,6 @@ export const BandwidthSizeObj = (input: number): any => {
   return { size, unit };
 }
 
-
-
-const isZeroEnd = (input) => {
-  const sizeStr = `${input}`
-  const index = sizeStr.indexOf('.')
-  const double = sizeStr.substr(index + 1, 2)
-  if (double === '00') { // 判断后两位是否为00，如果是则删除00                
-    return sizeStr.substring(0, index) + sizeStr.substr(index + 3, 2)
-  }
-  return sizeStr
-}
 
 export const thousandMark = (input) => {
   return input.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')

@@ -6,16 +6,7 @@ class Web3Service {
     this.web3 = new Web3(this.eth) || undefined
   }
 
-  // // eth.on('accountsChanged', account => {
-  // //   props.updataWalletStatus({ WalletStatus: false })
-  // // })
-  // // // 切换网络
-  // // eth.on('chainChanged', () => {
-  // //   props.updataWalletStatus({ WalletStatus: false })
-  // // })
- 
   // 登录签名
-  // eslint-disable-next-line class-methods-use-this
   _getAbiForLogin(nonceId) {
     return JSON.stringify({
       domain: {
@@ -51,8 +42,6 @@ class Web3Service {
   }
 
 
-
-  // eslint-disable-next-line class-methods-use-this
   _getAbiForTx(address) {
     return JSON.stringify({
       domain: {
@@ -75,7 +64,6 @@ class Web3Service {
     })
   }
 
-  // eslint-disable-next-line class-methods-use-this
   _getDecimalChainID(originId) {
     return parseInt(originId, 10)
   }
@@ -86,7 +74,7 @@ class Web3Service {
       params: [
         {
           chainName: obj.chain_name,
-          chainId: `0x${  obj.chain_id.toString(16)}`,
+          chainId: `0x${obj.chain_id.toString(16)}`,
           rpcUrls: [obj.rpc_url],
           nativeCurrency: {
             symbol: obj.symbol,
@@ -100,25 +88,20 @@ class Web3Service {
 
 
 
-  // 连接钱包  获取  address
   async connectWallet(obj) {
     let address = ''
     const chainId = await this._queryChainID()
-    // eslint-disable-next-line radix
     if (parseInt(chainId) !== obj.chain_id) {
       await this._addNetwork(obj)
     }
     const newChainId = await this._queryChainID()
-    // eslint-disable-next-line radix
     if (parseInt(newChainId) !== obj.chain_id) return false
 
-  
+
 
     address = await this.eth.request({
       method: 'eth_requestAccounts'
     })
-    // const newAddress =  await this.web3.eth.currentProvider // .add(address[0])
-    // console.log(newAddress)
     return address
   }
 
@@ -127,7 +110,7 @@ class Web3Service {
     const abi = type === 'login' ?
       this._getAbiForLogin(nonceId) :
       this._getAbiForTx(address)
-    const from = address// this.store.getters['app/address']
+    const from = address
 
     const result = new Promise((resolve, reject) => {
       this.web3.currentProvider.sendAsync({
@@ -138,9 +121,8 @@ class Web3Service {
         (err, res) => {
           if (err) return reject(err)
           const {
-            // eslint-disable-next-line @typescript-eslint/no-shadow
             result
-          }= res
+          } = res
           resolve(result)
         }
       )
@@ -159,8 +141,8 @@ class Web3Service {
         return true
       }
       return false
-    } 
-      return false
+    }
+    return false
   }
 }
 export default Web3Service

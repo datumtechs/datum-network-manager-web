@@ -1,13 +1,10 @@
 import { FC, useState } from "react";
 import { useTranslation } from 'react-i18next'
-import {
-  Button, Input, message,
-  Row, Col
-} from 'antd'
+import { Button, Input, Row, Col } from 'antd'
 import { loginApi } from '@api/index'
 import clean from '@assets/images/clean.icon.svg'
+import { imgURls } from '@utils/utils'
 
-const imgURls = 'http://testdownload.datumtechs.com/datum/image/3.svg'
 
 export const StepTwo: FC<any> = (props) => {
   const { t, i18n } = useTranslation(),

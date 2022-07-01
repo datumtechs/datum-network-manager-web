@@ -2,16 +2,12 @@ import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { Form, Button, Input, message, Image } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { BaseInfoContext } from '@/layout/index'
+import { imgURls as imgURl } from '@utils/utils'
 import './index.scss'
 import { Rule } from 'antd/lib/form'
 import { loginApi } from '@api/index'
 const { TextArea } = Input
-const imgUrlList = [
-  'http://39.103.230.158:10001/1.svg',
-  'http://39.103.230.158:10001/2.svg',
-  'https://download.technocore.network/Datum/image/3.svg',
-]
-const imgURl = imgUrlList[2]//imgUrlList[parseInt(String(Math.random() * 3))]
+
 
 const Profile: FC<any> = (props: any) => {
   const [form] = Form.useForm(),
@@ -128,7 +124,7 @@ const Profile: FC<any> = (props: any) => {
               :
               <TextArea autoSize={false} className="identfier-info-input"
                 key={"ProfileOrganizationHead"}
-                maxLength={200}
+                maxLength={140}
                 showCount
                 placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
               </TextArea>
