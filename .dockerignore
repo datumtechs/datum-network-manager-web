@@ -1,3 +1,2 @@
-/node_modules
-/config
-/scripts
+node_modules
+.vscode
