@@ -92,13 +92,16 @@ const App: FC<any> = (props: any) => {
       <Suspense fallback={<Spin size="large" className="global-loading" />}>
         <Router>
           <Switch>
-            {layoutRoutes.map((route: IRoute | any, key: number) => (
-              <Route
-                key={route.path + key}
-                path={route.path}
-                render={props => <route.component {...props} routes={[...route?.children, ...newRoute]} />}
-              />
-            ))}
+            {layoutRoutes.map((route: IRoute | any, key: number) => {
+              const list = route?.children || []
+              return (
+                <Route
+                  key={route.path + key}
+                  path={route.path}
+                  render={props => <route.component {...props} routes={[...list, ...newRoute]} />}
+                />
+              )
+            })}
           </Switch>
         </Router>
       </Suspense>
