@@ -6,6 +6,7 @@ import Card from './components/cards/Card'
 import PublishDataChart from './components/cards/PublishDataChart'
 import DataTrendChart from './components/cards/DataTrendChart'
 import TaskChart from './components/cards/TaskChart'
+import RecordCard from './components/cards/RecordCard'
 import './scss/index.scss'
 
 
@@ -50,25 +51,26 @@ export const Overview: FC<any> = () => {
 
   return (
     <div className="main-center-overview">
-      <div className="overview-content-box">
-        <Card type="cpu"
-          bgColor={bgColor.cpu}
-          precent={totalResource.usedCore_rate}
-          value={totalResource?.totalCore || 0}
-          unit={totalResource.totalCore ? t('overview.core') : ''} />
-        <Card type="memory"
-          bgColor={bgColor.memory}
-          precent={totalResource.usedMemory_rate}
-          value={changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource?.totalMemory).size : 0}
-          unit={totalResource.totalMemory ? changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource.totalMemory).unit : changeSizeObj(totalResource?.totalMemory).unit : ''} />
-        <Card type="bandwidth"
-          bgColor={bgColor.bandwidth}
-          precent={totalResource.usedBandwidth_rate}
-          value={BandwidthSizeObj(totalResource?.totalBandwidth) ? BandwidthSizeObj(totalResource?.totalBandwidth).size : 0}
-          unit={totalResource.totalBandwidth ? BandwidthSizeObj(totalResource.totalBandwidth) ? `${BandwidthSizeObj(totalResource.totalBandwidth).unit}ps` : '' : ''} />
-      </div>
+
       <div className="overview-box">
         <div className="overview-left">
+          <div className="overview-content-box">
+            <Card type="cpu"
+              bgColor={bgColor.cpu}
+              precent={totalResource.usedCore_rate}
+              value={totalResource?.totalCore || 0}
+              unit={totalResource.totalCore ? t('overview.core') : ''} />
+            <Card type="memory"
+              bgColor={bgColor.memory}
+              precent={totalResource.usedMemory_rate}
+              value={changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource?.totalMemory).size : 0}
+              unit={totalResource.totalMemory ? changeSizeObj(totalResource?.totalMemory) ? changeSizeObj(totalResource.totalMemory).unit : changeSizeObj(totalResource?.totalMemory).unit : ''} />
+            <Card type="bandwidth"
+              bgColor={bgColor.bandwidth}
+              precent={totalResource.usedBandwidth_rate}
+              value={BandwidthSizeObj(totalResource?.totalBandwidth) ? BandwidthSizeObj(totalResource?.totalBandwidth).size : 0}
+              unit={totalResource.totalBandwidth ? BandwidthSizeObj(totalResource.totalBandwidth) ? `${BandwidthSizeObj(totalResource.totalBandwidth).unit}ps` : '' : ''} />
+          </div>
           <div className="overview-publish-data item">
             <PublishDataChart bgColor={bgColor} />
           </div>
@@ -79,7 +81,7 @@ export const Overview: FC<any> = () => {
         </div>
         <div className="overview-right">
           <TaskChart />
-          {/* <RecordCard /> */}
+          <RecordCard />
         </div>
       </div>
     </div>

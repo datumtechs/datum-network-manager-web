@@ -102,6 +102,8 @@ const Login = (props: any) => {
       connectNetworkStatus,// //0 未入网  1已入网 99 已退网
     })
     props.loginInfo(data.data)
+    console.log(redirectPath, data.data);
+
     if (+connectNetworkStatus < 1) {
       history.push({ pathname: '/didApplication', })
     } else if (redirectPath && redirectPath !== '/login') {

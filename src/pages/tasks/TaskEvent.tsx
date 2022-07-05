@@ -36,6 +36,7 @@ export const TaskEvent: FC<any> = (props: any) => {
   })
 
   useEffect(() => {
+    if (!taskId) history.go(-1)
     taskApi.querytaskInfo(taskId).then(res => {
       if (res.status === 0 && res.data) {
         setBaseInfo(res.data)

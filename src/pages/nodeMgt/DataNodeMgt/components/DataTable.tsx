@@ -242,11 +242,6 @@ const DataTable: FC<any> = (props: any) => {
             <Input
               className="form-box-input" placeholder={t('node.forSelfidentity')} />
           </Form.Item>
-          {/* {
-              showNameStatus ? nameStatus ? <MyTag margin={true} content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" /> :
-                <MyTag margin={true} content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" /> : ''
-            } */}
-          {/* </div> */}
           <Form.Item
             colon={false}
             style={{ marginTop: '10px' }}

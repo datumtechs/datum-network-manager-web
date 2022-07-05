@@ -12,12 +12,13 @@ interface UserValue {
 }
 
 const Details: FC<any> = (props: any) => {
-  const { t } = useTranslation();
-    const history = useHistory();
-    const { location } = props;
-    const { dataId } = location?.state || {};
-    const [value, setValue] = useState(dataId || null);
-    const [optionList, setOptionList] = useState([])
+  const { t, i18n } = useTranslation();
+  const history = useHistory();
+  const { location } = props;
+  const { dataId, metaDataId,
+    metaDataName } = location?.state || {};
+  const [value, setValue] = useState(dataId || null);
+  const [optionList, setOptionList] = useState([])
 
 
   const fetchUserList = async (keyword: string): Promise<UserValue[]> => {
@@ -34,22 +35,17 @@ const Details: FC<any> = (props: any) => {
     })
   }
 
-  const submit = () => {
-    // history.push({
-    //   pathname: '/myData/dataVoucherPublishing/CredentialInfo',
-    //   state: {
-    //     // dataTokenId: _.dataTokenId,
-    //     metaDataId: 'metadata:0x5cf98cbaf613b8d526ffec288689e26020d5dc35364ef31fb16c5b84a3e8d5bb',
-    //     // metaDataName: _.metaDataName,
-    //     dataId: 3,
-    //   }
-    // })
+  const submit = (type) => {
     optionList.forEach((_: any) => {
       console.log(_.id, value)
       if (_.id == value) {
         localStorage.setItem('metaDataId', '')
+        let url = '/myData/dataVoucherPublishing/CredentialInfo'
+        if (type == 'attributed') {
+          url = '/myData/dataVoucherPublishing/AttributedPublishing'
+        }
         history.push({
-          pathname: '/myData/dataVoucherPublishing/CredentialInfo',
+          pathname: url,
           state: {
             dataTokenId: _.dataTokenId,
             metaDataId: _.metaDataId,
@@ -64,17 +60,22 @@ const Details: FC<any> = (props: any) => {
 
   return <div className='layout-box'>
     <div className='data-table-box data-voucher-publishing-wrap'>
+      {metaDataName ?
+        <> <p className="metaInfo-name"><span>{t('center.dataName')}: </span>{metaDataName}</p>
+          <p className="metaInfo-id"><span>{t('center.metaDataID')}: </span>{metaDataId}</p>
+        </>
+        : ''}
       <div className='data-voucher-publishing'>
         <p className='select-ccredential'>{t('voucher.selectTypeCredential')}:</p>
         <div className='data-publishing'>
           <div className='on-attributed  credentials'>
             <h3 className='credentials-title'>{t('voucher.noAttributedTitle')}</h3>
-            <div className='credentials-tips'>{t('voucher.noAttributedTips')}</div>
+            <div className={i18n.language == 'zh' ? 'credentials-tip-zh credentials-tips' : 'credentials-tip-en credentials-tips'}>{t('voucher.noAttributedTips')}</div>
             <DebounceSelect
               propsValue={{
                 allowClear: true,
                 value,
-                placeholder: t('voucher.selectCredential'),
+                placeholder: t('credential.pleaseSelectBindCredential'),
                 style: { width: '100%' },
                 onChange: newValue => {
                   setValue(newValue);
@@ -82,16 +83,30 @@ const Details: FC<any> = (props: any) => {
               }}
               fetchOptions={fetchUserList}
             />
-            <div className="button" onClick={submit}>{t('common.select')}</div>
+            <div className="button" onClick={submit}>{t('common.confirm')}</div>
           </div>
           <div className='attributed credentials'>
             <h3 className='credentials-title'>{t('voucher.attributedTitle')}</h3>
-            <div className='credentials-tips'>{t('voucher.attributedTips')}</div>
-            <Select disabled={true} style={{ width: '100%' }} />
-            <div className='button-white'>{t('common.comingSoon')}</div>
+            <div className={i18n.language == 'zh' ? 'credentials-tip-zh credentials-tips' : 'credentials-tip-en credentials-tips'}>{t('voucher.attributedTips')}</div>
+            <DebounceSelect
+              key="attributed"
+              propsValue={{
+                allowClear: true,
+                value,
+                placeholder: t('credential.pleaseSelectBindCredential'),
+                style: { width: '100%' },
+                onChange: newValue => {
+                  setValue(newValue);
+                }
+              }}
+              fetchOptions={fetchUserList}
+            />
+            <div className='button-white' onClick={() => submit('attributed')}>{t('common.confirm')}</div>
           </div>
         </div>
       </div>
+      <div className="button" style={{ marginLeft: 0 }} onClick={() => history.go(-1)}>{t('common.return')}</div>
+
     </div>
   </div>
 }

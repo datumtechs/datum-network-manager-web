@@ -218,6 +218,7 @@ const PriceSeting: FC<any> = (props: any) => {
 
 
   useEffect(() => {
+    if (!dataTokenId) history.go(-1)
     voucher.getUpConfig().then(res => {
       const { data } = res
       if (data.routerToken) {

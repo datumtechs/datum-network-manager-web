@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FC, useState, createRef, useEffect } from 'react'
-import { Descriptions, Space, Form, Input, Radio, Button, message, Select } from 'antd'
+import { Descriptions, Space, Form, Input, Radio, Button, message, Select, Checkbox, Tooltip } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import MyFiledsTable from '@com/MyFiledsTable'
@@ -13,7 +14,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { Option } = Select
   const { location } = props
-  const { type, id, fileName } = location.state
+  const { type, id, fileName } = location.state || {}
   const [sourceName, sourceNameSet] = useState<string>('')
   const [sourceFileID, sourceFileIDSet] = useState<string>('')
   const [sourceFilePath, sourceFilePathSet] = useState<string>('')
@@ -38,6 +39,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     pagesize: 10,
   }
 
+
   const checkResourceName = name => {
     resourceApi.checkResourceName({ resourceName: name, metaDataId: resultFileData.metaDataId }).then(res => {
       if (res.status === 0) {
@@ -61,11 +63,9 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     history.go(-1)
   }
   const submitFn = () => {
-    // debugger
     form
       .validateFields()
       .then(values => {
-        // debugger
         const queryObj = {
           addType: 2,
           industry,
@@ -75,12 +75,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           resourceName: form.getFieldValue('newDataName'), // 新资源名称
 
         }
-        // console.log(1)
         resourceApi.addLocalMetaData(queryObj).then(res => {
-          // console.log(3, res)
-          if (res.status === 0) {
-            // console.log(2)
+          console.log('另存为数据需要点两次监控', res.status, res);
+          if (res.status == 0) {
             message.success(`${t('tip.addMetaDataSuccess')}`)
+            console.log('push');
             history.push('/myData')
           }
         })
@@ -106,6 +105,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   }
 
   useEffect(() => {
+    if (!id) history.go(-1)
     // 初始化查询当前id 数据
     resourceApi.queryMetaDataDetail(id).then(res => {
       const { data } = res
@@ -156,9 +156,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             <div className="sub-title-box">{t('center.basicInfo')}</div>
             <div className="pl12">
               <Form.Item label={t('myData.sourceName')} name="sourceName">
-                {/* <Input onBlur={e => checkResourceName(e.target.value)} className="limit-box" /> */}
                 <p>{sourceName}</p>
-                {/* <div className="tips">{t('myData.nameTips')}</div> */}
               </Form.Item>
               <Form.Item label={t('myData.sourceFileID')} name="sourceFileID">
                 <p>{sourceFileID}</p>
@@ -183,6 +181,26 @@ export const NewDataAddtion: FC<any> = (props: any) => {
                 <Form.Item name="remarks" noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
                   <Input.TextArea value={remarks} onChange={handleRemarkChange} className="limit-box width457" />
                 </Form.Item>
+              </Form.Item>
+              <Form.Item
+                label={t('center.usageScene')}
+              >
+                <Form.Item name="usageScene" initialValue="ciphertext" noStyle
+                  rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
+                  <Checkbox.Group>
+                    <Checkbox value="plaintext">{t('center.Plaintext')}</Checkbox>
+                    <Checkbox value="ciphertext">{t('center.ciphertext')}</Checkbox>
+                  </Checkbox.Group>
+                </Form.Item>
+                <Tooltip placement="topLeft" title={
+                  <div>
+                    {t('center.ciphertextAndPlaintextTipsOne')} <br />
+                    {t('center.ciphertextAndPlaintextTipsTwo')} <br />
+                    {t('center.ciphertextAndPlaintextTipsThree')} <br />
+                  </div>
+                }>
+                  <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588' }} />
+                </Tooltip>
               </Form.Item>
             </div>
           </div>

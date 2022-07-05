@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { voucher } from '@api'
 import { QuestionCircleOutlined } from '@ant-design/icons'
-// import stepone from '@assets/images/voucher/step_one.svg'
 import ABIJson from '@/utils/DataTokenFactory.json'
 import { Complement, filterWeb3Code, filterIntegerAmount } from '@/utils/utils'
 import { requestCancel } from '@/utils/loading'
@@ -22,8 +21,7 @@ const CredentialInfo: FC<any> = (props: any) => {
   const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
   const [loading, setLoading] = useState(false);
   const submiting = useRef(false)
-  // const receipt = useRef(false)
-  // const [datas,setDatas] = useState<any>({})
+
 
 
   const initialState: any = useRef()
@@ -198,9 +196,6 @@ const CredentialInfo: FC<any> = (props: any) => {
           <p>{t('center.metaDataID')}：{metaDataId}</p>
         </div>
       </div>
-      {/* <div className='speed-progress'>
-        <img src={stepone} alt="" />
-      </div> */}
       <p className='title'>{t('voucher.CredentialName')}</p>
 
       <Form
@@ -244,51 +239,6 @@ const CredentialInfo: FC<any> = (props: any) => {
           ]}
         >
           <Input maxLength={64} minLength={2} placeholder={t('credential.caseAndNumberPlaceholder')} />
-        </Form.Item>
-        <p className='title'>{t('voucher.CirculationTotal')} </p>
-        <Form.Item
-          labelAlign="left"
-          label={`${t('voucher.Circulation')}:`}
-          name="initialSupply"
-          rules={[
-            {
-              pattern: new RegExp(/^[1-9]\d*$/, "g"),
-              message: `${t('common.pleaseEnterNumber')}`
-            },
-            { required: true, message: `${t('voucher.RequiredCirculation')}` }]}
-        >
-          <Input maxLength={18} minLength={2} placeholder={`${t('voucher.RequiredCirculation')}`} />
-        </Form.Item>
-        <p className='title'>{t('credential.setConsumption')}
-          <Tooltip placement="topLeft" title={t('credential.setConsumptionTips')}>
-            <QuestionCircleOutlined style={{ 'fontSize': '18px', 'color': '#3C3588', marginLeft: "20px" }} />
-          </Tooltip>
-        </p>
-        <Form.Item
-          labelAlign="left"
-          label={`${t('credential.plaintextConsumption')}:`}
-          name="plaintextConsumption"
-          rules={[
-            {
-              pattern: new RegExp(/^[1-9]\d*$/, "g"),
-              message: `${t('common.pleaseEnterNumber')}`
-            },
-            { required: true, message: `${t('credential.pleaseEnter')} ${t('credential.plaintextConsumption')}` }]}
-        >
-          <Input maxLength={18} minLength={1} placeholder={`${t('credential.pleaseEnter')}${t('credential.plaintextConsumption')}`} />
-        </Form.Item>
-        <Form.Item
-          labelAlign="left"
-          label={`${t('credential.ciphertextConsumption')}:`}
-          name="ciphertextConsumption"
-          rules={[
-            {
-              pattern: new RegExp(/^[1-9]\d*$/, "g"),
-              message: `${t('common.pleaseEnterNumber')}`
-            },
-            { required: true, message: `${t('credential.pleaseEnter')} ${t('credential.ciphertextConsumption')}` }]}
-        >
-          <Input maxLength={18} placeholder={`${t('credential.pleaseEnter')}${t('credential.ciphertextConsumption')}`} minLength={1} />
         </Form.Item>
         <Form.Item
           labelAlign="left"

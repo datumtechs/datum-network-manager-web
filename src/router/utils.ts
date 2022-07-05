@@ -22,24 +22,8 @@ const flatRoute = (list:any,priviege)=>{
 }
 
 export const verifyRout = (privilegeRoute)=>{
-  
   const priviege = privilegeRoute.map(v=> v.value)
-  
   const newlist:any[] = flatRoute(basicsRouters,priviege)
-  // basicsRouters.forEach(v=> {
-  //     if(v.children){
-  //       const ls =  
-  //       if(ls.length){
-  //         const obj = {...v}
-  //         obj.children = ls
-  //         newlist.push({...obj})
-  //       }
-  //     } else {
-  //       if(priviege.indexOf(v.path) > -1){
-  //         newlist.push({...v})
-  //       }  
-  //     }
-  // })
   return [...newlist]
 }
 
@@ -76,8 +60,9 @@ export function flattenRoute(routeList: IRoute[], deep: boolean, auth: boolean):
 
 function getBusinessRouteList(): IRoute[] {
   const routeList = routes.filter(route => route.path === '/')
+
   if (routeList.length > 0) {
-    return flattenRoute(routeList, true, true)
+    return flattenRoute([...routeList,...basicsRouters], true, true)
   }
   return []
 }

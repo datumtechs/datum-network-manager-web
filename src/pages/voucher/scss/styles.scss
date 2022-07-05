@@ -22,7 +22,7 @@
       }
 
       .ant-tabs-nav-list .ant-tabs-tab-active .ant-tabs-tab-btn {
-        font-family: PingFangSC-Medium;
+        font-family: AlibabaPuHuiTi-Medium;
         // font-size: 12px;
         color: #3954FF;
         letter-spacing: 0;
@@ -37,6 +37,7 @@
   .no-right-border {
     border-right: none !important;
   }
+
 
   .data-symbol {
     color: #3C3588;
@@ -105,27 +106,26 @@
   }
 
   .details-name-box {
-    font-family: PingFangSC-Medium;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 44px;
+    margin-bottom: 48px;
 
     .address p {
       letter-spacing: 0;
 
       &:nth-child(1) {
-        font-size: 16px;
+        font-family: AlibabaPuHuiTi-Bold;
+        font-size: 18px;
         color: #000000;
-        font-weight: 600;
       }
 
       &:nth-child(2) {
+        font-family: AlibabaPuHuiTi-Medium;
         margin-top: 12px;
         font-size: 14px;
         color: #1D2832;
-        font-weight: 400;
       }
     }
 
@@ -210,7 +210,7 @@
           padding: 0 40px;
           border: 1px solid rgba(60, 53, 136, 1);
           border-radius: 2px;
-          font-family: PingFangSC-Medium;
+          font-family: AlibabaPuHuiTi-Medium;
           font-size: 12px;
           letter-spacing: 0;
           text-align: center;
@@ -277,7 +277,7 @@
       height: 30px;
       border: 1px solid rgba(60, 53, 136, 1);
       border-radius: 2px;
-      font-family: PingFangSC-Medium;
+      font-family: AlibabaPuHuiTi-Medium;
       font-size: 12px;
       color: #3C3588;
       letter-spacing: 0;
@@ -392,7 +392,7 @@
     height: 36px;
     width: 100%;
     background: #EEF1FF;
-    font-family: PingFangSC-Medium;
+    font-family: AlibabaPuHuiTi-Medium;
     font-size: 14px;
     color: #1D2832;
     letter-spacing: 0;
@@ -459,7 +459,7 @@
         align-items: center;
 
         span {
-          font-family: PingFangSC-Regular;
+          font-family: AlibabaPuHuiTi-Regular;
           font-size: 14px;
           color: #1D2832;
           letter-spacing: 0;
@@ -530,7 +530,7 @@
       height: 36px;
       border: 1px solid rgba(60, 53, 136, 1);
       border-radius: 2px;
-      font-family: PingFangSC-Medium;
+      font-family: AlibabaPuHuiTi-Medium;
       font-size: 12px;
       letter-spacing: 0;
       text-align: center;
@@ -569,16 +569,12 @@
   }
 
   .title {
-    line-height: 36px;
-    padding-left: 12px;
-    height: 36px;
-    background: #EEF1FF;
-    font-family: PingFangSC-Medium;
+    font-family: AlibabaPuHuiTi-Bold;
     font-size: 14px;
     color: #1D2832;
     letter-spacing: 0;
-    font-weight: 600;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
+    padding-top: 16px;
   }
 
   .ant-form {
@@ -586,16 +582,20 @@
     // .ant-form-item{
     //   max-width: 800px;
     // }
-    .ant-form-item-label {
-      max-width: 120px;
-      padding-left: 12px;
-    }
+
 
     .ant-input,
     .ant-input-number-input {
       // height: 40px;
       border: 1px solid rgba(237, 234, 249, 1);
       border-radius: 2px;
+    }
+
+    .no-border {
+      .ant-input {
+        border: none;
+      }
+
     }
 
     .ant-input-number {
@@ -607,28 +607,52 @@
     }
   }
 
+  .zh-label-width {
+
+    .ant-form-item-label {
+      color: #1D2832;
+      max-width: 120px;
+      font-family: AlibabaPuHuiTi-Regular;
+      min-width: 100px;
+      // padding-left: 12px;
+    }
+
+  }
+
+  .en-label-width {
+
+    .ant-form-item-label {
+      color: #1D2832;
+      font-family: AlibabaPuHuiTi-Regular;
+      max-width: 180px;
+      min-width: 180px;
+    }
+
+  }
+
   .exchange-button {
     // position: absolute;
     bottom: 18px;
     width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
 
     .but {
       height: 36px;
       border: 1px solid rgba(60, 53, 136, 1);
       border-radius: 2px;
-      font-family: PingFangSC-Medium;
+      font-family: AlibabaPuHuiTi-Medium;
       font-size: 12px;
       letter-spacing: 0;
       text-align: center;
       font-weight: 500;
       padding: 0 25px;
+      min-width: 112px;
 
       &:nth-child(1) {
         color: #3C3588;
-        margin-right: 14px;
+        margin-right: 40px;
       }
     }
   }
@@ -652,4 +676,33 @@
       border: 1px solid #000;
     }
   }
+}
+
+.default_input {
+  font-family: AlibabaPuHuiTi-Regular;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 20px;
+  color: #BCBBC9;
+}
+
+input,
+textarea ::-webkit-input-placeholder {
+  @extend .default_input;
+}
+
+input,
+textarea :-moz-placeholder {
+  @extend .default_input;
+}
+
+input,
+textarea :-moz-placeholder {
+  @extend .default_input;
+}
+
+input,
+textarea :-ms-input-placeholder {
+  @extend .default_input;
 }

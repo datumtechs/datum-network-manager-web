@@ -7,9 +7,11 @@ $bandwidth: #5eaafe;
   border-radius: 6px;
   background: #fff;
   overflow: hidden;
+
   .empty-box {
     transform: translateY(100%);
   }
+
   // .ant-table-thead {
   //   height: 104px;
   //   position: relative;
@@ -111,7 +113,7 @@ $bandwidth: #5eaafe;
   //     }
 
   //     .table-title {
-  //       font-family: PingFangSC-Regular;
+  //       font-family: AlibabaPuHuiTi-Regular;
   //       font-size: 12px;
   //       color: #1d2832;
   //     }
@@ -144,20 +146,24 @@ $bandwidth: #5eaafe;
     background-color: $mainColor;
     padding: 0 30px;
     display: flex;
+
     .head-box {
       flex: 1;
       display: flex;
       align-items: center;
       color: #fff;
+
       .left {
         padding-right: 20px;
       }
+
       .right {
         .top {
           font-size: 16px;
           color: #ffffff;
           line-height: 26px;
         }
+
         .bottom {
           margin-top: 9px;
           font-family: AlibabaPuHuiTi-Medium;
@@ -168,6 +174,7 @@ $bandwidth: #5eaafe;
         }
       }
     }
+
     .head-box-name {
       flex: 1;
       display: flex;
@@ -182,44 +189,54 @@ $bandwidth: #5eaafe;
       background: url("../../../assets/images/overview/2.bj.svg") no-repeat;
     }
   }
+
   .my-table-body {
     background: #fff;
     height: calc(100vh - 224px);
     overflow-y: scroll;
     width: calc(100% + 15px);
     overflow-x: hidden;
+
     .my-table {
       padding: 0 30px;
       height: 108px;
+
       &:not(:last-child) {
         border-bottom: 1px solid #edeaf9;
       }
+
       .line-first {
         display: flex;
         justify-content: space-between;
         padding-top: 14px;
+
         .name {
           font-family: AlibabaPuHuiTi-Medium;
           font-size: 14px;
           color: #1d2832;
           letter-spacing: 0;
         }
+
         .time {
-          font-family: PingFangSC-Regular;
+          font-family: AlibabaPuHuiTi-Regular;
           font-size: 12px;
           color: #5d5c65;
           letter-spacing: 0;
           text-align: right;
         }
       }
+
       .line-second {
         display: flex;
         margin-top: 14px;
+
         .table-cell {
           flex: 1;
           position: relative;
+
           &:not(:first-child) {
             left: 18px;
+
             &:before {
               content: "";
               position: absolute;
@@ -236,6 +253,7 @@ $bandwidth: #5eaafe;
             font-size: 12px;
             color: #1d2832;
           }
+
           .table-content {
             font-family: AlibabaPuHuiTi-Medium;
             font-size: 20px;
@@ -244,6 +262,7 @@ $bandwidth: #5eaafe;
             line-height: 28px;
           }
         }
+
         .work-status {
           display: flex;
           align-items: center;
@@ -251,29 +270,35 @@ $bandwidth: #5eaafe;
           font-size: 18px;
           color: #ffa505;
           letter-spacing: 0;
+
           .free {
             color: #69bd0d;
           }
+
           .occupied {
             color: #ffa505;
           }
         }
+
         .cpu-status {
           &:before {
-            background-color: $cpu !important;
+            background-color: $cpu  !important;
           }
         }
+
         .memory-status {
           &:before {
-            background-color: $memory !important;
+            background-color: $memory  !important;
           }
         }
+
         .bandwidth-status {
           &:before {
-            background-color: $bandwidth !important;
+            background-color: $bandwidth  !important;
           }
         }
       }
+
       &:hover {
         background-color: rgba(248, 248, 255, 0.8);
       }

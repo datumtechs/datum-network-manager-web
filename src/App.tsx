@@ -50,7 +50,7 @@ const App: FC<any> = (props: any) => {
 
   const walletChange = () => {
     console.log(loginInfo);
-    if (loginInfo.address) {
+    if (!loginInfo || loginInfo && !Object.keys(loginInfo).length || loginInfo?.address) {
       props.loginOut()
       props.setLoginInfo()
     }
@@ -58,8 +58,7 @@ const App: FC<any> = (props: any) => {
 
   useEffect(() => {
     if (loginInfo?.resourceList?.length) {
-      const list = verifyRout(loginInfo?.resourceList)
-      setNewRoute(list)
+      setNewRoute(verifyRout(loginInfo?.resourceList))
     }
   }, [loginInfo])
 
@@ -93,12 +92,12 @@ const App: FC<any> = (props: any) => {
         <Router>
           <Switch>
             {layoutRoutes.map((route: IRoute | any, key: number) => {
-              const list = route?.children || []
+              const list = route?.children ? [...route?.children, ...newRoute] : []
               return (
                 <Route
                   key={route.path + key}
                   path={route.path}
-                  render={props => <route.component {...props} routes={[...list, ...newRoute]} />}
+                  render={props => <route.component {...props} routes={[...list]} />}
                 />
               )
             })}

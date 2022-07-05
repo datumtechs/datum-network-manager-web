@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'AlibabaPuHuiTi-Regular';
   src: url('./newAlibabaFonts/Alibaba-PuHuiTi-Regular.ttf');
-    /* src: url('./Alibaba/Alibaba-PuHuiTi-Regular.otf'); */
+  /* src: url('./Alibaba/Alibaba-PuHuiTi-Regular.otf'); */
   font-weight: normal;
   font-style: normal;
 }
@@ -9,7 +9,7 @@
 @font-face {
   font-family: 'AlibabaPuHuiTi-Medium';
   src: url('./newAlibabaFonts//Alibaba-PuHuiTi-Medium.ttf');
-    /* src: url('./Alibaba/Alibaba-PuHuiTi-Medium.otf'); */
+  /* src: url('./Alibaba/Alibaba-PuHuiTi-Medium.otf'); */
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +17,7 @@
 @font-face {
   font-family: 'AlibabaPuHuiTi-Bold';
   src: url('./newAlibabaFonts//Alibaba-PuHuiTi-Bold.ttf');
-    /* src: url('./Alibaba/Alibaba-PuHuiTi-Bold.otf'); */
+  /* src: url('./Alibaba/Alibaba-PuHuiTi-Bold.otf'); */
   font-weight: normal;
   font-style: normal;
 }
@@ -32,8 +32,8 @@
 @font-face {
   font-family: 'MiSans';
   src:
-      /* url('./MISans/MiSans-Heavy.ttf'), */
-      /* url('./MISans/MiSans-Regular.ttf'), */
-      url('./newMISansFonts/MiSans-Heavy.ttf'),
-      url('./newMISansFonts/MiSans-Regular.ttf');
+    /* url('./MISans/MiSans-Heavy.ttf'), */
+    /* url('./MISans/MiSans-Regular.ttf'), */
+    url('./newMISansFonts/MiSans-Heavy.ttf'),
+    url('./newMISansFonts/MiSans-Regular.ttf');
 }
