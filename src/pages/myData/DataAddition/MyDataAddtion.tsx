@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FC, useState, createRef, useEffect, useRef } from 'react'
-import { Tooltip, Space, Form, Input, Radio, Button, message, Select } from 'antd'
+import { Tooltip, Space, Form, Input, Radio, Button, message, Select, Checkbox } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { QuestionCircleOutlined } from '@ant-design/icons'
@@ -16,11 +16,12 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { state } = props.location
   const { Option } = Select
-  const [formDisable, setFormDiasble] = useState(false)
+  // const [formDisable, setFormDiasble] = useState(false)
+  // const [showIncludeError, setShowIncludeError] = useState<boolean>(false)
+
   const [industry, industrySet] = useState<string>('')
   const [uploadFile, setUploadFile] = useState<any>({})
   const [showTypeError, setShowTypeError] = useState<boolean>(false)
-  const [showIncludeError, setShowIncludeError] = useState<boolean>(false)
   const [radioValue, setRadioValue] = useState('true')
   const [total, setTotal] = useState<number>()
   const [originalData, setOriginalData] = useState([])
@@ -56,11 +57,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     resourceApi.checkResourceName({ resourceName: name, metaDataId: resultFileData.metaDataId }).then(res => {
       if (res.status === 0) {
         showFilenameAvailableSet(true)
-        // isFileNameRightSet(res.data.status === 'Y')
         isFileNameRightSet(true)
       } else {
         showFilenameAvailableSet(false)
-        // isFileNameRightSet(res.data.status === 'Y')
         isFileNameRightSet(false)
       }
     })
@@ -77,11 +76,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     history.go(-1)
   }
   const submitFn = () => {
-    // if (!radioValue) {
-    //   setShowIncludeError(true)
-    //   upLoadingSet(false)
-    //   return message.error(`${t('tip.plzComplete')}`)
-    // }
     if (draggerRef?.current?.input?.files?.length === 0) {
       upLoadingSet(false)
       return message.error(`${t('myData.plzSelectone')}`)
@@ -117,7 +111,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         const queryObj = {
           addType: addType === 'add' ? 1 : 2,
           localMetaDataColumnList: originalData,
-          // id: resultFileData.id,
           fileId: resultFileData.fileId,
           industry,
           remarks: form.getFieldValue('remarks'),
@@ -134,7 +127,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         console.log(error);
       })
   }
-  // TODO type
   const getShowSource = data => {
     if (!data) return
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
@@ -152,7 +144,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }, [curPage])
 
   useEffect(() => {
-    // debugger
     if (resultFileData && Object.keys(resultFileData).length > 0) {
       form.setFieldsValue({
         sourceName: resultFileData.resourceName,
@@ -186,14 +177,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
 
   const uploadFn = () => {
     upLoadingSet(true)
-    // 判断文件是否为空 判断是否选择了包含字段
-    // if (!radioValue) {
-    //   setShowIncludeError(true)
-    //   upLoadingSet(false)
-    //   return message.error(`${t('tip.plzComplete')}`)
-    // }
-
-    // if (draggerRef?.current?.input?.files?.length === 0) {
     if (!uploadFile.size) {
       upLoadingSet(false)
       return message.error(`${t('myData.plzSelectone')}`)
@@ -209,7 +192,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     formData.append('file', uploadFile)
     formData.append('hasTitle', radioValue)
     resourceApi.uploadCsv({ data: formData, fn: _uploadProgress }).then(res => {
-      // debugger
       upLoadingSet(false)
       setCurPage(1)
       if (res.status === 0) {
@@ -218,7 +200,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
         setTotal(list.length)
         setTableData(getShowSource(list))
         resultFileDataSet(res.data)
-        // debugger
         message.success(`${t('myData.uploadSuccess')}`)
       }
     }).catch(e => {
@@ -236,10 +217,10 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     setUploadFile(file)
   }
 
-  const changeFileIncludeStatusFn = (e: any) => {
-    setShowIncludeError(false)
-    setRadioValue(e.target.value)
-  }
+  // const changeFileIncludeStatusFn = (e: any) => {
+  //   // setShowIncludeError(false)
+  //   setRadioValue(e.target.value)
+  // }
 
   const handleSelectChange = (value: any) => {
     industrySet(value)
@@ -286,20 +267,26 @@ export const MyDataAddtion: FC<any> = (props: any) => {
               labelCol={{ span: 3 }}
               wrapperCol={{ span: 21 }}
               initialValues={{ remember: true }}
-            // onFinish={onFinish}
-            // onFinishFailed={onFinishFailed}
             >
-              <Form.Item label={t('myData.sourceName')}>
+              <Form.Item label={t('myData.dataName')}>
                 <Form.Item
                   name="sourceName"
                   noStyle
-                  rules={[{ required: true, message: `${t('tip.plzInputName')}` }]}
+                  rules={[{ min: 8, message: `${t('myData.dataNameTooltipThree')}` },
+                  { required: true, message: `${t('tip.plzInputName')}` }]}
                 >
-                  <Input size="large" maxLength={64} className="width457" onBlur={e => checkResourceName(e.target.value)} />
+                  <Input size="large" minLength={8} maxLength={64} className="width457" onBlur={e => checkResourceName(e.target.value)} />
                 </Form.Item>
 
                 <Space size={20} className="pl20">
-                  <Tooltip placement="topLeft" title={t('myData.dataNameTooltip')}>
+                  <Tooltip placement="topLeft" title={<div>
+                    {t('myData.dataNameTooltip')} <br />
+                    {t('myData.dataNameTooltipOne')}<br />
+                    {t('myData.dataNameTooltipTwo')}<br />
+                    3. {t('myData.dataNameTooltipThree')};<br />
+                    {t('myData.dataNameTooltipFour')}<br />
+                    {t('myData.dataNameTooltipFive')}<br />
+                  </div>}>
                     <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588' }} />
                   </Tooltip>
                   {showFilenameAvailable &&
@@ -329,6 +316,26 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                 <Form.Item name="remarks" noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
                   <Input.TextArea maxLength={100} className="width457 limit-box" />
                 </Form.Item>
+              </Form.Item>
+              <Form.Item
+                label={t('center.usageScene')}
+              >
+                <Form.Item name="usageScene" initialValue="ciphertext" noStyle
+                  rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
+                  <Checkbox.Group>
+                    <Checkbox value="plaintext">{t('center.Plaintext')}</Checkbox>
+                    <Checkbox value="ciphertext">{t('center.ciphertext')}</Checkbox>
+                  </Checkbox.Group>
+                </Form.Item>
+                <Tooltip placement="topLeft" title={
+                  <div>
+                    {t('center.ciphertextAndPlaintextTipsOne')} <br />
+                    {t('center.ciphertextAndPlaintextTipsTwo')} <br />
+                    {t('center.ciphertextAndPlaintextTipsThree')} <br />
+                  </div>
+                }>
+                  <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588', lineHeight: '20px' }} />
+                </Tooltip>
               </Form.Item>
             </Form>
           </div>

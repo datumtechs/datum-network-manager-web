@@ -3,22 +3,23 @@ import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Dropdown, Menu, Space, Input, Form, message } from 'antd'
-import { loginApi, authApi } from '@api'
+// import { loginApi, authApi } from '@api'
 import cnSvg from '@assets/images/2.icon_cn.svg'
 import enSvg from '@assets/images/2.icon_en.svg'
 import menuSvg from '@assets/images/1.3.svg'
-import { BaseInfoContext } from '../index'
+// import { BaseInfoContext } from '../index'
 import Bread from './Bread'
 
 
 const Header = (props: any) => {
   const { loginInfo } = props.state.loginInfo
-  const { orgInfo } = props.state.org || {}
+  // const { orgInfo } = props.state.org || {}
   const { address } = props.state.address || {}
   const { t, i18n } = useTranslation()
-  const baseInfo = useContext(BaseInfoContext)
+  // const baseInfo = useContext(BaseInfoContext)
   const { pathname } = useLocation()
   const history = useHistory()
+  const authList = useRef<any>()
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'zh' : 'en')
     localStorage.setItem('i18n', i18n.language)
@@ -45,30 +46,32 @@ const Header = (props: any) => {
   const menu = (dom?) => <Menu className="personal-box">
     <Menu.Item key="name" className="personal-info-name"><img className="personal-info-head-portrait" src={menuSvg} />{useAddressDisplay(address)}</Menu.Item>
     {dom}
-    <Menu.Item key="logout" className="personal-logout" onClick={switchLogin}>
+    <Menu.Item key="logout" className={authList.current?.length ? 'personal-logout' : 'personal-logout no-admin'} onClick={switchLogin}>
       {t('login.logout')}
     </Menu.Item>
   </Menu>
 
 
   const [menus, setmenus] = useState(menu())
-  const juris = (juris: string) => {
+  const juris = () => {
     const list = loginInfo?.resourceList || []
-    return list.some(v => {
-      return v.value == juris
-    });
+    const routes = [
+      {
+        name: 'userCenter/Profile',
+        value: <Menu.Item key="Profile" onClick={() => linkTo("/userCenter/Profile")}>{t('UserCenter.Profile')}</Menu.Item>
+      }, {
+        name: 'userCenter/userInfo',
+        value: <Menu.Item key="DatumIdentity" onClick={() => linkTo("/userCenter/userInfo")}>{t('UserCenter.DatumIdentity')}</Menu.Item>
+      }, {
+        name: 'userCenter/updateAdmin',
+        value: <Menu.Item key="updateAdmin" onClick={() => linkTo("/userCenter/updateAdmin")}>{t('UserCenter.updateAdmin')}</Menu.Item>
+      }
+    ]
+    return authList.current = routes.filter(v => list.some(item => item.value == v.name))
   }
   useEffect(() => {
-    setmenus(menu(
-      <>
-        {juris('userCenter/Profile') ? <Menu.Item key="Profile" onClick={() => linkTo("/userCenter/Profile")}>{t('UserCenter.Profile')}</Menu.Item> : ""}
-        {juris('userCenter/userInfo') ? <Menu.Item key="DatumIdentity" onClick={() => linkTo("/userCenter/userInfo")}>{t('UserCenter.DatumIdentity')}</Menu.Item> : ""}
-        {juris('userCenter/updateAdmin') ? <Menu.Item key="updateAdmin" onClick={() => linkTo("/userCenter/updateAdmin")}>{t('UserCenter.updateAdmin')}</Menu.Item> : ""}
-      </>
-    ))
-    console.log('语言辩护');
-    
-  }, [loginInfo,i18n.language])
+    setmenus(menu(juris().map(v => v.value)))
+  }, [loginInfo, i18n.language])
 
 
   return (
@@ -82,7 +85,7 @@ const Header = (props: any) => {
             {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
           </div>
           <div className="pointer">
-            <Dropdown overlay={ menus} placement="bottomRight" arrow>
+            <Dropdown overlay={menus} placement="bottomRight" arrow>
               <div className='user-info'>
                 <img src={menuSvg} alt="" />
                 <span>{useAddressDisplay(address) || ''}</span>

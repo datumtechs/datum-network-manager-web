@@ -12,7 +12,7 @@ export const MyData: FC<any> = ({ routes }) => (
         render={prop => <route.component {...prop} routes={route.children ?? route.children} />}
       ></Route>
     ))}
-    <Redirect from="/myData" exact to="/myData/dataMgt" push />
+    <Redirect to="/overview" push />
   </Switch>
 )
 

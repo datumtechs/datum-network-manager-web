@@ -176,6 +176,26 @@ const MyDataTable: FC<any> = (props: any) => {
     setCurPage(page)
   }
 
+  const goCredential = (type, row) => {
+    console.log(type);
+    let url = ''
+    if (type == 'attributeCredential') {
+      url = 'voucher/NoAttribute'
+    } else if (type == 'noAttributeCredential') {
+      url = 'voucher/NoAttribute'
+    }
+    if (!url) return
+    history.push({
+      pathname: url,
+      state: {
+        metaDataId: row.metaDataId,
+        metaDataName: row.metaDataName,
+        dataId: row.id,
+      }
+    })
+
+  }
+
   const toRelease = (row) => {
     history.push({
       pathname: '/myData/dataVoucherPublishing',
@@ -263,10 +283,15 @@ const MyDataTable: FC<any> = (props: any) => {
         //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
         //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
         ////10已绑定凭证
-        return (record.status == 2 || record.status == 7) ?
-          <span className='data-symbol' onClick={toRelease.bind(this, record)}>{t('dataNodeMgt.publishDataVoucher')}</span> :
-          record.status == 9 || record.status == 10 ? record?.dynamicFields?.dataTokenName + '(' + record?.dynamicFields?.dataTokenSymbol + '）' : '--'
 
+        // return (record.status == 2 || record.status == 7) ?
+        //   <span className='data-symbol' onClick={toRelease.bind(this, record)}>
+        //     {t('dataNodeMgt.publishDataVoucher')}</span> :
+        //   record.status == 9 || record.status == 10 ? record?.dynamicFields?.dataTokenName + '(' + record?.dynamicFields?.dataTokenSymbol + '）' : '--'
+        return <>
+          <p><span style={{ display: "inline-block", width: "75px" }}>{t('credential.attributeCredential')}:</span>  <span onClick={goCredential.bind(this, 'attributeCredential', record)}>--</span> </p>
+          <p><span style={{ display: "inline-block", width: "75px" }}>{t('credential.noAttributeCredential')}:</span>  <span onClick={goCredential.bind(this, 'noAttributeCredential', record)}>--</span> </p>
+        </>
       }
     },
     {
@@ -280,7 +305,7 @@ const MyDataTable: FC<any> = (props: any) => {
         //10已绑定凭证
         let list = [
           {
-            name: t('center.view'),//查看
+            name: row.status >= 2 ? t('center.view') : t('UserCenter.ProfileButtonEdit'),//查看
             fn: viewFn.bind(this, row),
             show: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10]
           },
@@ -300,7 +325,7 @@ const MyDataTable: FC<any> = (props: any) => {
             show: [0, 1, 3]
           },
           {
-            name: t('center.saveAsNewData'),//另存为
+            name: t('common.copy'),//复制
             fn: saveAsNewData.bind(this, row),
             show: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10]
           },
@@ -319,6 +344,9 @@ const MyDataTable: FC<any> = (props: any) => {
                 {_.name}
               </p> : ''
             })}
+            <p className="btn pointer link pr10" onClick={toRelease.bind(this, row)}>
+              {t('credential.releaseCredential')}
+            </p>
           </div>
         )
       },

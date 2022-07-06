@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from 'react'
-import { Input, Space, Button, Form, Row, Col, Select, message } from 'antd'
+import { Input, Space, Button, Form, Row, Col, Select, message, Checkbox, Tooltip } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
@@ -82,7 +83,7 @@ export const EditSelect: FC<any> = (props: any) => {
 
 export const DataDetail: FC<any> = (props: any) => {
   const { location } = props
-  const { type, id, dataStatus } = location.state
+  const { type, id, dataStatus } = location.state || {}
   const [total, setTotal] = useState<number>()
   const [editText, editTextSet] = useState<boolean>(false)
   const [editSelect, editSelectSet] = useState<boolean>(false)
@@ -115,7 +116,7 @@ export const DataDetail: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState<number>(1)
   const [upLoading, upLoadingSet] = useState<boolean>(false)
   const [form] = Form.useForm()
-  const { t ,i18n} = useTranslation()
+  const { t, i18n } = useTranslation()
   const history = useHistory()
   const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
   const pagenation = {
@@ -124,6 +125,10 @@ export const DataDetail: FC<any> = (props: any) => {
   const setPage = (page: number) => {
     setCurPage(page)
   }
+  useEffect(() => {
+    if (!id) history.go(-1)
+  }, [])
+
 
   const getShowSource = data => {
     if (!data) return
@@ -187,15 +192,15 @@ export const DataDetail: FC<any> = (props: any) => {
     }
 
     let index = -1
-    originalData.some((v: any,i) => {
-      if(!v.columnName) {
+    originalData.some((v: any, i) => {
+      if (!v.columnName) {
         index = i
         return true
       }
     })
     if (index > -1) {
-      index+=1
-      message.warning( `${i18n.language === 'zh' ? `第${index}行` : `${index} column `}${t('myData.sourceFileFields')}`)
+      index += 1
+      message.warning(`${i18n.language === 'zh' ? `第${index}行` : `${index} column `}${t('myData.sourceFileFields')}`)
       return
     }
 
@@ -299,6 +304,28 @@ export const DataDetail: FC<any> = (props: any) => {
               <Col span={12}>
                 <Form.Item label={t('myData.taskNum')}>
                   <p className="datail-box-content">{baseInfo.attendTaskCount}</p>
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  label={t('center.usageScene')}
+                >
+                  <Form.Item name="usageScene" initialValue="ciphertext" noStyle
+                    rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
+                    <Checkbox.Group>
+                      <Checkbox value="plaintext" disabled={dataStatus === '1' ? true : false} >{t('center.Plaintext')}</Checkbox>
+                      <Checkbox value="ciphertext" disabled={dataStatus === '1' ? true : false}>{t('center.ciphertext')}</Checkbox>
+                    </Checkbox.Group>
+                  </Form.Item>
+                  <Tooltip placement="topLeft" title={
+                    <div>
+                      {t('center.ciphertextAndPlaintextTipsOne')} <br />
+                      {t('center.ciphertextAndPlaintextTipsTwo')} <br />
+                      {t('center.ciphertextAndPlaintextTipsThree')} <br />
+                    </div>
+                  }>
+                    <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588' }} />
+                  </Tooltip>
                 </Form.Item>
               </Col>
               <Col span={12}>

@@ -10,35 +10,42 @@
   align-items: center;
   flex-direction: column;
   border-radius: 6px;
-  padding: 0% ;
+  padding: 0%;
   overflow: hidden;
+
   .title {
     font-family: AlibabaPuHuiTi-Medium;
     font-size: 20px;
     color: #1d2832;
     letter-spacing: 0;
   }
+
   .form-box {
     width: 100%;
     margin: 40px 0 46px 0;
+
     .ant-input,
     .ant-form-item-label {
       height: 40px;
       line-height: 40px;
     }
-    textarea.ant-input{
+
+    textarea.ant-input {
       height: auto;
     }
-    .ant-input{
+
+    .ant-input {
       text-indent: 9px;
       background: #FAF9FF;
       border: 1px solid #EDEAF9;
       border-radius: 2px;
     }
-    .set-your-org-name-title{
+
+    .set-your-org-name-title {
       margin-bottom: 30px;
     }
-    .orgName-rules{
+
+    .orgName-rules {
       padding-left: 20px;
       font-family: AlibabaPuHuiTi-Regular;
       font-size: 14px;
@@ -46,7 +53,8 @@
       letter-spacing: 0;
       font-weight: 400;
     }
-    .identifier{
+
+    .identifier {
       font-family: AlibabaPuHuiTi-Regular;
       font-size: 14px;
       color: #5D5C65;
@@ -54,12 +62,14 @@
       font-weight: 400;
       padding-left: 22%;
       margin-bottom: 12px;
-      .lable{
+
+      .lable {
         display: inline-block;
         width: 180px;
       }
     }
-    hr{
+
+    hr {
       width: 81%;
       height: 1px;
       background: #E8E8E8;
@@ -67,7 +77,8 @@
       margin: 30px auto;
       border: none;
     }
-    .identfier-info-lable{
+
+    .identfier-info-lable {
       font-family: AlibabaPuHuiTi-Bold;
       font-size: 14px;
       color: #5D5C65;
@@ -75,18 +86,21 @@
       font-weight: 700;
       margin-bottom: 12px;
     }
-    .info-dragger{
+
+    .info-dragger {
       background: #FAF9FF;
       border: 1px dashed #DBDCE7;
       border-radius: 2px;
       height: 140px;
+
       .anticon {
         font-size: 20px;
         color: #3C3588;
         margin-bottom: 4px;
       }
-      p{
-        font-family: PingFangSC-Medium;
+
+      p {
+        font-family: AlibabaPuHuiTi-Medium;
         font-size: 12px;
         color: #3C3588;
         letter-spacing: 0;
@@ -94,18 +108,19 @@
         line-height: 20px;
         font-weight: 500;
       }
-      .head-img-lable{
+
+      .head-img-lable {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 34px;
-        background: rgba(0,0,0,.6);
+        background: rgba(0, 0, 0, .6);
         border-radius: 0px 0px 2px 2px;
         display: flex;
         align-items: center;
         padding-left: 14px;
-        font-family: PingFangSC-Medium;
+        font-family: AlibabaPuHuiTi-Medium;
         font-size: 12px;
         color: #FFFFFF;
         letter-spacing: 0;
@@ -113,90 +128,105 @@
         line-height: 20px;
         font-weight: 500;
       }
-      .ant-upload{
-         padding: 0;
+
+      .ant-upload {
+        padding: 0;
       }
     }
-    .identfier-info-input{
+
+    .identfier-info-input {
       height: 140px !important;
-      textarea{
+
+      textarea {
         height: 100%;
-        }
+      }
     }
-    .head-img{
+
+    .head-img {
       width: 100%;
       height: 100%;
       border: none;
     }
-    .ant-image{
+
+    .ant-image {
       height: 140px;
       width: 100%;
     }
-    .del{
+
+    .del {
       position: absolute;
       right: -5px;
       top: 20px;
       font-size: 24px;
       color: #F24B4B !important;
-      &:hover{
+
+      &:hover {
         cursor: pointer;
       }
     }
-    .clean{
+
+    .clean {
       position: absolute;
       bottom: 30px;
       right: 20px;
       cursor: pointer;
     }
-    .center{
+
+    .center {
       margin-top: 50px;
-      .but{
+
+      .but {
         margin: 0 10px;
         width: 150px;
         height: 40px;
         background: #3C3588;
         border-radius: 2px;
-        font-family: PingFangSC-Medium;
+        font-family: AlibabaPuHuiTi-Medium;
         font-size: 18px;
         color: #FFFFFF;
         letter-spacing: 0;
         text-align: center;
         font-weight: 500;
-        &:nth-child(2){
+
+        &:nth-child(2) {
           border: 1px solid #3C3588;
           color: #3C3588;
           background: #fff;
         }
       }
     }
-  
-  
+
+
   }
+
   .btn {
     display: flex;
     justify-content: center;
     margin-top: 80px;
+
     .submit-btn {
       width: 350px;
       height: 40px;
       border-radius: 2px;
     }
   }
-  .center{
+
+  .center {
     text-align: center;
   }
 }
 
-.didAppication-step{
+.didAppication-step {
   background: #F8F8FF;
   height: 136px;
-  flex:  0 0 136px;
+  flex: 0 0 136px;
   width: 100%;
   display: flex;
   align-items: center;
   padding: 0 119px;
-  .ant-steps-item{
-    .ant-steps-item-icon{
+
+  .ant-steps-item {
+    .ant-steps-item-icon {
       width: 17px;
       height: 17px;
       border-radius: 50%;
@@ -204,28 +234,32 @@
       background: #F7F4F4;
       z-index: 11;
       border: 1px solid #B8B8B8;
-       .ant-steps-icon{
-         display: inline-block;
-         overflow: hidden;
-         color: transparent;
-       }
+
+      .ant-steps-icon {
+        display: inline-block;
+        overflow: hidden;
+        color: transparent;
+      }
     }
-    .ant-steps-item-tail{
+
+    .ant-steps-item-tail {
       background: transparent;
       padding: 0 17px 0 1px;
       top: 9px;
-      &::after{
+
+      &::after {
         background: transparent;
         border-top: 1px dashed #C6C6C6;
       }
     }
-    .ant-steps-item-content{
+
+    .ant-steps-item-content {
       margin-top: 0;
       padding-right: 15px;
       padding-top: 7px;
       box-sizing: border-box;
       height: 32px;
-      font-family: PingFangSC-Medium;
+      font-family: AlibabaPuHuiTi-Medium;
       font-size: 14px;
       color: #333333;
       letter-spacing: 0;
@@ -233,65 +267,74 @@
       line-height: 12px;
       font-weight: 500;
     }
-    &:nth-child(2){
-      .ant-steps-item-container{
-        .ant-steps-item-content{
+
+    &:nth-child(2) {
+      .ant-steps-item-container {
+        .ant-steps-item-content {
           padding-right: 15px;
         }
       }
     }
   }
-  .ant-steps-item-finish{
-    .ant-steps-item-icon{
-        background-color:  rgba(57,84,255,0.10);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        border: 1px solid #3C3588;
-        position: relative;
-        .ant-steps-icon{
-          overflow: hidden;
-          font-size: 9px;
-          color: #3C3588;
-        }
+
+  .ant-steps-item-finish {
+    .ant-steps-item-icon {
+      background-color: rgba(57, 84, 255, 0.10);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      border: 1px solid #3C3588;
+      position: relative;
+
+      .ant-steps-icon {
+        overflow: hidden;
+        font-size: 9px;
+        color: #3C3588;
+      }
     }
-    .ant-steps-item-tail{
-      &::after{
+
+    .ant-steps-item-tail {
+      &::after {
         border-top: 1px dashed #3C3588;
       }
     }
   }
-  .ant-steps-item-process{
-    .ant-steps-item-icon{
+
+  .ant-steps-item-process {
+    .ant-steps-item-icon {
       border-radius: 50%;
       width: 24px;
       height: 24px;
       background: #3C3588;
-      box-shadow: 0 0 1px 4px  rgba(57,84,255,0.10);
+      box-shadow: 0 0 1px 4px rgba(57, 84, 255, 0.10);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       top: -3px;
       position: relative;
-       .ant-steps-icon{
-          display: inline-block;
-          overflow: hidden;
-          width: 12px;
-          height: 12px;
-          background: #FFFFFF;
-          border-radius: 50%;
-          color: transparent;
-       }
+
+      .ant-steps-icon {
+        display: inline-block;
+        overflow: hidden;
+        width: 12px;
+        height: 12px;
+        background: #FFFFFF;
+        border-radius: 50%;
+        color: transparent;
+      }
     }
-    .ant-steps-item-content{
+
+    .ant-steps-item-content {
       padding-top: 0;
     }
   }
 }
-.datum-internet-status{
+
+.datum-internet-status {
   margin: 10% 0 !important;
-  .status-lable{
+
+  .status-lable {
     font-family: AlibabaPuHuiTi-Regular;
     font-size: 14px;
     color: #5D5C65;
@@ -299,29 +342,32 @@
     font-weight: 400;
     margin-right: 20PX;
   }
-  .success{
+
+  .success {
     height: 24px;
     background: #5BC49F;
     border-radius: 12px;
-    padding:2px 12px;
-    font-family: PingFangSC-Medium;
+    padding: 2px 12px;
+    font-family: AlibabaPuHuiTi-Medium;
     font-size: 15px;
     color: #FFFFFF;
     line-height: 18px;
     font-weight: 500;
   }
-  .error{
+
+  .error {
     height: 24px;
     background: #F24B4B;
     border-radius: 12px;
-    padding:2px 12px;
-    font-family: PingFangSC-Medium;
+    padding: 2px 12px;
+    font-family: AlibabaPuHuiTi-Medium;
     font-size: 15px;
     color: #FFFFFF;
     line-height: 18px;
-    font-weight: 500;   
+    font-weight: 500;
   }
-  .operation-tips-success{
+
+  .operation-tips-success {
     font-family: AlibabaPuHuiTi-Regular;
     font-size: 14px;
     color: #5D5C65;
@@ -329,12 +375,15 @@
     font-weight: 400;
     margin-top: 20px;
   }
-  .operation-tips-error{
+
+  .operation-tips-error {
     margin-top: 20px;
-    .anticon-warning{
+
+    .anticon-warning {
       margin-right: 8px;
       display: inline-block;
     }
+
     font-family: AlibabaPuHuiTi-Medium;
     font-size: 14px;
     color: #F24B4B;

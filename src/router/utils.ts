@@ -1,8 +1,34 @@
-import routes, { IRoute } from '.'
+import routes, { IRoute ,basicsRouters} from '.'
 
-function findRoutesByPaths(pathList: string[], routeList: IRoute[], basename?: string): IRoute[] {
-  return routeList.filter((child: IRoute) => pathList.indexOf((basename || '') + child.path) !== -1)
+
+const flatRoute = (list:any,priviege)=>{
+  const newList:any[] = []
+  list.forEach(v=>{
+    if(v.children){
+      const ls = flatRoute(v.children,priviege)
+      if(ls.length){
+        const obj = {...v}
+        obj.children = ls
+        newList.push({...obj})
+      }
+    }else{
+      const path = v.path.replace(/^\//,'')
+      if(priviege.indexOf(path) > -1){
+        newList.push({...v})
+      }
+    }
+  })
+  return newList
 }
+
+export const verifyRout = (privilegeRoute)=>{
+  const priviege = privilegeRoute.map(v=> v.value)
+  const newlist:any[] = flatRoute(basicsRouters,priviege)
+  return [...newlist]
+}
+
+
+
 /**
  *
  * 将路由转换为一维数组
@@ -29,35 +55,35 @@ export function flattenRoute(routeList: IRoute[], deep: boolean, auth: boolean):
 
   return result
 }
+
+
+
 function getBusinessRouteList(): IRoute[] {
   const routeList = routes.filter(route => route.path === '/')
+
   if (routeList.length > 0) {
-    return flattenRoute(routeList, true, true)
+    return flattenRoute([...routeList,...basicsRouters], true, true)
   }
   return []
 }
-export const businessRouteList = getBusinessRouteList()
+
 export function getPagePathList(pathname?: string): string[] {
   return (pathname || window.location.pathname)
     .split('/')
     .filter(Boolean)
     .map((value, index, array) => '/'.concat(array.slice(0, index + 1).join('/')))
 }
+
+function findRoutesByPaths(pathList: string[], routeList: IRoute[], basename?: string): IRoute[] {
+  return routeList.filter((child: IRoute) => pathList.indexOf((basename || '') + child.path) !== -1)
+}
+
 /**
  * 只有业务路由会有面包屑
  */
 export function getBreadcrumbs(): IRoute[] {
-  return findRoutesByPaths(getPagePathList(), businessRouteList)
+  return findRoutesByPaths(getPagePathList(), getBusinessRouteList())
 }
 
 export const KeepAliveInclude = ["/tasks"]
-
-// export function handDefault1(item) {
-//   if (item.default) {
-//     return item
-//   }
-//   return {
-//     default: Object.values(item)[0]
-//   }
-// }
 

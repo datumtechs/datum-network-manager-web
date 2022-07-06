@@ -7,7 +7,7 @@ import { computeNodeApi } from '@api/index'
 import { BaseInfoContext } from '@/layout/index'
 import UseStatus from '@hooks/useComputeStatus'
 import { Row } from '@/entity/index'
-import { changeSizeFn, buttonDisabled,newChangeSizeFn } from '@utils/utils'
+import { changeSizeFn, buttonDisabled, newChangeSizeFn } from '@utils/utils'
 import './scss/index.scss'
 
 // 节点状态，-1: 未被调度服务连接上; 0: 连接上; 1: 算力启用<计算服务>; 2: 算力被占用(计算服务算力正在被任务占用)',
@@ -371,11 +371,6 @@ const DataTable: FC<any> = (props: any) => {
             <Input
               className="form-box-input" placeholder={t('node.forSelfidentity')} />
           </Form.Item>
-          {/* {
-              showNameStatus ? nameStatus ? <MyTag margin={true} content={t('myData.availableName')} bgColor="#B7EB8F" color="#45B854" /> :
-                <MyTag margin={true} content={t('myData.unavailableName')} bgColor="#FFA39E" color="#F45564" /> : ''
-            }
-          </div> */}
           <Form.Item
             colon={false}
             style={{ marginTop: '10px' }}

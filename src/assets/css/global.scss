@@ -204,7 +204,7 @@
       }
 
       .ant-radio-button-wrapper-checked {
-        background-color: $mainColor !important;
+        background-color: $mainColor  !important;
         color: #fff !important;
       }
 
@@ -220,6 +220,13 @@
       .task-progress-left-box {
         @media screen and (max-width: 1440px) {
           width: 251px;
+
+          p:nth-child(2) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: normal;
+            white-space: nowrap;
+          }
         }
       }
     }

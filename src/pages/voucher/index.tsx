@@ -12,7 +12,7 @@ const Voucher: FC<any> = ({ routes }) => (
         render={prop => <route.component {...prop} routes={route.children ?? route.children} />}
       ></Route>
     ))}
-    <Redirect from="/voucher" exact to="/voucher/TemplateVouvher" push />
+    <Redirect to="/overview" push />
   </Switch>
 )
 

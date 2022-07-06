@@ -1,72 +1,99 @@
 .data-voucher-publishing-wrap {
-  padding: 50px 0;
+  // padding: 50px 0;
   height: 100%;
   min-height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // flex-direction: column;
+  .metaInfo-name {
+    font-family: AlibabaPuHuiTi-Bold;
+    // font-weight: 600;
+    font-size: 16px;
+    color: #000000;
+  }
+
+  .metaInfo-id {
+    font-family: AlibabaPuHuiTi-Medium;
+    font-weight: 400;
+    font-size: 14px;
+    color: #1D2832;
+    margin-top: 10px;
+    margin-bottom: 33px;
+  }
 
   .data-voucher-publishing {
     display: flex;
     flex-direction: column;
+    background: #FBFCFD;
+    border: 1px solid #EBEEF9;
+    padding: 30px;
   }
 
   .data-publishing {
     display: flex;
-    align-items: center;
+    // align-items: center;
     justify-content: center;
   }
 
   .credentials {
-    padding: 33px 33px 62px 33px;
-    background: #EEF1FF;
+    padding: 30px;
+    box-sizing: border-box;
+    width: 325px;
+    // height: 329px;
+    left: 433px;
+    top: 261px;
+    background: #FFFFFF;
+    border: 1px solid #EBEEF9;
     border-radius: 8px;
-    max-width: 465px;
-    height: 465px;
-    flex: 0 0 50%;
   }
 
   .select-ccredential {
-    margin-bottom: 30px;
-    font-size: 15px;
-      font-weight: 600;
+    font-family: AlibabaPuHuiTi-Bold;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+    margin-bottom: 23px;
   }
 
   .on-attributed {
-    margin-right: 10px;
+    margin-right: 30px;
   }
 
   .attributed {
-    margin-left: 10px;
+    margin-left: 30px;
   }
 
   .credentials-title {
-    // width: 323px;
     height: 33px;
     font-family: AlibabaPuHuiTi-Bold;
-    font-size: 24px;
-    color: #1E255F;
-    letter-spacing: 0;
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 70px;
+    font-size: 20px;
+    line-height: 28px;
+    color: #000000;
   }
 
   .credentials-tips {
-    // width: 400px;
-    height: 154px;
-    font-family: PingFangSC-Regular;
-    font-size: 14px;
-    color: #1D2832;
-    letter-spacing: 0;
-    text-align: center;
-    line-height: 24px;
+    font-family: AlibabaPuHuiTi-Regular;
+    font-style: normal;
     font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+    margin-bottom: 40px;
+  }
+
+  .credentials-tip-zh {
+    min-height: 100px;
+  }
+
+  .credentials-tip-en {
+    min-height: 160px;
   }
 
   .button {
-    width: 220px;
+    width: 112px;
     height: 36px;
     background: #3C3588;
     border-radius: 2px;
@@ -75,14 +102,16 @@
     color: #fff;
     justify-content: center;
     cursor: pointer;
-    margin: 0 auto;
-    margin-top: 51px;
+    // margin: 0 auto;
+    margin-top: 38px;
+    margin-right: 0;
+    margin-left: auto;
   }
 
   .button-white {
     @extend .button;
-    background-color: #fff;
-    color: #1E255F;
+    background-color: rgb(207, 205, 205);
+    color: #fff;
     cursor: not-allowed;
   }
 }

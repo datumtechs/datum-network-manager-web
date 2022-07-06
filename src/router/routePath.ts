@@ -23,18 +23,12 @@ export const routerParams = {
   MyDetailTask: import('@/pages/myData/DataMgt/components/MyDetailTask').then(handDefault),
   MyDataAddtion: import('@/pages/myData/DataAddition/MyDataAddtion').then(handDefault),
   NewDataAddtion: import('@/pages/myData/DataMgt/components/NewDataAddtion').then(handDefault),
-  AuthInfo: import('@/pages/myData/DataAuthorization/AuthInfo').then(handDefault),
-  MyDataDetail: import('@/pages/myData/DataMgt/components/MyDataDetail').then(handDefault),
 
 
-  DataAuthorization: import('@/pages/myData/DataAuthorization/DataAuthorization').then(handDefault),
-  DispatchConfig: import('@/pages/nodeMgt/DispatchConfig').then(handDefault),
   DataNodeMgt: import('@/pages/nodeMgt/DataNodeMgt/DataNodeMgt').then(handDefault),
-  EditNodeMgt: import('@/pages/nodeMgt/DataNodeMgt/EditNodeMgt').then(handDefault),
   ComputeNodeMgt: import('@/pages/nodeMgt/ComputeNodeMgt/ComputeNodeMgt').then(handDefault),
 
 
-  EditComputeNode: import('@/pages/nodeMgt/ComputeNodeMgt/EditComputeNode').then(handDefault),
   ComputeNodeDetail: import('@/pages/nodeMgt/ComputeNodeMgt/ComputeNodeDetail').then(handDefault),
   Tasks: import('@/pages/tasks/index').then(handDefault),
   TaskDetail: import('@/pages/tasks/TaskDetail').then(handDefault),
@@ -43,7 +37,6 @@ export const routerParams = {
 
   DidApplication: import('@/pages/did/DidApplication').then(handDefault),
   SeedNodeMgt: import('@/pages/nodeMgt/SeedNode/SeedNodeMgt').then(handDefault),
-  AddSeedNode: import('@/pages/nodeMgt/SeedNode/AddSeedNode').then(handDefault),
   DataDetail: import('@/components/DataDetail').then(handDefault.bind(this, 'DataDetail')),// 处理文件到处多个节点问题
 
   DatumIdentity: import('@/pages/userCenter/DatumIdentity').then(handDefault),
@@ -54,8 +47,9 @@ export const routerParams = {
   NoAttributeVoucher: import('@pages/voucher/NoAttribute').then(handDefault),
   PriceSet: import('@pages/voucher/components/PriceSet').then(handDefault),
   CredentialInfo: import('@pages/voucher/components/CredentialInfo').then(handDefault),
+  AttributedPublishing: import('@pages/voucher/components/AttributedPublishing').then(handDefault),
 
-  // MyTemplate: import('@pages/MyTemplate').then(handDefault),
+
   DataVoucherPublishing: import('@pages/DataVoucherPublishing')
 
 

@@ -18,7 +18,7 @@ import { Button, Space, Progress } from 'antd'
 import useComputeNodeDetails from '@hooks/useComputeNodeDetails'
 import i18n from '@/i18n/config'
 import { computeNodeApi } from '@api/index'
-import { fileSizeChange, changeSizeObj, BandwidthSizeObj,newChangeSizeFn } from '@utils/utils'
+import { fileSizeChange, changeSizeObj, BandwidthSizeObj, newChangeSizeFn } from '@utils/utils'
 import ComputeDetailTable from './components/ComputeDetailTable'
 
 echarts.use([TooltipComponent, TitleComponent, LineChart, GridComponent, CanvasRenderer, LegendComponent])
@@ -30,16 +30,19 @@ export const ComputeNodeDetail: FC<any> = (props: any) => {
   let myChart: any = null
 
   const { location } = props
-  const { id, name } = location.state
+  const { id, name } = location.state || {}
   const { t } = useTranslation()
   const [selectTab, SetSelectTab] = useState('1')
   const [curTitle, curTitleSet] = useState('')
   const [curPercent, curPercentSet] = useState<number>(0)
   const [infoTips, infoTipsSet] = useState<string>('')
 
-  const daysList = [
-    { id: 0, value: 1, label: t('common.pass24') }
-  ]
+  useEffect(() => {
+    if (!id) history.go(-1)
+  }, [])
+  // const daysList = [
+  //   { id: 0, value: 1, label: t('common.pass24') }
+  // ]
 
   const getDaysByNumber = (days) => {
     // 此处换行不要删除 echars 会自动解析
@@ -113,7 +116,6 @@ ${dayjs(days).subtract(0, 'hour').format('HH:mm')}`;
     if (!myChart) {
       myChart = echarts.init(document.getElementById('lineChart') as HTMLElement)
     }
-
     myChart?.setOption(option, true)
   }
 
