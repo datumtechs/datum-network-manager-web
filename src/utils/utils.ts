@@ -144,6 +144,25 @@ export const filterWeb3Code = (code: any): string => {
   return text
 }
 
+export   const copy = (text) => {
+  // 有兼容性 暂时先这样
+  try {
+    const input: any = document.createElement('input');
+    document.body.appendChild(input);
+    input.setAttribute('value', text);
+    input.value = text
+    input.select();
+    if (document.execCommand('copy')) {
+      document.execCommand('copy');
+    }
+    document.body.removeChild(input)
+    message.success(i18n.t('common.copySuccess'))
+  } catch (e) {
+    message.error(i18n.t('common.copyFailed'))
+  }
+}
+
+
 
 
 export const StatusCodeProcessing = (code) => {

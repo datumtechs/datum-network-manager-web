@@ -1,7 +1,8 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { Table, Tabs, message } from 'antd'
+import { Table, Tabs, message, Button } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 import { resourceApi } from '@api/index'
 import MyModal from '@com/MyModal'
 // import useInterval from '@hooks/useInterval'
@@ -377,7 +378,7 @@ const MyDataTable: FC<any> = (props: any) => {
     />
   }
   const operations = {
-    right: <SearchBar onSearch={setSearchText} />
+    right: <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('myData.dataName')}`} />
   }
 
   return (
@@ -396,6 +397,15 @@ const MyDataTable: FC<any> = (props: any) => {
         <TabPane tab={t('myData.noVoucherIssued')} key="2">
           {tableDom('unpublishedData')}
         </TabPane>
+        <TabPane tab={<Button
+          type="primary"
+          style={{ marginLeft: '10px' }}
+          className="plus-button"
+          icon={<PlusOutlined />}
+          onClick={() => history.push('/myData/dataAddition')}
+        >
+          {t('myData.addData')}
+        </Button>} disabled key="3" />
       </Tabs>
       <MyModal width={600} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} bordered>
         {pop.type === 'delete' ? (

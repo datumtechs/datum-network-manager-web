@@ -28,9 +28,14 @@
 }
 
 .data-table-box {
-  .data-mgt-tabs {
-    .searchBar-box {
-      padding-bottom: 0;
+  .ant-tabs-top {
+    .ant-tabs-extra-content {
+      display: flex;
+      align-items: flex-end;
+
+      .searchBar-box {
+        padding-bottom: 0;
+      }
     }
 
     .ant-tabs-nav {
@@ -51,6 +56,10 @@
 
         &:nth-child(1) {
           margin-left: 0 !important;
+        }
+
+        .anticon {
+          margin-right: 0px;
         }
       }
 
@@ -74,7 +83,7 @@
   .ant-table-tbody>tr>td,
   .ant-table tfoot>tr>th,
   .ant-table tfoot>tr>td {
-    padding: 12px 16px !important;
+    padding: 12px 16px 9px 16px !important;
   }
 
   .ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,

@@ -320,22 +320,25 @@ export const MyDataAddtion: FC<any> = (props: any) => {
               <Form.Item
                 label={t('center.usageScene')}
               >
-                <Form.Item name="usageScene" initialValue="ciphertext" noStyle
-                  rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
-                  <Checkbox.Group>
-                    <Checkbox value="plaintext">{t('center.Plaintext')}</Checkbox>
-                    <Checkbox value="ciphertext">{t('center.ciphertext')}</Checkbox>
-                  </Checkbox.Group>
-                </Form.Item>
-                <Tooltip placement="topLeft" title={
-                  <div>
-                    {t('center.ciphertextAndPlaintextTipsOne')} <br />
-                    {t('center.ciphertextAndPlaintextTipsTwo')} <br />
-                    {t('center.ciphertextAndPlaintextTipsThree')} <br />
-                  </div>
-                }>
-                  <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588', lineHeight: '20px' }} />
-                </Tooltip>
+                <div style={{ display: 'flex', alignItems: "center" }}>
+                  <Form.Item name="usageScene" initialValue="ciphertext" noStyle
+                    rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
+                    <Checkbox.Group>
+                      <Checkbox value="plaintext">{t('center.Plaintext')}</Checkbox>
+                      <Checkbox value="ciphertext">{t('center.ciphertext')}</Checkbox>
+
+                    </Checkbox.Group>
+                  </Form.Item>
+                  <Tooltip placement="topLeft" title={
+                    <div>
+                      {t('center.ciphertextAndPlaintextTipsOne')} <br />
+                      {t('center.ciphertextAndPlaintextTipsTwo')} <br />
+                      {t('center.ciphertextAndPlaintextTipsThree')} <br />
+                    </div>
+                  }>
+                    <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588', lineHeight: '20px' }} />
+                  </Tooltip>
+                </div>
               </Form.Item>
             </Form>
           </div>

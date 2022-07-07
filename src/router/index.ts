@@ -330,6 +330,38 @@ export const  basicsRouters = [
         component: handLazy('NoAttributeVoucher'),
         meta: { exact: true, title: '', icon: '', show: true },
       },
+      {
+        name: 'AttributeCredential',
+        label: 'menu.AttributeCredential',
+        breadcrumbName: 'menu.AttributeCredential',
+        path: '/voucher/AttributeCredential',
+        component: handLazy('AttributeCredential'),
+        meta: { exact: true, title: '', icon: '', show: true },
+      },
+      {
+        name: 'createCredential',
+        label: 'credential.createCredential',
+        breadcrumbName: 'credential.createCredential',
+        path: '/voucher/AttributeCredential/createCredential',
+        component: handLazy('CreateAttriCredential'),
+        meta: { exact: true, title: '', icon: '', show: false },
+      },
+      {
+        name: 'credentialInventory',
+        label: 'credential.credentialInventory',
+        breadcrumbName: 'credential.credentialInventory',
+        path: '/voucher/AttributeCredential/credentialInventory',
+        component: handLazy('CredentialInventory'),
+        meta: { exact: true, title: '', icon: '', show: false },
+      },
+      {
+        name: 'credentialDetails',
+        label: 'credential.credentialDetails',
+        breadcrumbName: 'credential.credentialDetails',
+        path: '/voucher/AttributeCredential/credentialDetails',
+        component: handLazy('CredentialDetails'),
+        meta: { exact: true, title: '', icon: '', show: false },
+      },
     ]
   },
   {

@@ -5,11 +5,12 @@ import { CopyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
 import { voucher as voucherApi } from '@api/index'
-import { filterIntegerAmount } from '@/utils/utils'
+import { filterIntegerAmount, copy } from '@/utils/utils'
 import ABIJson from '@/utils/DipoleRouter.json'// dex
 import ERC20 from '@/utils/ERC20.json'// 恒涛提供
 import { connect } from 'react-redux'
 import FactoryJson from '@/utils/DipoleFactory.json'// 工厂合约
+import SearchBar from '@/layout/components/SearchBar'
 
 const VoucherTable: FC<any> = (props: any) => {
   const { location } = props
@@ -29,7 +30,7 @@ const VoucherTable: FC<any> = (props: any) => {
       defaultPageSize: 10,
     },
     { TabPane } = Tabs
-  // refDom = useRef<any>([])
+  const [searchText, setSearchText] = useState("")
   const [routerToken, setRouterToken] = useState('');
   useEffect(() => {
     query()
@@ -127,7 +128,8 @@ const VoucherTable: FC<any> = (props: any) => {
       voucherApi.queryUnpricedVoucher({
         pageNumber: curPage,
         pageSize: 10,
-        status: +activeKey
+        status: +activeKey,
+        searchText: searchText
       }).then(res => {
         const { data, status } = res
         if (status === 0) {
@@ -206,23 +208,6 @@ const VoucherTable: FC<any> = (props: any) => {
     },
   ]
 
-  const copy = (text) => {
-    // 有兼容性 暂时先这样
-    try {
-      const input: any = document.createElement('input');
-      document.body.appendChild(input);
-      input.setAttribute('value', text);
-      input.value = text
-      input.select();
-      if (document.execCommand('copy')) {
-        document.execCommand('copy');
-      }
-      document.body.removeChild(input)
-      message.success(t('common.copySuccess'))
-    } catch (e) {
-      message.error(t('common.copyFailed'))
-    }
-  }
 
   const OnPageChange = (page: number) => {
     setTableData([])
@@ -251,9 +236,13 @@ const VoucherTable: FC<any> = (props: any) => {
     setCurPage(1)
     // query()
   }
+  const operations = {
+    right: <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('voucher.VoucherName')}`} />
+  }
 
   return <div className="voucher">
     <Tabs onChange={callback}
+      tabBarExtraContent={operations}
       activeKey={String(activeKey)}
       tabBarGutter={20}>
       <TabPane tab={t('voucher.UnpricedVoucher')} key="0">

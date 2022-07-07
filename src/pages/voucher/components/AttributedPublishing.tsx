@@ -207,14 +207,14 @@ const CredentialInfo: FC<any> = (props: any) => {
         className={i18n.language == 'zh' ? 'zh-label-width' : 'en-label-width'}
       >
         <Form.Item
-          label={`${t('voucher.Name')}`}
+          label={`${t('voucher.VoucherName')}`}
           name="name"
           labelAlign="left"
           rules={[
             {
               required: true,
               validator: (rule, value, callback): any => {
-                if (!value) return callback(`${t('credential.pleaseEnter')}${t('voucher.Name')}`)
+                if (!value) return callback(`${t('credential.pleaseEnter')}${t('voucher.VoucherName')}`)
                 if (value.length < 2) return callback(t('common.inputValueminlength'))
                 return /^[A-Za-z0-9]+$/.test(value) ? callback() : callback(t('voucher.OnlyLettersNumbersEntered'));
               },

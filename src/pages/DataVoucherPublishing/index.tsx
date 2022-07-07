@@ -68,45 +68,48 @@ const Details: FC<any> = (props: any) => {
       <div className='data-voucher-publishing'>
         <p className='select-ccredential'>{t('voucher.selectTypeCredential')}:</p>
         <div className='data-publishing'>
-          <div className='on-attributed  credentials'>
-            <h3 className='credentials-title'>{t('voucher.noAttributedTitle')}</h3>
-            <div className={i18n.language == 'zh' ? 'credentials-tip-zh credentials-tips' : 'credentials-tip-en credentials-tips'}>{t('voucher.noAttributedTips')}</div>
-            <DebounceSelect
-              propsValue={{
-                allowClear: true,
-                value,
-                placeholder: t('credential.pleaseSelectBindCredential'),
-                style: { width: '100%' },
-                onChange: newValue => {
-                  setValue(newValue);
-                }
-              }}
-              fetchOptions={fetchUserList}
-            />
-            <div className="button" onClick={submit}>{t('common.confirm')}</div>
+          <div className="seat-box on-attributed">
+            <div className='credentials'>
+              <h3 className='credentials-title'>{t('voucher.noAttributedTitle')}</h3>
+              <div className={i18n.language == 'zh' ? 'credentials-tip-zh credentials-tips' : 'credentials-tip-en credentials-tips'}>{t('voucher.noAttributedTips')}</div>
+              <DebounceSelect
+                propsValue={{
+                  allowClear: true,
+                  value,
+                  placeholder: t('credential.pleaseSelectBindCredential'),
+                  style: { width: '100%' },
+                  onChange: newValue => {
+                    setValue(newValue);
+                  }
+                }}
+                fetchOptions={fetchUserList}
+              />
+              <div className="button" onClick={submit}>{t('common.confirm')}</div>
+            </div>
           </div>
-          <div className='attributed credentials'>
-            <h3 className='credentials-title'>{t('voucher.attributedTitle')}</h3>
-            <div className={i18n.language == 'zh' ? 'credentials-tip-zh credentials-tips' : 'credentials-tip-en credentials-tips'}>{t('voucher.attributedTips')}</div>
-            <DebounceSelect
-              key="attributed"
-              propsValue={{
-                allowClear: true,
-                value,
-                placeholder: t('credential.pleaseSelectBindCredential'),
-                style: { width: '100%' },
-                onChange: newValue => {
-                  setValue(newValue);
-                }
-              }}
-              fetchOptions={fetchUserList}
-            />
-            <div className='button-white' onClick={() => submit('attributed')}>{t('common.confirm')}</div>
+          <div className="seat-box attributed">
+            <div className='credentials'>
+              <h3 className='credentials-title'>{t('voucher.attributedTitle')}</h3>
+              <div className={i18n.language == 'zh' ? 'credentials-tip-zh credentials-tips' : 'credentials-tip-en credentials-tips'}>{t('voucher.attributedTips')}</div>
+              <DebounceSelect
+                key="attributed"
+                propsValue={{
+                  allowClear: true,
+                  value,
+                  placeholder: t('credential.pleaseSelectBindCredential'),
+                  style: { width: '100%' },
+                  onChange: newValue => {
+                    setValue(newValue);
+                  }
+                }}
+                fetchOptions={fetchUserList}
+              />
+              <div className='button-white' onClick={() => submit('attributed')}>{t('common.confirm')}</div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="button" style={{ marginLeft: 0 }} onClick={() => history.go(-1)}>{t('common.return')}</div>
-
+      {dataId ? <div className="button" style={{ marginLeft: 0 }} onClick={() => history.go(-1)}>{t('common.return')}</div> : ''}
     </div>
   </div>
 }

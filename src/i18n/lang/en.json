@@ -149,6 +149,7 @@
     "Voucher": "My Credential",
     "TemplateVouvher": "Template Credential",
     "NoAttributeVoucher": "No Attribute Credential",
+    "AttributeCredential": "Attribute Credential",
     "VoucherDetails": "Credential Details",
     "PriceSet": "Price Seting",
     "MyTemplate": "My Models",
@@ -223,7 +224,8 @@
     "currentWalletInsufficient": "Current wallet balance is insufficient",
     "copy": "Copy",
     "confirm": "Confirm",
-    "previousStep": "Previous Step"
+    "previousStep": "Previous Step",
+    "pleaseUpload": "Please Upload"
   },
   "node": {
     "confirmDelete": "Please ensure that you are deleting the data node",
@@ -503,7 +505,8 @@
     "FieldVisibilityTips": "Set at least 1 visible field",
     "issuedVoucher": "Issued Credential",
     "noVoucherIssued": "No Credential Issued",
-    "sourceFileFields": "Source file field is required Name"
+    "sourceFileFields": "Source file field is required Name",
+    "addData": "Add Data"
   },
   "tip": {
     "idSuccess": "ID Application successful",
@@ -606,7 +609,32 @@
     "ciphertextConsumption": "Ciphertext consumption",
     "pleaseEnter": "Please enter",
     "setConsumption": "Please set single task consumption",
-    "setConsumptionTips": "Your data has been set for plaintext algorithm. To ensure the value of data, please set the single consumption of data voucher in plaintext algorithm. The ciphertext defaults to 1 and cannot be modified"
+    "setConsumptionTips": "Your data has been set for plaintext algorithm. To ensure the value of data, please set the single consumption of data voucher in plaintext algorithm. The ciphertext defaults to 1 and cannot be modified",
+    "credentialContractName": "Credential contract Name",
+    "credentialContractSymbol": "Credential contract  Symbol",
+    "createCredential": "Create Credential",
+    "credentialInventory": "Credential Inventory",
+    "credentialDetails": "Credential Details",
+    "uploadPictures": "Upload Pictures",
+    "pictureIncorrect": "The picture format is incorrect",
+    "fileType": "File Type",
+    "sizeLimit": "Size Limit",
+    "uploadTips": "Click to upload pictures",
+    "IPFSPath": "IPFS Path",
+    "certificateDescription": "Certificate of value description",
+    "pleaseExpiryDate": "Please set expiry date credential",
+    "pleaseUsageScenario": "Please set usage scenario  credential",
+    "pleaseExpiryDateTips": "After setting, holding this credential can complete the workflow task within the deadline",
+    "pleaseUsageScenarioTips": "After setting, holding this credential can only complete the selected workflow task",
+    "credentialId": "Credential ID",
+    "credentialValidityPeriod": "credential Validity Period",
+    "putShelf": "Put Shelf",
+    "credentialDescription": "Credential Description",
+    "contractName": "Contract Name",
+    "holdingUsers": "Holding Users",
+    "creationTime": "Creation Time",
+    "validityPeriod": "Validity Period",
+    "exchangePlatform": "Exchange Platform"
   },
   "httpStatus": {
     "status1": "system internal error",

@@ -10,7 +10,10 @@ import { verifyRout } from './router/utils'
 import useWinWidth from './hooks/useWinWidth'
 import Web3Service from "./utils/Web3Service"
 import { connect } from 'react-redux'
-// import myStore from './store/index'
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+
+moment.locale('zh-cn');
 
 const mapDispatchToProps = (dispatch: any) => ({
   updataWallet: (data) => {
