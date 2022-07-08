@@ -53,9 +53,9 @@ export const routerParams = {
   CredentialInventory: import('@pages/voucher/components/CredentialInventory').then(handDefault),
   CredentialDetails: import('@pages/voucher/components/CredentialDetails').then(handDefault),
 
+  DataVoucherPublishing: import('@pages/DataVoucherPublishing'),
 
-  DataVoucherPublishing: import('@pages/DataVoucherPublishing')
-
+  OrgManage: import('@pages/OrgManage').then(handDefault)
 
 }
 

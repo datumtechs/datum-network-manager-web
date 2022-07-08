@@ -1,22 +1,18 @@
-import { useContext, useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Dropdown, Menu, Space, Input, Form, message } from 'antd'
-// import { loginApi, authApi } from '@api'
 import cnSvg from '@assets/images/2.icon_cn.svg'
 import enSvg from '@assets/images/2.icon_en.svg'
 import menuSvg from '@assets/images/1.3.svg'
-// import { BaseInfoContext } from '../index'
 import Bread from './Bread'
 
 
 const Header = (props: any) => {
   const { loginInfo } = props.state.loginInfo
-  // const { orgInfo } = props.state.org || {}
   const { address } = props.state.address || {}
   const { t, i18n } = useTranslation()
-  // const baseInfo = useContext(BaseInfoContext)
   const { pathname } = useLocation()
   const history = useHistory()
   const authList = useRef<any>()

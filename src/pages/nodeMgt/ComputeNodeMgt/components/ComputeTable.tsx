@@ -20,7 +20,7 @@ const DataTable: FC<any> = (props: any) => {
     [curName, SetCurName] = useState(''),
     [total, totalSet] = useState<number>(0),
     history = useHistory(),
-    [tableData, tableDataSet] = useState<Array<any>>([]),
+    [tableData, tableDataSet] = useState<any[]>([]),
     [curPage, setCurPage] = useState<number>(1),
     baseInfo = useContext(BaseInfoContext),
     [curId, curIdSet] = useState<string>(''),
@@ -53,7 +53,7 @@ const DataTable: FC<any> = (props: any) => {
       pageSize: pagination.defaultPageSize,
     })
     if (res.status === 0) {
-      const newTableData: any[] = []
+      // const newTableData: any[] = []
       tableDataSet(res.data)
       totalSet(res.total)
     }
@@ -119,7 +119,7 @@ const DataTable: FC<any> = (props: any) => {
          * 连接状态 connStatus 0 1
          * 算力节点状态 0 未知 1 未启用 2 空闲(已启用) 3 占用(已启用) 4:已撤销
          */
-        const { img, content } = UseStatus(record.connStatus, record.powerStatus)
+        const { img, content } = UseStatus(record.connStatus, record.powerStatus, t)
         return (
           <div className="status-box">
             <img src={img} alt="" />

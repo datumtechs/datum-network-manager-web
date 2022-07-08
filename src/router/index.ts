@@ -387,6 +387,14 @@ export const  basicsRouters = [
     path: '/tasks/TaskEvent',
     component: handLazy('TaskEvent'),
     meta: { exact: true, title: '', icon: '', show: false },
+  },
+  {
+    name: 'OrgManage',
+    label: 'menu.orgManage',
+    breadcrumbName: 'menu.orgManage',
+    path: '/OrgManage',
+    component: handLazy('OrgManage'),
+    meta: { exact: true, title: '', icon: '', show: true },
   }
 ]
 

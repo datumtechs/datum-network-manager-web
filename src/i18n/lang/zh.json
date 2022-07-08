@@ -153,7 +153,8 @@
     "MyTemplate": "我的模型",
     "CredentialInfo": "设置凭证信息",
     "updateAdmin": "更改管理员",
-    "publishDataVoucher": "发布数据凭证"
+    "publishDataVoucher": "发布数据凭证",
+    "orgManage": "组织管理"
   },
   "common": {
     "submit": "提交",
@@ -632,6 +633,18 @@
     "-32601": "找不到方法: 方法不存在",
     "-32602": "无效参数: 方法参数无效",
     "-32603": "内部错误"
+  },
+  "orgManage": {
+    "nominationMembers": "成员提名",
+    "withdrawCommittee": "退出委员会",
+    "committeeMembers": "委员会成员",
+    "trustCertificateIssued": "已发信任证书",
+    "myToDoList": "我的待办",
+    "myProposal": "我的提案",
+    "committeeList": "委员会列表",
+    "orgName": "组织名称",
+    "joinTime": "加入时间",
+    "nominationWithdrawal": "提名退出"
   },
   "httpStatus": {
     "status1": "系统内部错误",

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-string-refs */
-import { FC, useEffect, useState, useContext } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import * as echarts from 'echarts/lib/echarts'

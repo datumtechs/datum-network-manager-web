@@ -122,7 +122,6 @@
     "nodeMgt": "Node Management",
     "resourceCenter": "Resource Center",
     "computeTask": "Computing Tasks",
-    "dispatchConfig": "Scheduling Service Configuration",
     "dataNodeMgt": "Storage Resource Management",
     "computeNodeMgt": "Computing Resource Management",
     "addComputeNodeMgt": "Add Compute Node ",
@@ -130,7 +129,6 @@
     "dataCenter": "Data Center",
     "computationCenter": "Computing Center",
     "addDataNode": "Add Data Node",
-    "editDataNode": "Edit Data Node",
     "computeNodeDetail": "Computation Node Details",
     "didApplication": "Apply Identifier",
     "dataMgt": "Data Management",
@@ -156,7 +154,7 @@
     "CredentialInfo": "Set Credential Info",
     "updateAdmin": "Update Admin",
     "publishDataVoucher": "Publish data Credential",
-    "copy": "Copy"
+    "orgManage": "Organization Management"
   },
   "common": {
     "submit": "Submit",
@@ -635,6 +633,18 @@
     "creationTime": "Creation Time",
     "validityPeriod": "Validity Period",
     "exchangePlatform": "Exchange Platform"
+  },
+  "orgManage": {
+    "nominationMembers": "Nomination of Members",
+    "withdrawCommittee": "Withdraw Committee",
+    "committeeMembers": "Committee Members",
+    "trustCertificateIssued": "Trust certificate issued",
+    "myToDoList": "My To-Do List",
+    "myProposal": "My Proposal",
+    "committeeList": "Committee List",
+    "orgName": "organization Name",
+    "joinTime": "Join Time",
+    "nominationWithdrawal": "Nomination withdrawal"
   },
   "httpStatus": {
     "status1": "system internal error",
