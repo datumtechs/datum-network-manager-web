@@ -8,13 +8,13 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
-import useWinWidth from '@hooks/useWinWidth'
+// import useWinWidth from '@hooks/useWinWidth'
 import { overviewApi } from '@api'
 import { changeSizeObj, BandwidthSizeObj } from '@utils/utils'
 
 const TrendChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
-  const { width } = useWinWidth()
+  // const { width } = useWinWidth()
   const [curSwitch, curSwitchSet] = useState('data'),
     { bgColor } = props
   const { loginInfo } = props?.state?.loginInfo
@@ -212,7 +212,7 @@ const TrendChart: FC<any> = (props: any) => {
       })
     }
 
-  }, [width, i18n.language, curSwitch])
+  }, [i18n.language, curSwitch])
 
 
   return (

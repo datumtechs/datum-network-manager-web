@@ -394,8 +394,24 @@ export const  basicsRouters = [
     breadcrumbName: 'menu.orgManage',
     path: '/OrgManage',
     component: handLazy('OrgManage'),
-    meta: { exact: true, title: '', icon: '', show: true },
-  }
+    meta: { exact: true, title: '', icon: '', show: true ,class:"word-brack"},
+  },
+  {
+    name: 'NominationCommittee',
+    label: 'menu.nominationCommittee',
+    breadcrumbName: 'menu.nominationCommittee',
+    path: '/OrgManage/nominationCommittee',
+    component: handLazy('NominationCommittee'),
+    meta: { exact: true, title: '', icon: '', show: false },
+  },
+  {
+    name: 'applyCertification',
+    label: 'menu.applyCertification',
+    breadcrumbName: 'menu.applyCertification',
+    path: '/OrgManage/applyCertification',
+    component: handLazy('ApplyCertification'),
+    meta: { exact: true, title: '', icon: '', show: false },
+  },
 ]
 
 

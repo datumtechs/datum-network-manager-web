@@ -1,6 +1,6 @@
 import { FC, useState, useEffect, useRef, createRef } from "react";
 import { useTranslation } from 'react-i18next'
-import { Table, Tabs, Button, message, Tooltip } from 'antd'
+import { Table, Tabs, Button, message, Tooltip, Modal, Form, Input } from 'antd'
 import { CopyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
@@ -12,17 +12,19 @@ import { connect } from 'react-redux'
 import FactoryJson from '@/utils/DipoleFactory.json'// 工厂合约
 import SearchBar from '@/layout/components/SearchBar'
 
+
 const VoucherTable: FC<any> = (props: any) => {
   const { location } = props
   const type = location?.state?.attributeType || ''
-  // debugger
-  // console.log(type)
+  // const [form]: any = Form.useForm()
+  const form = useRef<any>()
   const { t } = useTranslation(),
     [activeKey, setActiveKey] = useState(type ? 1 : 0),
     [curPage, setCurPage] = useState(1),
     [totalNum, setTotalNum] = useState(0),
     [tableData, setTableData] = useState([]),
     [dexUrl, setDexUrl] = useState(''),
+    [modalShow, setModalShow] = useState(false),
     history = useHistory(),
     { walletConfig } = props.state,
     pagination = {
@@ -146,67 +148,90 @@ const VoucherTable: FC<any> = (props: any) => {
       })
     }
 
-  const columns: any[] = [
-    {
-      title: t('common.Num'),
-      render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-      width: 70,
-      align: 'center',
-      className: "no-right-border"
-    },
-    {
-      title: t('voucher.VoucherName'),
-      dataIndex: 'name',
+  const columns: any = (type): any[] => {
+    const items = type == 'Unpriced' ? [] : [{
+      title: t('center.usageScene'),
+      dataIndex: 'usageScene',
       ellipsis: true,
-      width: '20%',
-      className: "no-right-border"
-    },
-    {
-      title: t('voucher.VoucherSymbol'),
-      dataIndex: 'symbol',
-      width: '15%',
-      ellipsis: true,
-    },
-    {
-      title: t('voucher.VoucherTotalRelease'),
-      dataIndex: 'total',
-      ellipsis: true,
-      width: '15%',
-      render: (text, record, index) => filterIntegerAmount(text)
-    },
-    {
-      title: t('voucher.ContractAddress'),
-      dataIndex: 'address',
-      ellipsis: true,
-      // width: 360,
-      render: (text, record, index) =>
-        text
-          ? <>
-            <CopyOutlined style={{ marginRight: '10px' }} onClick={() => copy(text)} />
-            {/* <input readOnly style={{ position: 'absolute', height: '10px', width: '10px', opacity: 0.01, zIndex: -1 }} value={text} ref={(e) => refDom.current[index] = e} /> */}
-            <Tooltip placement="bottom" title={text} color="#fff" overlayClassName={'_tooltip'}>
-              {text}
-            </Tooltip>
-          </>
-          : '--'
-    },
-    {
-      title: t('common.actions'),
-      dataIndex: 'actions',
-      width: '120px',
-      render: (text: any, row: any, index: any) => {
-        // 定价状态：0-未定价，1-已定价
-        return <>
-          {activeKey == 1 ?
-            <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button> :
-            row.status == 3 || row.status == 5 ?
-              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
-              : ''
-          }
-        </>
+    },]
+    return [
+      {
+        title: t('common.Num'),
+        render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
+        width: 70,
+        align: 'center',
       },
-    },
-  ]
+      {
+        title: t('voucher.VoucherName'),
+        dataIndex: 'name',
+        ellipsis: true,
+        width: '12%',
+      },
+      {
+        title: t('center.dataName'),
+        dataIndex: 'dataName',
+        ellipsis: true,
+        width: '10%',
+      },
+      {
+        title: t('voucher.VoucherSymbol'),
+        dataIndex: 'symbol',
+        width: '12%',
+        ellipsis: true,
+      },
+      {
+        title: t('voucher.VoucherTotalRelease'),
+        dataIndex: 'total',
+        ellipsis: true,
+        width: '12%',
+        render: (text, record, index) => filterIntegerAmount(text)
+      },
+      {
+        title: t('voucher.ContractAddress'),
+        dataIndex: 'address',
+        ellipsis: true,
+        // width: 360,
+        render: (text, record, index) =>
+          text
+            ? <>
+              <CopyOutlined style={{ marginRight: '10px' }} onClick={() => copy(text)} />
+              {/* <input readOnly style={{ position: 'absolute', height: '10px', width: '10px', opacity: 0.01, zIndex: -1 }} value={text} ref={(e) => refDom.current[index] = e} /> */}
+              <Tooltip placement="bottom" title={text} color="#fff" overlayClassName={'_tooltip'}>
+                {text}
+              </Tooltip>
+            </>
+            : '--'
+      },
+      ...items,
+      {
+        title: t('common.actions'),
+        dataIndex: 'actions',
+        width: '220px',
+        render: (text: any, row: any, index: any) => {
+          // 定价状态：0-未定价，1-已定价
+          return <>
+            {activeKey == 1 ?
+              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button> :
+              row.status == 3 || row.status == 5 ?
+                <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
+                : ''
+            }
+            <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => updateConsumption(row)}>  {t('orgManage.modifyConsumption')}</Button>
+          </>
+        },
+      },
+    ]
+  }
+
+  const updateConsumption = (row) => {
+    setModalShow(true)
+  }
+
+  const saveFn = () => {
+    form.current.validateFields().then(values => {
+      console.log(values);
+    })
+  }
 
 
   const OnPageChange = (page: number) => {
@@ -217,7 +242,7 @@ const VoucherTable: FC<any> = (props: any) => {
   const tableDom = (key) => {
     return <Table
       dataSource={tableData}
-      columns={columns}
+      columns={columns(key)}
       key={key}
       rowKey={(record: any) => record.id}
       pagination={{
@@ -252,6 +277,44 @@ const VoucherTable: FC<any> = (props: any) => {
         {tableDom('priced')}
       </TabPane>
     </Tabs>
+    <Modal
+      visible={modalShow}
+      onOk={saveFn}
+      destroyOnClose={true}
+      centered={true}
+      onCancel={() => setModalShow(false)}
+      okText={t('common.submit')}
+      cancelText={t('common.cancel')}
+      title={t('orgManage.setAlgorithmConsumption')}>
+      <Form
+        // name="basic"
+        ref={form}
+      >
+        <Form.Item name="Plaintext"
+          label={t('center.Plaintext')}
+          className="froup-item"
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp(/^[1-9]\d*$/, "g"),
+              message: `${t('common.pleaseEnterNumber')}`
+            }]}>
+          <Input className="form-box-input" placeholder={t('center.Plaintext')} />
+        </Form.Item>
+        <Form.Item name="ciphertext"
+          label={t('center.ciphertext')}
+          className="froup-item"
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp(/^[1-9]\d*$/, "g"),
+              message: `${t('common.pleaseEnterNumber')}`
+            }]}>
+          <Input
+            className="form-box-input" placeholder={t('center.ciphertext')} />
+        </Form.Item>
+      </Form>
+    </Modal >
   </div>
 }
 

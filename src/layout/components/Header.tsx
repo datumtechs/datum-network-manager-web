@@ -72,7 +72,7 @@ const Header = (props: any) => {
 
   return (
     <>
-      <div className={pathname === '/overview' ? 'main-head-box' : 'header-box '}>
+      <div className={'header-box '}>
         <div className="bread-box">
           <Bread />
         </div>

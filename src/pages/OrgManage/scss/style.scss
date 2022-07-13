@@ -114,4 +114,43 @@
       color: #000000;
     }
   }
+
+  .segmented {
+    background: #F8F7FF;
+    border: 1px solid #EBEEF9;
+    border-radius: 4px;
+
+    .ant-segmented-item-selected {
+      font-family: AlibabaPuHuiTi-Medium;
+      border-radius: 4px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      color: #1D2832;
+    }
+
+    .ant-segmented-item-label {
+      padding: 0 30px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      color: #1D2832;
+    }
+  }
+}
+
+.nomination-committee {
+  .title {
+    font-family: AlibabaPuHuiTi-Bold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+}
+
+.apply-certification {
+  @extend .nomination-committee;
 }

@@ -8,12 +8,12 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
-import useWinWidth from '@hooks/useWinWidth'
+// import useWinWidth from '@hooks/useWinWidth'
 import { overviewApi } from '@api'
 
 const TaskChart: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
-  const { width } = useWinWidth()
+  // const { width } = useWinWidth()
   const [pendingNum, pendingNumSet] = useState<string | number>('')
   const [runningNum, runningNumSet] = useState<string | number>('')
   const [failedNum, failedNumSet] = useState<string | number>('')
@@ -39,6 +39,7 @@ const TaskChart: FC<any> = (props: any) => {
         top: '41%',
         left: '48%',
         textAlign: 'center',
+        textVerticalAlign: 'middle',
         textStyle: {
           color: '#3C3588',
           fontSize: 18,
@@ -67,13 +68,13 @@ const TaskChart: FC<any> = (props: any) => {
         {
           name: '',
           type: 'pie',
-          radius: ['70%', '85%'],
+          radius: ['50%', '80%'],
           avoidLabelOverlap: false,
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: '#fff',
-            borderWidth: 2,
-          },
+          // itemStyle: {
+          //   // borderRadius: 20,
+          //   // borderColor: '#fff',
+          //   // borderWidth: 5,
+          // },
           label: {
             show: false,
             position: 'center',
@@ -128,42 +129,50 @@ const TaskChart: FC<any> = (props: any) => {
 
   useEffect(() => {
     initChart()
-  }, [width, i18n.language])
+  }, [i18n.language])
+
+  useEffect(() => {
+    initChart()
+  }, [])
+
 
   return (
     <div className="overview-tasks item">
       <div className="data-name">{t('overview.myTask')}</div>
-      <div className="taskChart-box">
-        <div id="taskChart"></div>
-      </div>
-      <div className="overview-tasks-detail">
-        <div className="detail-line">
-          <div className="left">
-            <span className="logo logo-success"></span>
-            <span className="type">{t('task.success')}</span>
+      <div className="overview-tasks-content">
+
+        <div className="overview-tasks-detail">
+          <div className="detail-line">
+            <div className="left">
+              <span className="logo logo-success"></span>
+              <span className="type">{t('task.success')}</span>
+            </div>
+            <div className="value">{successNum}</div>
           </div>
-          <div className="value">{successNum}</div>
+          <div className="detail-line">
+            <div className="left">
+              <span className="logo logo-pending"></span>
+              <span className="type">{t('task.pending')}</span>
+            </div>
+            <div className="value">{pendingNum}</div>
+          </div>
+          <div className="detail-line">
+            <div className="left">
+              <span className="logo logo-failed"></span>
+              <span className="type">{t('task.failed')}</span>
+            </div>
+            <div className="value">{failedNum}</div>
+          </div>
+          <div className="detail-line">
+            <div className="left">
+              <span className="logo logo-computing"></span>
+              <span className="type">{t('task.computing')}</span>
+            </div>
+            <div className="value">{runningNum}</div>
+          </div>
         </div>
-        <div className="detail-line">
-          <div className="left">
-            <span className="logo logo-pending"></span>
-            <span className="type">{t('task.pending')}</span>
-          </div>
-          <div className="value">{pendingNum}</div>
-        </div>
-        <div className="detail-line">
-          <div className="left">
-            <span className="logo logo-failed"></span>
-            <span className="type">{t('task.failed')}</span>
-          </div>
-          <div className="value">{failedNum}</div>
-        </div>
-        <div className="detail-line">
-          <div className="left">
-            <span className="logo logo-computing"></span>
-            <span className="type">{t('task.computing')}</span>
-          </div>
-          <div className="value">{runningNum}</div>
+        <div className="taskChart-box">
+          <div id="taskChart"></div>
         </div>
       </div>
     </div>

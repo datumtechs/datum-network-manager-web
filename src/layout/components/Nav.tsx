@@ -41,7 +41,7 @@ const Nav = (props: any) => {
     SetCurPath(item.path)
     history.push(item.path)
   }
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const judgeAnimation = (evt) => {
     if (evt.target.lastChild) {
@@ -69,7 +69,7 @@ const Nav = (props: any) => {
   return (
     <div className="nav-box">
       {/* 权限控制目前暂只控制页面显示，不控制具体路由 */}
-      {props.list.map((item: IRoute) =>
+      {props.list.map((item: IRoute | any) =>
         item.meta.show && juris(item.path) ? (
           <div className="nav-wrapper pointer" key={item.name}>
             {item.children ?
@@ -99,7 +99,7 @@ const Nav = (props: any) => {
               :
               <div className="nav-label-box">
                 <div
-                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu activeMenuBeforeTop' : ''}`}
+                  className={`nav-label ${curPath.includes(item.path) ? 'activeMenu activeMenuBeforeTop' : ''} ${item.meta?.class && i18n.language == 'en' ? "word-brack" : " "}`}
                   onClick={e => linkTo(item, e)}
                 >
                   {t(`${item.label}`)}

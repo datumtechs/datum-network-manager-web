@@ -213,7 +213,6 @@ const MyDataTable: FC<any> = (props: any) => {
       title: t('common.Num'),
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
       width: 70,
-      className: "no-right-border",
       align: 'center'
     },
     {
@@ -222,7 +221,6 @@ const MyDataTable: FC<any> = (props: any) => {
       // width: 180,
       // align: 'center',
       ellipsis: true,
-      className: "no-right-border"
     },
     {
       title: t('center.metaStatus'),
@@ -230,7 +228,6 @@ const MyDataTable: FC<any> = (props: any) => {
       key: 'status',
       // width: 130,
       ellipsis: true,
-      className: "no-right-border",
       render: (text, record, index) => {
         //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
         //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
@@ -279,7 +276,6 @@ const MyDataTable: FC<any> = (props: any) => {
       title: t('dataNodeMgt.dataVoucherAndSymbol'),
       dataIndex: 'dynamicFields',
       ellipsis: true,
-      className: "no-right-border",
       render: (text, record: any, index) => {
         //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
         //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)

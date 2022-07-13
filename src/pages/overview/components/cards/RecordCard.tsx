@@ -64,13 +64,13 @@ const RecordCard: FC<any> = (props: any) => {
         {
           name: '',
           type: 'pie',
-          radius: ['70%', '85%'],
+          radius: ['50%', '80%'],
           avoidLabelOverlap: false,
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: '#fff',
-            borderWidth: 2,
-          },
+          // itemStyle: {
+          //   borderRadius: 10,
+          //   borderColor: '#fff',
+          //   borderWidth: 2,
+          // },
           label: {
             show: false,
             position: 'center',

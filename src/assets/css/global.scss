@@ -23,12 +23,6 @@
     background: #f7f8fa;
   }
 
-  .bread-box {
-    background: #fff;
-    border-bottom: 1px solid #ebeef9;
-    display: flex;
-  }
-
   .form-box {
     padding: 20px 20px;
   }
@@ -451,15 +445,6 @@
 .prev-seagreen,
 .prev-orange {
   position: relative;
-  // &::before {
-  //   content: "";
-  //   position: absolute;
-  //   top: 0.6em;
-  //   left: -1.4em;
-  //   width: 10px;
-  //   height: 10px;
-  //   border-radius: 50%;
-  // }
 }
 
 .prev-orange {

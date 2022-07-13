@@ -76,7 +76,7 @@ const Layout = (props: any) => {
         <SideBar list={props.routes}></SideBar>
         <div className="main-box">
           <Header className="header-container" />
-          <div className={pathname === '/overview' ? 'wrapper-box' : 'main-wrapper-box '}>
+          <div className={'wrapper-box'}>
             <Spin size="large" spinning={Loading.Loading} style={{ height: '90vh', maxHeight: '90vh' }}>
               <Suspense
                 fallback={

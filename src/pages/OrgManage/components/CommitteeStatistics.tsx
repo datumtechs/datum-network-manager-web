@@ -1,15 +1,24 @@
 import { FC, useState, useEffect } from "react";
 import { Button, Divider } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
 
 const CommitteeStatistics: FC<any> = () => {
   const { t } = useTranslation()
+  const history = useHistory()
+
   const query = () => {
 
   }
   useEffect(() => {
     query()
   }, [])
+
+  const apply = () => {
+    history.push({
+      pathname: "/OrgManage/applyCertification"
+    })
+  }
 
   return <div className="committee-statistics">
     <div className="statistics-title">
@@ -25,6 +34,7 @@ const CommitteeStatistics: FC<any> = () => {
       </div>
       <div className="title-right-box">
         <Button type="primary">{t('orgManage.nominationMembers')}</Button>
+        <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button>
         <Button>{t('orgManage.withdrawCommittee')}</Button>
       </div>
     </div>

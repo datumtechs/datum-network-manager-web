@@ -1,15 +1,19 @@
 import { FC, useState, useEffect } from "react";
-import { Table, Button } from 'antd'
+import { Table, Button, Modal } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
+import { useHistory } from 'react-router-dom'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 const CommitteeList: FC<any> = () => {
   const { t } = useTranslation()
+  const history = useHistory()
   const [text, setSearchText] = useState()
   const [tableData, setTableData] = useState<any[]>([])
   const [curPage, setCurPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(0)
+  const [visible, setVisible] = useState(false)
 
   const columns: any[] = [
     {
@@ -33,19 +37,23 @@ const CommitteeList: FC<any> = () => {
       title: t('common.actions'),
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
-        return <>
-          <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.nominationWithdrawal')}</Button>
-        </>
+        return <Button type="link" onClick={() => setVisible(row)}>  {t('orgManage.nominationWithdrawal')}</Button>
       },
     },
   ]
 
-  const retreat = (row) => {
-    console.log(row);
-
+  const confirm = () => {
+    console.log(visible);
+    // return
+    history.push({
+      pathname: "/OrgManage/nominationCommittee"
+    })
+    setVisible(false)
   }
   const query = () => {
-
+    setTableData([{
+      orgName: 'XXX'
+    }])
   }
 
 
@@ -70,6 +78,19 @@ const CommitteeList: FC<any> = () => {
         onChange: setCurPage,
       }}
     />
+    <Modal
+      title={t('common.tips')}
+      centered
+      visible={visible}
+      onOk={() => confirm()}
+      onCancel={() => setVisible(false)}
+      okText={t('common.confirm')}
+      cancelText={t('common.cancel')}
+    >
+      <div>
+        <ExclamationCircleOutlined />     {t('orgManage.nominationWithdrawalTips')}?
+      </div>
+    </Modal>
   </div>
 }
 

@@ -55,7 +55,9 @@ export const routerParams = {
 
   DataVoucherPublishing: import('@pages/DataVoucherPublishing'),
 
-  OrgManage: import('@pages/OrgManage').then(handDefault)
+  OrgManage: import('@pages/OrgManage').then(handDefault),
+  NominationCommittee: import('@pages/OrgManage/components/NominationCommittee').then(handDefault),
+  ApplyCertification: import('@pages/OrgManage/components/ApplyCertification').then(handDefault)
 
 }
 
