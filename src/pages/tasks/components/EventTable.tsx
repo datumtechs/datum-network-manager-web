@@ -12,7 +12,7 @@ const EventTable: FC<any> = (props: any) => {
     current: 1,
     defaultPageSize: 10,
   }
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const linkToDetail = () => {
     history.push('/tasks/taskDetail')
   }
@@ -40,7 +40,8 @@ const EventTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: t('common.Num'),
+      title: ` `,
+      width: 70,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -63,15 +64,16 @@ const EventTable: FC<any> = (props: any) => {
     },
   ]
   return (
-    <div className="data-table-box">
-      <Table
-        dataSource={tableData}
-        columns={columns}
-        rowKey={_ => _?.id}
-        bordered
-        pagination={{ defaultCurrent: 1, defaultPageSize: 10, showSizeChanger: false, onChange: onPageChange }}
-      />
-    </div>
+    <Table
+      className="com-table"
+      dataSource={tableData}
+      columns={columns}
+      rowKey={_ => _?.id}
+      pagination={{
+        defaultCurrent: 1, defaultPageSize: 10, showSizeChanger: false, onChange: onPageChange,
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
+      }}
+    />
   )
 }
 

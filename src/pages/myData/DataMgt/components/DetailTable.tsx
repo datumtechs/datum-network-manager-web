@@ -52,7 +52,7 @@ const DetailTable: FC<any> = (props: any) => {
     },
   ]
   return (
-    <div className="data-table-box">
+    <div >
       <Table
         dataSource={tableData}
         columns={columns}

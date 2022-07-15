@@ -95,7 +95,7 @@ const CredentialInventory: FC<any> = (props: any) => {
     query()
   }, [])
 
-  return <div className="layout-box credential-inventory">
+  return <div className="layout-box p-20 credential-inventory">
     <div className='details-name-box' style={{ marginBottom: '20px' }}>
       <div className='address'>
         <p>{t('credential.credentialContractName')}：XXXX</p>

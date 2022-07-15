@@ -58,8 +58,8 @@ const Details: FC<any> = (props: any) => {
   }
 
 
-  return <div className='layout-box'>
-    <div className='data-table-box data-voucher-publishing-wrap'>
+  return <div className='layout-box p-20'>
+    <div className='data-voucher-publishing-wrap'>
       {metaDataName ?
         <> <p className="metaInfo-name"><span>{t('center.dataName')}: </span>{metaDataName}</p>
           <p className="metaInfo-id"><span>{t('center.metaDataID')}: </span>{metaDataId}</p>

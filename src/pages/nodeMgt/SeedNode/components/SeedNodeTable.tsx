@@ -16,7 +16,7 @@ const SeedNodeTable: FC<any> = forwardRef((props: any, ref) => {
   const [curName, curNameSet] = useState<string>('')
   const [curPage, setCurPage] = useState<number>(1)
   const [total, totalSet] = useState<number>(0)
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const pagination = {
     defaultCurPage: 1,
@@ -37,7 +37,7 @@ const SeedNodeTable: FC<any> = forwardRef((props: any, ref) => {
 
   const columns: Array<object> = [
     {
-      title: t('common.Num'),
+      title: ` `,
       width: 60,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
@@ -134,12 +134,16 @@ const SeedNodeTable: FC<any> = forwardRef((props: any, ref) => {
   }, [])
   // jsx
   return (
-    <div className="data-table-box">
+    <div >
       <Table
+        className="com-table"
         dataSource={tableData}
         columns={columns}
         rowKey={(_: any) => _.seedNodeId}
-        pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
+        pagination={{
+          defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange,
+          showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
+        }}
       />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>

@@ -10,7 +10,7 @@ const NominationCommittee: FC<any> = () => {
   const [list, setList] = useState<any>([])
 
 
-  return <div className="layout-box nomination-committee">
+  return <div className="layout-box p-20 nomination-committee">
     <div className="title">
       {t('orgManage.nominationtoCommittee')}
       {t('orgManage.nominationtoWithdrawalFromCommittee')}
@@ -18,7 +18,7 @@ const NominationCommittee: FC<any> = () => {
     <Form
       name="basic"
       size="large"
-      preserve={false}
+      colon={false}
       wrapperCol={{ span: 10 }}
       labelCol={{ style: { width: i18n.language === 'en' ? 180 : 160, whiteSpace: 'pre-wrap' } }}
       labelAlign="left"
@@ -40,12 +40,14 @@ const NominationCommittee: FC<any> = () => {
         label={t('orgManage.selectApprovalData')}
         name="selectApprovalData"
       >
-        <Select placeholder={t('center.pleaseSelect')}>
-          {
-            list.map((item: any) => (<Option value={item.id} key={item.id}>XXX</Option>))
-          }
-        </Select>
-
+        <div className="position">
+          <Select placeholder={t('center.pleaseSelect')}>
+            {
+              list.map((item: any) => (<Option value={item.id} key={item.id}>XXX</Option>))
+            }
+          </Select>
+          <Button className="com-btn" style={{ marginRight: '20px' }} type="primary">{t('orgManage.uploadData')}</Button>
+        </div>
       </Form.Item>
       <Form.Item
         label={t('orgManage.postscriptNomination')}
@@ -53,11 +55,13 @@ const NominationCommittee: FC<any> = () => {
       >
         <Input.TextArea maxLength={200} showCount></Input.TextArea>
       </Form.Item>
+      <Form.Item
+        label={` `}
+      >
+        <Button className="com-btn" style={{ marginRight: '20px' }} type="primary">{t('common.submit')}</Button>
+        <Button className="com-btn" onClick={() => history.go(-1)}>{t('common.return')}</Button>
+      </Form.Item>
     </Form>
-    <div>
-      <Button type="primary">{t('common.submit')}</Button>
-      <Button onClick={() => history.go(-1)}>{t('common.return')}</Button>
-    </div>
   </div>
 }
 

@@ -118,9 +118,9 @@ export const MyDetailTask: FC<any> = (props: any) => {
     initTabel()
   }, [curPage])
 
-  return <div className="layout-box">
-    <div className="add-data-box">
-      <div className="top-title-box">
+  return <div className="layout-box ">
+    <div className="add-data-box p-20">
+      <div className="top-title-box ">
         <p className="top-title-">{t('center.dataName')}:&nbsp;&nbsp;</p>
         <p>{metadataName}</p>
       </div>
@@ -129,12 +129,11 @@ export const MyDetailTask: FC<any> = (props: any) => {
         <p className="datail-box-content">{metadataId}</p>
       </div>
     </div>
-    <div className="data-table-box">
+    <div >
       <Table
+        className="com-table com-table-multiline"
         dataSource={tableData}
-        // dataSource={dataSource}
         columns={columns}
-        bordered
         rowKey={row => row.id}
         pagination={{
           current: curPage,

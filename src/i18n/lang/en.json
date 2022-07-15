@@ -241,7 +241,7 @@
     "hasOccupied": "of the node has been occupied",
     "addSeedNode": "Add a new Boot node",
     "initialNode": "Initial Node",
-    "noRepeatSeedName": "Boot node name cannot be duplicated, and it cannot be modified after submitting；other configurations can be altered later.",
+    "noRepeatSeedName": "Boot node name cannot be duplicated, and it cannot be modified after submitting；",
     "nodeConfigurationStatusTips": "Cannot exit the Datum now because there are tasks in progress.",
     "nodeSeedNodeId": "Boot node ID",
     "forSelfidentity": "For self-identification",
@@ -674,7 +674,11 @@
     "approvalMaterialURL": "Approval Material URL",
     "postscriptApplication": "Postscript Application",
     "modifyConsumption": "Modify Consumption",
-    "setAlgorithmConsumption": "Set Algorithm Consumption"
+    "setAlgorithmConsumption": "Set Algorithm Consumption",
+    "uploadData": "Upload Data",
+    "uploadApprovalData": "Upload Approval Data",
+    "InformationPicture": "Information Picture",
+    "postscriptToApplicationMaterials": "Postscrip To Application"
   },
   "httpStatus": {
     "status1": "system internal error",

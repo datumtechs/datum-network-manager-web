@@ -241,7 +241,7 @@
     "hasOccupied": "占用此节点情况",
     "addSeedNode": "添加引导节点",
     "initialNode": "初始节点",
-    "noRepeatSeedName": "引导节点名称不可重复, 且本次设置之后无法修改；其他配置提交后可以在引导节点管理页面更改。",
+    "noRepeatSeedName": "引导节点名称不可重复, 且本次设置之后无法修改；",
     "nodeConfigurationStatusTips": "正在参与计算任务，目前无法注销身份。",
     "nodeSeedNodeId": "引导节点ID",
     "forSelfidentity": "用于自己识别",
@@ -674,7 +674,11 @@
     "approvalMaterialURL": "审批资料URL",
     "postscriptApplication": "申请附言",
     "modifyConsumption": "修改消耗量",
-    "setAlgorithmConsumption": "设置算法消耗量"
+    "setAlgorithmConsumption": "设置算法消耗量",
+    "uploadData": "上传资料",
+    "uploadApprovalData": "上传审批资料",
+    "InformationPicture": "资料图片",
+    "postscriptToApplicationMaterials": "申请资料附言"
   },
   "httpStatus": {
     "status1": "系统内部错误",

@@ -229,7 +229,7 @@ const PriceSeting: FC<any> = (props: any) => {
 
   return <div className='price-seting'>
     {/* <Spin wrapperClassName="wrap-spin" tip={t('common.dataAuthProgress')} spinning={spinning}> */}
-    <Card className='details-top-box layout-box'>
+    <Card className='details-top-box layout-box p-20'>
       <div className='details-name-box'>
         <div className='address'>
           <p>{t('voucher.VoucherName')}：{name}</p>

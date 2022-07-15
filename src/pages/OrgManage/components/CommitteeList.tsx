@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 const CommitteeList: FC<any> = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const history = useHistory()
   const [text, setSearchText] = useState()
   const [tableData, setTableData] = useState<any[]>([])
@@ -17,11 +17,9 @@ const CommitteeList: FC<any> = () => {
 
   const columns: any[] = [
     {
-      title: t('common.Num'),
+      title: ``,
       render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
-      width: 70,
-      align: 'center',
-      className: "no-right-border"
+      width: 70
     },
     {
       title: t('orgManage.orgName'),
@@ -37,7 +35,7 @@ const CommitteeList: FC<any> = () => {
       title: t('common.actions'),
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
-        return <Button type="link" onClick={() => setVisible(row)}>  {t('orgManage.nominationWithdrawal')}</Button>
+        return <Button style={{ padding: 0 }} type="link" onClick={() => setVisible(row)}>  {t('orgManage.nominationWithdrawal')}</Button>
       },
     },
   ]
@@ -67,6 +65,7 @@ const CommitteeList: FC<any> = () => {
       <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('orgManage.orgName')}`} />
     </div>
     <Table
+      className="com-table"
       dataSource={tableData}
       columns={columns}
       rowKey={(record: any) => record.name}
@@ -76,6 +75,7 @@ const CommitteeList: FC<any> = () => {
         showSizeChanger: false,
         total: total,
         onChange: setCurPage,
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />
     <Modal

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
 import useComputeNodeDetailTable from '@hooks/useComputeNodeDetailTable'
-import { fileSizeChange, formatDuring,newChangeSizeFn } from '@utils/utils'
+import { fileSizeChange, formatDuring, newChangeSizeFn } from '@utils/utils'
 
 const ComputeDetailTable: FC<any> = (props: any) => {
   const pagination = {
@@ -13,7 +13,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   }
   const { id,
     core, memory, bandwidth } = props
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const history = useHistory()
   const [total, totalSet] = useState<number>(0)
   const [tableData, tableDataSet] = useState([])
@@ -54,18 +54,21 @@ const ComputeDetailTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: t('common.Num'),
+      title: ``,
+      width: 60,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
       title: t('node.curTaskByNode'),
       dataIndex: 'taskName',
       key: 'taskName',
+      ellipsis: true
     },
     {
       title: t('node.startInfoAndTaskTime'),
       dataIndex: 'sponsorStartTime',
       key: 'sponsorStartTime',
+      width: 300,
       render: (text, record, index) => {
         return (
           <>
@@ -89,6 +92,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
       title: t('node.eachTaskCost'),
       dataIndex: 'eachNode',
       key: 'eachNode',
+      width: 400,
       render: (text, record, index) => {
         const _data = record.dynamicFields
         return (
@@ -129,15 +133,16 @@ const ComputeDetailTable: FC<any> = (props: any) => {
     },
   ]
   return (
-    <div className="data-table-box">
-      <Table
-        // dataSource={dataSource}
-        dataSource={tableData}
-        rowKey={re => `${re.identityId}_${re.id}`}
-        columns={columns}
-        pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
-      />
-    </div>
+    <Table
+      className="com-table com-table-multiline"
+      dataSource={tableData}
+      rowKey={re => `${re.identityId}_${re.id}`}
+      columns={columns}
+      pagination={{
+        defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange,
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
+      }}
+    />
   )
 }
 export default ComputeDetailTable

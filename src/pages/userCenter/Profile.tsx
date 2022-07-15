@@ -69,7 +69,7 @@ const Profile: FC<any> = (props: any) => {
   }
 
 
-  return (<div className="layout-box">
+  return (<div className="layout-box p-20">
     <div className="form-box userForm">
       <Form
         size="large"

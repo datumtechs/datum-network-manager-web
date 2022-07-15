@@ -1,7 +1,7 @@
 import { FC, useState, useEffect, useContext, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Table, Space, message, Input, Modal, Form } from 'antd'
+import { Table, Space, message, Input, Modal, Form, Button } from 'antd'
 import MyModal from '@com/MyModal'
 import { computeNodeApi } from '@api/index'
 import { BaseInfoContext } from '@/layout/index'
@@ -24,7 +24,7 @@ const DataTable: FC<any> = (props: any) => {
     [curPage, setCurPage] = useState<number>(1),
     baseInfo = useContext(BaseInfoContext),
     [curId, curIdSet] = useState<string>(''),
-    { t } = useTranslation(),
+    { t, i18n } = useTranslation(),
     [curRow, setCurRow] = useState<Row>({
       core: '',
       memory: '',
@@ -99,21 +99,20 @@ const DataTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: t('common.Num'),
-      dataIndex: 'id',
+      title: ``,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-      width: 40,
+      width: 60,
     },
     {
       title: t('computeNodeMgt.nodeName'),
       dataIndex: 'nodeName',
-      width: 80,
+      width: 100,
       ellipsis: true
     },
     {
       title: t('common.status'),
       dataIndex: 'status',
-      width: 80,
+      width: 120,
       render: (text, record, index) => {
         /**
          * 连接状态 connStatus 0 1
@@ -174,9 +173,9 @@ const DataTable: FC<any> = (props: any) => {
                 <Space size={10}>
                   {
                     buttonDisabled() ? '' :
-                      <span className="btn pointer main_color" onClick={() => renameNode(row)}>
+                      <Button type="link" onClick={() => renameNode(row)}>
                         {t('common.rename')}
-                      </span>
+                      </Button>
                   }
                 </Space>
               </>
@@ -188,18 +187,16 @@ const DataTable: FC<any> = (props: any) => {
                 <Space size={10}>
                   {
                     buttonDisabled() ? '' :
-                      <>
-                        <span className="btn pointer main_color" onClick={() => renameNode(row)}>
-                          {t('common.rename')}
-                        </span>
-                      </>
+                      <Button type="link" onClick={() => renameNode(row)}>
+                        {t('common.rename')}
+                      </Button>
                   }
-                  <span className="btn pointer main_color" onClick={() => operation(row, 'view')}>
+                  <Button type="link" onClick={() => operation(row, 'view')}>
                     {t('common.view')}
-                  </span>
-                  <span className="btn pointer main_color" onClick={() => operation(row, 'enable')}>
+                  </Button>
+                  <Button type="link" onClick={() => operation(row, 'enable')}>
                     {t('common.enable')}
-                  </span>
+                  </Button>
                 </Space>
                 {/* )} */}
 
@@ -207,26 +204,24 @@ const DataTable: FC<any> = (props: any) => {
             ) : ''}
             {row.connStatus === 1 && row.powerStatus === 2 ? (
               <>
-                <span className="btn pointer" onClick={() => operation(row, 'view')}>
+                <Button type="link" onClick={() => operation(row, 'view')}>
                   {t('common.view')}
-                </span>
-                <span className="btn pointer" onClick={() => operation(row, 'disable')}>
+                </Button>
+                <Button type="link" onClick={() => operation(row, 'disable')}>
                   {t('common.disable')}
-                </span>
+                </Button>
               </>
             ) : ''
             }
             {row.connStatus == 1 && (row.powerStatus === 6 || row.powerStatus === 5) ? (
-              <>
-                <span className="btn pointer" onClick={() => operation(row, 'view')}>
-                  {t('common.view')}
-                </span>
-              </>
+              <Button type="link" onClick={() => operation(row, 'view')}>
+                {t('common.view')}
+              </Button>
             ) : ''
             }
-            {row.connStatus === 1 && row.powerStatus === 3 ? <span className="btn pointer" onClick={() => viewInfo(row)}>
+            {row.connStatus === 1 && row.powerStatus === 3 ? <Button type="link" onClick={() => viewInfo(row)}>
               {t('common.viewNodeInfo')}
-            </span> : ''}
+            </Button> : ''}
           </Space>
         )
       },
@@ -289,13 +284,17 @@ const DataTable: FC<any> = (props: any) => {
 
 
   return (
-    <div className="data-table-box">
+    <div >
       <Table
+        className="com-table com-table-multiline"
         dataSource={tableData}
         columns={columns}
         rowKey={_ => _.nodeId}
         scroll={{ x: 990 }}
-        pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
+        pagination={{
+          defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange,
+          showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
+        }}
       />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         {modalType === 'delete' ? (

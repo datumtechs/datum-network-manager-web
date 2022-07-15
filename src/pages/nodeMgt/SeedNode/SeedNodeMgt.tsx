@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 // import { useHistory } from 'react-router-dom'
 import SearchBar from '@/layout/components/SearchBar'
 import SeedNodeTable from './components/SeedNodeTable'
-import { AddSeedNode } from './AddSeedNode'
+import { AddSeedNode } from './components/AddSeedNode'
 import '../scss/index.scss'
 
 export const SeedNodeMgt: FC<any> = (props: any) => {
@@ -20,11 +20,9 @@ export const SeedNodeMgt: FC<any> = (props: any) => {
   }
   return (
     <div className="layout-box">
-      <div className="data-table-box">
-        <SearchBar text={t('node.addSeedNode')} onAdd={onAdd} hideSearch />
-        <SeedNodeTable ref={tableRef} />
-        <AddSeedNode show={show} cancel={cancel} />
-      </div>
+      <SearchBar text={t('node.addSeedNode')} onAdd={onAdd} hideSearch />
+      <SeedNodeTable ref={tableRef} />
+      <AddSeedNode show={show} cancel={cancel} />
     </div>
   )
 }

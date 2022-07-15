@@ -10,17 +10,15 @@ const Attribute: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1),
     [totalNum, setTotalNum] = useState(0),
     [tableData, setTableData] = useState<any[]>([]),
-    { t } = useTranslation(),
+    { t, i18n } = useTranslation(),
     pageSize = 10
   const [searchText, setSearchText] = useState("")
   const history = useHistory();
   const columns: any[] = [
     {
-      title: t('common.Num'),
+      title: ` `,
       render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
       width: 70,
-      align: 'center',
-      className: "no-right-border"
     },
     {
       title: t('credential.credentialContractName'),
@@ -113,6 +111,7 @@ const Attribute: FC<any> = (props: any) => {
   return <div className="layout-box">
     <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('credential.credentialContractName')}`} />
     <Table
+      className="com-table "
       dataSource={tableData}
       columns={columns}
       rowKey={(record: any) => record.name}
@@ -123,6 +122,7 @@ const Attribute: FC<any> = (props: any) => {
         showSizeChanger: false,
         total: totalNum,
         onChange: OnPageChange,
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />
   </div>

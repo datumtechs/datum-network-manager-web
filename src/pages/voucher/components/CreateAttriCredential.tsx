@@ -109,7 +109,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
   };
 
   return <div className='credential-info-seting'>
-    <Card className='details-top-box layout-box'>
+    <Card className='details-top-box layout-box p-20'>
       <div className='details-name-box'>
         <div className='address'>
           <p>{t('credential.credentialContractName')}：{metaDataName}</p>

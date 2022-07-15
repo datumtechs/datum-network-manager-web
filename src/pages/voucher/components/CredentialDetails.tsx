@@ -7,7 +7,7 @@ import { copy } from '@/utils/utils'
 
 const CredentialDetails: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
-  return <div className="layout-box credential-details">
+  return <div className="layout-box p-20 credential-details">
     <div className="details">
       <div className="details-left">
         <div className="details-lf-box">

@@ -74,13 +74,13 @@ const App: FC<any> = (props: any) => {
     const WEB3 = new Web3Service()
     if (WEB3.eth) {
       props.updataWallet(WEB3)
-      WEB3.eth.on('accountsChanged', account => {
-        walletChange()
-      })
+      // WEB3.eth.on('accountsChanged', account => {
+      //   walletChange()
+      // })
 
-      WEB3.eth.on('chainChanged', account => {
-        walletChange()
-      })
+      // WEB3.eth.on('chainChanged', account => {
+      //   walletChange()
+      // })
     } else {
       props.updataWallet(undefined)
     }

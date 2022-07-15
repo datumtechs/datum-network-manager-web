@@ -14,7 +14,7 @@ const DatumIdentity: FC<any> = (props: any) => {
   const baseInfo = useContext(BaseInfoContext)
   const [hasService, setHasService] = useState<boolean>(false) // 是否已经连接
   const [modal2Visible, setModal2Visible] = useState<boolean>(false); // 提示
-    const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const onFinish = () => { }
   const onFinishFailed = () => { }
 
@@ -61,7 +61,7 @@ const DatumIdentity: FC<any> = (props: any) => {
 
   return (
     <>
-      <div className="layout-box">
+      <div className="layout-box p-20">
         {baseInfo?.dynamicFields?.runningTask ?
           <div className="tip-box" style={{ height: 'auto' }}>{t('node.nodeConfigurationStatusTips')}</div> : ''
         }

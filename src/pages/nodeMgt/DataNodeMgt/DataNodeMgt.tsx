@@ -21,10 +21,8 @@ export const DataNodeMgt: FC<any> = props => {
   }
   return (
     <div className="layout-box">
-      <div className="data-table-box">
-        <SearchBar onAdd={onAdd} onSearch={onSearch} />
-        <DataTable searchText={searchText} />
-      </div>
+      <SearchBar onAdd={onAdd} onSearch={onSearch} />
+      <DataTable searchText={searchText} />
     </div>
   )
 }

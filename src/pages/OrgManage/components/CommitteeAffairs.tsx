@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 
 const CommitteeAffairs: FC<any> = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [text, setSearchText] = useState()
   const [tableData, setTableData] = useState<any[]>([])
   const [curPage, setCurPage] = useState(1)
@@ -31,10 +31,9 @@ const CommitteeAffairs: FC<any> = () => {
     ]
     return [
       {
-        title: t('common.Num'),
+        title: ``,
         render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
         width: 70,
-        align: 'center',
       },
       {
         title: item == 'myHandling' ? t('orgManage.toDoContent') : t('orgManage.eventContent'),
@@ -103,6 +102,7 @@ const CommitteeAffairs: FC<any> = () => {
       <SearchBar onSearch={setSearchText} />
     </div>
     <Table
+      className="com-table"
       dataSource={tableData}
       columns={columns(segmentedValue)}
       rowKey={(record: any) => record.name}
@@ -112,6 +112,7 @@ const CommitteeAffairs: FC<any> = () => {
         showSizeChanger: false,
         total: total,
         onChange: setCurPage,
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />
   </div>

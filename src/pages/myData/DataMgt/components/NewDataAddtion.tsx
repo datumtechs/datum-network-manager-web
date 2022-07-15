@@ -125,7 +125,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
 
 
   return (
-    <div className="layout-box">
+    <div className="layout-box p-20">
       <div className="add-data-box">
         <Form
           name="basic"

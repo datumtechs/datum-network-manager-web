@@ -20,8 +20,8 @@ const CommitteeStatistics: FC<any> = () => {
     })
   }
 
-  return <div className="committee-statistics">
-    <div className="statistics-title">
+  return <div className="committee-statistics p-20 " style={{ paddingBottom: 0 }}>
+    <div className="statistics-title ">
       <div className="title-left-box">
         <img className="committee-logo" src="#" />
         <div className="committee-name">

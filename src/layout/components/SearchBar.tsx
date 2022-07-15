@@ -29,7 +29,7 @@ const SearchBar: FC<any> = (props: any) => {
           allowClear
           enterButton={t('common.search')}
           onSearch={onSearch}
-          style={{ width: 334 }}
+          className={props.text ? 'w-334' : 'no-search-flex-1'}
         />
       )}
     </div>

@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import { Space, Button, Descriptions, Tooltip, Form, Row, Col } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { fileSizeChange, formatDuring ,newChangeSizeFn} from '@utils/utils'
+import { fileSizeChange, formatDuring, newChangeSizeFn } from '@utils/utils'
 import { taskApi } from '@api/index'
 
 import ProviderTable from './components/ProviderTable'
@@ -123,7 +123,7 @@ export const TaskDetail: FC<any> = (props: any) => {
 
 
   return (
-    <div className="layout-box">
+    <div className="layout-box p-20">
       <div className="add-data-box">
         <div className="task-progress-box tesk-details">
           <div className="task-progress-left-box">

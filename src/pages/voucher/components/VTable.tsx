@@ -18,7 +18,7 @@ const VoucherTable: FC<any> = (props: any) => {
   const type = location?.state?.attributeType || ''
   // const [form]: any = Form.useForm()
   const form = useRef<any>()
-  const { t } = useTranslation(),
+  const { t, i18n } = useTranslation(),
     [activeKey, setActiveKey] = useState(type ? 1 : 0),
     [curPage, setCurPage] = useState(1),
     [totalNum, setTotalNum] = useState(0),
@@ -156,10 +156,9 @@ const VoucherTable: FC<any> = (props: any) => {
     },]
     return [
       {
-        title: t('common.Num'),
+        title: ``,
         render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-        width: 70,
-        align: 'center',
+        width: 60,
       },
       {
         title: t('voucher.VoucherName'),
@@ -241,6 +240,7 @@ const VoucherTable: FC<any> = (props: any) => {
 
   const tableDom = (key) => {
     return <Table
+      className="com-table "
       dataSource={tableData}
       columns={columns(key)}
       key={key}
@@ -252,6 +252,7 @@ const VoucherTable: FC<any> = (props: any) => {
         showSizeChanger: false,
         total: totalNum,
         onChange: OnPageChange,
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />
   }
@@ -267,6 +268,7 @@ const VoucherTable: FC<any> = (props: any) => {
 
   return <div className="voucher">
     <Tabs onChange={callback}
+      className="com-tabs"
       tabBarExtraContent={operations}
       activeKey={String(activeKey)}
       tabBarGutter={20}>

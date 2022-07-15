@@ -295,13 +295,15 @@ $pending: #657acd;
       }
 
       .taskChart-box {
+        flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
 
 
         #taskChart {
-          width: 15vw;
+          width: 100%;
+          // width: 15vw;
           height: 15vw;
           // margin: 0 auto;
           // max-width: 200px;

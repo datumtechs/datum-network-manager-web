@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 
 const Application: FC<any> = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [text, setSearchText] = useState()
   const [tableData, setTableData] = useState<any[]>([])
   const [curPage, setCurPage] = useState(1)
@@ -13,10 +13,9 @@ const Application: FC<any> = () => {
 
   const columns: any[] = [
     {
-      title: t('common.Num'),
+      title: ` `,
       render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
       width: 70,
-      align: 'center',
       className: "no-right-border"
     },
     {
@@ -39,8 +38,8 @@ const Application: FC<any> = () => {
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
         return <>
-          <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.viewPublicity')}</Button>
-          <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.downloadCertificate')}</Button>
+          <Button style={{ padding: 0, paddingRight: '10px' }} type="link" onClick={() => retreat(row)}>  {t('orgManage.viewPublicity')}</Button>
+          <Button style={{ padding: 0 }} type="link" onClick={() => retreat(row)}>  {t('orgManage.downloadCertificate')}</Button>
         </>
       },
     },
@@ -60,10 +59,11 @@ const Application: FC<any> = () => {
   }, [])
 
   return <div className="committee-list">
-    <div className="list-title">
+    <div className="list-title" style={{ paddingBottom: '20px' }}>
       <span className="title">{t('orgManage.myApplication')}</span>
     </div>
     <Table
+      className="com-table"
       dataSource={tableData}
       columns={columns}
       rowKey={(record: any) => record.name}
@@ -73,6 +73,7 @@ const Application: FC<any> = () => {
         showSizeChanger: false,
         total: total,
         onChange: setCurPage,
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />
   </div>

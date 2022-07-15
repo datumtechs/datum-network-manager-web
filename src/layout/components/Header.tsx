@@ -81,7 +81,7 @@ const Header = (props: any) => {
             {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
           </div>
           <div className="pointer">
-            <Dropdown overlay={menus} placement="bottomRight" arrow>
+            <Dropdown overlay={menus} overlayClassName="dropdown-tran" placement="bottomRight" arrow>
               <div className='user-info'>
                 <img src={menuSvg} alt="" />
                 <span>{useAddressDisplay(address) || ''}</span>

@@ -271,6 +271,7 @@
       display: flex;
       align-items: center;
       color: #ffffff;
+      flex-wrap: wrap;
 
       li {
         padding-left: 20px;
@@ -367,4 +368,12 @@
     border-top: none;
   }
 
+}
+
+.dropdown-tran {
+  transition: all 10s ease;
+
+  .ant-dropdown-menu {
+    transition: all 10s ease;
+  }
 }

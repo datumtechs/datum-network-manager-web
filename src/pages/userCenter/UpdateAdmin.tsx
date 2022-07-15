@@ -12,30 +12,30 @@ import { filterAmount } from '@/utils/utils'
 
 const UpdateAdmin: FC<any> = (props: any) => {
   const [form] = Form.useForm();
-    const { t, i18n } = useTranslation();
-    const baseInfo = useContext(BaseInfoContext);
-    const [disabled, setDisabled] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const [wallet, setWallet] = useState<any>(props.state.wallet?.wallet);
-    const [address, setAddress] = useState(props.state.address?.address || '');
-    const [replaceAddress, setReplaceAddress] = useState('');
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [balance, setBalance] = useState('0');
-    const formRef = useRef<any>(null);
-    const rules: Rule[] = ([{
-      required: true, message: `${t('UserCenter.nodeAddressIncorrect')}`,
-      validateTrigger: 'blur',
-    }, {
-      validateTrigger: 'blur',
-      validator: (_, value) => {
-        if (wallet.web3.utils.isAddress(value)) {
-          return Promise.resolve()
-        } 
-          // eslint-disable-next-line prefer-promise-reject-errors
-          return Promise.reject(`${t('UserCenter.nodeAddressIncorrect')}`)// nodeAddressIncorrect
-        
+  const { t, i18n } = useTranslation();
+  const baseInfo = useContext(BaseInfoContext);
+  const [disabled, setDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [wallet, setWallet] = useState<any>(props.state.wallet?.wallet);
+  const [address, setAddress] = useState(props.state.address?.address || '');
+  const [replaceAddress, setReplaceAddress] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [balance, setBalance] = useState('0');
+  const formRef = useRef<any>(null);
+  const rules: Rule[] = ([{
+    required: true, message: `${t('UserCenter.nodeAddressIncorrect')}`,
+    validateTrigger: 'blur',
+  }, {
+    validateTrigger: 'blur',
+    validator: (_, value) => {
+      if (wallet.web3.utils.isAddress(value)) {
+        return Promise.resolve()
       }
-    }])
+      // eslint-disable-next-line prefer-promise-reject-errors
+      return Promise.reject(`${t('UserCenter.nodeAddressIncorrect')}`)// nodeAddressIncorrect
+
+    }
+  }])
 
 
   const validate = () => {
@@ -87,7 +87,7 @@ const UpdateAdmin: FC<any> = (props: any) => {
   }
 
 
-  return (<div className="layout-box">
+  return (<div className="layout-box p-20">
     <div className="form-box userForm">
       <Form
         size="large"
@@ -189,4 +189,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     })
   }
 })
-export default connect((state: any) => ({ state }), mapDispatchToProps)(UpdateAdmin) 
+export default connect((state: any) => ({ state }), mapDispatchToProps)(UpdateAdmin)

@@ -118,7 +118,7 @@ export const Tasks: FC<any> = () => {
   return (
     <ThemeContext.Provider value={{ color, roleColor }}>
       <div className="layout-box">
-        <div className="title-box">
+        <div className="title-box p-20">
           <div className="title-label">
             <div className="title">
               {t('task.myTask')}:&nbsp;

@@ -42,11 +42,7 @@ const MyTable: FC<any> = (props: any) => {
       key: 'address',
     },
   ]
-  return (
-    <div className="data-table-box">
-      <Table dataSource={dataSource} columns={columns} bordered />
-    </div>
-  )
+  return (<Table dataSource={dataSource} columns={columns} bordered />)
 }
 
 export default MyTable

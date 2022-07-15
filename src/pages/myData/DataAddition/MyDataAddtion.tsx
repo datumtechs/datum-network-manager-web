@@ -227,7 +227,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }
 
   return (
-    <div className="layout-box">
+    <div className="layout-box p-20">
       <div className="add-data-box">
         <div className="title-box bold-ident">{t('myData.plzUploadFile')}</div>
         {/* <div className="label-box">

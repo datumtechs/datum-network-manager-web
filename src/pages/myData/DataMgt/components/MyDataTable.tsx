@@ -210,10 +210,9 @@ const MyDataTable: FC<any> = (props: any) => {
 
   const columns: any[] = [
     {
-      title: t('common.Num'),
+      title: ``,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
-      width: 70,
-      align: 'center'
+      width: 60,
     },
     {
       title: t('center.dataName'),
@@ -359,6 +358,7 @@ const MyDataTable: FC<any> = (props: any) => {
 
   const tableDom = (key) => {
     return <Table
+      className="com-table com-table-multiline"
       dataSource={tableData}
       columns={columns}
       key={key}
@@ -370,6 +370,7 @@ const MyDataTable: FC<any> = (props: any) => {
         showSizeChanger: false,
         total: totalNum,
         onChange: OnPageChange,
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />
   }
@@ -378,12 +379,10 @@ const MyDataTable: FC<any> = (props: any) => {
   }
 
   return (
-    <div className="data-table-box">
-      <Tabs onChange={callback}
+    <div >
+      <Tabs onChange={callback} className="com-tabs"
         tabBarGutter={20}
         tabBarExtraContent={operations}>
-        {/* type="card"
-        className={"data-mgt-tabs"}> */}
         <TabPane tab={t('dataNodeMgt.allData')} key="0">
           {tableDom('allData')}
         </TabPane>
@@ -395,7 +394,7 @@ const MyDataTable: FC<any> = (props: any) => {
         </TabPane>
         <TabPane tab={<Button
           type="primary"
-          style={{ marginLeft: '10px' }}
+          style={{ marginLeft: '10px', height: '36px' }}
           className="plus-button"
           icon={<PlusOutlined />}
           onClick={() => history.push('/myData/dataAddition')}

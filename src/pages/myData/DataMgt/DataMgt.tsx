@@ -7,9 +7,7 @@ export const DataMgt: FC<any> = () => {
 
   return (
     <div className="layout-box">
-      <div className="data-table-box">
-        <MyDataTable searchText={searchText} />
-      </div>
+      <MyDataTable searchText={searchText} />
     </div>
   )
 }

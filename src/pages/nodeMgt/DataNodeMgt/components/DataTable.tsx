@@ -95,7 +95,7 @@ const DataTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: t('common.Num'),
+      title: ``,
       width: 80,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
@@ -125,7 +125,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.ip'),
       dataIndex: 'ip',
-      width: 300,
+      width: 200,
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
@@ -142,7 +142,7 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.port'),
       dataIndex: 'port',
-      width: 300,
+      width: 150,
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
@@ -199,12 +199,16 @@ const DataTable: FC<any> = (props: any) => {
   }
 
   return (
-    <div className="data-table-box">
+    <div >
       <Table
+        className="com-table com-table-multiline"
         dataSource={tableData}
         columns={columns}
         rowKey={_ => _.nodeId}
-        pagination={{ defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange }}
+        pagination={{
+          defaultCurrent: 1, showSizeChanger: false, total, onChange: onPageChange,
+          showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
+        }}
       />
       <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>

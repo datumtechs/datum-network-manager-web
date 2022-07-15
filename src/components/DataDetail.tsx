@@ -243,7 +243,7 @@ export const DataDetail: FC<any> = (props: any) => {
 
   }, [curPage])
 
-  return (<div className="layout-box">
+  return (<div className="layout-box p-20">
     <div className="add-data-box">
       <div className="top-title-box">
         <p className="top-title-">{t('center.dataName')}:&nbsp;&nbsp;</p>
