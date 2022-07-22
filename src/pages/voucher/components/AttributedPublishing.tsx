@@ -6,11 +6,11 @@ import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { voucher } from '@api'
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import ABIJson from '@/utils/DataTokenFactory.json'
+import ERC721Factory from '@/utils/erc721/ERC721Factory.json'
 import { Complement, filterWeb3Code, filterIntegerAmount } from '@/utils/utils'
 import { requestCancel } from '@/utils/loading'
 
-const CredentialInfo: FC<any> = (props: any) => {
+const AttributedPublishing: FC<any> = (props: any) => {
 
   const { t, i18n } = useTranslation();
   const history = useHistory();
@@ -21,9 +21,6 @@ const CredentialInfo: FC<any> = (props: any) => {
   const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
   const [loading, setLoading] = useState(false);
   const submiting = useRef(false)
-
-
-
   const initialState: any = useRef()
 
   const release = async (params) => {
@@ -42,18 +39,17 @@ const CredentialInfo: FC<any> = (props: any) => {
       }
       // 构建合约
       const myContract = new web3.eth.Contract(
-        ABIJson,
+        ERC721Factory,
         dataTokenFactory,
       );
       const nonce = await web3.eth.getTransactionCount(address[0])
 
       // 发起交易
-      await myContract.methods.createToken(
+      await myContract.methods.deployERC721Contract(
         params.name,
         params.symbol,
-        String(params.initialSupply + Complement),
-        String(params.initialSupply + Complement),
-        metaDataId
+        metaDataId,
+        3 //明文设置1，为密文设置2，为明文和密文支持设置3
       ).send({
         from: address[0]
       }).on('transactionHash', (hash) => {
@@ -78,7 +74,7 @@ const CredentialInfo: FC<any> = (props: any) => {
 
   useEffect(() => {
     if (!dataId) history.go(-1)
-    voucher.getPublishConfig({
+    voucher.queryPublishConfig({
       "dataTokenId": dataTokenId || ''
     }).then(res => {
       const { data } = res
@@ -108,14 +104,11 @@ const CredentialInfo: FC<any> = (props: any) => {
   }
 
   const sendTransactionData = (params, nonce, hash) => {
-    voucher.postTransaction({
-      "desc": params.DescriptionValue,
+    voucher.postAttributeTransaction({
       "hash": hash,
       "metaDataId": dataId,// metaDataId,
       "name": params.name,
       "symbol": params.symbol,
-      "total": params.initialSupply + Complement,
-      "init": params.initialSupply + Complement,
       nonce
     }).then(res => {
       const { data, status } = res
@@ -131,7 +124,7 @@ const CredentialInfo: FC<any> = (props: any) => {
     const { wallet } = props.state.wallet || {}
     const { web3 } = wallet
 
-    voucher.queryDataTokenStatus({
+    voucher.queryAttributeTokenStatus({
       "id": +id || null
     }).then(async (res) => {
       const { data } = res
@@ -150,16 +143,15 @@ const CredentialInfo: FC<any> = (props: any) => {
           }
           setLoading(false)
           localStorage.setItem('metaDataId', '')
-          // setDatas(data)
           submiting.current = false
           history.push({
             pathname: '/myData/dataVoucherPublishing/PriceSet',
             state: {
               dataAddress: data.address,
               name: data.name,
-              dataTokenId: data.id,
-              total: data.total,
-              symbol: data.symbol
+              // dataTokenId: data.id,
+              // total: data.total,
+              // symbol: data.symbol
             },
           })
         })
@@ -254,4 +246,4 @@ const CredentialInfo: FC<any> = (props: any) => {
   </div>
 }
 
-export default connect((state: any) => ({ state }))(CredentialInfo)
+export default connect((state: any) => ({ state }))(AttributedPublishing)

@@ -93,12 +93,16 @@ const MyDataTable: FC<any> = (props: any) => {
         type: 'edit',
         id: row.id,
         metaDataId: row.metaDataId,
-        dataStatus: +row.status === 2 ||
-          +row.status === 5 ||
-          +row.status === 6 ||
-          +row.status === 7 ||
-          +row.status === 8 ||
-          +row.status === 9 ? '1' : '0'
+        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
+        //5: 数据发布中; 6: 撤回中; 7:凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
+        ////10已绑定凭证
+        dataStatus: +row.status > 1 ? '1' : '0'
+        // dataStatus: +row.status === 2 ||
+        //   +row.status === 5 ||
+        //   +row.status === 6 ||
+        //   +row.status === 7 ||
+        //   +row.status === 8 ||
+        //   +row.status === 9 ? '1' : '0'
       },
     })
   }

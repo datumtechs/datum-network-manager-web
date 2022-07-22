@@ -18,7 +18,9 @@ const Details: FC<any> = (props: any) => {
   const { dataId, metaDataId,
     metaDataName } = location?.state || {};
   const [value, setValue] = useState(dataId || null);
+  const [attributeValue, setAttributeValue] = useState(dataId || null);
   const [optionList, setOptionList] = useState([])
+  const [attributeOptionList, setAttributeOptionList] = useState([])
 
 
   const fetchUserList = async (keyword: string): Promise<UserValue[]> => {
@@ -35,15 +37,28 @@ const Details: FC<any> = (props: any) => {
     })
   }
 
+  const queryAttributeCredentialList = async (keyword: string): Promise<UserValue[]> => {
+    return voucher.queryMetaDataByKeyword({ keyword }).then(res => {
+      const { data, status } = res
+      if (status == 0) {
+        setAttributeOptionList(data)
+        return data.map(item => ({
+          label: item.metaDataName,
+          value: item.id,
+        }))
+      }
+      return []
+    })
+  }
+
   const submit = (type) => {
-    optionList.forEach((_: any) => {
-      console.log(_.id, value)
-      if (_.id == value) {
+    const list = type == 'attributed' ? attributeOptionList : optionList
+    const item = type == 'attributed' ? attributeValue : value
+    list.some((_: any) => {
+      if (_.id == item) {
         localStorage.setItem('metaDataId', '')
         let url = '/myData/dataVoucherPublishing/CredentialInfo'
-        if (type == 'attributed') {
-          url = '/myData/dataVoucherPublishing/AttributedPublishing'
-        }
+        if (type == 'attributed') url = '/myData/dataVoucherPublishing/AttributedPublishing'
         history.push({
           pathname: url,
           state: {
@@ -53,6 +68,7 @@ const Details: FC<any> = (props: any) => {
             dataId: _.id,
           }
         })
+        return true
       }
     })
   }
@@ -95,16 +111,17 @@ const Details: FC<any> = (props: any) => {
                 key="attributed"
                 propsValue={{
                   allowClear: true,
-                  value,
+                  value: attributeValue,
                   placeholder: t('credential.pleaseSelectBindCredential'),
                   style: { width: '100%' },
                   onChange: newValue => {
-                    setValue(newValue);
+                    setAttributeValue(newValue);
                   }
                 }}
-                fetchOptions={fetchUserList}
+                fetchOptions={queryAttributeCredentialList}
               />
-              <div className='button-white' onClick={() => submit('attributed')}>{t('common.confirm')}</div>
+              {/* <div className='button-white' onClick={() => submit('attributed')}>{t('common.confirm')}</div> */}
+              <div className='button' onClick={() => submit('attributed')}>{t('common.confirm')}</div>
             </div>
           </div>
         </div>

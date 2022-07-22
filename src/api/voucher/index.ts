@@ -91,4 +91,53 @@ export default {
     })
   },
 
+
+
+
+  // 查询有属性凭证  列表
+  queryAttributeList(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/page`,
+      data
+    })
+  },
+
+
+  // 查询有属性凭证  配置 查询工厂合约配置
+  queryPublishConfig(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/getPublishConfig`,
+      data
+    })
+  },
+
+  //有属性凭证 创建
+  postAttributeTransaction(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/dataToken/publish`,
+      data
+    })
+  },
+
+  // 查询状态根据id获取dataToken状态  有属性
+  queryAttributeTokenStatus(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/v1/attributeDataToken/getDataTokenInventoryDetail`,
+      data
+    })
+  },
+
+  // 凭证库存列表
+  queryAttributeInventoryList(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/v1/attributeDataToken/getDataTokenInventoryPage`,
+      data
+    })
+  },
+
 }

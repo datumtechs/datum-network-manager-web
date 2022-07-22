@@ -5,6 +5,7 @@ import SearchBar from '@/layout/components/SearchBar'
 import { CopyOutlined, PlusOutlined } from '@ant-design/icons'
 import { copy } from '@/utils/utils'
 import { useHistory } from 'react-router-dom'
+import voucher from '@api//voucher'
 
 const CredentialInventory: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1),
@@ -88,7 +89,18 @@ const CredentialInventory: FC<any> = (props: any) => {
 
   const query = () => {
     setTableData([{ name: '123' }])
-
+    return
+    voucher.queryAttributeInventoryList({
+      pageNumber: curPage,
+      pageSize: 10,
+      searchText: searchText
+    }).then((res) => {
+      const { data, status } = res
+      if (status === 0) {
+        setTableData(data)
+        setTotalNum(res.total)
+      }
+    })
   }
 
   useEffect(() => {

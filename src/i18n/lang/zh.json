@@ -584,7 +584,7 @@
     "CredentialNotDeployed": "当前凭证还未完成部署"
   },
   "credential": {
-    "attributeCredential": "属性凭证",
+    "attributeCredential": "有属性凭证",
     "noAttributeCredential": "无属性凭证",
     "releaseCredential": "发布凭证",
     "priced": "已定价",
