@@ -43,19 +43,11 @@ const MyDataTable: FC<any> = (props: any) => {
     })
   }
 
-  useEffect(() => {
-    initTableData()
-  }, [curPage, searchText, statusNum])
+  useEffect(() => { initTableData() }, [curPage, searchText, statusNum])
 
-  useEffect(() => {
-    initTableData()
-  }, [])
+  useEffect(() => { initTableData() }, [])
 
-  useEffect(() => {
-    if (pop.type !== '') {
-      setIsModalVisible(true)
-    }
-  }, [pop])
+  useEffect(() => { if (pop.type !== '') setIsModalVisible(true) }, [pop])
 
   const handleOk = () => {
     let data = {}
@@ -83,9 +75,8 @@ const MyDataTable: FC<any> = (props: any) => {
       }
     })
   }
-  const handleCancel = () => {
-    setIsModalVisible(false)
-  }
+  const handleCancel = () => setIsModalVisible(false)
+
   const viewFn = row => {
     history.push({
       pathname: '/myData/dataMgt/dataDetail',
@@ -93,16 +84,8 @@ const MyDataTable: FC<any> = (props: any) => {
         type: 'edit',
         id: row.id,
         metaDataId: row.metaDataId,
-        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
-        //5: 数据发布中; 6: 撤回中; 7:凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
-        ////10已绑定凭证
+        // (0-未知;1-还未发布的新表;2-已发布的表;3-已撤销的表;101-已删除;102-发布中;103-撤回中;)
         dataStatus: +row.status > 1 ? '1' : '0'
-        // dataStatus: +row.status === 2 ||
-        //   +row.status === 5 ||
-        //   +row.status === 6 ||
-        //   +row.status === 7 ||
-        //   +row.status === 8 ||
-        //   +row.status === 9 ? '1' : '0'
       },
     })
   }
@@ -133,13 +116,13 @@ const MyDataTable: FC<any> = (props: any) => {
     })
   }
 
-  const withDrawFn = (row: any) => {
-    setPop({
-      type: 'withdraw',
-      id: row.id,
-      fileName: row.metaDataName,
-    })
-  }
+  // const withDrawFn = (row: any) => {
+  //   setPop({
+  //     type: 'withdraw',
+  //     id: row.id,
+  //     fileName: row.metaDataName,
+  //   })
+  // }
 
   const download = (data: any, fileName: string) => {
     const url = window.URL.createObjectURL(new Blob([data]))
@@ -221,8 +204,6 @@ const MyDataTable: FC<any> = (props: any) => {
     {
       title: t('center.dataName'),
       dataIndex: 'metaDataName',
-      // width: 180,
-      // align: 'center',
       ellipsis: true,
     },
     {
@@ -232,9 +213,7 @@ const MyDataTable: FC<any> = (props: any) => {
       // width: 130,
       ellipsis: true,
       render: (text, record, index) => {
-        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
-        //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
-        //10已绑定凭证
+        // (0-未知;1-还未发布的新表;2-已发布的表;3-已撤销的表;101-已删除;102-发布中;103-撤回中;)
         let dom: any = ''
         const domFn = (type = 'center.unPublishData') => {
           return <div className="status-box">
@@ -247,26 +226,16 @@ const MyDataTable: FC<any> = (props: any) => {
             dom = <div className="status-box">
               <img src={successSvg} alt="" />
               <p>{t('center.pulishData')}</p>
+              {/* 已发布 */}
             </div>;
             break;
-          case 5:
+          case 102:
             dom = domFn('center.InReleaseData')
+            // {数据发布中}
             break;
-          case 6:
+          case 103:
             dom = domFn('center.WithdrawingData')
-            break;
-          case 7:
-            dom = domFn('center.voucherPublishingFailed')
-            break;
-          case 8:
-            dom = domFn('center.voucherPublishing')
-            break;
-          case 9:
-          case 10:
-            dom = <div className="status-box">
-              <img src={successSvg} alt="" />
-              <p>{t('center.issuedVoucher')}</p>
-            </div>;
+            // 数据撤回中
             break;
           default:
             dom = domFn()
@@ -280,73 +249,62 @@ const MyDataTable: FC<any> = (props: any) => {
       dataIndex: 'dynamicFields',
       ellipsis: true,
       render: (text, record: any, index) => {
-        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
-        //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
-        ////10已绑定凭证
-
-        // return (record.status == 2 || record.status == 7) ?
-        //   <span className='data-symbol' onClick={toRelease.bind(this, record)}>
-        //     {t('dataNodeMgt.publishDataVoucher')}</span> :
-        //   record.status == 9 || record.status == 10 ? record?.dynamicFields?.dataTokenName + '(' + record?.dynamicFields?.dataTokenSymbol + '）' : '--'
-        return <>
-          <p><span style={{ display: "inline-block", width: "75px" }}>{t('credential.attributeCredential')}:</span>  <span onClick={goCredential.bind(this, 'attributeCredential', record)}>--</span> </p>
-          <p><span style={{ display: "inline-block", width: "75px" }}>{t('credential.noAttributeCredential')}:</span>  <span onClick={goCredential.bind(this, 'noAttributeCredential', record)}>--</span> </p>
-        </>
+        const attrDom = <p>
+          <span style={{ display: "inline-block", width: "75px" }}>{t('credential.attributeCredential')}:</span>
+          <span onClick={goCredential.bind(this, 'attributeCredential', record)}>{record.attributeDataTokenAddress ? record.attributeDataTokenAddress : '--'}</span>
+        </p>
+        const noAttr = <p>
+          <span style={{ display: "inline-block", width: "75px" }}>{t('credential.noAttributeCredential')}:</span>
+          <span onClick={goCredential.bind(this, 'noAttributeCredential', record)}>{record.dataTokenAddress ? record.dataTokenAddress : '--'}</span>
+        </p>
+        // return (record.usage == 0 ? '' : record.usage == 1 ? attrDom : <> {attrDom}{noAttr} </>)
+        return <> {attrDom}{noAttr} </>
       }
     },
     {
       title: t('common.actions'),
       width: i18n.language === 'en' ? 400 : 'auto',
       dataIndex: 'actions',
-      // key: 'actions',
       render: (text: any, row: any, index: any) => {
-        //元数据的状态 (0: 未知; 1: 未发布; 2: 已发布; 3: 已撤销;4:已删除;
-        //5: 发布中; 6: 撤回中; 7: 凭证发布失败; 8: 凭证发布中; 9:已发布凭证)
-        //10已绑定凭证
+        // (0-未知;1-还未发布的新表;2-已发布的表;3-已撤销的表;101-已删除;102-发布中;103-撤回中;)
         let list = [
           {
-            name: row.status >= 2 ? t('center.view') : t('UserCenter.ProfileButtonEdit'),//查看
+            name: row.status >= 2 ? t('center.view') : t('UserCenter.ProfileButtonEdit'),//查看  编辑
             fn: viewFn.bind(this, row),
-            show: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10]
+            show: [0, 1, 2, 3, 101, 102, 103]
           },
           {
             name: t('center.download'),//下载
             fn: downloadFn.bind(this, row),
-            show: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10]
-          },
-          {
-            name: t('center.withdraw'),//撤回
-            fn: withDrawFn.bind(this, row),
-            show: [2, 7]
-          },
-          {
-            name: t('center.publish'),//发布
-            fn: publishFn.bind(this, row),
-            show: [0, 1, 3]
+            show: [0, 1, 2, 3, 101, 102, 103]
           },
           {
             name: t('common.copy'),//复制
             fn: saveAsNewData.bind(this, row),
-            show: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10]
+            show: [0, 1, 2, 3, 101, 102, 103]
           },
+
           {
             name: t('center.delete'),//删除
             fn: deleteFn.bind(this, row),
-            show: [0, 1, 3]
+            show: [0, 1]
           },
         ]
-        // if (+row.status === 2) {
         return (
           <div className="operation-box">
             {list.map((_: any) => {
-              // debugger
               return _.show.includes(row.status) ? <p className="btn pointer link pr10" key={_.name} onClick={_.fn}>
                 {_.name}
               </p> : ''
             })}
-            <p className="btn pointer link pr10" onClick={toRelease.bind(this, row)}>
-              {t('credential.releaseCredential')}
-            </p>
+            {row.status < 2 ?
+              <p className="btn pointer link pr10" onClick={publishFn.bind(this, row)}>
+                {t('center.publish')}
+              </p> :
+              <p className="btn pointer link pr10" onClick={toRelease.bind(this, row)}>
+                {t('credential.releaseCredential')}
+              </p>
+            }
           </div>
         )
       },

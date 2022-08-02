@@ -424,11 +424,11 @@
     "issuedVoucher": "已发布凭证",
     "usageScene": "使用场景",
     "pleaseSelect": "请选择",
-    "ciphertext": "密文",
-    "Plaintext": "明文",
-    "ciphertextAndPlaintextTipsOne": "1. 明文仅用于明文算法, 密文仅用于秘闻算法",
+    "ciphertext": "隐私计算",
+    "Plaintext": "非隐私计算",
+    "ciphertextAndPlaintextTipsOne": "1. 数据仅可在所选的算法(隐私计算/非隐私计算)中使用, 支持多选",
     "ciphertextAndPlaintextTipsTwo": "2. 多选, 同时选中时,该数据两种算法都能使用",
-    "ciphertextAndPlaintextTipsThree": "3. 初始默认选中密文"
+    "ciphertextAndPlaintextTipsThree": "3. 初始默认选中隐私计算"
   },
   "myData": {
     "plzUploadFile": "请导入本地数据源文件",

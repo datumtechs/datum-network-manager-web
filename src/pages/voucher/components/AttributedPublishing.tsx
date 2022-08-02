@@ -149,9 +149,6 @@ const AttributedPublishing: FC<any> = (props: any) => {
             state: {
               dataAddress: data.address,
               name: data.name,
-              // dataTokenId: data.id,
-              // total: data.total,
-              // symbol: data.symbol
             },
           })
         })
@@ -172,7 +169,6 @@ const AttributedPublishing: FC<any> = (props: any) => {
     const data = localStorage.getItem('metaDataId')
     if (data) {
       submiting.current = true
-      // receipt.current = true
       setLoading(true)
       query(data)
     }

@@ -16,25 +16,17 @@ import { INDUSTRYLIST, INDUSTRYMAP } from '../constant/constant'
 export const EditText: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { TextArea, } = Input
-
   const { editText, baseInfo, remarks } = props
-
-  const handleTextSwitch = () => {
-    props.handleTextSwitch(!editText)
-  }
-
-  const handleEditText = (e) => {
-    props.handleEditText(e.target.value)
-  }
+  const handleEditText = (e) => props.handleEditText(e.target.value)
 
   return <>{editText ?
     <div style={{ "display": "flex" }}>
       <TextArea value={baseInfo.remarks} onChange={handleEditText} rows={4} maxLength={100} />
-      <div className="pl40 pointer no-warp edit-btn" onClick={handleTextSwitch}>{t('common.cancel')}</div>
+      <div className="pl40 pointer no-warp edit-btn" onClick={() => props.handleTextSwitch(!editText)}>{t('common.cancel')}</div>
     </div>
     : <div style={{ "display": "flex" }}>
       <div className="text-area datail-box-content">{remarks}</div>
-      <div className="pl40 pointer no-warp edit-btn" onClick={handleTextSwitch}>{t('common.edit')}</div>
+      <div className="pl40 pointer no-warp edit-btn" onClick={() => props.handleTextSwitch(!editText)}>{t('common.edit')}</div>
     </div>
   }</>
 }
@@ -43,15 +35,7 @@ export const EditSelect: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const { editSelect, baseInfo, industry } = props
   const { Option } = Select
-
-  const editSelectSet = () => {
-    props.handleEditSelect(!editSelect)
-  }
-
-  const handleSelectChange = (value: any) => {
-    props.onSelectChange(value)
-  }
-
+  const handleSelectChange = (value: any) => props.onSelectChange(value)
   const mapIndustry = (indust: string) => {
     const isArray = Array.isArray(indust)
     const industryList = []
@@ -71,12 +55,12 @@ export const EditSelect: FC<any> = (props: any) => {
           (<Option value={item.id} key={item.id}>{t(`myData.${item.text}`)}</Option>)
         )}
       </Select>
-      <div className="pl40 pointer no-warp edit-btn" onClick={editSelectSet}>{t('common.cancel')}</div>
+      <div className="pl40 pointer no-warp edit-btn" onClick={() => props.handleEditSelect(!editSelect)}>{t('common.cancel')}</div>
     </div>
     : <div style={{ "display": "flex" }}>
       <div className="text-area datail-box-content">{mapIndustry(industry)}
       </div>
-      <div className="pl40 pointer no-warp edit-btn" onClick={editSelectSet}>{t('common.edit')}</div>
+      <div className="pl40 pointer no-warp edit-btn" onClick={() => props.handleEditSelect(!editSelect)}>{t('common.edit')}</div>
     </div>
   }</>
 }
@@ -87,8 +71,6 @@ export const DataDetail: FC<any> = (props: any) => {
   const [total, setTotal] = useState<number>()
   const [editText, editTextSet] = useState<boolean>(false)
   const [editSelect, editSelectSet] = useState<boolean>(false)
-
-
   const [baseInfo, setBaseInfo] = useState({
     fileId: '',  // 文件ID
     fileName: '', //  文件名称
@@ -114,52 +96,30 @@ export const DataDetail: FC<any> = (props: any) => {
   const [remarks, remarksSet] = useState()
   const [tableData, setTableData] = useState([])
   const [curPage, setCurPage] = useState<number>(1)
-  const [upLoading, upLoadingSet] = useState<boolean>(false)
-  const [form] = Form.useForm()
   const { t, i18n } = useTranslation()
   const history = useHistory()
   const [isModalVisible, isModalVisibleSet] = useState<boolean>(false)
-  const pagenation = {
-    pagesize: 10,
-  }
-  const setPage = (page: number) => {
-    setCurPage(page)
-  }
-  useEffect(() => {
-    if (!id) history.go(-1)
-  }, [])
+  const pagenation = { pagesize: 10 }
+  const [usage, setUsage] = useState<any>([])
+  const [form] = Form.useForm()
 
 
+  const setPage = (page: number) => { setCurPage(page) }
+
+  useEffect(() => { if (!id) history.go(-1) }, [])
   const getShowSource = data => {
     if (!data) return
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
 
   const getStatus = (status: string) => {
-    if (status === '1') {
-      return t('center.pulish')
-    }
+    if (status === '1') return t('center.pulish')
     return t('center.unPublish')
   }
 
-  const handleEditText = (value) => {
-    setBaseInfo({
-      ...baseInfo,
-      remarks: value
-    })
-  }
+  const handleEditText = (value) => setBaseInfo({ ...baseInfo, remarks: value })
 
-  const handleTextSwitch = (flag: boolean) => {
-    editTextSet(flag)
-  }
-
-  const handleEditSelect = (flag: boolean) => {
-    editSelectSet(flag)
-  }
-
-  const handleOk = () => {
-    history.go(-1)
-  }
+  const handleOk = () => history.go(-1)
 
   const goBackFn = () => {
     if (dataStatus === '1') {
@@ -167,12 +127,6 @@ export const DataDetail: FC<any> = (props: any) => {
     } else {
       isModalVisibleSet(true)
     }
-  }
-
-
-
-  const handleCancel = () => {
-    isModalVisibleSet(false)
   }
 
   const viewTask = () => {
@@ -207,8 +161,8 @@ export const DataDetail: FC<any> = (props: any) => {
     resourceApi.updateMetaData({
       id: id || baseInfo.metaDataId,
       industry: baseInfo.industry,
-      localMetaDataColumnList: originalData,
-      remarks: baseInfo.remarks,
+      metaDataColumnList: originalData,
+      desc: baseInfo.remarks,
     }).then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)
@@ -217,12 +171,7 @@ export const DataDetail: FC<any> = (props: any) => {
     })
   }
 
-  const onSelectChange = (value) => {
-    setBaseInfo({
-      ...baseInfo,
-      industry: value
-    })
-  }
+  const onSelectChange = (value) => setBaseInfo({ ...baseInfo, industry: value })
 
   useEffect(() => {
     // 根据id查询
@@ -230,13 +179,15 @@ export const DataDetail: FC<any> = (props: any) => {
     resourceApi[url](id).then(res => {
       const { data } = res
       if (res.status === 0) {
+        const usageScene = data.usage && (data.usage == 3 ? ['1', '2'] : [String(data.usage)]) || []
+        form.setFieldsValue({ usageScene })
         setCurPage(curPage)
         setBaseInfo(data)
         industrySet(data.industry)
-        remarksSet(data.remarks)
-        setOriginalData(data.localMetaDataColumnList)
-        setTotal(data.localMetaDataColumnList?.length)
-        setTableData(getShowSource(data.localMetaDataColumnList))
+        remarksSet(data.desc)
+        setOriginalData(data.metaDataColumnList)
+        setTotal(data.metaDataColumnList?.length)
+        setTableData(getShowSource(data.metaDataColumnList))
       }
     })
 
@@ -257,9 +208,10 @@ export const DataDetail: FC<any> = (props: any) => {
       <div className="sub-info-box">
         <div className="sub-title-box">{t('center.basicInfo')}</div>
         <div className="limit-box pl12">
-          <Form name="detail" labelAlign="left" form={form}
+          <Form name="detail" labelAlign="left"
             labelCol={{ span: 10 }}
-            wrapperCol={{ span: 12 }}>
+            wrapperCol={{ span: 12 }}
+            form={form}>
             <Row>
               <Col span={12}>
                 <Form.Item label={t('center.metaStatus')}>
@@ -310,11 +262,12 @@ export const DataDetail: FC<any> = (props: any) => {
                 <Form.Item
                   label={t('center.usageScene')}
                 >
-                  <Form.Item name="usageScene" initialValue="ciphertext" noStyle
+                  <Form.Item name="usageScene" noStyle
                     rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
-                    <Checkbox.Group>
-                      <Checkbox value="plaintext" disabled={dataStatus === '1' ? true : false} >{t('center.Plaintext')}</Checkbox>
-                      <Checkbox value="ciphertext" disabled={dataStatus === '1' ? true : false}>{t('center.ciphertext')}</Checkbox>
+                    <Checkbox.Group >
+                      <Checkbox value="1" >{t('center.Plaintext')}</Checkbox>
+                      <br />
+                      <Checkbox value="2" >{t('center.ciphertext')}</Checkbox>
                     </Checkbox.Group>
                   </Form.Item>
                   <Tooltip placement="topLeft" title={
@@ -324,7 +277,7 @@ export const DataDetail: FC<any> = (props: any) => {
                       {t('center.ciphertextAndPlaintextTipsThree')} <br />
                     </div>
                   }>
-                    <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588' }} />
+                    <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588', position: 'absolute' }} />
                   </Tooltip>
                 </Form.Item>
               </Col>
@@ -334,14 +287,14 @@ export const DataDetail: FC<any> = (props: any) => {
                     <div className="text-area datail-box-content">{t(`myData.${INDUSTRYMAP.get(Number(industry))}`)}</div> :
                     <EditSelect baseInfo={baseInfo} editSelect={editSelect}
                       industry={industry} onSelectChange={onSelectChange}
-                      handleEditSelect={handleEditSelect} />
+                      handleEditSelect={editSelectSet} />
                   }
                 </Form.Item>
               </Col>
             </Row>
             <Form.Item labelCol={{ span: 5 }} label={t('center.dataDesc')}>
               {dataStatus === '1' ? <div className="text-area datail-box-content"> {remarks}</div> :
-                <EditText baseInfo={baseInfo} editText={editText} remarks={remarks} handleTextSwitch={handleTextSwitch} handleEditText={handleEditText} />
+                <EditText baseInfo={baseInfo} editText={editText} remarks={remarks} handleTextSwitch={editTextSet} handleEditText={handleEditText} />
               }
             </Form.Item>
           </Form>
@@ -355,7 +308,6 @@ export const DataDetail: FC<any> = (props: any) => {
           total={total}
           type={type}
           setPage={setPage}
-          loading={upLoading}
           curPage={curPage}
           disabled={dataStatus === '1'}// 已发布禁用
           row-key={re => re.columnIdx}
@@ -382,7 +334,7 @@ export const DataDetail: FC<any> = (props: any) => {
         </Space>
       </div>
     </div>
-    <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+    <MyModal width={600} title={t('common.tips')} visible={isModalVisible} onOk={handleOk} onCancel={() => isModalVisibleSet(false)}>
       <p>{`${t('tip.leaveCofirm')}`}</p>
     </MyModal>
   </div >

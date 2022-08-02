@@ -1,5 +1,6 @@
 import Web3 from 'web3'
-
+const ethereumjsUtil = require('ethereumjs-util');
+console.log(ethereumjsUtil, "keccak256", "rlp");
 class Web3Service {
   constructor() {
     this.eth = window.ethereum || undefined

@@ -62,14 +62,25 @@ export default {
 
 
 
-  // 查询未发凭证列表
-  queryMetaDataByKeyword(data): Promise<any> {
+  // 未发布无属性凭证的元数据
+  queryUnPublishData(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/data/listUnBindLocalMetaDataByKeyword`,
+      url: `/api/v1/data/listMetaDataUnPublishDataTokenByKeyword`,
       data
     })
   },
+
+   // 查询未发布有属性凭证的元数据
+   queryaUnPublishAttribut(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/data/listMetaDataUnPublishAttributeDataTokenByKeyword`,
+      data
+    })
+  },
+
+
 
   // 查询状态根据id获取dataToken状态  无属性
   queryDataTokenStatus(data): Promise<any> {

@@ -424,9 +424,9 @@
     "issuedVoucher": "Issued Credential",
     "usageScene": "Usage Scene",
     "pleaseSelect": "Please select",
-    "ciphertext": "Ciphertext",
-    "Plaintext": "Plaintext",
-    "ciphertextAndPlaintextTipsOne": "1. Plaintext is only used for plaintext algorithm, Ciphertext is only used for esoteric algorithm",
+    "ciphertext": "Privacy Computing",
+    "Plaintext": " No Privacy computing",
+    "ciphertextAndPlaintextTipsOne": "1. Data can only be used in the selected algorithm (Privacy computing / no privacy Computing), and multiple selections are supported",
     "ciphertextAndPlaintextTipsTwo": "2. When multiple choices are selected at the same time, both algorithms of the data can be used",
     "ciphertextAndPlaintextTipsThree": "3. Ciphertext selected by default"
   },

@@ -24,7 +24,7 @@ const Details: FC<any> = (props: any) => {
 
 
   const fetchUserList = async (keyword: string): Promise<UserValue[]> => {
-    return voucher.queryMetaDataByKeyword({ keyword }).then(res => {
+    return voucher.queryUnPublishData({ keyword }).then(res => {
       const { data, status } = res
       if (status == 0) {
         setOptionList(data)
@@ -38,7 +38,7 @@ const Details: FC<any> = (props: any) => {
   }
 
   const queryAttributeCredentialList = async (keyword: string): Promise<UserValue[]> => {
-    return voucher.queryMetaDataByKeyword({ keyword }).then(res => {
+    return voucher.queryaUnPublishAttribut({ keyword }).then(res => {
       const { data, status } = res
       if (status == 0) {
         setAttributeOptionList(data)
@@ -120,7 +120,6 @@ const Details: FC<any> = (props: any) => {
                 }}
                 fetchOptions={queryAttributeCredentialList}
               />
-              {/* <div className='button-white' onClick={() => submit('attributed')}>{t('common.confirm')}</div> */}
               <div className='button' onClick={() => submit('attributed')}>{t('common.confirm')}</div>
             </div>
           </div>
