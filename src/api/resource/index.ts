@@ -172,6 +172,17 @@ const resourceApi = {
     })
   },
 
+
+    // 获取元数据MetaDataOption
+    getMetaDataOption(data:{id:any}): any {
+      return axios({
+        method: 'POST',
+        // url: `/api/v1/resource/datacenter/globalDataFileStatsTrendDaily`,
+        url: `/api/v1/data/getMetaDataOption`,
+        data
+      })
+    },
+  
 }
 
 export default resourceApi

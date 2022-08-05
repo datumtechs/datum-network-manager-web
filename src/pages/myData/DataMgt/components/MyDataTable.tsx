@@ -11,6 +11,7 @@ import warnSvg from '@assets/images/10.icon1.svg'
 import successSvg from '@assets/images/9.icon1.svg'
 // import { changeSizeFn } from '@utils/utils'
 import SearchBar from '@/layout/components/SearchBar'
+import { connect } from 'react-redux'
 
 const MyDataTable: FC<any> = (props: any) => {
   const { t } = useTranslation()
@@ -27,6 +28,8 @@ const MyDataTable: FC<any> = (props: any) => {
   const [totalNum, setTotalNum] = useState(0)
   const [statusNum, setStatus] = useState(0)
   const [tableData, setTableData] = useState<{ string: any } | any>([])
+  const [activeRow, setActiveRow] = useState<any>({})
+  const [modalLoading, setModalLoading] = useState<any>(false)
   const pagination = {
     current: 1,
     defaultPageSize: 10,
@@ -49,8 +52,8 @@ const MyDataTable: FC<any> = (props: any) => {
 
   useEffect(() => { if (pop.type !== '') setIsModalVisible(true) }, [pop])
 
-  const handleOk = () => {
-    let data = {}
+  const handleOk = async () => {
+    let data: any = {}
     if (pop.type === 'publish') {
       data = {
         id: pop.id,
@@ -67,15 +70,70 @@ const MyDataTable: FC<any> = (props: any) => {
         action: -1,
       }
     }
+    setModalLoading(true)
+    const { wallet, } = props.state.wallet
+    const { walletConfig } = props.state
+
+    // MetadataName:utf-8编码byte数组,
+    // MetadataType:大端uint32编码byte数组,
+
+    // DataHas:utf-8编码byte数组,
+    // Desc：utf-8编码byte数组,
+
+    // LocationType:大端uint32编码byte数组,
+    // DataType:大端uint32编码byte数组,
+
+    // Industry:utf-8编码byte数组,
+    // State:utf-8编码byte数组,
+
+    // MetadataOption:utf-8编码byte数组,
+
+    // MetadataName: activeRow.metaDataName,
+    // MetadataType: activeRow.metaDataType,
+    // DataHas: activeRow.dynamicFields.dataHash,
+    // Desc: activeRow.desc,
+    // LocationType: activeRow.dynamicFields.locationType,
+    // DataType: activeRow.metaDataType,
+    // Industry: String(activeRow.industry),
+    // State: activeRow.status,
+    // MetadataOption: requestOptionData.data,
+
+
+    const address = await wallet.connectWallet(walletConfig)
+    const requestOptionData = await resourceApi.getMetaDataOption({ id: activeRow.id })
+    if (requestOptionData.status !== 0) return
+    const params = [
+      activeRow.metaDataName,
+      activeRow.metaDataType,
+      activeRow.dynamicFields.dataHash,
+      activeRow.desc,
+      activeRow.dynamicFields.locationType,
+      activeRow.metaDataType,
+      String(activeRow.industry),
+      activeRow.status,
+      requestOptionData.data,
+
+    ]
+    // console.log(params);
+
+
+    // try {
+    //   const sign = await wallet.signData(params, address[0])
+    //   console.log(sign);
+    //   data.sign = sign
+    // } catch (e) { console.log(e); }
+
+    // return
     resourceApi.metaDataAction(data).then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)
         setIsModalVisible(false)
         initTableData()
       }
+      setModalLoading(false)
     })
   }
-  const handleCancel = () => setIsModalVisible(false)
+  const handleCancel = () => (setIsModalVisible(false), setModalLoading(false))
 
   const viewFn = row => {
     history.push({
@@ -101,6 +159,7 @@ const MyDataTable: FC<any> = (props: any) => {
     })
   }
   const publishFn = (row: any) => {
+    setActiveRow(row)
     setPop({
       type: 'publish',
       id: row.id,
@@ -148,7 +207,6 @@ const MyDataTable: FC<any> = (props: any) => {
     const { metaDataName } = row
     resourceApi.downloadMeta({ id: row.id }).then(res => {
       const typeList = ['application/json']
-      // 以json返回 则非正常
       if (typeList.includes(res.type)) {
         readFile(res)
       } else {
@@ -165,7 +223,6 @@ const MyDataTable: FC<any> = (props: any) => {
   }
 
   const goCredential = (type, row) => {
-    console.log(type);
     let url = ''
     if (type == 'attributeCredential') {
       url = 'voucher/NoAttribute'
@@ -336,6 +393,7 @@ const MyDataTable: FC<any> = (props: any) => {
       }}
     />
   }
+
   const operations = {
     right: <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('myData.dataName')}`} />
   }
@@ -364,7 +422,7 @@ const MyDataTable: FC<any> = (props: any) => {
           {t('myData.addData')}
         </Button>} disabled key="3" />
       </Tabs>
-      <MyModal width={600} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} bordered>
+      <MyModal width={600} loading={modalLoading} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} bordered>
         {pop.type === 'delete' ? (
           <p>
             {t('center.confirmDelete')}&nbsp;:&nbsp;{pop.fileName}
@@ -391,4 +449,6 @@ const MyDataTable: FC<any> = (props: any) => {
   )
 }
 
-export default MyDataTable
+// export default MyDataTable
+export default connect((state: any) => ({ state }))(MyDataTable)
+

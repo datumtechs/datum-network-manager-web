@@ -145,5 +145,20 @@ class Web3Service {
     }
     return false
   }
+
+  async signData(list, address) {
+    const rlphash = ethereumjsUtil.rlp.encode([...list])
+    // console.log('rlphash', rlphash);
+    const keccak256Hash = ethereumjsUtil.keccak256(rlphash)
+    // console.log('keccak256Hash', keccak256Hash);
+    let hex = ''
+    if (Buffer.isBuffer(keccak256Hash)) hex = '0x' + keccak256Hash.toString('hex');
+    if (!hex) return Error('encode err')
+    const signHex = await this.web3.eth.sign(hex, address)
+    // const signHex = await this.web3.eth.sign(hex, address)
+    return signHex
+  }
+
+
 }
 export default Web3Service
