@@ -76,28 +76,12 @@ const MyDataTable: FC<any> = (props: any) => {
 
     // MetadataName:utf-8编码byte数组,
     // MetadataType:大端uint32编码byte数组,
-
     // DataHas:utf-8编码byte数组,
     // Desc：utf-8编码byte数组,
-
     // LocationType:大端uint32编码byte数组,
     // DataType:大端uint32编码byte数组,
-
     // Industry:utf-8编码byte数组,
     // State:utf-8编码byte数组,
-
-    // MetadataOption:utf-8编码byte数组,
-
-    // MetadataName: activeRow.metaDataName,
-    // MetadataType: activeRow.metaDataType,
-    // DataHas: activeRow.dynamicFields.dataHash,
-    // Desc: activeRow.desc,
-    // LocationType: activeRow.dynamicFields.locationType,
-    // DataType: activeRow.metaDataType,
-    // Industry: String(activeRow.industry),
-    // State: activeRow.status,
-    // MetadataOption: requestOptionData.data,
-
 
     const address = await wallet.connectWallet(walletConfig)
     const requestOptionData = await resourceApi.getMetaDataOption({ id: activeRow.id })
@@ -110,20 +94,17 @@ const MyDataTable: FC<any> = (props: any) => {
       activeRow.dynamicFields.locationType,
       activeRow.metaDataType,
       String(activeRow.industry),
-      activeRow.status,
+      String(activeRow.status),
       requestOptionData.data,
 
     ]
-    // console.log(params);
 
+    try {
+      // const sign = await wallet.signData(params, address[0])
+      // data.sign = sign
+      data.sign = ''
+    } catch (e) { console.log(e); }
 
-    // try {
-    //   const sign = await wallet.signData(params, address[0])
-    //   console.log(sign);
-    //   data.sign = sign
-    // } catch (e) { console.log(e); }
-
-    // return
     resourceApi.metaDataAction(data).then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)
@@ -168,20 +149,13 @@ const MyDataTable: FC<any> = (props: any) => {
   }
 
   const deleteFn = (row: any) => {
+    setActiveRow(row)
     setPop({
       type: 'delete',
       id: row.id,
       fileName: row.metaDataName,
     })
   }
-
-  // const withDrawFn = (row: any) => {
-  //   setPop({
-  //     type: 'withdraw',
-  //     id: row.id,
-  //     fileName: row.metaDataName,
-  //   })
-  // }
 
   const download = (data: any, fileName: string) => {
     const url = window.URL.createObjectURL(new Blob([data]))
@@ -197,7 +171,6 @@ const MyDataTable: FC<any> = (props: any) => {
   const readFile = (steam) => {
     const reader = new FileReader()
     reader.onload = (event) => {
-      const mes = JSON.parse(reader.result as any)
       message.error(`${t('tip.operationFailed')}`)
     }
     reader.readAsText(steam)
@@ -248,6 +221,8 @@ const MyDataTable: FC<any> = (props: any) => {
         metaDataId: row.metaDataId,
         metaDataName: row.metaDataName,
         dataId: row.id,
+        dataTokenAddress: row.dataTokenAddress,
+        attributeDataTokenAddress: row.attributeDataTokenAddress
       }
     })
   }

@@ -16,9 +16,12 @@ const Details: FC<any> = (props: any) => {
   const history = useHistory();
   const { location } = props;
   const { dataId, metaDataId,
-    metaDataName } = location?.state || {};
-  const [value, setValue] = useState(dataId || null);
-  const [attributeValue, setAttributeValue] = useState(dataId || null);
+    metaDataName, dataTokenAddress,
+    attributeDataTokenAddress } = location?.state || {};
+  console.log(dataId);
+
+  const [value, setValue] = useState(dataTokenAddress ? null : dataId || null);
+  const [attributeValue, setAttributeValue] = useState(attributeDataTokenAddress ? null : dataId || null);
   const [optionList, setOptionList] = useState([])
   const [attributeOptionList, setAttributeOptionList] = useState([])
 
@@ -62,10 +65,11 @@ const Details: FC<any> = (props: any) => {
         history.push({
           pathname: url,
           state: {
-            dataTokenId: _.dataTokenId,
+            dataTokenId: _.dynamicFields.dataTokenId,
             metaDataId: _.metaDataId,
             metaDataName: _.metaDataName,
             dataId: _.id,
+            owner: _.owner
           }
         })
         return true

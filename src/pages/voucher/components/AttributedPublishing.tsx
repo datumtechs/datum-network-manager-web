@@ -15,7 +15,7 @@ const AttributedPublishing: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation();
   const history = useHistory();
   const form = useRef<any>();
-  const [dataTokenFactory, setDataTokenFactory] = useState('');
+  const [factoryAddress, setDataTokenFactory] = useState('');
   const { walletConfig } = props.state;
   const { location } = props;
   const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
@@ -40,13 +40,13 @@ const AttributedPublishing: FC<any> = (props: any) => {
       // 构建合约
       const myContract = new web3.eth.Contract(
         ERC721Factory,
-        dataTokenFactory,
+        factoryAddress,
       );
       const nonce = await web3.eth.getTransactionCount(address[0])
 
       // 发起交易
       await myContract.methods.deployERC721Contract(
-        params.name,
+        'Datum-' + params.name,
         params.symbol,
         metaDataId,
         3 //明文设置1，为密文设置2，为明文和密文支持设置3
@@ -54,7 +54,7 @@ const AttributedPublishing: FC<any> = (props: any) => {
         from: address[0]
       }).on('transactionHash', (hash) => {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        sendTransactionData(params, nonce, hash)
+        sendTransactionData(params, nonce, hash, address[0])
       })
 
 
@@ -73,13 +73,25 @@ const AttributedPublishing: FC<any> = (props: any) => {
 
 
   useEffect(() => {
+    const data = localStorage.getItem('AttributemetaDataDbId')
+    console.log(data, dataId);
+
+    if (data && (data === dataId)) {
+      submiting.current = true
+      setLoading(true)
+      query(data)
+    }
+    if (data && (data !== dataId)) {
+      localStorage.setItem('AttributemetaDataDbId', '')
+    }
+
     if (!dataId) history.go(-1)
     voucher.queryPublishConfig({
       "dataTokenId": dataTokenId || ''
     }).then(res => {
       const { data } = res
-      if (data?.dataTokenFactory) {
-        setDataTokenFactory(data.dataTokenFactory)
+      if (data?.factoryAddress) {
+        setDataTokenFactory(data.factoryAddress)
       }
     })
 
@@ -93,6 +105,8 @@ const AttributedPublishing: FC<any> = (props: any) => {
     }
   }, [])
 
+
+
   const timeOut = (id) => {
     if (!submiting) return
     if (initialState.current) {
@@ -103,18 +117,21 @@ const AttributedPublishing: FC<any> = (props: any) => {
     }, 1000)
   }
 
-  const sendTransactionData = (params, nonce, hash) => {
+  const sendTransactionData = (params, nonce, hash, address) => {
     voucher.postAttributeTransaction({
       "hash": hash,
-      "metaDataId": dataId,// metaDataId,
-      "name": params.name,
+      "metaDataDbId": dataId,// metaDataId,
+      "name": 'Datum-' + params.name,
       "symbol": params.symbol,
+      owner: address,
       nonce
     }).then(res => {
       const { data, status } = res
       if (status === 0) {
-        localStorage.setItem('metaDataId', data)
+        localStorage.setItem('AttributemetaDataDbId', data)
         query(data)
+      } else if (status == 1045) {
+        history.go(-1)
       }
     })
   }
@@ -130,7 +147,7 @@ const AttributedPublishing: FC<any> = (props: any) => {
       const { data } = res
 
       form.current.setFieldsValue({
-        name: data.name,
+        name: data.name ? data.name.replace('Datum-', '') : '',
         symbol: data.symbol,
         initialSupply: filterIntegerAmount(data.total) //data.total
       })
@@ -142,13 +159,14 @@ const AttributedPublishing: FC<any> = (props: any) => {
             return
           }
           setLoading(false)
-          localStorage.setItem('metaDataId', '')
+          localStorage.setItem('AttributemetaDataDbId', '')
           submiting.current = false
           history.push({
-            pathname: '/myData/dataVoucherPublishing/PriceSet',
+            // pathname: '/voucher/AttributeCredential/credentialInventory',
+            pathname: '/voucher/AttributeCredential',
             state: {
               dataAddress: data.address,
-              name: data.name,
+              name: data.name.replace('Datum-', ''),
             },
           })
         })
@@ -165,14 +183,7 @@ const AttributedPublishing: FC<any> = (props: any) => {
     })
   }
 
-  useEffect(() => {
-    const data = localStorage.getItem('metaDataId')
-    if (data) {
-      submiting.current = true
-      setLoading(true)
-      query(data)
-    }
-  }, [])
+
 
 
 

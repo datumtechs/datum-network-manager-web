@@ -128,7 +128,7 @@ export default {
   postAttributeTransaction(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/dataToken/publish`,
+      url: `/api/v1/attributeDataToken/publish`,
       data
     })
   },
@@ -137,7 +137,7 @@ export default {
   queryAttributeTokenStatus(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/v1/attributeDataToken/getDataTokenInventoryDetail`,
+      url: `/api/v1/attributeDataToken/getAttributeDataTokenStatus`,
       data
     })
   },
@@ -147,6 +147,22 @@ export default {
     return axios({
       method: "POST",
       url: `/v1/attributeDataToken/getDataTokenInventoryPage`,
+      data
+    })
+  },
+  // 无属性凭证绑定
+  bindMetaData(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/dataToken/bindMetaData`,
+      data
+    })
+  },
+  // 属性凭证绑定
+  attrbindMetaData(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/bindMetaData`,
       data
     })
   },

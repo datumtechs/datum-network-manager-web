@@ -117,7 +117,7 @@ export const DataDetail: FC<any> = (props: any) => {
     return t('center.unPublish')
   }
 
-  const handleEditText = (value) => setBaseInfo({ ...baseInfo, remarks: value })
+  const handleEditText = (value) => (setBaseInfo({ ...baseInfo, remarks: value }), remarksSet(value))
 
   const handleOk = () => history.go(-1)
 
@@ -162,7 +162,7 @@ export const DataDetail: FC<any> = (props: any) => {
       id: id || baseInfo.metaDataId,
       industry: baseInfo.industry,
       metaDataColumnList: originalData,
-      desc: baseInfo.remarks,
+      remarks: baseInfo.remarks,
     }).then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)
@@ -171,7 +171,7 @@ export const DataDetail: FC<any> = (props: any) => {
     })
   }
 
-  const onSelectChange = (value) => setBaseInfo({ ...baseInfo, industry: value })
+  const onSelectChange = (value) => (setBaseInfo({ ...baseInfo, industry: value }), industrySet(value))
 
   useEffect(() => {
     // 根据id查询
@@ -184,7 +184,7 @@ export const DataDetail: FC<any> = (props: any) => {
         setCurPage(curPage)
         setBaseInfo(data)
         industrySet(data.industry)
-        remarksSet(data.desc)
+        remarksSet(data.remarks)
         setOriginalData(data.metaDataColumnList)
         setTotal(data.metaDataColumnList?.length)
         setTableData(getShowSource(data.metaDataColumnList))
@@ -264,7 +264,7 @@ export const DataDetail: FC<any> = (props: any) => {
                 >
                   <Form.Item name="usageScene" noStyle
                     rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
-                    <Checkbox.Group >
+                    <Checkbox.Group disabled>
                       <Checkbox value="1" >{t('center.Plaintext')}</Checkbox>
                       <br />
                       <Checkbox value="2" >{t('center.ciphertext')}</Checkbox>

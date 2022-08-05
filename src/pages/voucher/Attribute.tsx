@@ -1,11 +1,11 @@
 import { FC, useState, useEffect } from "react";
-import { Table, Tooltip, Button } from 'antd'
+import { Table, Tooltip, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import SearchBar from '@/layout/components/SearchBar'
 import { CopyOutlined } from '@ant-design/icons'
 import { copy } from '@/utils/utils'
-import voucher from '@api//voucher'
+import { voucher as voucherApi } from '@api/index'
 
 const Attribute: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1),
@@ -15,6 +15,19 @@ const Attribute: FC<any> = (props: any) => {
     pageSize = 10
   const [searchText, setSearchText] = useState("")
   const history = useHistory();
+  const bindData = (row) => {
+    voucherApi.attrbindMetaData({
+      dataTokenId: row.id,
+      sign: ""
+    }).then(res => {
+      const { status } = res
+      if (status == 0) {
+        message.success(t('task.success'))
+        query()
+      }
+    })
+  }
+
   const columns: any[] = [
     {
       title: ` `,
@@ -62,8 +75,12 @@ const Attribute: FC<any> = (props: any) => {
       render: (text: any, row: any, index: any) => {
         // 定价状态：0-未定价，1-已定价
         return <>
-          <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => create(row)}>  {t('credential.createCredential')}</Button>
-          <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => inventory(row)}>  {t('credential.credentialInventory')}</Button>
+          {!([0, 1, 2, 3, 8,].includes(row.status)) ? <>
+
+            <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => create(row)}>  {t('credential.createCredential')}</Button>
+            <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => inventory(row)}>  {t('credential.credentialInventory')}</Button>
+          </> :
+            <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => bindData(row)}>  {t('credential.bindData')}</Button>}
         </>
       },
     },
@@ -100,10 +117,7 @@ const Attribute: FC<any> = (props: any) => {
   }
 
   const query = () => {
-
-    setTableData([{ name: '123' }])
-    return
-    voucher.queryAttributeList({
+    voucherApi.queryAttributeList({
       pageNumber: curPage,
       pageSize: 10,
       searchText: searchText

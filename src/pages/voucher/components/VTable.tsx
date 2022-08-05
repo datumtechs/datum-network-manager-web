@@ -146,6 +146,18 @@ const VoucherTable: FC<any> = (props: any) => {
         const { data } = res
         setDexUrl(data)
       })
+    },
+    bindData = (row) => {
+      voucherApi.bindMetaData({
+        dataTokenId: row.id,
+        sign: ""
+      }).then(res => {
+        const { status } = res
+        if (status == 0) {
+          message.success(t('task.success'))
+          query()
+        }
+      })
     }
 
   const columns: any = (type): any[] => {
@@ -208,14 +220,21 @@ const VoucherTable: FC<any> = (props: any) => {
         width: '220px',
         render: (text: any, row: any, index: any) => {
           // 定价状态：0-未定价，1-已定价
+          // 0-未发布，1-发布中，2-发布失败，3-发布成功，4-定价中，5-定价失败，6-定价成功，7-绑定中，8-绑定失败，9-绑定成功
           return <>
-            {activeKey == 1 ?
-              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button> :
-              row.status == 3 || row.status == 5 ?
-                <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
-                : ''
+            {activeKey == 0 && [0, 1, 2, 3, 8,].includes(row.status) ?
+              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => bindData(row)}>  {t('credential.bindData')}</Button> :
+              <>
+                {activeKey == 1 ?
+                  <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button> :
+                  row.status == 3 || row.status == 5 ?
+                    <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
+                    : ''
+                }
+                <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => updateConsumption(row)}>  {t('orgManage.modifyConsumption')}</Button>
+
+              </>
             }
-            <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => updateConsumption(row)}>  {t('orgManage.modifyConsumption')}</Button>
           </>
         },
       },

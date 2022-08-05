@@ -93,11 +93,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
       if (res.status === 0) {
         const usageScene = data.usage && (data.usage == 3 ? ['1', '2'] : [String(data.usage)]) || []
         industrySet(data.industry)
-        form.setFieldsValue({ industry: data.industry, remarks: data.desc, usageScene })
+        form.setFieldsValue({ industry: data.industry, remarks: data.remarks, usageScene })
         sourceNameSet(data.fileName)
         sourceFileIDSet(data.fileId)
         sourceFilePathSet(data.filePath)
-        remarksSet(data.desc)
+        remarksSet(data.remarks)
         setOriginalData(data.metaDataColumnList)
         setTableData(getShowSource(data.metaDataColumnList))
         setTotal(data.metaDataColumnList?.length)

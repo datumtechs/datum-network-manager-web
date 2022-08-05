@@ -591,11 +591,11 @@
     "noPriced": "未定价",
     "pleaseSelectBindCredential": "请选择需要绑定的数据凭证",
     "caseAndNumberPlaceholder": "2-64个大小写英文及数字",
-    "plaintextConsumption": "明文消耗量",
-    "ciphertextConsumption": "密文消耗量",
+    "plaintextConsumption": "隐私计算消耗量",
+    "ciphertextConsumption": "非隐私计算消耗量",
     "pleaseEnter": "请输入",
     "setConsumption": "请设置单次任务消耗量",
-    "setConsumptionTips": "您的数据已设置可供明文算法使用, 为确保数据价值,请设置数据凭证在明文算法时的单次消耗量，密文默认为1不可修改",
+    "setConsumptionTips": "请设置数据凭证在不同场景下的单次消耗量",
     "credentialContractName": "凭证合约名称",
     "credentialContractSymbol": "凭证合约符号",
     "createCredential": "创建凭证",
@@ -620,7 +620,8 @@
     "holdingUsers": "持有用户",
     "creationTime": "创建时间",
     "validityPeriod": "有效期",
-    "exchangePlatform": "交换平台"
+    "exchangePlatform": "交换平台",
+    "bindData": "绑定数据"
   },
   "exception": {
     "error": "操作异常",

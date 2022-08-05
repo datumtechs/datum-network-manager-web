@@ -605,11 +605,11 @@
     "noPriced": "No Priced",
     "pleaseSelectBindCredential": "Please select the data Credential to bind",
     "caseAndNumberPlaceholder": "2-64 upper and lower case English and numbers",
-    "plaintextConsumption": "Plain text consumption",
-    "ciphertextConsumption": "Ciphertext consumption",
+    "plaintextConsumption": "Privacy calculation consumption",
+    "ciphertextConsumption": "No Privacy calculation consumption",
     "pleaseEnter": "Please enter",
     "setConsumption": "Please set single task consumption",
-    "setConsumptionTips": "Your data has been set for plaintext algorithm. To ensure the value of data, please set the single consumption of data voucher in plaintext algorithm. The ciphertext defaults to 1 and cannot be modified",
+    "setConsumptionTips": "Please set the single consumption of data vouchers in different scenarios",
     "credentialContractName": "Credential contract Name",
     "credentialContractSymbol": "Credential contract  Symbol",
     "createCredential": "Create Credential",
@@ -634,7 +634,8 @@
     "holdingUsers": "Holding Users",
     "creationTime": "Creation Time",
     "validityPeriod": "Validity Period",
-    "exchangePlatform": "Exchange Platform"
+    "exchangePlatform": "Exchange Platform",
+    "bindData": "Bind Data"
   },
   "orgManage": {
     "nominationMembers": "Nomination of Members",
