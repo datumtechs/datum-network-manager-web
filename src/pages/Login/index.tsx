@@ -89,7 +89,7 @@ const Login = (props: any) => {
       orgInfoCompletionLevel,
       connectNetworkStatus
     } = data.data || {}
-    // const orgInfoCompletionLevel = 1,
+    // const orgInfoCompletionLevel = 0,
     //   connectNetworkStatus = 0
     if (status !== 0) return
     if (!+isAdmin && connectNetworkStatus < 1) {// 是否是管理员，0-否，1-是'

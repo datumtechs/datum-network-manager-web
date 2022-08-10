@@ -115,7 +115,7 @@ const UpdateAdmin: FC<any> = (props: any) => {
         <Form.Item colon label={t('UserCenter.builtWalletAddress')}
           className="form-item">
           <div className='wallet-address-box'>
-            <p className="title" style={{ paddingLeft: '11px' }}>{baseInfo?.carrierWallet}</p>
+            <p className="title" style={{ paddingLeft: '11px' }}>{baseInfo?.observerProxyWalletAddress}</p>
             <Tooltip placement="right" title={t('UserCenter.builtWalletTips')}>
               <QuestionCircleOutlined style={{ fontSize: '20px', 'color': '#3C3588' }} />
             </Tooltip>

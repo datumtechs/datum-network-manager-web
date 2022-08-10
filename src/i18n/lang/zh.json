@@ -33,6 +33,7 @@
     "ProcessStepOne": "第一步",
     "ProcessStepTwo": "第二步",
     "ProcessStepThree": "第三步",
+    "ProcessStepFour": "第四步",
     "DatumInfoEdit": "当前已连接隐私网络，请注销隐私网络后在尝试",
     "updateAdmin": " 修改管理员",
     "address": "当前管理员",
@@ -51,7 +52,7 @@
     "SetYourOrgNameRulesItem2": "输入的字符类型无限制；",
     "SetYourOrgNameRulesItem3": "最少输入4个字符；",
     "SetYourOrgNameRulesItem4": "最多输入20个字符。",
-    "SetYourOrgNameButton": "申请机构身份标识",
+    "SetYourOrgNameButton": "生成身份标识",
     "SetYourHead": "设置机构头像",
     "SetYourHeadIips": "点击选择图片或将图片拖入此处",
     "SetYourIntroduction": "设置机构描述",
@@ -64,7 +65,13 @@
     "DatumInternerOperationError": "请检查系统配置",
     "DatumInternerOperationSubmit": "立即注册",
     "DatumInternerOperationLater": "暂不注册",
-    "NameNoRuleTips": "机构识别名称不符合规定"
+    "NameNoRuleTips": "机构识别名称不符合规定",
+    "SetNameAndGenerateBuiltWallet": "设置名称并生成内置钱包",
+    "OrganizationBuiltAdministratorWallet": "组织内置管理员钱包",
+    "Address": "地址",
+    "Balance": "余额",
+    "InitializeIdentity": "初始化身份标识(DID)",
+    "Recharge": "充值"
   },
   "overview": {
     "seedNode": "引导节点",

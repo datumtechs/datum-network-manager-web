@@ -33,6 +33,7 @@
     "ProcessStepOne": "Step One",
     "ProcessStepTwo": "Step Two",
     "ProcessStepThree": "Step Three",
+    "ProcessStepFour": "Step Four",
     "DatumInfoEdit": "Currently connected to the Datum, please exit the Datum and try again",
     "updateAdmin": "Update Admin",
     "address": "Current Admin",
@@ -64,7 +65,13 @@
     "DatumInternerOperationError": "Please check your system configuration",
     "DatumInternerOperationSubmit": "Register now",
     "DatumInternerOperationLater": "Register later",
-    "NameNoRuleTips": "The identification name of the organization does not meet the requirements"
+    "NameNoRuleTips": "The identification name of the organization does not meet the requirements",
+    "SetNameAndGenerateBuiltWallet": "Set name and generate built-in Wallet",
+    "OrganizationBuiltAdministratorWallet": "Organization built-in administrator Wallet",
+    "Address": "Address",
+    "Balance": "Balance",
+    "InitializeIdentity": "Initialize Identity(DID)",
+    "Recharge": "Recharge"
   },
   "overview": {
     "seedNode": "Boot node",
