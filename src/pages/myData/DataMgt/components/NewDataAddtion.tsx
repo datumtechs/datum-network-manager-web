@@ -20,8 +20,6 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const [sourceFilePath, sourceFilePathSet] = useState<string>('')
   const [industry, industrySet] = useState<number>()
   const [remarks, remarksSet] = useState<string>('')
-
-
   const [total, setTotal] = useState<number>()
   const [originalData, setOriginalData] = useState([])
   const [tableData, setTableData] = useState<[]>()
@@ -34,17 +32,13 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const [isFileNameRight, isFileNameRightSet] = useState<boolean>(false)
   const [showFilenameAvailable, showFilenameAvailableSet] = useState<boolean>(false)
-
-  const pagenation = {
-    pagesize: 10,
-  }
+  const pagenation = { pagesize: 10, }
 
 
   const checkResourceName = name => {
     resourceApi.checkResourceName({ resourceName: name, metaDataId: resultFileData.metaDataId }).then(res => {
       if (res.status === 0) {
         showFilenameAvailableSet(true)
-        // isFileNameRightSet(res.data.status === 'Y')
         isFileNameRightSet(true)
       } else {
         showFilenameAvailableSet(false)
@@ -53,34 +47,34 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     })
   }
 
-  const goBackFn = () => {
-    isModalVisibleSet(true)
-  }
-  const handleCancel = () => {
-    isModalVisibleSet(false)
-  }
-  const handleOk = () => {
-    history.go(-1)
-  }
+  const goBackFn = () => isModalVisibleSet(true)
+  const handleCancel = () => isModalVisibleSet(false)
+  const handleOk = () => history.go(-1)
+  const handleRemarkChange = (e) => remarksSet(e.target.value)
+
   const submitFn = () => {
+    console.log(1);
+
     form
       .validateFields()
       .then(values => {
+        const usageList = values.usageScene
         const queryObj = {
           addType: 2,
           industry,
           fileId: sourceFileID,
-          localMetaDataColumnList: originalData,
-          remarks: form.getFieldValue('remarks'),
-          resourceName: form.getFieldValue('newDataName'), // 新资源名称
-
+          metaDataColumnList: originalData,
+          desc: values.remarks,
+          resourceName: values.newDataName, // 新资源名称
+          usage: +(usageList.length >= 2 ? 3 : usageList.toString())
         }
+        console.log(2);
         resourceApi.addLocalMetaData(queryObj).then(res => {
-          console.log('另存为数据需要点两次监控', res.status, res);
+          console.log(4);
           if (res.status == 0) {
+            console.log(3);
             message.success(`${t('tip.addMetaDataSuccess')}`)
-            console.log('push');
-            history.push('/myData')
+            history.push('/myData/dataMgt')
           }
         })
       })
@@ -91,41 +85,34 @@ export const NewDataAddtion: FC<any> = (props: any) => {
     return data.slice((curPage - 1) * pagenation.pagesize, curPage * pagenation.pagesize)
   }
 
-  const handleRemarkChange = (e) => {
-    remarksSet(e.target.value)
-  }
 
   useEffect(() => {
     curPage && setTableData(getShowSource(originalData))
   }, [curPage])
 
 
-  const setPage = (page: number) => {
-    setCurPage(page)
-  }
-
   useEffect(() => {
     if (!id) history.go(-1)
-    // 初始化查询当前id 数据
     resourceApi.queryMetaDataDetail(id).then(res => {
       const { data } = res
       if (res.status === 0) {
+        const usageScene = data.usage && (data.usage == 3 ? ['1', '2'] : [String(data.usage)]) || []
         industrySet(data.industry)
-        form.setFieldsValue({ industry: data.industry, remarks: data.remarks })
+        form.setFieldsValue({ industry: data.industry, remarks: data.remarks, usageScene })
         sourceNameSet(data.fileName)
         sourceFileIDSet(data.fileId)
         sourceFilePathSet(data.filePath)
         remarksSet(data.remarks)
-        setOriginalData(data.localMetaDataColumnList)
-        setTableData(getShowSource(data.localMetaDataColumnList))
-        setTotal(data.localMetaDataColumnList?.length)
+        setOriginalData(data.metaDataColumnList)
+        setTableData(getShowSource(data.metaDataColumnList))
+        setTotal(data.metaDataColumnList?.length)
       }
     })
   }, [])
 
 
   return (
-    <div className="layout-box">
+    <div className="layout-box p-20">
       <div className="add-data-box">
         <Form
           name="basic"
@@ -185,11 +172,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
               <Form.Item
                 label={t('center.usageScene')}
               >
-                <Form.Item name="usageScene" initialValue="ciphertext" noStyle
+                <Form.Item name="usageScene" noStyle
                   rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
                   <Checkbox.Group>
-                    <Checkbox value="plaintext">{t('center.Plaintext')}</Checkbox>
-                    <Checkbox value="ciphertext">{t('center.ciphertext')}</Checkbox>
+                    <Checkbox value="1">{t('center.Plaintext')}</Checkbox>
+                    <Checkbox value="2">{t('center.ciphertext')}</Checkbox>
                   </Checkbox.Group>
                 </Form.Item>
                 <Tooltip placement="topLeft" title={
@@ -210,7 +197,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
               originalData={originalData}
               tableData={tableData}
               total={total}
-              setPage={setPage}
+              setPage={setCurPage}
               loading={upLoading}
               curPage={curPage}
               row-key={re => re.columnIdx}

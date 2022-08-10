@@ -45,7 +45,7 @@ export const TaskEvent: FC<any> = (props: any) => {
   }, [])
   return (
     <div className="layout-box">
-      <div className="add-data-box">
+      <div className="add-data-box p-20">
         <div className="task-progress-box">
           <div className="task-progress-left-box">
             <div className="top-title-box">
@@ -68,7 +68,7 @@ export const TaskEvent: FC<any> = (props: any) => {
       <div className="event-table-box">
         <EventTable id={taskId} />
       </div>
-      <div className="btn-box">
+      <div className="btn-box p-20">
         <Space size={40}>
           <Button className={`${i18n.language === 'en' ? 'btn-en' : 'btn'}`} size="large" onClick={linkReturn}>
             {t('common.return')}

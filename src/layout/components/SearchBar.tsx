@@ -24,12 +24,12 @@ const SearchBar: FC<any> = (props: any) => {
         ''
       ) : (
         <Search
-          placeholder={t('tip.searchText')}
+          placeholder={props?.placeholder || t('tip.searchText')}
           size="large"
           allowClear
           enterButton={t('common.search')}
           onSearch={onSearch}
-          style={{ width: 334 }}
+          className={props.text ? 'w-334' : 'no-search-flex-1'}
         />
       )}
     </div>

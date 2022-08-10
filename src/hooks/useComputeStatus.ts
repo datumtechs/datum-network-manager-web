@@ -1,5 +1,5 @@
 
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 
 import errorSvg from '../assets/images/11.icon1.svg'
 import warnSvg from '../assets/images/10.icon1.svg'
@@ -7,8 +7,9 @@ import freeSvg from '../assets/images/23.icon3.svg'
 import enableSvg from '../assets/images/23.icon4.svg'
 
 
-const useStatus = (connStatus: number | string, powerStatus: number | string) => {
-  const { t } = useTranslation()
+const useStatus = (connStatus: number | string, powerStatus: number | string,t:any) => {
+  // const { t } = useTranslation()
+  // const t = (v)=>v
   const obj = { content: '', img: '' }
   if (connStatus === 0) {
     // 未连接

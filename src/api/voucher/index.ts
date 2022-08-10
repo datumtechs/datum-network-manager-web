@@ -62,14 +62,25 @@ export default {
 
 
 
-  // 查询未发凭证列表
-  queryMetaDataByKeyword(data): Promise<any> {
+  // 未发布无属性凭证的元数据
+  queryUnPublishData(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/api/v1/data/listUnBindLocalMetaDataByKeyword`,
+      url: `/api/v1/data/listMetaDataUnPublishDataTokenByKeyword`,
       data
     })
   },
+
+   // 查询未发布有属性凭证的元数据
+   queryaUnPublishAttribut(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/data/listMetaDataUnPublishAttributeDataTokenByKeyword`,
+      data
+    })
+  },
+
+
 
   // 查询状态根据id获取dataToken状态  无属性
   queryDataTokenStatus(data): Promise<any> {
@@ -90,5 +101,97 @@ export default {
       data
     })
   },
+
+
+
+
+  // 查询有属性凭证  列表
+  queryAttributeList(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/page`,
+      data
+    })
+  },
+
+
+  // 查询有属性凭证  配置 查询工厂合约配置
+  queryPublishConfig(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/getPublishConfig`,
+      data
+    })
+  },
+
+  //有属性凭证 创建
+  postAttributeTransaction(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/publish`,
+      data
+    })
+  },
+
+  // 查询状态根据id获取dataToken状态  有属性
+  queryAttributeTokenStatus(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/getAttributeDataTokenStatus`,
+      data
+    })
+  },
+
+  // 凭证库存列表
+  queryAttributeInventoryList(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/getDataTokenInventoryPage`,
+      data
+    })
+  },
+  // 无属性凭证绑定
+  bindMetaData(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/dataToken/bindMetaData`,
+      data
+    })
+  },
+  // 属性凭证绑定
+  attrbindMetaData(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/bindMetaData`,
+      data
+    })
+  },
+  
+  // 图片上传
+  inventoryUpLoadImg(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/inventoryUpLoad`,
+      data
+    })
+  },
+  
+  // 刷新指定tokenId库存信息
+  refreshInventoryByTokenId(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/refreshInventoryByTokenId`,
+      data
+    })
+  },
+
+    // 上传图片，名称和描述接口
+    inventoryUpLoad2(data): Promise<any> {
+      return axios({
+        method: "POST",
+        url: `/api/v1/attributeDataToken/inventoryUpLoad2`,
+        data
+      })
+    },
 
 }

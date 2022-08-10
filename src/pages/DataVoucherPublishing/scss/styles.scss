@@ -37,25 +37,55 @@
     justify-content: center;
   }
 
-  .credentials {
-    padding: 30px;
-    box-sizing: border-box;
+  .seat-box {
     width: 325px;
-    // height: 329px;
-    left: 433px;
-    top: 261px;
-    background: #FFFFFF;
-    border: 1px solid #EBEEF9;
-    border-radius: 8px;
-  }
+    position: relative;
+    min-height: 400px;
+    margin-top: 23px;
 
-  .select-ccredential {
-    font-family: AlibabaPuHuiTi-Bold;
-    font-style: normal;
-    font-size: 16px;
-    line-height: 22px;
-    color: #000000;
-    margin-bottom: 23px;
+
+    .credentials {
+      padding: 30px;
+      box-sizing: border-box;
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid #EBEEF9;
+      border-radius: 8px;
+      position: absolute;
+
+      &:hover {
+        border-color: #3C3588;
+      }
+    }
+
+    .select-ccredential {
+      font-family: AlibabaPuHuiTi-Bold;
+      font-style: normal;
+      font-size: 16px;
+      line-height: 22px;
+      color: #000000;
+      margin-bottom: 23px;
+
+    }
+
+
+    .credentials-title {
+      height: 33px;
+      font-family: AlibabaPuHuiTi-Bold;
+      font-size: 20px;
+      line-height: 28px;
+      color: #000000;
+    }
+
+    .credentials-tips {
+      font-family: AlibabaPuHuiTi-Regular;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #000000;
+      margin-bottom: 40px;
+    }
   }
 
   .on-attributed {
@@ -66,23 +96,7 @@
     margin-left: 30px;
   }
 
-  .credentials-title {
-    height: 33px;
-    font-family: AlibabaPuHuiTi-Bold;
-    font-size: 20px;
-    line-height: 28px;
-    color: #000000;
-  }
 
-  .credentials-tips {
-    font-family: AlibabaPuHuiTi-Regular;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: #000000;
-    margin-bottom: 40px;
-  }
 
   .credentials-tip-zh {
     min-height: 100px;

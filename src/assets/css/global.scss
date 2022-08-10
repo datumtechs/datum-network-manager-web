@@ -12,8 +12,8 @@
   background-color: #fff;
   box-shadow: 0 0 10px 0 rgba(10, 16, 81, 0.08);
   border-radius: 6px;
-  overflow-y: scroll;
-  padding: 20px;
+  overflow: auto;
+  // padding: 20px;
 
   .submit-box {
     padding: 20px;
@@ -23,18 +23,12 @@
     background: #f7f8fa;
   }
 
-  .bread-box {
-    background: #fff;
-    border-bottom: 1px solid #ebeef9;
-    display: flex;
-  }
-
   .form-box {
     padding: 20px 20px;
   }
 
   .searchBar-box {
-    padding-bottom: 20px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
 
@@ -44,10 +38,6 @@
     }
   }
 
-  .charts-box {
-    display: flex;
-    margin-top: 30px;
-  }
 
   .white-bg {
     margin-top: 30px;
@@ -251,37 +241,6 @@
     }
   }
 
-  .data-table-box {
-    width: 100%;
-
-    .operation-box {
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-
-      .btn {
-        font-family: AlibabaPuHuiTi-Medium;
-        font-size: 14px;
-        color: #3c3588;
-        letter-spacing: 0;
-        line-height: 16.8px;
-      }
-    }
-
-    .ant-table.ant-table-bordered>.ant-table-container {
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .status-box {
-      display: flex;
-      align-items: center;
-
-      &>img:first-child {
-        padding-right: 10px;
-      }
-    }
-  }
-
   .tips {
     font-size: 12px;
     color: #f5222d;
@@ -293,6 +252,8 @@
   width: 100%;
   height: calc(100vh - 110px);
   border-radius: 6px;
+  overflow: auto;
+  background: #fff;
 
   .title-box {
     padding-left: 20px;
@@ -310,62 +271,6 @@
       font-size: 14px;
       color: #1d2832;
       margin-bottom: 12px;
-    }
-  }
-
-  .charts-box {
-    display: flex;
-    background-color: #fff;
-
-    .cpu-info {
-      width: 23%;
-      height: 320px;
-      background: #fff;
-      color: #000000;
-      font-size: 14px;
-      padding: 20px;
-      letter-spacing: 0;
-
-      .status {
-        margin-top: 28px;
-        line-height: 24px;
-      }
-
-      .charts {
-        display: flex;
-        justify-content: center;
-        margin-top: 0.3rem;
-      }
-    }
-
-    .node-info {
-      flex: 1;
-      background: #fff;
-      padding: 20px;
-      position: relative;
-
-      .title span {
-        font-family: AlibabaPuHuiTi-Regular;
-        font-size: 16px;
-        color: #000000;
-        letter-spacing: 0;
-      }
-
-      #lineChart {
-        width: 100%;
-        height: 200px;
-      }
-
-      &:before {
-        content: "";
-        position: absolute;
-        width: 1px;
-        background-color: #edeaf9;
-        right: 0;
-        height: 80%;
-        top: 50%;
-        transform: translateY(-50%);
-      }
     }
   }
 
@@ -451,15 +356,6 @@
 .prev-seagreen,
 .prev-orange {
   position: relative;
-  // &::before {
-  //   content: "";
-  //   position: absolute;
-  //   top: 0.6em;
-  //   left: -1.4em;
-  //   width: 10px;
-  //   height: 10px;
-  //   border-radius: 50%;
-  // }
 }
 
 .prev-orange {

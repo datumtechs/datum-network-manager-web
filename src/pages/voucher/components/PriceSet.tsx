@@ -122,15 +122,6 @@ const PriceSeting: FC<any> = (props: any) => {
         }
         return
       }
-      // console.log('没有',pair);
-      // return
-      //币兑合约
-      // const PairContract = new web3.eth.Contract(
-      //   PairJson,
-      //   pair,
-      // );
-      // const objs = await PairContract.methods.getReserves().call()
-
 
 
       //  获取nonce
@@ -229,7 +220,7 @@ const PriceSeting: FC<any> = (props: any) => {
 
   return <div className='price-seting'>
     {/* <Spin wrapperClassName="wrap-spin" tip={t('common.dataAuthProgress')} spinning={spinning}> */}
-    <Card className='details-top-box layout-box'>
+    <Card className='details-top-box layout-box p-20'>
       <div className='details-name-box'>
         <div className='address'>
           <p>{t('voucher.VoucherName')}：{name}</p>

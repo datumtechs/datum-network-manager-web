@@ -10,7 +10,10 @@ import { verifyRout } from './router/utils'
 import useWinWidth from './hooks/useWinWidth'
 import Web3Service from "./utils/Web3Service"
 import { connect } from 'react-redux'
-// import myStore from './store/index'
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+
+moment.locale('zh-cn');
 
 const mapDispatchToProps = (dispatch: any) => ({
   updataWallet: (data) => {
@@ -71,13 +74,13 @@ const App: FC<any> = (props: any) => {
     const WEB3 = new Web3Service()
     if (WEB3.eth) {
       props.updataWallet(WEB3)
-      WEB3.eth.on('accountsChanged', account => {
-        walletChange()
-      })
+      // WEB3.eth.on('accountsChanged', account => {
+      //   walletChange()
+      // })
 
-      WEB3.eth.on('chainChanged', account => {
-        walletChange()
-      })
+      // WEB3.eth.on('chainChanged', account => {
+      //   walletChange()
+      // })
     } else {
       props.updataWallet(undefined)
     }

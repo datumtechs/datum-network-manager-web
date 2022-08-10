@@ -18,7 +18,8 @@ import CapacityChart from './components/CapacityChart'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-
+const startTime: any = moment('00:00:00', 'HH:mm:ss')
+const endTime: any = moment('23:59:59', 'HH:mm:ss')
 
 export const Tasks: FC<any> = () => {
   const { t } = useTranslation()
@@ -117,7 +118,7 @@ export const Tasks: FC<any> = () => {
   return (
     <ThemeContext.Provider value={{ color, roleColor }}>
       <div className="layout-box">
-        <div className="title-box">
+        <div className="title-box p-20">
           <div className="title-label">
             <div className="title">
               {t('task.myTask')}:&nbsp;
@@ -137,7 +138,7 @@ export const Tasks: FC<any> = () => {
                 showHour: false,
                 showMinute: false,
                 showSecond: false,
-                defaultValue: moment('00:00:00', 'HH:mm:ss')
+                defaultValue: startTime
               }}
               style={{ width: 200 }} size="large" onChange={onStartChange} />{' '}
             {t('task.to')} <DatePicker showNow={false} showToday={false}
@@ -146,7 +147,7 @@ export const Tasks: FC<any> = () => {
                 showHour: false,
                 showMinute: false,
                 showSecond: false,
-                defaultValue: moment('23:59:59', 'HH:mm:ss')
+                defaultValue: endTime
               }}
               style={{ width: 200 }} size="large" onChange={onEndChange} />
           </Space>

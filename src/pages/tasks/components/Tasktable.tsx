@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Table, Space, Tooltip } from 'antd'
+import { Table, Space, Tooltip, Button } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
@@ -10,7 +10,7 @@ import MyTaskStatusBar from '@pages/myData/DataMgt/components/MyTaskStatusBar'
 const MyTable = (props, ref) => {
   const { tableData, total, pageNumber, pageSize } = props
   const history = useHistory()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const linkToDetail = obj => {
     history.push({
@@ -46,7 +46,7 @@ const MyTable = (props, ref) => {
 
   const columns: any = [
     {
-      title: t('common.Num'),
+      title: ` `,
       width: 30,
       render: (text, record, index) => {
         return <>
@@ -123,35 +123,34 @@ const MyTable = (props, ref) => {
       width: 100,
       render: (text, record) => {
         return (
-          <div className="operation-box task-table-actions">
-            <div onClick={() => linkToDetail(record)} className="btn pointer">
+          <div className="task-table-actions">
+            <Button type="link" onClick={() => linkToDetail(record)} >
               {t('task.viewDetail')}
-            </div>
-            <div onClick={() => linkToEvent(record)} className="btn pointer">
+            </Button>
+            <Button type="link" onClick={() => linkToEvent(record)}>
               {t('task.viewEvent')}
-            </div>
+            </Button>
           </div>
         )
       },
     },
   ]
   return (
-    <div className="data-table-box">
-      <Table
-        dataSource={tableData}
-        columns={columns}
-        rowKey={_ => (_.id + _.taskId)}
-        bordered
-        pagination={{
-          current: pageNumber, pageSize: pageSize,
-          total: total,
-          onChange: onPageChange,
-          onShowSizeChange: onPageChange,
-          showSizeChanger: true,
-          pageSizeOptions: ['5', '10', '20', '50', '100']
-        }}
-      />
-    </div>
+    <Table
+      className="com-table"
+      dataSource={tableData}
+      columns={columns}
+      rowKey={_ => (_.id + _.taskId)}
+      pagination={{
+        current: pageNumber, pageSize: pageSize,
+        total: total,
+        onChange: onPageChange,
+        onShowSizeChange: onPageChange,
+        showSizeChanger: true,
+        pageSizeOptions: ['5', '10', '20', '50', '100'],
+        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
+      }}
+    />
   )
 }
 

@@ -71,7 +71,7 @@ const DidApplication: FC<any> = (props) => {
 
 
   return (
-    <div className="layout-box did-box" style={{ minHeight: "730px" }}>
+    <div className="layout-box p-20 did-box" style={{ minHeight: "730px" }}>
       <div className="didAppication-step">
         <Steps current={current} labelPlacement="vertical">
           {[t('UserCenter.ProcessStepOne'), t('UserCenter.ProcessStepTwo'), t('UserCenter.ProcessStepThree'),].map((_, i) => <Step key={i} title={_} />)}

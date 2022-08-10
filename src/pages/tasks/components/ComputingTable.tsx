@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import { Descriptions, Table } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { fileSizeChange,newChangeSizeFn } from '@utils/utils'
+import { fileSizeChange, newChangeSizeFn } from '@utils/utils'
 
 const ComputingTable: FC<any> = (props: any) => {
   const history = useHistory()
@@ -70,7 +70,7 @@ const ComputingTable: FC<any> = (props: any) => {
   ]
 
   return (
-    <div className="data-table-box">
+    <div >
       <Table
         dataSource={tableData}
         columns={columns}

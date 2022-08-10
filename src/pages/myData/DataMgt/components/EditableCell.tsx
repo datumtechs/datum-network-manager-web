@@ -6,7 +6,7 @@ import '../scss/index.scss'
 const EditTableCell: FC<any> = (props: any) => {
   const [isFieldEditing, setIsFieldEditing] = useState<boolean>(false)
   const { record, column, disabled } = props || { disabled: false }
-  const inputRef = useRef<Input>(null)
+  const inputRef = useRef<any>(null)
   useEffect(() => {
     if (isFieldEditing) {
       inputRef.current!.focus()

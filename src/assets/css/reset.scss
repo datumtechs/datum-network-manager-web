@@ -108,21 +108,25 @@ section {
 *[hidden] {
   display: none;
 }
+
 body {
   box-sizing: border-box;
   line-height: 1;
   font-size: 14px;
   font-family: AlibabaPuHuiTi-Regular;
 }
+
 menu,
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote::before,
 blockquote::after,
 q::before,
@@ -130,6 +134,7 @@ q::after {
   content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -144,14 +149,17 @@ input::-webkit-input-placeholder {
   /* WebKit browsers */
   color: red;
 }
+
 input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: red;
 }
+
 input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: red;
 }
+
 input:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: red;
@@ -177,20 +185,24 @@ a {
 a {
   text-decoration: none;
 }
+
 /*正常的未被访问过的链接*/
 a:link {
   text-decoration: none;
   color: #fff;
 }
+
 /*已经访问过的链接*/
 a:visited {
   text-decoration: none;
 }
+
 /*鼠标划过(停留)的链接*/
 a:hover {
   text-decoration: none;
   color: #fff;
 }
+
 /* 正在点击的链接*/
 a:active {
   text-decoration: none;
@@ -209,9 +221,4 @@ a:active {
   padding: 10px 15px !important;
   font-size: 12px !important;
   color: #1d2832 !important;
-}
-
-.ant-table-thead > tr > th {
-  padding: 8px 16px !important;
-  background-color: #fbfcfd;
 }

@@ -1,0 +1,167 @@
+.committee-statistics {
+  padding-top: 20px;
+
+  .statistics-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .title-left-box {
+    display: flex;
+
+    .committee-logo {
+      width: 56px;
+      height: 56px;
+      background: #D9D9D9;
+      border: 1px solid #000000;
+      border-radius: 8px;
+      margin-right: 20px;
+      overflow: hidden;
+    }
+
+    .committee-name {
+      .name-box {
+        font-family: AlibabaPuHuiTi-Bold;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 34px;
+        color: #000000;
+
+        span {
+          margin-left: 20px;
+          font-family: AlibabaPuHuiTi-Medium;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 22px;
+        }
+      }
+
+    }
+
+    .committee-identity {
+      font-family: AlibabaPuHuiTi-Regular;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #979797;
+      margin-top: 5px;
+    }
+  }
+
+  .title-right-box {
+    display: flex;
+    align-items: center;
+
+    .ant-btn {
+      &:nth-child(1) {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .statistics-box {
+    display: flex;
+    height: 109px;
+    margin-top: 20px;
+    background: #FBFCFD;
+    border-radius: 4px;
+    justify-content: space-around;
+    padding: 26px;
+    align-items: center;
+
+    .item {
+      p {
+        &:nth-child(1) {
+          font-family: AlibabaPuHuiTi-Medium;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          color: #000000;
+        }
+
+        &:nth-child(2) {
+          font-family: AlibabaPuHuiTi-Bold;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 24px;
+          color: #000000;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+.committee-list {
+  margin-top: 40px;
+
+  .list-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0 20px;
+
+    .title {
+      font-family: AlibabaPuHuiTi-Bold;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 25px;
+      color: #000000;
+    }
+  }
+
+  .segmented {
+    background: #F8F7FF;
+    border: 1px solid #EBEEF9;
+    border-radius: 4px;
+
+    .ant-segmented-item-selected {
+      font-family: AlibabaPuHuiTi-Medium;
+      border-radius: 4px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      color: #1D2832;
+    }
+
+    .ant-segmented-item-label {
+      padding: 0 30px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      color: #1D2832;
+    }
+  }
+}
+
+.nomination-committee {
+  .title {
+    font-family: AlibabaPuHuiTi-Bold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+}
+
+.apply-certification {
+  @extend .nomination-committee;
+}
+
+.position {
+  width: 100%;
+  position: relative;
+
+  .com-btn {
+    position: absolute;
+    right: -50%;
+  }
+}

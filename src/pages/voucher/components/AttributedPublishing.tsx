@@ -6,24 +6,21 @@ import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { voucher } from '@api'
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import ABIJson from '@/utils/DataTokenFactory.json'
+import ERC721Factory from '@/utils/erc721/ERC721Factory.json'
 import { Complement, filterWeb3Code, filterIntegerAmount } from '@/utils/utils'
 import { requestCancel } from '@/utils/loading'
 
-const CredentialInfo: FC<any> = (props: any) => {
+const AttributedPublishing: FC<any> = (props: any) => {
 
   const { t, i18n } = useTranslation();
   const history = useHistory();
   const form = useRef<any>();
-  const [dataTokenFactory, setDataTokenFactory] = useState('');
+  const [factoryAddress, setDataTokenFactory] = useState('');
   const { walletConfig } = props.state;
   const { location } = props;
   const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
   const [loading, setLoading] = useState(false);
   const submiting = useRef(false)
-
-
-
   const initialState: any = useRef()
 
   const release = async (params) => {
@@ -42,23 +39,22 @@ const CredentialInfo: FC<any> = (props: any) => {
       }
       // 构建合约
       const myContract = new web3.eth.Contract(
-        ABIJson,
-        dataTokenFactory,
+        ERC721Factory,
+        factoryAddress,
       );
       const nonce = await web3.eth.getTransactionCount(address[0])
 
       // 发起交易
-      await myContract.methods.createToken(
-        params.name,
+      await myContract.methods.deployERC721Contract(
+        'Datum-' + params.name,
         params.symbol,
-        String(params.initialSupply + Complement),
-        String(params.initialSupply + Complement),
-        metaDataId
+        metaDataId,
+        3 //明文设置1，为密文设置2，为明文和密文支持设置3
       ).send({
         from: address[0]
       }).on('transactionHash', (hash) => {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        sendTransactionData(params, nonce, hash)
+        sendTransactionData(params, nonce, hash, address[0])
       })
 
 
@@ -77,13 +73,25 @@ const CredentialInfo: FC<any> = (props: any) => {
 
 
   useEffect(() => {
+    const data = localStorage.getItem('AttributemetaDataDbId')
+    console.log(data, dataId);
+
+    if (data && (data === dataId)) {
+      submiting.current = true
+      setLoading(true)
+      query(data)
+    }
+    if (data && (data !== dataId)) {
+      localStorage.setItem('AttributemetaDataDbId', '')
+    }
+
     if (!dataId) history.go(-1)
-    voucher.getPublishConfig({
+    voucher.queryPublishConfig({
       "dataTokenId": dataTokenId || ''
     }).then(res => {
       const { data } = res
-      if (data?.dataTokenFactory) {
-        setDataTokenFactory(data.dataTokenFactory)
+      if (data?.factoryAddress) {
+        setDataTokenFactory(data.factoryAddress)
       }
     })
 
@@ -97,6 +105,8 @@ const CredentialInfo: FC<any> = (props: any) => {
     }
   }, [])
 
+
+
   const timeOut = (id) => {
     if (!submiting) return
     if (initialState.current) {
@@ -107,21 +117,21 @@ const CredentialInfo: FC<any> = (props: any) => {
     }, 1000)
   }
 
-  const sendTransactionData = (params, nonce, hash) => {
-    voucher.postTransaction({
-      "desc": params.DescriptionValue,
+  const sendTransactionData = (params, nonce, hash, address) => {
+    voucher.postAttributeTransaction({
       "hash": hash,
-      "metaDataId": dataId,// metaDataId,
-      "name": params.name,
+      "metaDataDbId": dataId,// metaDataId,
+      "name": 'Datum-' + params.name,
       "symbol": params.symbol,
-      "total": params.initialSupply + Complement,
-      "init": params.initialSupply + Complement,
+      owner: address,
       nonce
     }).then(res => {
       const { data, status } = res
       if (status === 0) {
-        localStorage.setItem('metaDataId', data)
+        localStorage.setItem('AttributemetaDataDbId', data)
         query(data)
+      } else if (status == 1045) {
+        history.go(-1)
       }
     })
   }
@@ -131,13 +141,13 @@ const CredentialInfo: FC<any> = (props: any) => {
     const { wallet } = props.state.wallet || {}
     const { web3 } = wallet
 
-    voucher.queryDataTokenStatus({
+    voucher.queryAttributeTokenStatus({
       "id": +id || null
     }).then(async (res) => {
       const { data } = res
 
       form.current.setFieldsValue({
-        name: data.name,
+        name: data.name ? data.name.replace('Datum-', '') : '',
         symbol: data.symbol,
         initialSupply: filterIntegerAmount(data.total) //data.total
       })
@@ -149,17 +159,14 @@ const CredentialInfo: FC<any> = (props: any) => {
             return
           }
           setLoading(false)
-          localStorage.setItem('metaDataId', '')
-          // setDatas(data)
+          localStorage.setItem('AttributemetaDataDbId', '')
           submiting.current = false
           history.push({
-            pathname: '/myData/dataVoucherPublishing/PriceSet',
+            // pathname: '/voucher/AttributeCredential/credentialInventory',
+            pathname: '/voucher/AttributeCredential',
             state: {
               dataAddress: data.address,
-              name: data.name,
-              dataTokenId: data.id,
-              total: data.total,
-              symbol: data.symbol
+              name: data.name.replace('Datum-', ''),
             },
           })
         })
@@ -176,20 +183,12 @@ const CredentialInfo: FC<any> = (props: any) => {
     })
   }
 
-  useEffect(() => {
-    const data = localStorage.getItem('metaDataId')
-    if (data) {
-      submiting.current = true
-      // receipt.current = true
-      setLoading(true)
-      query(data)
-    }
-  }, [])
+
 
 
 
   return <div className='credential-info-seting'>
-    <Card className='details-top-box layout-box'>
+    <Card className='details-top-box layout-box p-20'>
       <div className='details-name-box'>
         <div className='address'>
           <p>{t('center.dataName')}：{metaDataName}</p>
@@ -207,14 +206,14 @@ const CredentialInfo: FC<any> = (props: any) => {
         className={i18n.language == 'zh' ? 'zh-label-width' : 'en-label-width'}
       >
         <Form.Item
-          label={`${t('voucher.Name')}`}
+          label={`${t('voucher.VoucherName')}`}
           name="name"
           labelAlign="left"
           rules={[
             {
               required: true,
               validator: (rule, value, callback): any => {
-                if (!value) return callback(`${t('credential.pleaseEnter')}${t('voucher.Name')}`)
+                if (!value) return callback(`${t('credential.pleaseEnter')}${t('voucher.VoucherName')}`)
                 if (value.length < 2) return callback(t('common.inputValueminlength'))
                 return /^[A-Za-z0-9]+$/.test(value) ? callback() : callback(t('voucher.OnlyLettersNumbersEntered'));
               },
@@ -254,4 +253,4 @@ const CredentialInfo: FC<any> = (props: any) => {
   </div>
 }
 
-export default connect((state: any) => ({ state }))(CredentialInfo)
+export default connect((state: any) => ({ state }))(AttributedPublishing)

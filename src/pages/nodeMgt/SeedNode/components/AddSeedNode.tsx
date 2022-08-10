@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Form, Input, Button, message, Modal } from 'antd'
 import MyTag from '@com/MyTag'
-import '../scss/index.scss'
+import '../../scss/index.scss'
 import { nodeApi } from '@/api'
 
 export const AddSeedNode: FC<any> = (props: any) => {

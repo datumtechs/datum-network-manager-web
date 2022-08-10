@@ -44,14 +44,20 @@ export const routerParams = {
   UpdateAdmin: import('@/pages/userCenter/UpdateAdmin').then(handDefault),
 
   Voucher: import('@/pages/voucher').then(handDefault),
-  NoAttributeVoucher: import('@pages/voucher/NoAttribute').then(handDefault),
+  NoAttributeVoucher: import('@pages/voucher/NoAttribute').then(handDefault),     
+  AttributeCredential: import('@pages/voucher/Attribute').then(handDefault),     
   PriceSet: import('@pages/voucher/components/PriceSet').then(handDefault),
   CredentialInfo: import('@pages/voucher/components/CredentialInfo').then(handDefault),
   AttributedPublishing: import('@pages/voucher/components/AttributedPublishing').then(handDefault),
+  CreateAttriCredential: import('@pages/voucher/components/CreateAttriCredential').then(handDefault),
+  CredentialInventory: import('@pages/voucher/components/CredentialInventory').then(handDefault),
+  CredentialDetails: import('@pages/voucher/components/CredentialDetails').then(handDefault),
 
+  DataVoucherPublishing: import('@pages/DataVoucherPublishing'),
 
-  DataVoucherPublishing: import('@pages/DataVoucherPublishing')
-
+  OrgManage: import('@pages/OrgManage').then(handDefault),
+  NominationCommittee: import('@pages/OrgManage/components/NominationCommittee').then(handDefault),
+  ApplyCertification: import('@pages/OrgManage/components/ApplyCertification').then(handDefault)
 
 }
 

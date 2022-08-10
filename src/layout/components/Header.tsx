@@ -1,22 +1,19 @@
-import { useContext, useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Dropdown, Menu, Space, Input, Form, message } from 'antd'
-// import { loginApi, authApi } from '@api'
 import cnSvg from '@assets/images/2.icon_cn.svg'
 import enSvg from '@assets/images/2.icon_en.svg'
 import menuSvg from '@assets/images/1.3.svg'
-// import { BaseInfoContext } from '../index'
 import Bread from './Bread'
+import { useAddressDisplay } from '@/utils/utils'
 
 
 const Header = (props: any) => {
   const { loginInfo } = props.state.loginInfo
-  // const { orgInfo } = props.state.org || {}
   const { address } = props.state.address || {}
   const { t, i18n } = useTranslation()
-  // const baseInfo = useContext(BaseInfoContext)
   const { pathname } = useLocation()
   const history = useHistory()
   const authList = useRef<any>()
@@ -37,11 +34,7 @@ const Header = (props: any) => {
     }
     history.push(route)
   }
-  const useAddressDisplay = (address: string) => {
-    if (!address) return ''
-    if (!address.startsWith('0x')) return address
-    return address.substring(0, 4) + '...' + address.substring(address.length - 4)
-  }
+
 
   const menu = (dom?) => <Menu className="personal-box">
     <Menu.Item key="name" className="personal-info-name"><img className="personal-info-head-portrait" src={menuSvg} />{useAddressDisplay(address)}</Menu.Item>
@@ -76,7 +69,7 @@ const Header = (props: any) => {
 
   return (
     <>
-      <div className={pathname === '/overview' ? 'main-head-box' : 'header-box '}>
+      <div className={'header-box '}>
         <div className="bread-box">
           <Bread />
         </div>
@@ -85,7 +78,7 @@ const Header = (props: any) => {
             {i18n.language === 'en' ? <img src={cnSvg} alt="" /> : <img src={enSvg} alt="" />}
           </div>
           <div className="pointer">
-            <Dropdown overlay={menus} placement="bottomRight" arrow>
+            <Dropdown overlay={menus} overlayClassName="dropdown-tran" placement="bottomRight" arrow>
               <div className='user-info'>
                 <img src={menuSvg} alt="" />
                 <span>{useAddressDisplay(address) || ''}</span>

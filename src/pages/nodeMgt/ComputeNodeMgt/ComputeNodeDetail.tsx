@@ -200,7 +200,7 @@ ${dayjs(days).subtract(0, 'hour').format('HH:mm')}`;
 
   return (
     <div className="layout-gray-box">
-      <div className="title-box">
+      <div className="title-box" style={{ marginTop: '20px' }}>
         <p className="title-name">
           <span>{t('computeNodeMgt.nodeName')}:&nbsp;&nbsp;</span>
           <span>{name}</span>
@@ -243,7 +243,7 @@ ${dayjs(days).subtract(0, 'hour').format('HH:mm')}`;
           <div id="lineChart"></div>
         </div>
         <div className="cpu-info">
-          <div className="status">
+          <div className="status p-20" style={{ paddingLeft: 0 }}>
             {infoTips}
           </div>
           <div className="charts">

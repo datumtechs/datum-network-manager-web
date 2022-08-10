@@ -88,7 +88,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
 
     form
       .validateFields()
-      .then(re => {
+      .then(values => {
         const flag = originalData.some((v: any) => v.visible)
         if (!flag) {
           message.warning(`${t('myData.FieldVisibilityTips')}`)
@@ -107,19 +107,23 @@ export const MyDataAddtion: FC<any> = (props: any) => {
           return
         }
 
-
+        const usageList = values.usageScene
         const queryObj = {
           addType: addType === 'add' ? 1 : 2,
-          localMetaDataColumnList: originalData,
+          metaDataColumnList: originalData,
           fileId: resultFileData.fileId,
           industry,
-          remarks: form.getFieldValue('remarks'),
-          resourceName: form.getFieldValue('sourceName'),
+          desc: values.remarks,
+          resourceName: values.sourceName,
+          // 用法：1-明文，2-密文，3-都支持
+          usage: +(usageList.length >= 2 ? 3 : usageList.toString()),
         }
+
+
         resourceApi.addLocalMetaData(queryObj).then(res => {
           if (res.status === 0) {
             message.success(`${t('tip.addMetaDataSuccess')}`)
-            history.push('/myData')
+            history.push('/myData/dataMgt')
           }
         })
       })
@@ -195,7 +199,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
       upLoadingSet(false)
       setCurPage(1)
       if (res.status === 0) {
-        const list = filterData(res.data?.localMetaDataColumnList)
+        const list = filterData(res.data?.metaDataColumnList)
         setOriginalData(list)
         setTotal(list.length)
         setTableData(getShowSource(list))
@@ -208,6 +212,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }
 
   const uploadFileOnChange = e => {
+    // debugger
     const file = e.target.files[0]
     setUploadFile(file)
   }
@@ -217,30 +222,10 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     setUploadFile(file)
   }
 
-  // const changeFileIncludeStatusFn = (e: any) => {
-  //   // setShowIncludeError(false)
-  //   setRadioValue(e.target.value)
-  // }
-
-  const handleSelectChange = (value: any) => {
-    industrySet(value)
-  }
-
   return (
-    <div className="layout-box">
+    <div className="layout-box p-20">
       <div className="add-data-box">
         <div className="title-box bold-ident">{t('myData.plzUploadFile')}</div>
-        {/* <div className="label-box">
-          <Radio.Group onChange={changeFileIncludeStatusFn} value={radioValue}>
-            <Radio value="true" disabled={formDisable}>
-              {t('myData.including')}
-            </Radio>
-            <Radio value="false" disabled={formDisable}>
-              {t('myData.noIncluding')}
-            </Radio>
-          </Radio.Group>
-          {showIncludeError ? <p className="note-box">{t('myData.plzAnnounceIncludesFields')}</p> : ''}
-        </div> */}
         <div className="label-box limit-box">
           <MyDragger
             ref={draggerRef}
@@ -266,7 +251,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
               form={form}
               labelCol={{ span: 3 }}
               wrapperCol={{ span: 21 }}
-              initialValues={{ remember: true }}
+              initialValues={{ remember: true, usageScene: "2" }}
             >
               <Form.Item label={t('myData.dataName')}>
                 <Form.Item
@@ -299,7 +284,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
               </Form.Item>
               <Form.Item label={t('myData.industryOfData')}>
                 <Form.Item name="industry" noStyle rules={[{ required: true, message: `${t('tip.plzSelectIndustry')}` }]}>
-                  <Select size="large" onChange={handleSelectChange} className="limit-box width457">
+                  <Select size="large" onChange={industrySet} className="limit-box width457">
                     {INDUSTRYLIST.map(item => {
                       return (
                         <Option key={item.id} value={item.id}>
@@ -320,22 +305,24 @@ export const MyDataAddtion: FC<any> = (props: any) => {
               <Form.Item
                 label={t('center.usageScene')}
               >
-                <Form.Item name="usageScene" initialValue="ciphertext" noStyle
-                  rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
-                  <Checkbox.Group>
-                    <Checkbox value="plaintext">{t('center.Plaintext')}</Checkbox>
-                    <Checkbox value="ciphertext">{t('center.ciphertext')}</Checkbox>
-                  </Checkbox.Group>
-                </Form.Item>
-                <Tooltip placement="topLeft" title={
-                  <div>
-                    {t('center.ciphertextAndPlaintextTipsOne')} <br />
-                    {t('center.ciphertextAndPlaintextTipsTwo')} <br />
-                    {t('center.ciphertextAndPlaintextTipsThree')} <br />
-                  </div>
-                }>
-                  <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588', lineHeight: '20px' }} />
-                </Tooltip>
+                <div style={{ display: 'flex', alignItems: "center" }}>
+                  <Form.Item name="usageScene" noStyle
+                    rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
+                    <Checkbox.Group>
+                      <Checkbox value="1">{t('center.Plaintext')}</Checkbox>
+                      <Checkbox value="2">{t('center.ciphertext')}</Checkbox>
+                    </Checkbox.Group>
+                  </Form.Item>
+                  <Tooltip placement="topLeft" title={
+                    <div>
+                      {t('center.ciphertextAndPlaintextTipsOne')} <br />
+                      {t('center.ciphertextAndPlaintextTipsTwo')} <br />
+                      {t('center.ciphertextAndPlaintextTipsThree')} <br />
+                    </div>
+                  }>
+                    <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588', lineHeight: '20px' }} />
+                  </Tooltip>
+                </div>
               </Form.Item>
             </Form>
           </div>

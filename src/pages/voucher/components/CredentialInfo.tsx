@@ -51,7 +51,7 @@ const CredentialInfo: FC<any> = (props: any) => {
 
       // 发起交易
       await myContract.methods.createToken(
-        params.name,
+        'Datum-' + params.name,
         params.symbol,
         String(params.initialSupply + Complement),
         String(params.initialSupply + Complement),
@@ -60,7 +60,7 @@ const CredentialInfo: FC<any> = (props: any) => {
         from: address[0]
       }).on('transactionHash', (hash) => {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        sendTransactionData(params, nonce, hash)
+        sendTransactionData(params, nonce, hash, address[0])
       })
 
 
@@ -79,6 +79,18 @@ const CredentialInfo: FC<any> = (props: any) => {
 
 
   useEffect(() => {
+    const data = localStorage.getItem('metaDataId')
+    if (data && (data === dataId)) {
+      submiting.current = true
+      // receipt.current = true
+      setLoading(true)
+      query(data)
+    }
+
+    if (data && (data !== dataId)) {
+      localStorage.setItem('metaDataId', '')
+    }
+
     if (!dataId) history.go(-1)
     voucher.getPublishConfig({
       "dataTokenId": dataTokenId || ''
@@ -109,21 +121,26 @@ const CredentialInfo: FC<any> = (props: any) => {
     }, 1000)
   }
 
-  const sendTransactionData = (params, nonce, hash) => {
+  const sendTransactionData = (params, nonce, hash, address) => {
     voucher.postTransaction({
-      "desc": params.DescriptionValue,
+      "desc": '',
       "hash": hash,
-      "metaDataId": dataId,// metaDataId,
-      "name": params.name,
+      "metaDataDbId": dataId,// metaDataId,
+      "name": 'Datum-' + params.name,
       "symbol": params.symbol,
       "total": params.initialSupply + Complement,
       "init": params.initialSupply + Complement,
-      nonce
+      ciphertextFee: params.ciphertextConsumption,
+      plaintextFee: params.plaintextConsumption,
+      nonce,
+      owner: address
     }).then(res => {
       const { data, status } = res
       if (status === 0) {
         localStorage.setItem('metaDataId', data)
         query(data)
+      } else if (status == 1045) {
+        history.go(-1)
       }
     })
   }
@@ -139,8 +156,10 @@ const CredentialInfo: FC<any> = (props: any) => {
       const { data } = res
 
       form.current.setFieldsValue({
-        name: data.name,
+        name: data.name ? data.name.replace('Datum-', '') : '',
         symbol: data.symbol,
+        plaintextConsumption: data.plaintextFee,
+        ciphertextConsumption: data.ciphertextFee,
         initialSupply: filterIntegerAmount(data.total) //data.total
       })
       if (data?.status == 3) {
@@ -155,7 +174,8 @@ const CredentialInfo: FC<any> = (props: any) => {
           // setDatas(data)
           submiting.current = false
           history.push({
-            pathname: '/myData/dataVoucherPublishing/PriceSet',
+            pathname: '/voucher/NoAttribute',
+            // pathname: '/myData/dataVoucherPublishing/PriceSet',
             state: {
               dataAddress: data.address,
               name: data.name,
@@ -178,20 +198,14 @@ const CredentialInfo: FC<any> = (props: any) => {
     })
   }
 
-  useEffect(() => {
-    const data = localStorage.getItem('metaDataId')
-    if (data) {
-      submiting.current = true
-      // receipt.current = true
-      setLoading(true)
-      query(data)
-    }
-  }, [])
+  // useEffect(() => {
+
+  // }, [])
 
 
 
   return <div className='credential-info-seting'>
-    <Card className='details-top-box layout-box'>
+    <Card className='details-top-box layout-box p-20'>
       <div className='details-name-box'>
         <div className='address'>
           <p>{t('center.dataName')}：{metaDataName}</p>
@@ -281,6 +295,7 @@ const CredentialInfo: FC<any> = (props: any) => {
           labelAlign="left"
           label={`${t('credential.ciphertextConsumption')}:`}
           name="ciphertextConsumption"
+          // initialValue={1}
           rules={[
             {
               pattern: new RegExp(/^[1-9]\d*$/, "g"),

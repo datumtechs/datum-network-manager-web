@@ -155,16 +155,14 @@ const MyFiledsTable: FC<any> = (props: any) => {
   ]
 
   return (
-    <div className="data-table-box">
-      <Table
-        rowClassName={() => 'editable-row'}
-        rowKey={record => record.columnIdx}
-        dataSource={tableData}
-        columns={columns}
-        pagination={{ current: curPage, showSizeChanger: false, total, onChange: onPageChange }}
-        bordered
-      />
-    </div>
+    <Table
+      rowClassName={() => 'editable-row'}
+      rowKey={record => record.columnIdx}
+      dataSource={tableData}
+      columns={columns}
+      pagination={{ current: curPage, showSizeChanger: false, total, onChange: onPageChange }}
+      bordered
+    />
   )
 }
 

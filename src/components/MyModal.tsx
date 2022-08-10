@@ -20,6 +20,8 @@ const DataTable: FC<any> = (props: any) => {
       visible={visible}
       title={title || <img src={warnSvg} alt="" />}
       onOk={handleOk}
+      maskClosable={false}
+      confirmLoading={props.loading}
       onCancel={handleCancel}
     >
       {Array.isArray(children) ? children.map(child => child) : <>{children}</>}

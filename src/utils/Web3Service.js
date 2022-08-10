@@ -1,5 +1,9 @@
 import Web3 from 'web3'
+const ethereumjsUtil = require('ethereumjs-util');
+const sigUtil = require('eth-sig-util');
+var utils = require('web3-utils');
 
+console.log(ethereumjsUtil, "keccak256", "rlp");
 class Web3Service {
   constructor() {
     this.eth = window.ethereum || undefined
@@ -96,9 +100,6 @@ class Web3Service {
     }
     const newChainId = await this._queryChainID()
     if (parseInt(newChainId) !== obj.chain_id) return false
-
-
-
     address = await this.eth.request({
       method: 'eth_requestAccounts'
     })
@@ -106,10 +107,11 @@ class Web3Service {
   }
 
   // 获取签名
-  signForWallet(type, address, nonceId) {
+  signForWallet(type, address, additional) {// additional :  nonceId/ abi
     const abi = type === 'login' ?
-      this._getAbiForLogin(nonceId) :
-      this._getAbiForTx(address)
+      this._getAbiForLogin(additional) :
+      type == 'abi' ? additional :
+        this._getAbiForTx(address)
     const from = address
 
     const result = new Promise((resolve, reject) => {
@@ -144,5 +146,53 @@ class Web3Service {
     }
     return false
   }
+
+  Uint32byte(item) {
+    return Buffer.from(Uint32Array.from([Number(item)]).buffer).reverse()
+  }
+
+  async signData(list, address) {
+    // console.log(JSON.stringify(list));
+    const newList = [
+      Buffer.from(String(list[0])),
+      this.Uint32byte(list[1]),
+      Buffer.from(String(list[2])),
+      Buffer.from(String(list[3])),
+      this.Uint32byte(list[4]),
+      this.Uint32byte(list[5]),
+      Buffer.from(String(list[6])),
+      this.Uint32byte(list[7]),
+      Buffer.from(list[8])
+    ]
+
+    const rlpByte = ethereumjsUtil.rlp.encode(Buffer.concat(newList))
+    const k256Hex = this.web3.utils.toHex(ethereumjsUtil.keccak256(rlpByte))
+    console.log(k256Hex);
+
+    const abi = JSON.stringify({
+      domain: {
+        name: 'Datum'
+      },
+      message: {
+        contents: k256Hex
+      },
+      primaryType: 'sign',
+      types: {
+        EIP712Domain: [{
+          name: 'name',
+          type: 'string'
+        }],
+        sign: [{
+          name: 'contents',
+          type: 'string'
+        }]
+      }
+    })
+
+
+    return await this.signForWallet('abi', address, abi)
+  }
+
+
 }
 export default Web3Service
