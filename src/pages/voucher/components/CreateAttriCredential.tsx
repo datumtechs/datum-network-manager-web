@@ -50,10 +50,12 @@ const CreateAttriCredential: FC<any> = (props: any) => {
       );
 
 
+      const date = new Date(moment(params.pleaseExpiryDate).format('YYYY-MM-DD HH:mm:ss')).getTime()
+      console.log(date);
 
       // return
       await myContract.methods.createToken(
-        new Date(moment(params.pleaseExpiryDate).format('YYYY-MM-DD HH:mm:ss')).getTime(),
+        String(date),
         params.pleaseUsageScenario == 2 ? true : false,
         params.infoPath
       ).send({

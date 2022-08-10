@@ -30,15 +30,15 @@ const StepOne: FC<any> = (props) => {
       return
     }
 
-    loginApi.applyOrgIdentity({ orgName: name.replace(/\s*/g, "") }).then(res => {
-      if (res.status === 0) {
-        props?.baseInfo?.fetchData()
-        message.success(`${t('tip.idSuccess')}`)
-        props.setIsReg(true)
-        props.setCurrent(1)
-        props.InfoCompleteness(1, 0)
-      }
-    })
+    // loginApi.applyOrgIdentity({ orgName: name.replace(/\s*/g, "") }).then(res => {
+    //   if (res.status === 0) {
+    props?.baseInfo?.fetchData()
+    message.success(`${t('tip.idSuccess')}`)
+    // props.setIsReg(true)
+    props.setCurrent(1)
+    props.InfoCompleteness(1, 0)
+    //   }
+    // })
   }
 
 
@@ -71,7 +71,7 @@ const StepOne: FC<any> = (props) => {
     </Form.Item>
     <div className="btn center">
       <Button type="primary" className="submit-btn" onClick={onFinish}>
-        {t('DidApplication.SetYourOrgNameButton')}
+        {t('DidApplication.SetNameAndGenerateBuiltWallet')}
       </Button>
     </div>
     <style>{`

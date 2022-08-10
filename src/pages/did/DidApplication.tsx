@@ -7,6 +7,7 @@ import './scss/did.scss'
 import StepOne from './components/StepOne'
 import { StepTwo } from './components/StepTwo'
 import StepThree from './components/StepThree'
+import Recharge from './components/Recharge'
 import {
   Form,
   Steps
@@ -37,6 +38,7 @@ const DidApplication: FC<any> = (props) => {
   const NetworkStatus = props?.location?.state?.NetworkStatus || 0
   const baseInfo = useContext(BaseInfoContext)
   const history = useHistory()
+  const [observeBalance, setObserveBalance] = useState('0')
 
   useEffect(() => {
     if (!baseInfo.identityId && !status) {
@@ -54,13 +56,27 @@ const DidApplication: FC<any> = (props) => {
     }
   }, [])
 
-  const isLink = (num) => {
+  useEffect(() => {
+    getBalance()
+  }, [baseInfo])
+
+  const isLink = async (num) => {
     if (NetworkStatus) {
       history.push('/userCenter/userInfo')
       return
     }
     setCurrent(num)
   }
+
+  const getBalance = async () => {
+    const { wallet } = props.state.wallet || {}
+    const { web3 } = wallet
+    if (!baseInfo?.observerProxyWalletAddress) return
+    const balance = await web3.eth.getBalance(baseInfo?.observerProxyWalletAddress)
+    setObserveBalance(balance)
+  }
+
+
   const setInfoCompleteness = (orgInfoCompletionLevel,
     connectNetworkStatus) => {
     props.InfoCompleteness({
@@ -73,8 +89,8 @@ const DidApplication: FC<any> = (props) => {
   return (
     <div className="layout-box p-20 did-box" style={{ minHeight: "730px" }}>
       <div className="didAppication-step">
-        <Steps current={current} labelPlacement="vertical">
-          {[t('UserCenter.ProcessStepOne'), t('UserCenter.ProcessStepTwo'), t('UserCenter.ProcessStepThree'),].map((_, i) => <Step key={i} title={_} />)}
+        <Steps current={current} labelPlacement="vertical" onChange={setCurrent}>
+          {[t('UserCenter.ProcessStepOne'), t('UserCenter.ProcessStepTwo'), t('UserCenter.ProcessStepThree'), t('UserCenter.ProcessStepFour')].map((_, i) => <Step key={i} title={_} />)}
         </Steps>
       </div>
       <div className="form-box">
@@ -87,9 +103,11 @@ const DidApplication: FC<any> = (props) => {
               <StepOne baseInfo={baseInfo} setCurrent={isLink} InfoCompleteness={setInfoCompleteness} />
               :
               current == 1 ?
-                <StepTwo baseInfo={baseInfo} setCurrent={isLink} InfoCompleteness={setInfoCompleteness} />
-                :
-                current > 1 ? <StepThree baseInfo={baseInfo} InfoCompleteness={setInfoCompleteness} /> : ''
+                <Recharge baseInfo={baseInfo} state={props.state} observeBalance={observeBalance} setCurrent={isLink} getBalance={getBalance} InfoCompleteness={setInfoCompleteness} /> :
+                current == 2 ?
+                  <StepTwo baseInfo={baseInfo} setCurrent={isLink} InfoCompleteness={setInfoCompleteness} />
+                  :
+                  current == 3 ? <StepThree baseInfo={baseInfo} InfoCompleteness={setInfoCompleteness} /> : ''
           }
         </Form>
       </div>
