@@ -7,6 +7,7 @@ import cnSvg from '@assets/images/2.icon_cn.svg'
 import enSvg from '@assets/images/2.icon_en.svg'
 import menuSvg from '@assets/images/1.3.svg'
 import Bread from './Bread'
+import { useAddressDisplay } from '@/utils/utils'
 
 
 const Header = (props: any) => {
@@ -33,11 +34,7 @@ const Header = (props: any) => {
     }
     history.push(route)
   }
-  const useAddressDisplay = (address: string) => {
-    if (!address) return ''
-    if (!address.startsWith('0x')) return address
-    return address.substring(0, 4) + '...' + address.substring(address.length - 4)
-  }
+
 
   const menu = (dom?) => <Menu className="personal-box">
     <Menu.Item key="name" className="personal-info-name"><img className="personal-info-head-portrait" src={menuSvg} />{useAddressDisplay(address)}</Menu.Item>

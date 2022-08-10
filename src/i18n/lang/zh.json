@@ -621,7 +621,16 @@
     "creationTime": "创建时间",
     "validityPeriod": "有效期",
     "exchangePlatform": "交换平台",
-    "bindData": "绑定数据"
+    "bindData": "绑定数据",
+    "Publishing": "发布中",
+    "PublishingFailed": "发布失败",
+    "PublishingSuccess": "发布成功",
+    "Pricing": "定价中",
+    "PricingFailed": "定价失败",
+    "PricingSuccess": "定价成功",
+    "Binding": "绑定中",
+    "BindingFailed": "绑定失败",
+    "BindingSuccess": "绑定成功"
   },
   "exception": {
     "error": "操作异常",

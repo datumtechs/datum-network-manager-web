@@ -93,8 +93,6 @@ const Attribute: FC<any> = (props: any) => {
         dataAddress: row.address,
         name: row.name,
         dataTokenId: row.id,
-        total: row.total,
-        symbol: row.symbol
       },
     })
   }
@@ -105,9 +103,7 @@ const Attribute: FC<any> = (props: any) => {
       state: {
         dataAddress: row.address,
         name: row.name,
-        dataTokenId: row.id,
-        total: row.total,
-        symbol: row.symbol
+        dataTokenId: row.id
       },
     })
   }
@@ -141,7 +137,7 @@ const Attribute: FC<any> = (props: any) => {
       className="com-table "
       dataSource={tableData}
       columns={columns}
-      rowKey={(record: any) => record.name}
+      rowKey={(record: any) => record.publishHash}
       pagination={{
         // defaultCurrent: 1,
         current: curPage,

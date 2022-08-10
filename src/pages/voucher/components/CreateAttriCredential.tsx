@@ -9,9 +9,8 @@ import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { voucher } from '@api'
 import { QuestionCircleOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import ABIJson from '@/utils/DataTokenFactory.json'
-import zh from 'antd/lib/locale/zh_CN'
-import en from 'antd/lib/locale/en_GB'
+import ERC721Template from '@/utils/erc721/ERC721Template.json'
+import moment from 'moment';
 import { Complement, filterWeb3Code, filterIntegerAmount } from '@/utils/utils'
 import { requestCancel } from '@/utils/loading'
 
@@ -20,66 +19,135 @@ const CreateAttriCredential: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation();
   const history = useHistory();
   const form = useRef<any>();
-  const [dataTokenFactory, setDataTokenFactory] = useState('');
+  // const [dataTokenFactory, setDataTokenFactory] = useState('');
   const { walletConfig } = props.state;
   const { location } = props;
-  const { dataTokenId, metaDataId, metaDataName, dataId } = location.state || {};
+  const { dataAddress, name,
+    dataTokenId, } = location.state || {};
   const [loading, setLoading] = useState(false);
   const submiting = useRef(false)
   const [imageUrl, setImageUrl] = useState('')
 
 
-  const initialState: any = useRef()
-
   const release = async (params) => {
+    const { wallet } = props.state.wallet || {}
 
+    try {
+      const { web3 } = wallet
+      setLoading(true)
+      submiting.current = true
+      // 1 获取地址
+      const flag = await wallet.eth.isConnected()// 判断是否连接当前网络
+      if (!flag) return
+      const address = await wallet.connectWallet(walletConfig)
+      if (!address) {
+        return message.error(t('common.pleaseSwitchNetworks'))
+      }
+      // 构建合约
+      const myContract = new web3.eth.Contract(
+        ERC721Template,
+        dataAddress,
+      );
+
+
+
+      // return
+      await myContract.methods.createToken(
+        new Date(moment(params.pleaseExpiryDate).format('YYYY-MM-DD HH:mm:ss')).getTime(),
+        params.pleaseUsageScenario == 2 ? true : false,
+        params.infoPath
+      ).send({
+        from: address[0],
+      }).on('transactionHash', (hash) => {
+        // query()
+        history.push({
+          pathname: '/voucher/AttributeCredential/credentialInventory',
+          state: {
+            dataAddress: dataAddress,
+            name: name,
+            dataTokenId: dataTokenId,
+          },
+        })
+      })
+
+
+    } catch (e: any) {
+      setLoading(false)
+      console.log(111);
+      message.error(t(`exception.${filterWeb3Code(e.code)}`))
+      submiting.current = false
+    }
   }
 
   const submit = async () => {
-    form.current.validateFields().then(values => {
-      release(values)
-    })
+    form.current.validateFields(['IPFSPath',
+      "name", "pleaseUsageScenario", "pleaseExpiryDate", "certificateDescription"]).then(upload2)
   }
 
-
-  useEffect(() => {
-
-  }, [])
-
-
-  const sendTransactionData = (params, nonce, hash) => {
-    voucher.postTransaction({
-      "desc": params.DescriptionValue,
-      "hash": hash,
-      "metaDataId": dataId,// metaDataId,
-      "name": params.name,
-      "symbol": params.symbol,
-      "total": params.initialSupply + Complement,
-      "init": params.initialSupply + Complement,
-      nonce
+  const upload2 = (values) => {
+    voucher.inventoryUpLoad2({
+      description: values.certificateDescription,
+      image: values.IPFSPath,
+      name: values.name
     }).then(res => {
       const { data, status } = res
-      if (status === 0) {
-        localStorage.setItem('metaDataId', data)
-        query(data)
+      // debugger
+      if (status == 0) {
+        release({ ...values, infoPath: data })
       }
     })
   }
 
-  const query = async (id) => {
 
-  }
   const beforeUpload = (file: any) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/svg';
     if (!isJpgOrPng) {
       message.error(t('credential.pictureIncorrect'));
+      return false
     }
     const isLt2M = file.size / 1024 / 1024 < 10;
     if (!isLt2M) {
       message.error(`${t('credential.sizeLimit')}10M`);
+      return false
     }
-    return isJpgOrPng && isLt2M;
+    return false
   };
+
+
+
+  const getBase64 = (img: any, callback: (url: string) => void) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      callback(reader.result as string)
+    });
+    reader.readAsDataURL(img);
+  };
+
+
+  const UpLoadImg = (info: any) => {
+    const formData = new FormData()
+    formData.append('file', info.file)
+    voucher.inventoryUpLoadImg(formData).then(res => {
+      const { data, status } = res
+      if (status == 0) {
+        getBase64(info.file, url => {
+          setImageUrl(url);
+        });
+        // debugger
+        form.current.setFieldsValue({ IPFSPath: data })
+        // form.current.validateFields(['IPFSPath'])
+      } else {
+        setImageUrl('');
+      }
+      setLoading(false);
+    })
+  }
+
+  const disabledDate = (current: any) => {
+    return current && current < moment().endOf('day');
+  };
+
+
 
   const uploadButton = (
     <div>
@@ -88,32 +156,12 @@ const CreateAttriCredential: FC<any> = (props: any) => {
     </div>
   );
 
-  const getBase64 = (img: any, callback: (url: string) => void) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result as string));
-    reader.readAsDataURL(img);
-  };
-
-  const handleChange = (info: any) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileOb, url => {
-        setLoading(false);
-        setImageUrl(url);
-      });
-    }
-  };
-
   return <div className='credential-info-seting'>
     <Card className='details-top-box layout-box p-20'>
       <div className='details-name-box'>
         <div className='address'>
-          <p>{t('credential.credentialContractName')}：{metaDataName}</p>
-          <p>{t('voucher.ContractAddress')}：{metaDataId}</p>
+          <p>{t('credential.credentialContractName')}：{name}</p>
+          <p>{t('voucher.ContractAddress')}：{dataAddress}</p>
         </div>
       </div>
       <div className="form-wrap">
@@ -126,14 +174,14 @@ const CreateAttriCredential: FC<any> = (props: any) => {
         >
           <Form.Item
             label={`${t('credential.uploadPictures')}:`}
-            name="name"
+            name="uploadImg"
             className="upload-image"
             labelAlign="left"
             rules={[
               {
                 required: true,
                 validator: (rule, value, callback): any => {
-                  if (!imageUrl) return callback(`${t('common.pleaseUpload')}${i18n.language == 'en' ? 'Pictures' : '图片'}`)
+                  if (!value) return callback(`${t('common.pleaseUpload')}${i18n.language == 'en' ? 'Pictures' : '图片'}`)
                 },
               },
             ]}
@@ -141,11 +189,12 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             <div className="upload-wrap">
               <Upload
                 accept="image/*"
+                maxCount={1}
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
                 beforeUpload={beforeUpload}
-                onChange={handleChange}
+                onChange={UpLoadImg}
               >
                 {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
               </Upload>
@@ -203,7 +252,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
               },
             ]}
           >
-            <DatePicker mode="date" style={{ width: '100%' }} format={'YYYY-MM-DD'} />
+            <DatePicker mode="date" disabledDate={disabledDate} style={{ width: '100%' }} format={'YYYY-MM-DD HH:mm:ss'} />
           </Form.Item>
           <Form.Item
             labelAlign="left"

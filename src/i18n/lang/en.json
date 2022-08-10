@@ -635,7 +635,16 @@
     "creationTime": "Creation Time",
     "validityPeriod": "Validity Period",
     "exchangePlatform": "Exchange Platform",
-    "bindData": "Bind Data"
+    "bindData": "Bind Data",
+    "Publishing": "Publishing",
+    "PublishingFailed": "Publishing Failed",
+    "PublishingSuccess": "Publishing Success",
+    "Pricing": "Pricing",
+    "PricingFailed": "Pricing Failed",
+    "PricingSuccess": "Pricing Success",
+    "Binding": "Binding",
+    "BindingFailed": "Binding Failed",
+    "BindingSuccess": "Binding Success"
   },
   "orgManage": {
     "nominationMembers": "Nomination of Members",

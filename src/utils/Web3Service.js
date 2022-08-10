@@ -1,6 +1,7 @@
 import Web3 from 'web3'
 const ethereumjsUtil = require('ethereumjs-util');
 const sigUtil = require('eth-sig-util');
+var utils = require('web3-utils');
 
 console.log(ethereumjsUtil, "keccak256", "rlp");
 class Web3Service {
@@ -99,9 +100,6 @@ class Web3Service {
     }
     const newChainId = await this._queryChainID()
     if (parseInt(newChainId) !== obj.chain_id) return false
-
-
-
     address = await this.eth.request({
       method: 'eth_requestAccounts'
     })
@@ -109,10 +107,11 @@ class Web3Service {
   }
 
   // 获取签名
-  signForWallet(type, address, nonceId) {
+  signForWallet(type, address, additional) {// additional :  nonceId/ abi
     const abi = type === 'login' ?
-      this._getAbiForLogin(nonceId) :
-      this._getAbiForTx(address)
+      this._getAbiForLogin(additional) :
+      type == 'abi' ? additional :
+        this._getAbiForTx(address)
     const from = address
 
     const result = new Promise((resolve, reject) => {
@@ -148,37 +147,27 @@ class Web3Service {
     return false
   }
 
-  stringToByte(str) {
-    var bytes = new Array();
-    var len, c;
-    len = str.length;
-    for (var i = 0; i < len; i++) {
-      c = str.charCodeAt(i);
-      if (c >= 0x010000 && c <= 0x10FFFF) {
-        bytes.push(((c >> 18) & 0x07) | 0xF0);
-        bytes.push(((c >> 12) & 0x3F) | 0x80);
-        bytes.push(((c >> 6) & 0x3F) | 0x80);
-        bytes.push((c & 0x3F) | 0x80);
-      } else if (c >= 0x000800 && c <= 0x00FFFF) {
-        bytes.push(((c >> 12) & 0x0F) | 0xE0);
-        bytes.push(((c >> 6) & 0x3F) | 0x80);
-        bytes.push((c & 0x3F) | 0x80);
-      } else if (c >= 0x000080 && c <= 0x0007FF) {
-        bytes.push(((c >> 6) & 0x1F) | 0xC0);
-        bytes.push((c & 0x3F) | 0x80);
-      } else {
-        bytes.push(c & 0xFF);
-      }
-    }
-    return bytes;
+  Uint32byte(item) {
+    return Buffer.from(Uint32Array.from([Number(item)]).buffer).reverse()
   }
 
   async signData(list, address) {
+    // console.log(JSON.stringify(list));
+    const newList = [
+      Buffer.from(String(list[0])),
+      this.Uint32byte(list[1]),
+      Buffer.from(String(list[2])),
+      Buffer.from(String(list[3])),
+      this.Uint32byte(list[4]),
+      this.Uint32byte(list[5]),
+      Buffer.from(String(list[6])),
+      this.Uint32byte(list[7]),
+      Buffer.from(list[8])
+    ]
 
-    console.log(JSON.stringify(list));
-    const rlphash = ethereumjsUtil.rlp.encode(list)
-    const k256Hash = ethereumjsUtil.keccak256(rlphash)
-    const k256Hex = this.web3.utils.toHex(k256Hash)
+    const rlpByte = ethereumjsUtil.rlp.encode(Buffer.concat(newList))
+    const k256Hex = this.web3.utils.toHex(ethereumjsUtil.keccak256(rlpByte))
+    console.log(k256Hex);
 
     const abi = JSON.stringify({
       domain: {
@@ -200,29 +189,8 @@ class Web3Service {
       }
     })
 
-    // console.log('abi', abi);
-    const sign = await new Promise((resolve, reject) => {
-      this.web3.currentProvider.sendAsync({
-        method: 'eth_signTypedData_v4',
-        params: [address, abi],
-        from: address
-      },
-        (err, res) => {
-          if (err) return reject(err)
-          const {
-            result
-          } = res
 
-          // const recovered = sigUtil.recoverTypedSignature_v4({
-          //   data: JSON.parse(abi),
-          //   sig: result,
-          // });
-          resolve(result)
-        }
-      )
-    })
-
-    return sign
+    return await this.signForWallet('abi', address, abi)
   }
 
 

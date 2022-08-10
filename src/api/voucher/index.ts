@@ -146,7 +146,7 @@ export default {
   queryAttributeInventoryList(data): Promise<any> {
     return axios({
       method: "POST",
-      url: `/v1/attributeDataToken/getDataTokenInventoryPage`,
+      url: `/api/v1/attributeDataToken/getDataTokenInventoryPage`,
       data
     })
   },
@@ -166,5 +166,32 @@ export default {
       data
     })
   },
+  
+  // 图片上传
+  inventoryUpLoadImg(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/inventoryUpLoad`,
+      data
+    })
+  },
+  
+  // 刷新指定tokenId库存信息
+  refreshInventoryByTokenId(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/attributeDataToken/refreshInventoryByTokenId`,
+      data
+    })
+  },
+
+    // 上传图片，名称和描述接口
+    inventoryUpLoad2(data): Promise<any> {
+      return axios({
+        method: "POST",
+        url: `/api/v1/attributeDataToken/inventoryUpLoad2`,
+        data
+      })
+    },
 
 }

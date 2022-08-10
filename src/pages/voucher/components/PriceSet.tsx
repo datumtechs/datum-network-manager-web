@@ -122,15 +122,6 @@ const PriceSeting: FC<any> = (props: any) => {
         }
         return
       }
-      // console.log('没有',pair);
-      // return
-      //币兑合约
-      // const PairContract = new web3.eth.Contract(
-      //   PairJson,
-      //   pair,
-      // );
-      // const objs = await PairContract.methods.getReserves().call()
-
 
 
       //  获取nonce

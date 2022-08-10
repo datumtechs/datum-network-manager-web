@@ -144,7 +144,7 @@ export const filterWeb3Code = (code: any): string => {
   return text
 }
 
-export   const copy = (text) => {
+export const copy = (text) => {
   // 有兼容性 暂时先这样
   try {
     const input: any = document.createElement('input');
@@ -162,7 +162,39 @@ export   const copy = (text) => {
   }
 }
 
+export  const useAddressDisplay = (address: string) => {
+  if (!address) return ''
+  if (!address.startsWith('0x')) return address
+  return address.substring(0, 6) + '...' + address.substring(address.length - 4)
+}
 
+export const UseCredentialStatus = (status)=>{
+    const s = Number(status)
+    switch (s) {
+      // 0-未发布，1-发布中，2-发布失败，3-发布成功，4-定价中，5-定价失败，
+      // 6-定价成功，7-绑定中，8-绑定失败，9-绑定成功
+      case 1:
+        return i18n.t('credential.Publishing');
+      case 2:
+        return i18n.t('credential.PublishingFailed');
+      case 3:
+        return i18n.t('credential.PublishingSuccess');
+      case 4:
+        return i18n.t('credential.Pricing');
+      case 5:
+        return i18n.t('credential.PricingFailed');
+      case 6:
+        return i18n.t('credential.PricingSuccess');
+      case 7:
+        return i18n.t('credential.Binding');
+      case 8:
+        return i18n.t('credential.BindingFailed');
+      case 9:
+        return i18n.t('credential.BindingSuccess');
+      default:
+        break;
+    }
+}
 
 
 export const StatusCodeProcessing = (code) => {

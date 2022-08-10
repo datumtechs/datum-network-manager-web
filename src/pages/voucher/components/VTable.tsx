@@ -5,12 +5,13 @@ import { CopyOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import "../scss/styles.scss"
 import { voucher as voucherApi } from '@api/index'
-import { filterIntegerAmount, copy } from '@/utils/utils'
+import { filterIntegerAmount, copy, UseCredentialStatus, useAddressDisplay } from '@/utils/utils'
 import ABIJson from '@/utils/DipoleRouter.json'// dex
 import ERC20 from '@/utils/ERC20.json'// 恒涛提供
 import { connect } from 'react-redux'
 import FactoryJson from '@/utils/DipoleFactory.json'// 工厂合约
 import SearchBar from '@/layout/components/SearchBar'
+import UsageScene from '@com/UsageScene'
 
 
 const VoucherTable: FC<any> = (props: any) => {
@@ -30,8 +31,8 @@ const VoucherTable: FC<any> = (props: any) => {
     pagination = {
       current: 1,
       defaultPageSize: 10,
-    },
-    { TabPane } = Tabs
+    }
+  // { TabPane } = Tabs
   const [searchText, setSearchText] = useState("")
   const [routerToken, setRouterToken] = useState('');
   useEffect(() => {
@@ -48,7 +49,7 @@ const VoucherTable: FC<any> = (props: any) => {
   useEffect(() => {
     query()
 
-  }, [curPage, activeKey])
+  }, [curPage, activeKey, searchText])
 
   const toAuthorization = async (web3, DataAddress) => {
     try {
@@ -130,8 +131,7 @@ const VoucherTable: FC<any> = (props: any) => {
       voucherApi.queryUnpricedVoucher({
         pageNumber: curPage,
         pageSize: 10,
-        status: +activeKey,
-        searchText: searchText
+        keyword: searchText
       }).then(res => {
         const { data, status } = res
         if (status === 0) {
@@ -161,82 +161,82 @@ const VoucherTable: FC<any> = (props: any) => {
     }
 
   const columns: any = (type): any[] => {
-    const items = type == 'Unpriced' ? [] : [{
-      title: t('center.usageScene'),
-      dataIndex: 'usageScene',
-      ellipsis: true,
-    },]
     return [
       {
         title: ``,
-        render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
+        render: ({ }, { }, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
         width: 60,
       },
       {
         title: t('voucher.VoucherName'),
         dataIndex: 'name',
         ellipsis: true,
-        width: '12%',
       },
       {
         title: t('center.dataName'),
-        dataIndex: 'dataName',
+        dataIndex: '',
         ellipsis: true,
-        width: '10%',
+        render: (text, record, index) => record.dynamicFields?.metaDataName || '-'
       },
       {
         title: t('voucher.VoucherSymbol'),
         dataIndex: 'symbol',
-        width: '12%',
         ellipsis: true,
       },
       {
         title: t('voucher.VoucherTotalRelease'),
         dataIndex: 'total',
         ellipsis: true,
-        width: '12%',
         render: (text, record, index) => filterIntegerAmount(text)
       },
       {
         title: t('voucher.ContractAddress'),
         dataIndex: 'address',
         ellipsis: true,
-        // width: 360,
+        width: 150,
         render: (text, record, index) =>
           text
             ? <>
               <CopyOutlined style={{ marginRight: '10px' }} onClick={() => copy(text)} />
-              {/* <input readOnly style={{ position: 'absolute', height: '10px', width: '10px', opacity: 0.01, zIndex: -1 }} value={text} ref={(e) => refDom.current[index] = e} /> */}
               <Tooltip placement="bottom" title={text} color="#fff" overlayClassName={'_tooltip'}>
-                {text}
+                {useAddressDisplay(text)}
               </Tooltip>
             </>
             : '--'
       },
-      ...items,
+      {
+        title: t('center.usageScene'),
+        dataIndex: 'status',
+        ellipsis: true,
+        render: (text, record) => <UsageScene status={record.dynamicFields?.usage} />
+      },
+      {
+        title: t('task.status'),
+        dataIndex: 'usage',
+        ellipsis: true,
+        render: (text, record) => UseCredentialStatus(record.status)
+      },
       {
         title: t('common.actions'),
         dataIndex: 'actions',
         width: '220px',
         render: (text: any, row: any, index: any) => {
-          // 定价状态：0-未定价，1-已定价
           // 0-未发布，1-发布中，2-发布失败，3-发布成功，4-定价中，5-定价失败，6-定价成功，7-绑定中，8-绑定失败，9-绑定成功
           return <>
-            {activeKey == 0 && [0, 1, 2, 3, 8,].includes(row.status) ?
-              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => bindData(row)}>  {t('credential.bindData')}</Button> :
-              <>
-                {activeKey == 1 ?
-                  <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button> :
-                  row.status == 3 || row.status == 5 ?
-                    <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
-                    : ''
-                }
-                <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => updateConsumption(row)}>  {t('orgManage.modifyConsumption')}</Button>
-
-              </>
-            }
+            {[3, 8].includes(row.status) ?
+              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => bindData(row)}>  {t('credential.bindData')}</Button>
+              : ''}
+            {[6].includes(row.status) ?
+              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => viewFn(row)}>  {t('center.view')}</Button>
+              : ''}
+            {[5, 9].includes(row.status) ?
+              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
+              : ''}
+            {![0, 1, 4, 7,].includes(row.status) ?
+              <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => updateConsumption(row)}>  {t('orgManage.modifyConsumption')}</Button>
+              : ''}
           </>
-        },
+        }
       },
     ]
   }
@@ -257,12 +257,13 @@ const VoucherTable: FC<any> = (props: any) => {
     setCurPage(page)
   }
 
-  const tableDom = (key) => {
-    return <Table
+
+  return <div className="voucher">
+    <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('voucher.VoucherName')}`} />
+    <Table
       className="com-table "
       dataSource={tableData}
-      columns={columns(key)}
-      key={key}
+      columns={columns()}
       rowKey={(record: any) => record.id}
       pagination={{
         defaultCurrent: 1,
@@ -274,30 +275,7 @@ const VoucherTable: FC<any> = (props: any) => {
         showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />
-  }
 
-  const callback = (key) => {
-    setActiveKey(key)
-    setCurPage(1)
-    // query()
-  }
-  const operations = {
-    right: <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('voucher.VoucherName')}`} />
-  }
-
-  return <div className="voucher">
-    <Tabs onChange={callback}
-      className="com-tabs"
-      tabBarExtraContent={operations}
-      activeKey={String(activeKey)}
-      tabBarGutter={20}>
-      <TabPane tab={t('voucher.UnpricedVoucher')} key="0">
-        {tableDom('Unpriced')}
-      </TabPane>
-      <TabPane tab={t('voucher.PricedVoucher')} key="1">
-        {tableDom('priced')}
-      </TabPane>
-    </Tabs>
     <Modal
       visible={modalShow}
       onOk={saveFn}

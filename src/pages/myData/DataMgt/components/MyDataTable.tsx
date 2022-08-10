@@ -98,13 +98,14 @@ const MyDataTable: FC<any> = (props: any) => {
       requestOptionData.data,
 
     ]
+    // console.log(JSON.stringify(params));
 
     try {
-      // const sign = await wallet.signData(params, address[0])
-      // data.sign = sign
-      data.sign = ''
+      const sign = await wallet.signData(params, address[0])
+      // console.log(sign);
+      data.sign = sign
     } catch (e) { console.log(e); }
-
+    // return
     resourceApi.metaDataAction(data).then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)

@@ -53,6 +53,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const handleRemarkChange = (e) => remarksSet(e.target.value)
 
   const submitFn = () => {
+    console.log(1);
+
     form
       .validateFields()
       .then(values => {
@@ -66,8 +68,11 @@ export const NewDataAddtion: FC<any> = (props: any) => {
           resourceName: values.newDataName, // 新资源名称
           usage: +(usageList.length >= 2 ? 3 : usageList.toString())
         }
+        console.log(2);
         resourceApi.addLocalMetaData(queryObj).then(res => {
+          console.log(4);
           if (res.status == 0) {
+            console.log(3);
             message.success(`${t('tip.addMetaDataSuccess')}`)
             history.push('/myData/dataMgt')
           }

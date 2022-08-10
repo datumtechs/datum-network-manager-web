@@ -212,6 +212,7 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   }
 
   const uploadFileOnChange = e => {
+    // debugger
     const file = e.target.files[0]
     setUploadFile(file)
   }

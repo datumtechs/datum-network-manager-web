@@ -18,7 +18,7 @@ const Details: FC<any> = (props: any) => {
   const { dataId, metaDataId,
     metaDataName, dataTokenAddress,
     attributeDataTokenAddress } = location?.state || {};
-  console.log(dataId);
+  // console.log(dataId);
 
   const [value, setValue] = useState(dataTokenAddress ? null : dataId || null);
   const [attributeValue, setAttributeValue] = useState(attributeDataTokenAddress ? null : dataId || null);

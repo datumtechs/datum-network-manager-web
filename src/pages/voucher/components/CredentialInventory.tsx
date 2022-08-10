@@ -14,12 +14,14 @@ const CredentialInventory: FC<any> = (props: any) => {
     { t } = useTranslation(),
     pageSize = 10
   const history = useHistory();
+  const { location } = props;
+  const { dataAddress, name, dataTokenId } = location.state
   const [searchText, setSearchText] = useState("")
   const columns: any[] = [
     {
       title: t('common.Num'),
       render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
-      width: 70,
+      width: 60,
       align: 'center',
     },
     {
@@ -30,25 +32,28 @@ const CredentialInventory: FC<any> = (props: any) => {
     },
     {
       title: t('myData.dataName'),
-      dataIndex: 'symbol',
+      dataIndex: 'dataName',
       width: '15%',
       ellipsis: true,
+      render: (text: any, row) => row.dynamicFields?.metaDataName || '-'
     },
     {
       title: t('credential.credentialId'),
-      dataIndex: 'symbol',
+      dataIndex: 'tokenId',
       ellipsis: true,
-      width: '15%',
+      width: '8%',
+      render: (text: any) => <>#{text}</>
     },
     {
       title: t('center.usageScene'),
-      dataIndex: 'symbol',
+      dataIndex: 'usage',
       ellipsis: true,
       width: '15%',
+      render: (text: any) => <>{text}</>
     },
     {
       title: t('credential.credentialValidityPeriod'),
-      dataIndex: 'symbol',
+      dataIndex: 'endTime',
       ellipsis: true,
       width: '15%',
     },
@@ -59,7 +64,7 @@ const CredentialInventory: FC<any> = (props: any) => {
         // 定价状态：0-未定价，1-已定价
         return <>
           <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => detail(row)}>  {t('computeNodeMgt.detail')}</Button>
-          <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => putShelf(row)}>  {t('credential.putShelf')}</Button>
+          <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => { }}>  {t('credential.putShelf')}</Button>
         </>
       },
     },
@@ -72,28 +77,28 @@ const CredentialInventory: FC<any> = (props: any) => {
         dataAddress: row.address,
         name: row.name,
         dataTokenId: row.id,
-        total: row.total,
-        symbol: row.symbol
       },
     })
   }
 
-  const putShelf = (row) => {
-
+  const putShelf = () => {
+    history.push({
+      pathname: '/voucher/AttributeCredential/createCredential',
+      state: {
+        dataAddress,
+        name,
+        dataTokenId,
+      },
+    })
   }
 
-
-  const OnPageChange = (page: number) => {
-    setCurPage(page)
-  }
 
   const query = () => {
-    setTableData([{ name: '123' }])
-    return
     voucher.queryAttributeInventoryList({
       pageNumber: curPage,
       pageSize: 10,
-      searchText: searchText
+      dataTokenAddress: dataAddress,
+      keyword: searchText
     }).then((res) => {
       const { data, status } = res
       if (status === 0) {
@@ -103,21 +108,21 @@ const CredentialInventory: FC<any> = (props: any) => {
     })
   }
 
-  useEffect(() => {
-    query()
-  }, [])
+  useEffect(query, [])
+  useEffect(query, [curPage, searchText])
 
   return <div className="layout-box p-20 credential-inventory">
     <div className='details-name-box' style={{ marginBottom: '20px' }}>
       <div className='address'>
-        <p>{t('credential.credentialContractName')}：XXXX</p>
-        <p>{t('voucher.ContractAddress')}：xxxx</p>
+        <p>{t('credential.credentialContractName')}：{name}</p>
+        <p>{t('voucher.ContractAddress')}：{dataAddress}</p>
       </div>
     </div>
     <div className="credential-inventory-search">
       <Button
         type="primary"
         className="plus-button"
+        onClick={putShelf}
         icon={<PlusOutlined />}
       >
         {t('voucher.PublishCredential')}
@@ -126,16 +131,16 @@ const CredentialInventory: FC<any> = (props: any) => {
 
     </div>
     <Table
+      className="com-table"
       dataSource={tableData}
       columns={columns}
       rowKey={(record: any) => record.id}
       pagination={{
-        // defaultCurrent: 1,
         current: curPage,
         defaultPageSize: pageSize,
         showSizeChanger: false,
         total: totalNum,
-        onChange: OnPageChange,
+        onChange: setCurPage,
       }}
     />
   </div>
