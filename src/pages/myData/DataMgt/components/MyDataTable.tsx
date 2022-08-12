@@ -1,15 +1,12 @@
-import React, { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Table, Tabs, message, Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { resourceApi } from '@api/index'
 import MyModal from '@com/MyModal'
-// import useInterval from '@hooks/useInterval'
-// import { tableInterVal } from '@constant/index'
 import warnSvg from '@assets/images/10.icon1.svg'
 import successSvg from '@assets/images/9.icon1.svg'
-// import { changeSizeFn } from '@utils/utils'
 import SearchBar from '@/layout/components/SearchBar'
 import { connect } from 'react-redux'
 
@@ -18,11 +15,7 @@ const MyDataTable: FC<any> = (props: any) => {
   const { TabPane } = Tabs;
   const history = useHistory()
   const [searchText, setSearchText] = useState("")
-  const [pop, setPop] = useState({
-    type: '',
-    id: '',
-    fileName: '',
-  })
+  const [pop, setPop] = useState({ type: '', id: '', fileName: '', })
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [curPage, setCurPage] = useState(1)
   const [totalNum, setTotalNum] = useState(0)
@@ -30,14 +23,10 @@ const MyDataTable: FC<any> = (props: any) => {
   const [tableData, setTableData] = useState<{ string: any } | any>([])
   const [activeRow, setActiveRow] = useState<any>({})
   const [modalLoading, setModalLoading] = useState<any>(false)
-  const pagination = {
-    current: 1,
-    defaultPageSize: 10,
-  }
+  const pagination = { current: 1, defaultPageSize: 10, }
   const { i18n } = useTranslation()
 
   const initTableData = () => {
-    console.log(statusNum)
     resourceApi.queryMydataByKeyword({ keyword: searchText, pageNumber: curPage, pageSize: 10, status: statusNum }).then(res => {
       if (res.status === 0) {
         setTotalNum(res.total)
@@ -73,16 +62,6 @@ const MyDataTable: FC<any> = (props: any) => {
     setModalLoading(true)
     const { wallet, } = props.state.wallet
     const { walletConfig } = props.state
-
-    // MetadataName:utf-8编码byte数组,
-    // MetadataType:大端uint32编码byte数组,
-    // DataHas:utf-8编码byte数组,
-    // Desc：utf-8编码byte数组,
-    // LocationType:大端uint32编码byte数组,
-    // DataType:大端uint32编码byte数组,
-    // Industry:utf-8编码byte数组,
-    // State:utf-8编码byte数组,
-
     const address = await wallet.connectWallet(walletConfig)
     const requestOptionData = await resourceApi.getMetaDataOption({ id: activeRow.id })
     if (requestOptionData.status !== 0) return
@@ -96,16 +75,13 @@ const MyDataTable: FC<any> = (props: any) => {
       String(activeRow.industry),
       String(activeRow.status),
       requestOptionData.data,
-
     ]
-    // console.log(JSON.stringify(params));
 
     try {
       const sign = await wallet.signData(params, address[0])
-      // console.log(sign);
       data.sign = sign
     } catch (e) { console.log(e); }
-    // return
+    if (!data.sign) return setModalLoading(false)
     resourceApi.metaDataAction(data).then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)
@@ -198,12 +174,16 @@ const MyDataTable: FC<any> = (props: any) => {
 
   const goCredential = (type, row) => {
     let url = ''
+    let token = ''
     if (type == 'attributeCredential') {
-      url = 'voucher/NoAttribute'
+      url = '/voucher/AttributeCredential'
+      token = row.dynamicFields.attributeDataTokenName
     } else if (type == 'noAttributeCredential') {
-      url = 'voucher/NoAttribute'
+      url = '/voucher/NoAttribute'
+      token = row.dynamicFields.dataTokenName
     }
     if (!url) return
+    if (!token) return
     history.push({
       pathname: url,
       state: {
@@ -284,13 +264,14 @@ const MyDataTable: FC<any> = (props: any) => {
       render: (text, record: any, index) => {
         const attrDom = <p>
           <span style={{ display: "inline-block", width: "75px" }}>{t('credential.attributeCredential')}:</span>
-          <span onClick={goCredential.bind(this, 'attributeCredential', record)}>{record.attributeDataTokenAddress ? record.attributeDataTokenAddress : '--'}</span>
+          <span onClick={goCredential.bind(this, 'attributeCredential', record)}>{record.dynamicFields.attributeDataTokenName ? record.dynamicFields.attributeDataTokenName : '--'}</span>
         </p>
         const noAttr = <p>
           <span style={{ display: "inline-block", width: "75px" }}>{t('credential.noAttributeCredential')}:</span>
-          <span onClick={goCredential.bind(this, 'noAttributeCredential', record)}>{record.dataTokenAddress ? record.dataTokenAddress : '--'}</span>
+          <span onClick={goCredential.bind(this, 'noAttributeCredential', record)}>{record.dynamicFields.dataTokenName ? record.dynamicFields.dataTokenName : '--'}</span>
         </p>
-        // return (record.usage == 0 ? '' : record.usage == 1 ? attrDom : <> {attrDom}{noAttr} </>)
+        if (record.usage == 1) return <>{noAttr}</>
+        if (record.usage == 2) return <>{attrDom}</>
         return <> {attrDom}{noAttr} </>
       }
     },
@@ -302,7 +283,7 @@ const MyDataTable: FC<any> = (props: any) => {
         // (0-未知;1-还未发布的新表;2-已发布的表;3-已撤销的表;101-已删除;102-发布中;103-撤回中;)
         let list = [
           {
-            name: row.status >= 2 ? t('center.view') : t('UserCenter.ProfileButtonEdit'),//查看  编辑
+            name: row.status >= 2 ? t('center.view') : t('UserCenter.ProfileButtonEdit'),//查看 
             fn: viewFn.bind(this, row),
             show: [0, 1, 2, 3, 101, 102, 103]
           },

@@ -104,9 +104,8 @@ module.exports = function (proxy, allowedHost) {
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
     proxy: {
       '/datum-admin': {
-        // target: 'http://8.219.63.100',
-        // target: 'http://192.168.9.154:9090',
         target: 'http://192.168.9.154:9090',
+        // target: 'http://192.168.9.156:9090',
         changeOrigin: true,
         pathRewrite: {
           '^/datum-admin': '/datum-admin',

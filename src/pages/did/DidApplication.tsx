@@ -34,23 +34,19 @@ const DidApplication: FC<any> = (props) => {
   const { t } = useTranslation(),
     { Step } = Steps,
     [current, setCurrent] = useState(props?.state?.InfoCompleteness?.orgInfoCompletionLevel)
-  const status = props?.state?.InfoCompleteness?.orgInfoCompletionLevel
   const NetworkStatus = props?.location?.state?.NetworkStatus || 0
   const baseInfo = useContext(BaseInfoContext)
   const history = useHistory()
   const [observeBalance, setObserveBalance] = useState('0')
 
   useEffect(() => {
-    if (!baseInfo.identityId && !status) {
-      props.setIsReg(true)
-      isLink(0)
-    } else if (status == 1) {
-      isLink(1)
+    if (!baseInfo.identityId && current <= 2) {
       props.setIsReg(false)
     } else {
-      isLink(2)
-      props.setIsReg(false)
+      props.setIsReg(true)
     }
+    isLink(current)
+
     if (props?.state?.InfoCompleteness?.connectNetworkStatus) {
       history.push('/')
     }
@@ -89,7 +85,7 @@ const DidApplication: FC<any> = (props) => {
   return (
     <div className="layout-box p-20 did-box" style={{ minHeight: "730px" }}>
       <div className="didAppication-step">
-        <Steps current={current} labelPlacement="vertical" onChange={setCurrent}>
+        <Steps initial={1} current={current} labelPlacement="vertical" onChange={setCurrent}>
           {[t('UserCenter.ProcessStepOne'), t('UserCenter.ProcessStepTwo'), t('UserCenter.ProcessStepThree'), t('UserCenter.ProcessStepFour')].map((_, i) => <Step key={i} title={_} />)}
         </Steps>
       </div>
@@ -99,15 +95,15 @@ const DidApplication: FC<any> = (props) => {
           wrapperCol={{ span: 16 }}
           labelCol={{ span: 4 }}>
           {
-            current == 0 ?
+            current == 1 ?
               <StepOne baseInfo={baseInfo} setCurrent={isLink} InfoCompleteness={setInfoCompleteness} />
               :
-              current == 1 ?
+              current == 2 ?
                 <Recharge baseInfo={baseInfo} state={props.state} observeBalance={observeBalance} setCurrent={isLink} getBalance={getBalance} InfoCompleteness={setInfoCompleteness} /> :
-                current == 2 ?
+                current == 3 ?
                   <StepTwo baseInfo={baseInfo} setCurrent={isLink} InfoCompleteness={setInfoCompleteness} />
                   :
-                  current == 3 ? <StepThree baseInfo={baseInfo} InfoCompleteness={setInfoCompleteness} /> : ''
+                  current == 4 ? <StepThree baseInfo={baseInfo} InfoCompleteness={setInfoCompleteness} /> : ''
           }
         </Form>
       </div>

@@ -56,9 +56,7 @@ const UpdateAdmin: FC<any> = (props: any) => {
       })
     }
     const { wallet: { web3 } } = props.state.wallet || {}
-    if (baseInfo.carrierWallet) web3.eth.getBalance(baseInfo.carrierWallet).then(amount => {
-      console.log(amount)
-      // debugger
+    if (baseInfo.observerProxyWalletAddress) web3.eth.getBalance(baseInfo.observerProxyWalletAddress).then(amount => {
       setBalance(filterAmount(String(amount)))
     }).catch(console.log)
   }, [baseInfo])
@@ -125,14 +123,6 @@ const UpdateAdmin: FC<any> = (props: any) => {
           className="form-item">
           <p className="title" style={{ paddingLeft: '11px' }}>{balance}     LAT</p>
         </Form.Item>
-        {/* <Form.Item colon label={t('UserCenter.address')} name="address"
-          className="form-item"
-        >
-          <Input disabled={true}
-            placeholder={t('UserCenter.address')}
-          />
-        </Form.Item> */}
-        {/* {!disabled ? */}
         <Form.Item colon label={t('UserCenter.address')}
           className="form-item"
           name="address"

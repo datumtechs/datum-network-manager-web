@@ -49,9 +49,6 @@ export default {
     })
   },
 
-
-
-
   // 查询dex链接地址
   queryDexWebUrl(): Promise<any> {
     return axios({
@@ -91,8 +88,6 @@ export default {
     })
   },
 
-
-
   // 修改凭证状态 无属性
   updateDataTokenStatus(data): Promise<any> {
     return axios({
@@ -101,8 +96,6 @@ export default {
       data
     })
   },
-
-
 
 
   // 查询有属性凭证  列表
@@ -190,6 +183,24 @@ export default {
       return axios({
         method: "POST",
         url: `/api/v1/attributeDataToken/inventoryUpLoad2`,
+        data
+      })
+    },
+
+    // 修改明文和密文消耗量
+    updateFee(data): Promise<any> {
+      return axios({
+        method: "POST",
+        url: `/api/v1/dataToken/updateFee`,
+        data
+      })
+    },
+
+     // 获取dataToken库存详情
+     getDataTokenInventoryDetail(data): Promise<any> {
+      return axios({
+        method: "POST",
+        url: `/api/v1/attributeDataToken/getDataTokenInventoryDetail`,
         data
       })
     },

@@ -30,15 +30,14 @@ const StepOne: FC<any> = (props) => {
       return
     }
 
-    // loginApi.applyOrgIdentity({ orgName: name.replace(/\s*/g, "") }).then(res => {
-    //   if (res.status === 0) {
-    props?.baseInfo?.fetchData()
-    message.success(`${t('tip.idSuccess')}`)
-    // props.setIsReg(true)
-    props.setCurrent(1)
-    props.InfoCompleteness(1, 0)
-    //   }
-    // })
+    loginApi.setOrgName({ orgName: name.replace(/\s*/g, "") }).then(res => {
+      if (res.status === 0) {
+        props?.baseInfo?.fetchData()
+        message.success(`${t('tip.idSuccess')}`)
+        props.setCurrent(2)
+        props.InfoCompleteness(2, 0)
+      }
+    })
   }
 
 
@@ -50,7 +49,6 @@ const StepOne: FC<any> = (props) => {
       label={" "}
       colon={false}
       name="identityId"
-      // validateStatus={valiStatus}
       hasFeedback={valiStatus == "error"}
       help={valiStatus == "error" ? t('DidApplication.NameNoRuleTips') : ""}
       validateStatus={valiStatus}
@@ -74,11 +72,11 @@ const StepOne: FC<any> = (props) => {
         {t('DidApplication.SetNameAndGenerateBuiltWallet')}
       </Button>
     </div>
-    <style>{`
+    {/* <style>{`
     .ant-form-item-children-icon{
       display:none
     }
-    `}</style>
+    `}</style> */}
   </>
 }
 

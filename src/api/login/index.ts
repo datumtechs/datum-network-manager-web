@@ -17,20 +17,36 @@ const loginApi = {
   },
 
   // 申请身份标识
-  applyOrgIdentity(data): Promise<any> {
+  // applyOrgIdentity(data): Promise<any> {
+  //   return axios({
+  //     method: "POST",
+  //     url: `/api/v1/user/applyOrgIdentity`,
+  //     data
+  //   })
+  // },
+
+  // 设置机构名称
+  setOrgName(data): Promise<any> {
     return axios({
       method: "POST",
-      // url: `/api/v1/system/user/applyOrgIdentity`,
-      url: `/api/v1/user/applyOrgIdentity`,
+      url: `/api/v1/user/setOrgName`,
       data
     })
   },
+
+    // 设置did
+    setDid(data): Promise<any> {
+      return axios({
+        method: "POST",
+        url: `/api/v1/user/setDid`,
+        data
+      })
+    },
 
   // 退出登录状态
   logoutFn(): Promise<any> {
     return axios({
       method: "POST",
-      // url: `/api/v1/system/user/logout`,
       url: `/api/v1/user/logout`,
     })
   },

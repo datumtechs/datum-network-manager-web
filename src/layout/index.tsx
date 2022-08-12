@@ -47,7 +47,7 @@ const Layout = (props: any) => {
 
   const fetchData = async (type?: boolean) => {
     const result = await loginApi.queryBaseInfo()
-    if (result.status === 1005) {
+    if (result.status === 1005 || !result.data.identityId) {
       props.setIsReg(false)
       history.push('/didApplication')
       return
@@ -55,7 +55,7 @@ const Layout = (props: any) => {
     if (result.status === 0) {
       props.setOrg(result.data)
     }
-    props.setIsReg(true)
+    // props.setIsReg(true)
     setInfo(result?.data)
   }
 

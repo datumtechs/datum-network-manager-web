@@ -6,6 +6,8 @@ import { CopyOutlined, PlusOutlined } from '@ant-design/icons'
 import { copy } from '@/utils/utils'
 import { useHistory } from 'react-router-dom'
 import voucher from '@api//voucher'
+import UsageScene from '@com/UsageScene'
+import moment from 'moment';
 
 const CredentialInventory: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1),
@@ -28,12 +30,10 @@ const CredentialInventory: FC<any> = (props: any) => {
       title: t('voucher.VoucherName'),
       dataIndex: 'name',
       ellipsis: true,
-      width: '20%',
     },
     {
       title: t('myData.dataName'),
       dataIndex: 'dataName',
-      width: '15%',
       ellipsis: true,
       render: (text: any, row) => row.dynamicFields?.metaDataName || '-'
     },
@@ -48,14 +48,13 @@ const CredentialInventory: FC<any> = (props: any) => {
       title: t('center.usageScene'),
       dataIndex: 'usage',
       ellipsis: true,
-      width: '15%',
-      render: (text: any) => <>{text}</>
+      render: (text, record) => <UsageScene status={record?.usage} />
     },
     {
       title: t('credential.credentialValidityPeriod'),
       dataIndex: 'endTime',
       ellipsis: true,
-      width: '15%',
+      render: (text, record) => moment(parseInt(text)).format('YYYY-MM-DD HH:mm:ss')
     },
     {
       title: t('common.actions'),
@@ -74,9 +73,11 @@ const CredentialInventory: FC<any> = (props: any) => {
     history.push({
       pathname: '/voucher/AttributeCredential/credentialDetails',
       state: {
-        dataAddress: row.address,
+        dataTokenAddress: row.dataTokenAddress,
         name: row.name,
-        dataTokenId: row.id,
+        tokenId: row.tokenId,
+        dataAddress,
+        dataAddressName: name,
       },
     })
   }
@@ -134,7 +135,7 @@ const CredentialInventory: FC<any> = (props: any) => {
       className="com-table"
       dataSource={tableData}
       columns={columns}
-      rowKey={(record: any) => record.id}
+      rowKey={(record: any) => record.tokenId}
       pagination={{
         current: curPage,
         defaultPageSize: pageSize,

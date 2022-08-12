@@ -1,23 +1,22 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useTranslation } from 'react-i18next'
-import {
-  Button, Form, Input, message
-} from 'antd'
+import { Button, message } from 'antd'
 import { nodeApi } from '@api/index'
 import { WarningFilled } from '@ant-design/icons'
 
 const StepThree: FC<any> = (props) => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const connect = () => {
     nodeApi.applyJoinNetwork().then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.joinNetworkSuccess')}`)
-        props.InfoCompleteness(2, 1)
+        props.InfoCompleteness(5, 1)
         noConnect()
       }
     })
   }
+
   const noConnect = () => {
     location.href = "/overview"
   }

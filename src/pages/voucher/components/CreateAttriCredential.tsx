@@ -50,8 +50,8 @@ const CreateAttriCredential: FC<any> = (props: any) => {
       );
 
 
-      const date = new Date(moment(params.pleaseExpiryDate).format('YYYY-MM-DD HH:mm:ss')).getTime()
-      console.log(date);
+      const date = new Date(`${moment(params.pleaseExpiryDate).format('YYYY-MM-DD')} 23:59:59`).getTime()
+      console.log(params.infoPath);
 
       // return
       await myContract.methods.createToken(
@@ -61,7 +61,6 @@ const CreateAttriCredential: FC<any> = (props: any) => {
       ).send({
         from: address[0],
       }).on('transactionHash', (hash) => {
-        // query()
         history.push({
           pathname: '/voucher/AttributeCredential/credentialInventory',
           state: {
@@ -70,6 +69,8 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             dataTokenId: dataTokenId,
           },
         })
+      }).on('error', (hash) => {
+        setLoading(false)
       })
 
 
@@ -90,10 +91,9 @@ const CreateAttriCredential: FC<any> = (props: any) => {
     voucher.inventoryUpLoad2({
       description: values.certificateDescription,
       image: values.IPFSPath,
-      name: values.name
+      name: `Datum-${values.name}`
     }).then(res => {
       const { data, status } = res
-      // debugger
       if (status == 0) {
         release({ ...values, infoPath: data })
       }
@@ -157,7 +157,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
       <div className="plus-tips">{t('credential.uploadTips')}</div>
     </div>
   );
-
+  const startTime: any = moment('00:00:00', 'HH:mm:ss')
   return <div className='credential-info-seting'>
     <Card className='details-top-box layout-box p-20'>
       <div className='details-name-box'>
@@ -254,7 +254,8 @@ const CreateAttriCredential: FC<any> = (props: any) => {
               },
             ]}
           >
-            <DatePicker mode="date" disabledDate={disabledDate} style={{ width: '100%' }} format={'YYYY-MM-DD HH:mm:ss'} />
+            <DatePicker
+              mode="date" disabledDate={disabledDate} style={{ width: '100%' }} format={'YYYY-MM-DD'} />
           </Form.Item>
           <Form.Item
             labelAlign="left"

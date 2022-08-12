@@ -16,9 +16,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const { state } = props.location
   const { Option } = Select
-  // const [formDisable, setFormDiasble] = useState(false)
-  // const [showIncludeError, setShowIncludeError] = useState<boolean>(false)
-
   const [industry, industrySet] = useState<string>('')
   const [uploadFile, setUploadFile] = useState<any>({})
   const [showTypeError, setShowTypeError] = useState<boolean>(false)
@@ -35,21 +32,15 @@ export const MyDataAddtion: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const [isFileNameRight, isFileNameRightSet] = useState<boolean>(false)
   const [showFilenameAvailable, showFilenameAvailableSet] = useState<boolean>(false)
-
   const [addType, addTypeSet] = useState<string>('add')
-
   const [uploadProgress, uploadProgressSet] = useState<number>(0)
 
   useEffect(() => {
-    if (state?.type) {
-      addTypeSet(state.type)
-    }
+    if (state?.type) addTypeSet(state.type)
   }, [state])
 
 
-  const pagenation = {
-    pagesize: 10,
-  }
+  const pagenation = { pagesize: 10 }
 
   const checkResourceName = name => {
     showFilenameAvailableSet(false)
@@ -65,16 +56,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
     })
   }
 
-  const selectFileFn = () => { }
-  const goBackFn = () => {
-    isModalVisibleSet(true)
-  }
-  const handleCancel = () => {
-    isModalVisibleSet(false)
-  }
-  const handleOk = () => {
-    history.go(-1)
-  }
+  const goBackFn = () => isModalVisibleSet(true)
+  const handleCancel = () => isModalVisibleSet(false)
+  const handleOk = () => history.go(-1)
   const submitFn = () => {
     if (draggerRef?.current?.input?.files?.length === 0) {
       upLoadingSet(false)
@@ -231,7 +215,6 @@ export const MyDataAddtion: FC<any> = (props: any) => {
             ref={draggerRef}
             file={uploadFile}
             uploadProgress={uploadProgress}
-            onSearch={selectFileFn}
             maxSize={10}
             uploadFn={uploadFn}
             uploadByDrag={uploadByDrag}

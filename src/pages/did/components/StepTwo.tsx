@@ -16,8 +16,8 @@ export const StepTwo: FC<any> = (props) => {
   const submit = () => {
     loginApi.updateLocalOrg({ imageUrl: imgUrl && imgUrl.replace(/\s*/g, ""), profile: TextAreaValue && TextAreaValue.replace(/(^\s*)|(\s*$)/g, ""), name: props?.baseInfo?.name }).then(res => {
       if (res.status == 0) {
-        props.setCurrent(2)
-        props.InfoCompleteness(2, 0)
+        props.setCurrent(4)
+        props.InfoCompleteness(4, 0)
       }
     })
   }
@@ -62,7 +62,7 @@ export const StepTwo: FC<any> = (props) => {
       <Button type="primary" className="but" onClick={submit}>
         {t('common.submit')}
       </Button>
-      <Button className="but" onClick={_ => props.setCurrent(2)}>
+      <Button className="but" onClick={_ => props.setCurrent(4)}>
         {t('DidApplication.SetLater')}
       </Button>
     </div>

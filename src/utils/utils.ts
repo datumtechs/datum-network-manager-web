@@ -9,7 +9,11 @@ export const imgURls = 'http://testdownload.datumtechs.com/datum/image/3.svg'
 
 export const filterAmount = (str: string): string => {
   if (!str) return ''
-  return `${new Big(str).div(new Big(10).pow(18)).toFixed(8)}`
+  // const banlane = `${new Big(str).div(new Big(10).pow(18)).toFixed(8)}` 
+  // return (banlane == '0.00000000' ? '0' : banlane)
+  let newStr: any = `${new Big(str).div(new Big(10).pow(18)).toFixed(10)}`
+  newStr = newStr.substring(0, newStr.length - 2)
+  return newStr.replace(/(?:\.0*|(\.\d+?)0+)$/, '$1')
 }
 
 export const filterIntegerAmount = (str: string): string => {

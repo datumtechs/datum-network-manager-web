@@ -19,26 +19,22 @@ const mapDispatchToProps = (dispatch: any) => ({
 
 
 const Recharge: FC<any> = (props) => {
-
-  const { t, i18n } = useTranslation(),
-    [valiStatus, setValidateStatus] = useState<any>("warning")
-  const inputRef = useRef<any>(null)
+  const { t, i18n } = useTranslation()
   const [loading, setLoading] = useState(false)
 
   const onFinish = () => {
     setLoading(true)
     if (BigInt(props?.observeBalance) <= 0) {
-      setValidateStatus("error")
       recharge()
     }
 
-    loginApi.applyOrgIdentity({}).then(res => {
+    loginApi.setDid({}).then(res => {
       if (res.status === 0) {
         props?.baseInfo?.fetchData()
         message.success(`${t('tip.idSuccess')}`)
         props.setIsReg(true)
-        props.setCurrent(2)
-        props.InfoCompleteness(1, 0)
+        props.setCurrent(3)
+        props.InfoCompleteness(3, 0)
       }
       setLoading(false)
     })
@@ -64,7 +60,6 @@ const Recharge: FC<any> = (props) => {
       props.getBalance()
       setLoading(false)
     })
-    console.log(1)
   }
 
 
@@ -81,7 +76,7 @@ const Recharge: FC<any> = (props) => {
       }
     </p>
     <p className="identifier">
-      <span className="lable"> {t('DidApplication.InitializeIdentity')}：</span>
+      <span className="lable"> {t('DidApplication.OrganizationBuiltAdministratorWallet')}：</span>
     </p>
     <p className="identifier">
       <span className="lable" style={{ width: '80px' }}> {t('DidApplication.Address')}：</span>
@@ -95,7 +90,7 @@ const Recharge: FC<any> = (props) => {
       </Button>
     </p>
     <div className="btn center">
-      <Button loading={loading} type="primary" className="submit-bt submit-btn-flex" style={{ width: "120px" }} onClick={onFinish}>
+      <Button loading={loading} type="primary" className="submit-bt submit-btn-flex" style={{ minWidth: "120px" }} onClick={onFinish}>
         {t('DidApplication.SetYourOrgNameButton')}
       </Button>
     </div>

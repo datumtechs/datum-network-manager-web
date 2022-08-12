@@ -162,7 +162,7 @@ export const DataDetail: FC<any> = (props: any) => {
       id: id || baseInfo.metaDataId,
       industry: baseInfo.industry,
       metaDataColumnList: originalData,
-      remarks: baseInfo.remarks,
+      desc: baseInfo.remarks,
     }).then(res => {
       if (res.status === 0) {
         message.success(`${t('tip.operationSucces')}`)

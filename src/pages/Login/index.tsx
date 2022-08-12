@@ -89,7 +89,7 @@ const Login = (props: any) => {
       orgInfoCompletionLevel,
       connectNetworkStatus
     } = data.data || {}
-    // const orgInfoCompletionLevel = 0,
+    // const orgInfoCompletionLevel = 2
     //   connectNetworkStatus = 0
     if (status !== 0) return
     if (!+isAdmin && connectNetworkStatus < 1) {// 是否是管理员，0-否，1-是'
@@ -98,13 +98,13 @@ const Login = (props: any) => {
     }
 
     props.InfoCompleteness({
-      orgInfoCompletionLevel,// , //组织信息完善情况0 带申请  1 待完善 2 完成
+      orgInfoCompletionLevel,// , //组织信息完善情况1,2,3,4,5
       connectNetworkStatus,// //0 未入网  1已入网 99 已退网
     })
     props.loginInfo(data.data)
     console.log(redirectPath, data.data);
 
-    if (+connectNetworkStatus < 1) {
+    if (+connectNetworkStatus < 5) {
       history.push({ pathname: '/didApplication', })
     } else if (redirectPath && redirectPath !== '/login') {
       history.push(redirectPath)
