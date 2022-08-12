@@ -695,7 +695,8 @@
     "uploadData": "Upload Data",
     "uploadApprovalData": "Upload Approval Data",
     "InformationPicture": "Information Picture",
-    "postscriptToApplicationMaterials": "Postscrip To Application"
+    "postscriptToApplicationMaterials": "Postscrip To Application",
+    "Certified": "Certified"
   },
   "httpStatus": {
     "status1": "system internal error",

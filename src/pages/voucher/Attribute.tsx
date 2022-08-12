@@ -4,28 +4,56 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import SearchBar from '@/layout/components/SearchBar'
 import { CopyOutlined } from '@ant-design/icons'
-import { copy } from '@/utils/utils'
-import { voucher as voucherApi } from '@api/index'
+import { copy, useAddressDisplay } from '@/utils/utils'
+import { voucher as voucherApi, resourceApi } from '@api/index'
 
 const Attribute: FC<any> = (props: any) => {
-  const [curPage, setCurPage] = useState(1),
-    [totalNum, setTotalNum] = useState(0),
-    [tableData, setTableData] = useState<any[]>([]),
-    { t, i18n } = useTranslation(),
-    pageSize = 10
+  const [curPage, setCurPage] = useState(1)
+  const [totalNum, setTotalNum] = useState(0)
+  const [tableData, setTableData] = useState<any[]>([])
+  const { t, i18n } = useTranslation()
+  const pageSize = 10
   const [searchText, setSearchText] = useState("")
   const history = useHistory();
-  const bindData = (row) => {
-    voucherApi.attrbindMetaData({
-      dataTokenId: row.id,
-      sign: ""
-    }).then(res => {
-      const { status } = res
-      if (status == 0) {
-        message.success(t('task.success'))
-        query()
-      }
-    })
+  const [modalLoading, setModalLoading] = useState(false)
+
+  const bindData = async (row) => {
+    try {
+      const { wallet, } = props.state.wallet
+      const { walletConfig } = props.state
+      setModalLoading(true)
+      const address = await wallet.connectWallet(walletConfig)
+      const metaDateDetails = await resourceApi.queryMetaDataDetail(row.metaDataDbId)
+      const metaDateOptionData = await resourceApi.getMetaDataOption({ id: row.metaDataDbId })
+      if (metaDateDetails.status !== 0) return setModalLoading(false)
+      if (metaDateOptionData.status !== 0) return setModalLoading(false)
+      const metaData = metaDateDetails.data
+
+      const params = [
+        metaData?.metaDataName,
+        metaData?.metaDataType,
+        metaData?.dynamicFields?.dataHash,
+        metaData?.desc,
+        metaData?.dynamicFields?.locationType,
+        metaData?.metaDataType,
+        String(metaData?.industry),
+        String(metaData?.status),
+        metaDateOptionData.data,
+      ]
+      const data: any = { dataTokenId: row.id }
+      const sign = await wallet.signData(params, address[0])
+      data.sign = sign
+      voucherApi.attrbindMetaData(data).then(res => {
+        const { status } = res
+        if (status == 0) {
+          message.success(t('task.success'))
+          query()
+        }
+      })
+    } catch (e) {
+
+    }
+
   }
 
   const columns: any[] = [
@@ -63,7 +91,7 @@ const Attribute: FC<any> = (props: any) => {
           ? <>
             <CopyOutlined style={{ marginRight: '10px' }} onClick={() => copy(text)} />
             <Tooltip placement="bottom" title={text} color="#fff" overlayClassName={'_tooltip'}>
-              {text}
+              {useAddressDisplay(text)}
             </Tooltip>
           </>
           : '--'

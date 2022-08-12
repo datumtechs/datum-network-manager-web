@@ -695,7 +695,8 @@
     "uploadData": "上传资料",
     "uploadApprovalData": "上传审批资料",
     "InformationPicture": "资料图片",
-    "postscriptToApplicationMaterials": "申请资料附言"
+    "postscriptToApplicationMaterials": "申请资料附言",
+    "Certified": "已获取认证"
   },
   "httpStatus": {
     "status1": "系统内部错误",

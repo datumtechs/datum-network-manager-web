@@ -19,6 +19,8 @@ const CredentialInventory: FC<any> = (props: any) => {
   const { location } = props;
   const { dataAddress, name, dataTokenId } = location.state
   const [searchText, setSearchText] = useState("")
+  const [exchangeData, setExchangeData] = useState<any>({})
+
   const columns: any[] = [
     {
       title: t('common.Num'),
@@ -109,7 +111,16 @@ const CredentialInventory: FC<any> = (props: any) => {
     })
   }
 
-  useEffect(query, [])
+  const getExchange = () => {
+    voucher.getExchange({}).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        setExchangeData(data)
+      }
+    })
+  }
+
+  useEffect(() => { query(), getExchange() }, [])
   useEffect(query, [curPage, searchText])
 
   return <div className="layout-box p-20 credential-inventory">

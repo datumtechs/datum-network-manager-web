@@ -7,6 +7,7 @@ import computeNodeApi from "./computeNode";
 import taskApi from "./task";
 import authApi from "./auth"
 import voucher from "./voucher"
+import orgManage from './orgManage'
 
 export {
   resourceApi,
@@ -17,5 +18,6 @@ export {
   computeNodeApi,
   taskApi,
   authApi,
-  voucher
+  voucher,
+  orgManage
 }

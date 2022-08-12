@@ -205,4 +205,13 @@ export default {
       })
     },
 
+    // NFT交易所地址
+    getExchange(data): Promise<any> {
+      return axios({
+        method: "POST",
+        url: `/api/v1/attributeDataToken/getExchange`,
+        data
+      })
+    },
+
 }

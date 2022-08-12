@@ -143,17 +143,43 @@ const VoucherTable: FC<any> = (props: any) => {
         setDexUrl(data)
       })
     },
-    bindData = (row) => {
-      voucherApi.bindMetaData({
-        dataTokenId: row.id,
-        sign: ""
-      }).then(res => {
-        const { status } = res
-        if (status == 0) {
-          message.success(t('task.success'))
-          query()
-        }
-      })
+    bindData = async (row) => {
+      try {
+        const { wallet, } = props.state.wallet
+        const { walletConfig } = props.state
+        setModalLoading(true)
+        const address = await wallet.connectWallet(walletConfig)
+        const metaDateDetails = await resourceApi.queryMetaDataDetail(row.metaDataDbId)
+        const metaDateOptionData = await resourceApi.getMetaDataOption({ id: row.metaDataDbId })
+        if (metaDateDetails.status !== 0) return setModalLoading(false)
+        if (metaDateOptionData.status !== 0) return setModalLoading(false)
+        const metaData = metaDateDetails.data
+        const params = [
+          metaData?.metaDataName,
+          metaData?.metaDataType,
+          metaData?.dynamicFields?.dataHash,
+          metaData?.desc,
+          metaData?.dynamicFields?.locationType,
+          metaData?.metaDataType,
+          String(metaData?.industry),
+          String(metaData?.status),
+          metaDateOptionData.data,
+        ]
+        const data: any = { dataTokenId: row.id }
+        const sign = await wallet.signData(params, address[0])
+        data.sign = sign
+        if (!data.sign) return setModalLoading(false)
+        voucherApi.bindMetaData(data).then(res => {
+          const { status } = res
+          if (status == 0) {
+            message.success(t('task.success'))
+            query()
+          }
+        })
+      } catch (e) {
+
+      }
+
     }
 
   const columns: any = (type): any[] => {

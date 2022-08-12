@@ -41,6 +41,12 @@ const ApplyCertification: FC<any> = () => {
 
       </Form.Item>
       <Form.Item
+        label={t('orgManage.postscriptApplication')}
+        name="postscriptApplication"
+      >
+        <Input.TextArea maxLength={200} showCount></Input.TextArea>
+      </Form.Item>
+      <Form.Item
         label={t('orgManage.approvalMaterialURL')}
         name="approvalMaterialURL"
       >
@@ -49,12 +55,7 @@ const ApplyCertification: FC<any> = () => {
           <Button className="com-btn" style={{ marginRight: '20px' }} type="primary" onClick={() => setModalVisible(true)}>{t('orgManage.uploadData')}</Button>
         </div>
       </Form.Item>
-      <Form.Item
-        label={t('orgManage.postscriptApplication')}
-        name="postscriptApplication"
-      >
-        <Input.TextArea maxLength={200} showCount></Input.TextArea>
-      </Form.Item>
+      <Upload close={() => setModalVisible(false)} />
       <Form.Item
         style={{ marginTop: '40px' }}
         label={` `}
@@ -63,7 +64,7 @@ const ApplyCertification: FC<any> = () => {
         <Button className="com-btn" onClick={() => history.go(-1)}>{t('common.return')}</Button>
       </Form.Item>
     </Form>
-    {isModalVisible ? <Upload close={() => setModalVisible(false)} /> : ''}
+    {/* {isModalVisible ? : ''} */}
   </div>
 }
 

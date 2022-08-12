@@ -102,7 +102,8 @@ const CreateAttriCredential: FC<any> = (props: any) => {
 
 
   const beforeUpload = (file: any) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/svg';
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/svg+xml';
+    // debugger
     if (!isJpgOrPng) {
       message.error(t('credential.pictureIncorrect'));
       return false
@@ -181,10 +182,10 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             labelAlign="left"
             rules={[
               {
-                required: true,
-                validator: (rule, value, callback): any => {
-                  if (!value) return callback(`${t('common.pleaseUpload')}${i18n.language == 'en' ? 'Pictures' : '图片'}`)
-                },
+                // required: true,
+                // validator: (rule, value, callback): any => {
+                // if (!value) return callback(`${t('common.pleaseUpload')}${i18n.language == 'en' ? 'Pictures' : '图片'}`)
+                // },
               },
             ]}
           >
@@ -207,6 +208,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             labelAlign="left"
             label={`${t('credential.IPFSPath')}:`}
             name="IPFSPath"
+            initialValue={'ipfs://QmSDRxvvYbzpUvqh1gC4djXh9fhB5SPd99tyC5gXfXSR1i'}
           >
             <Input disabled />
           </Form.Item>

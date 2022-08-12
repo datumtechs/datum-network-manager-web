@@ -264,14 +264,14 @@ const MyDataTable: FC<any> = (props: any) => {
       render: (text, record: any, index) => {
         const attrDom = <p>
           <span style={{ display: "inline-block", width: "75px" }}>{t('credential.attributeCredential')}:</span>
-          <span onClick={goCredential.bind(this, 'attributeCredential', record)}>{record.dynamicFields.attributeDataTokenName ? record.dynamicFields.attributeDataTokenName : '--'}</span>
+          <span className="pointer link" onClick={goCredential.bind(this, 'attributeCredential', record)}>{record.dynamicFields.attributeDataTokenName ? record.dynamicFields.attributeDataTokenName : '--'}</span>
         </p>
         const noAttr = <p>
           <span style={{ display: "inline-block", width: "75px" }}>{t('credential.noAttributeCredential')}:</span>
-          <span onClick={goCredential.bind(this, 'noAttributeCredential', record)}>{record.dynamicFields.dataTokenName ? record.dynamicFields.dataTokenName : '--'}</span>
+          <span className="pointer link" onClick={goCredential.bind(this, 'noAttributeCredential', record)}>{record.dynamicFields.dataTokenName ? record.dynamicFields.dataTokenName : '--'}</span>
         </p>
-        if (record.usage == 1) return <>{noAttr}</>
-        if (record.usage == 2) return <>{attrDom}</>
+        // if (record.usage == 1) return <>{noAttr}</>
+        // if (record.usage == 2) return <>{attrDom}</>
         return <> {attrDom}{noAttr} </>
       }
     },
@@ -315,9 +315,9 @@ const MyDataTable: FC<any> = (props: any) => {
               <p className="btn pointer link pr10" onClick={publishFn.bind(this, row)}>
                 {t('center.publish')}
               </p> :
-              <p className="btn pointer link pr10" onClick={toRelease.bind(this, row)}>
+              row.status == 2 ? <p className="btn pointer link pr10" onClick={toRelease.bind(this, row)}>
                 {t('credential.releaseCredential')}
-              </p>
+              </p> : ""
             }
           </div>
         )

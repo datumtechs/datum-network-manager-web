@@ -55,42 +55,42 @@ const ApplyCertification: FC<any> = (props: any) => {
   };
 
 
-  return <Modal
-    title={t('orgManage.uploadApprovalData')}
-    visible={true}
-    centered
-    onOk={handleOk}
-    onCancel={() => props.close()}>
-    <Form
-      colon={false}
-      labelCol={{ style: { width: i18n.language === 'en' ? 180 : 120, whiteSpace: 'pre-wrap' } }}
-      labelAlign="left"
-      form={formFile}
+  //  <Modal
+  //   title={t('orgManage.uploadApprovalData')}
+  //   visible={true}
+  //   centered
+  //   onOk={handleOk}
+  //   onCancel={() => props.close()}>
+  return <Form
+    colon={false}
+    labelCol={{ style: { width: i18n.language === 'en' ? 180 : 120, whiteSpace: 'pre-wrap' } }}
+    labelAlign="left"
+    form={formFile}
+  >
+    <Form.Item
+      label={t('orgManage.InformationPicture')}
+      name="InformationPicture"
     >
-      <Form.Item
-        label={t('orgManage.InformationPicture')}
-        name="InformationPicture"
+      <Upload
+        name="avatar"
+        accept="image/*"
+        listType="picture-card"
+        className="avatar-uploader"
+        showUploadList={false}
+        beforeUpload={beforeUpload}
+        onChange={handleChange}
       >
-        <Upload
-          name="avatar"
-          accept="image/*"
-          listType="picture-card"
-          className="avatar-uploader"
-          showUploadList={false}
-          beforeUpload={beforeUpload}
-          onChange={handleChange}
-        >
-          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-        </Upload>
-      </Form.Item>
-      <Form.Item
-        label={t('orgManage.postscriptToApplicationMaterials')}
-        name="postscriptToApplicationMaterials"
-      >
-        <Input.TextArea maxLength={200} showCount></Input.TextArea>
-      </Form.Item>
-    </Form>
-  </Modal>
+        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+      </Upload>
+    </Form.Item>
+    <Form.Item
+      label={t('orgManage.postscriptToApplicationMaterials')}
+      name="postscriptToApplicationMaterials"
+    >
+      <Input.TextArea maxLength={200} showCount></Input.TextArea>
+    </Form.Item>
+  </Form>
+  // </Modal>
 }
 
 

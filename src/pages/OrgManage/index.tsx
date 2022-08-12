@@ -11,17 +11,28 @@ import Application from './components/Application'
 
 
 const OrgManage: FC<any> = (props) => {
-  const query = () => { }
+  // const { isAdmin } = props?.loginInfo?.loginInfo
+  const isAdmin = 0
+  const query = () => {
+
+    console.log(isAdmin);
+    // debugger
+
+  }
 
   useEffect(() => {
     query()
   }, [])
 
   return <div className="layout-box">
-    <Statistics.default />
-    <CommitteeList />
-    <Affairs.default />
-    <Application />
+    <Statistics.default isAdmin={isAdmin} />
+    {!!isAdmin ?
+      <>
+        <CommitteeList />
+        <Affairs.default />
+      </> :
+      <Application />
+    }
   </div>
 }
 
