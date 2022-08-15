@@ -637,7 +637,8 @@
     "PricingSuccess": "定价成功",
     "Binding": "绑定中",
     "BindingFailed": "绑定失败",
-    "BindingSuccess": "绑定成功"
+    "BindingSuccess": "绑定成功",
+    "selectExchange": "选择交易所"
   },
   "exception": {
     "error": "操作异常",
@@ -757,6 +758,22 @@
     "status1049": "当前用户不是管理员，更换失败！",
     "status1050": "新用户已经是管理员，更换失败！",
     "status1051": "无法修改组织信息，因为该组织尚未从网络中删除！",
-    "status1052": "当前用户没有权限！"
+    "status1052": "当前用户没有权限！",
+    "status1053": "钱包余额不足",
+    "status1054": "验证失败",
+    "status1055": "上传文件失败",
+    "status1056": "申请应用中！",
+    "status1057": "申请应用被拒绝！",
+    "status1058": "Vc无效",
+    "status1059": "Used vc存在！",
+    "status1060": "下载失败",
+    "status1061": "Nonce太低！",
+    "status1062": "超出块 gas limit",
+    "status1063": "已知交易",
+    "status1064": "更新时间小于24小时",
+    "status2000": "调用节点rpc异常",
+    "status2001": "调用节点rpc网络异常",
+    "status2002": "调用节点rpc业务异常[%s]",
+    "status2003": "调用节点rpc读取超时"
   }
 }

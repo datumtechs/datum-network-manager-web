@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { Table, Tooltip, Button } from 'antd'
+import { Table, Popover, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { CopyOutlined, PlusOutlined } from '@ant-design/icons'
@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 import voucher from '@api//voucher'
 import UsageScene from '@com/UsageScene'
 import moment from 'moment';
+import tofun from '@/assets/images/voucher/tofun.png'
 
 const CredentialInventory: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1),
@@ -20,6 +21,16 @@ const CredentialInventory: FC<any> = (props: any) => {
   const { dataAddress, name, dataTokenId } = location.state
   const [searchText, setSearchText] = useState("")
   const [exchangeData, setExchangeData] = useState<any>({})
+  const handleTime = (time) => {
+    if (!time) return '-'
+    try {
+      const list = moment(parseInt(time)).format('YYYY-MM-DD HH:mm:ss').split(' ')
+      return <>{list[0]}<br />{list[1]}</>
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
 
   const columns: any[] = [
     {
@@ -56,7 +67,7 @@ const CredentialInventory: FC<any> = (props: any) => {
       title: t('credential.credentialValidityPeriod'),
       dataIndex: 'endTime',
       ellipsis: true,
-      render: (text, record) => moment(parseInt(text)).format('YYYY-MM-DD HH:mm:ss')
+      render: (text, record) => handleTime(text)
     },
     {
       title: t('common.actions'),
@@ -65,11 +76,23 @@ const CredentialInventory: FC<any> = (props: any) => {
         // 定价状态：0-未定价，1-已定价
         return <>
           <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => detail(row)}>  {t('computeNodeMgt.detail')}</Button>
-          <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => { }}>  {t('credential.putShelf')}</Button>
+          <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => { }}>
+            <Popover content={<>
+              <img onClick={() => linkToExchange(row)} className="attributed-credental-exchange-logo" src={tofun} alt="" />
+            </>} title={t('credential.selectExchange')}>
+              {t('credential.putShelf')}
+            </Popover>
+
+          </Button>
         </>
       },
     },
   ]
+
+  const linkToExchange = (row: any) => {
+    // const dexUrl = `${chainCfg.value.tofunftUrl}/nft/platon/${row.tokenAddress}` //swap?outputCurrency=${row.tokenAddress}&exactField=OUTPUT&exactAmount=1`
+    // window.open(dexUrl, "_blank");
+  }
 
   const detail = (row) => {
     history.push({

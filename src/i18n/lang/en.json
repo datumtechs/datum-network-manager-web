@@ -651,7 +651,8 @@
     "PricingSuccess": "Pricing Success",
     "Binding": "Binding",
     "BindingFailed": "Binding Failed",
-    "BindingSuccess": "Binding Success"
+    "BindingSuccess": "Binding Success",
+    "selectExchange": "Select Exchange"
   },
   "orgManage": {
     "nominationMembers": "Nomination of Members",
@@ -757,6 +758,22 @@
     "status1049": "The current user is not an administrator, the replacement failed!",
     "status1050": "The new user already administrator, the replacement failed!",
     "status1051": "Organization information cannot be modified because the organization has not been removed from the network!",
-    "status1052": "The current user does not have permission!"
+    "status1052": "The current user does not have permission!",
+    "status1053": "Insufficient wallet balance!",
+    "status1054": "Validate failed!",
+    "status1055": "upload file failed!",
+    "status1056": "Apply record is applying!",
+    "status1057": "Apply record is rejected!",
+    "status1058": "Vc is invalid!",
+    "status1059": "Used vc is exist!",
+    "status1060": "Download failed!",
+    "status1061": "Nonce too low!",
+    "status1062": "Exceeds block gas limit!",
+    "status1063": "known transaction",
+    "status1064": "The update Time is less than 24 hours",
+    "status2000": "Call node rpc exception",
+    "status2001": "Call node rpc network exception",
+    "status2002": "Call node rpc business exception【%s】",
+    "status2003": "Call node rpc read timeout"
   }
 }
