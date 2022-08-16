@@ -75,7 +75,7 @@ const loginApi = {
     return axios({
       method: "POST",
       // url: `/api/v1/system/queryBaseInfo`,
-      url: `/api/v1/user/updateLocalOrg`,
+      url: `/api/v1/user/setDesc`,
       data: params
     })
   },
