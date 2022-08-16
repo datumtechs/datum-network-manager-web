@@ -1,7 +1,7 @@
 import Web3 from 'web3'
 const ethereumjsUtil = require('ethereumjs-util');
 
-console.log(ethereumjsUtil, "keccak256", "rlp");
+// console.log(ethereumjsUtil, "keccak256", "rlp");
 class Web3Service {
   constructor() {
     this.eth = window.ethereum || undefined
@@ -20,11 +20,11 @@ class Web3Service {
       },
       primaryType: 'Login',
       types: {
-        EIP712Domain: [ {
+        EIP712Domain: [{
           name: 'name',
           type: 'string'
-        } ],
-        Login: [ {
+        }],
+        Login: [{
           name: 'key',
           type: 'string'
         },
@@ -54,14 +54,14 @@ class Web3Service {
       },
       primaryType: 'sign',
       types: {
-        EIP712Domain: [ {
+        EIP712Domain: [{
           name: 'name',
           type: 'string'
-        } ],
-        sign: [ {
+        }],
+        sign: [{
           name: 'address',
           type: 'string'
-        } ]
+        }]
       }
     })
   }
@@ -77,12 +77,12 @@ class Web3Service {
         {
           chainName: obj.chain_name,
           chainId: `0x${obj.chain_id.toString(16)}`,
-          rpcUrls: [ obj.rpc_url ],
+          rpcUrls: [obj.rpc_url],
           nativeCurrency: {
             symbol: obj.symbol,
             decimals: 18
           },
-          blockExplorerUrls: [ obj.block_explorer_url ],
+          blockExplorerUrls: [obj.block_explorer_url],
         },
       ],
     })
@@ -115,7 +115,7 @@ class Web3Service {
     const result = new Promise((resolve, reject) => {
       this.web3.currentProvider.sendAsync({
         method: 'eth_signTypedData_v4',
-        params: [ address, abi ],
+        params: [address, abi],
         from
       },
         (err, res) => {
@@ -132,7 +132,7 @@ class Web3Service {
 
 
   checkAddress() {
-    const address = this.store.getters[ 'app/address' ]
+    const address = this.store.getters['app/address']
     if (address && address.length) return true
     if (this.eth && this.eth.selectedAddress) {
       const Address = this.eth.selectedAddress
@@ -146,23 +146,23 @@ class Web3Service {
   }
 
   Uint32byte(item) {
-    return Buffer.from(Uint32Array.from([ Number(item) ]).buffer).reverse()
+    return Buffer.from(Uint32Array.from([Number(item)]).buffer).reverse()
   }
 
   async signData(list, address) {
-    // console.log(JSON.stringify(list));
+    console.log(JSON.stringify(list));
     const newList = [
-      Buffer.from(String(list[ 0 ])),
-      this.Uint32byte(list[ 1 ]),
-      Buffer.from(String(list[ 2 ])),
-      Buffer.from(String(list[ 3 ])),
-      this.Uint32byte(list[ 4 ]),
-      this.Uint32byte(list[ 5 ]),
-      Buffer.from(String(list[ 6 ])),
-      this.Uint32byte(list[ 7 ]),
-      Buffer.from(list[ 8 ])
+      Buffer.from(String(list[0])),
+      this.Uint32byte(list[1]),
+      Buffer.from(String(list[2])),
+      Buffer.from(String(list[3])),
+      this.Uint32byte(list[4]),
+      this.Uint32byte(list[5]),
+      Buffer.from(String(list[6])),
+      this.Uint32byte(list[7]),
+      Buffer.from(list[8])
     ]
-
+    // debugger
     const rlpByte = ethereumjsUtil.rlp.encode(Buffer.concat(newList))
     const k256Hex = this.web3.utils.toHex(ethereumjsUtil.keccak256(rlpByte))
     console.log(k256Hex);
@@ -176,14 +176,14 @@ class Web3Service {
       },
       primaryType: 'sign',
       types: {
-        EIP712Domain: [ {
+        EIP712Domain: [{
           name: 'name',
           type: 'string'
-        } ],
-        sign: [ {
+        }],
+        sign: [{
           name: 'contents',
           type: 'string'
-        } ]
+        }]
       }
     })
 

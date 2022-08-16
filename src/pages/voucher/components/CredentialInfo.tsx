@@ -130,8 +130,8 @@ const CredentialInfo: FC<any> = (props: any) => {
       "symbol": params.symbol,
       "total": params.initialSupply + Complement,
       "init": params.initialSupply + Complement,
-      ciphertextFee: params.ciphertextConsumption,
-      plaintextFee: params.plaintextConsumption,
+      ciphertextFee: String(params.ciphertextConsumption) + Complement,
+      plaintextFee: String(params.plaintextConsumption) + Complement,
       nonce,
       owner: address
     }).then(res => {
@@ -158,8 +158,8 @@ const CredentialInfo: FC<any> = (props: any) => {
       form.current.setFieldsValue({
         name: data.name ? data.name.replace('Datum-', '') : '',
         symbol: data.symbol,
-        plaintextConsumption: data.plaintextFee,
-        ciphertextConsumption: data.ciphertextFee,
+        plaintextConsumption: filterIntegerAmount(data.plaintextFee),
+        ciphertextConsumption: filterIntegerAmount(data.ciphertextFee),
         initialSupply: filterIntegerAmount(data.total) //data.total
       })
       if (data?.status == 3) {
@@ -221,7 +221,6 @@ const CredentialInfo: FC<any> = (props: any) => {
         ref={form}
         colon={false}
         size={"large"}
-        // labelCol={{ span:  ? 2 : 4 }}
         wrapperCol={{ span: 12 }}
         className={i18n.language == 'zh' ? 'zh-label-width' : 'en-label-width'}
       >

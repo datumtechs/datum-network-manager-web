@@ -262,6 +262,25 @@ export const StatusCodeProcessing = (code) => {
     case 1049:
     case 1050:
     case 1051:
+    case 1052:
+    case 1053:
+    case 1054:
+    case 1055:
+    case 1056:
+    case 1057:
+    case 1058:
+    case 1059:
+    case 1060:
+    case 1061:
+    case 1062:
+    case 1063:
+    case 1064:
+    case 2000:
+    case 2001:
+    case 2002:
+    case 2003:
+    case 2004:
+
       // eslint-disable-next-line no-case-declarations
       const tipsText = i18n.t(`httpStatus.status${code}`)
       message.error(tipsText);

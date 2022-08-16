@@ -155,16 +155,19 @@ const VoucherTable: FC<any> = (props: any) => {
         if (metaDateOptionData.status !== 0) return setModalLoading(false)
         const metaData = metaDateDetails.data
         const params = [
-          metaData?.metaDataName,
+          metaData?.resourceName,
           metaData?.metaDataType,
-          metaData?.dynamicFields?.dataHash,
-          metaData?.desc,
-          metaData?.dynamicFields?.locationType,
+          row?.dynamicFields?.dataHash,
+          metaData?.remarks,
+          metaData?.locationType,
           metaData?.metaDataType,
           String(metaData?.industry),
-          String(metaData?.status),
+          // metaData?.status,
+          2,
           metaDateOptionData.data,
         ]
+        console.log(params);
+        // debugger
         const data: any = { dataTokenId: row.id }
         const sign = await wallet.signData(params, address[0])
         data.sign = sign
@@ -175,11 +178,11 @@ const VoucherTable: FC<any> = (props: any) => {
             message.success(t('task.success'))
             query()
           }
+          setModalLoading(false)
         })
       } catch (e) {
-
+        setModalLoading(false)
       }
-
     }
 
   const columns: any = (type): any[] => {
@@ -289,16 +292,18 @@ const VoucherTable: FC<any> = (props: any) => {
         if (cipher) options[0].cryptoAlgoConsumeUnit = cipher
         newMetaDateOptionData.consumeOptions = JSON.stringify([options[0]])
         const params = [
-          metaData?.metaDataName,
+          metaData?.resourceName,
           metaData?.metaDataType,
-          metaData?.dynamicFields?.dataHash,
-          metaData?.desc,
-          metaData?.dynamicFields?.locationType,
+          activeRow?.dynamicFields?.dataHash,
+          metaData?.remarks,
+          metaData?.locationType,
           metaData?.metaDataType,
           String(metaData?.industry),
-          String(metaData?.status),
+          // metaData?.status,
+          2,
           JSON.stringify(newMetaDateOptionData),
         ]
+
         const data: any = { dataTokenId: activeRow.id }
         if (Plain) data.newPlaintextFee = Plain
         if (cipher) data.newCiphertextFee = cipher
@@ -311,9 +316,13 @@ const VoucherTable: FC<any> = (props: any) => {
             message.success(t("task.success"))
           }
           setModalLoading(false)
+          setModalShow(false)
         })
 
-      } catch (e) { setModalLoading(false) }
+      } catch (e) {
+        setModalLoading(false)
+        setModalShow(false)
+      }
     })
   }
 

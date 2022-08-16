@@ -73,7 +73,7 @@ const MyDataTable: FC<any> = (props: any) => {
       activeRow.dynamicFields.locationType,
       activeRow.metaDataType,
       String(activeRow.industry),
-      String(activeRow.status),
+      activeRow.status,
       requestOptionData.data,
     ]
 

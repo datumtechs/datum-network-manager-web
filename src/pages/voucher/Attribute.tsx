@@ -6,6 +6,7 @@ import SearchBar from '@/layout/components/SearchBar'
 import { CopyOutlined } from '@ant-design/icons'
 import { copy, useAddressDisplay } from '@/utils/utils'
 import { voucher as voucherApi, resourceApi } from '@api/index'
+import { connect } from 'react-redux'
 
 const Attribute: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1)
@@ -19,7 +20,7 @@ const Attribute: FC<any> = (props: any) => {
 
   const bindData = async (row) => {
     try {
-      const { wallet, } = props.state.wallet
+      const { wallet } = props.state.wallet
       const { walletConfig } = props.state
       setModalLoading(true)
       const address = await wallet.connectWallet(walletConfig)
@@ -30,14 +31,15 @@ const Attribute: FC<any> = (props: any) => {
       const metaData = metaDateDetails.data
 
       const params = [
-        metaData?.metaDataName,
+        metaData?.resourceName,
         metaData?.metaDataType,
-        metaData?.dynamicFields?.dataHash,
-        metaData?.desc,
-        metaData?.dynamicFields?.locationType,
+        row?.dynamicFields?.dataHash,
+        metaData?.remarks,
+        metaData?.locationType,
         metaData?.metaDataType,
         String(metaData?.industry),
-        String(metaData?.status),
+        // metaData?.status,
+        2,
         metaDateOptionData.data,
       ]
       const data: any = { dataTokenId: row.id }
@@ -51,6 +53,7 @@ const Attribute: FC<any> = (props: any) => {
         }
       })
     } catch (e) {
+      console.log(e);
 
     }
 
@@ -179,5 +182,5 @@ const Attribute: FC<any> = (props: any) => {
   </div>
 }
 
-export default Attribute
+export default connect((state: any) => ({ state }))(Attribute)
 
