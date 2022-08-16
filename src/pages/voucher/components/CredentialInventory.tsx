@@ -18,9 +18,9 @@ const CredentialInventory: FC<any> = (props: any) => {
     pageSize = 10
   const history = useHistory();
   const { location } = props;
-  const { dataAddress, name, dataTokenId } = location.state
+  const { dataAddress, name, dataTokenId, status } = location.state
   const [searchText, setSearchText] = useState("")
-  const [exchangeData, setExchangeData] = useState<any>({})
+  const [exchangeData, setExchangeData] = useState<any>([])
   const handleTime = (time) => {
     if (!time) return '-'
     try {
@@ -78,7 +78,9 @@ const CredentialInventory: FC<any> = (props: any) => {
           <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => detail(row)}>  {t('computeNodeMgt.detail')}</Button>
           <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => { }}>
             <Popover content={<>
-              <img onClick={() => linkToExchange(row)} className="attributed-credental-exchange-logo" src={tofun} alt="" />
+              {exchangeData.map(v => {
+                return <img onClick={() => linkToExchange(row, v)} style={{ marginRight: "20px" }} className="attributed-credental-exchange-logo" src={tofun} alt="" />
+              })}
             </>} title={t('credential.selectExchange')}>
               {t('credential.putShelf')}
             </Popover>
@@ -89,9 +91,9 @@ const CredentialInventory: FC<any> = (props: any) => {
     },
   ]
 
-  const linkToExchange = (row: any) => {
-    // const dexUrl = `${chainCfg.value.tofunftUrl}/nft/platon/${row.tokenAddress}` //swap?outputCurrency=${row.tokenAddress}&exactField=OUTPUT&exactAmount=1`
-    // window.open(dexUrl, "_blank");
+  const linkToExchange = (row: any, data: any) => {
+    const dexUrl = `${data.url}/${row.tokenAddress}`
+    window.open(dexUrl, "_blank");
   }
 
   const detail = (row) => {
@@ -128,6 +130,10 @@ const CredentialInventory: FC<any> = (props: any) => {
     }).then((res) => {
       const { data, status } = res
       if (status === 0) {
+        if (location.state.status == 'newCreateToken' && !data.length) {
+          setTimeout(() => query(), 3000)
+          return
+        }
         setTableData(data)
         setTotalNum(res.total)
       }
@@ -138,7 +144,7 @@ const CredentialInventory: FC<any> = (props: any) => {
     voucher.getExchange({}).then(res => {
       const { status, data } = res
       if (status == 0) {
-        setExchangeData(data)
+        setExchangeData(data?.exchangeList || [])
       }
     })
   }

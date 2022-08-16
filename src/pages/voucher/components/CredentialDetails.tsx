@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import { Image } from 'antd'
 import { useTranslation } from 'react-i18next'
-import SearchBar from '@/layout/components/SearchBar'
-import { CopyOutlined } from '@ant-design/icons'
-import { copy } from '@/utils/utils'
+// import SearchBar from '@/layout/components/SearchBar'
+// import { CopyOutlined } from '@ant-design/icons'
+// import { copy } from '@/utils/utils'
 import { voucher as voucherApi, } from '@api/index'
+import tofun from '@/assets/images/voucher/tofun.png'
 
 const CredentialDetails: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -15,8 +16,11 @@ const CredentialDetails: FC<any> = (props: any) => {
   const name = state.name
   const dataAddress = state.dataAddress
   const dataAddressName = state.dataAddressName
-
-  useEffect(() => { query() }, [])
+  const [exchangeData, setExchangeData] = useState<any>([])
+  useEffect(() => {
+    query()
+    getExchange()
+  }, [])
 
   const query = () => {
     voucherApi.getDataTokenInventoryDetail({
@@ -30,12 +34,37 @@ const CredentialDetails: FC<any> = (props: any) => {
     })
   }
 
+  const getExchange = () => {
+    voucherApi.getExchange({}).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        setExchangeData(data?.exchangeList || [])
+      }
+    })
+  }
+
+
+  const filterImgurl = () => {
+    if (!datas?.dynamicFields?.pinataGateway) return ''
+    const pinataGateway = datas?.dynamicFields?.pinataGateway
+    const imageUrl = datas?.imageUrl
+    if ((pinataGateway.length - 1) == pinataGateway.lastIndexOf('/')) {
+      return `${pinataGateway}ipfs/${imageUrl && imageUrl.replace('ipfs://', '') || ''}`
+    }
+    return `${pinataGateway}/ipfs/${imageUrl && imageUrl.replace('ipfs://', '') || ''}`
+  }
+
+  const linkToExchange = (row: any, data: any) => {
+    const dexUrl = `${data.url}/${row.dataTokenAddress}`
+    window.open(dexUrl, "_blank");
+  }
+
   return <div className="layout-box p-20 credential-details">
     <div className="details">
       <div className="details-left">
         <div className="details-lf-box">
           <Image
-            src="http://ipfs.io/ipfs/QmTiFuE2Krx7rgwhVLF8jAvAAegBWijNazNY8ZYcCTtzzg"
+            src={filterImgurl()}
           />
         </div>
         <div className="detais-lf-des">
@@ -68,23 +97,27 @@ const CredentialDetails: FC<any> = (props: any) => {
           </div>
           <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('center.metaDataID')}:</label>
-            <span>xxxxx</span>
+            <span>{datas?.dynamicFields?.metaDataId || '-'}</span>
           </div>
           <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('credential.credentialId')}:</label>
             <span>{datas?.tokenId}</span>
           </div>
-          <div className="info-item">
+          {/* <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('credential.creationTime')}:</label>
             <span>xxxxx</span>
-          </div>
+          </div> */}
           <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('credential.validityPeriod')}:</label>
-            <span>{datas?.endTime ? new Date(datas?.endTime).toLocaleString() : ""}</span>
+            <span>{datas?.endTime ? new Date(Number(datas?.endTime)).toLocaleString() : ""}</span>
           </div>
           <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('credential.exchangePlatform')}:</label>
-            <span>xxxxx</span>
+            <span>
+              {exchangeData.map(v => {
+                return <img onClick={() => linkToExchange(datas, v)} style={{ marginRight: "20px", maxWidth: '30px', maxHeight: '30px' }} className="attributed-credental-exchange-logo" src={tofun} alt="" />
+              })}
+            </span>
           </div>
         </div>
       </div>

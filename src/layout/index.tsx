@@ -64,6 +64,12 @@ const Layout = (props: any) => {
   }
 
   useEffect((): any => {
+    if (!Object.keys(props?.state?.loginInfo?.loginInfo).length) {
+      history.push('/login')
+      console.log(111);
+
+      return
+    }
     fetchData(true)
   }, [])
 

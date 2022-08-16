@@ -67,6 +67,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             dataAddress: dataAddress,
             name: name,
             dataTokenId: dataTokenId,
+            status: 'newCreateToken'
           },
         })
       }).on('error', (hash) => {
@@ -199,7 +200,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
                 beforeUpload={beforeUpload}
                 onChange={UpLoadImg}
               >
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ maxWidth: '100%', maxHeight: '100%' }} /> : uploadButton}
               </Upload>
               <span className="upload-filetype">{t('credential.fileType')}: JPG、PNG、GIF、SVG ; {t('credential.sizeLimit')}10M</span>
             </div>

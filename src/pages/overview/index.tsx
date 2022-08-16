@@ -9,11 +9,13 @@ import TaskChart from './components/cards/TaskChart'
 import RecordCard from './components/cards/RecordCard'
 import './scss/index.scss'
 import useWinWidth from '@hooks/useWinWidth'
+import { useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-
-export const Overview: FC<any> = () => {
+export const Overview = connect((state: any) => ({ state }))((props: any) => {
   const { t } = useTranslation()
   const { width } = useWinWidth()
+  const history = useHistory()
   const [totalResource, totalResourceSet] = useState({
     totalBandwidth: 0,
     totalCore: 0,
@@ -90,4 +92,4 @@ export const Overview: FC<any> = () => {
       </div>
     </div>
   )
-}
+})

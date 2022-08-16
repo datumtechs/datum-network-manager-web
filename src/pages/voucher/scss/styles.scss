@@ -638,6 +638,12 @@
     display: flex;
     align-items: flex-end;
 
+    .ant-upload {
+      // background: url('./../../../assets/images/voucher/default.svg') no-repeat;
+      // background-size: 100% auto;
+      background: linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, .1), url('./../../../assets/images/voucher/default.svg') no-repeat 100% auto);
+    }
+
     .upload-filetype {
       font-weight: 400;
       font-size: 12px;
@@ -769,6 +775,7 @@ textarea :-ms-input-placeholder {
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 400px;
 
       .ant-image-img {
         max-width: 398px;
