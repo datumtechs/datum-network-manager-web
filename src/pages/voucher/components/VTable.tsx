@@ -277,8 +277,8 @@ const VoucherTable: FC<any> = (props: any) => {
       try {
         const { wallet, } = props.state.wallet
         const { walletConfig } = props.state
-        const Plain = values.Plaintext ? String(values.Plaintext) + Complement : ''
-        const cipher = values.ciphertext ? String(values.ciphertext) + Complement : ''
+        const Plain = values.Plaintext ? String(values.Plaintext) + Complement : '1' + Complement
+        const cipher = values.ciphertext ? String(values.ciphertext) + Complement : '1' + Complement
         setModalLoading(true)
         const address = await wallet.connectWallet(walletConfig)
         const metaDateDetails = await resourceApi.queryMetaDataDetail(activeRow.metaDataDbId)
@@ -287,10 +287,19 @@ const VoucherTable: FC<any> = (props: any) => {
         if (metaDateDetails.status !== 0) return setModalLoading(false)
         const metaData = metaDateDetails.data
         const newMetaDateOptionData = JSON.parse(metaDateOptionData.data)
-        const options = JSON.parse(newMetaDateOptionData.consumeOptions)
-        if (Plain) options[0].plainAlgoConsumeUnit = Plain
-        if (cipher) options[0].cryptoAlgoConsumeUnit = cipher
-        newMetaDateOptionData.consumeOptions = JSON.stringify([options[0]])
+        const consumeOptionsList = newMetaDateOptionData.consumeOptions
+
+        consumeOptionsList.forEach((v, i) => {
+          const consumeOptions = JSON.parse(v)
+          if (Array.isArray(consumeOptions) && consumeOptions[0].cryptoAlgoConsumeUnit) {
+            consumeOptions[0].plainAlgoConsumeUnit = Plain
+            consumeOptions[0].cryptoAlgoConsumeUnit = cipher
+            newMetaDateOptionData.consumeOptions[i] = JSON.stringify([consumeOptions[0]])
+          }
+        });
+
+
+
         const params = [
           metaData?.resourceName,
           metaData?.metaDataType,
@@ -305,8 +314,8 @@ const VoucherTable: FC<any> = (props: any) => {
         ]
 
         const data: any = { dataTokenId: activeRow.id }
-        if (Plain) data.newPlaintextFee = Plain
-        if (cipher) data.newCiphertextFee = cipher
+        data.newPlaintextFee = Plain
+        data.newCiphertextFee = cipher
         const sign = await wallet.signData(params, address[0])
         data.sign = sign
         if (!data.sign) return setModalLoading(false)
@@ -366,12 +375,13 @@ const VoucherTable: FC<any> = (props: any) => {
         </Tooltip>
       </>}>
       <Form
-        labelCol={{ span: 6 }}
+        labelCol={{ span: 5 }}
         ref={form}
       >
         {
           [1, 3].includes(activeRow?.dynamicFields?.usage) ? <Form.Item name="Plaintext"
-            label={t('center.Plaintext')}
+            initialValue={activeRow.plaintextFee ? filterIntegerAmount(activeRow.plaintextFee) : 0}
+            label={`${t('center.Plaintext')}：`}
             className="froup-item"
             rules={[
               {
@@ -384,8 +394,9 @@ const VoucherTable: FC<any> = (props: any) => {
         {
           [2, 3].includes(activeRow?.dynamicFields?.usage) ?
             <Form.Item name="ciphertext"
-              label={t('center.ciphertext')}
+              label={`${t('center.ciphertext')}：`}
               className="froup-item"
+              initialValue={activeRow.ciphertextFee ? filterIntegerAmount(activeRow.ciphertextFee) : 0}
               rules={[
                 {
                   required: true,
