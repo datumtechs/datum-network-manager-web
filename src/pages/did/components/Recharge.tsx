@@ -43,12 +43,12 @@ const Recharge: FC<any> = (props) => {
   const recharge = async () => {
     const { wallet } = props.state.wallet || {}
     const { web3 } = wallet
-    setLoading(true)
     if (!props?.baseInfo.observerProxyWalletAddress) return
     const address = await wallet.connectWallet(props?.state?.walletConfig)
     if (!address) {
       return message.error(t('common.pleaseSwitchNetworks'))
     }
+    setLoading(true)
     await web3.eth.sendTransaction({
       from: address[0],
       to: props?.baseInfo.observerProxyWalletAddress,

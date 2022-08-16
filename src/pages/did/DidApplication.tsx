@@ -56,6 +56,9 @@ const DidApplication: FC<any> = (props) => {
     getBalance()
   }, [baseInfo])
 
+
+
+
   const isLink = async (num) => {
     if (NetworkStatus) {
       history.push('/userCenter/userInfo')
@@ -85,7 +88,10 @@ const DidApplication: FC<any> = (props) => {
   return (
     <div className="layout-box p-20 did-box" style={{ minHeight: "730px" }}>
       <div className="didAppication-step">
-        <Steps initial={1} current={current} labelPlacement="vertical" onChange={setCurrent}>
+        <Steps initial={1} current={current} labelPlacement="vertical"
+        // onChange={setCurrent}
+        >
+          {/* // onChange={setCurrent}> */}
           {[t('UserCenter.ProcessStepOne'), t('UserCenter.ProcessStepTwo'), t('UserCenter.ProcessStepThree'), t('UserCenter.ProcessStepFour')].map((_, i) => <Step key={i} title={_} />)}
         </Steps>
       </div>

@@ -25,11 +25,11 @@ const StepOne: FC<any> = (props) => {
 
   const onFinish = () => {
     const name = inputRef?.current?.input.value
-    if (!name || name.length > 20 || name.length < 4) {
+    if (!name || name.length > 20 || name.length < 8) {
       setValidateStatus("error")
       return
     }
-
+    setValidateStatus("warning")
     loginApi.setOrgName({ orgName: name.replace(/\s*/g, "") }).then(res => {
       if (res.status === 0) {
         props?.baseInfo?.fetchData()
@@ -53,7 +53,7 @@ const StepOne: FC<any> = (props) => {
       help={valiStatus == "error" ? t('DidApplication.NameNoRuleTips') : ""}
       validateStatus={valiStatus}
     >
-      <Input minLength={4} ref={inputRef} maxLength={20} placeholder={t('DidApplication.SetYourOrgNamePlaceholder')} />
+      <Input minLength={8} ref={inputRef} maxLength={20} placeholder={t('DidApplication.SetYourOrgNamePlaceholder')} />
     </Form.Item>
     <Form.Item
       label={" "}
