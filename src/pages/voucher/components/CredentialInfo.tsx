@@ -239,7 +239,9 @@ const CredentialInfo: FC<any> = (props: any) => {
             },
           ]}
         >
-          <Input prefix={<span style={{ color: '#1D2832' }}>Datum-</span>} className="no-border" placeholder={t('credential.caseAndNumberPlaceholder')} maxLength={64} />
+          <Input
+            onChange={e => form.current.setFieldsValue({ name: e.target?.value.replace(/\s*/g, "") } || '')}
+            prefix={<span style={{ color: '#1D2832' }}>Datum-</span>} className="no-border" placeholder={t('credential.caseAndNumberPlaceholder')} maxLength={58} />
         </Form.Item>
         <Form.Item
           labelAlign="left"
@@ -256,7 +258,9 @@ const CredentialInfo: FC<any> = (props: any) => {
             },
           ]}
         >
-          <Input maxLength={64} minLength={2} placeholder={t('credential.caseAndNumberPlaceholder')} />
+          <Input
+            onChange={e => form.current.setFieldsValue({ symbol: e.target?.value.replace(/\s*/g, "") } || '')}
+            maxLength={64} minLength={2} placeholder={t('credential.caseAndNumberPlaceholder')} />
         </Form.Item>
         <p className='title'>{t('voucher.CirculationTotal')} </p>
         <Form.Item
@@ -270,7 +274,9 @@ const CredentialInfo: FC<any> = (props: any) => {
             },
             { required: true, message: `${t('voucher.RequiredCirculation')}` }]}
         >
-          <Input maxLength={18} minLength={2} placeholder={`${t('voucher.RequiredCirculation')}`} />
+          <Input
+            onChange={e => form.current.setFieldsValue({ initialSupply: e.target?.value.replace(/\s*/g, "") } || '')}
+            maxLength={18} minLength={2} placeholder={`${t('voucher.RequiredCirculation')}`} />
         </Form.Item>
         <p className='title'>{t('credential.setConsumption')}
           <Tooltip placement="topLeft" title={t('credential.setConsumptionTips')}>
@@ -281,6 +287,7 @@ const CredentialInfo: FC<any> = (props: any) => {
           labelAlign="left"
           label={`${t('credential.plaintextConsumption')}:`}
           name="plaintextConsumption"
+          initialValue={1}
           rules={[
             {
               pattern: new RegExp(/^[1-9]\d*$/, "g"),
@@ -288,13 +295,15 @@ const CredentialInfo: FC<any> = (props: any) => {
             },
             { required: true, message: `${t('credential.pleaseEnter')} ${t('credential.plaintextConsumption')}` }]}
         >
-          <Input maxLength={18} minLength={1} placeholder={`${t('credential.pleaseEnter')}${t('credential.plaintextConsumption')}`} />
+          <Input
+            onChange={e => form.current.setFieldsValue({ plaintextConsumption: e.target?.value.replace(/\s*/g, "") } || '')}
+            maxLength={18} minLength={1} placeholder={`${t('credential.pleaseEnter')}${t('credential.plaintextConsumption')}`} />
         </Form.Item>
         <Form.Item
           labelAlign="left"
           label={`${t('credential.ciphertextConsumption')}:`}
           name="ciphertextConsumption"
-          // initialValue={1}
+          initialValue={1}
           rules={[
             {
               pattern: new RegExp(/^[1-9]\d*$/, "g"),
@@ -302,7 +311,9 @@ const CredentialInfo: FC<any> = (props: any) => {
             },
             { required: true, message: `${t('credential.pleaseEnter')} ${t('credential.ciphertextConsumption')}` }]}
         >
-          <Input maxLength={18} placeholder={`${t('credential.pleaseEnter')}${t('credential.ciphertextConsumption')}`} minLength={1} />
+          <Input
+            onChange={e => form.current.setFieldsValue({ ciphertextConsumption: e.target?.value.replace(/\s*/g, "") } || '')}
+            maxLength={18} placeholder={`${t('credential.pleaseEnter')}${t('credential.ciphertextConsumption')}`} minLength={1} />
         </Form.Item>
         <Form.Item
           labelAlign="left"

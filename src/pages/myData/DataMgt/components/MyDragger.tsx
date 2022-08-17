@@ -98,6 +98,7 @@ const MyDragger: FC<any> = forwardRef((props: any, draggerRef: any) => {
           className="hide"
           style={{ visibility: 'hidden', position: 'absolute', zIndex: -1 }}
           type="file"
+          accept=".xlsx, .xls, .csv"
           onChange={onChange}
         />
       </div>

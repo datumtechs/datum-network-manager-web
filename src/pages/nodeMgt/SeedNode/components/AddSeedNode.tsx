@@ -26,7 +26,8 @@ export const AddSeedNode: FC<any> = (props: any) => {
   }
 
   const whenInputChange = (e) => {
-    const name = e.target.value
+    const name = e.target?.value ? e.target?.value.replace(/\s*/g, "") : ''
+    form.setFieldsValue({ nodeSeedNodeId: name })
     if (name) {
       nodeApi.checkSeedNodeName({ seedNodeId: name.replace(/\s*/g, "") }).then(res => {
         showNameStatusSet(true)

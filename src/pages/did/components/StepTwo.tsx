@@ -41,7 +41,7 @@ export const StepTwo: FC<any> = (props) => {
           maxLength={200}
           value={imgUrl}
           showCount
-          onChange={_ => setImgUrl(_.target.value)}
+          onChange={_ => setImgUrl(_.target?.value ? _.target?.value.replace(/\s*/g, "") : '')}
           placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
         </TextArea>
         {imgUrl ? <img src={clean} onClick={() => setImgUrl('')} className="clean" /> : ''}
@@ -52,7 +52,7 @@ export const StepTwo: FC<any> = (props) => {
           value={TextAreaValue}
           maxLength={200}
           showCount
-          onChange={_ => setTextAreaValue(_.target.value)}
+          onChange={_ => setTextAreaValue(_.target?.value ? _.target?.value.replace(/\s*/g, "") : '')}
           placeholder={t('UserCenter.ProfileIntroductionPlaceholder')} >
         </TextArea>
         {TextAreaValue ? <img src={clean} onClick={() => setTextAreaValue('')} className="clean" /> : ''}

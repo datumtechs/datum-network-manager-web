@@ -243,7 +243,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                   rules={[{ min: 8, message: `${t('myData.dataNameTooltipThree')}` },
                   { required: true, message: `${t('tip.plzInputName')}` }]}
                 >
-                  <Input size="large" minLength={8} maxLength={64} className="width457" onBlur={e => checkResourceName(e.target.value)} />
+                  <Input size="large"
+                    onChange={e => form.setFieldsValue({ sourceName: e.target?.value.replace(/\s*/g, "") } || '')}
+                    minLength={8} maxLength={64} className="width457" onBlur={e => checkResourceName(e.target.value)} />
                 </Form.Item>
 
                 <Space size={20} className="pl20">
@@ -282,7 +284,9 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                 label={t('center.dataDesc')}
               >
                 <Form.Item name="remarks" noStyle rules={[{ required: true, message: `${t('tip.plzInputDesc')}` }]}>
-                  <Input.TextArea maxLength={100} className="width457 limit-box" />
+                  <Input.TextArea
+                    onChange={e => form.setFieldsValue({ remarks: e.target?.value.replace(/\s*/g, "") } || '')}
+                    maxLength={100} className="width457 limit-box" />
                 </Form.Item>
               </Form.Item>
               <Form.Item
@@ -292,8 +296,8 @@ export const MyDataAddtion: FC<any> = (props: any) => {
                   <Form.Item name="usageScene" noStyle
                     rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
                     <Checkbox.Group>
-                      <Checkbox value="1">{t('center.Plaintext')}</Checkbox>
                       <Checkbox value="2">{t('center.ciphertext')}</Checkbox>
+                      <Checkbox value="1">{t('center.Plaintext')}</Checkbox>
                     </Checkbox.Group>
                   </Form.Item>
                   <Tooltip placement="topLeft" title={

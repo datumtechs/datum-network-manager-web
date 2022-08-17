@@ -64,7 +64,7 @@ const MyFiledsTable: FC<any> = (props: any) => {
     const rows = [...data]
     const row = rows.find(item => item.columnIdx === record.columnIdx)
     if (row) {
-      row[column] = e.target.value
+      row[column] = e.target?.value.replace(/\s*/g, "")
     }
     setData(rows)
     props.updateData(data)

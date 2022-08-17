@@ -77,7 +77,7 @@ const CommitteeStatistics: FC<any> = (props) => {
             <p>123</p>
           </div>
         </div> :
-        <div className="statistics-box">
+        <div className="statistics-box" style={{ width: "50%" }}>
           <div className="item">
             <p>{t('orgManage.Certified')}</p>
             <p>{data.credentialsCount || 0}</p>

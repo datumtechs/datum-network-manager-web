@@ -124,6 +124,7 @@ const Attribute: FC<any> = (props: any) => {
         dataAddress: row.address,
         name: row.name,
         dataTokenId: row.id,
+        usage: row?.dynamicFields?.usage || -1
       },
     })
   }

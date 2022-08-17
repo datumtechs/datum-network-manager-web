@@ -171,12 +171,18 @@
 
       &:hover {
         background: rgba(217, 215, 241, 0.21);
+        transform: scale(1.05, 1.2);
       }
 
       .icon {
         margin-right: 27px;
       }
 
+      .text {
+        min-width: 100px;
+        display: inline-block;
+        text-align: center;
+      }
 
     }
 
@@ -194,8 +200,9 @@
 }
 
 .g-ripple {
-  position: absolute;	/* 通过top和left修改位置 */
+  position: absolute;
+  /* 通过top和left修改位置 */
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.4);
-  
+
 }

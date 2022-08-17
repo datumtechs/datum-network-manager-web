@@ -24,13 +24,14 @@ const StepOne: FC<any> = (props) => {
   const inputRef = useRef<any>(null)
 
   const onFinish = () => {
-    const name = inputRef?.current?.input.value
+    let name = inputRef?.current?.input.value
+    name = name.replace(/\s*/g, "")
     if (!name || name.length > 20 || name.length < 8) {
       setValidateStatus("error")
       return
     }
     setValidateStatus("warning")
-    loginApi.setOrgName({ orgName: name.replace(/\s*/g, "") }).then(res => {
+    loginApi.setOrgName({ orgName: name }).then(res => {
       if (res.status === 0) {
         props?.baseInfo?.fetchData()
         message.success(`${t('tip.idSuccess')}`)
@@ -72,11 +73,6 @@ const StepOne: FC<any> = (props) => {
         {t('DidApplication.SetNameAndGenerateBuiltWallet')}
       </Button>
     </div>
-    {/* <style>{`
-    .ant-form-item-children-icon{
-      display:none
-    }
-    `}</style> */}
   </>
 }
 

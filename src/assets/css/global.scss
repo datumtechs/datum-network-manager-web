@@ -385,6 +385,11 @@
   max-width: 100%;
 }
 
+.ellipsis-block {
+  @extend .ellipsis;
+  display: block;
+}
+
 .AliM {
   font-family: AlibabaPuHuiTi-Medium;
 }

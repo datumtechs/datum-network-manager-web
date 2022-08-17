@@ -6,7 +6,8 @@ const { Search } = Input
 const SearchBar: FC<any> = (props: any) => {
   const { t } = useTranslation()
   const onSearch = (e: any) => {
-    props.onSearch(e)
+    const text = e.replace(/\s*/g, "")
+    props.onSearch(text)
   }
   const addBtn = () => {
     props.onAdd()

@@ -1,9 +1,11 @@
 import axios from 'axios'
 import { message } from 'antd'
 import i18n from '@/i18n/config'
+// import { useHistory } from 'react-router-dom'
 import { StatusCodeProcessing } from './utils'
 import { requestLoading, requestCancel } from './loading'
 
+// const history = useHistory()
 const service = axios.create({
   baseURL: process.env.REACT_APP_BASE_API,
   withCredentials: true, // send cookies when cross-domain requests
@@ -38,7 +40,8 @@ service.interceptors.response.use(
     const { data: { status, msg }, config: { url } } = response
     if (status === 1000) {
       const { pathname } = window.location
-      location.href = `/login?type=redirect#${pathname}`
+      // location.href = `/login?type=redirect#${pathname}`
+      history.pushState(null,'','/login?type=redirect#${pathname}')
     } else {
       StatusCodeProcessing(status)
     }

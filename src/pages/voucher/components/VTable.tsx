@@ -257,7 +257,7 @@ const VoucherTable: FC<any> = (props: any) => {
             {[5, 9].includes(row.status) ?
               <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => setPrice(row)}>  {t('voucher.VoucherSetPrice')}</Button>
               : ''}
-            {![0, 1, 4, 7,].includes(row.status) ?
+            {![0, 1, 2, 3, 4, 7,].includes(row.status) ?
               <Button style={{ "paddingLeft": 0 }} type="link" onClick={() => updateConsumption(row)}>  {t('orgManage.modifyConsumption')}</Button>
               : ''}
           </>
@@ -389,7 +389,9 @@ const VoucherTable: FC<any> = (props: any) => {
                 pattern: new RegExp(/^[1-9]\d*$/, "g"),
                 message: `${t('common.pleaseEnterNumber')}`
               }]}>
-            <Input className="form-box-input" placeholder={t('center.Plaintext')} addonAfter={activeRow.symbol} />
+            <Input
+              onChange={e => form.current.setFieldsValue({ Plaintext: e.target?.value.replace(/\s*/g, "") } || '')}
+              className="form-box-input" placeholder={t('center.Plaintext')} addonAfter={activeRow.symbol} />
           </Form.Item> : ""}
         {
           [2, 3].includes(activeRow?.dynamicFields?.usage) ?
@@ -404,6 +406,7 @@ const VoucherTable: FC<any> = (props: any) => {
                   message: `${t('common.pleaseEnterNumber')}`
                 }]}>
               <Input
+                onChange={e => form.current.setFieldsValue({ ciphertext: e.target?.value.replace(/\s*/g, "") } || '')}
                 className="form-box-input" placeholder={t('center.ciphertext')} addonAfter={activeRow.symbol} />
             </Form.Item> : ""
         }

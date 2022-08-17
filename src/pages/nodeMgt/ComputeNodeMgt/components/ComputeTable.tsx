@@ -99,20 +99,18 @@ const DataTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: ``,
+      title: ` `,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
       width: 60,
     },
     {
       title: t('computeNodeMgt.nodeName'),
       dataIndex: 'nodeName',
-      width: 100,
       ellipsis: true
     },
     {
       title: t('common.status'),
       dataIndex: 'status',
-      width: 120,
       render: (text, record, index) => {
         /**
          * 连接状态 connStatus 0 1
@@ -130,7 +128,6 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.ip'),
       dataIndex: 'ip',
-      width: 110,
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
@@ -147,7 +144,6 @@ const DataTable: FC<any> = (props: any) => {
     {
       title: t('common.port'),
       dataIndex: 'port',
-      width: 100,
       render: (text, record, index) => {
         return (
           <div className="seedNode-edit-box ">
@@ -163,7 +159,6 @@ const DataTable: FC<any> = (props: any) => {
     },
     {
       title: t('common.actions'),
-      width: 100,
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
         return (

@@ -11,19 +11,16 @@ import { voucher } from '@api'
 import { QuestionCircleOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import ERC721Template from '@/utils/erc721/ERC721Template.json'
 import moment from 'moment';
-import { Complement, filterWeb3Code, filterIntegerAmount } from '@/utils/utils'
-import { requestCancel } from '@/utils/loading'
+import { filterWeb3Code } from '@/utils/utils'
 
 const CreateAttriCredential: FC<any> = (props: any) => {
 
   const { t, i18n } = useTranslation();
   const history = useHistory();
   const form = useRef<any>();
-  // const [dataTokenFactory, setDataTokenFactory] = useState('');
   const { walletConfig } = props.state;
   const { location } = props;
-  const { dataAddress, name,
-    dataTokenId, } = location.state || {};
+  const { dataAddress, name, dataTokenId, usage } = location.state || {};
   const [loading, setLoading] = useState(false);
   const submiting = useRef(false)
   const [imageUrl, setImageUrl] = useState('')
@@ -31,29 +28,20 @@ const CreateAttriCredential: FC<any> = (props: any) => {
 
   const release = async (params) => {
     const { wallet } = props.state.wallet || {}
-
     try {
       const { web3 } = wallet
       setLoading(true)
       submiting.current = true
-      // 1 获取地址
       const flag = await wallet.eth.isConnected()// 判断是否连接当前网络
-      if (!flag) return
+      if (!flag) return setLoading(false)
       const address = await wallet.connectWallet(walletConfig)
-      if (!address) {
-        return message.error(t('common.pleaseSwitchNetworks'))
-      }
+      if (!address) return (setLoading(false), message.error(t('common.pleaseSwitchNetworks')))
       // 构建合约
       const myContract = new web3.eth.Contract(
         ERC721Template,
         dataAddress,
       );
-
-
       const date = new Date(`${moment(params.pleaseExpiryDate).format('YYYY-MM-DD')} 23:59:59`).getTime()
-      console.log(params.infoPath);
-
-      // return
       await myContract.methods.createToken(
         String(date),
         params.pleaseUsageScenario == 2 ? true : false,
@@ -77,7 +65,6 @@ const CreateAttriCredential: FC<any> = (props: any) => {
 
     } catch (e: any) {
       setLoading(false)
-      console.log(111);
       message.error(t(`exception.${filterWeb3Code(e.code)}`))
       submiting.current = false
     }
@@ -104,7 +91,6 @@ const CreateAttriCredential: FC<any> = (props: any) => {
 
   const beforeUpload = (file: any) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/svg+xml';
-    // debugger
     if (!isJpgOrPng) {
       message.error(t('credential.pictureIncorrect'));
       return false
@@ -137,9 +123,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
         getBase64(info.file, url => {
           setImageUrl(url);
         });
-        // debugger
         form.current.setFieldsValue({ IPFSPath: data })
-        // form.current.validateFields(['IPFSPath'])
       } else {
         setImageUrl('');
       }
@@ -147,11 +131,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
     })
   }
 
-  const disabledDate = (current: any) => {
-    return current && current < moment().endOf('day');
-  };
-
-
+  const disabledDate = (current: any) => current && current < moment().endOf('day');
 
   const uploadButton = (
     <div>
@@ -159,7 +139,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
       <div className="plus-tips">{t('credential.uploadTips')}</div>
     </div>
   );
-  const startTime: any = moment('00:00:00', 'HH:mm:ss')
+
   return <div className='credential-info-seting'>
     <Card className='details-top-box layout-box p-20'>
       <div className='details-name-box'>
@@ -181,14 +161,6 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             name="uploadImg"
             className="upload-image"
             labelAlign="left"
-            rules={[
-              {
-                // required: true,
-                // validator: (rule, value, callback): any => {
-                // if (!value) return callback(`${t('common.pleaseUpload')}${i18n.language == 'en' ? 'Pictures' : '图片'}`)
-                // },
-              },
-            ]}
           >
             <div className="upload-wrap">
               <Upload
@@ -228,13 +200,17 @@ const CreateAttriCredential: FC<any> = (props: any) => {
               },
             ]}
           >
-            <Input prefix={<span style={{ color: '#1D2832' }}>Datum-</span>} className="no-border" placeholder={t('credential.caseAndNumberPlaceholder')} maxLength={64} />
+            <Input
+              onChange={e => form.current.setFieldsValue({ name: e.target?.value.replace(/\s*/g, "") } || '')}
+              prefix={<span style={{ color: '#1D2832' }}>Datum-</span>} className="no-border" placeholder={t('credential.caseAndNumberPlaceholder')} maxLength={64} />
           </Form.Item>
           <Form.Item
             label={`${t('credential.certificateDescription')}:`}
             name="certificateDescription"
             labelAlign="left">
-            <Input.TextArea className="no-border" placeholder={t('credential.certificateDescription')} maxLength={200} />
+            <Input.TextArea
+              onChange={e => form.current.setFieldsValue({ certificateDescription: e.target?.value.replace(/\s*/g, "") } || '')}
+              className="no-border" placeholder={t('credential.certificateDescription')} maxLength={200} />
           </Form.Item>
           <Form.Item
             labelAlign="left"
@@ -271,6 +247,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
               </>
             }
             name="pleaseUsageScenario"
+            initialValue={+usage == 1 ? 1 : +usage == 2 ? 2 : undefined}
             rules={[
               {
                 required: true,
@@ -282,8 +259,8 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             ]}
           >
             <Radio.Group>
-              <Radio value={1}>{t('center.Plaintext')}</Radio>
-              <Radio value={2}>{t('center.ciphertext')}</Radio>
+              {[1, 3].includes(+usage) ? <Radio value={1}>{t('center.Plaintext')}</Radio> : ''}
+              {[2, 3].includes(+usage) ? <Radio value={2}>{t('center.ciphertext')}</Radio> : ''}
             </Radio.Group>
           </Form.Item>
           <Form.Item

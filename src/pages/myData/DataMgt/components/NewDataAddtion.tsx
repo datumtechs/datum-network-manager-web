@@ -127,8 +127,12 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             </Form.Item>
             <Form.Item label={t('myData.newDataName')}>
               <div className="form-group">
-                <Form.Item noStyle name="newDataName" rules={[{ required: true, message: `${t('tip.plzInputName')}` }]}>
-                  <Input size="large" onBlur={e => checkResourceName(e.target.value)} className="limit-box width457" />
+                <Form.Item noStyle name="newDataName"
+                  rules={[{ min: 8, message: `${t('myData.dataNameTooltipThree')}` },
+                  { required: true, message: `${t('tip.plzInputName')}` }]}>
+                  <Input size="large"
+                    onChange={e => form.setFieldsValue({ newDataName: e.target?.value.replace(/\s*/g, "") } || '')}
+                    minLength={8} maxLength={64} onBlur={e => checkResourceName(e.target.value)} className="limit-box width457" />
                 </Form.Item>
                 {showFilenameAvailable &&
                   (isFileNameRight ? (

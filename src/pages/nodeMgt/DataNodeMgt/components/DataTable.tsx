@@ -16,16 +16,12 @@ const DataTable: FC<any> = (props: any) => {
     nodeName: "", nodeId: ""
   })
   const [curName, SetCurName] = useState('')
-  // const history = useHistory()
   const [tableData, tableDataSet] = useState<Array<any>>([])
-  // const [tempTableData, tempTableDataSet] = useState<Array<any>>([])
   const [total, totalSet] = useState<number>(0)
   const [curPage, setCurPage] = useState<number>(1)
   const [curId, setCurId] = useState<string>('')
   const [form] = Form.useForm();
   const { t, i18n } = useTranslation()
-  // const [showNameStatus, showNameStatusSet] = useState<boolean>(false)
-  // const [nameStatus, nameStatusSet] = useState<boolean>(false)
 
   const onPageChange = num => {
     setCurPage(num)
@@ -95,8 +91,8 @@ const DataTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: ``,
-      width: 80,
+      title: ` `,
+      width: 60,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -244,6 +240,7 @@ const DataTable: FC<any> = (props: any) => {
 
             }]}>
             <Input
+              onChange={e => e.target?.value ? form.setFieldsValue({ nodeName: e.target?.value.replace(/\s*/g, "") }) : form.setFieldsValue('')}
               className="form-box-input" placeholder={t('node.forSelfidentity')} />
           </Form.Item>
           <Form.Item

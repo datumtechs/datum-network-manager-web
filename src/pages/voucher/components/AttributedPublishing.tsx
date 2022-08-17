@@ -220,7 +220,9 @@ const AttributedPublishing: FC<any> = (props: any) => {
             },
           ]}
         >
-          <Input prefix={<span style={{ color: '#1D2832' }}>Datum-</span>} className="no-border" placeholder={t('credential.caseAndNumberPlaceholder')} maxLength={64} />
+          <Input
+            onChange={e => form.current.setFieldsValue({ name: e.target?.value.replace(/\s*/g, "") } || '')}
+            prefix={<span style={{ color: '#1D2832' }}>Datum-</span>} className="no-border" placeholder={t('credential.caseAndNumberPlaceholder')} maxLength={58} />
         </Form.Item>
         <Form.Item
           labelAlign="left"
@@ -237,7 +239,9 @@ const AttributedPublishing: FC<any> = (props: any) => {
             },
           ]}
         >
-          <Input maxLength={64} minLength={2} placeholder={t('credential.caseAndNumberPlaceholder')} />
+          <Input
+            onChange={e => form.current.setFieldsValue({ symbol: e.target?.value.replace(/\s*/g, "") } || '')}
+            maxLength={64} minLength={2} placeholder={t('credential.caseAndNumberPlaceholder')} />
         </Form.Item>
         <Form.Item
           labelAlign="left"
