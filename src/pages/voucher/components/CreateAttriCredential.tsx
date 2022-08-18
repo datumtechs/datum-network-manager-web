@@ -162,7 +162,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             className="upload-image"
             labelAlign="left"
           >
-            <div className="upload-wrap">
+            <div className={imageUrl ? 'upload-wrap-no-bg' : 'upload-wrap'}>
               <Upload
                 accept="image/*"
                 maxCount={1}

@@ -37,7 +37,7 @@ const SeedNodeTable: FC<any> = forwardRef((props: any, ref) => {
 
   const columns: Array<object> = [
     {
-      title: ` `,
+      title: t(`common.Num`),
       width: 60,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
@@ -136,7 +136,7 @@ const SeedNodeTable: FC<any> = forwardRef((props: any, ref) => {
   return (
     <div >
       <Table
-        className="com-table"
+        className="com-table com-table-lr-padding "
         dataSource={tableData}
         columns={columns}
         rowKey={(_: any) => _.seedNodeId}

@@ -587,7 +587,7 @@
     }
 
     .plus-icon {
-      color: #D9D9D9;
+      color: #fff;
       font-size: 20px;
     }
 
@@ -597,7 +597,7 @@
       font-size: 12px;
       line-height: 17px;
       margin-top: 10px;
-      color: #BCBBC9;
+      color: #fff;
     }
   }
 
@@ -640,14 +640,22 @@
 
     .ant-upload {
       // background: url('./../../../assets/images/voucher/default.svg') no-repeat;
-      // background-size: 100% auto;
-      background: linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, .1), url('./../../../assets/images/voucher/default.svg') no-repeat 100% auto);
+      background-size: 100% auto;
+      background: linear-gradient(to top, rgba(255, 255, 255, .3), rgba(255, 255, 255, .3)), url('./../../../assets/images/voucher/default.svg');
     }
 
     .upload-filetype {
       font-weight: 400;
       font-size: 12px;
       color: #BCBBC9;
+    }
+  }
+
+  .upload-wrap-no-bg {
+    @extend .upload-wrap;
+
+    .ant-upload {
+      background: #fff;
     }
   }
 }
@@ -865,4 +873,17 @@ textarea :-ms-input-placeholder {
   width: 39px;
   height: 39px;
   cursor: pointer;
+}
+
+.froup-item {
+  .form-box-input {
+    .ant-input-group-addon {
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: rgba(0, 0, 0, 0.85);
+      // border-color: rgba(0, 0, 0, 0.85);
+    }
+  }
+
 }

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import SearchBar from '@/layout/components/SearchBar'
 import { CopyOutlined } from '@ant-design/icons'
-import { copy, useAddressDisplay } from '@/utils/utils'
+import { copy, useAddressDisplay, UseAttrCredentialStatus } from '@/utils/utils'
 import { voucher as voucherApi, resourceApi } from '@api/index'
 import { connect } from 'react-redux'
 
@@ -61,9 +61,9 @@ const Attribute: FC<any> = (props: any) => {
 
   const columns: any[] = [
     {
-      title: ` `,
+      title: t(`common.Num`),
       render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
-      width: 70,
+      width: 60,
     },
     {
       title: t('credential.credentialContractName'),
@@ -77,6 +77,7 @@ const Attribute: FC<any> = (props: any) => {
       dataIndex: 'symbol',
       width: '15%',
       ellipsis: true,
+      render: (text, record, index) => record.dynamicFields?.metaDataName || '-'
     },
     {
       title: t('credential.credentialContractSymbol'),
@@ -98,6 +99,12 @@ const Attribute: FC<any> = (props: any) => {
             </Tooltip>
           </>
           : '--'
+    },
+    {
+      title: t('task.status'),
+      dataIndex: 'usage',
+      ellipsis: true,
+      render: (text, record) => UseAttrCredentialStatus(record.status)
     },
     {
       title: t('common.actions'),
@@ -135,7 +142,8 @@ const Attribute: FC<any> = (props: any) => {
       state: {
         dataAddress: row.address,
         name: row.name,
-        dataTokenId: row.id
+        dataTokenId: row.id,
+        usage: row?.dynamicFields?.usage || -1
       },
     })
   }
@@ -166,7 +174,7 @@ const Attribute: FC<any> = (props: any) => {
   return <div className="layout-box">
     <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('credential.credentialContractName')}`} />
     <Table
-      className="com-table "
+      className="com-table com-table-lr-padding"
       dataSource={tableData}
       columns={columns}
       rowKey={(record: any) => record.publishHash}

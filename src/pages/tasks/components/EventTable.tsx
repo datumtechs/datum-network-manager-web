@@ -40,8 +40,8 @@ const EventTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: ` `,
-      width: 70,
+      title: t(`common.Num`),
+      width: 60,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
     {
@@ -65,7 +65,7 @@ const EventTable: FC<any> = (props: any) => {
   ]
   return (
     <Table
-      className="com-table"
+      className="com-table com-table-lr-padding"
       dataSource={tableData}
       columns={columns}
       rowKey={_ => _?.id}

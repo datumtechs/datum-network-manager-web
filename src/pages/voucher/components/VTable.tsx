@@ -16,8 +16,8 @@ import { QuestionCircleOutlined } from '@ant-design/icons'
 
 
 const VoucherTable: FC<any> = (props: any) => {
-  const { location } = props
-  const type = location?.state?.attributeType || ''
+  // const { location } = props
+  // const type = location?.state?.attributeType || ''
   const form = useRef<any>()
   const { t, i18n } = useTranslation()
   const [curPage, setCurPage] = useState(1)
@@ -188,7 +188,7 @@ const VoucherTable: FC<any> = (props: any) => {
   const columns: any = (type): any[] => {
     return [
       {
-        title: ``,
+        title: t(`common.Num`),
         render: ({ }, { }, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
         width: 60,
       },
@@ -345,7 +345,7 @@ const VoucherTable: FC<any> = (props: any) => {
   return <div className="voucher">
     <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('voucher.VoucherName')}`} />
     <Table
-      className="com-table "
+      className="com-table com-table-lr-padding "
       dataSource={tableData}
       columns={columns()}
       rowKey={(record: any) => record.id}
@@ -391,7 +391,7 @@ const VoucherTable: FC<any> = (props: any) => {
               }]}>
             <Input
               onChange={e => form.current.setFieldsValue({ Plaintext: e.target?.value.replace(/\s*/g, "") } || '')}
-              className="form-box-input" placeholder={t('center.Plaintext')} addonAfter={activeRow.symbol} />
+              className="form-box-input" maxLength={18} minLength={1} placeholder={t('center.Plaintext')} addonAfter={activeRow.symbol} />
           </Form.Item> : ""}
         {
           [2, 3].includes(activeRow?.dynamicFields?.usage) ?
@@ -407,7 +407,7 @@ const VoucherTable: FC<any> = (props: any) => {
                 }]}>
               <Input
                 onChange={e => form.current.setFieldsValue({ ciphertext: e.target?.value.replace(/\s*/g, "") } || '')}
-                className="form-box-input" placeholder={t('center.ciphertext')} addonAfter={activeRow.symbol} />
+                className="form-box-input" maxLength={18} minLength={1} placeholder={t('center.ciphertext')} addonAfter={activeRow.symbol} />
             </Form.Item> : ""
         }
       </Form>

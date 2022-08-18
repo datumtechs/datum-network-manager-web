@@ -179,8 +179,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
                 <Form.Item name="usageScene" noStyle
                   rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('center.usageScene')}` }]}>
                   <Checkbox.Group>
-                    <Checkbox value="1">{t('center.Plaintext')}</Checkbox>
                     <Checkbox value="2">{t('center.ciphertext')}</Checkbox>
+                    <Checkbox value="1">{t('center.Plaintext')}</Checkbox>
                   </Checkbox.Group>
                 </Form.Item>
                 <Tooltip placement="topLeft" title={

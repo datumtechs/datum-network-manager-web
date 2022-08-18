@@ -54,7 +54,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
 
   const columns = [
     {
-      title: ``,
+      title: t(`common.Num`),
       width: 60,
       render: (text, record, index) => `${(curPage - 1) * pagination.defaultPageSize + (index + 1)}`,
     },
@@ -134,7 +134,7 @@ const ComputeDetailTable: FC<any> = (props: any) => {
   ]
   return (
     <Table
-      className="com-table com-table-multiline"
+      className="com-table com-table-multiline com-table-lr-padding"
       dataSource={tableData}
       rowKey={re => `${re.identityId}_${re.id}`}
       columns={columns}

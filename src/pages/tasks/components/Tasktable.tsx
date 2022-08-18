@@ -46,15 +46,9 @@ const MyTable = (props, ref) => {
 
   const columns: any = [
     {
-      title: ` `,
-      width: 30,
-      render: (text, record, index) => {
-        return <>
-          <span>
-            {`${(pageNumber - 1) * pageSize + (index + 1)}`}
-          </span>
-        </>
-      }
+      title: t(`common.Num`),
+      width: 60,
+      render: (text, record, index) => `${(pageNumber - 1) * pageSize + (index + 1)}`
     },
 
     {
@@ -137,7 +131,7 @@ const MyTable = (props, ref) => {
   ]
   return (
     <Table
-      className="com-table"
+      className="com-table com-table-lr-padding"
       dataSource={tableData}
       columns={columns}
       rowKey={_ => (_.id + _.taskId)}

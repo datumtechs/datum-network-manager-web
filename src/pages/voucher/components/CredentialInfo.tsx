@@ -156,11 +156,11 @@ const CredentialInfo: FC<any> = (props: any) => {
       const { data } = res
 
       form.current.setFieldsValue({
-        name: data.name ? data.name.replace('Datum-', '') : '',
-        symbol: data.symbol,
-        plaintextConsumption: filterIntegerAmount(data.plaintextFee),
-        ciphertextConsumption: filterIntegerAmount(data.ciphertextFee),
-        initialSupply: filterIntegerAmount(data.total) //data.total
+        name: data?.name ? data?.name.replace('Datum-', '') : '',
+        symbol: data?.symbol,
+        plaintextConsumption: filterIntegerAmount(data?.plaintextFee),
+        ciphertextConsumption: filterIntegerAmount(data?.ciphertextFee),
+        initialSupply: filterIntegerAmount(data?.total) //data.total
       })
       if (data?.status == 3) {
         web3.eth.getTransactionCount(data.address).then(res => {

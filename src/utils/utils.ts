@@ -201,6 +201,29 @@ export const UseCredentialStatus = (status)=>{
 }
 
 
+export const UseAttrCredentialStatus = (status)=>{
+  const s = Number(status)
+  switch (s) {
+    // 0-未发布，1-发布中，2-发布失败，3-发布成功，4-定价中，5-定价失败，
+    // 6-定价成功，7-绑定中，8-绑定失败，9-绑定成功
+    case 1:
+      return i18n.t('credential.Publishing');
+    case 2:
+      return i18n.t('credential.PublishingFailed');
+    case 3:
+      return i18n.t('credential.PublishingSuccess');
+    case 4:
+      return i18n.t('credential.Binding');
+    case 5:
+      return i18n.t('credential.BindingFailed');
+    case 6:
+      return i18n.t('credential.BindingSuccess');
+    default:
+      break;
+  }
+}
+
+
 export const StatusCodeProcessing = (code) => {
   switch (code) {
     case 1:

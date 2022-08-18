@@ -18,7 +18,7 @@ const CredentialInventory: FC<any> = (props: any) => {
     pageSize = 10
   const history = useHistory();
   const { location } = props;
-  const { dataAddress, name, dataTokenId, status } = location.state
+  const { dataAddress, name, dataTokenId, usage } = location.state
   const [searchText, setSearchText] = useState("")
   const [exchangeData, setExchangeData] = useState<any>([])
   const handleTime = (time) => {
@@ -105,6 +105,7 @@ const CredentialInventory: FC<any> = (props: any) => {
         tokenId: row.tokenId,
         dataAddress,
         dataAddressName: name,
+        usage: usage
       },
     })
   }
@@ -116,6 +117,7 @@ const CredentialInventory: FC<any> = (props: any) => {
         dataAddress,
         name,
         dataTokenId,
+        usage
       },
     })
   }
@@ -166,10 +168,9 @@ const CredentialInventory: FC<any> = (props: any) => {
         onClick={putShelf}
         icon={<PlusOutlined />}
       >
-        {t('voucher.PublishCredential')}
+        {t('credential.createCredential')}
       </Button>
       <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('credential.credentialContractName')}`} />
-
     </div>
     <Table
       className="com-table"
