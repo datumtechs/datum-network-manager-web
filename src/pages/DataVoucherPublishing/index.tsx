@@ -30,11 +30,18 @@ const Details: FC<any> = (props: any) => {
     return voucher.queryUnPublishData({ keyword }).then(res => {
       const { data, status } = res
       if (status == 0) {
+        let flag = false
+        const list = data.map(item => {
+          if (item.id == dataId) flag = true
+          return {
+            label: item.metaDataName,
+            value: item.id,
+          }
+        })
+
+        if (!flag) setValue(null)
         setOptionList(data)
-        return data.map(item => ({
-          label: item.metaDataName,
-          value: item.id,
-        }))
+        return list
       }
       return []
     })
@@ -44,11 +51,18 @@ const Details: FC<any> = (props: any) => {
     return voucher.queryaUnPublishAttribut({ keyword }).then(res => {
       const { data, status } = res
       if (status == 0) {
+        let flag = false
+        const list = data.map(item => {
+          if (item.id == dataId) flag = true
+          return {
+            label: item.metaDataName,
+            value: item.id,
+          }
+        })
+
+        if (!flag) setAttributeValue(null)
         setAttributeOptionList(data)
-        return data.map(item => ({
-          label: item.metaDataName,
-          value: item.id,
-        }))
+        return list
       }
       return []
     })
@@ -69,7 +83,8 @@ const Details: FC<any> = (props: any) => {
             metaDataId: _.metaDataId,
             metaDataName: _.metaDataName,
             dataId: _.id,
-            owner: _.owner
+            // owner: _.owner,
+            usage: _.usage
           }
         })
         return true

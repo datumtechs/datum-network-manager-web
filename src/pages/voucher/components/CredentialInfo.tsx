@@ -19,7 +19,7 @@ const CredentialInfo: FC<any> = (props: any) => {
   const [dataTokenFactory, setDataTokenFactory] = useState('');
   const { walletConfig } = props.state;
   const { location } = props;
-  const { dataTokenId, metaDataId, metaDataName, dataId } = location.state;
+  const { dataTokenId, metaDataId, metaDataName, dataId, usage } = location.state;
   const [loading, setLoading] = useState(false);
   const submiting = useRef(false)
   // const receipt = useRef(false)
@@ -283,38 +283,44 @@ const CredentialInfo: FC<any> = (props: any) => {
             <QuestionCircleOutlined style={{ 'fontSize': '18px', 'color': '#3C3588', marginLeft: "20px" }} />
           </Tooltip>
         </p>
-        <Form.Item
-          labelAlign="left"
-          label={`${t('credential.plaintextConsumption')}:`}
-          name="plaintextConsumption"
-          initialValue={1}
-          rules={[
-            {
-              pattern: new RegExp(/^[1-9]\d*$/, "g"),
-              message: `${t('common.pleaseEnterNumber')}`
-            },
-            { required: true, message: `${t('credential.pleaseEnter')} ${t('credential.plaintextConsumption')}` }]}
-        >
-          <Input
-            onChange={e => form.current.setFieldsValue({ plaintextConsumption: e.target?.value.replace(/\s*/g, "") } || '')}
-            maxLength={18} minLength={1} placeholder={`${t('credential.pleaseEnter')}${t('credential.plaintextConsumption')}`} />
-        </Form.Item>
-        <Form.Item
-          labelAlign="left"
-          label={`${t('credential.ciphertextConsumption')}:`}
-          name="ciphertextConsumption"
-          initialValue={1}
-          rules={[
-            {
-              pattern: new RegExp(/^[1-9]\d*$/, "g"),
-              message: `${t('common.pleaseEnterNumber')}`
-            },
-            { required: true, message: `${t('credential.pleaseEnter')} ${t('credential.ciphertextConsumption')}` }]}
-        >
-          <Input
-            onChange={e => form.current.setFieldsValue({ ciphertextConsumption: e.target?.value.replace(/\s*/g, "") } || '')}
-            maxLength={18} placeholder={`${t('credential.pleaseEnter')}${t('credential.ciphertextConsumption')}`} minLength={1} />
-        </Form.Item>
+        {[2, 3].includes(+usage) ?
+          <Form.Item
+            labelAlign="left"
+            label={`${t('credential.ciphertextConsumption')}:`}
+            name="ciphertextConsumption"
+            initialValue={1}
+            rules={[
+              {
+                pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                message: `${t('common.pleaseEnterNumber')}`
+              },
+              { required: true, message: `${t('credential.pleaseEnter')} ${t('credential.ciphertextConsumption')}` }]}
+          >
+            <Input
+              onChange={e => form.current.setFieldsValue({ ciphertextConsumption: e.target?.value.replace(/\s*/g, "") } || '')}
+              maxLength={18} placeholder={`${t('credential.pleaseEnter')}${t('credential.ciphertextConsumption')}`} minLength={1} />
+          </Form.Item> : ''
+        }
+        {[1, 3].includes(+usage) ?
+          <Form.Item
+            labelAlign="left"
+            label={`${t('credential.plaintextConsumption')}:`}
+            name="plaintextConsumption"
+            initialValue={1}
+            rules={[
+              {
+                pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                message: `${t('common.pleaseEnterNumber')}`
+              },
+              { required: true, message: `${t('credential.pleaseEnter')} ${t('credential.plaintextConsumption')}` }]}
+          >
+            <Input
+              onChange={e => form.current.setFieldsValue({ plaintextConsumption: e.target?.value.replace(/\s*/g, "") } || '')}
+              maxLength={18} minLength={1} placeholder={`${t('credential.pleaseEnter')}${t('credential.plaintextConsumption')}`} />
+          </Form.Item> : ""
+        }
+
+
         <Form.Item
           labelAlign="left"
           label={` `}

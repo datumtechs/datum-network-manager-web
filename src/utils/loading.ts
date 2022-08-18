@@ -10,6 +10,7 @@ export const noInclude = [
 '/api/v1/user/findLocalOrgInfo', 
 '/api/v1/data/listLocalMetaDataByKeyword',
  '/api/v1/dataToken/getDataTokenStatus',
+ '/api/v1/attributeDataToken/getAttributeDataTokenStatus'
 ]
 //Cancel
 export const noDuplicateRemovalInclude = [

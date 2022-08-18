@@ -827,8 +827,18 @@ textarea :-ms-input-placeholder {
       font-weight: 900;
       font-size: 32px;
       color: #000000;
-      height: 112px;
+      min-height: 112px;
       border-bottom: 1px solid #EBEEF9;
+      padding: 0 10px;
+      word-wrap: break-word;
+      word-break: break-all;
+      flex-wrap: wrap;
+      padding: 5px 10px;
+    }
+
+    .item-metaDataId {
+      word-wrap: break-word;
+      word-break: break-all;
     }
 
     .details-info {

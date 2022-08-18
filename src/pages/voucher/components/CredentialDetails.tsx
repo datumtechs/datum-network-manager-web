@@ -79,13 +79,13 @@ const CredentialDetails: FC<any> = (props: any) => {
           <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('center.usageScene')}:</label>
             <span>
-              {[1, 3].includes(datas?.usage) ? t('center.Plaintext') : ""}
-              {[2, 3].includes(datas?.usage) ? t('center.ciphertext') : ""}
+              {[1, 3].includes(+datas?.usage) ? t('center.Plaintext') : ""}
+              {[2, 3].includes(+datas?.usage) ? t('center.ciphertext') : ""}
             </span>
           </div>
           <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('credential.contractName')}:</label>
-            <span>{dataAddressName}</span>
+            <span className="item-metaDataId">{dataAddressName}</span>
           </div>
           <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('voucher.ContractAddress')}:</label>
@@ -96,8 +96,8 @@ const CredentialDetails: FC<any> = (props: any) => {
             <span>{datas?.owner}</span>
           </div>
           <div className="info-item">
-            <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('center.metaDataID')}:</label>
-            <span>{datas?.dynamicFields?.metaDataId || '-'}</span>
+            <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }} >{t('center.metaDataID')}:</label>
+            <span className="item-metaDataId">{datas?.dynamicFields?.metaDataId || '-'}</span>
           </div>
           <div className="info-item">
             <label style={{ minWidth: i18n.language == 'en' ? '135px' : '70px' }}>{t('credential.credentialId')}:</label>
