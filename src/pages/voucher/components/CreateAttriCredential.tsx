@@ -91,6 +91,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
 
   const beforeUpload = (file: any) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/svg+xml';
+    // debugger
     if (!isJpgOrPng) {
       message.error(t('credential.pictureIncorrect'));
       return false
@@ -164,7 +165,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
           >
             <div className={imageUrl ? 'upload-wrap-no-bg' : 'upload-wrap'}>
               <Upload
-                accept="image/*"
+                accept=".jpeg, .png, .gif, .svg"
                 maxCount={1}
                 listType="picture-card"
                 className="avatar-uploader"
