@@ -122,6 +122,9 @@ const CredentialInfo: FC<any> = (props: any) => {
   }
 
   const sendTransactionData = (params, nonce, hash, address) => {
+    const obj: any = {}
+    if (params.ciphertextConsumption) obj.ciphertextFee = String(params.ciphertextConsumption) + Complement
+    if (params.plaintextConsumption) obj.plaintextFee = String(params.plaintextConsumption) + Complement
     voucher.postTransaction({
       "desc": '',
       "hash": hash,
@@ -130,8 +133,9 @@ const CredentialInfo: FC<any> = (props: any) => {
       "symbol": params.symbol,
       "total": params.initialSupply + Complement,
       "init": params.initialSupply + Complement,
-      ciphertextFee: String(params.ciphertextConsumption) + Complement,
-      plaintextFee: String(params.plaintextConsumption) + Complement,
+      ...obj,
+      // ciphertextFee: params.ciphertextConsumption ? String(params.ciphertextConsumption) + Complement : undefined,
+      // plaintextFee: params.plaintextConsumption ? String(params.plaintextConsumption || '1') + Complement : undefined,
       nonce,
       owner: address
     }).then(res => {

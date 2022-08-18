@@ -272,13 +272,19 @@ const VoucherTable: FC<any> = (props: any) => {
   }
 
   const saveFn = () => {
+    if (activeRow?.dynamicFields?.feeUpdateStatus == 'updating') {
+      setModalLoading(false)
+      setModalShow(false)
+      query()
+      return
+    }
     form.current.validateFields().then(async (values) => {
       console.log(values);
       try {
         const { wallet, } = props.state.wallet
         const { walletConfig } = props.state
-        const Plain = values.Plaintext ? String(values.Plaintext) + Complement : '1' + Complement
-        const cipher = values.ciphertext ? String(values.ciphertext) + Complement : '1' + Complement
+        const Plain = values.Plaintext ? String(values.Plaintext || '1') + Complement : undefined//'1' + Complement
+        const cipher = values.ciphertext ? String(values.ciphertext || '1') + Complement : undefined// '1' + Complement
         setModalLoading(true)
         const address = await wallet.connectWallet(walletConfig)
         const metaDateDetails = await resourceApi.queryMetaDataDetail(activeRow.metaDataDbId)
@@ -292,8 +298,8 @@ const VoucherTable: FC<any> = (props: any) => {
         consumeOptionsList.forEach((v, i) => {
           const consumeOptions = JSON.parse(v)
           if (Array.isArray(consumeOptions) && consumeOptions[0].cryptoAlgoConsumeUnit) {
-            consumeOptions[0].plainAlgoConsumeUnit = Plain
-            consumeOptions[0].cryptoAlgoConsumeUnit = cipher
+            if (Plain) consumeOptions[0].plainAlgoConsumeUnit = Plain
+            if (cipher) consumeOptions[0].cryptoAlgoConsumeUnit = cipher
             newMetaDateOptionData.consumeOptions[i] = JSON.stringify([consumeOptions[0]])
           }
         });
@@ -314,8 +320,8 @@ const VoucherTable: FC<any> = (props: any) => {
         ]
 
         const data: any = { dataTokenId: activeRow.id }
-        data.newPlaintextFee = Plain
-        data.newCiphertextFee = cipher
+        if (Plain) data.newPlaintextFee = Plain
+        if (cipher) data.newCiphertextFee = cipher
         const sign = await wallet.signData(params, address[0])
         data.sign = sign
         if (!data.sign) return setModalLoading(false)
@@ -324,6 +330,7 @@ const VoucherTable: FC<any> = (props: any) => {
           if (status == 0) {
             message.success(t("task.success"))
           }
+          query()
           setModalLoading(false)
           setModalShow(false)
         })
@@ -341,6 +348,13 @@ const VoucherTable: FC<any> = (props: any) => {
     setCurPage(page)
   }
 
+  const filterfeeUpdateTimestamp = (tiem) => {
+    const timestamp = Date.now()
+    const div = timestamp - tiem
+    const HourTimestamp = 1000 * 60 * 60
+    const except = (div / HourTimestamp).toFixed(2)
+    return except
+  }
 
   return <div className="voucher">
     <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('voucher.VoucherName')}`} />
@@ -377,10 +391,12 @@ const VoucherTable: FC<any> = (props: any) => {
       <Form
         labelCol={{ span: 5 }}
         ref={form}
+        layout={'vertical'}
+        colon={false}
       >
         {
           [1, 3].includes(activeRow?.dynamicFields?.usage) ? <Form.Item name="Plaintext"
-            initialValue={activeRow.plaintextFee ? filterIntegerAmount(activeRow.plaintextFee) : 0}
+            initialValue={activeRow.newPlaintextFee || activeRow.plaintextFee ? filterIntegerAmount(activeRow.newPlaintextFee || activeRow.plaintextFee) : 0}
             label={`${t('center.Plaintext')}：`}
             className="froup-item"
             rules={[
@@ -390,6 +406,7 @@ const VoucherTable: FC<any> = (props: any) => {
                 message: `${t('common.pleaseEnterNumber')}`
               }]}>
             <Input
+              disabled={activeRow?.dynamicFields?.feeUpdateStatus == 'updating'}
               onChange={e => form.current.setFieldsValue({ Plaintext: e.target?.value.replace(/\s*/g, "") } || '')}
               className="form-box-input" maxLength={18} minLength={1} placeholder={t('center.Plaintext')} addonAfter={activeRow.symbol} />
           </Form.Item> : ""}
@@ -398,17 +415,27 @@ const VoucherTable: FC<any> = (props: any) => {
             <Form.Item name="ciphertext"
               label={`${t('center.ciphertext')}：`}
               className="froup-item"
-              initialValue={activeRow.ciphertextFee ? filterIntegerAmount(activeRow.ciphertextFee) : 0}
+              initialValue={activeRow.newCiphertextFee || activeRow.ciphertextFee ? filterIntegerAmount(activeRow.newCiphertextFee || activeRow.ciphertextFee) : 0}
               rules={[
                 {
                   required: true,
                   pattern: new RegExp(/^[1-9]\d*$/, "g"),
                   message: `${t('common.pleaseEnterNumber')}`
                 }]}>
-              <Input
+              <Input disabled={activeRow?.dynamicFields?.feeUpdateStatus == 'updating'}
                 onChange={e => form.current.setFieldsValue({ ciphertext: e.target?.value.replace(/\s*/g, "") } || '')}
                 className="form-box-input" maxLength={18} minLength={1} placeholder={t('center.ciphertext')} addonAfter={activeRow.symbol} />
             </Form.Item> : ""
+        }
+        {(!activeRow?.dynamicFields?.feeUpdateStatus || activeRow?.dynamicFields?.feeUpdateStatus == 'updated') ? '' :
+          <Form.Item
+            className="froup-item"
+          >
+            <span style={{ color: '#dc160e' }}>
+              {i18n.language !== 'zh' ? `The consumption can only be modified once every 24 hours. Please wait ${filterfeeUpdateTimestamp(activeRow?.dynamicFields?.feeUpdateTimestamp)} hours and try again` :
+                `每24小时只可修改一次消耗量,请等待${filterfeeUpdateTimestamp(activeRow?.dynamicFields?.feeUpdateTimestamp)}小时重试`}
+            </span>
+          </Form.Item>
         }
       </Form>
     </Modal >

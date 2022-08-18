@@ -879,10 +879,16 @@ textarea :-ms-input-placeholder {
   .form-box-input {
     .ant-input-group-addon {
       max-width: 200px;
+      min-width: 150px;
       overflow: hidden;
       text-overflow: ellipsis;
       color: rgba(0, 0, 0, 0.85);
+      border-left: none;
       // border-color: rgba(0, 0, 0, 0.85);
+    }
+
+    .ant-input {
+      // border-right: none;
     }
   }
 
