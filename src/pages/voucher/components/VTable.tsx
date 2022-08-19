@@ -275,7 +275,6 @@ const VoucherTable: FC<any> = (props: any) => {
     if (activeRow?.dynamicFields?.feeUpdateStatus == 'updating') {
       setModalLoading(false)
       setModalShow(false)
-      query()
       return
     }
     form.current.validateFields().then(async (values) => {
@@ -297,8 +296,9 @@ const VoucherTable: FC<any> = (props: any) => {
 
         consumeOptionsList.forEach((v, i) => {
           const consumeOptions = JSON.parse(v)
-          if (Array.isArray(consumeOptions) && consumeOptions[0].cryptoAlgoConsumeUnit) {
+          if (Array.isArray(consumeOptions) && consumeOptions[0]) {
             if (Plain) consumeOptions[0].plainAlgoConsumeUnit = Plain
+            // debugger
             if (cipher) consumeOptions[0].cryptoAlgoConsumeUnit = cipher
             newMetaDateOptionData.consumeOptions[i] = JSON.stringify([consumeOptions[0]])
           }
@@ -353,7 +353,8 @@ const VoucherTable: FC<any> = (props: any) => {
     const div = timestamp - tiem
     const HourTimestamp = 1000 * 60 * 60
     const except = (div / HourTimestamp).toFixed(2)
-    return except
+
+    return (except && +except >= 24) ? false : except
   }
 
   return <div className="voucher">
@@ -427,7 +428,7 @@ const VoucherTable: FC<any> = (props: any) => {
                 className="form-box-input" maxLength={18} minLength={1} placeholder={t('center.ciphertext')} addonAfter={activeRow.symbol} />
             </Form.Item> : ""
         }
-        {(!activeRow?.dynamicFields?.feeUpdateStatus || activeRow?.dynamicFields?.feeUpdateStatus == 'updated') ? '' :
+        {filterfeeUpdateTimestamp(activeRow?.dynamicFields?.feeUpdateTimestamp) || activeRow?.dynamicFields?.feeUpdateStatus == 'updating' ?
           <Form.Item
             className="froup-item"
           >
@@ -435,7 +436,7 @@ const VoucherTable: FC<any> = (props: any) => {
               {i18n.language !== 'zh' ? `The consumption can only be modified once every 24 hours. Please wait ${filterfeeUpdateTimestamp(activeRow?.dynamicFields?.feeUpdateTimestamp)} hours and try again` :
                 `每24小时只可修改一次消耗量,请等待${filterfeeUpdateTimestamp(activeRow?.dynamicFields?.feeUpdateTimestamp)}小时重试`}
             </span>
-          </Form.Item>
+          </Form.Item> : ''
         }
       </Form>
     </Modal >

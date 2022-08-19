@@ -132,7 +132,7 @@ const CreateAttriCredential: FC<any> = (props: any) => {
     })
   }
 
-  const disabledDate = (current: any) => current && current < moment().endOf('day');
+  const disabledDate = (current: any) => current && current < moment().startOf('hour');
 
   const uploadButton = (
     <div>

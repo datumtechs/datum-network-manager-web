@@ -4,16 +4,19 @@ import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { useHistory } from 'react-router-dom'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { orgManage } from '@api/index'
 
-const CommitteeList: FC<any> = () => {
+
+const CommitteeList: FC<any> = (props) => {
   const { t, i18n } = useTranslation()
   const history = useHistory()
   const [text, setSearchText] = useState()
-  const [tableData, setTableData] = useState<any[]>([])
   const [curPage, setCurPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(0)
   const [visible, setVisible] = useState(false)
+  const [data, setData] = useState<any>([])
+  const [activeRow, setActiveRow] = useState<any>({})
 
   const columns: any[] = [
     {
@@ -25,6 +28,7 @@ const CommitteeList: FC<any> = () => {
       title: t('orgManage.orgName'),
       dataIndex: 'orgName',
       ellipsis: true,
+      render: (text: any, row: any, index: any) => row.dynamicFields.identityName
     },
     {
       title: t('orgManage.joinTime'),
@@ -35,29 +39,39 @@ const CommitteeList: FC<any> = () => {
       title: t('common.actions'),
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
-        return <Button style={{ padding: 0 }} type="link" onClick={() => setVisible(row)}>  {t('orgManage.nominationWithdrawal')}</Button>
+        return row.isAdmin ? '' : <Button style={{ padding: 0 }} type="link" onClick={() => (setVisible(true), setActiveRow(row))}>  {t('orgManage.nominationWithdrawal')}</Button>
       },
     },
   ]
 
   const confirm = () => {
-    console.log(visible);
     // return
     history.push({
-      pathname: "/OrgManage/nominationCommittee"
+      pathname: "/OrgManage/nominationCommittee",
+      state: {
+        type: "out",
+        identityId: activeRow.identityId
+      }
     })
     setVisible(false)
   }
-  const query = () => {
-    setTableData([{
-      orgName: 'XXX'
-    }])
-  }
 
+  const query = () => {
+    orgManage.getAuthorityList({ keyword: text }).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        console.log(data)
+        setData(data)
+      }
+    })
+  }
 
   useEffect(() => {
     query()
   }, [])
+  useEffect(() => {
+    query()
+  }, [text])
 
   return <div className="committee-list">
     <div className="list-title">
@@ -65,10 +79,10 @@ const CommitteeList: FC<any> = () => {
       <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('orgManage.orgName')}`} />
     </div>
     <Table
-      className="com-table"
-      dataSource={tableData}
+      className="com-table com-table-lr-padding"
+      dataSource={data}
       columns={columns}
-      rowKey={(record: any) => record.name}
+      rowKey={(record: any) => record.id}
       pagination={{
         current: curPage,
         defaultPageSize: pageSize,

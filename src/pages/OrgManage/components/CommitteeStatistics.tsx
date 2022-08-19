@@ -1,20 +1,43 @@
 import { FC, useState, useEffect } from "react";
-import { Button, Divider } from 'antd'
+import { Button, Divider, message, Modal } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { orgManage } from '@api/index'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 const CommitteeStatistics: FC<any> = (props) => {
   const { t } = useTranslation()
   const history = useHistory()
   const [data, setData] = useState<any>({})
+  const { isAdmin } = props
+  const [visible, setVisible] = useState(false)
 
   const query = () => {
-    orgManage['getOrgManageHome']().then(res => {
+    console.log(isAdmin);
+
+    orgManage[+isAdmin == 1 ? 'getAuthorityHome' : 'getOrgManageHome']().then(res => {
       const { status, data } = res
       if (status == 0) {
         console.log(data)
         setData(data)
+      }
+    })
+  }
+  const add = () => {
+    history.push({
+      pathname: "/OrgManage/nominationCommittee",
+      state: {
+        type: "add",
+      }
+    })
+  }
+
+  const out = () => {
+    orgManage.postExitOrg().then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        console.log(data)
+        message.success(t('task.success'))
       }
     })
   }
@@ -46,8 +69,8 @@ const CommitteeStatistics: FC<any> = (props) => {
       <div className="title-right-box">
         {
           props.isAdmin ? <>
-            <Button type="primary">{t('orgManage.nominationMembers')}</Button>
-            <Button>{t('orgManage.withdrawCommittee')}</Button>
+            <Button onClick={add} type="primary">{t('orgManage.nominationMembers')}</Button>
+            <Button onClick={() => setVisible(true)}>{t('orgManage.withdrawCommittee')}</Button>
           </> : <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button>
         }
 
@@ -59,22 +82,22 @@ const CommitteeStatistics: FC<any> = (props) => {
         <div className="statistics-box">
           <div className="item">
             <p>{t('orgManage.committeeMembers')}</p>
-            <p>123</p>
+            <p>{data.authorityCount}</p>
           </div>
           <Divider style={{ height: '60px' }} type="vertical" />
           <div className="item">
             <p>{t('orgManage.trustCertificateIssued')}</p>
-            <p>123</p>
+            <p>{data.approveCount}</p>
           </div>
           <Divider style={{ height: '60px' }} type="vertical" />
           <div className="item">
             <p>{t('orgManage.myToDoList')}</p>
-            <p>123</p>
+            <p>{data.todoCount}</p>
           </div>
           <Divider style={{ height: '60px' }} type="vertical" />
           <div className="item">
             <p>{t('orgManage.myProposal')}</p>
-            <p>123</p>
+            <p>{data.proposalCount}</p>
           </div>
         </div> :
         <div className="statistics-box" style={{ width: "50%" }}>
@@ -89,7 +112,19 @@ const CommitteeStatistics: FC<any> = (props) => {
           </div>
         </div>
     }
-
+    <Modal
+      title={t('common.tips')}
+      centered
+      visible={visible}
+      onOk={() => out()}
+      onCancel={() => setVisible(false)}
+      okText={t('common.confirm')}
+      cancelText={t('common.cancel')}
+    >
+      <div>
+        <ExclamationCircleOutlined />     {t('orgManage.PleaseConfirmQuit')}?
+      </div>
+    </Modal>
   </div>
 }
 

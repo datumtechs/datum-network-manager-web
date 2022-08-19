@@ -433,9 +433,7 @@
     "pleaseSelect": "请选择",
     "ciphertext": "隐私计算",
     "Plaintext": "非隐私计算",
-    "ciphertextAndPlaintextTipsOne": "1. 数据仅可在所选的算法(隐私计算/非隐私计算)中使用, 支持多选",
-    "ciphertextAndPlaintextTipsTwo": "2. 多选, 同时选中时,该数据两种算法都能使用",
-    "ciphertextAndPlaintextTipsThree": "3. 初始默认选中隐私计算"
+    "ciphertextAndPlaintextTipsOne": "数据仅可在所选的算法(隐私计算/非隐私计算)中使用, 支持多选"
   },
   "myData": {
     "plzUploadFile": "请导入本地数据源文件",
@@ -660,6 +658,7 @@
     "committeeMembers": "委员会成员",
     "trustCertificateIssued": "已发信任证书",
     "myToDoList": "我的待办",
+    "myDoneList": "我的已办",
     "myProposal": "我的提案",
     "committeeList": "委员会列表",
     "orgName": "组织名称",
@@ -695,9 +694,17 @@
     "setAlgorithmConsumption": "设置算法消耗量",
     "uploadData": "上传资料",
     "uploadApprovalData": "上传审批资料",
+    "uploadApprovalDataImage": "上传审批资料图片",
     "InformationPicture": "资料图片",
     "postscriptToApplicationMaterials": "申请资料附言",
-    "Certified": "已获取认证"
+    "Certified": "已获取认证",
+    "InApplication": "申请中",
+    "ApplicationPassed": "申请通过",
+    "ApplicationFailed": "申请失败",
+    "UseCertificate": "使用该证书",
+    "PleaseConfirmQuit": "请确认是否要退出委员会, 在冷静期内可在我的提案撤回",
+    "organizationIp": "所选组织IP",
+    "organizationPort": "所选组织端口"
   },
   "httpStatus": {
     "status1": "系统内部错误",

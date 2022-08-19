@@ -78,7 +78,8 @@ export const logOut = async (state: any = {}, action: action) => {
             location.href = `/login`
             return
           }
-          location.href = `/login?type=redirect#${pathname}`
+          // location.href = `/login?type=redirect#${pathname}`
+          history.pushState(null,'',`/login?type=redirect#${pathname}`)
         }
       })
       return {}

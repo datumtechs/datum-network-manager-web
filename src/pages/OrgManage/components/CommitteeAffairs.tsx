@@ -91,8 +91,12 @@ const CommitteeAffairs: FC<any> = () => {
     <div className="list-title">
       <Segmented className="segmented" options={[
         {
-          label: <div>{t('orgManage.myHandling')}</div>,
+          label: <div>{t('orgManage.myToDoList')}</div>,
           value: 'myHandling'
+        },
+        {
+          label: <div>{t('orgManage.myDoneList')}</div>,
+          value: 'myDoneList'
         },
         {
           label: <div>{t('orgManage.myProposal')}</div>,

@@ -433,9 +433,7 @@
     "pleaseSelect": "Please select",
     "ciphertext": "Privacy Computing",
     "Plaintext": " No Privacy computing",
-    "ciphertextAndPlaintextTipsOne": "1. Data can only be used in the selected algorithm (Privacy computing / no privacy Computing), and multiple selections are supported",
-    "ciphertextAndPlaintextTipsTwo": "2. When multiple choices are selected at the same time, both algorithms of the data can be used",
-    "ciphertextAndPlaintextTipsThree": "3. Ciphertext selected by default"
+    "ciphertextAndPlaintextTipsOne": "Data can only be used in the selected algorithm (Privacy computing / no privacy Computing), and multiple selections are supported"
   },
   "myData": {
     "plzUploadFile": "Please upload your local file",
@@ -660,6 +658,7 @@
     "committeeMembers": "Committee Members",
     "trustCertificateIssued": "Trust certificate issued",
     "myToDoList": "My To-Do List",
+    "myDoneList": "My Done List",
     "myProposal": "My Proposal",
     "committeeList": "Committee List",
     "orgName": "organization Name",
@@ -695,9 +694,17 @@
     "setAlgorithmConsumption": "Set Algorithm Consumption",
     "uploadData": "Upload Data",
     "uploadApprovalData": "Upload Approval Data",
+    "uploadApprovalDataImage": "Upload Approval Data Image",
     "InformationPicture": "Information Picture",
     "postscriptToApplicationMaterials": "Postscrip To Application",
-    "Certified": "Certified"
+    "Certified": "Certified",
+    "InApplication": "In Application",
+    "ApplicationPassed": "Application Passed",
+    "ApplicationFailed": "Application Failed",
+    "UseCertificate": "Use Certificate",
+    "PleaseConfirmQuit": "Please confirm whether you want to withdraw from the Committee. You can withdraw my proposal during the cooling off period",
+    "organizationIp": "Selected organization IP",
+    "organizationPort": "Selected organization Port"
   },
   "httpStatus": {
     "status1": "system internal error",

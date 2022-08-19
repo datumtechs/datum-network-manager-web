@@ -2,6 +2,8 @@ import { FC, useState, useEffect } from "react";
 import { Table, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
+import { orgManage } from '@api/index'
+import { useApplicationStatus } from '@utils/utils'
 
 const Application: FC<any> = () => {
   const { t, i18n } = useTranslation()
@@ -20,26 +22,28 @@ const Application: FC<any> = () => {
     },
     {
       title: t('orgManage.certificationOrganization'),
-      dataIndex: 'certificationOrganization',
+      dataIndex: 'applyOrg',
       ellipsis: true,
     },
     {
       title: t('orgManage.timeInitiationCertification'),
-      dataIndex: 'timeInitiationCertification',
+      dataIndex: 'startTime',
       ellipsis: true,
     },
     {
       title: t('orgManage.applicationProgress'),
-      dataIndex: 'applicationProgress',
+      dataIndex: 'progress',
       ellipsis: true,
+      render: (text, record) => useApplicationStatus(text)
     },
     {
       title: t('common.actions'),
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
         return <>
-          <Button style={{ padding: 0, paddingRight: '10px' }} type="link" onClick={() => retreat(row)}>  {t('orgManage.viewPublicity')}</Button>
-          <Button style={{ padding: 0 }} type="link" onClick={() => retreat(row)}>  {t('orgManage.downloadCertificate')}</Button>
+          <Button style={{ padding: 0, paddingRight: '10px' }} type="link" onClick={() => retreat(row)}>  {t('computeNodeMgt.detail')}</Button>
+          <Button style={{ padding: 0 }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button>
+          <Button style={{ padding: 0 }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button>
         </>
       },
     },
@@ -47,10 +51,39 @@ const Application: FC<any> = () => {
 
   const retreat = (row) => {
     console.log(row);
-
   }
+
+  const download = (row) => {
+    // console.log(row);
+    orgManage.postDownload({ id: row.id }).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        console.log(data)
+      }
+    })
+  }
+
+  const useCertificate = (row) => {
+    orgManage.useCertificate({ id: row.id }).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        console.log(data)
+      }
+    })
+  }
+
+
   const query = () => {
-    setTableData([{ applicationProgress: "xxx" }])
+    // setTableData([{ applicationProgress: "xxx" }])
+    orgManage.getgenerAlapplyList(
+      { pageNumber: curPage, pageSize: pageSize }
+    ).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        console.log(data)
+        setTableData(data)
+      }
+    })
   }
 
 
@@ -63,10 +96,10 @@ const Application: FC<any> = () => {
       <span className="title">{t('orgManage.myApplication')}</span>
     </div>
     <Table
-      className="com-table"
+      className="com-table com-table-lr-padding"
       dataSource={tableData}
       columns={columns}
-      rowKey={(record: any) => record.name}
+      rowKey={(record: any) => record.id}
       pagination={{
         current: curPage,
         defaultPageSize: pageSize,

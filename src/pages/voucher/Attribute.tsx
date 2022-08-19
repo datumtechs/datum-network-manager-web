@@ -148,9 +148,6 @@ const Attribute: FC<any> = (props: any) => {
     })
   }
 
-  const OnPageChange = (page: number) => {
-    setCurPage(page)
-  }
 
   const query = () => {
     voucherApi.queryAttributeList({
@@ -170,6 +167,10 @@ const Attribute: FC<any> = (props: any) => {
     query()
   }, [])
 
+  useEffect(() => {
+    query()
+  }, [curPage])
+
 
   return <div className="layout-box">
     <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('credential.credentialContractName')}`} />
@@ -184,7 +185,7 @@ const Attribute: FC<any> = (props: any) => {
         defaultPageSize: pageSize,
         showSizeChanger: false,
         total: totalNum,
-        onChange: OnPageChange,
+        onChange: setCurPage,
         showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />

@@ -223,6 +223,22 @@ export const UseAttrCredentialStatus = (status)=>{
   }
 }
 
+export const useApplicationStatus = (status)=>{
+  const s = Number(status)
+  switch (s) {
+    // 0-未发布，1-发布中，2-发布失败，3-发布成功，4-定价中，5-定价失败，
+    // 6-定价成功，7-绑定中，8-绑定失败，9-绑定成功
+    case 0:
+      return i18n.t('orgManage.InApplication');
+    case 1:
+      return i18n.t('orgManage.ApplicationPassed');
+    case 2:
+      return i18n.t('orgManage.ApplicationFailed');
+    default:
+      break;
+  }
+}
+
 
 export const StatusCodeProcessing = (code) => {
   switch (code) {

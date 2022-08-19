@@ -9,20 +9,12 @@ import Application from './components/Application'
 
 
 
-
 const OrgManage: FC<any> = (props) => {
-  // const { isAdmin } = props?.loginInfo?.loginInfo
-  const isAdmin = 0
-  const query = () => {
 
-    console.log(isAdmin);
-    // debugger
 
-  }
+  const { isAdmin } = props?.loginInfo?.loginInfo
+  // const isAdmin = 0
 
-  useEffect(() => {
-    query()
-  }, [])
 
   return <div className="layout-box">
     <Statistics.default isAdmin={isAdmin} />

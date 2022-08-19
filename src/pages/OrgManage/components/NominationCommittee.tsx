@@ -1,19 +1,111 @@
-import { FC, useRef, useState } from 'react'
-import { Form, Input, Select, Button } from 'antd'
+import { FC, useRef, useState, useEffect } from 'react'
+import { Form, Input, Select, Button, message, Upload } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { orgManage } from '@api/index'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
 
 const { Option } = Select
-const NominationCommittee: FC<any> = () => {
+const NominationCommittee: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const [form] = Form.useForm()
   const [list, setList] = useState<any>([])
+  const loading = useRef(false)
+  // const pageType = props.type
+  const { identityId, type } = props.location.state
+  const [text, setText] = useState('')
+  const [imageUrl, setImageUrl] = useState<any>('')
+  const [uploading, setUploading] = useState(false)
+  console.log(type);
 
+  const query = () => {
+    loading.current = true
+    orgManage.getAuthorityList({ keyword: text }).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        console.log(data)
+        setList(data)
+      }
+      loading.current = false
+    })
+  }
+
+  useEffect(() => {
+    query()
+  }, [])
+  useEffect(() => {
+    if (loading.current) return
+    setTimeout(() => {
+      query()
+    }, 300)
+  }, [text])
+
+
+  const getBase64 = (img: any, callback: (url: string) => void) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result as string));
+    reader.readAsDataURL(img);
+  };
+
+  const handleChange = (info: any) => {
+    const formData = new FormData()
+    formData.append('file', info.file)
+    setUploading(true)
+    orgManage.getAuthorityUpload(formData).then(res => {
+      const { data, status } = res
+      if (status == 0) {
+        getBase64(info.file, url => {
+          setImageUrl(url);
+        });
+        form.setFieldsValue({ approvalMaterialURL: data })
+      } else {
+        setImageUrl('');
+      }
+      setUploading(false);
+    })
+  };
+
+  const beforeUpload = (file: any) => {
+    const isLt10M = file.size / 1024 / 1024 < 10;
+    if (!isLt10M) {
+      message.error(`${t('credential.sizeLimit')}10M`);
+    }
+    return false;
+  };
+
+  const uploadButton = (
+    <div>
+      {uploading ? <LoadingOutlined /> : <PlusOutlined className="plus-icon" />}
+      <div className="plus-tips">{t('credential.uploadTips')}</div>
+    </div>
+  );
+
+  const submit = () => {
+    form.validateFields().then(confirm)
+  }
+
+
+  const confirm = (values) => {
+    console.log(values);
+    orgManage[type == 'out' ? 'kickOut' : 'nominate']({
+      approveOrg: values.identityId,
+      desc: values.materialDesc,
+      remark: values.remark,
+      material: values.approvalMaterialURL,
+      ip: values.organizationIp || undefined,
+      port: values.organizationPort || undefined,
+    }).then(res => {
+      const { data, status } = res
+      if (status == 0) {
+        console.log(status);
+
+      }
+    })
+  }
 
   return <div className="layout-box p-20 nomination-committee">
     <div className="title">
-      {t('orgManage.nominationtoCommittee')}
-      {t('orgManage.nominationtoWithdrawalFromCommittee')}
+      {type == 'out' ? t('orgManage.nominationtoWithdrawalFromCommittee') : t('orgManage.nominationtoCommittee')}
     </div>
     <Form
       name="basic"
@@ -26,39 +118,104 @@ const NominationCommittee: FC<any> = () => {
     >
       <Form.Item
         label={t('orgManage.selectOrganization')}
-        name="selectOrganization"
+        name="identityId"
         rules={[{ required: true, message: `${t('center.pleaseSelect')}` }]}
       >
-        <Select placeholder={t('center.pleaseSelect')}>
+        <Select placeholder={t('center.pleaseSelect')} onSearch={setText} showSearch >
           {
-            list.map((item: any) => (<Option value={item.id} key={item.id}>XXX</Option>))
+            list.map((item: any) => (<Option value={item.identityId} key={item.identityId}>{item?.dynamicFields?.identityName}</Option>))
           }
         </Select>
 
       </Form.Item>
+      {
+        type == 'add' ? <>
+          <Form.Item
+            label={t('orgManage.organizationIp')}
+            name="organizationIp"
+            rules={[
+              {
+                required: true,
+                validator: (rule, value, callback): any => {
+                  if (!value) return callback(`${t('credential.pleaseEnter')}${t('orgManage.organizationIp')}`)
+                  return callback()
+                },
+              },
+            ]}
+          >
+            <Input
+              onChange={e => form.setFieldsValue({ organizationIp: e.target?.value.replace(/\s*/g, "") } || '')}
+              maxLength={20} ></Input>
+          </Form.Item>
+          <Form.Item
+            label={t('orgManage.organizationPort')}
+            name="organizationPort"
+            rules={[
+              {
+                required: true,
+                validator: (rule, value, callback): any => {
+                  if (!value) return callback(`${t('credential.pleaseEnter')}${t('orgManage.organizationPort')}`)
+                  return callback()
+                },
+              },
+            ]}
+          >
+            <Input
+              onChange={e => form.setFieldsValue({ organizationPort: e.target?.value.replace(/\s*/g, "") } || '')}
+              maxLength={10} ></Input>
+          </Form.Item>
+        </> : ""
+      }
       <Form.Item
-        label={t('orgManage.selectApprovalData')}
-        name="selectApprovalData"
+        label={t('orgManage.postscriptNomination')}
+        name="remark"
+        rules={[
+          {
+            required: true,
+            validator: (rule, value, callback): any => {
+              if (!value) return callback(`${t('credential.pleaseEnter')}${t('orgManage.postscriptApplication')}`)
+              return callback()
+            },
+          },
+        ]}
       >
-        <div className="position">
-          <Select placeholder={t('center.pleaseSelect')}>
-            {
-              list.map((item: any) => (<Option value={item.id} key={item.id}>XXX</Option>))
-            }
-          </Select>
-          <Button className="com-btn" style={{ marginRight: '20px' }} type="primary">{t('orgManage.uploadData')}</Button>
-        </div>
+        <Input.TextArea
+          onChange={e => form.setFieldsValue({ remark: e.target?.value.replace(/\s*/g, "") } || '')}
+          maxLength={200} showCount></Input.TextArea>
+      </Form.Item>
+      <Form.Item
+        label={t('orgManage.uploadApprovalDataImage')}
+        name="InformationPicture"
+      >
+        <Upload
+          accept="image/*"
+          listType="picture-card"
+          className="avatar-uploader"
+          showUploadList={false}
+          beforeUpload={beforeUpload}
+          onChange={handleChange}
+        >
+          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%', maxHeight: '100%' }} /> : uploadButton}
+        </Upload>
+      </Form.Item>
+      <Form.Item
+        label={t('orgManage.approvalMaterialURL')}
+        name="approvalMaterialURL"
+      >
+        <Input disabled={true} placeholder={t('orgManage.approvalMaterialURL')} />
       </Form.Item>
       <Form.Item
         label={t('orgManage.postscriptNomination')}
-        name="postscriptNomination"
+        name="materialDesc"
       >
-        <Input.TextArea maxLength={200} showCount></Input.TextArea>
+        <Input.TextArea
+          onChange={e => form.setFieldsValue({ materialDesc: e.target?.value.replace(/\s*/g, "") } || '')}
+          maxLength={200} showCount></Input.TextArea>
       </Form.Item>
       <Form.Item
         label={` `}
       >
-        <Button className="com-btn" style={{ marginRight: '20px' }} type="primary">{t('common.submit')}</Button>
+        <Button className="com-btn" onClick={submit} style={{ marginRight: '20px' }} type="primary">{t('common.submit')}</Button>
         <Button className="com-btn" onClick={() => history.go(-1)}>{t('common.return')}</Button>
       </Form.Item>
     </Form>
