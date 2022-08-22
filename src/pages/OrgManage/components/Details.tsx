@@ -1,9 +1,10 @@
 import { FC, useState, useEffect } from "react";
-import { Table, Button, message } from 'antd'
+import { Table, Button, message, Image } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { orgManage } from '@api/index'
 import { useApplicationStatus } from '@utils/utils'
+
 
 const OrgManageApplyDetails: FC<any> = (props) => {
   const { t, i18n } = useTranslation()
@@ -21,19 +22,84 @@ const OrgManageApplyDetails: FC<any> = (props) => {
     ).then(res => {
       const { status, data } = res
       if (status == 0) {
-        console.log(data)
+        // console.log(data)
+        const claim = JSON.parse(data.claim)
+        data.newClaim = claim
         setData(data)
+        setTableData([{
+          left: t('orgManage.applicationInitiator'),
+          right: t('orgManage.approvedBy'),
+          rdata: data.applyOrg,
+          ldata: data.approveOrg
+        },
+        {
+          left: t('orgManage.applicationTime'),
+          right: t('orgManage.approvalProgress'),
+          rdata: type == "generalOrganization-applyDetail" ? useApplicationStatus(data.progress) : data.progress,
+          ldata: data.startTime
+        },
+        {
+          left: t('orgManage.postscriptApplication'),
+          right: t('orgManage.approvalTime'),
+          rdata: data.endTime,
+          ldata: data.applyRemark
+        },
+        {
+          left: t('orgManage.approvalPostscript'),
+          rdata: data.approveRemark,
+          right: false,
+        },
+        {
+          left: '',
+          rdata: 'img',
+          right: t('orgManage.postscriptToApplicationMaterials'),
+          ldata: "img"
+        }
+        ])
       }
     })
   }
   const columns = [{
     dataIndex: 'left',
-    width: 300
+    width: 300,
+    onCell: (_, index) => {
+      if (!_.right) {
+        return { colSpan: 2 };
+      }
+      return {};
+    },
+    render: (text, row) => <>
+      <p style={{ fontWeight: 600 }}>{text ? text : ""}</p>
+      {row.ldata ? row.rdata == 'img' ? <Image
+        src={data?.newClaim?.url}
+      /> : row.ldata : row.ldata == 0 ? 0 : '-'}
+    </>
   },
   {
     dataIndex: 'right',
-    width: 300
+    width: 300,
+    onCell: (_, index) => {
+      if (!_.right) {
+        return { colSpan: 0 };
+      }
+      return {};
+    },
+    render: (text, row) => <>
+      <p style={{ fontWeight: 600 }}>{text ? t(text) : ""}</p>
+      {row.rdata ? row.rdata == 'img' ? data.materialDesc : row.rdata : row.rdata == 0 ? 0 : '-'}
+    </>
   },]
+
+  const filterImgurl = () => {
+    // if (!datas?.dynamicFields?.pinataGateway) return ''
+    // const pinataGateway = datas?.dynamicFields?.pinataGateway
+    // const imageUrl = datas?.imageUrl
+    // if ((pinataGateway.length - 1) == pinataGateway.lastIndexOf('/')) {
+    //   return `${pinataGateway}ipfs/${imageUrl && imageUrl.replace('ipfs://', '') || ''}`
+    // }
+    // return `${pinataGateway}/ipfs/${imageUrl && imageUrl.replace('ipfs://', '') || ''}`
+    return ''
+  }
 
   useEffect(() => {
     query()
@@ -44,11 +110,12 @@ const OrgManageApplyDetails: FC<any> = (props) => {
       <span className="title">{data?.dynamicFields?.applyOrgName}{t(`orgManage.certificationApplicationDetails`)}</span>
     </div>
     <Table
-      className="com-table com-table-lr-padding"
       dataSource={tableData}
       columns={columns}
       showHeader={false}
+      bordered
       rowKey={(record: any) => record.id}
+      pagination={false}
     />
   </div>
 }

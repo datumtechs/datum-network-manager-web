@@ -686,7 +686,7 @@
     "selectApprovalData": "Select Approval Data",
     "postscriptNomination": "Postscript Nomination",
     "nominationtoCommittee": "Nomination to the Committee",
-    "nominationtoWithdrawalFromCommittee": "Nomination withdrawal from Committee",
+    "nominationtoWithdrawalFromCommittee": "Nominations kicked out of the Committee",
     "applyTrustedCertification": "Apply for trusted certification",
     "selectApprovalNode": "Select approval node",
     "approvalMaterialURL": "Approval Material URL",
@@ -710,7 +710,15 @@
     "proposalContent": "Proposal Content",
     "nominationToJoinProposal": "Nomination to join the proposal",
     "nominateKickOutProposal": "Nominate and kick out the proposal",
-    "certificationApplicationDetails": "Trusted certification application"
+    "certificationApplicationDetails": "Trusted certification application",
+    "applicationInitiator": "Application Initiator",
+    "approvedBy": "Approved By",
+    "applicationTime": "Application Time",
+    "approvalProgress": "Approval progress",
+    "approvalTime": "Approval Time",
+    "approvalPostscript": "Approval Postscript",
+    "approvalDataDescription": "Approval Data Description",
+    "viewContent": "View Content"
   },
   "httpStatus": {
     "status1": "system internal error",

@@ -112,7 +112,7 @@ const orgManage = {
   },
 
   //我的待办列表
-  geetToDoList(data?:any): Promise<any> {
+  getToDoList(data?:any): Promise<any> {
     return axios({
       method: "POST",
       url: `/api/v1/authority/todoList`,

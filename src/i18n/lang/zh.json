@@ -686,7 +686,7 @@
     "selectApprovalData": "选择审批资料",
     "postscriptNomination": "提名附言",
     "nominationtoCommittee": "提名加入委员会",
-    "nominationtoWithdrawalFromCommittee": "提名退出委员会",
+    "nominationtoWithdrawalFromCommittee": "提名踢出委员会",
     "applyTrustedCertification": "申请可信认证",
     "selectApprovalNode": "选择审批节点",
     "approvalMaterialURL": "审批资料URL",
@@ -710,7 +710,15 @@
     "proposalContent": "提案内容",
     "nominationToJoinProposal": "提名加入提案",
     "nominateKickOutProposal": "提名踢出提案",
-    "certificationApplicationDetails": "可信任认证申请"
+    "certificationApplicationDetails": "可信任认证申请",
+    "applicationInitiator": "申请发起方",
+    "approvedBy": "审批方",
+    "applicationTime": "申请时间",
+    "approvalProgress": "审批进度",
+    "approvalTime": "审批时间",
+    "approvalPostscript": "审批附言",
+    "approvalDataDescription": "审批资料描述",
+    "viewContent": "查看内容"
   },
   "httpStatus": {
     "status1": "系统内部错误",

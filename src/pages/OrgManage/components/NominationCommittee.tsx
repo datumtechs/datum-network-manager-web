@@ -88,12 +88,12 @@ const NominationCommittee: FC<any> = (props: any) => {
   const confirm = (values) => {
     console.log(values);
     orgManage[type == 'out' ? 'kickOut' : 'nominate']({
-      approveOrg: values.identityId,
-      desc: values.materialDesc,
-      remark: values.remark,
-      material: values.approvalMaterialURL,
+      identityId: values.identityId,
       ip: values.organizationIp || undefined,
+      material: values.approvalMaterialURL,
+      materialDesc: values.materialDesc,
       port: values.organizationPort || undefined,
+      remark: values.remark,
     }).then(res => {
       const { data, status } = res
       if (status == 0) {
@@ -119,6 +119,7 @@ const NominationCommittee: FC<any> = (props: any) => {
       <Form.Item
         label={t('orgManage.selectOrganization')}
         name="identityId"
+        initialValue={identityId}
         rules={[{ required: true, message: `${t('center.pleaseSelect')}` }]}
       >
         <Select placeholder={t('center.pleaseSelect')} onSearch={setText} showSearch >
@@ -205,7 +206,7 @@ const NominationCommittee: FC<any> = (props: any) => {
         <Input disabled={true} placeholder={t('orgManage.approvalMaterialURL')} />
       </Form.Item>
       <Form.Item
-        label={t('orgManage.postscriptNomination')}
+        label={t('orgManage.approvalDataDescription')}
         name="materialDesc"
       >
         <Input.TextArea
