@@ -57,11 +57,11 @@ const CommitteeStatistics: FC<any> = (props) => {
   return <div className="committee-statistics p-20 " style={{ paddingBottom: 0 }}>
     <div className="statistics-title ">
       <div className="title-left-box">
-        <img className="committee-logo" src="#" />
+        <img className="committee-logo" src={data.imageUrl} />
         <div className="committee-name">
           <div className="name-box">
             {data.identityName}
-            {data.canTrusted ? <span>交易委员会会员</span> : ''}
+            {data.isAuthority ? <span>{t('orgManage.committeeMember')}</span> : ''}
           </div>
           <p className="committee-identity">{data.identityId}</p>
         </div>

@@ -163,7 +163,8 @@
     "publishDataVoucher": "Publish data Credential",
     "orgManage": "Organization Management",
     "nominationCommittee": "Nomination Committee",
-    "applyCertification": "Apply Certification"
+    "applyCertification": "Apply Certification",
+    "orgManageApplyDetails": "Details"
   },
   "common": {
     "submit": "Submit",
@@ -704,7 +705,12 @@
     "UseCertificate": "Use Certificate",
     "PleaseConfirmQuit": "Please confirm whether you want to withdraw from the Committee. You can withdraw my proposal during the cooling off period",
     "organizationIp": "Selected organization IP",
-    "organizationPort": "Selected organization Port"
+    "organizationPort": "Selected organization Port",
+    "committeeMember": "Trading Committee member",
+    "proposalContent": "Proposal Content",
+    "nominationToJoinProposal": "Nomination to join the proposal",
+    "nominateKickOutProposal": "Nominate and kick out the proposal",
+    "certificationApplicationDetails": "Trusted certification application"
   },
   "httpStatus": {
     "status1": "system internal error",

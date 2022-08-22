@@ -20,7 +20,7 @@ const CommitteeList: FC<any> = (props) => {
 
   const columns: any[] = [
     {
-      title: ``,
+      title: t(`common.Num`),
       render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
       width: 70
     },

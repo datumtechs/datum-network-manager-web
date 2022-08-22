@@ -57,7 +57,8 @@ export const routerParams = {
 
   OrgManage: import('@pages/OrgManage').then(handDefault),
   NominationCommittee: import('@pages/OrgManage/components/NominationCommittee').then(handDefault),
-  ApplyCertification: import('@pages/OrgManage/components/ApplyCertification').then(handDefault)
+  ApplyCertification: import('@pages/OrgManage/components/ApplyCertification').then(handDefault),
+  OrgManageApplyDetails: import('@pages/OrgManage/components/Details').then(handDefault)
 
 }
 

@@ -12,6 +12,7 @@ import Web3Service from "./utils/Web3Service"
 import { connect } from 'react-redux'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import { useHistory } from 'react-router-dom'
 
 moment.locale('zh-cn');
 
@@ -42,7 +43,7 @@ const App: FC<any> = (props: any) => {
   const { i18n } = useTranslation()
   const { loginInfo } = props?.state?.loginInfo
   const [newRoute, setNewRoute] = useState<any[]>([])
-
+  const history = useHistory()
   const initralFn = () => {
     const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
     const htmlDom = document.getElementsByTagName('html')[0]
@@ -52,8 +53,8 @@ const App: FC<any> = (props: any) => {
 
 
   const walletChange = () => {
-    console.log(loginInfo);
-    if (!loginInfo || loginInfo && !Object.keys(loginInfo).length || loginInfo?.address) {
+    // console.log(history);
+    if (history.location.pathname !== '/login') {
       props.loginOut()
       props.setLoginInfo()
     }

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { orgManage } from '@api/index'
 import { useApplicationStatus } from '@utils/utils'
+import { useHistory } from 'react-router-dom'
 
 const Application: FC<any> = () => {
   const { t, i18n } = useTranslation()
@@ -12,13 +13,13 @@ const Application: FC<any> = () => {
   const [curPage, setCurPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(0)
+  const history = useHistory()
 
   const columns: any[] = [
     {
-      title: ` `,
+      title: t(`common.Num`),
       render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
-      width: 70,
-      className: "no-right-border"
+      width: 60,
     },
     {
       title: t('orgManage.certificationOrganization'),
@@ -41,7 +42,7 @@ const Application: FC<any> = () => {
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
         return <>
-          <Button style={{ padding: 0, paddingRight: '10px' }} type="link" onClick={() => retreat(row)}>  {t('computeNodeMgt.detail')}</Button>
+          <Button style={{ padding: 0, paddingRight: '10px' }} type="link" onClick={() => details(row)}>  {t('computeNodeMgt.detail')}</Button>
           <Button style={{ padding: 0 }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button>
           <Button style={{ padding: 0 }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button>
         </>
@@ -49,8 +50,16 @@ const Application: FC<any> = () => {
     },
   ]
 
-  const retreat = (row) => {
+  const details = (row) => {
     console.log(row);
+    history.push({
+      pathname: "/OrgManage/orgManageApplyDetails",
+      state: {
+        id: row.id,
+        title: "certificationApplicationDetails",
+        type: "generalOrganization-applyDetail"
+      }
+    })
   }
 
   const download = (row) => {

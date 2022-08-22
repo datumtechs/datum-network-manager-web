@@ -1,7 +1,9 @@
 import { FC, useState, useEffect } from "react";
-import { Table, Button, Segmented } from 'antd'
+import { Table, Button, Segmented, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
+import { orgManage } from '@api/index'
+import { useToDoContentStatus } from '@utils/utils'
 
 const CommitteeAffairs: FC<any> = () => {
   const { t, i18n } = useTranslation()
@@ -10,15 +12,29 @@ const CommitteeAffairs: FC<any> = () => {
   const [curPage, setCurPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(0)
-  const [segmentedValue, setSegmented] = useState<string | number>('myHandling');
+  const [segmentedValue, setSegmented] = useState<string | number>('geetToDoList');
 
   const columns = (item): any[] => {
-    const itemList = item == 'myProposal' ? [{
-      title: t('orgManage.proposalApplicationOrganization'),
-      dataIndex: 'proposalApplicationOrganization',
-      ellipsis: true,
-    }] : []
-    const itemProposalProgressList = item == 'myProposal' ? [{
+    const itemList = item == 'getMyProposalList' ? [
+      {
+        title: t('orgManage.proposalContent'),
+        dataIndex: 'proposalContent',
+        ellipsis: true,
+      },
+      {
+        title: t('orgManage.proposalApplicationOrganization'),
+        dataIndex: 'proposalApplicationOrganization',
+        ellipsis: true,
+      }
+    ] : [
+      {
+        title: t('orgManage.toDoContent'),
+        dataIndex: 'toDoContent',
+        ellipsis: true,
+        render: (text, row) => useToDoContentStatus(+text)
+      },
+    ]
+    const itemProposalProgressList = item == 'getMyProposalList' ? [{
       title: t('orgManage.proposalProgress'),
       dataIndex: 'proposalProgress',
       ellipsis: true,
@@ -31,15 +47,11 @@ const CommitteeAffairs: FC<any> = () => {
     ]
     return [
       {
-        title: ``,
+        title: t(`common.Num`),
         render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
-        width: 70,
+        width: 60,
       },
-      {
-        title: item == 'myHandling' ? t('orgManage.toDoContent') : t('orgManage.eventContent'),
-        dataIndex: 'toDoContent',
-        ellipsis: true,
-      },
+
       ...itemList,
       {
         title: t('orgManage.type'),
@@ -75,13 +87,22 @@ const CommitteeAffairs: FC<any> = () => {
 
   }
   const query = () => {
-
+    orgManage[segmentedValue]({ pageSize, pageNumber: curPage, keyword: text }).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        setTableData(data)
+      }
+    })
   }
 
 
   useEffect(() => {
     query()
   }, [])
+
+  useEffect(() => {
+    query()
+  }, [segmentedValue, text])
 
   return <div className="committee-list">
     <div className="list-title">
@@ -92,24 +113,24 @@ const CommitteeAffairs: FC<any> = () => {
       <Segmented className="segmented" options={[
         {
           label: <div>{t('orgManage.myToDoList')}</div>,
-          value: 'myHandling'
+          value: 'geetToDoList'
         },
         {
           label: <div>{t('orgManage.myDoneList')}</div>,
-          value: 'myDoneList'
+          value: 'getDoneList'
         },
         {
           label: <div>{t('orgManage.myProposal')}</div>,
-          value: 'myProposal'
+          value: 'getMyProposalList'
         }
       ]} value={segmentedValue} onChange={setSegmented} />
       <SearchBar onSearch={setSearchText} />
     </div>
     <Table
-      className="com-table"
+      className="com-table com-table-lr-padding"
       dataSource={tableData}
       columns={columns(segmentedValue)}
-      rowKey={(record: any) => record.name}
+      rowKey={(record: any) => record.id}
       pagination={{
         current: curPage,
         defaultPageSize: pageSize,

@@ -76,7 +76,6 @@ export const  basicsRouters = [
     isOpen: false,
     children: [
       {
-
         name: 'seedNodeMgt',
         label: 'menu.seedNodeMgt',
         breadcrumbName: 'menu.seedNodeMgt',
@@ -84,23 +83,6 @@ export const  basicsRouters = [
         component: handLazy('SeedNodeMgt'),
         meta: { exact: true, title: '/nodeMgt/SeedNodeMgt', icon: '', show: true },
       },
-      // {
-
-      //   name: 'addSeedNode',
-      //   label: 'menu.addSeedNode',
-      //   breadcrumbName: 'menu.addSeedNode',
-      //   path: '/nodeMgt/SeedNodeMgt/addSeedNode',
-      //   component: handLazy('AddSeedNode'),
-      //   meta: { exact: true, title: '', icon: '', show: false },
-      // },
-      // {
-      //   name: 'dispatchConfig',
-      //   label: 'menu.dispatchConfig',
-      //   breadcrumbName: 'menu.dispatchConfig',
-      //   path: '/nodeMgt/dispatchConfig',
-      //   component: handLazy('DispatchConfig'),
-      //   meta: { exact: true, title: '/nodeMgt/dispatchConfig', icon: '', show: false },
-      // },
       {
         name: 'dataNodeMgt',
         label: 'menu.dataNodeMgt',
@@ -109,32 +91,6 @@ export const  basicsRouters = [
         component: handLazy('DataNodeMgt'),
         meta: { exact: true, title: '', icon: '', show: true },
       },
-      // {
-      //   name: 'editDataNodeMgt',
-      //   label: 'menu.editDataNode',
-      //   breadcrumbName: 'menu.editDataNode',
-      //   path: '/nodeMgt/dataNodeMgt/editDataNode',
-      //   component: handLazy('EditNodeMgt'),
-      //   meta: {
-      //     exact: true,
-      //     title: '',
-      //     icon: '',
-      //     show: false,
-      //   },
-      // },
-      // {
-      //   name: 'addDataNodeMgt',
-      //   label: 'menu.addDataNode',
-      //   breadcrumbName: 'menu.addDataNode',
-      //   path: '/nodeMgt/dataNodeMgt/addDataNode',
-      //   component: handLazy('EditNodeMgt'),
-      //   meta: {
-      //     exact: true,
-      //     title: '',
-      //     icon: '',
-      //     show: false,
-      //   },
-      // },
       {
         name: 'computeNodeMgt',
         label: 'menu.computeNodeMgt',
@@ -156,19 +112,6 @@ export const  basicsRouters = [
           show: false,
         },
       },
-      // {
-      //   name: 'addComputeNodeMgt',
-      //   label: 'menu.addDataNode',
-      //   breadcrumbName: 'menu.addComputeNodeMgt',
-      //   path: '/nodeMgt/computeNodeMgt/addComputeNode',
-      //   component: handLazy('EditComputeNode'),
-      //   meta: {
-      //     exact: true,
-      //     title: '',
-      //     icon: '',
-      //     show: false,
-      //   },
-      // },
       {
         name: 'computeNodeDetail',
         label: 'menu.addDataNode',
@@ -253,23 +196,6 @@ export const  basicsRouters = [
         component: handLazy('MyDataAddtion'),
         meta: { exact: true, title: '', icon: '', show: true },
       },
-
-      // {
-      //   name: 'authInfo',
-      //   label: 'menu.viewAuthInfo',
-      //   breadcrumbName: 'menu.viewAuthInfo',
-      //   path: '/myData/dataAuthorization/authInfo',
-      //   component: handLazy('AuthInfo'),
-      //   meta: { exact: true, title: '', icon: '', show: false },
-      // },
-      // {
-      //   name: 'infoModify',
-      //   label: 'center.infoModify',
-      //   breadcrumbName: 'center.infoModify',
-      //   path: '/myData/infoModify',
-      //   component: handLazy('MyDataDetail'),
-      //   meta: { exact: true, title: '', icon: '', show: false },
-      // },
       {
         name: 'DataVoucherPublishing',
         label: 'menu.publishDataVoucher',
@@ -412,6 +338,7 @@ export const  basicsRouters = [
     component: handLazy('ApplyCertification'),
     meta: { exact: true, title: '', icon: '', show: false },
   },
+ 
 ]
 
 
@@ -437,7 +364,15 @@ const routes: Array<IRoute> = [
         path: '/overview',
         component: handLazy('Overview'),
         meta: { exact: true, title: '', icon: '', show: true },
-      }
+      },
+      {
+        name: 'orgManageApplyDetails',
+        label: 'menu.orgManageApplyDetails',
+        breadcrumbName: 'menu.orgManageApplyDetails',
+        path: '/OrgManage/orgManageApplyDetails',
+        component: handLazy('OrgManageApplyDetails'),
+        meta: { exact: true, title: '', icon: '', show: false },
+      },
     ]
   }
 ]

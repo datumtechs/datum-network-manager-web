@@ -238,6 +238,20 @@ export const useApplicationStatus = (status)=>{
       break;
   }
 }
+export const useToDoContentStatus = (status)=>{
+  const s = Number(status)
+  switch (s) {
+    // 1-申请认证，101-提名加入提案，102-提名踢出提案
+    case 0:
+      return i18n.t('menu.applyCertification');
+    case 101:
+      return i18n.t('orgManage.nominationToJoinProposal');
+    case 102:
+      return i18n.t('orgManage.nominateKickOutProposal');
+    default:
+      break;
+  }
+}
 
 
 export const StatusCodeProcessing = (code) => {

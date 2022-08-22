@@ -52,6 +52,16 @@ const orgManage = {
     })
   },
 
+   //普通 申请详情
+   getApplyDetails(data): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/generalOrganization/applyDetail`,
+      data
+    })
+  },
+  
+
   //委员会 主页内容
   getAuthorityHome(): Promise<any> {
     return axios({
@@ -101,7 +111,31 @@ const orgManage = {
     })
   },
 
-  //
+  //我的待办列表
+  geetToDoList(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/todoList`,
+      data
+    })
+  },
+  //我的已办列表
+  getDoneList(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/doneList`,
+      data
+    })
+  },
+    //我的提案列表
+    getMyProposalList(data?:any): Promise<any> {
+      return axios({
+        method: "POST",
+        url: `/api/v1/authority/myProposalList`,
+        data
+      })
+    },
+
 
 }
 
