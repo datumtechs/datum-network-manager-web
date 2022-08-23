@@ -17,7 +17,11 @@ const OrgManageApplyDetails: FC<any> = (props) => {
 
     let url = ''
     if (type == 'generalOrganization-applyDetail') url = 'getApplyDetails'
+    if (type == 'getToDoList') url = 'gettodoDetail'
+    if (type == 'getDoneList') url = 'getdoneDetail'
+    if (type == 'getMyProposalList') url = 'getproposalDetail'
     if (!url) return history.go(-1), message.error(t('exception.-32602'))
+    // debugger
     orgManage[url]({ id }
     ).then(res => {
       const { status, data } = res
@@ -71,7 +75,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
     render: (text, row) => <>
       <p style={{ fontWeight: 600 }}>{text ? text : ""}</p>
       {row.ldata ? row.rdata == 'img' ? <Image
-        src={data?.newClaim?.url}
+        src={filterImgurl()}
       /> : row.ldata : row.ldata == 0 ? 0 : '-'}
     </>
   },
@@ -91,14 +95,14 @@ const OrgManageApplyDetails: FC<any> = (props) => {
   },]
 
   const filterImgurl = () => {
-    // if (!datas?.dynamicFields?.pinataGateway) return ''
-    // const pinataGateway = datas?.dynamicFields?.pinataGateway
-    // const imageUrl = datas?.imageUrl
-    // if ((pinataGateway.length - 1) == pinataGateway.lastIndexOf('/')) {
-    //   return `${pinataGateway}ipfs/${imageUrl && imageUrl.replace('ipfs://', '') || ''}`
-    // }
-    // return `${pinataGateway}/ipfs/${imageUrl && imageUrl.replace('ipfs://', '') || ''}`
-    return ''
+    if (!data?.dynamicFields?.pinataGateway) return ''
+    const pinataGateway = data?.dynamicFields?.pinataGateway
+    const imageUrl = data?.material
+    if ((pinataGateway.length - 1) == pinataGateway.lastIndexOf('/')) {
+      return `${pinataGateway}ipfs/${imageUrl && imageUrl.replace('ipfs://', '') || ''}`
+    }
+    return `${pinataGateway}/ipfs/${imageUrl && imageUrl.replace('ipfs://', '') || ''}`
+    // return ''
   }
 
   useEffect(() => {

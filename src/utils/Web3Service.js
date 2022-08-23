@@ -150,7 +150,7 @@ class Web3Service {
   }
 
   async signData(list, address) {
-    console.log(JSON.stringify(list));
+    // console.log(JSON.stringify(list));
     const newList = [
       Buffer.from(String(list[0])),
       this.Uint32byte(list[1]),
@@ -165,7 +165,7 @@ class Web3Service {
     // debugger
     const rlpByte = ethereumjsUtil.rlp.encode(Buffer.concat(newList))
     const k256Hex = this.web3.utils.toHex(ethereumjsUtil.keccak256(rlpByte))
-    console.log(k256Hex);
+    // console.log(k256Hex);
 
     const abi = JSON.stringify({
       domain: {

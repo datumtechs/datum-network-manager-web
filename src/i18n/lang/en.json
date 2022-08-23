@@ -212,6 +212,7 @@
     "Num": "No.",
     "decline": "Decline",
     "agree": "Agree",
+    "noAgree": "No Agree",
     "agreed": "Agreed",
     "Invalid": "Invalid",
     "declined": "Declined",
@@ -718,7 +719,14 @@
     "approvalTime": "Approval Time",
     "approvalPostscript": "Approval Postscript",
     "approvalDataDescription": "Approval Data Description",
-    "viewContent": "View Content"
+    "viewContent": "View Content",
+    "VotingNoTarted": "Voting has not started",
+    "VotingProgress": "Voting in progress",
+    "ProposalSuspended": "The proposal has been suspended",
+    "ProposalnNoPassed": "The proposal was not passed",
+    "ProposalPassed": "Proposal passed",
+    "ApprovalComments": "Approval Comments",
+    "opposeNomination": "Are you sure you want to oppose this nomination?"
   },
   "httpStatus": {
     "status1": "system internal error",

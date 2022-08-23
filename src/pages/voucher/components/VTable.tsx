@@ -74,6 +74,7 @@ const VoucherTable: FC<any> = (props: any) => {
   const viewFn = (row) => {
     window.open(`${dexUrl}?outputCurrency=${row.address}`)
   }
+
   const setPrice = async (row) => {
     const { wallet } = props.state.wallet || {}
     try {
@@ -272,7 +273,7 @@ const VoucherTable: FC<any> = (props: any) => {
   }
 
   const saveFn = () => {
-    if (activeRow?.dynamicFields?.feeUpdateStatus == 'updating') {
+    if ((filterfeeUpdateTimestamp(activeRow?.dynamicFields?.feeUpdateTimestamp))) {
       setModalLoading(false)
       setModalShow(false)
       return
@@ -349,12 +350,14 @@ const VoucherTable: FC<any> = (props: any) => {
   }
 
   const filterfeeUpdateTimestamp = (tiem) => {
+    if (!tiem) return false
+    // debugger
     const timestamp = Date.now()
     const div = timestamp - tiem
     const HourTimestamp = 1000 * 60 * 60
     const except = (div / HourTimestamp).toFixed(2)
-
-    return (except && +except >= 24) ? false : except
+    const newTime = 24 - (+except)
+    return (newTime && +newTime >= 24) ? false : newTime
   }
 
   return <div className="voucher">
@@ -407,7 +410,7 @@ const VoucherTable: FC<any> = (props: any) => {
                 message: `${t('common.pleaseEnterNumber')}`
               }]}>
             <Input
-              disabled={activeRow?.dynamicFields?.feeUpdateStatus == 'updating'}
+              disabled={!!(filterfeeUpdateTimestamp(activeRow?.dynamicFields?.feeUpdateTimestamp))}
               onChange={e => form.current.setFieldsValue({ Plaintext: e.target?.value.replace(/\s*/g, "") } || '')}
               className="form-box-input" maxLength={18} minLength={1} placeholder={t('center.Plaintext')} addonAfter={activeRow.symbol} />
           </Form.Item> : ""}
@@ -423,7 +426,7 @@ const VoucherTable: FC<any> = (props: any) => {
                   pattern: new RegExp(/^[1-9]\d*$/, "g"),
                   message: `${t('common.pleaseEnterNumber')}`
                 }]}>
-              <Input disabled={activeRow?.dynamicFields?.feeUpdateStatus == 'updating'}
+              <Input disabled={!!(filterfeeUpdateTimestamp(activeRow?.dynamicFields?.feeUpdateTimestamp))}
                 onChange={e => form.current.setFieldsValue({ ciphertext: e.target?.value.replace(/\s*/g, "") } || '')}
                 className="form-box-input" maxLength={18} minLength={1} placeholder={t('center.ciphertext')} addonAfter={activeRow.symbol} />
             </Form.Item> : ""

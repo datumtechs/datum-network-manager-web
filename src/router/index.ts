@@ -372,9 +372,17 @@ const routes: Array<IRoute> = [
         path: '/overview',
         component: handLazy('Overview'),
         meta: { exact: true, title: '', icon: '', show: true },
+      },
+      {
+        name: 'orgManageApplyDetails',
+        label: 'menu.orgManageApplyDetails',
+        breadcrumbName: 'menu.orgManageApplyDetails',
+        path: '/OrgManage/orgManageApplyDetails',
+        component: handLazy('OrgManageApplyDetails'),
+        meta: { exact: true, title: '', icon: '', show: false },
       }
     ]
-  }
+  },
 ]
 
 export default routes

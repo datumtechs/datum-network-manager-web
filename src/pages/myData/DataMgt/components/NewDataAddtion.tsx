@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { FC, useState, createRef, useEffect } from 'react'
+import { FC, useState, createRef, useEffect, useRef } from 'react'
 import { Descriptions, Space, Form, Input, Radio, Button, message, Select, Checkbox, Tooltip } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
@@ -33,9 +33,12 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const [isFileNameRight, isFileNameRightSet] = useState<boolean>(false)
   const [showFilenameAvailable, showFilenameAvailableSet] = useState<boolean>(false)
   const pagenation = { pagesize: 10, }
+  const isvisible = useRef<any>()
+  const [loading, setloading] = useState(false)
 
 
-  const checkResourceName = name => {
+  const checkResourceName = (name) => {
+    setloading(true)
     resourceApi.checkResourceName({ resourceName: name, metaDataId: resultFileData.metaDataId }).then(res => {
       if (res.status === 0) {
         showFilenameAvailableSet(true)
@@ -44,6 +47,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
         showFilenameAvailableSet(false)
         isFileNameRightSet(false)
       }
+      setloading(false)
     })
   }
 
@@ -53,10 +57,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const handleRemarkChange = (e) => remarksSet(e.target.value)
 
   const submitFn = () => {
-    console.log(1);
-
-    form
-      .validateFields()
+    form.validateFields(['usageScene', 'newDataName', 'remarks'])
       .then(values => {
         const usageList = values.usageScene
         const queryObj = {
@@ -214,7 +215,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
             <Button size="large" className="btn" onClick={goBackFn}>
               {t('common.return')}
             </Button>
-            <Button size="large" className="btn" type="primary" onClick={submitFn}>
+            <Button size="large" loading={loading} className="btn" type="primary" onClick={() => submitFn()}>
               {t('common.submit')}
             </Button>
           </Space>

@@ -55,7 +55,8 @@ const CreateAttriCredential: FC<any> = (props: any) => {
             dataAddress: dataAddress,
             name: name,
             dataTokenId: dataTokenId,
-            status: 'newCreateToken'
+            status: 'newCreateToken',
+            usage
           },
         })
       }).on('error', (hash) => {

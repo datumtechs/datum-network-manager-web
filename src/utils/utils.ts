@@ -223,11 +223,10 @@ export const UseAttrCredentialStatus = (status)=>{
   }
 }
 
-export const useApplicationStatus = (status)=>{
+export const useApplicationStatus = (status)=>{//processStatus
   const s = Number(status)
   switch (s) {
-    // 0-未发布，1-发布中，2-发布失败，3-发布成功，4-定价中，5-定价失败，
-    // 6-定价成功，7-绑定中，8-绑定失败，9-绑定成功
+    // ：0-未处理，1-同意，2-不同意/
     case 0:
       return i18n.t('orgManage.InApplication');
     case 1:
@@ -242,12 +241,30 @@ export const useToDoContentStatus = (status)=>{
   const s = Number(status)
   switch (s) {
     // 1-申请认证，101-提名加入提案，102-提名踢出提案
-    case 0:
+    case 1:
       return i18n.t('menu.applyCertification');
     case 101:
       return i18n.t('orgManage.nominationToJoinProposal');
     case 102:
       return i18n.t('orgManage.nominateKickOutProposal');
+    default:
+      break;
+  }
+}
+export const useProposalProgressStatus = (status)=>{
+  const s = Number(status)
+  switch (s) {
+    // 1.投票未开始 2. 投票进行中 3.提案已中止  4. 提案未通过 5. 提案通过
+    case 1:
+      return i18n.t('orgManage.VotingNoTarted');
+    case 2:
+      return i18n.t('orgManage.VotingProgress');
+    case 3:
+      return i18n.t('orgManage.ProposalSuspended');
+    case 4:
+      return i18n.t('orgManage.ProposalnNoPassed');
+    case 5:
+      return i18n.t('orgManage.ProposalPassed');
     default:
       break;
   }

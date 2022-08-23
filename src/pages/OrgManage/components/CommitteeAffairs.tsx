@@ -1,9 +1,9 @@
-import { FC, useState, useEffect } from "react";
-import { Table, Button, Segmented, message } from 'antd'
+import { FC, useState, useEffect, useRef } from "react";
+import { Table, Button, Segmented, message, Modal, Form, Radio, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { orgManage } from '@api/index'
-import { useToDoContentStatus } from '@utils/utils'
+import { useToDoContentStatus, useApplicationStatus, useProposalProgressStatus } from '@utils/utils'
 import { useHistory } from 'react-router-dom'
 
 const CommitteeAffairs: FC<any> = () => {
@@ -15,6 +15,7 @@ const CommitteeAffairs: FC<any> = () => {
   const [total, setTotal] = useState(0)
   const history = useHistory()
   const [segmentedValue, setSegmented] = useState<string | number>('getToDoList');
+  const form = useRef<any>()
 
   const columns = (item): any[] => {
     const itemList = item == 'getMyProposalList' ? [
@@ -33,18 +34,20 @@ const CommitteeAffairs: FC<any> = () => {
         title: t('orgManage.toDoContent'),
         dataIndex: 'toDoContent',
         ellipsis: true,
-        render: (text, row) => useToDoContentStatus(+text)
+
       },
     ]
     const itemProposalProgressList = item == 'getMyProposalList' ? [{
       title: t('orgManage.proposalProgress'),
       dataIndex: 'proposalProgress',
       ellipsis: true,
+      render: (text, row) => useProposalProgressStatus(row?.proposalProgress) || text
     }] : [
       {
         title: t('orgManage.processingStatus'),
         dataIndex: 'processingStatus',
         ellipsis: true,
+        render: (text, row) => useApplicationStatus(row?.processStatus) || text
       }
     ]
     return [
@@ -53,12 +56,12 @@ const CommitteeAffairs: FC<any> = () => {
         render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
         width: 60,
       },
-
       ...itemList,
       {
         title: t('orgManage.type'),
         dataIndex: 'type',
         ellipsis: true,
+        render: (text, row) => useToDoContentStatus(+row.type) || text
       },
       {
         title: t('computeNodeMgt.startTime'),
@@ -71,19 +74,20 @@ const CommitteeAffairs: FC<any> = () => {
         dataIndex: 'actions',
         render: (text: any, row: any, index: any) => {
           return <>
-            <Button type="link" onClick={() => details(row)}>  {t('orgManage.viewContent')}</Button>
-            {
+            <Button type="link" onClick={() => details(row, item)}>  {t('orgManage.viewContent')}</Button>
+            <Button type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
+            <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.withdrawProposal')}</Button>
+
+            {/* {
               item == 'getToDoList' ?
-                <Button type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
                 : ''
             }
             {
               item == 'getMyProposalList' ?
-                <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.handle')}</Button>
                 : ''
-            }
+            } */}
             {
-              item == '自己提案' ?
+              item == 'getMyProposalList' ?
                 <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.withdrawProposal')}</Button>
                 : ""
             }
@@ -94,21 +98,101 @@ const CommitteeAffairs: FC<any> = () => {
   }
 
   const handle = (row) => {
-    console.log(row);
+    Modal.confirm({
+      icon: '',
+      content: (
+        <div>
+          <Form
+            colon={false}
+            labelAlign="left"
+            layout={'vertical'}
+            ref={form}
+          >
+            <Form.Item
+              label={t('orgManage.ApprovalComments')}
+              name="result"
+              rules={[{ required: true, message: `${t('center.pleaseSelect')}${t('orgManage.ApprovalComments')}` }]}
+            >
+              <Radio.Group >
+                <Radio value={1}>{t('common.agree')}</Radio>
+                <Radio value={2}>{t('common.noAgree')}</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item
+              label={t('orgManage.approvalPostscript')}
+              name="remark"
+              rules={[
+                {
+                  required: true,
+                  validator: (rule, value, callback): any => {
+                    if (!value) return callback(`${t('credential.pleaseEnter')}${t('orgManage.approvalPostscript')}`)
+                    return callback()
+                  },
+                },
+              ]}
+            >
+              <Input.TextArea
+                onChange={e => form.current.setFieldsValue({ remark: e.target?.value.replace(/\s*/g, "") } || '')}
+                maxLength={200} showCount></Input.TextArea>
+            </Form.Item>
+          </Form>
+        </div>
+      ),
+      okText: t('common.submit'),
+      cancelText: t('UserCenter.ModalCancel'),
+      onOk(close) {
+        const value = form.current.validateFields().then(values => {
+          console.log(values);
+          handleprocessTodo({
+            id: row.id,
+            "remark": values.remark,
+            "result": values.result
+          })
+          close()
+        })
+        return close
+      },
+    });
   }
-  const details = (row) => {
+
+  const handleprocessTodo = (data) => {
+    orgManage.processTodo(data).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        message.success('task.success')
+        query()
+      }
+    })
+  }
+
+
+  const details = (row, type) => {
     history.push({
       pathname: "/OrgManage/orgManageApplyDetails",
       state: {
         id: row.id,
         title: "certificationApplicationDetails",
-        type: "generalOrganization-applyDetail"
+        type: type
       }
     })
   }
 
   const retreat = (row) => {
-    console.log(row);
+    Modal.confirm({
+      icon: '',
+      content: t('opposeNomination'),
+      okText: t('common.submit'),
+      cancelText: t('orgManage.ModalCancel'),
+      onOk(close) {
+        orgManage.revokeProposal({ id: row.id }).then(res => {
+          const { status, data } = res
+          if (status == 0) {
+            message.success('task.success')
+            query()
+          }
+        })
+      },
+    });
 
   }
   const query = () => {

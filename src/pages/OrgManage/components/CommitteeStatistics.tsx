@@ -13,13 +13,11 @@ const CommitteeStatistics: FC<any> = (props) => {
   const [visible, setVisible] = useState(false)
 
   const query = () => {
-    console.log(isAdmin);
-
     orgManage[+isAdmin == 1 ? 'getAuthorityHome' : 'getOrgManageHome']().then(res => {
       const { status, data } = res
       if (status == 0) {
-        console.log(data)
         setData(data)
+        props.setData(data)
       }
     })
   }

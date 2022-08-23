@@ -169,7 +169,7 @@ const Attribute: FC<any> = (props: any) => {
 
   useEffect(() => {
     query()
-  }, [curPage])
+  }, [curPage, searchText])
 
 
   return <div className="layout-box">

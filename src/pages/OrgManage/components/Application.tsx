@@ -1,12 +1,12 @@
 import { FC, useState, useEffect } from "react";
-import { Table, Button } from 'antd'
+import { Table, Button, message, Row } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { orgManage } from '@api/index'
 import { useApplicationStatus } from '@utils/utils'
 import { useHistory } from 'react-router-dom'
 
-const Application: FC<any> = () => {
+const Application: FC<any> = (props) => {
   const { t, i18n } = useTranslation()
   const [text, setSearchText] = useState()
   const [tableData, setTableData] = useState<any[]>([])
@@ -25,6 +25,7 @@ const Application: FC<any> = () => {
       title: t('orgManage.certificationOrganization'),
       dataIndex: 'applyOrg',
       ellipsis: true,
+      render: (text, _row) => _row?.dynamicFields?.approveOrgName || '-'
     },
     {
       title: t('orgManage.timeInitiationCertification'),
@@ -42,9 +43,12 @@ const Application: FC<any> = () => {
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
         return <>
-          <Button style={{ padding: 0, paddingRight: '10px' }} type="link" onClick={() => details(row)}>  {t('computeNodeMgt.detail')}</Button>
-          <Button style={{ padding: 0 }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button>
-          <Button style={{ padding: 0 }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button>
+          <Button style={{ padding: 0, }} type="link" onClick={() => details(row)}>  {t('computeNodeMgt.detail')}</Button>
+          <Button style={{ padding: '0 10px' }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button>
+          {
+            props.parentData.canTrusted ? '' :
+              <Button style={{ padding: 0, }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button>
+          }
         </>
       },
     },
@@ -63,11 +67,19 @@ const Application: FC<any> = () => {
   }
 
   const download = (row) => {
-    // console.log(row);
     orgManage.postDownload({ id: row.id }).then(res => {
-      const { status, data } = res
-      if (status == 0) {
-        console.log(data)
+      if (res.data) {
+        const name = res.name.split('attachment;')[1].split('filename=')[1]
+        const file = new File([res.data], name, { type: "application/octet-stream" })
+        const createUrl = window.URL.createObjectURL(file)
+        const link = document.createElement('a')
+        link.style.display = "none"
+        link.href = createUrl
+        link.download = name + '.';
+        link.setAttribute('target', '_blank')
+        document.body.append(link)
+        link.click()
+        document.body.removeChild(link)
       }
     })
   }
@@ -76,7 +88,7 @@ const Application: FC<any> = () => {
     orgManage.useCertificate({ id: row.id }).then(res => {
       const { status, data } = res
       if (status == 0) {
-        console.log(data)
+        message.success('task.success')
       }
     })
   }

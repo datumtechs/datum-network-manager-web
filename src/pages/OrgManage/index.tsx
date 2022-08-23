@@ -10,22 +10,17 @@ import Application from './components/Application'
 
 
 const OrgManage: FC<any> = (props) => {
-
-
-  // const { isAdmin } = props?.loginInfo?.loginInfo
   const { isAuthority } = props?.org?.orgInfo
-  // debugger
-  // const isAdmin = 0
-
+  const [data, setData] = useState({})
 
   return <div className="layout-box">
-    <Statistics.default isAdmin={isAuthority} />
+    <Statistics.default isAdmin={isAuthority} setData={setData} />
     {!!isAuthority ?
       <>
         <CommitteeList />
         <Affairs.default />
       </> :
-      <Application />
+      <Application parentData={data} />
     }
   </div>
 }

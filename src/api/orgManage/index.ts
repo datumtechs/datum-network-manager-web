@@ -22,7 +22,14 @@ const orgManage = {
     return axios({
       method: "POST",
       url: `/api/v1/generalOrganization/download`,
-      data
+      data,
+      transformResponse:(res,headers)=>{
+        const obj = {
+          data:res,
+          name:headers['content-disposition']
+        }
+        return obj
+      }
     })
   },
   //普通证书使用
@@ -127,14 +134,66 @@ const orgManage = {
       data
     })
   },
-    //我的提案列表
-    getMyProposalList(data?:any): Promise<any> {
-      return axios({
-        method: "POST",
-        url: `/api/v1/authority/myProposalList`,
-        data
-      })
-    },
+  //我的提案列表
+  getMyProposalList(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/myProposalList`,
+      data
+    })
+  },
+  //可提名委员会列表
+  getNominateMember(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/getNominateMember`,
+      data
+    })
+  },
+
+  //我的待办详情
+  gettodoDetail(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/todoDetail`,
+      data
+    })
+  },
+
+  //我的提案详情
+  getproposalDetail(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/proposalDetail`,
+      data
+    })
+  },
+  //我的已办详情
+  getdoneDetail(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/doneDetail`,
+      data
+    })
+  },
+
+  //处理我的待办
+  processTodo(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/processTodo`,
+      data
+    })
+  },
+
+  //撤回提案
+  revokeProposal(data?:any): Promise<any> {
+    return axios({
+      method: "POST",
+      url: `/api/v1/authority/revokeProposal`,
+      data
+    })
+  },
 
 
 }

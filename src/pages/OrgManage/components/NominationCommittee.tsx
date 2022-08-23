@@ -20,7 +20,7 @@ const NominationCommittee: FC<any> = (props: any) => {
 
   const query = () => {
     loading.current = true
-    orgManage.getAuthorityList({ keyword: text }).then(res => {
+    orgManage.getNominateMember({ keyword: text }).then(res => {
       const { status, data } = res
       if (status == 0) {
         console.log(data)
@@ -124,7 +124,7 @@ const NominationCommittee: FC<any> = (props: any) => {
       >
         <Select placeholder={t('center.pleaseSelect')} onSearch={setText} showSearch >
           {
-            list.map((item: any) => (<Option value={item.identityId} key={item.identityId}>{item?.dynamicFields?.identityName}</Option>))
+            list.map((item: any) => (<Option value={item.identityId} key={item.identityId}>{item?.nodeName}</Option>))
           }
         </Select>
 

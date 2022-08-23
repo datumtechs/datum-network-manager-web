@@ -212,6 +212,7 @@
     "Num": "序号",
     "decline": "拒绝",
     "agree": "同意",
+    "noAgree": "不同意",
     "agreed": "已同意",
     "Invalid": "已失效",
     "declined": "已拒绝",
@@ -718,7 +719,14 @@
     "approvalTime": "审批时间",
     "approvalPostscript": "审批附言",
     "approvalDataDescription": "审批资料描述",
-    "viewContent": "查看内容"
+    "viewContent": "查看内容",
+    "VotingNoTarted": "投票未开始",
+    "VotingProgress": "投票进行中",
+    "ProposalSuspended": "提案已中止",
+    "ProposalnNoPassed": "提案未通过",
+    "ProposalPassed": "提案通过",
+    "ApprovalComments": "审批意见",
+    "opposeNomination": "请确认是否要反对此提名？"
   },
   "httpStatus": {
     "status1": "系统内部错误",

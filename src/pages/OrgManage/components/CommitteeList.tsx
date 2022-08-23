@@ -39,7 +39,7 @@ const CommitteeList: FC<any> = (props) => {
       title: t('common.actions'),
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
-        return row.isAdmin ? '' : <Button style={{ padding: 0 }} type="link" onClick={() => (setVisible(true), setActiveRow(row))}>  {t('orgManage.nominationWithdrawal')}</Button>
+        return <Button style={{ padding: 0 }} type="link" onClick={() => (setVisible(true), setActiveRow(row))}>  {t('orgManage.nominationWithdrawal')}</Button>
       },
     },
   ]
