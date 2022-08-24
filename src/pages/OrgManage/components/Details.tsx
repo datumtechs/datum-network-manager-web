@@ -27,7 +27,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
       const { status, data } = res
       if (status == 0) {
         // console.log(data)
-        const claim = JSON.parse(data.claim)
+        const claim = data.claim && JSON.parse(data.claim) || {}
         data.newClaim = claim
         setData(data)
         setTableData([{

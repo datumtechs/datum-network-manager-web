@@ -41,7 +41,7 @@ const CommitteeAffairs: FC<any> = () => {
       title: t('orgManage.proposalProgress'),
       dataIndex: 'proposalProgress',
       ellipsis: true,
-      render: (text, row) => useProposalProgressStatus(row?.proposalProgress) || text
+      render: (text, row) => useProposalProgressStatus(row?.processStatus) || text
     }] : [
       {
         title: t('orgManage.processingStatus'),

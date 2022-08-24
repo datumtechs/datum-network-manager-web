@@ -297,9 +297,8 @@ const VoucherTable: FC<any> = (props: any) => {
 
         consumeOptionsList.forEach((v, i) => {
           const consumeOptions = JSON.parse(v)
-          if (Array.isArray(consumeOptions) && consumeOptions[0]) {
+          if (Array.isArray(consumeOptions) && consumeOptions[0] && (consumeOptions[0].plainAlgoConsumeUnit || consumeOptions[0].cryptoAlgoConsumeUnit)) {
             if (Plain) consumeOptions[0].plainAlgoConsumeUnit = Plain
-            // debugger
             if (cipher) consumeOptions[0].cryptoAlgoConsumeUnit = cipher
             newMetaDateOptionData.consumeOptions[i] = JSON.stringify([consumeOptions[0]])
           }

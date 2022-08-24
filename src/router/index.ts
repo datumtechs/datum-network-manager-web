@@ -338,14 +338,14 @@ export const  basicsRouters = [
     component: handLazy('ApplyCertification'),
     meta: { exact: true, title: '', icon: '', show: false },
   },
-  {
-    name: 'orgManageApplyDetails',
-    label: 'menu.orgManageApplyDetails',
-    breadcrumbName: 'menu.orgManageApplyDetails',
-    path: '/OrgManage/orgManageApplyDetails',
-    component: handLazy('OrgManageApplyDetails'),
-    meta: { exact: true, title: '', icon: '', show: false },
-  },
+  // {
+  //   name: 'orgManageApplyDetails',
+  //   label: 'menu.orgManageApplyDetails',
+  //   breadcrumbName: 'menu.orgManageApplyDetails',
+  //   path: '/OrgManage/orgManageApplyDetails',
+  //   component: handLazy('OrgManageApplyDetails'),
+  //   meta: { exact: true, title: '', icon: '', show: false },
+  // },
  
 ]
 
