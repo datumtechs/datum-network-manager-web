@@ -34,6 +34,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
   const [showFilenameAvailable, showFilenameAvailableSet] = useState<boolean>(false)
   const pagenation = { pagesize: 10, }
   const isvisible = useRef<any>()
+  const layoutContentBox = useRef<any>()
+  const nameInputRef = useRef<any>()
   const [loading, setloading] = useState(false)
 
 
@@ -109,11 +111,15 @@ export const NewDataAddtion: FC<any> = (props: any) => {
         setTotal(data.metaDataColumnList?.length)
       }
     })
+    layoutContentBox.current.addEventListener('scroll', function () {
+      nameInputRef.current.blur()
+    })
+    return () => (layoutContentBox.current && layoutContentBox.current.removeEventListener('scroll', function () { }))
   }, [])
 
 
   return (
-    <div className="layout-box p-20">
+    <div className="layout-box p-20" ref={layoutContentBox}>
       <div className="add-data-box">
         <Form
           name="basic"
@@ -132,6 +138,7 @@ export const NewDataAddtion: FC<any> = (props: any) => {
                   rules={[{ min: 8, message: `${t('myData.dataNameTooltipThree')}` },
                   { required: true, message: `${t('tip.plzInputName')}` }]}>
                   <Input size="large"
+                    ref={nameInputRef}
                     onChange={e => form.setFieldsValue({ newDataName: e.target?.value.replace(/\s*/g, "") } || '')}
                     minLength={8} maxLength={64} onBlur={e => checkResourceName(e.target.value)} className="limit-box width457" />
                 </Form.Item>
@@ -187,8 +194,8 @@ export const NewDataAddtion: FC<any> = (props: any) => {
                 <Tooltip placement="topLeft" title={
                   <div>
                     {t('center.ciphertextAndPlaintextTipsOne')} <br />
-                    {t('center.ciphertextAndPlaintextTipsTwo')} <br />
-                    {t('center.ciphertextAndPlaintextTipsThree')} <br />
+                    {/* {t('center.ciphertextAndPlaintextTipsTwo')} <br /> */}
+                    {/* {t('center.ciphertextAndPlaintextTipsThree')} <br /> */}
                   </div>
                 }>
                   <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588' }} />

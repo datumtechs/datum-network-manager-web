@@ -75,17 +75,15 @@ const CommitteeAffairs: FC<any> = () => {
         render: (text: any, row: any, index: any) => {
           return <>
             <Button type="link" onClick={() => details(row, item)}>  {t('orgManage.viewContent')}</Button>
-            <Button type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
-            <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.withdrawProposal')}</Button>
-
             {/* {
               item == 'getToDoList' ?
                 : ''
-            }
-            {
-              item == 'getMyProposalList' ?
-                : ''
             } */}
+            {
+              item == 'getDoneList' && !row?.processStatus ?
+                <Button type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
+                : ''
+            }
             {
               item == 'getMyProposalList' ?
                 <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.withdrawProposal')}</Button>

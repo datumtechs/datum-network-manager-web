@@ -351,13 +351,12 @@ const VoucherTable: FC<any> = (props: any) => {
 
   const filterfeeUpdateTimestamp = (tiem) => {
     if (!tiem) return false
-    // debugger
     const timestamp = Date.now()
     const div = timestamp - tiem
     const HourTimestamp = 1000 * 60 * 60
     const except = (div / HourTimestamp).toFixed(2)
     const newTime = 24 - (+except)
-    return (newTime && +newTime >= 24) ? false : newTime
+    return (newTime && (newTime >= 24 || newTime < 0)) ? false : newTime
   }
 
   return <div className="voucher">
