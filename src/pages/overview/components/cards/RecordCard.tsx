@@ -12,8 +12,10 @@ const RecordCard: FC<any> = (props: any) => {
 
   const queryData = () => {
     overviewApi.queryWaitAuthDataList().then(res => {
-      if (res.status === 0 && res.data) {
-        dataListSet(res.data)
+      const { status, data } = res
+      if (status === 0) {
+        // debugger
+        dataListSet(data)
         initChart()
       }
     })
@@ -66,11 +68,6 @@ const RecordCard: FC<any> = (props: any) => {
           type: 'pie',
           radius: ['50%', '80%'],
           avoidLabelOverlap: false,
-          // itemStyle: {
-          //   borderRadius: 10,
-          //   borderColor: '#fff',
-          //   borderWidth: 2,
-          // },
           label: {
             show: false,
             position: 'center',
@@ -79,9 +76,9 @@ const RecordCard: FC<any> = (props: any) => {
             show: false,
           },
           data: [
-            { value: 0, name: t('credential.attributeCredential') },
-            { value: 0, name: `${t('credential.noAttributeCredential')}(${t('credential.priced')})` },
-            { value: 0, name: `${t('credential.noAttributeCredential')}(${t('credential.noPriced')})` },
+            { value: 10, name: t('credential.attributeCredential') },
+            { value: 20, name: `${t('credential.noAttributeCredential')}(${t('credential.priced')})` },
+            { value: 30, name: `${t('credential.noAttributeCredential')}(${t('credential.noPriced')})` },
           ],
         },
       ],

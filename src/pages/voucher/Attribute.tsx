@@ -153,7 +153,7 @@ const Attribute: FC<any> = (props: any) => {
     voucherApi.queryAttributeList({
       pageNumber: curPage,
       pageSize: 10,
-      searchText: searchText
+      keyword: searchText
     }).then((res) => {
       const { data, status } = res
       if (status === 0) {

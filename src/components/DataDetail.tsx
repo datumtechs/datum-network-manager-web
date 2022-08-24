@@ -273,8 +273,8 @@ export const DataDetail: FC<any> = (props: any) => {
                   <Tooltip placement="topLeft" title={
                     <div>
                       {t('center.ciphertextAndPlaintextTipsOne')} <br />
-                      {t('center.ciphertextAndPlaintextTipsTwo')} <br />
-                      {t('center.ciphertextAndPlaintextTipsThree')} <br />
+                      {/* {t('center.ciphertextAndPlaintextTipsTwo')} <br />
+                      {t('center.ciphertextAndPlaintextTipsThree')} <br /> */}
                     </div>
                   }>
                     <QuestionCircleOutlined style={{ 'fontSize': '20px', 'color': '#3C3588', position: 'absolute' }} />
