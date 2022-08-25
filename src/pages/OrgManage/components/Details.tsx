@@ -3,7 +3,7 @@ import { Table, Button, message, Image } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { orgManage } from '@api/index'
-import { useApplicationStatus } from '@utils/utils'
+import { useApplicationStatus, useProposalProgressStatus, useProposalType, useToDoContenttype } from '@utils/utils'
 
 
 const OrgManageApplyDetails: FC<any> = (props) => {
@@ -31,27 +31,28 @@ const OrgManageApplyDetails: FC<any> = (props) => {
         data.newClaim = claim
         setData(data)
         setTableData([{
-          left: t('orgManage.applicationInitiator'),
-          right: t('orgManage.approvedBy'),
-          rdata: data.applyOrg,
-          ldata: data.approveOrg
+          left: type == 'generalOrganization-applyDetail' ? t('orgManage.applicationInitiator') : t('orgManage.sponsorProposal'),
+          right: type == 'generalOrganization-applyDetail' ? t('orgManage.approvedBy') : t('orgManage.proposalTime'),
+          ldata: type == 'generalOrganization-applyDetail' ? data.approveOrg : type == 'getMyProposalList' ? data?.dynamicFields?.submitterName : data?.dynamicFields?.applyOrgName,
+          rdata: type == 'generalOrganization-applyDetail' ? data.applyOrg : type == 'getMyProposalList' ? data?.createTime : data?.startTime,
         },
         {
-          left: t('orgManage.applicationTime'),
-          right: t('orgManage.approvalProgress'),
-          rdata: type == "generalOrganization-applyDetail" ? useApplicationStatus(data.progress) : data.progress,
-          ldata: data.startTime
+          left: type == 'generalOrganization-applyDetail' ? t('orgManage.applicationTime') : t('orgManage.proposalContent'),
+          right: type == 'generalOrganization-applyDetail' ? t('orgManage.approvalProgress') : t('orgManage.proposalStatus'),
+          ldata: type == "generalOrganization-applyDetail" ? data.startTime : type == 'getMyProposalList' ? useProposalType(data) : useToDoContenttype({ ...data, type: data.status }),
+          rdata: type == "generalOrganization-applyDetail" ? useApplicationStatus(data.progress) : useProposalProgressStatus(data.status),//这里需要特殊处理   我的待办  和我的提案状态不一致
         },
         {
-          left: t('orgManage.postscriptApplication'),
-          right: t('orgManage.approvalTime'),
-          rdata: data.endTime,
-          ldata: data.applyRemark
+          left: type == 'generalOrganization-applyDetail' ? t('orgManage.postscriptApplication') : t('orgManage.proposalProgress'),
+          right: type == 'generalOrganization-applyDetail' ? t('orgManage.approvalTime') : t('orgManage.ProposalDeadline'),
+          ldata: type == 'generalOrganization-applyDetail' ? data.applyRemark : "",
+          rdata: type == 'generalOrganization-applyDetail' ? data.endTime : type == 'getMyProposalList' ? data?.dynamicFields?.voteEndTime : data.endTime,//提案进度问题
         },
         {
-          left: t('orgManage.approvalPostscript'),
-          rdata: data.approveRemark,
-          right: false,
+          left: type == 'generalOrganization-applyDetail' ? t('orgManage.approvalPostscript') : t('orgManage.ProposalResults'),
+          right: type == 'generalOrganization-applyDetail' ? false : t('orgManage.PostscriptProposal'),
+          ldata: type == 'generalOrganization-applyDetail' ? data.approveRemark : useProposalProgressStatus(data?.status),
+          rdata: type == 'generalOrganization-applyDetail' ? undefined : data.remark
         },
         {
           left: '',
@@ -93,6 +94,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
       {row.rdata ? row.rdata == 'img' ? data.materialDesc : row.rdata : row.rdata == 0 ? 0 : '-'}
     </>
   },]
+
 
   const filterImgurl = () => {
     if (!data?.dynamicFields?.pinataGateway) return ''

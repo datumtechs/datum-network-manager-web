@@ -53,8 +53,8 @@ const App: FC<any> = (props: any) => {
 
 
   const walletChange = () => {
-    // console.log(history);
-    if (history.location.pathname !== '/login') {
+    const { pathname } = window.location
+    if (pathname.indexOf('login') < 0) {
       props.loginOut()
       props.setLoginInfo()
     }

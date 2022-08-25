@@ -81,7 +81,7 @@ const Header = (props: any) => {
             <Dropdown overlay={menus} overlayClassName="dropdown-tran" placement="bottomRight" arrow>
               <div className='user-info'>
                 <img src={menuSvg} alt="" />
-                <span>{useAddressDisplay(address) || ''}</span>
+                <span style={{ width: '100px' }}>{useAddressDisplay(address) || ''}</span>
               </div>
             </Dropdown>
           </div>

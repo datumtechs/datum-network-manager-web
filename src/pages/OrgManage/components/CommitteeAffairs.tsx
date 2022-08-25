@@ -3,12 +3,12 @@ import { Table, Button, Segmented, message, Modal, Form, Radio, Input } from 'an
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { orgManage } from '@api/index'
-import { useToDoContentStatus, useApplicationStatus, useProposalProgressStatus } from '@utils/utils'
+import { useToDoContentStatus, useApplicationStatus, useProposalProgressStatus, useProposalStatus, useToDoContenttype, useProposalType } from '@utils/utils'
 import { useHistory } from 'react-router-dom'
 
 const CommitteeAffairs: FC<any> = () => {
   const { t, i18n } = useTranslation()
-  const [text, setSearchText] = useState()
+  const [text, setSearchText] = useState<any>()
   const [tableData, setTableData] = useState<any[]>([])
   const [curPage, setCurPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
@@ -22,26 +22,29 @@ const CommitteeAffairs: FC<any> = () => {
       {
         title: t('orgManage.proposalContent'),
         dataIndex: 'proposalContent',
-        ellipsis: true,
+        width: 260,
+        render: (text, row) => useProposalType(row)
       },
       {
         title: t('orgManage.proposalApplicationOrganization'),
         dataIndex: 'proposalApplicationOrganization',
         ellipsis: true,
+        render: (text, row) => row?.dynamicFields?.submitterName
       }
-    ] : [
+    ] : [//待办内容
       {
         title: t('orgManage.toDoContent'),
         dataIndex: 'toDoContent',
-        ellipsis: true,
-
+        width: 300,
+        // 1-申请认证，101-提名加入提案，102-提名踢出提案
+        render: (text, row) => useToDoContenttype(row)
       },
     ]
     const itemProposalProgressList = item == 'getMyProposalList' ? [{
       title: t('orgManage.proposalProgress'),
       dataIndex: 'proposalProgress',
       ellipsis: true,
-      render: (text, row) => useProposalProgressStatus(row?.processStatus) || text
+      render: (text, row) => useProposalProgressStatus(row?.status) || text
     }] : [
       {
         title: t('orgManage.processingStatus'),
@@ -61,12 +64,13 @@ const CommitteeAffairs: FC<any> = () => {
         title: t('orgManage.type'),
         dataIndex: 'type',
         ellipsis: true,
-        render: (text, row) => useToDoContentStatus(+row.type) || text
+        render: (text, row) => item == 'getMyProposalList' ? useProposalStatus(+row.type) : useToDoContentStatus(+row.type) || text
       },
       {
         title: t('computeNodeMgt.startTime'),
         dataIndex: 'startTime',
         ellipsis: true,
+        render: (text, row) => item == 'getMyProposalList' ? row.createTime : text
       },
       ...itemProposalProgressList,
       {
@@ -74,19 +78,15 @@ const CommitteeAffairs: FC<any> = () => {
         dataIndex: 'actions',
         render: (text: any, row: any, index: any) => {
           return <>
-            <Button type="link" onClick={() => details(row, item)}>  {t('orgManage.viewContent')}</Button>
-            {/* {
-              item == 'getToDoList' ?
-                : ''
-            } */}
+            <Button style={{ padding: '0 10px 0 0' }} type="link" onClick={() => details(row, item)}>  {t('orgManage.viewContent')}</Button>
             {
               item == 'getDoneList' && !row?.processStatus ?
-                <Button type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
+                <Button style={{ padding: '0' }} type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
                 : ''
             }
             {
-              item == 'getMyProposalList' ?
-                <Button type="link" onClick={() => retreat(row)}>  {t('orgManage.withdrawProposal')}</Button>
+              item == 'getMyProposalList' && !row?.status ?
+                <Button style={{ padding: '0' }} type="link" onClick={() => retreat(row)}>  {t('orgManage.withdrawProposal')}</Button>
                 : ""
             }
           </>
@@ -177,10 +177,11 @@ const CommitteeAffairs: FC<any> = () => {
 
   const retreat = (row) => {
     Modal.confirm({
-      icon: '',
-      content: t('opposeNomination'),
+      title: t('common.tips'),
+      content: t('orgManage.opposeNomination'),
       okText: t('common.submit'),
-      cancelText: t('orgManage.ModalCancel'),
+      centered: true,
+      cancelText: t('UserCenter.ModalCancel'),
       onOk(close) {
         orgManage.revokeProposal({ id: row.id }).then(res => {
           const { status, data } = res
@@ -211,6 +212,9 @@ const CommitteeAffairs: FC<any> = () => {
     setTableData([])
     query()
   }, [segmentedValue, text])
+  useEffect(() => {
+    setSearchText('')
+  }, [segmentedValue])
 
   return <div className="committee-list">
     <div className="list-title">

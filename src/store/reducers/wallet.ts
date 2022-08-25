@@ -70,7 +70,6 @@ export const walletConfig = (state: any = walletConfigData, action: action) => {
 export const logOut = async (state: any = {}, action: action) => {
   switch (action.type) {
     case LOGOUT:
-      console.log('logout')
       loginApi.logoutFn().then(res => {
         if (res.status == 0) {
           const { pathname } = window.location
@@ -78,8 +77,8 @@ export const logOut = async (state: any = {}, action: action) => {
             location.href = `/login`
             return
           }
-          // location.href = `/login?type=redirect#${pathname}`
-          history.pushState(null,'',`/login?type=redirect#${pathname}`)
+          if(pathname) location.href = `/login?type=redirect#${pathname}`
+          else location.href = `/login`
         }
       })
       return {}

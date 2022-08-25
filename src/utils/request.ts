@@ -40,8 +40,7 @@ service.interceptors.response.use(
     const { data: { status, msg }, config: { url } } = response
     if (status === 1000) {
       const { pathname } = window.location
-      // location.href = `/login?type=redirect#${pathname}`
-      history.pushState(null,'',`/login?type=redirect#${pathname}`)
+      window.location.href =  `/login?type=redirect#${pathname}`
     } else {
       StatusCodeProcessing(status)
     }

@@ -49,7 +49,7 @@ const Layout = (props: any) => {
   const fetchData = async (type?: boolean) => {
     const result = await loginApi.queryBaseInfo()
 
-    if (result.status === 1005 || (!result.data.identityId && history.location.pathname !== "/didApplication")) {
+    if (result.status === 1005 || (!result?.data?.identityId && history.location.pathname !== "/didApplication")) {
       props.setIsReg(false)
       history.push('/didApplication')
       return
@@ -66,10 +66,8 @@ const Layout = (props: any) => {
   }
 
   useEffect((): any => {
-    // debugger
     if (!props?.state?.loginInfo?.loginInfo || props?.state?.loginInfo?.loginInfo && !Object.keys(props?.state?.loginInfo?.loginInfo).length) {
       history.push('/login')
-      // console.log(111);
       return
     }
     fetchData(true)

@@ -251,24 +251,96 @@ export const useToDoContentStatus = (status)=>{
       break;
   }
 }
-export const useProposalProgressStatus = (status)=>{
+
+export const useProposalStatus = (status)=>{
   const s = Number(status)
   switch (s) {
-    // 1.投票未开始 2. 投票进行中 3.提案已中止  4. 提案未通过 5. 提案通过
+    // 1-增加委员会成员; 2-剔除委员会成员; 3-委员会成员退出
     case 1:
-      return i18n.t('orgManage.VotingNoTarted');
+      return i18n.t('orgManage.ApplicationInCommittee');
     case 2:
-      return i18n.t('orgManage.VotingProgress');
+      return i18n.t('menu.ApplicationDisqualificationCommittee');
     case 3:
-      return i18n.t('orgManage.ProposalSuspended');
-    case 4:
-      return i18n.t('orgManage.ProposalnNoPassed');
-    case 5:
-      return i18n.t('orgManage.ProposalPassed');
+      return i18n.t('orgManage.withdrawCommittee');
     default:
       break;
   }
 }
+export const useToDoContenttype = (row)=>{
+  switch (row.type) {
+    case 1:
+      return i18n.language == 'zh' ? `${row?.dynamicFields?.applyOrgName} 向 ${row?.dynamicFields?.specifyOrgName || row?.dynamicFields?.approveOrgName} 申请认证` :
+        `${row?.dynamicFields?.applyOrgName} applies to ${row?.dynamicFields?.specifyOrgName || row?.dynamicFields?.approveOrgName} for certification`
+    case 101:
+      return i18n.language == 'zh' ? `${row?.dynamicFields?.applyOrgName} 提名 ${row?.dynamicFields?.specifyOrgName || row?.dynamicFields?.approveOrgName} 加入提案` :
+        `${row?.dynamicFields?.applyOrgName} nominated  ${row?.dynamicFields?.specifyOrgName || row?.dynamicFields?.approveOrgName} to join the proposal`;
+    case 102:
+      return i18n.language == 'zh' ? `${row?.dynamicFields?.applyOrgName} 提名 ${row?.dynamicFields?.specifyOrgName || row?.dynamicFields?.approveOrgName} 退出提案` :
+        `${row?.dynamicFields?.applyOrgName} nominated  ${row?.dynamicFields?.specifyOrgName || row?.dynamicFields?.approveOrgName} withdrawing proposal`;;
+    default: return '-';
+  }
+}
+        // 1-增加委员会成员; 2-剔除委员会成员; 3-委员会成员退出
+
+export const useProposalType = (row)=>{
+    switch (row.type) {
+      case 1:
+        return i18n.language == 'zh' ? `提名${row?.dynamicFields?.candidateName} 加入委员会` :
+          `nominated ${row?.dynamicFields?.candidateName}  Join the Committee`
+      case 2:
+        return i18n.language == 'zh' ? `提名${row?.dynamicFields?.candidateName} 退出委员会` :
+          `nominated ${row?.dynamicFields?.candidateName}  Withdrawal from the Committee`
+      case 3:
+        return i18n.language == 'zh' ? `${row?.dynamicFields?.candidateName} 退出委员会` :
+          `${row?.dynamicFields?.candidateName}  Withdrawal from the Committe`
+      default: return '-';
+    }
+}
+
+
+export const useProposalProgressStatus = (status)=>{
+  const s = 1+Number(status)
+  switch (s) {
+    // 0-投票未开始；1-投票开始；2-投票结束，但是还未通过；3-投票通过；4-投票未通过；5-退出中；6-已退出；7-撤销中；8-已撤销
+        case 1:
+        case 6:
+        case 8:
+      return i18n.t('orgManage.VotingNoTarted');
+       case 2:
+      return i18n.t('orgManage.VotingBegins');
+       case 3:
+      case 4:
+      case 5:
+      case 7:
+      return i18n.t('orgManage.OverButNoPassed');
+       case 9:
+      return i18n.t('orgManage.revoked');
+    // case 1:
+    //   return i18n.t('orgManage.VotingNoTarted');
+    // case 2:
+    //   return i18n.t('orgManage.VotingBegins');
+    // case 3:
+    //   return i18n.t('orgManage.OverButNoPassed');
+    // case 4:
+    //   return i18n.t('orgManage.passedVote');
+    // case 5:
+    //   return i18n.t('orgManage.votingFailed');
+    // case 6:
+    //   return i18n.t('orgManage.exiting');
+    // case 7:
+    //   return i18n.t('orgManage.exited');
+    // case 8:
+    //   return i18n.t('orgManage.revoking');
+    // case 9:
+    //   return i18n.t('orgManage.revoked');
+    default:
+      break;
+  }
+}
+
+
+
+
 
 
 export const StatusCodeProcessing = (code) => {
