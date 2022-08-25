@@ -742,7 +742,10 @@
     "proposalStatus": "提案状态",
     "ProposalDeadline": "提案截止时间",
     "ProposalResults": "提案结果",
-    "PostscriptProposal": "提案附言"
+    "PostscriptProposal": "提案附言",
+    "ApplicationDetails": "申请认证详情",
+    "NominationDetails": "提名详情",
+    "ProposalDetails": "提案详情"
   },
   "httpStatus": {
     "status1": "系统内部错误",

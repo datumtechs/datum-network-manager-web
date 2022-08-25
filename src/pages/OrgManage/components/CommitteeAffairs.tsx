@@ -214,6 +214,7 @@ const CommitteeAffairs: FC<any> = () => {
   }, [segmentedValue, text])
   useEffect(() => {
     setSearchText('')
+    setCurPage(1)
   }, [segmentedValue])
 
   return <div className="committee-list">

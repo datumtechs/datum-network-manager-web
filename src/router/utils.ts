@@ -23,6 +23,8 @@ const flatRoute = (list:any,priviege)=>{
 
 export const verifyRout = (privilegeRoute)=>{
   const priviege = privilegeRoute.map(v=> v.value)
+  priviege.push('OrgManage/orgManageApplyDetails')
+  // debugger
   const newlist:any[] = flatRoute(basicsRouters,priviege)
   return [...newlist]
 }
@@ -85,5 +87,5 @@ export function getBreadcrumbs(): IRoute[] {
   return findRoutesByPaths(getPagePathList(), getBusinessRouteList())
 }
 
-export const KeepAliveInclude = ["/tasks"]
+export const KeepAliveInclude = ["/tasks","/OrgManage"]
 

@@ -79,7 +79,7 @@ const App: FC<any> = (props: any) => {
         walletChange()
       })
 
-      WEB3.eth.on('chainChanged', account => {
+      WEB3.eth.on('chainChanged', chain => {
         walletChange()
       })
     } else {

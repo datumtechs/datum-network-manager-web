@@ -7,10 +7,13 @@ const queryAllList = new Map()
 //loading
 export const noInclude = [
   '/api/v1/system/queryBaseInfo', 
-'/api/v1/user/findLocalOrgInfo', 
-'/api/v1/data/listLocalMetaDataByKeyword',
- '/api/v1/dataToken/getDataTokenStatus',
- '/api/v1/attributeDataToken/getAttributeDataTokenStatus'
+  '/api/v1/user/findLocalOrgInfo', 
+  '/api/v1/data/listLocalMetaDataByKeyword',
+  '/api/v1/dataToken/getDataTokenStatus',
+  '/api/v1/attributeDataToken/getAttributeDataTokenStatus',
+  '/api/v1/authority/todoList',
+  '/api/v1/authority/doneList',
+  '/api/v1/authority/myProposalList'
 ]
 //Cancel
 export const noDuplicateRemovalInclude = [

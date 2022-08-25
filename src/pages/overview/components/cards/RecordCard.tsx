@@ -83,7 +83,7 @@ const RecordCard: FC<any> = (props: any) => {
         },
       ],
     }
-    const chart = echarts.init(document.getElementById('credential'))
+    // const chart = echarts.init(document.getElementById('credential'))
   }
 
 

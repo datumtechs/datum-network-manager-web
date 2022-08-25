@@ -742,7 +742,10 @@
     "proposalStatus": "Proposal Status",
     "ProposalDeadline": "Proposal Deadline",
     "ProposalResults": "Proposal Results",
-    "PostscriptProposal": "Postscript to the proposal"
+    "PostscriptProposal": "Postscript to the proposal",
+    "ApplicationDetails": "Application Details",
+    "NominationDetails": "Nomination Details",
+    "ProposalDetails": "Proposal Details"
   },
   "httpStatus": {
     "status1": "system internal error",
