@@ -234,7 +234,7 @@
     "copy": "复制",
     "confirm": "确认",
     "previousStep": "上一步",
-    "pleaseUpload": "请上传"
+    "info": "信息"
   },
   "node": {
     "confirmDelete": "请确认是否要删除数据节点",

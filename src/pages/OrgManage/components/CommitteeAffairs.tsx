@@ -165,12 +165,17 @@ const CommitteeAffairs: FC<any> = () => {
 
 
   const details = (row, type) => {
+    let status = ''
+    if (row.type == 1 && (type == "getToDoList" || type == 'getDoneList')) {
+      status = row.type
+    }
     history.push({
       pathname: "/OrgManage/orgManageApplyDetails",
       state: {
         id: row.id,
         title: "certificationApplicationDetails",
-        type: type
+        type,
+        status,
       }
     })
   }

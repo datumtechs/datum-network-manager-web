@@ -298,43 +298,51 @@ export const useProposalType = (row)=>{
 }
 
 
-export const useProposalProgressStatus = (status)=>{
-  const s = 1+Number(status)
-  switch (s) {
-    // 0-投票未开始；1-投票开始；2-投票结束，但是还未通过；3-投票通过；4-投票未通过；5-退出中；6-已退出；7-撤销中；8-已撤销
-        case 1:
-        case 6:
-        case 8:
+export const useProposalProgressStatus = (status,type?)=>{
+  const s = Number(status)
+  if(type == 'details'){
+    switch(s){
+      case 0:
+        case 5:
+        case 7:
       return i18n.t('orgManage.VotingNoTarted');
-       case 2:
+       case 1:
       return i18n.t('orgManage.VotingBegins');
-       case 3:
+       case 2:
+      case 3:
       case 4:
-      case 5:
-      case 7:
-      return i18n.t('orgManage.OverButNoPassed');
-       case 9:
+      case 6:
+      return i18n.t('orgManage.OverButNoPassed');//"投票结束，但是还未通过",
+       case 8:
       return i18n.t('orgManage.revoked');
-    // case 1:
-    //   return i18n.t('orgManage.VotingNoTarted');
-    // case 2:
-    //   return i18n.t('orgManage.VotingBegins');
-    // case 3:
-    //   return i18n.t('orgManage.OverButNoPassed');
-    // case 4:
-    //   return i18n.t('orgManage.passedVote');
-    // case 5:
-    //   return i18n.t('orgManage.votingFailed');
-    // case 6:
-    //   return i18n.t('orgManage.exiting');
-    // case 7:
-    //   return i18n.t('orgManage.exited');
-    // case 8:
-    //   return i18n.t('orgManage.revoking');
-    // case 9:
-    //   return i18n.t('orgManage.revoked');
+      default:
+        return ''
+      
+    }
+  }
+  switch (s) {
+    // 0-投票未开始；1-投票开始；2-投票结束，但是还未通过；3-投票通过；
+    // 4-投票未通过；5-退出中；6-已退出；7-撤销中；8-已撤销
+    case 1:
+      return i18n.t('orgManage.VotingNoTarted');
+    case 2:
+      return i18n.t('orgManage.VotingBegins');
+    case 3:
+      return i18n.t('orgManage.OverButNoPassed');
+    case 4:
+      return i18n.t('orgManage.passedVote');
+    case 5:
+      return i18n.t('orgManage.votingFailed');
+    case 6:
+      return i18n.t('orgManage.exiting');
+    case 7:
+      return i18n.t('orgManage.exited');
+    case 8:
+      return i18n.t('orgManage.revoking');
+    case 9:
+      return i18n.t('orgManage.revoked');
     default:
-      break;
+      return ''
   }
 }
 

@@ -234,7 +234,8 @@
     "copy": "Copy",
     "confirm": "Confirm",
     "previousStep": "Previous Step",
-    "pleaseUpload": "Please Upload"
+    "pleaseUpload": "Please Upload",
+    "info": "信息"
   },
   "node": {
     "confirmDelete": "Please ensure that you are deleting the data node",

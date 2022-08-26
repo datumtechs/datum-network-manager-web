@@ -45,12 +45,14 @@ const ProviderTable: FC<any> = (props: any) => {
 
   const dataColumns = [
     {
-      title: t('task.dataNameAndId'),
+      // title: t('task.dataNameAndId'),
+      title: t('common.info'),
       dataIndex: 'metaDataName',
       render: (text, record) => {
         return (
           <div>
-            {text}({record.metaDataId})
+            {/* {text}({record.metaDataId}) */}
+            {t('voucher.VoucherName')}: {record.dataTokenName}
           </div>
         )
       },
