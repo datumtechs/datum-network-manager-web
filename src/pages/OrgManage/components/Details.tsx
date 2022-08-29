@@ -34,13 +34,15 @@ const OrgManageApplyDetails: FC<any> = (props) => {
           dataList = [{
             left: t('orgManage.applicationInitiator'),
             right: t('orgManage.approvedBy'),
-            ldata: data.approveOrg,
-            rdata: data.applyOrg
+            // ldata: data.approveOrg,
+            // rdata: data.applyOrg
+            ldata: data?.dynamicFields?.approveOrgName,
+            rdata: data?.dynamicFields?.applyOrgName
           },
           {
             left: t('orgManage.applicationTime'),
             right: t('orgManage.approvalProgress'),
-            ldata: data.startTime,
+            ldata: new Date(data.startTime).toLocaleString(),
             rdata: useApplicationStatus(data.progress),
           },
           {
@@ -96,42 +98,12 @@ const OrgManageApplyDetails: FC<any> = (props) => {
           ]
         }
         setTableData(dataList)
-        //   [{
-        //   left: type == 'generalOrganization-applyDetail' ? t('orgManage.applicationInitiator') : t('orgManage.sponsorProposal'),
-        //   right: type == 'generalOrganization-applyDetail' ? t('orgManage.approvedBy') : t('orgManage.proposalTime'),
-        //   ldata: type == 'generalOrganization-applyDetail' ? data.approveOrg : type == 'getMyProposalList' ? data?.dynamicFields?.submitterName : data?.dynamicFields?.applyOrgName,
-        //   rdata: type == 'generalOrganization-applyDetail' ? data.applyOrg : type == 'getMyProposalList' ? new Date(data?.createTime).toLocaleString() : new Date(data?.startTime).toLocaleString(),
-        // },
-        // {
-        //   left: type == 'generalOrganization-applyDetail' ? t('orgManage.applicationTime') : t('orgManage.proposalContent'),
-        //   right: type == 'generalOrganization-applyDetail' ? t('orgManage.approvalProgress') : t('orgManage.proposalStatus'),
-        //   ldata: type == "generalOrganization-applyDetail" ? data.startTime : type == 'getMyProposalList' ? useProposalType(data) : useToDoContenttype({ ...data, type: data.status }),
-        //   rdata: type == "generalOrganization-applyDetail" ? useApplicationStatus(data.progress) : useProposalProgressStatus(data.status),//这里需要特殊处理   我的待办  和我的提案状态不一致
-        // },
-        // {
-        //   left: type == 'generalOrganization-applyDetail' ? t('orgManage.postscriptApplication') : t('orgManage.proposalProgress'),
-        //   right: type == 'generalOrganization-applyDetail' ? t('orgManage.approvalTime') : t('orgManage.ProposalDeadline'),
-        //   ldata: type == 'generalOrganization-applyDetail' ? data.applyRemark : `${data.voteAgreeNumber} / ${data.authorityNumber}`,
-        //   rdata: type == 'generalOrganization-applyDetail' ? data.endTime : type == 'getMyProposalList' ? new Date(+(String(data?.dynamicFields?.voteEndTime) + '000')).toLocaleString() : data.endTime,//提案进度问题
-        // },
-        // {
-        //   left: type == 'generalOrganization-applyDetail' ? t('orgManage.approvalPostscript') : t('orgManage.ProposalResults'),
-        //   right: type == 'generalOrganization-applyDetail' ? false : t('orgManage.PostscriptProposal'),
-        //   ldata: type == 'generalOrganization-applyDetail' ? data.approveRemark : filterStatus(data?.status),
-        //   rdata: type == 'generalOrganization-applyDetail' ? undefined : data.remark
-        // },
-        // {
-        //   left: '',
-        //   rdata: 'img',
-        //   right: t('orgManage.postscriptToApplicationMaterials'),
-        //   ldata: "img"
-        // }
-        // ])
       }
     })
   }
 
   const filterStatus = (status) => {
+    //成功 失败 已撤回 --
     if (status < 3) return t('orgManage.VotingProgress')
     if (status == 3) return t('task.success')
     if (status == 4) return t('task.failed')

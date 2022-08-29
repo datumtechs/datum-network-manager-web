@@ -55,15 +55,14 @@ const App: FC<any> = (props: any) => {
   const walletChange = () => {
     const { pathname } = window.location
     if (pathname.indexOf('login') < 0) {
+      // debugger
       props.loginOut()
       props.setLoginInfo()
     }
   }
 
   useEffect(() => {
-    if (loginInfo?.resourceList?.length) {
-      setNewRoute(verifyRout(loginInfo?.resourceList))
-    }
+    if (loginInfo?.resourceList?.length) setNewRoute(verifyRout(loginInfo?.resourceList))
   }, [loginInfo])
 
 

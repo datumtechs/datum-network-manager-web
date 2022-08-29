@@ -746,7 +746,8 @@
     "PostscriptProposal": "Postscript to the proposal",
     "ApplicationDetails": "Application Details",
     "NominationDetails": "Nomination Details",
-    "ProposalDetails": "Proposal Details"
+    "ProposalDetails": "Proposal Details",
+    "Refresh": "Refresh"
   },
   "httpStatus": {
     "status1": "system internal error",

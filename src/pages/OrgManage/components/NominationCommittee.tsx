@@ -23,7 +23,7 @@ const NominationCommittee: FC<any> = (props: any) => {
     orgManage.getNominateMember({ keyword: text }).then(res => {
       const { status, data } = res
       if (status == 0) {
-        console.log(data)
+        // console.log(data)
         setList(data)
       }
       loading.current = false
@@ -86,7 +86,7 @@ const NominationCommittee: FC<any> = (props: any) => {
 
 
   const confirm = (values) => {
-    console.log(values);
+    // console.log(values);
     orgManage[type == 'out' ? 'kickOut' : 'nominate']({
       identityId: values.identityId,
       ip: values.organizationIp || undefined,
@@ -97,8 +97,8 @@ const NominationCommittee: FC<any> = (props: any) => {
     }).then(res => {
       const { data, status } = res
       if (status == 0) {
-        console.log(status);
-
+        // console.log(status);
+        history.go(-1)
       }
     })
   }

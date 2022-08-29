@@ -48,7 +48,7 @@ const ApplyCertification: FC<any> = () => {
       const { data, status } = res
       if (status == 0) {
         console.log(status);
-        message.success('task.success')
+        message.success(t('task.success'))
         history.go(-1)
       }
     })

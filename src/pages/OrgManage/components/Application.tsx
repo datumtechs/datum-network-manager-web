@@ -14,6 +14,7 @@ const Application: FC<any> = (props) => {
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(0)
   const history = useHistory()
+  const parentData = props.parentData
 
   const columns: any[] = [
     {
@@ -30,7 +31,7 @@ const Application: FC<any> = (props) => {
     {
       title: t('orgManage.timeInitiationCertification'),
       dataIndex: 'startTime',
-      ellipsis: true,
+      render: (text) => new Date(text).toLocaleString()
     },
     {
       title: t('orgManage.applicationProgress'),
@@ -44,9 +45,10 @@ const Application: FC<any> = (props) => {
       render: (text: any, row: any, index: any) => {
         return <>
           <Button style={{ padding: 0, }} type="link" onClick={() => details(row)}>  {t('computeNodeMgt.detail')}</Button>
-          <Button style={{ padding: '0 10px' }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button>
           {
-            props.parentData.canTrusted ? '' :
+            +row.progress == 1 ? <Button style={{ padding: '0 10px' }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button> : ''}
+          {
+            !props.parentData.isAuthority ? '' :
               <Button style={{ padding: 0, }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button>
           }
         </>
@@ -66,9 +68,14 @@ const Application: FC<any> = (props) => {
     })
   }
 
-  const download = (row) => {
+  const download = (row, type?: string) => {
     orgManage.postDownload({ id: row.id }).then(res => {
-      if (res.data) {
+      // debugger
+      if (res.name && type == 'Refresh') {
+        query()
+        return
+      }
+      if (res.data && res.name) {
         const name = res.name.split('attachment;')[1].split('filename=')[1]
         const file = new File([res.data], name, { type: "application/octet-stream" })
         const createUrl = window.URL.createObjectURL(file)
@@ -95,14 +102,12 @@ const Application: FC<any> = (props) => {
 
 
   const query = () => {
-    // setTableData([{ applicationProgress: "xxx" }])
-    orgManage.getgenerAlapplyList(
-      { pageNumber: curPage, pageSize: pageSize }
-    ).then(res => {
+    orgManage.getgenerAlapplyList({ pageNumber: curPage, pageSize: pageSize }).then(res => {
       const { status, data } = res
+      // console.log(parentData)
       if (status == 0) {
-        console.log(data)
         setTableData(data)
+        setTotal(res.total)
       }
     })
   }

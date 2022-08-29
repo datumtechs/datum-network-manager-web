@@ -745,7 +745,8 @@
     "PostscriptProposal": "提案附言",
     "ApplicationDetails": "申请认证详情",
     "NominationDetails": "提名详情",
-    "ProposalDetails": "提案详情"
+    "ProposalDetails": "提案详情",
+    "Refresh": "刷新"
   },
   "httpStatus": {
     "status1": "系统内部错误",

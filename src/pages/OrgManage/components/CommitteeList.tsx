@@ -34,6 +34,7 @@ const CommitteeList: FC<any> = (props) => {
       title: t('orgManage.joinTime'),
       dataIndex: 'joinTime',
       ellipsis: true,
+      render: (text) => new Date(text).toLocaleString()
     },
     {
       title: t('common.actions'),

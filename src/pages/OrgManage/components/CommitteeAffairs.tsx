@@ -13,9 +13,18 @@ const CommitteeAffairs: FC<any> = () => {
   const [curPage, setCurPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(0)
+  const [tableLoading, setTableLoading] = useState(false)
   const history = useHistory()
   const [segmentedValue, setSegmented] = useState<string | number>('getToDoList');
   const form = useRef<any>()
+  const seatchRef = useRef<any>()
+
+  const filterTime = (time: any, isStamp?: any) => {
+    isStamp = !!isStamp
+    if (isStamp) time = String(time) + '000'
+    const dateList = new Date(isStamp ? +time : time).toLocaleString().split(' ')
+    return <> {dateList[0]}< br />{dateList[1]}</>
+  }
 
   const columns = (item): any[] => {
     const itemList = item == 'getMyProposalList' ? [
@@ -70,7 +79,7 @@ const CommitteeAffairs: FC<any> = () => {
         title: t('computeNodeMgt.startTime'),
         dataIndex: 'startTime',
         ellipsis: true,
-        render: (text, row) => item == 'getMyProposalList' ? row.createTime : text
+        render: (text, row) => item == 'getMyProposalList' ? filterTime(row.createTime) : filterTime(text)
       },
       ...itemProposalProgressList,
       {
@@ -80,7 +89,7 @@ const CommitteeAffairs: FC<any> = () => {
           return <>
             <Button style={{ padding: '0 10px 0 0' }} type="link" onClick={() => details(row, item)}>  {t('orgManage.viewContent')}</Button>
             {
-              item == 'getDoneList' && !row?.processStatus ?
+              item == 'getToDoList' && row?.processStatus == 1 ?
                 <Button style={{ padding: '0' }} type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
                 : ''
             }
@@ -157,7 +166,7 @@ const CommitteeAffairs: FC<any> = () => {
     orgManage.processTodo(data).then(res => {
       const { status, data } = res
       if (status == 0) {
-        message.success('task.success')
+        message.success(t('task.success'))
         query()
       }
     })
@@ -191,7 +200,7 @@ const CommitteeAffairs: FC<any> = () => {
         orgManage.revokeProposal({ id: row.id }).then(res => {
           const { status, data } = res
           if (status == 0) {
-            message.success('task.success')
+            message.success(t('task.success'))
             query()
           }
         })
@@ -200,11 +209,15 @@ const CommitteeAffairs: FC<any> = () => {
 
   }
   const query = () => {
+    setTableLoading(true)
+    setTableData([])
     orgManage[segmentedValue]({ pageSize, pageNumber: curPage, keyword: text }).then(res => {
       const { status, data } = res
       if (status == 0) {
         setTableData(data)
+        setTotal(res.total)
       }
+      setTableLoading(false)
     })
   }
 
@@ -214,15 +227,15 @@ const CommitteeAffairs: FC<any> = () => {
   }, [])
 
   useEffect(() => {
-    setTableData([])
     query()
-  }, [segmentedValue, text])
+  }, [segmentedValue, text, curPage])
+
   useEffect(() => {
     setSearchText('')
     setCurPage(1)
   }, [segmentedValue])
 
-  return <div className="committee-list">
+  return <div className="committee-list" style={{ marginTop: '5px' }}>
     <div className="list-title">
       <span className="title">{t('orgManage.committeeAffairs')}</span>
 
@@ -242,11 +255,12 @@ const CommitteeAffairs: FC<any> = () => {
           value: 'getMyProposalList'
         }
       ]} value={segmentedValue} onChange={setSegmented} />
-      <SearchBar onSearch={setSearchText} />
+      <SearchBar onSearch={setSearchText} ref={seatchRef} />
     </div>
     <Table
       className="com-table com-table-lr-padding"
       dataSource={tableData}
+      loading={tableLoading}
       columns={columns(segmentedValue)}
       rowKey={(record: any) => record.id}
       pagination={{

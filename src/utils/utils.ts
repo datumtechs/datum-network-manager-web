@@ -9,8 +9,6 @@ export const imgURls = 'http://testdownload.datumtechs.com/datum/image/3.svg'
 
 export const filterAmount = (str: string): string => {
   if (!str) return ''
-  // const banlane = `${new Big(str).div(new Big(10).pow(18)).toFixed(8)}` 
-  // return (banlane == '0.00000000' ? '0' : banlane)
   let newStr: any = `${new Big(str).div(new Big(10).pow(18)).toFixed(10)}`
   newStr = newStr.substring(0, newStr.length - 2)
   return newStr.replace(/(?:\.0*|(\.\d+?)0+)$/, '$1')
@@ -226,7 +224,7 @@ export const UseAttrCredentialStatus = (status)=>{
 export const useApplicationStatus = (status)=>{//processStatus
   const s = Number(status)
   switch (s) {
-    // ：0-未处理，1-同意，2-不同意/
+    //0-申请中，1-申请通过，2-申请失败
     case 0:
       return i18n.t('orgManage.InApplication');
     case 1:
@@ -300,46 +298,26 @@ export const useProposalType = (row)=>{
 
 export const useProposalProgressStatus = (status,type?)=>{
   const s = Number(status)
-  if(type == 'details'){
-    switch(s){
-      case 0:
-        case 5:
-        case 7:
-      return i18n.t('orgManage.VotingNoTarted');
-       case 1:
-      return i18n.t('orgManage.VotingBegins');
-       case 2:
-      case 3:
-      case 4:
-      case 6:
-      return i18n.t('orgManage.OverButNoPassed');//"投票结束，但是还未通过",
-       case 8:
-      return i18n.t('orgManage.revoked');
-      default:
-        return ''
-      
-    }
-  }
   switch (s) {
     // 0-投票未开始；1-投票开始；2-投票结束，但是还未通过；3-投票通过；
     // 4-投票未通过；5-退出中；6-已退出；7-撤销中；8-已撤销
-    case 1:
+    case 0:
       return i18n.t('orgManage.VotingNoTarted');
-    case 2:
+    case 1:
       return i18n.t('orgManage.VotingBegins');
-    case 3:
+    case 2:
       return i18n.t('orgManage.OverButNoPassed');
-    case 4:
+    case 3:
       return i18n.t('orgManage.passedVote');
-    case 5:
+    case 4:
       return i18n.t('orgManage.votingFailed');
-    case 6:
+    case 5:
       return i18n.t('orgManage.exiting');
-    case 7:
+    case 6:
       return i18n.t('orgManage.exited');
-    case 8:
+    case 7:
       return i18n.t('orgManage.revoking');
-    case 9:
+    case 8:
       return i18n.t('orgManage.revoked');
     default:
       return ''
