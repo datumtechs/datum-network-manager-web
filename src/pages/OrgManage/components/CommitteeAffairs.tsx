@@ -2,8 +2,17 @@ import { FC, useState, useEffect, useRef } from "react";
 import { Table, Button, Segmented, message, Modal, Form, Radio, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
+import {
+  ExclamationCircleTwoTone,
+  CloseCircleTwoTone,
+  CheckCircleTwoTone
+} from '@ant-design/icons'
+
 import { orgManage } from '@api/index'
-import { useToDoContentStatus, useApplicationStatus, useProposalProgressStatus, useProposalStatus, useToDoContenttype, useProposalType } from '@utils/utils'
+import {
+  useToDoContentStatus, useApplicationStatus, useHandlingOpinionsStatus, useProcessStatus,
+  useProposalProgressStatus, useProposalStatus, useToDoContenttype, useProposalType
+} from '@utils/utils'
 import { useHistory } from 'react-router-dom'
 
 const CommitteeAffairs: FC<any> = () => {
@@ -14,6 +23,9 @@ const CommitteeAffairs: FC<any> = () => {
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(0)
   const [tableLoading, setTableLoading] = useState(false)
+  const [retreatModal, setRetreatModal] = useState(false)
+  const [ModalLoading, setModalLoading] = useState(false)
+  const [activeRow, setActiveRow] = useState<any>({})
   const history = useHistory()
   const [segmentedValue, setSegmented] = useState<string | number>('getToDoList');
   const form = useRef<any>()
@@ -38,28 +50,33 @@ const CommitteeAffairs: FC<any> = () => {
         title: t('orgManage.proposalApplicationOrganization'),
         dataIndex: 'proposalApplicationOrganization',
         ellipsis: true,
-        render: (text, row) => row?.dynamicFields?.submitterName
+        render: (text, row) => <span className="ant-btn-link" onClick={() => details(row, item)}>{row?.dynamicFields?.submitterName}</span>
       }
-    ] : [//待办内容
+    ] : [
       {
         title: t('orgManage.toDoContent'),
         dataIndex: 'toDoContent',
         width: 300,
-        // 1-申请认证，101-提名加入提案，102-提名踢出提案
-        render: (text, row) => useToDoContenttype(row)
+        render: (text, row) => <span className="ant-btn-link" onClick={() => details(row, item)}>{useToDoContenttype(row)}</span>
       },
     ]
     const itemProposalProgressList = item == 'getMyProposalList' ? [{
       title: t('orgManage.proposalProgress'),
       dataIndex: 'proposalProgress',
       ellipsis: true,
-      render: (text, row) => useProposalProgressStatus(row?.status) || text
+      render: (text, row) => useProposalProgressStatus(row?.status)
     }] : [
       {
-        title: t('orgManage.processingStatus'),
+        title: item == 'getDoneList' ? t('orgManage.HandlingOpinions') : t('orgManage.processingStatus'),
         dataIndex: 'processingStatus',
         ellipsis: true,
-        render: (text, row) => useApplicationStatus(row?.processStatus) || text
+        render: (text, row) => <>
+          {row?.processStatus == 0 ? <ExclamationCircleTwoTone twoToneColor='#ffbc00' /> :
+            row?.processStatus == 1 ? < CheckCircleTwoTone twoToneColor="#52c41a" /> :
+              row?.processStatus == 2 ? <CloseCircleTwoTone twoToneColor="#c70e0e" /> : ''
+          }&nbsp;&nbsp;
+          {useProcessStatus(row?.processStatus)}
+        </>
       }
     ]
     return [
@@ -89,13 +106,13 @@ const CommitteeAffairs: FC<any> = () => {
           return <>
             <Button style={{ padding: '0 10px 0 0' }} type="link" onClick={() => details(row, item)}>  {t('orgManage.viewContent')}</Button>
             {
-              item == 'getToDoList' && row?.processStatus == 1 ?
+              item == 'getToDoList' && row?.dynamicFields?.proposalStatus == 1 ?
                 <Button style={{ padding: '0' }} type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
                 : ''
             }
             {
               item == 'getMyProposalList' && !row?.status ?
-                <Button style={{ padding: '0' }} type="link" onClick={() => retreat(row)}>  {t('orgManage.withdrawProposal')}</Button>
+                <Button style={{ padding: '0' }} type="link" onClick={() => (setRetreatModal(true), setActiveRow(row))}>  {t('orgManage.withdrawProposal')}</Button>
                 : ""
             }
           </>
@@ -106,7 +123,9 @@ const CommitteeAffairs: FC<any> = () => {
 
   const handle = (row) => {
     Modal.confirm({
+      title: t('common.tips'),
       icon: '',
+      centered: true,
       content: (
         <div>
           <Form
@@ -190,23 +209,23 @@ const CommitteeAffairs: FC<any> = () => {
   }
 
   const retreat = (row) => {
-    Modal.confirm({
-      title: t('common.tips'),
-      content: t('orgManage.opposeNomination'),
-      okText: t('common.submit'),
-      centered: true,
-      cancelText: t('UserCenter.ModalCancel'),
-      onOk(close) {
-        orgManage.revokeProposal({ id: row.id }).then(res => {
-          const { status, data } = res
-          if (status == 0) {
-            message.success(t('task.success'))
-            query()
-          }
-        })
-      },
-    });
+    setModalLoading(true)
+    orgManage.revokeProposal({ id: activeRow.id }).then(res => {
+      const { status, data } = res
+      if (status == 0) {
+        message.success(t('task.success'))
+        setActiveRow('')
+        query()
+      }
+      setRetreatModal(false)
+      setModalLoading(false)
+    })
+  }
 
+  const onCancel = (row) => {
+    setActiveRow('')
+    setRetreatModal(false)
+    setModalLoading(false)
   }
   const query = () => {
     setTableLoading(true)
@@ -232,6 +251,8 @@ const CommitteeAffairs: FC<any> = () => {
 
   useEffect(() => {
     setSearchText('')
+    console.log(seatchRef.current);
+
     setCurPage(1)
   }, [segmentedValue])
 
@@ -255,7 +276,7 @@ const CommitteeAffairs: FC<any> = () => {
           value: 'getMyProposalList'
         }
       ]} value={segmentedValue} onChange={setSegmented} />
-      <SearchBar onSearch={setSearchText} ref={seatchRef} />
+      <SearchBar key={segmentedValue} onSearch={setSearchText} ref={seatchRef} />
     </div>
     <Table
       className="com-table com-table-lr-padding"
@@ -272,6 +293,18 @@ const CommitteeAffairs: FC<any> = () => {
         showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
       }}
     />
+    <Modal
+      title={t('common.tips')}
+      okText={t('common.submit')}
+      centered
+      visible={retreatModal}
+      confirmLoading={ModalLoading}
+      cancelText={t('UserCenter.ModalCancel')}
+      onOk={retreat}
+      onCancel={onCancel}
+    >
+      {t('orgManage.opposeNomination')}
+    </Modal>
   </div>
 }
 

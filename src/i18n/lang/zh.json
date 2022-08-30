@@ -122,7 +122,8 @@
     "bootAddress": "引导地址",
     "nodeAddress": "节点地址",
     "AuthorizationApplication": "的授权申请",
-    "SeedApplication": "发起了"
+    "SeedApplication": "发起了",
+    "TotalVouchers": "总凭证数"
   },
   "menu": {
     "systemOverview": "系统概况",
@@ -234,7 +235,9 @@
     "copy": "复制",
     "confirm": "确认",
     "previousStep": "上一步",
-    "info": "信息"
+    "info": "信息",
+    "Withdrawn": "已撤回",
+    "Untreated": "未处理"
   },
   "node": {
     "confirmDelete": "请确认是否要删除数据节点",
@@ -734,7 +737,7 @@
     "ProposalnNoPassed": "提案未通过",
     "ProposalPassed": "提案通过",
     "ApprovalComments": "审批意见",
-    "opposeNomination": "请确认是否要反对此提名？",
+    "opposeNomination": "请确认是否要撤回此提名？",
     "ApplicationInCommittee": "加入委员会申请",
     "ApplicationDisqualificationCommittee": "取消委员会资格申请",
     "sponsorProposal": "提案发起方",
@@ -746,7 +749,8 @@
     "ApplicationDetails": "申请认证详情",
     "NominationDetails": "提名详情",
     "ProposalDetails": "提案详情",
-    "Refresh": "刷新"
+    "Refresh": "刷新",
+    "HandlingOpinions": "处理意见"
   },
   "httpStatus": {
     "status1": "系统内部错误",
@@ -820,6 +824,9 @@
     "status1062": "超出块 gas limit",
     "status1063": "已知交易",
     "status1064": "更新时间小于24小时",
+    "status1065": "您不是所有者",
+    "status1066": "提案已生效!",
+    "status1067": "撤销时间已过!",
     "status2000": "调用节点rpc异常",
     "status2001": "调用节点rpc网络异常",
     "status2002": "调用节点rpc业务异常[%s]",

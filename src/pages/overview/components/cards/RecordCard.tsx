@@ -7,16 +7,14 @@ import * as echarts from 'echarts/lib/echarts'
 
 const RecordCard: FC<any> = (props: any) => {
   const { t } = useTranslation()
-  const [dataList, dataListSet] = useState<any>([])
+  const [dataObj, dataListSet] = useState<any>([])
   const history = useHistory()
 
   const queryData = () => {
     overviewApi.queryWaitAuthDataList().then(res => {
       const { status, data } = res
       if (status === 0) {
-        // debugger
         dataListSet(data)
-        initChart()
       }
     })
   }
@@ -25,6 +23,9 @@ const RecordCard: FC<any> = (props: any) => {
   useEffect(() => {
     queryData()
   }, [])
+  useEffect(() => {
+    initChart()
+  }, [dataObj])
 
 
   const initChart = () => {
@@ -34,7 +35,7 @@ const RecordCard: FC<any> = (props: any) => {
       title: {
         zlevel: 0,
         text: ``,
-        subtext: `${t('task.tasks')}`,
+        subtext: `${t('overview.TotalVouchers')}`,
         top: '41%',
         left: '48%',
         textAlign: 'center',
@@ -76,21 +77,52 @@ const RecordCard: FC<any> = (props: any) => {
             show: false,
           },
           data: [
-            { value: 10, name: t('credential.attributeCredential') },
-            { value: 20, name: `${t('credential.noAttributeCredential')}(${t('credential.priced')})` },
-            { value: 30, name: `${t('credential.noAttributeCredential')}(${t('credential.noPriced')})` },
+            { value: 0, name: t('credential.attributeCredential') },//有属性凭证
+            { value: 0, name: `${t('credential.noAttributeCredential')}(${t('credential.priced')})` },//已定价无属性数据凭证数量
+            { value: 0, name: `${t('credential.noAttributeCredential')}(${t('credential.noPriced')})` },//	未定价无属性数据凭证数量
           ],
         },
       ],
     }
-    // const chart = echarts.init(document.getElementById('credential'))
+    const chart = echarts.init(document.getElementById('credential'))
+    option.title.text = `${Number(dataObj.attributeDataTokenCount) + Number(dataObj.unPriceddataTokenCount) + Number(dataObj.pricedDataTokenCount) || 0}`
+    option.series[0].data[0].value = dataObj.attributeDataTokenCount
+    option.series[0].data[1].value = dataObj.unPriceddataTokenCount
+    option.series[0].data[2].value = dataObj.pricedDataTokenCount
+    chart.setOption(option)
+    chart.resize()
   }
 
 
   return (
     <div className="overview-authorization item">
       <div className="data-name">{t('overview.dataAuthorizationApplication')}</div>
-      <div id="credential"></div>
+      <div className="overview-tasks-content">
+        <div className="overview-tasks-detail">
+          <div className="detail-line">
+            <div className="left">
+              <span className="logo logo-success"></span>
+              <span className="type">{t('credential.attributeCredential')}</span>
+            </div>
+            <div className="value">{dataObj.attributeDataTokenCount}</div>
+          </div>
+          <div className="detail-line">
+            <div className="left">
+              <span className="logo logo-pending"></span>
+              <span className="type">{`${t('credential.noAttributeCredential')}(${t('credential.priced')})`}</span>
+            </div>
+            <div className="value">{dataObj.unPriceddataTokenCount}</div>
+          </div>
+          <div className="detail-line">
+            <div className="left">
+              <span className="logo logo-failed"></span>
+              <span className="type">{`${t('credential.noAttributeCredential')}(${t('credential.noPriced')})`}</span>
+            </div>
+            <div className="value">{dataObj.pricedDataTokenCount}</div>
+          </div>
+        </div>
+        <div id="credential"></div>
+      </div>
     </div >
   )
 }

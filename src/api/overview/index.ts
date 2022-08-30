@@ -88,7 +88,7 @@ const overviewApi = {
       method: "GET",
       // url: `/api/v1/system/index/queryWaitAuthDataList`,
       // url: `/api/v1/overview/queryWaitAuthDataList`,
-      url: `/api/v1/overview/listDataAuthReqWaitingForApprove`,
+      url: `/api/v1/overview/dataTokenOverview`,
     })
   },
 

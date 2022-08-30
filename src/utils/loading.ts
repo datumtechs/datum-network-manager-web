@@ -13,7 +13,7 @@ export const noInclude = [
   '/api/v1/attributeDataToken/getAttributeDataTokenStatus',
   '/api/v1/authority/todoList',
   '/api/v1/authority/doneList',
-  '/api/v1/authority/myProposalList'
+  '/api/v1/authority/myProposalList',
 ]
 //Cancel
 export const noDuplicateRemovalInclude = [

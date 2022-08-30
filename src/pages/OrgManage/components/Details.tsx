@@ -3,7 +3,10 @@ import { Table, Button, message, Image } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
 import { orgManage } from '@api/index'
-import { useApplicationStatus, useProposalProgressStatus, useProposalType, useToDoContenttype } from '@utils/utils'
+import {
+  useApplicationStatus, useProposalProgressStatus, useHandlingOpinionsStatus,
+  useProposalType, useToDoContenttype
+} from '@utils/utils'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
 const OrgManageApplyDetails: FC<any> = (props) => {
@@ -75,7 +78,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
             left: t('orgManage.proposalContent'),
             right: t('orgManage.proposalStatus'),
             ldata: useProposalType(data),
-            rdata: useProposalProgressStatus(data.status, 'details'),
+            rdata: useProposalProgressStatus(data.status),
           },
           {
             left: t('orgManage.proposalProgress'),
@@ -86,7 +89,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
           {
             left: t('orgManage.ProposalResults'),
             right: t('orgManage.PostscriptProposal'),
-            ldata: filterStatus(data?.status),
+            ldata: useHandlingOpinionsStatus(data?.status),
             rdata: data.remark
           },
           {
@@ -102,13 +105,6 @@ const OrgManageApplyDetails: FC<any> = (props) => {
     })
   }
 
-  const filterStatus = (status) => {
-    //成功 失败 已撤回 --
-    if (status < 3) return t('orgManage.VotingProgress')
-    if (status == 3) return t('task.success')
-    if (status == 4) return t('task.failed')
-    if (status > 4) return t('task.success')
-  }
 
   const columns = [{
     dataIndex: 'left',

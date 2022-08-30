@@ -232,13 +232,29 @@ export const useApplicationStatus = (status)=>{//processStatus
     case 2:
       return i18n.t('orgManage.ApplicationFailed');
     default:
-      break;
+      return '--';
   }
 }
+
+export const useProcessStatus =  (status)=>{
+  const s = Number(status)
+    //0-未处理，1-同意，2-不同意
+  switch (s) {
+    case 0:
+      return i18n.t('common.Untreated');
+    case 1:
+      return i18n.t('common.agree');
+    case 2:
+      return i18n.t('common.noAgree');
+    default:
+      return '--';
+  }
+}
+
 export const useToDoContentStatus = (status)=>{
+    // 1-申请认证，101-提名加入提案，102-提名踢出提案
   const s = Number(status)
   switch (s) {
-    // 1-申请认证，101-提名加入提案，102-提名踢出提案
     case 1:
       return i18n.t('menu.applyCertification');
     case 101:
@@ -246,14 +262,14 @@ export const useToDoContentStatus = (status)=>{
     case 102:
       return i18n.t('orgManage.nominateKickOutProposal');
     default:
-      break;
+      return '--';
   }
 }
 
 export const useProposalStatus = (status)=>{
   const s = Number(status)
-  switch (s) {
     // 1-增加委员会成员; 2-剔除委员会成员; 3-委员会成员退出
+  switch (s) {
     case 1:
       return i18n.t('orgManage.ApplicationInCommittee');
     case 2:
@@ -296,7 +312,7 @@ export const useProposalType = (row)=>{
 }
 
 
-export const useProposalProgressStatus = (status,type?)=>{
+export const useProposalProgressStatus = (status)=>{
   const s = Number(status)
   switch (s) {
     // 0-投票未开始；1-投票开始；2-投票结束，但是还未通过；3-投票通过；
@@ -321,6 +337,28 @@ export const useProposalProgressStatus = (status,type?)=>{
       return i18n.t('orgManage.revoked');
     default:
       return ''
+  }
+}
+
+export const useHandlingOpinionsStatus =  (status)=>{
+  const s = Number(status)
+  switch (s) {
+     //成功 失败 已撤回 --
+    case 0:
+    case 1:
+    case 2:
+    case 5:
+    case 7:
+      return '--';
+    case 4:
+      return i18n.t('common.noAgree');
+    case 3:
+    case 6:
+      return i18n.t('common.agree');
+      case 8:
+        return i18n.t('common.Withdrawn');
+    default:
+      return '--'
   }
 }
 
@@ -403,6 +441,9 @@ export const StatusCodeProcessing = (code) => {
     case 1062:
     case 1063:
     case 1064:
+    case 1065:
+    case 1066:
+    case 1067:
     case 2000:
     case 2001:
     case 2002:

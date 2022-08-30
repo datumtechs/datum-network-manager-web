@@ -11,12 +11,10 @@ const NominationCommittee: FC<any> = (props: any) => {
   const [form] = Form.useForm()
   const [list, setList] = useState<any>([])
   const loading = useRef(false)
-  // const pageType = props.type
   const { identityId, type } = props.location.state
   const [text, setText] = useState('')
   const [imageUrl, setImageUrl] = useState<any>('')
   const [uploading, setUploading] = useState(false)
-  console.log(type);
 
   const query = () => {
     loading.current = true

@@ -122,7 +122,8 @@
     "bootAddress": "Boot address",
     "nodeAddress": "Node address",
     "AuthorizationApplication": " has initiated an authorization application of ",
-    "SeedApplication": "Seed Application"
+    "SeedApplication": "Seed Application",
+    "TotalVouchers": "Total Vouchers"
   },
   "menu": {
     "systemOverview": "System Overview",
@@ -235,7 +236,9 @@
     "confirm": "Confirm",
     "previousStep": "Previous Step",
     "pleaseUpload": "Please Upload",
-    "info": "信息"
+    "info": "信息",
+    "Withdrawn": "Withdrawn",
+    "Untreated": "Untreated"
   },
   "node": {
     "confirmDelete": "Please ensure that you are deleting the data node",
@@ -747,7 +750,8 @@
     "ApplicationDetails": "Application Details",
     "NominationDetails": "Nomination Details",
     "ProposalDetails": "Proposal Details",
-    "Refresh": "Refresh"
+    "Refresh": "Refresh",
+    "HandlingOpinions": "HandlingOpinions"
   },
   "httpStatus": {
     "status1": "system internal error",
@@ -821,6 +825,9 @@
     "status1062": "Exceeds block gas limit!",
     "status1063": "known transaction",
     "status1064": "The update Time is less than 24 hours",
+    "status1065": "You are not owner",
+    "status1066": "Proposal already effect!",
+    "status1067": "Revoke time has passed!",
     "status2000": "Call node rpc exception",
     "status2001": "Call node rpc network exception",
     "status2002": "Call node rpc business exception【%s】",
