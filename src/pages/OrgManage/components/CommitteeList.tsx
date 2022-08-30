@@ -40,28 +40,31 @@ const CommitteeList: FC<any> = (props) => {
       title: t('common.actions'),
       dataIndex: 'actions',
       render: (text: any, row: any, index: any) => {
+        console.log(props);
+        if (row.identityId == props?.identityId?.identityId) return '-'
         return <Button style={{ padding: 0 }} type="link" onClick={() => (setVisible(true), setActiveRow(row))}>  {t('orgManage.nominationWithdrawal')}</Button>
       },
     },
   ]
 
   const confirm = () => {
-    // return
-    history.push({
-      pathname: "/OrgManage/nominationCommittee",
-      state: {
-        type: "out",
-        identityId: activeRow.identityId
-      }
-    })
     setVisible(false)
+    setTimeout(() => {
+      history.push({
+        pathname: "/OrgManage/nominationCommittee",
+        state: {
+          type: "out",
+          identityId: activeRow.identityId
+        }
+      })
+    }, 300)
   }
 
   const query = () => {
     orgManage.getAuthorityList({ keyword: text }).then(res => {
       const { status, data } = res
       if (status == 0) {
-        console.log(data)
+        // console.log(data)
         setData(data)
       }
     })

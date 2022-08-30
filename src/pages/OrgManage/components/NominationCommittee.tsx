@@ -16,20 +16,22 @@ const NominationCommittee: FC<any> = (props: any) => {
   const [imageUrl, setImageUrl] = useState<any>('')
   const [uploading, setUploading] = useState(false)
 
-  const query = () => {
+  const query = (init?) => {
     loading.current = true
-    orgManage.getNominateMember({ keyword: text }).then(res => {
+    orgManage[type == 'out' ? 'getAuthorityList' : 'getNominateMember']({ keyword: text }).then(res => {
       const { status, data } = res
       if (status == 0) {
-        // console.log(data)
         setList(data)
+      }
+      if (type == 'out' && init == 'init') {
+        form.setFieldsValue({ identityId })
       }
       loading.current = false
     })
   }
 
   useEffect(() => {
-    query()
+    query('init')
   }, [])
   useEffect(() => {
     if (loading.current) return
@@ -122,7 +124,7 @@ const NominationCommittee: FC<any> = (props: any) => {
       >
         <Select placeholder={t('center.pleaseSelect')} onSearch={setText} showSearch >
           {
-            list.map((item: any) => (<Option value={item.identityId} key={item.identityId}>{item?.nodeName}</Option>))
+            list.map((item: any) => (<Option value={item.identityId} key={item.identityId}>{type == 'out' ? item?.dynamicFields?.identityName : item?.nodeName}</Option>))
           }
         </Select>
 

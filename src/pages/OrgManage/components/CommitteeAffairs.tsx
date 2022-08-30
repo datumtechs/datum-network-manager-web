@@ -106,7 +106,7 @@ const CommitteeAffairs: FC<any> = () => {
           return <>
             <Button style={{ padding: '0 10px 0 0' }} type="link" onClick={() => details(row, item)}>  {t('orgManage.viewContent')}</Button>
             {
-              item == 'getToDoList' && row?.dynamicFields?.proposalStatus == 1 ?
+              item == 'getToDoList' && (row.type == 101 && row?.dynamicFields?.proposalStatus == 1 || row.type == 1 && row?.processStatus == 0) ?
                 <Button style={{ padding: '0' }} type="link" onClick={() => handle(row)}>  {t('orgManage.handle')}</Button>
                 : ''
             }

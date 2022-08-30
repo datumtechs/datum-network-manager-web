@@ -708,7 +708,7 @@
     "ApplicationPassed": "Application Passed",
     "ApplicationFailed": "Application Failed",
     "UseCertificate": "Use Certificate",
-    "PleaseConfirmQuit": "Please confirm whether you want to withdraw from the Committee. You can withdraw my proposal during the cooling off period",
+    "PleaseConfirmQuit": "Please confirm whether you want to withdraw from the Committee?  You can withdraw my proposal during the cooling off period.",
     "organizationIp": "Selected organization IP",
     "organizationPort": "Selected organization Port",
     "committeeMember": "Trading Committee member",

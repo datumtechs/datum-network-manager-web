@@ -120,7 +120,7 @@ const CommitteeStatistics: FC<any> = (props) => {
       cancelText={t('common.cancel')}
     >
       <div>
-        <ExclamationCircleOutlined />     {t('orgManage.PleaseConfirmQuit')}?
+        <ExclamationCircleOutlined />     {t('orgManage.PleaseConfirmQuit')}
       </div>
     </Modal>
   </div>
