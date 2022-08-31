@@ -105,9 +105,7 @@ export const Tasks: FC<any> = () => {
   }
 
   useEffect(() => {
-    if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) {
-      queryData()
-    }
+    if ((searchStartTime && searchEndTime) || (!searchStartTime && !searchEndTime)) queryData()
   }, [searchStartTime, searchEndTime, pageNumber, capacity, status, pageSize])
 
   useEffect(() => {

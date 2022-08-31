@@ -70,7 +70,9 @@ const CommitteeList: FC<any> = forwardRef((props: any, ref) => {
   useEffect(() => {
     query()
   }, [])
+
   useEffect(() => { query() }, [text])
+  // useEffect(() => { query() }, [text])
 
   return <div className="committee-list" style={{ marginBottom: '30px' }}>
     <div className="list-title">

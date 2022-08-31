@@ -34,7 +34,7 @@ const Application: FC<any> = (props) => {
     },
     {
       title: t('orgManage.applicationProgress'),
-      dataIndex: 'progress',
+      dataIndex: 'status',
       ellipsis: true,
       render: (text) => useApplicationStatus(text)
     },
@@ -45,9 +45,9 @@ const Application: FC<any> = (props) => {
         return <>
           <Button style={{ padding: 0, }} type="link" onClick={() => details(row)}>  {t('computeNodeMgt.detail')}</Button>
           {
-            +row.progress == 1 ? <Button style={{ padding: '0  0 0 10px' }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button> : ''}
+            +row.status == 1 ? <Button style={{ padding: '0  0 0 10px' }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button> : ''}
           {
-            !props.parentData.canTrusted && row.progress == 1 ?
+            !props.parentData.canTrusted && row.status == 1 ?
               <Button style={{ paddingRight: '10px' }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button> : ''
           }
         </>

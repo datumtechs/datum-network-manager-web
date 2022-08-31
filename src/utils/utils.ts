@@ -233,12 +233,13 @@ export const useApplicationStatus = (status)=>{//processStatus
   const s = Number(status)
   switch (s) {
     //0-申请中，1-申请通过，2-申请失败
+    // 证书状态：0-无效，1-有效，2-待生效
     case 0:
-      return i18n.t('orgManage.InApplication');
+      return i18n.t('orgManage.ApplicationFailed');
     case 1:
       return i18n.t('orgManage.ApplicationPassed');
     case 2:
-      return i18n.t('orgManage.ApplicationFailed');
+      return i18n.t('orgManage.InApplication');
     default:
       return '--';
   }
