@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { Table, Button, Modal } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
@@ -7,13 +7,10 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { orgManage } from '@api/index'
 
 
-const CommitteeList: FC<any> = (props) => {
-  const { t, i18n } = useTranslation()
+const CommitteeList: FC<any> = forwardRef((props: any, ref) => {
+  const { t } = useTranslation()
   const history = useHistory()
   const [text, setSearchText] = useState()
-  const [curPage, setCurPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
-  const [total, setTotal] = useState(0)
   const [visible, setVisible] = useState(false)
   const [data, setData] = useState<any>([])
   const [activeRow, setActiveRow] = useState<any>({})
@@ -21,14 +18,14 @@ const CommitteeList: FC<any> = (props) => {
   const columns: any[] = [
     {
       title: t(`common.Num`),
-      render: (text, record, index) => `${(curPage - 1) * pageSize + (index + 1)}`,
+      render: (text, record, index) => index + 1,
       width: 70
     },
     {
       title: t('orgManage.orgName'),
       dataIndex: 'orgName',
       ellipsis: true,
-      render: (text: any, row: any, index: any) => row.dynamicFields.identityName
+      render: (text: any, row: any) => row.dynamicFields.identityName
     },
     {
       title: t('orgManage.joinTime'),
@@ -39,13 +36,16 @@ const CommitteeList: FC<any> = (props) => {
     {
       title: t('common.actions'),
       dataIndex: 'actions',
-      render: (text: any, row: any, index: any) => {
+      render: (text: any, row: any) => {
         if (row.identityId == props?.identityId?.identityId) return '-'
         if (!!row.isAdmin) return '-'
         return <Button style={{ padding: 0 }} type="link" onClick={() => (setVisible(true), setActiveRow(row))}>  {t('orgManage.nominationWithdrawal')}</Button>
       },
     },
   ]
+  useImperativeHandle(ref, () => ({
+    query
+  }));
 
   const confirm = () => {
     setVisible(false)
@@ -63,20 +63,16 @@ const CommitteeList: FC<any> = (props) => {
   const query = () => {
     orgManage.getAuthorityList({ keyword: text }).then(res => {
       const { status, data } = res
-      if (status == 0) {
-        setData(data)
-      }
+      if (status == 0) setData(data)
     })
   }
 
   useEffect(() => {
     query()
   }, [])
-  useEffect(() => {
-    query()
-  }, [text])
+  useEffect(() => { query() }, [text])
 
-  return <div className="committee-list">
+  return <div className="committee-list" style={{ marginBottom: '30px' }}>
     <div className="list-title">
       <span className="title">{t('orgManage.committeeList')}</span>
       <SearchBar onSearch={setSearchText} placeholder={`${t('credential.pleaseEnter')}${t('orgManage.orgName')}`} />
@@ -86,14 +82,7 @@ const CommitteeList: FC<any> = (props) => {
       dataSource={data}
       columns={columns}
       rowKey={(record: any) => record.id}
-      pagination={{
-        current: curPage,
-        defaultPageSize: pageSize,
-        showSizeChanger: false,
-        total: total,
-        onChange: setCurPage,
-        showTotal: (total) => i18n.language == 'en' ? `${total} records in total` : `共 ${total} 条记录`
-      }}
+      pagination={false}
     />
     <Modal
       title={t('common.tips')}
@@ -109,7 +98,7 @@ const CommitteeList: FC<any> = (props) => {
       </div>
     </Modal>
   </div>
-}
+})
 
 
 export default CommitteeList

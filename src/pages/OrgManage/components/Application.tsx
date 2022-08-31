@@ -14,7 +14,6 @@ const Application: FC<any> = (props) => {
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(0)
   const history = useHistory()
-  const parentData = props.parentData
 
   const columns: any[] = [
     {
@@ -46,10 +45,10 @@ const Application: FC<any> = (props) => {
         return <>
           <Button style={{ padding: 0, }} type="link" onClick={() => details(row)}>  {t('computeNodeMgt.detail')}</Button>
           {
-            +row.progress == 1 ? <Button style={{ padding: '0 10px' }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button> : ''}
+            +row.progress == 1 ? <Button style={{ padding: '0  0 0 10px' }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button> : ''}
           {
-            !props.parentData.isAuthority ? '' :
-              <Button style={{ padding: 0, }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button>
+            !props.parentData.isAuthority && row.progress == 1 ?
+              <Button style={{ paddingRight: '10px' }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button> : ''
           }
         </>
       },
@@ -57,7 +56,6 @@ const Application: FC<any> = (props) => {
   ]
 
   const details = (row) => {
-    console.log(row);
     history.push({
       pathname: "/OrgManage/orgManageApplyDetails",
       state: {
@@ -70,11 +68,7 @@ const Application: FC<any> = (props) => {
 
   const download = (row, type?: string) => {
     orgManage.postDownload({ id: row.id }).then(res => {
-      // debugger
-      if (res.name && type == 'Refresh') {
-        query()
-        return
-      }
+      if (res.name && type == 'Refresh') return query()
       if (res.data && res.name) {
         const name = res.name.split('attachment;')[1].split('filename=')[1]
         const file = new File([res.data], name, { type: "application/octet-stream" })
@@ -93,9 +87,10 @@ const Application: FC<any> = (props) => {
 
   const useCertificate = (row) => {
     orgManage.useCertificate({ id: row.id }).then(res => {
-      const { status, data } = res
+      const { status } = res
       if (status == 0) {
         message.success('task.success')
+        query()
       }
     })
   }
@@ -104,7 +99,6 @@ const Application: FC<any> = (props) => {
   const query = () => {
     orgManage.getgenerAlapplyList({ pageNumber: curPage, pageSize: pageSize }).then(res => {
       const { status, data } = res
-      // console.log(parentData)
       if (status == 0) {
         setTableData(data)
         setTotal(res.total)

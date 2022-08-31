@@ -102,7 +102,6 @@ const NominationCommittee: FC<any> = (props: any) => {
 
 
   const confirm = (values) => {
-    // console.log(values);
     orgManage[type == 'out' ? 'kickOut' : 'nominate']({
       identityId: values.identityId,
       ip: values.organizationIp || undefined,
@@ -113,7 +112,6 @@ const NominationCommittee: FC<any> = (props: any) => {
     }).then(res => {
       const { data, status } = res
       if (status == 0) {
-        // console.log(status);
         history.go(-1)
       }
     })

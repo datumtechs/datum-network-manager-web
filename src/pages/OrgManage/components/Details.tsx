@@ -37,8 +37,8 @@ const OrgManageApplyDetails: FC<any> = (props) => {
           dataList = [{
             left: t('orgManage.applicationInitiator'),
             right: t('orgManage.approvedBy'),
-            ldata: data?.dynamicFields?.approveOrgName,
-            rdata: data?.dynamicFields?.applyOrgName
+            ldata: data?.dynamicFields?.applyOrgName,
+            rdata: data?.dynamicFields?.approveOrgName
           },
           {
             left: t('orgManage.applicationTime'),
@@ -124,18 +124,19 @@ const OrgManageApplyDetails: FC<any> = (props) => {
     render: (text, row) => <>
       <p style={{ fontWeight: 600 }}>{text ? text : ""}</p>
       {row.ldata == 'img' ?
-        <Image src={filterImgurl()} fallback={ImgBGDefault} /> : row.ldata || '-'}
+        <Image style={{ maxWidth: '100%' }} src={filterImgurl()} fallback={ImgBGDefault} /> : row.ldata || '-'}
     </>
   },
   {
     dataIndex: 'right',
     width: 300,
+    valign: 'top',
     onCell: _ => {
       if (!_.right) return { colSpan: 0 };
       return {};
     },
     render: (text, row) => {
-      return <div>
+      return <div style={{ height: '100%' }}>
         <p style={{ fontWeight: 600 }}>{text ? t(text) : ""}</p>
         {row.rdata || '-'}
       </div>

@@ -34,12 +34,11 @@ const CommitteeStatistics: FC<any> = (props) => {
   const out = () => {
     setLoading(true)
     orgManage.postExitOrg().then(res => {
-      const { status, data } = res
-      if (status == 0) {
-        message.success(t('task.success'))
-      }
+      const { status } = res
+      if (status == 0) message.success(t('task.success'))
       setVisible(false)
       setLoading(false)
+      props.query()
     })
   }
 
@@ -74,8 +73,6 @@ const CommitteeStatistics: FC<any> = (props) => {
             {!props.parentData.isAuthorityAdmin ? <Button onClick={() => setVisible(true)}>{t('orgManage.withdrawCommittee')}</Button> : ''}
           </> : !props.parentData.isAuthority ? <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button> : ''
         }
-
-
       </div>
     </div>
     {
