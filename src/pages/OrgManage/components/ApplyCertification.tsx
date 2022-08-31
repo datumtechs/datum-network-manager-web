@@ -1,7 +1,6 @@
 import { FC, useRef, useState, useEffect } from 'react'
 import { Form, Input, Select, Button, Upload, Image, message } from 'antd'
 import { useTranslation } from 'react-i18next'
-// import Upload from './UpLoad'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { orgManage } from '@api/index'
 
@@ -10,8 +9,6 @@ const { Option } = Select
 const ApplyCertification: FC<any> = () => {
   const { t, i18n } = useTranslation()
   const [form] = Form.useForm()
-  // const [list, setList] = useState<any>([])
-  // const [isModalVisible, setModalVisible] = useState<any>(false)
   const [imageUrl, setImageUrl] = useState<any>('')
   const [loading, setLoading] = useState<any>(false)
   const [AuthorityList, setAuthorityList] = useState<any>([])
@@ -20,7 +17,6 @@ const ApplyCertification: FC<any> = () => {
     orgManage.getAuthorityList({ keyword: '' }).then(res => {
       const { status, data } = res
       if (status == 0) {
-        // console.log(data)
         setAuthorityList(data)
       }
     })

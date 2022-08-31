@@ -751,7 +751,8 @@
     "NominationDetails": "Nomination Details",
     "ProposalDetails": "Proposal Details",
     "Refresh": "Refresh",
-    "HandlingOpinions": "HandlingOpinions"
+    "HandlingOpinions": "HandlingOpinions",
+    "CertificationOrganization": "Committee certification organization"
   },
   "httpStatus": {
     "status1": "system internal error",

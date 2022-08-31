@@ -97,7 +97,7 @@ const CommitteeAffairs: FC<any> = () => {
       {
         title: t('common.actions'),
         dataIndex: 'actions',
-        render: (text: any, row: any, index: any) => {
+        render: (text: any, row: any) => {
           return <>
             <Button style={{ padding: '0 10px 0 0' }} type="link" onClick={() => details(row, item)}>  {t('orgManage.viewContent')}</Button>
             {

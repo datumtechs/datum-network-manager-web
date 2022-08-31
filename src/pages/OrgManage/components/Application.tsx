@@ -47,7 +47,7 @@ const Application: FC<any> = (props) => {
           {
             +row.progress == 1 ? <Button style={{ padding: '0  0 0 10px' }} type="link" onClick={() => download(row)}>  {t('orgManage.downloadCertificate')}</Button> : ''}
           {
-            !props.parentData.isAuthority && row.progress == 1 ?
+            !props.parentData.canTrusted && row.progress == 1 ?
               <Button style={{ paddingRight: '10px' }} type="link" onClick={() => useCertificate(row)}>  {t('orgManage.UseCertificate')}</Button> : ''
           }
         </>
@@ -65,6 +65,9 @@ const Application: FC<any> = (props) => {
       }
     })
   }
+
+
+
 
   const download = (row, type?: string) => {
     orgManage.postDownload({ id: row.id }).then(res => {
@@ -89,7 +92,7 @@ const Application: FC<any> = (props) => {
     orgManage.useCertificate({ id: row.id }).then(res => {
       const { status } = res
       if (status == 0) {
-        message.success('task.success')
+        message.success(t('task.success'))
         query()
         props.query()
       }

@@ -67,6 +67,7 @@ const CommitteeStatistics: FC<any> = forwardRef((props: any, ref: any) => {
           <div className="name-box">
             {data.identityName}
             {data.isAuthority ? <span>{t('orgManage.committeeMember')}</span> : ''}
+            {data.canTrusted ? <span>{t('orgManage.CertificationOrganization')}</span> : ''}
           </div>
           <p className="committee-identity">{data.identityId}</p>
         </div>
@@ -76,7 +77,7 @@ const CommitteeStatistics: FC<any> = forwardRef((props: any, ref: any) => {
           props.isAdmin ? <>
             <Button onClick={add} type="primary">{t('orgManage.nominationMembers')}</Button>
             {!props.parentData.isAuthorityAdmin ? <Button onClick={() => setVisible(true)}>{t('orgManage.withdrawCommittee')}</Button> : ''}
-          </> : !props.parentData.isAuthority ? <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button> : ''
+          </> : !props.parentData.canTrusted ? <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button> : ''
         }
       </div>
     </div>

@@ -750,7 +750,8 @@
     "NominationDetails": "提名详情",
     "ProposalDetails": "提案详情",
     "Refresh": "刷新",
-    "HandlingOpinions": "处理意见"
+    "HandlingOpinions": "处理意见",
+    "CertificationOrganization": "委员会认证组织"
   },
   "httpStatus": {
     "status1": "系统内部错误",
