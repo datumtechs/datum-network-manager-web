@@ -86,9 +86,9 @@ const RecordCard: FC<any> = (props: any) => {
     }
     const chart = echarts.init(document.getElementById('credential'))
     option.title.text = `${Number(dataObj.attributeDataTokenCount) + Number(dataObj.unPriceddataTokenCount) + Number(dataObj.pricedDataTokenCount) || 0}`
-    option.series[0].data[0].value = dataObj.attributeDataTokenCount
-    option.series[0].data[1].value = dataObj.unPriceddataTokenCount
-    option.series[0].data[2].value = dataObj.pricedDataTokenCount
+    option.series[0].data[0].value = dataObj.attributeDataTokenCount || 0
+    option.series[0].data[1].value = dataObj.pricedDataTokenCount || 0
+    option.series[0].data[2].value = dataObj.unPriceddataTokenCount || 0
     chart.setOption(option)
     chart.resize()
   }
@@ -111,14 +111,14 @@ const RecordCard: FC<any> = (props: any) => {
               <span className="logo logo-pending"></span>
               <span className="type">{`${t('credential.noAttributeCredential')}(${t('credential.priced')})`}</span>
             </div>
-            <div className="value">{dataObj.unPriceddataTokenCount}</div>
+            <div className="value">{dataObj.pricedDataTokenCount}</div>
           </div>
           <div className="detail-line">
             <div className="left">
               <span className="logo logo-failed"></span>
               <span className="type">{`${t('credential.noAttributeCredential')}(${t('credential.noPriced')})`}</span>
             </div>
-            <div className="value">{dataObj.pricedDataTokenCount}</div>
+            <div className="value">{dataObj.unPriceddataTokenCount}</div>
           </div>
         </div>
         <div id="credential"></div>

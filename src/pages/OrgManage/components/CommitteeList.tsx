@@ -42,6 +42,7 @@ const CommitteeList: FC<any> = (props) => {
       render: (text: any, row: any, index: any) => {
         console.log(props);
         if (row.identityId == props?.identityId?.identityId) return '-'
+        if (!!row.isAdmin) return '-'
         return <Button style={{ padding: 0 }} type="link" onClick={() => (setVisible(true), setActiveRow(row))}>  {t('orgManage.nominationWithdrawal')}</Button>
       },
     },

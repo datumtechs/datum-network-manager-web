@@ -15,7 +15,7 @@ const OrgManage: FC<any> = (props) => {
   console.log(props);
 
   return <div className="layout-box">
-    <Statistics.default isAdmin={isAuthority} setData={setData} />
+    <Statistics.default isAdmin={isAuthority} parentData={data} setData={setData} />
     {!!isAuthority ?
       <>
         <CommitteeList identityId={props?.org?.orgInfo} />

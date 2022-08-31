@@ -14,6 +14,8 @@ export const noInclude = [
   '/api/v1/authority/todoList',
   '/api/v1/authority/doneList',
   '/api/v1/authority/myProposalList',
+  '/api/v1/authority/list',
+  '/api/v1/authority/getNominateMember',
 ]
 //Cancel
 export const noDuplicateRemovalInclude = [

@@ -8,6 +8,7 @@ import {
   useProposalType, useToDoContenttype
 } from '@utils/utils'
 import { ArrowLeftOutlined } from '@ant-design/icons'
+import ImgBGDefault from '@assets/images/voucher/default.svg'
 
 const OrgManageApplyDetails: FC<any> = (props) => {
   const { t, i18n } = useTranslation()
@@ -23,12 +24,10 @@ const OrgManageApplyDetails: FC<any> = (props) => {
     if (type == 'getDoneList') url = 'getdoneDetail'
     if (type == 'getMyProposalList') url = 'getproposalDetail'
     if (!url) return history.go(-1), message.error(t('exception.-32602'))
-    // debugger
     orgManage[url]({ id }
     ).then(res => {
       const { status, data } = res
       if (status == 0 && data) {
-        // console.log(data)
         const claim = data?.claim && JSON.parse(data.claim) || {}
         data.newClaim = claim
         setData(data)
@@ -37,8 +36,6 @@ const OrgManageApplyDetails: FC<any> = (props) => {
           dataList = [{
             left: t('orgManage.applicationInitiator'),
             right: t('orgManage.approvedBy'),
-            // ldata: data.approveOrg,
-            // rdata: data.applyOrg
             ldata: data?.dynamicFields?.approveOrgName,
             rdata: data?.dynamicFields?.applyOrgName
           },
@@ -117,7 +114,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
     },
     render: (text, row) => <>
       <p style={{ fontWeight: 600 }}>{text ? text : ""}</p>
-      {row.ldata ? row.rdata == 'img' ? <Image src={filterImgurl()} /> : row.ldata : row.ldata == 0 ? 0 : '-'}
+      {row.ldata ? row.rdata == 'img' ? <Image src={filterImgurl()} fallback={ImgBGDefault} /> : row.ldata : row.ldata == 0 ? 0 : '-'}
     </>
   },
   {

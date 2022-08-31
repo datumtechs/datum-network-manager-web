@@ -1,9 +1,9 @@
-import { FC, useRef, useState, useEffect } from 'react'
-import { Form, Input, Select, Button, message, Upload } from 'antd'
+import { FC, useRef, useState, useEffect, useMemo } from 'react'
+import { Form, Input, Select, Button, message, Upload, Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { orgManage } from '@api/index'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-
+import debounce from 'lodash/debounce';
 
 const { Option } = Select
 const NominationCommittee: FC<any> = (props: any) => {
@@ -15,18 +15,24 @@ const NominationCommittee: FC<any> = (props: any) => {
   const [text, setText] = useState('')
   const [imageUrl, setImageUrl] = useState<any>('')
   const [uploading, setUploading] = useState(false)
+  const [fetching, setFetching] = useState(false);
 
   const query = (init?) => {
     loading.current = true
-    orgManage[type == 'out' ? 'getAuthorityList' : 'getNominateMember']({ keyword: text }).then(res => {
+    orgManage[type == 'out' ? 'getAuthorityList' : 'getNominateMember']({ keyword: init && init.keyword }).then(res => {
       const { status, data } = res
       if (status == 0) {
-        setList(data)
+        setList(data.filter(v => !v?.isAdmin).map((v: any) => ({
+          ...v,
+          label: type == 'out' ? v?.dynamicFields?.identityName : v?.nodeName,
+          value: v.identityId
+        })))
       }
       if (type == 'out' && init == 'init') {
         form.setFieldsValue({ identityId })
       }
       loading.current = false
+      setFetching(false);
     })
   }
 
@@ -39,6 +45,16 @@ const NominationCommittee: FC<any> = (props: any) => {
       query()
     }, 300)
   }, [text])
+
+
+  const debounceFetcher = useMemo(() => {
+    const loadOptions = (value: string) => {
+      setList([])
+      setFetching(true);
+      query({ keyword: value })
+    };
+    return debounce(loadOptions, 500);
+  }, [query, 500]);
 
 
   const getBase64 = (img: any, callback: (url: string) => void) => {
@@ -122,10 +138,12 @@ const NominationCommittee: FC<any> = (props: any) => {
         initialValue={identityId}
         rules={[{ required: true, message: `${t('center.pleaseSelect')}` }]}
       >
-        <Select placeholder={t('center.pleaseSelect')} onSearch={setText} showSearch >
-          {
-            list.map((item: any) => (<Option value={item.identityId} key={item.identityId}>{type == 'out' ? item?.dynamicFields?.identityName : item?.nodeName}</Option>))
-          }
+        <Select placeholder={t('center.pleaseSelect')} onSearch={debounceFetcher} showSearch
+          notFoundContent={fetching ? <Spin size="small" /> : null}
+          options={list}
+          filterOption={false}
+          labelInValue
+        >
         </Select>
 
       </Form.Item>

@@ -44,13 +44,13 @@ const CommitteeAffairs: FC<any> = () => {
         title: t('orgManage.proposalContent'),
         dataIndex: 'proposalContent',
         width: 260,
-        render: (text, row) => useProposalType(row)
+        render: (text, row) => <span className="ant-btn-link" onClick={() => details(row, item)}>{useProposalType(row)}</span>
       },
       {
         title: t('orgManage.proposalApplicationOrganization'),
         dataIndex: 'proposalApplicationOrganization',
         ellipsis: true,
-        render: (text, row) => <span className="ant-btn-link" onClick={() => details(row, item)}>{row?.dynamicFields?.submitterName}</span>
+        render: (text, row) => row?.dynamicFields?.submitterName
       }
     ] : [
       {

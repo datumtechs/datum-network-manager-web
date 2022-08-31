@@ -68,7 +68,7 @@ const CommitteeStatistics: FC<any> = (props) => {
         {
           props.isAdmin ? <>
             <Button onClick={add} type="primary">{t('orgManage.nominationMembers')}</Button>
-            <Button onClick={() => setVisible(true)}>{t('orgManage.withdrawCommittee')}</Button>
+            {!props.parentData.isAuthorityAdmin ? <Button onClick={() => setVisible(true)}>{t('orgManage.withdrawCommittee')}</Button> : ''}
           </> : <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button>
         }
 
