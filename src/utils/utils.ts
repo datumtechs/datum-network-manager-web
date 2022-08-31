@@ -170,6 +170,14 @@ export  const useAddressDisplay = (address: string) => {
   return address.substring(0, 6) + '...' + address.substring(address.length - 4)
 }
 
+export  const filterTime = (time: any, isStamp?: any) => {
+    isStamp = !!isStamp
+    if(!time) return '--'
+    if (isStamp) time = String(time) + '000'
+    return new Date(isStamp ? +time : time).toLocaleString()
+}
+
+
 export const UseCredentialStatus = (status)=>{
     const s = Number(status)
     switch (s) {

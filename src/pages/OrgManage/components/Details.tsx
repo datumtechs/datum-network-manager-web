@@ -9,6 +9,7 @@ import {
 } from '@utils/utils'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import ImgBGDefault from '@assets/images/voucher/default.svg'
+import { filterTime } from '@utils/utils'
 
 const OrgManageApplyDetails: FC<any> = (props) => {
   const { t, i18n } = useTranslation()
@@ -42,14 +43,14 @@ const OrgManageApplyDetails: FC<any> = (props) => {
           {
             left: t('orgManage.applicationTime'),
             right: t('orgManage.approvalProgress'),
-            ldata: new Date(data.startTime).toLocaleString(),
+            ldata: filterTime(data.startTime),
             rdata: useApplicationStatus(data.progress),
           },
           {
             left: t('orgManage.postscriptApplication'),
             right: t('orgManage.approvalTime'),
             ldata: data.applyRemark,
-            rdata: data.endTime
+            rdata: filterTime(data.endTime)
           },
           {
             left: t('orgManage.approvalPostscript'),
@@ -59,17 +60,44 @@ const OrgManageApplyDetails: FC<any> = (props) => {
           },
           {
             left: '',
-            rdata: 'img',
+            ldata: "img",
             right: t('orgManage.postscriptToApplicationMaterials'),
-            ldata: "img"
+            rdata: data.materialDesc
           }
           ]
-        } else {
+        } else {//提案  退出
+          const condition = data.type == 3 ? [
+            {
+              left: t('orgManage.ProposalDeadline'),
+              right: false,
+              ldata: filterTime(data?.dynamicFields?.autoQuitTime, true),
+              rdata: undefined
+            },
+          ] : [
+            {
+              left: t('orgManage.proposalProgress'),
+              right: t('orgManage.ProposalDeadline'),
+              ldata: data.voteAgreeNumber == null ? '--' : `${data.voteAgreeNumber} / ${data.authorityNumber}`,
+              rdata: filterTime(data?.dynamicFields?.voteEndTime, true)
+            },
+            {
+              left: t('orgManage.ProposalResults'),
+              right: t('orgManage.PostscriptProposal'),
+              ldata: useHandlingOpinionsStatus(data?.status),
+              rdata: data.remark
+            },
+            {
+              left: '',
+              ldata: "img",
+              right: t('orgManage.postscriptToApplicationMaterials'),
+              rdata: data.materialDesc
+            }
+          ]
           dataList = [{
             left: t('orgManage.sponsorProposal'),
             right: t('orgManage.proposalTime'),
             ldata: data?.dynamicFields?.submitterName,
-            rdata: new Date(data?.createTime).toLocaleString(),
+            rdata: filterTime(data?.createTime),
           },
           {
             left: t('orgManage.proposalContent'),
@@ -77,24 +105,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
             ldata: useProposalType(data),
             rdata: useProposalProgressStatus(data.status),
           },
-          {
-            left: t('orgManage.proposalProgress'),
-            right: t('orgManage.ProposalDeadline'),
-            ldata: `${data.voteAgreeNumber} / ${data.authorityNumber}`,
-            rdata: new Date(+(String(data?.dynamicFields?.voteEndTime) + '000')).toLocaleString()
-          },
-          {
-            left: t('orgManage.ProposalResults'),
-            right: t('orgManage.PostscriptProposal'),
-            ldata: useHandlingOpinionsStatus(data?.status),
-            rdata: data.remark
-          },
-          {
-            left: '',
-            rdata: 'img',
-            right: t('orgManage.postscriptToApplicationMaterials'),
-            ldata: "img"
-          }
+          ...condition
           ]
         }
         setTableData(dataList)
@@ -106,28 +117,29 @@ const OrgManageApplyDetails: FC<any> = (props) => {
   const columns = [{
     dataIndex: 'left',
     width: 300,
-    onCell: (_, index) => {
-      if (!_.right) {
-        return { colSpan: 2 };
-      }
+    onCell: (_) => {
+      if (!_.right) return { colSpan: 2 };
       return {};
     },
     render: (text, row) => <>
       <p style={{ fontWeight: 600 }}>{text ? text : ""}</p>
-      {row.ldata ? row.rdata == 'img' ? <Image src={filterImgurl()} fallback={ImgBGDefault} /> : row.ldata : row.ldata == 0 ? 0 : '-'}
+      {row.ldata == 'img' ?
+        <Image src={filterImgurl()} fallback={ImgBGDefault} /> : row.ldata || '-'}
     </>
   },
   {
     dataIndex: 'right',
     width: 300,
-    onCell: (_, index) => {
+    onCell: _ => {
       if (!_.right) return { colSpan: 0 };
       return {};
     },
-    render: (text, row) => <>
-      <p style={{ fontWeight: 600 }}>{text ? t(text) : ""}</p>
-      {row.rdata ? row.rdata == 'img' ? data.materialDesc : row.rdata : row.rdata == 0 ? 0 : '-'}
-    </>
+    render: (text, row) => {
+      return <div>
+        <p style={{ fontWeight: 600 }}>{text ? t(text) : ""}</p>
+        {row.rdata || '-'}
+      </div>
+    }
   },]
 
 
@@ -136,13 +148,8 @@ const OrgManageApplyDetails: FC<any> = (props) => {
     const pinataGateway = data?.dynamicFields?.pinataGateway
     let imageUrl = data?.material
     imageUrl = imageUrl && imageUrl.replace('ipfs://', '')
-    // const splitUrl = imageUrl.split('/')[0]
-    const splitUrl = imageUrl
-    if ((pinataGateway.length - 1) == pinataGateway.lastIndexOf('/')) {
-      return `${pinataGateway}ipfs/${splitUrl}`
-    }
-    return `${pinataGateway}/ipfs/${splitUrl}`
-    // return ''
+    if ((pinataGateway.length - 1) == pinataGateway.lastIndexOf('/')) return `${pinataGateway}ipfs/${imageUrl}`
+    return `${pinataGateway}/ipfs/${imageUrl}`
   }
 
   useEffect(() => {
@@ -156,12 +163,10 @@ const OrgManageApplyDetails: FC<any> = (props) => {
         type == 'generalOrganization-applyDetail' ? <span className="title">{data?.dynamicFields?.applyOrgName}{t(`orgManage.ApplicationDetails`)}</span> : ''
       }
       {
-        // type == 'getToDoList' ? status !== 1 ? <span className="title">{data?.dynamicFields?.applyOrgName}{t(`orgManage.NominationDetails`)}</span> :
         type == 'getToDoList' ? status !== 1 ? <span className="title">{data?.dynamicFields?.applyOrgName}{t(`orgManage.ProposalDetails`)}</span> :
           <span className="title">{data?.dynamicFields?.applyOrgName}{t(`orgManage.ApplicationDetails`)}</span> : ''
       }
       {
-        // type == 'getDoneList' ? status !== 1 ? <span className="title">{data?.dynamicFields?.applyOrgName}{t(`orgManage.NominationDetails`)}</span> :
         type == 'getDoneList' ? status !== 1 ? <span className="title">{data?.dynamicFields?.applyOrgName}{t(`orgManage.ProposalDetails`)}</span> :
           <span className="title">{data?.dynamicFields?.applyOrgName}{t(`orgManage.ApplicationDetails`)}</span> : ""
       }
@@ -175,6 +180,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
       showHeader={false}
       bordered
       rowKey={(record: any) => record.id}
+      rowClassName={_ => "posti-unset"}
       pagination={false}
     />
   </div>

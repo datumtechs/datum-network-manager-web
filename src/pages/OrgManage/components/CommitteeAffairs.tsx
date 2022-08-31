@@ -2,15 +2,15 @@ import { FC, useState, useEffect, useRef } from "react";
 import { Table, Button, Segmented, message, Modal, Form, Radio, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import SearchBar from '@/layout/components/SearchBar'
+import UsFilterTime from '@com/UsFilterTime'
 import {
   ExclamationCircleTwoTone,
   CloseCircleTwoTone,
   CheckCircleTwoTone
 } from '@ant-design/icons'
-
 import { orgManage } from '@api/index'
 import {
-  useToDoContentStatus, useApplicationStatus, useHandlingOpinionsStatus, useProcessStatus,
+  useToDoContentStatus, useProcessStatus,
   useProposalProgressStatus, useProposalStatus, useToDoContenttype, useProposalType
 } from '@utils/utils'
 import { useHistory } from 'react-router-dom'
@@ -31,12 +31,7 @@ const CommitteeAffairs: FC<any> = () => {
   const form = useRef<any>()
   const seatchRef = useRef<any>()
 
-  const filterTime = (time: any, isStamp?: any) => {
-    isStamp = !!isStamp
-    if (isStamp) time = String(time) + '000'
-    const dateList = new Date(isStamp ? +time : time).toLocaleString().split(' ')
-    return <> {dateList[0]}< br />{dateList[1]}</>
-  }
+
 
   const columns = (item): any[] => {
     const itemList = item == 'getMyProposalList' ? [
@@ -96,7 +91,7 @@ const CommitteeAffairs: FC<any> = () => {
         title: t('computeNodeMgt.startTime'),
         dataIndex: 'startTime',
         ellipsis: true,
-        render: (text, row) => item == 'getMyProposalList' ? filterTime(row.createTime) : filterTime(text)
+        render: (text, row) => <UsFilterTime isStamp={false} time={item == 'getMyProposalList' ? row.createTime : text} />
       },
       ...itemProposalProgressList,
       {
@@ -111,7 +106,7 @@ const CommitteeAffairs: FC<any> = () => {
                 : ''
             }
             {
-              item == 'getMyProposalList' && !row?.status ?
+              item == 'getMyProposalList' && (!row?.status || row?.status == 5) ?
                 <Button style={{ padding: '0' }} type="link" onClick={() => (setRetreatModal(true), setActiveRow(row))}>  {t('orgManage.withdrawProposal')}</Button>
                 : ""
             }

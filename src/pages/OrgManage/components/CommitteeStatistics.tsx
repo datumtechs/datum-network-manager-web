@@ -11,6 +11,7 @@ const CommitteeStatistics: FC<any> = (props) => {
   const [data, setData] = useState<any>({})
   const { isAdmin } = props
   const [visible, setVisible] = useState(false)
+  const [loading, setLoading] = useState<any>(false)
 
   const query = () => {
     orgManage[+isAdmin == 1 ? 'getAuthorityHome' : 'getOrgManageHome']().then(res => {
@@ -31,12 +32,14 @@ const CommitteeStatistics: FC<any> = (props) => {
   }
 
   const out = () => {
+    setLoading(true)
     orgManage.postExitOrg().then(res => {
       const { status, data } = res
       if (status == 0) {
-        console.log(data)
         message.success(t('task.success'))
       }
+      setVisible(false)
+      setLoading(false)
     })
   }
 
@@ -69,7 +72,7 @@ const CommitteeStatistics: FC<any> = (props) => {
           props.isAdmin ? <>
             <Button onClick={add} type="primary">{t('orgManage.nominationMembers')}</Button>
             {!props.parentData.isAuthorityAdmin ? <Button onClick={() => setVisible(true)}>{t('orgManage.withdrawCommittee')}</Button> : ''}
-          </> : <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button>
+          </> : !props.parentData.isAuthority ? <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button> : ''
         }
 
 
@@ -114,6 +117,7 @@ const CommitteeStatistics: FC<any> = (props) => {
       title={t('common.tips')}
       centered
       visible={visible}
+      confirmLoading={loading}
       onOk={() => out()}
       onCancel={() => setVisible(false)}
       okText={t('common.confirm')}

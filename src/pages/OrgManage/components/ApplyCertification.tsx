@@ -20,7 +20,7 @@ const ApplyCertification: FC<any> = () => {
     orgManage.getAuthorityList({ keyword: '' }).then(res => {
       const { status, data } = res
       if (status == 0) {
-        console.log(data)
+        // console.log(data)
         setAuthorityList(data)
       }
     })

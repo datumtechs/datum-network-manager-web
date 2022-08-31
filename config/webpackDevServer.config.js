@@ -105,8 +105,8 @@ module.exports = function (proxy, allowedHost) {
     proxy: {
       '/datum-admin': {
         // target: 'http://192.168.10.154:9090',
-        target: 'http://192.168.9.154:9090',
-        // target: 'http://192.168.9.156:9090',
+        // target: 'http://192.168.9.154:9090',
+        target: 'http://192.168.9.157:9090',
         // target: 'http://192.168.9.156:9090',
         changeOrigin: true,
         pathRewrite: {
