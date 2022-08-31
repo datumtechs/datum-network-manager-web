@@ -1,17 +1,22 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { Button, Divider, message, Modal } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { orgManage } from '@api/index'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
-const CommitteeStatistics: FC<any> = (props) => {
+const CommitteeStatistics: FC<any> = forwardRef((props: any, ref: any) => {
   const { t } = useTranslation()
   const history = useHistory()
   const [data, setData] = useState<any>({})
   const { isAdmin } = props
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState<any>(false)
+
+  useImperativeHandle(ref, () => ({
+    query
+  }));
+
 
   const query = () => {
     orgManage[+isAdmin == 1 ? 'getAuthorityHome' : 'getOrgManageHome']().then(res => {
@@ -125,7 +130,7 @@ const CommitteeStatistics: FC<any> = (props) => {
       </div>
     </Modal>
   </div>
-}
+})
 
 
 export default CommitteeStatistics

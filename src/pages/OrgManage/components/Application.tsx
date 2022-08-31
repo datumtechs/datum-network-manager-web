@@ -25,7 +25,7 @@ const Application: FC<any> = (props) => {
       title: t('orgManage.certificationOrganization'),
       dataIndex: 'applyOrg',
       ellipsis: true,
-      render: (text, _row) => _row?.dynamicFields?.approveOrgName || '-'
+      render: (text, row) => row?.dynamicFields?.approveOrgName || '-'
     },
     {
       title: t('orgManage.timeInitiationCertification'),
@@ -36,12 +36,12 @@ const Application: FC<any> = (props) => {
       title: t('orgManage.applicationProgress'),
       dataIndex: 'progress',
       ellipsis: true,
-      render: (text, record) => useApplicationStatus(text)
+      render: (text) => useApplicationStatus(text)
     },
     {
       title: t('common.actions'),
       dataIndex: 'actions',
-      render: (text: any, row: any, index: any) => {
+      render: (text: any, row: any) => {
         return <>
           <Button style={{ padding: 0, }} type="link" onClick={() => details(row)}>  {t('computeNodeMgt.detail')}</Button>
           {
@@ -91,6 +91,7 @@ const Application: FC<any> = (props) => {
       if (status == 0) {
         message.success('task.success')
         query()
+        props.query()
       }
     })
   }

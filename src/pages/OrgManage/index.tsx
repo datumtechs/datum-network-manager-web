@@ -10,12 +10,15 @@ const OrgManage: FC<any> = (props) => {
   const { isAuthority } = props?.org?.orgInfo
   const [data, setData] = useState({})
   const committeeRef = useRef<any>(null)
+  const StatisticsRef = useRef<any>(null)
   const query = () => {
     committeeRef?.current?.query()
+    StatisticsRef?.current?.query()
   }
 
   return <div className="layout-box">
     <Statistics.default isAdmin={isAuthority}
+      ref={StatisticsRef}
       query={query}
       parentData={data}
       setData={setData} />
@@ -24,7 +27,7 @@ const OrgManage: FC<any> = (props) => {
         <CommitteeList ref={committeeRef} identityId={props?.org?.orgInfo} />
         <Affairs.default />
       </> :
-      <Application parentData={data} />
+      <Application query={query} parentData={data} />
     }
   </div>
 }
