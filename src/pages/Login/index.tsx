@@ -131,7 +131,7 @@ const Login = (props: any) => {
   const queryConfig = () => {
     loginApi.queryConfig().then((res: any) => {
       const { data } = res
-      if (data.length) {
+      if (data?.length) {
         const obj: any = {}
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         data && data.forEach((v: any) => {

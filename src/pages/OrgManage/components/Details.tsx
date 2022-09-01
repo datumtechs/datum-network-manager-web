@@ -70,7 +70,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
             {
               left: t('orgManage.ProposalDeadline'),
               right: false,
-              ldata: filterTime(data?.dynamicFields?.autoQuitTime, true),
+              ldata: filterTime(data?.dynamicFields?.autoQuitTime),
               rdata: undefined
             },
           ] : [
@@ -78,7 +78,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
               left: t('orgManage.proposalProgress'),
               right: t('orgManage.ProposalDeadline'),
               ldata: data.voteAgreeNumber == null ? '--' : `${data.voteAgreeNumber} / ${data.authorityNumber}`,
-              rdata: filterTime(data?.dynamicFields?.voteEndTime, true)
+              rdata: filterTime(data?.dynamicFields?.voteEndTime)
             },
             {
               left: t('orgManage.ProposalResults'),
