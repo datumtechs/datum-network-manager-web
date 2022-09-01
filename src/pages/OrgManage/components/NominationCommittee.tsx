@@ -140,7 +140,6 @@ const NominationCommittee: FC<any> = (props: any) => {
           notFoundContent={fetching ? <Spin size="small" /> : null}
           options={list}
           filterOption={false}
-          labelInValue
         >
         </Select>
 
