@@ -16,6 +16,8 @@ const OrgManage: FC<any> = (props) => {
     StatisticsRef?.current?.query()
   }
 
+  // onUp
+
   return <div className="layout-box">
     <Statistics.default isAdmin={isAuthority}
       ref={StatisticsRef}
