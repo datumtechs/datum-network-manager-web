@@ -752,7 +752,8 @@
     "ProposalDetails": "Proposal Details",
     "Refresh": "Refresh",
     "HandlingOpinions": "HandlingOpinions",
-    "CertificationOrganization": "Committee certification organization"
+    "CertificationOrganization": "Committee certification organization",
+    "unprocessedToDo": "There are unprocessed to-do or proposals, please try after processing"
   },
   "httpStatus": {
     "status1": "system internal error",

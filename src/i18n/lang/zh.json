@@ -751,7 +751,8 @@
     "ProposalDetails": "提案详情",
     "Refresh": "刷新",
     "HandlingOpinions": "处理意见",
-    "CertificationOrganization": "委员会认证组织"
+    "CertificationOrganization": "委员会认证组织",
+    "unprocessedToDo": "当前有未处理待办或提案，请处理完毕后尝试"
   },
   "httpStatus": {
     "status1": "系统内部错误",
