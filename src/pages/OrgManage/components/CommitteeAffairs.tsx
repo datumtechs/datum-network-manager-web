@@ -205,14 +205,14 @@ const CommitteeAffairs: FC<any> = () => {
 
   const retreat = (row) => {
     setModalLoading(true)
+    setRetreatModal(false)
     orgManage.revokeProposal({ id: activeRow.id }).then(res => {
-      const { status, data } = res
+      const { status } = res
       if (status == 0) {
         message.success(t('task.success'))
         setActiveRow('')
         query()
       }
-      setRetreatModal(false)
       setModalLoading(false)
     })
   }

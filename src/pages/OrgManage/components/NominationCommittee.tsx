@@ -113,6 +113,7 @@ const NominationCommittee: FC<any> = (props: any) => {
     }).then(res => {
       const { data, status } = res
       if (status == 0) {
+        message.success(t('task.success'))
         clearCache()
         history.go(-1)
       }

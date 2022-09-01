@@ -282,7 +282,7 @@ export const useProposalStatus = (status)=>{
     case 1:
       return i18n.t('orgManage.ApplicationInCommittee');
     case 2:
-      return i18n.t('menu.ApplicationDisqualificationCommittee');
+      return i18n.t('orgManage.ApplicationDisqualificationCommittee');
     case 3:
       return i18n.t('orgManage.withdrawCommittee');
     default:
