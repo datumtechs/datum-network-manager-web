@@ -38,10 +38,10 @@ const CommitteeStatistics: FC<any> = forwardRef((props: any, ref: any) => {
 
   const out = () => {
     setLoading(true)
+    setVisible(false)
     orgManage.postExitOrg().then(res => {
       const { status } = res
       if (status == 0) message.success(t('task.success'))
-      setVisible(false)
       setLoading(false)
       props.query()
     })
@@ -76,8 +76,8 @@ const CommitteeStatistics: FC<any> = forwardRef((props: any, ref: any) => {
         {
           props.isAdmin ? <>
             <Button onClick={add} type="primary">{t('orgManage.nominationMembers')}</Button>
-            {!props.parentData.isAuthorityAdmin ? <Button onClick={() => setVisible(true)}>{t('orgManage.withdrawCommittee')}</Button> : ''}
-          </> : !props.parentData.canTrusted ? <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button> : ''
+            {!props.parentData?.isAuthorityAdmin && !props?.parentData?.hasOpenProposal ? <Button onClick={() => setVisible(true)}>{t('orgManage.withdrawCommittee')}</Button> : ''}
+          </> : !props.parentData?.canTrusted ? <Button type="primary" onClick={apply}>{t('menu.applyCertification')}</Button> : ''
         }
       </div>
     </div>

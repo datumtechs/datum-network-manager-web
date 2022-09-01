@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { orgManage } from '@api/index'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import debounce from 'lodash/debounce';
+import { dropByCacheKey, getCachingKeys } from 'react-router-cache-route'
 
 const { Option } = Select
 const NominationCommittee: FC<any> = (props: any) => {
@@ -112,10 +113,19 @@ const NominationCommittee: FC<any> = (props: any) => {
     }).then(res => {
       const { data, status } = res
       if (status == 0) {
+        clearCache()
         history.go(-1)
       }
     })
   }
+
+  const clearCache = () => {
+    const keepAliveList = getCachingKeys()
+    keepAliveList.forEach(v => {
+      dropByCacheKey(v)
+    })
+  }
+
 
   return <div className="layout-box p-20 nomination-committee">
     <div className="title">

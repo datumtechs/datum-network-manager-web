@@ -3,6 +3,7 @@ import { Form, Input, Select, Button, Upload, Image, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { orgManage } from '@api/index'
+import { dropByCacheKey, getCachingKeys } from 'react-router-cache-route'
 
 
 const { Option } = Select
@@ -34,7 +35,6 @@ const ApplyCertification: FC<any> = () => {
   }
 
   const confirm = (values) => {
-    console.log(values);
     orgManage.postApply({
       approveOrg: values.approveOrg,
       desc: values.desc,
@@ -43,13 +43,19 @@ const ApplyCertification: FC<any> = () => {
     }).then(res => {
       const { data, status } = res
       if (status == 0) {
-        console.log(status);
+        clearCache()
         message.success(t('task.success'))
         history.go(-1)
       }
     })
   }
 
+  const clearCache = () => {
+    const keepAliveList = getCachingKeys()
+    keepAliveList.forEach(v => {
+      dropByCacheKey(v)
+    })
+  }
 
   const getBase64 = (img: any, callback: (url: string) => void) => {
     const reader = new FileReader();
