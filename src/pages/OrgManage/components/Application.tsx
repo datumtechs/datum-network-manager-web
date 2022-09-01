@@ -1,14 +1,12 @@
 import { FC, useState, useEffect } from "react";
 import { Table, Button, message, Row } from 'antd'
 import { useTranslation } from 'react-i18next'
-import SearchBar from '@/layout/components/SearchBar'
 import { orgManage } from '@api/index'
 import { useApplicationStatus } from '@utils/utils'
 import { useHistory } from 'react-router-dom'
 
 const Application: FC<any> = (props) => {
   const { t, i18n } = useTranslation()
-  const [text, setSearchText] = useState()
   const [tableData, setTableData] = useState<any[]>([])
   const [curPage, setCurPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)

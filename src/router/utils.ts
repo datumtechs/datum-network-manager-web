@@ -13,9 +13,7 @@ const flatRoute = (list:any,priviege)=>{
       }
     }else{
       const path = v.path.replace(/^\//,'')
-      if(priviege.indexOf(path) > -1){
-        newList.push({...v})
-      }
+      if(priviege.indexOf(path) > -1) newList.push({...v})
     }
   })
   return newList
@@ -24,7 +22,6 @@ const flatRoute = (list:any,priviege)=>{
 export const verifyRout = (privilegeRoute)=>{
   const priviege = privilegeRoute.map(v=> v.value)
   priviege.push('OrgManage/orgManageApplyDetails')
-  // debugger
   const newlist:any[] = flatRoute(basicsRouters,priviege)
   return [...newlist]
 }
@@ -41,18 +38,10 @@ export const verifyRout = (privilegeRoute)=>{
 
 export function flattenRoute(routeList: IRoute[], deep: boolean, auth: boolean): IRoute[] {
   const result: IRoute[] = []
-
   for (let i = 0; i < routeList.length; i += 1) {
     const route = routeList[i]
-
-    result.push({
-      ...route,
-      // auth: typeof route.auth !== 'undefined' ? route.auth : auth,
-    })
-
-    if (route.children && deep) {
-      result.push(...flattenRoute(route.children, deep, auth))
-    }
+    result.push({...route})
+    if (route.children && deep)result.push(...flattenRoute(route.children, deep, auth))
   }
 
   return result

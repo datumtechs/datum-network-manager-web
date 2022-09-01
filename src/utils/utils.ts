@@ -324,7 +324,7 @@ export const useProposalType = (row)=>{
 export const useProposalProgressStatus = (status)=>{
   const s = Number(status)
   switch (s) {
-    // 0-投票未开始；1-投票开始；2-投票结束，但是还未通过；3-投票通过；
+    // 0-投票未开始；1-投票开始；2-投票结束；3-投票通过；    brak://2-投票结束，但是还未通过；
     // 4-投票未通过；5-退出中；6-已退出；7-撤销中；8-已撤销
     case 0:
       return i18n.t('orgManage.VotingNoTarted');
@@ -460,6 +460,8 @@ export const StatusCodeProcessing = (code) => {
     case 1072:
     case 1073:
     case 1074:
+    case 1075:
+    case 1076:
     case 2000:
     case 2001:
     case 2002:

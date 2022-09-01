@@ -16,7 +16,9 @@ const OrgManage: FC<any> = (props) => {
     StatisticsRef?.current?.query()
   }
 
-  // onUp
+  useEffect(() => {
+    console.log('变化');
+  }, [window.location.href])
 
   return <div className="layout-box">
     <Statistics.default isAdmin={isAuthority}

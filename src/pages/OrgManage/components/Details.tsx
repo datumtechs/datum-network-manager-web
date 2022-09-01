@@ -44,7 +44,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
             left: t('orgManage.applicationTime'),
             right: t('orgManage.approvalProgress'),
             ldata: filterTime(data.startTime),
-            rdata: useApplicationStatus(data.progress),
+            rdata: useApplicationStatus(data.status),
           },
           {
             left: t('orgManage.postscriptApplication'),
@@ -180,7 +180,7 @@ const OrgManageApplyDetails: FC<any> = (props) => {
       columns={columns}
       showHeader={false}
       bordered
-      rowKey={(record: any) => record.id}
+      rowKey={(row: any) => row.right || row.left}
       rowClassName={_ => "posti-unset"}
       pagination={false}
     />

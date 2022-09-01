@@ -88,17 +88,17 @@ const CommitteeStatistics: FC<any> = forwardRef((props: any, ref: any) => {
             <p>{t('orgManage.committeeMembers')}</p>
             <p>{data.authorityCount}</p>
           </div>
-          <Divider style={{ height: '60px' }} type="vertical" />
+          <Divider key="trustCertificateIssued" style={{ height: '60px' }} type="vertical" />
           <div className="item">
             <p>{t('orgManage.trustCertificateIssued')}</p>
             <p>{data.approveCount}</p>
           </div>
-          <Divider style={{ height: '60px' }} type="vertical" />
+          <Divider key="myToDoList" style={{ height: '60px' }} type="vertical" />
           <div className="item">
             <p>{t('orgManage.myToDoList')}</p>
             <p>{data.todoCount}</p>
           </div>
-          <Divider style={{ height: '60px' }} type="vertical" />
+          <Divider key="myProposal" style={{ height: '60px' }} type="vertical" />
           <div className="item">
             <p>{t('orgManage.myProposal')}</p>
             <p>{data.proposalCount}</p>
@@ -109,7 +109,7 @@ const CommitteeStatistics: FC<any> = forwardRef((props: any, ref: any) => {
             <p>{t('orgManage.Certified')}</p>
             <p>{data.credentialsCount || 0}</p>
           </div>
-          <Divider style={{ height: '60px' }} type="vertical" />
+          <Divider key="myApplication" style={{ height: '60px' }} type="vertical" />
           <div className="item">
             <p>{t('orgManage.myApplication')}</p>
             <p>{data.applyCount || 0}</p>
