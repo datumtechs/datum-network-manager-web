@@ -5,7 +5,9 @@ import i18n from '@/i18n/config'
 const EXCEPTION_MAP: string[] = ["4001", "4100", "4200", "4900", "4901", "-32700", "-32600", "-32601", "-32602", "32603"]
 
 export const Complement = '000000000000000000'
-export const imgURls = 'http://testdownload.datumtechs.com/datum/image/3.svg'
+// export const imgURls = 'http://testdownload.datumtechs.com/datum/image/3.svg'
+export const baseImgURls = 'https://datumdev.mypinata.cloud/'
+export const imgURls = baseImgURls+'ipfs/QmSZcdJcCyvbUXjdmtsG5aT9yXVzMmwsfSr2QvJ5jrde1P'
 
 export const filterAmount = (str: string): string => {
   if (!str) return ''

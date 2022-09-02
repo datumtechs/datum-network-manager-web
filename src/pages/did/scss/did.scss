@@ -398,3 +398,25 @@
     font-weight: 500;
   }
 }
+
+.avatar-uploader {
+  height: 140px;
+
+  .ant-upload {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    background-color: "#FAF9FF" !important;
+  }
+}
+
+$url: 'https://datumdev.mypinata.cloud/ipfs/QmSZcdJcCyvbUXjdmtsG5aT9yXVzMmwsfSr2QvJ5jrde1P';
+
+.avatar-bg {
+  .ant-upload {
+    background-size: 100% auto;
+    background: linear-gradient(to top, rgba(255, 255, 255, .3), rgba(255, 255, 255, .3)), url($url) no-repeat;
+    background-position: 50%;
+  }
+
+}

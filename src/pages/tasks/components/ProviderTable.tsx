@@ -52,7 +52,7 @@ const ProviderTable: FC<any> = (props: any) => {
         return (
           <div>
             {/* {text}({record.metaDataId}) */}
-            {t('voucher.VoucherName')}: {record.dataTokenName}
+            {t('voucher.VoucherName')}: {record?.dynamicFields?.contractName}
           </div>
         )
       },

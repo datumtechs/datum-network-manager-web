@@ -1,11 +1,13 @@
 import { FC, useContext, useEffect, useRef, useState } from 'react'
-import { Form, Button, Input, message, Image } from 'antd'
+import { Form, Button, Input, message, Image, Upload } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { BaseInfoContext } from '@/layout/index'
 import { imgURls as imgURl } from '@utils/utils'
 import './index.scss'
+import { imgURls, baseImgURls } from '@utils/utils'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { Rule } from 'antd/lib/form'
-import { loginApi } from '@api/index'
+import { loginApi, voucher } from '@api/index'
 const { TextArea } = Input
 
 
@@ -20,7 +22,8 @@ const Profile: FC<any> = (props: any) => {
     }, {
       max: 20, message: `${t('DidApplication.SetYourOrgNameRulesItem4')}`
     }])
-
+  // const [imgUrl, setImgUrl] = useState<any>('')
+  const [base64ImageUrl, setBase64ImageUrl] = useState<any>('')
   const formRef = useRef<any>(null)
 
   const submit = () => {
@@ -54,9 +57,10 @@ const Profile: FC<any> = (props: any) => {
     if (disabled) {
       formRef.current!.setFieldsValue({
         ProfileName: baseInfo?.name,
-        imageUrlText: baseInfo?.imageUrl || imgURl,
+        imageUrlText: baseInfo?.imageUrl,
         profileText: baseInfo?.profile,
       })
+      // setImgUrl(baseInfo?.imageUrl)
     }
   }, [baseInfo])
 
@@ -68,6 +72,52 @@ const Profile: FC<any> = (props: any) => {
     setDisabled(false)
   }
 
+
+  const beforeUpload = (file: any) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/svg+xml';
+    if (!isJpgOrPng) {
+      message.error(t('credential.pictureIncorrect'));
+      return false
+    }
+    const isLt2M = file.size / 1024 / 1024 < 10;
+    if (!isLt2M) {
+      message.error(`${t('credential.sizeLimit')}10M`);
+      return false
+    }
+    return false
+  };
+
+  const getBase64 = (img: any, callback: (url: string) => void) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      callback(reader.result as string)
+    });
+    reader.readAsDataURL(img);
+  };
+
+  const UpLoadImg = (info: any) => {
+    setLoading(true)
+    const formData = new FormData()
+    formData.append('file', info.file)
+    voucher.inventoryUpLoadImg(formData).then(res => {
+      const { data, status } = res
+      if (status == 0) {
+        getBase64(info.file, url => {
+          setBase64ImageUrl(url);
+        });
+        formRef.current!.setFieldsValue({ imageUrlText: `${baseImgURls}ipfs/${data && data.replace('ipfs://', '') || ''}` })
+      }
+      setLoading(false)
+    })
+  }
+
+
+  const uploadButton = (
+    <div>
+      {<PlusOutlined className="plus-icon" />}
+      <div className="plus-tips">{t('UserCenter.ProfileHeadPlaceholder')}</div>
+    </div>
+  );
 
   return (<div className="layout-box p-20">
     <div className="form-box userForm">
@@ -94,23 +144,12 @@ const Profile: FC<any> = (props: any) => {
           />
         </Form.Item>
 
-        {/* <Form.Item colon label={t('UserCenter.builtWalletAddress')}
-          className="form-item">
-          <p className="title" style={{ paddingLeft: '11px' }}>{baseInfo?.carrierWallet}</p>
-        </Form.Item> */}
-
         <Form.Item colon label={t('UserCenter.ProfileOrganizationHead')}
           name="imageUrlText"
-          rules={((): Rule[] => [
-            {
-              type: 'url',
-              message: i18n.language == 'zh' ? i18n.getDataByLanguage('zh')?.translation?.common['legalVerificationUrl'] : i18n.getDataByLanguage('en')?.translation?.common['legalVerificationUrl']
-            }
-          ])()}
           className="form-item">
           {
             disabled || baseInfo.status == 1 ?
-              <Image src={baseInfo?.imageUrl || imgURl}
+              <Image src={base64ImageUrl || baseInfo?.imageUrl || imgURl}
                 height={100}
                 width={300}
                 onError={() => {
@@ -119,15 +158,21 @@ const Profile: FC<any> = (props: any) => {
                   })
                 }}
                 preview={{
-                  src: baseInfo?.imageUrl || imgURl
+                  src: base64ImageUrl || baseInfo?.imageUrl || imgURl
                 }} fallback={baseInfo?.imageUrl || imgURl} />
               :
-              <TextArea autoSize={false} className="identfier-info-input"
-                key={"ProfileOrganizationHead"}
-                maxLength={140}
-                showCount
-                placeholder={t('UserCenter.ProfileHeadPlaceholder')} >
-              </TextArea>
+              <Upload
+                accept="image/*"
+                maxCount={1}
+                listType="picture-card"
+                style={{ borderColor: 'red', background: `linear-gradient(to top, rgba(255, 255, 255, .3), rgba(255, 255, 255, .3)), url(${baseInfo?.imageUrl || imgURl}) no-repeat;` }}
+                className={base64ImageUrl ? 'avatar-uploader' : 'avatar-uploader avatar-bg'}
+                showUploadList={false}
+                beforeUpload={beforeUpload}
+                onChange={UpLoadImg}
+              >
+                {base64ImageUrl ? <img src={base64ImageUrl} alt="avatar" style={{ maxWidth: '100%', maxHeight: '100%' }} /> : uploadButton}
+              </Upload>
           }
         </Form.Item>
 
