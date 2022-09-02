@@ -5,8 +5,7 @@ import { orgManage } from '@api/index'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import debounce from 'lodash/debounce';
 import { dropByCacheKey, getCachingKeys } from 'react-router-cache-route'
-
-const { Option } = Select
+import { connect } from 'react-redux'
 const NominationCommittee: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
   const [form] = Form.useForm()
@@ -23,7 +22,8 @@ const NominationCommittee: FC<any> = (props: any) => {
     orgManage[type == 'out' ? 'getAuthorityList' : 'getNominateMember']({ keyword: init && init.keyword }).then(res => {
       const { status, data } = res
       if (status == 0) {
-        setList(data.filter(v => !v?.isAdmin).map((v: any) => ({
+        const currentIdentityId = props?.org?.orgInfo?.identityId || ''
+        setList(data.filter(v => !v?.isAdmin && v.identityId !== currentIdentityId).map((v: any) => ({
           ...v,
           label: type == 'out' ? v?.dynamicFields?.identityName : v?.nodeName,
           value: v.identityId
@@ -111,7 +111,7 @@ const NominationCommittee: FC<any> = (props: any) => {
       port: values.organizationPort || undefined,
       remark: values.remark,
     }).then(res => {
-      const { data, status } = res
+      const { status } = res
       if (status == 0) {
         message.success(t('task.success'))
         clearCache()
@@ -250,4 +250,4 @@ const NominationCommittee: FC<any> = (props: any) => {
 }
 
 
-export default NominationCommittee
+export default connect(state => state)(NominationCommittee)
