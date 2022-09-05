@@ -754,7 +754,8 @@
     "HandlingOpinions": "HandlingOpinions",
     "CertificationOrganization": "Committee certification organization",
     "unprocessedToDo": "There are unprocessed to-do or proposals, please try after processing",
-    "organizationMember": "The current organization is a member of the Committee and needs to quit the committee first"
+    "organizationMember": "The current organization is a member of the Committee and needs to quit the committee first",
+    "organizationBeenNominated": "The current organization has been nominated, and it needs to wait until the voting ends"
   },
   "httpStatus": {
     "status1": "system internal error",

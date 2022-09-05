@@ -50,7 +50,7 @@ const DatumIdentity: FC<any> = (props: any) => {
       title: t('common.tips'),
       okText: t('overview.close'),
       icon: <ExclamationCircleOutlined />,
-      content: t('orgManage.organizationMember')
+      content: baseInfo.dynamicFields.hasOpenProposal ? t('orgManage.organizationBeenNominated') : t('orgManage.organizationMember')
     })
   }
 
@@ -118,7 +118,7 @@ const DatumIdentity: FC<any> = (props: any) => {
                     type="primary"
                     style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
                     loading={loading}
-                    onClick={() => (!!baseInfo.isAuthority ? exitTips() : setModal2Visible(true))}
+                    onClick={() => (!!baseInfo.isAuthority || baseInfo.dynamicFields.hasOpenProposal ? exitTips() : setModal2Visible(true))}
                   >
                     {t('node.writeOffNetwork')}
                   </Button>

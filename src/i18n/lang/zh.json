@@ -753,7 +753,8 @@
     "HandlingOpinions": "处理意见",
     "CertificationOrganization": "委员会认证组织",
     "unprocessedToDo": "当前有未处理待办或提案，请处理完毕后尝试",
-    "organizationMember": "当前组织为委员会成员，需要先退出委员会"
+    "organizationMember": "当前组织为委员会成员，需要先退出委员会",
+    "organizationBeenNominated": "当前组织被提名，需等投票结束"
   },
   "httpStatus": {
     "status1": "系统内部错误",
