@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 // import { copy } from '@/utils/utils'
 import { voucher as voucherApi, } from '@api/index'
 import tofun from '@/assets/images/voucher/tofun.png'
+import { connect } from 'react-redux'
 
 const CredentialDetails: FC<any> = (props: any) => {
   const { t, i18n } = useTranslation()
@@ -56,7 +57,9 @@ const CredentialDetails: FC<any> = (props: any) => {
 
   const linkToExchange = (row: any, data: any) => {
     // const dexUrl = `${data.url}/${row.dataTokenAddress}`
-    const dexUrl = `${data.url}`
+    // const dexUrl = `${data.url}`
+    const { address } = props?.state?.loginInfo?.loginInfo
+    const dexUrl = `${data.url}/user/${address}/items/in-wallet`
     window.open(dexUrl, "_blank");
   }
 
@@ -126,5 +129,5 @@ const CredentialDetails: FC<any> = (props: any) => {
   </div>
 }
 
-export default CredentialDetails
+export default connect((state: any) => ({ state }))(CredentialDetails)
 

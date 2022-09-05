@@ -9,6 +9,7 @@ import voucher from '@api//voucher'
 import UsageScene from '@com/UsageScene'
 import moment from 'moment';
 import tofun from '@/assets/images/voucher/tofun.png'
+import { connect } from 'react-redux'
 
 const CredentialInventory: FC<any> = (props: any) => {
   const [curPage, setCurPage] = useState(1),
@@ -92,8 +93,8 @@ const CredentialInventory: FC<any> = (props: any) => {
   ]
 
   const linkToExchange = (row: any, data: any) => {
-    // const dexUrl = `${data.url}/${row.tokenAddress}`
-    const dexUrl = `${data.url}`
+    const { address } = props?.state?.loginInfo?.loginInfo
+    const dexUrl = `${data.url}/user/${address}/items/in-wallet`
     window.open(dexUrl, "_blank");
   }
 
@@ -189,5 +190,5 @@ const CredentialInventory: FC<any> = (props: any) => {
   </div>
 }
 
-export default CredentialInventory
+export default connect((state: any) => ({ state }))(CredentialInventory)
 
