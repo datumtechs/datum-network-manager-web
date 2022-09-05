@@ -753,7 +753,8 @@
     "Refresh": "Refresh",
     "HandlingOpinions": "HandlingOpinions",
     "CertificationOrganization": "Committee certification organization",
-    "unprocessedToDo": "There are unprocessed to-do or proposals, please try after processing"
+    "unprocessedToDo": "There are unprocessed to-do or proposals, please try after processing",
+    "organizationMember": "The current organization is a member of the Committee and needs to quit the committee first"
   },
   "httpStatus": {
     "status1": "system internal error",
@@ -839,6 +840,8 @@
     "status1074": "Members of the initial committee cannot be expelled from the Committee",
     "status1075": "The Committee administrator cannot exit!",
     "status1076": "There are unprocessed proposals in this organization!",
+    "status1077": "the current organization cannot exit the network",
+    "status1078": "nominate members who are not in the network!",
     "status2000": "Call node rpc exception",
     "status2001": "Call node rpc network exception",
     "status2002": "Call node rpc business exception【%s】",

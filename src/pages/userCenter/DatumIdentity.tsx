@@ -28,6 +28,7 @@ const DatumIdentity: FC<any> = (props: any) => {
       carrierIp: baseInfo?.carrierIp,
       carrierPort: baseInfo?.carrierPort,
     })
+
   }, [baseInfo?.status])
 
   const joinNetwork = () => {
@@ -41,6 +42,17 @@ const DatumIdentity: FC<any> = (props: any) => {
     })
   }
 
+  const exitTips = () => {
+    console.log(baseInfo.isAuthority);
+    if (!baseInfo.isAuthority) return
+    Modal.warning({
+      centered: true,
+      title: t('common.tips'),
+      okText: t('overview.close'),
+      icon: <ExclamationCircleOutlined />,
+      content: t('orgManage.organizationMember')
+    })
+  }
 
   const missNetwork = () => {
     if (baseInfo?.dynamicFields?.runningTask) {
@@ -106,7 +118,7 @@ const DatumIdentity: FC<any> = (props: any) => {
                     type="primary"
                     style={{ marginLeft: i18n.language === 'en' ? 180 : 160 }}
                     loading={loading}
-                    onClick={() => setModal2Visible(true)}
+                    onClick={() => (!!baseInfo.isAuthority ? exitTips() : setModal2Visible(true))}
                   >
                     {t('node.writeOffNetwork')}
                   </Button>
@@ -147,6 +159,7 @@ const DatumIdentity: FC<any> = (props: any) => {
       >
         <p><ExclamationCircleOutlined />{t('UserCenter.ModalTips')}</p>
       </Modal>
+
     </>
   )
 }

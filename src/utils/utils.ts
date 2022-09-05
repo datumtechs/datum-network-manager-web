@@ -464,6 +464,8 @@ export const StatusCodeProcessing = (code) => {
     case 1074:
     case 1075:
     case 1076:
+    case 1077:
+    case 1078:
     case 2000:
     case 2001:
     case 2002:

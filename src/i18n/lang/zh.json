@@ -752,7 +752,8 @@
     "Refresh": "刷新",
     "HandlingOpinions": "处理意见",
     "CertificationOrganization": "委员会认证组织",
-    "unprocessedToDo": "当前有未处理待办或提案，请处理完毕后尝试"
+    "unprocessedToDo": "当前有未处理待办或提案，请处理完毕后尝试",
+    "organizationMember": "当前组织为委员会成员，需要先退出委员会"
   },
   "httpStatus": {
     "status1": "系统内部错误",
@@ -838,6 +839,8 @@
     "status1074": "初始委员会成员不能被踢出委员会!",
     "status1075": "委员会管理员无法退出!",
     "status1076": "该组织存在未处理提案！",
+    "status1077": "当前组织不能退出网络",
+    "status1078": "提名不在网络中的成员！",
     "status2000": "调用节点rpc异常",
     "status2001": "调用节点rpc网络异常",
     "status2002": "调用节点rpc业务异常[%s]",
