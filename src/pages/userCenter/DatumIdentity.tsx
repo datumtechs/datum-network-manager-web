@@ -43,8 +43,8 @@ const DatumIdentity: FC<any> = (props: any) => {
   }
 
   const exitTips = () => {
-    console.log(baseInfo.isAuthority);
-    if (!baseInfo.isAuthority) return
+    // console.log(baseInfo.isAuthority);
+    // if (!baseInfo.isAuthority || baseInfo.dynamicFields.hasOpenProposal) return
     Modal.warning({
       centered: true,
       title: t('common.tips'),
