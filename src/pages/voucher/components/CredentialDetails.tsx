@@ -55,7 +55,8 @@ const CredentialDetails: FC<any> = (props: any) => {
   }
 
   const linkToExchange = (row: any, data: any) => {
-    const dexUrl = `${data.url}/${row.dataTokenAddress}`
+    // const dexUrl = `${data.url}/${row.dataTokenAddress}`
+    const dexUrl = `${data.url}`
     window.open(dexUrl, "_blank");
   }
 
