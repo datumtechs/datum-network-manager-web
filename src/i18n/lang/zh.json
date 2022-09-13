@@ -710,7 +710,7 @@
     "PleaseConfirmQuit": "请确认是否要退出委员会？  在冷静期内可在我的提案撤回。",
     "organizationIp": "所选组织IP",
     "organizationPort": "所选组织端口",
-    "committeeMember": "交易委员会会员",
+    "committeeMember": "管理委员会会员",
     "proposalContent": "提案内容",
     "nominationToJoinProposal": "提名加入提案",
     "nominateKickOutProposal": "提名踢出提案",

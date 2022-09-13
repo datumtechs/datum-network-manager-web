@@ -104,9 +104,9 @@ module.exports = function (proxy, allowedHost) {
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
     proxy: {
       '/datum-admin': {
-        // target: 'http://192.168.10.154:9090',
+        target: 'http://192.168.10.154:9090',
         // target: 'http://192.168.9.153:9090',
-        target: 'http://192.168.9.154:9090',
+        // target: 'http://192.168.9.154:9090',
         // target: 'http://192.168.9.155:9090',
         // target: 'http://192.168.9.156:9090',
         // target: 'http://192.168.9.157:9090',
@@ -116,7 +116,7 @@ module.exports = function (proxy, allowedHost) {
         },
       }
     },
-    before(app, server) {
+    before (app, server) {
       // Keep `evalSourceMapMiddleware` and `errorOverlayMiddleware`
       // middlewares before `redirectServedPath` otherwise will not have any effect
       // This lets us fetch source contents from webpack for the error overlay
@@ -124,7 +124,7 @@ module.exports = function (proxy, allowedHost) {
       // This lets us open files from the runtime error overlay.
       app.use(errorOverlayMiddleware());
     },
-    after(app) {
+    after (app) {
       // Redirect to `PUBLIC_URL` or `homepage` from `package.json` if url not match
       app.use(redirectServedPath(paths.publicUrlOrPath));
 
