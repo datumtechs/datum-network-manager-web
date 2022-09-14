@@ -661,7 +661,7 @@
   "orgManage": {
     "nominationMembers": "Nomination of Members",
     "withdrawCommittee": "Withdraw Committee",
-    "committeeMembers": "Members of Management Committee ",
+    "committeeMembers": "Committee members",
     "trustCertificateIssued": "Trust certificate issued",
     "myToDoList": "My To-Do List",
     "myDoneList": "My Done List",
@@ -711,7 +711,7 @@
     "PleaseConfirmQuit": "Please confirm whether you want to withdraw from the Committee?  You can withdraw my proposal during the cooling off period.",
     "organizationIp": "Selected organization IP",
     "organizationPort": "Selected organization Port",
-    "committeeMember": "Trading Committee member",
+    "committeeMember": "Members of Management Committee",
     "proposalContent": "Proposal Content",
     "nominationToJoinProposal": "Nomination to join the proposal",
     "nominateKickOutProposal": "Nominate and kick out the proposal",
